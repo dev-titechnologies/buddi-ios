@@ -158,6 +158,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F302BB901F1F297B00186BCC /* LoginViewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				F30B60171F1DCAB300374136 /* LoginViewController.swift */,
+			);
+			name = LoginViewcontroller;
+			sourceTree = "<group>";
+		};
 		F30B60191F1DCECD00374136 /* ExternalFrameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +208,7 @@
 				F35FDAE21F1E519B0091900D /* Review History */,
 				F35FDAC11F1DEB7F0091900D /* Models */,
 				F35FDABE1F1DE9AB0091900D /* Common Methods */,
+				F302BB901F1F297B00186BCC /* LoginViewcontroller */,
 				F35FDABB1F1DE9000091900D /* Booking History */,
 				F35FDAB61F1DE49B0091900D /* Temp JSON Files */,
 				F30B60191F1DCECD00374136 /* ExternalFrameworks */,
@@ -211,7 +220,6 @@
 				F322FC481F1CE62200381B8C /* LaunchScreen.storyboard */,
 				F322FC4B1F1CE62200381B8C /* Info.plist */,
 				F30B60151F1DC82A00374136 /* RegisterViewController.swift */,
-				F30B60171F1DCAB300374136 /* LoginViewController.swift */,
 				F30B60221F1DD88800374136 /* HomeViewController.swift */,
 			);
 			path = BuddyApp;
