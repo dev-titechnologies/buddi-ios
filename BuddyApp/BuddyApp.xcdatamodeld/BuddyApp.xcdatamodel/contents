@@ -20,7 +20,7 @@
         <attribute name="profileImageData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="profileImageURL" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="ReviewHistoryDB" representedClassName="ReviewHistoryDB" syncable="YES" codeGenerationType="class">
+    <entity name="ReviewHistoryDB" representedClassName="ReviewHistoryDB" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reviewDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reviewDescription" optional="YES" attributeType="String" syncable="YES"/>

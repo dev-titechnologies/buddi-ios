@@ -42,6 +42,10 @@
 		F35FDAF11F1E52840091900D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAF01F1E52840091900D /* Main.storyboard */; };
 		F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */; };
 		F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */; };
+		F3990E1A1F1F6553000FFF7B /* ProfileDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E161F1F6553000FFF7B /* ProfileDB.swift */; };
+		F3990E1B1F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E171F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift */; };
+		F3990E1C1F1F6553000FFF7B /* ReviewHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */; };
+		F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E191F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */; };
 		F48562D84E3A72F7B5164F69 /* Pods_BuddyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +115,10 @@
 		F35FDAF01F1E52840091900D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryDB.swift; sourceTree = "<group>"; };
 		F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookingHistoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F3990E161F1F6553000FFF7B /* ProfileDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDB.swift; sourceTree = "<group>"; };
+		F3990E171F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewHistoryDB.swift; sourceTree = "<group>"; };
+		F3990E191F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReviewHistoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +345,10 @@
 		F3990DF81F1F3D78000FFF7B /* Data Structure */ = {
 			isa = PBXGroup;
 			children = (
+				F3990E161F1F6553000FFF7B /* ProfileDB.swift */,
+				F3990E171F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift */,
+				F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */,
+				F3990E191F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */,
 				F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */,
 				F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */,
 			);
@@ -632,12 +644,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F35FDAE61F1E51B50091900D /* ReviewHistoryVC.swift in Sources */,
+				F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */,
 				F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */,
+				F3990E1C1F1F6553000FFF7B /* ReviewHistoryDB.swift in Sources */,
 				F35FDADF1F1E517C0091900D /* BookingHistoryVC.swift in Sources */,
 				F322FC3F1F1CE62000381B8C /* ViewController.swift in Sources */,
 				F35FDAEB1F1E51EE0091900D /* ProfileVC.swift in Sources */,
 				F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */,
 				F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */,
+				F3990E1A1F1F6553000FFF7B /* ProfileDB.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
 				F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */,
 				F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */,
@@ -648,6 +663,7 @@
 				F322FC451F1CE62100381B8C /* BuddyApp.xcdatamodeld in Sources */,
 				F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */,
 				F302BB921F1F2B5A00186BCC /* LoginModel.swift in Sources */,
+				F3990E1B1F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift in Sources */,
 				F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */,
 				F35FDADD1F1E517C0091900D /* BookingDetailsVC.swift in Sources */,
 				F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */,

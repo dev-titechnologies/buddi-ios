@@ -35,10 +35,11 @@ class ReviewHistoryVC: UIViewController {
             for dict in jsonObject["data"].arrayObject! {
                 
                 print(dict)
-                reviewsArray.append(reviewHistoryModelObj.getReviewHistoryModelFromDict(dictionary: dict as! Dictionary<String, Any>))
+                let reviewModelObj = reviewHistoryModelObj.getReviewHistoryModelFromDict(dictionary: dict as! Dictionary<String, Any>)
+                reviewsArray.append(reviewModelObj)
+                ReviewHistoryDB.createReviewEntry(reviewModel: reviewModelObj)
             }
             
-//            print(reviewsArray)
             self.reviewHistoryTable.reloadData()
         }
     }
