@@ -19,10 +19,11 @@ class BookingHistoryModel {
     var paymentStatus: String = String()
     var trainedDate: String = String()
     var category: String = String()
-    
+    var location: String = String()
+
     init(){}
     
-    init(bookingId: String, traineeId: String, trainerId: String, trainingStatus: String, paymentStatus: String, trainedDate: String, category: String,traineeName: String, trainerName: String){
+    init(bookingId: String, traineeId: String, trainerId: String, trainingStatus: String, paymentStatus: String, trainedDate: String, category: String,traineeName: String, trainerName: String, location: String){
         
         self.bookingId = bookingId
         self.traineeId = traineeId
@@ -33,6 +34,7 @@ class BookingHistoryModel {
         self.category = category
         self.traineeName = traineeName
         self.trainerName = trainerName
+        self.location = location
     }
     
     func getBookingHistoryModelFromDict(dictionary: Dictionary<String, Any>) -> BookingHistoryModel {
@@ -48,6 +50,7 @@ class BookingHistoryModel {
         model.traineeId = dictionary["traineeId"] as! String
         model.traineeName = dictionary["traineeName"] as! String
         model.trainerName = dictionary["trainerName"] as! String
+        model.location = dictionary["location"] as! String
 
         return model
     }

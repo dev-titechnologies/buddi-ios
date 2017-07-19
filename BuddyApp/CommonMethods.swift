@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CommonMethods: NSObject {
 
@@ -17,7 +18,8 @@ class Singleton {
     
     var userDefaults = UserDefaults()
     var appdelegate = AppDelegate()
-    
+    var context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+
     static let sharedInstance : Singleton = {
         let instance = Singleton()
         return instance
@@ -26,6 +28,7 @@ class Singleton {
     init() {
         userDefaults = UserDefaults.standard
         appdelegate = UIApplication.shared.delegate as! AppDelegate
+        context = appdelegate.persistentContainer.viewContext
     }
 }
 

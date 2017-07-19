@@ -39,6 +39,10 @@
 		F35FDAEB1F1E51EE0091900D /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAEA1F1E51EE0091900D /* ProfileVC.swift */; };
 		F35FDAED1F1E51F40091900D /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAEC1F1E51F40091900D /* ProfileModel.swift */; };
 		F35FDAF11F1E52840091900D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAF01F1E52840091900D /* Main.storyboard */; };
+		F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */; };
+		F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */; };
+		F3990E041F1F4864000FFF7B /* ReviewHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E021F1F4864000FFF7B /* ReviewHistoryDB.swift */; };
+		F3990E051F1F4864000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E031F1F4864000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */; };
 		F48562D84E3A72F7B5164F69 /* Pods_BuddyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +109,10 @@
 		F35FDAEA1F1E51EE0091900D /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		F35FDAEC1F1E51F40091900D /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		F35FDAF01F1E52840091900D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryDB.swift; sourceTree = "<group>"; };
+		F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookingHistoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F3990E021F1F4864000FFF7B /* ReviewHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewHistoryDB.swift; sourceTree = "<group>"; };
+		F3990E031F1F4864000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReviewHistoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +214,8 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F3990E011F1F4258000FFF7B /* App Constants */,
+				F3990DF81F1F3D78000FFF7B /* Data Structure */,
 				F35FDAE91F1E51E10091900D /* Profile View */,
 				F35FDAE21F1E519B0091900D /* Review History */,
 				F35FDAC11F1DEB7F0091900D /* Models */,
@@ -316,6 +326,25 @@
 				F35FDAEA1F1E51EE0091900D /* ProfileVC.swift */,
 			);
 			name = "Profile View";
+			sourceTree = "<group>";
+		};
+		F3990DF81F1F3D78000FFF7B /* Data Structure */ = {
+			isa = PBXGroup;
+			children = (
+				F3990E021F1F4864000FFF7B /* ReviewHistoryDB.swift */,
+				F3990E031F1F4864000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */,
+				F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */,
+				F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */,
+			);
+			name = "Data Structure";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		F3990E011F1F4258000FFF7B /* App Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "App Constants";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -613,8 +642,11 @@
 				F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */,
 				F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
+				F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */,
 				F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */,
 				F35FDAED1F1E51F40091900D /* ProfileModel.swift in Sources */,
+				F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */,
+				F3990E041F1F4864000FFF7B /* ReviewHistoryDB.swift in Sources */,
 				F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */,
 				F322FC451F1CE62100381B8C /* BuddyApp.xcdatamodeld in Sources */,
 				F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */,
@@ -623,6 +655,7 @@
 				F35FDADD1F1E517C0091900D /* BookingDetailsVC.swift in Sources */,
 				F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */,
 				F35FDADE1F1E517C0091900D /* BookingHistoryTableCell.swift in Sources */,
+				F3990E051F1F4864000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

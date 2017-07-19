@@ -10,6 +10,7 @@ import Foundation
 
 class ReviewHistoryModel {
     
+    var reviewId : String = String()
     var traineeId : String = String()
     var traineeName : String = String()
     var reviewDescription : String = String()
@@ -19,8 +20,9 @@ class ReviewHistoryModel {
 
     init(){}
     
-    init(traineeId: String, traineeName: String, reviewDescription: String, reviewDate: String, starRatingValue: String, category: String){
+    init(traineeId: String, traineeName: String, reviewDescription: String, reviewDate: String, starRatingValue: String, category: String,reviewId: String){
         
+        self.reviewId = reviewId
         self.traineeId = traineeId
         self.traineeName = traineeName
         self.reviewDescription = reviewDescription
@@ -29,14 +31,11 @@ class ReviewHistoryModel {
         self.category = category
     }
 
-
     func getReviewHistoryModelFromDict(dictionary: Dictionary<String, Any>) -> ReviewHistoryModel {
         
         let model: ReviewHistoryModel = ReviewHistoryModel()
         
-        print("111",dictionary)
-        print(dictionary["traineeId"] as! String)
-        
+        model.reviewId = dictionary["reviewId"] as! String
         model.traineeId = dictionary["traineeId"] as! String
         model.traineeName = dictionary["traineeName"] as! String
         model.reviewDescription = dictionary["reviewDesc"] as! String
