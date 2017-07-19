@@ -30,7 +30,8 @@ class BookingHistoryVC: UIViewController {
             for dict in jsonObject["data"].arrayObject! {
                 
                 print(dict)
-                bookingsArray.append(bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: dict as! Dictionary<String, Any>))
+                let bookingModel = bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: dict as! Dictionary<String, Any>)
+                bookingsArray.append(bookingModel)
             }
             
             print(bookingsArray)

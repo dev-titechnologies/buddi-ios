@@ -172,7 +172,6 @@
 		F322FC301F1CE62000381B8C = {
 			isa = PBXGroup;
 			children = (
-				F3990DED1F1F286C000FFF7B /* Data Structure */,
 				F322FC3B1F1CE62000381B8C /* BuddyApp */,
 				F322FC531F1CE62400381B8C /* BuddyAppTests */,
 				F322FC5E1F1CE62500381B8C /* BuddyAppUITests */,
@@ -195,7 +194,6 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
-				F3990DDB1F1F1DFD000FFF7B /* Data Structure */,
 				F35FDAE91F1E51E10091900D /* Profile View */,
 				F35FDAE21F1E519B0091900D /* Review History */,
 				F35FDAC11F1DEB7F0091900D /* Models */,
@@ -304,21 +302,6 @@
 				F35FDAEA1F1E51EE0091900D /* ProfileVC.swift */,
 			);
 			name = "Profile View";
-			sourceTree = "<group>";
-		};
-		F3990DDB1F1F1DFD000FFF7B /* Data Structure */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Data Structure";
-			sourceTree = "<group>";
-		};
-		F3990DED1F1F286C000FFF7B /* Data Structure */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Data Structure";
-			path = "BuddyApp/Data Structures";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
