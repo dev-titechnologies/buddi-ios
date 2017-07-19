@@ -24,7 +24,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate {
         GIDSignIn.sharedInstance().signOut()
         // Do any additional setup after loading the view.
         GIDSignIn.sharedInstance().uiDelegate = self
-
+//JOSE
     }
 
     override func didReceiveMemoryWarning() {
