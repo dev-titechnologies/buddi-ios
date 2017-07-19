@@ -12,10 +12,6 @@
 		F302BB921F1F2B5A00186BCC /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BB911F1F2B5A00186BCC /* LoginModel.swift */; };
 		F302BB941F1F32E900186BCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F302BB931F1F32E900186BCC /* GoogleService-Info.plist */; };
 		F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */; };
-		F302BB9A1F1F6CEE00186BCC /* CountrySelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BB991F1F6CEE00186BCC /* CountrySelectViewController.swift */; };
-		F302BB9C1F1F6F0000186BCC /* SelectCountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BB9B1F1F6F0000186BCC /* SelectCountryCell.swift */; };
-		F302BB9E1F1F70A200186BCC /* countrycodes.json in Resources */ = {isa = PBXBuildFile; fileRef = F302BB9D1F1F70A200186BCC /* countrycodes.json */; };
-		F302BBA11F1F79C200186BCC /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BBA01F1F79C200186BCC /* OTPViewController.swift */; };
 		F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60151F1DC82A00374136 /* RegisterViewController.swift */; };
 		F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60171F1DCAB300374136 /* LoginViewController.swift */; };
 		F30B601E1F1DCEED00374136 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601A1F1DCEED00374136 /* Bolts.framework */; };
@@ -85,10 +81,6 @@
 		F302BB911F1F2B5A00186BCC /* LoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		F302BB931F1F32E900186BCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterorloginViewController.swift; sourceTree = "<group>"; };
-		F302BB991F1F6CEE00186BCC /* CountrySelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountrySelectViewController.swift; sourceTree = "<group>"; };
-		F302BB9B1F1F6F0000186BCC /* SelectCountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCountryCell.swift; sourceTree = "<group>"; };
-		F302BB9D1F1F70A200186BCC /* countrycodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countrycodes.json; sourceTree = "<group>"; };
-		F302BBA01F1F79C200186BCC /* OTPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		F30B60151F1DC82A00374136 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F30B60171F1DCAB300374136 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F30B601A1F1DCEED00374136 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -204,24 +196,6 @@
 			name = LoginORRegister;
 			sourceTree = "<group>";
 		};
-		F302BB981F1F6CB000186BCC /* CountrySelect */ = {
-			isa = PBXGroup;
-			children = (
-				F302BB9D1F1F70A200186BCC /* countrycodes.json */,
-				F302BB991F1F6CEE00186BCC /* CountrySelectViewController.swift */,
-				F302BB9B1F1F6F0000186BCC /* SelectCountryCell.swift */,
-			);
-			name = CountrySelect;
-			sourceTree = "<group>";
-		};
-		F302BB9F1F1F79A000186BCC /* OTPViewcontroller */ = {
-			isa = PBXGroup;
-			children = (
-				F302BBA01F1F79C200186BCC /* OTPViewController.swift */,
-			);
-			name = OTPViewcontroller;
-			sourceTree = "<group>";
-		};
 		F30B60191F1DCECD00374136 /* ExternalFrameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,8 +232,6 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
-				F302BB9F1F1F79A000186BCC /* OTPViewcontroller */,
-				F302BB981F1F6CB000186BCC /* CountrySelect */,
 				F302BB951F1F60E700186BCC /* LoginORRegister */,
 				F3990DF81F1F3D78000FFF7B /* Data Structure */,
 				F35FDAE91F1E51E10091900D /* Profile View */,
@@ -512,7 +484,6 @@
 				F322FC4A1F1CE62200381B8C /* LaunchScreen.storyboard in Resources */,
 				F35FDAF11F1E52840091900D /* Main.storyboard in Resources */,
 				F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */,
-				F302BB9E1F1F70A200186BCC /* countrycodes.json in Resources */,
 				F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */,
 				F35FDAE81F1E51DE0091900D /* ReviewHistory.json in Resources */,
 				F302BB941F1F32E900186BCC /* GoogleService-Info.plist in Resources */,
@@ -690,14 +661,8 @@
 				F3990E1A1F1F6553000FFF7B /* ProfileDB.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
 				F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */,
-<<<<<<< HEAD
-				F302BBA11F1F79C200186BCC /* OTPViewController.swift in Sources */,
-				F302BB9C1F1F6F0000186BCC /* SelectCountryCell.swift in Sources */,
-=======
 				F3990E1F1F1F6929000FFF7B /* Reachability.swift in Sources */,
->>>>>>> 26228b294b8f0a7a601fe20cf7ea986d6b386317
 				F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */,
-				F302BB9A1F1F6CEE00186BCC /* CountrySelectViewController.swift in Sources */,
 				F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */,
 				F35FDAED1F1E51F40091900D /* ProfileModel.swift in Sources */,
 				F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */,
