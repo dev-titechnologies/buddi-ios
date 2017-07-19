@@ -13,6 +13,22 @@ class CommonMethods: NSObject {
     
 }
 
+class Singleton {
+    
+    var userDefaults = UserDefaults()
+    var appdelegate = AppDelegate()
+    
+    static let sharedInstance : Singleton = {
+        let instance = Singleton()
+        return instance
+    }()
+    
+    init() {
+        userDefaults = UserDefaults.standard
+        appdelegate = UIApplication.shared.delegate as! AppDelegate
+    }
+}
+
 public extension Data{
     
     static func ts_dataFromJSONFile(_ fileName: String) -> Data? {
