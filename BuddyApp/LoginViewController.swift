@@ -11,7 +11,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController,GIDSignInUIDelegate{
 
     @IBOutlet weak var FB_btn: UIButton!
     override func viewDidLoad() {
