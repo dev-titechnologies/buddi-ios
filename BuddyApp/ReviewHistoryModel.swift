@@ -17,10 +17,12 @@ class ReviewHistoryModel {
     var reviewDate : String = String()
     var starRatingValue : String = String()
     var category : String = String()
+    var trainerId : String = String()
+    var trainerName : String = String()
 
     init(){}
     
-    init(traineeId: String, traineeName: String, reviewDescription: String, reviewDate: String, starRatingValue: String, category: String,reviewId: String){
+    init(traineeId: String, traineeName: String, reviewDescription: String, reviewDate: String, starRatingValue: String, category: String,reviewId: String, trainerId: String, trainerName: String){
         
         self.reviewId = reviewId
         self.traineeId = traineeId
@@ -29,6 +31,9 @@ class ReviewHistoryModel {
         self.reviewDate = reviewDate
         self.starRatingValue = starRatingValue
         self.category = category
+        self.trainerId = trainerId
+        self.trainerName = trainerName
+
     }
 
     func getReviewHistoryModelFromDict(dictionary: Dictionary<String, Any>) -> ReviewHistoryModel {
@@ -42,6 +47,8 @@ class ReviewHistoryModel {
         model.reviewDate = dictionary["reviewDate"] as! String
         model.starRatingValue = dictionary["starRatingValue"] as! String
         model.category = dictionary["category"] as! String
+        model.trainerId = dictionary["trainerId"] as! String
+        model.trainerName = dictionary["trainerName"] as! String
         
         return model
     }
