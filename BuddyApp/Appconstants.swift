@@ -12,8 +12,9 @@ import Foundation
 let appDelegate = Singleton.sharedInstance.appdelegate
 let context = Singleton.sharedInstance.context
 let userDefaults = Singleton.sharedInstance.userDefaults
-let SERVER_URL  = "http://api.ditherapp.com/"
+let SERVER_URL  = ""
 let SERVER_URL_Local = "http://192.168.1.20:9002/"
+
 
 
 class Appconstants: NSObject {

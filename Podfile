@@ -8,6 +8,8 @@ target 'BuddyApp' do
     pod 'Google/SignIn'
     pod 'SwiftyJSON'
     pod 'Alamofire', '~> 4.4'
+    # pod 'ReachabilitySwift', '~> 2.4'
+    #pod 'Alamofire-SwiftyJSON'
 
   # Pods for BuddyApp
 

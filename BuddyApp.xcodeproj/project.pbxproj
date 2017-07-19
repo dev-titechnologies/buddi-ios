@@ -50,6 +50,8 @@
 		F3990E1B1F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E171F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift */; };
 		F3990E1C1F1F6553000FFF7B /* ReviewHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */; };
 		F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E191F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */; };
+		F3990E1F1F1F6929000FFF7B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E1E1F1F6929000FFF7B /* Reachability.swift */; };
+		F3990E211F1F77E1000FFF7B /* APIURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E201F1F77E1000FFF7B /* APIURLs.swift */; };
 		F48562D84E3A72F7B5164F69 /* Pods_BuddyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +129,8 @@
 		F3990E171F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewHistoryDB.swift; sourceTree = "<group>"; };
 		F3990E191F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReviewHistoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F3990E1E1F1F6929000FFF7B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		F3990E201F1F77E1000FFF7B /* APIURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIURLs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				F322FC6F1F1CEF2200381B8C /* Appconstants.swift */,
+				F3990E201F1F77E1000FFF7B /* APIURLs.swift */,
 			);
 			name = Globals;
 			sourceTree = "<group>";
@@ -338,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */,
+				F3990E1E1F1F6929000FFF7B /* Reachability.swift */,
 			);
 			name = "Common Methods";
 			sourceTree = "<group>";
@@ -684,8 +690,12 @@
 				F3990E1A1F1F6553000FFF7B /* ProfileDB.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
 				F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */,
+<<<<<<< HEAD
 				F302BBA11F1F79C200186BCC /* OTPViewController.swift in Sources */,
 				F302BB9C1F1F6F0000186BCC /* SelectCountryCell.swift in Sources */,
+=======
+				F3990E1F1F1F6929000FFF7B /* Reachability.swift in Sources */,
+>>>>>>> 26228b294b8f0a7a601fe20cf7ea986d6b386317
 				F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */,
 				F302BB9A1F1F6CEE00186BCC /* CountrySelectViewController.swift in Sources */,
 				F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */,
@@ -699,6 +709,7 @@
 				F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */,
 				F35FDADD1F1E517C0091900D /* BookingDetailsVC.swift in Sources */,
 				F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */,
+				F3990E211F1F77E1000FFF7B /* APIURLs.swift in Sources */,
 				F35FDADE1F1E517C0091900D /* BookingHistoryTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

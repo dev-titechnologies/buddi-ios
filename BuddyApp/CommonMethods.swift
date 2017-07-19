@@ -8,10 +8,31 @@
 
 import UIKit
 import CoreData
+import SwiftyJSON
+import Alamofire
 
 class CommonMethods: NSObject {
 
-      
+    class func serverCall(APIURL : String, parameters : Dictionary<String, String>, headers: Dictionary<String, String>, onCompletion:@escaping ((_ jsonData: JSON) -> Void)){
+        
+        let FinalURL = SERVER_URL_Local + APIURL
+        Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
+            response in
+            switch response.result {
+            case .success:
+                print(response)
+                if let value = response.value {
+                    let json = JSON(value)
+                    onCompletion(json)
+                }
+                break
+            case .failure(let error):
+                
+                print(error)
+                onCompletion(error as! JSON)
+            }
+        }
+    }
 }
 
 class Singleton {
@@ -30,7 +51,6 @@ class Singleton {
         appdelegate = UIApplication.shared.delegate as! AppDelegate
         context = appdelegate.persistentContainer.viewContext
     }
-    
    }
 
 public extension Data{

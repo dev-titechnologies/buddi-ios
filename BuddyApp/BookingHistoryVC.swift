@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class BookingHistoryVC: UIViewController {
 
@@ -36,6 +37,38 @@ class BookingHistoryVC: UIViewController {
             
             print(bookingsArray)
             self.bookingHistoryTable.reloadData()
+        }
+    }
+    
+    func test() {
+        
+        let parameters = [
+            "register_type":"a",
+            "email":"test@gmail.com",
+            "password":"a",
+            "first_name": "a",
+            "last_name": "a",
+            "mobile": "ios",
+            "gender":"a",
+            "user_image": "a",
+            "user_type": "a",
+            "facebook_id": "a",
+            "google_id": "ios",
+            "profile_desc":"jnkolj"
+        ]
+        
+        let headers = [
+            "device_id": "y",
+            "device_imei": "yu",
+            "device_type": "ios",
+            
+            ]
+        
+        print("PARMSSS",parameters)
+        
+        CommonMethods.serverCall(APIURL: REGISTER_URL, parameters: parameters, headers: headers) { (jsondata) in
+            print("1234",jsondata)
+            print(jsondata["token"].stringValue)
         }
     }
     
