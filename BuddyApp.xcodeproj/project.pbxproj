@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1F2CF4B7EE766B52252C2199 /* Pods_BuddyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB5F3A5F2B52F451C492A4 /* Pods_BuddyApp.framework */; };
 		8A1CBD1B94CA990064D6D512 /* Pods_BuddyAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40E09975BC61610A3FBD011F /* Pods_BuddyAppUITests.framework */; };
+		F302BB921F1F2B5A00186BCC /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BB911F1F2B5A00186BCC /* LoginModel.swift */; };
+		F302BB941F1F32E900186BCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F302BB931F1F32E900186BCC /* GoogleService-Info.plist */; };
 		F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60151F1DC82A00374136 /* RegisterViewController.swift */; };
 		F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60171F1DCAB300374136 /* LoginViewController.swift */; };
 		F30B601E1F1DCEED00374136 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601A1F1DCEED00374136 /* Bolts.framework */; };
@@ -67,6 +69,8 @@
 		B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BuddyAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C276C8A416D6B1AE85D80F46 /* Pods-BuddyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BuddyApp/Pods-BuddyApp.debug.xcconfig"; sourceTree = "<group>"; };
 		CD4B18682203D5BC4CE94833 /* Pods-BuddyAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddyAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BuddyAppUITests/Pods-BuddyAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F302BB911F1F2B5A00186BCC /* LoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		F302BB931F1F32E900186BCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F30B60151F1DC82A00374136 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F30B60171F1DCAB300374136 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F30B601A1F1DCEED00374136 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -216,6 +220,7 @@
 				F322FC711F1CF19500381B8C /* DataModal */,
 				F322FC3C1F1CE62000381B8C /* AppDelegate.swift */,
 				F322FC3E1F1CE62000381B8C /* ViewController.swift */,
+				F302BB931F1F32E900186BCC /* GoogleService-Info.plist */,
 				F322FC461F1CE62100381B8C /* Assets.xcassets */,
 				F35FDAF01F1E52840091900D /* Main.storyboard */,
 				F322FC481F1CE62200381B8C /* LaunchScreen.storyboard */,
@@ -293,6 +298,7 @@
 				F35FDAEC1F1E51F40091900D /* ProfileModel.swift */,
 				F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */,
 				F35FDAE01F1E518D0091900D /* ReviewHistoryModel.swift */,
+				F302BB911F1F2B5A00186BCC /* LoginModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -453,6 +459,7 @@
 				F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */,
 				F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */,
 				F35FDAE81F1E51DE0091900D /* ReviewHistory.json in Resources */,
+				F302BB941F1F32E900186BCC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +635,7 @@
 				F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */,
 				F322FC451F1CE62100381B8C /* BuddyApp.xcdatamodeld in Sources */,
 				F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */,
+				F302BB921F1F2B5A00186BCC /* LoginModel.swift in Sources */,
 				F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */,
 				F35FDADD1F1E517C0091900D /* BookingDetailsVC.swift in Sources */,
 				F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */,
