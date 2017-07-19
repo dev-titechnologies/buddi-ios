@@ -10,6 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
+import Alamofire
 
 class RegisterViewController: UIViewController,GIDSignInUIDelegate {
 
@@ -56,7 +57,49 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate {
     }
 
     @IBAction func next_action(_ sender: Any) {
-    }
+        
+
+        
+        let parameters = [
+            "register_type":"a",
+            "email":"a",
+            "password":"a",
+            "first_name": "a",
+            "last_name": "a",
+            "mobile": "ios",
+            "gender":"a",
+            "user_image": "a",
+            "user_type": "a",
+            "facebook_id": "a",
+            "google_id": "ios"
+
+        ]
+        let headers = [
+            "device_id": "y",
+            "device_imei": "yu",
+            "device_type": "ios",
+            
+        ]
+
+        print("PARMSSS",parameters)
+        
+        
+        let urlString = "http://192.168.1.20:9002/register/register"
+        
+        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
+            response in
+            switch response.result {
+            case .success:
+                print(response)
+                
+                break
+            case .failure(let error):
+                
+                print(error)
+            }
+        }
+
+           }
     //MARK:Google SignIn Delegate
     
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
