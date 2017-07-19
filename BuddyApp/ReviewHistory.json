@@ -1,0 +1,30 @@
+{
+    "code": 0,
+    "message": "success!",
+    "data": [
+             {
+             "traineeId": "1",
+             "traineeName": "AAA",
+             "reviewDesc": "This email is to confirm that you have enabled Log In with PayPal on your Braintree Sandbox user account.Your Braintree Sandbox username and password are no longer valid.",
+             "starRatingValue": "4",
+             "reviewDate": "12/12/2017",
+             "category": "Dance",
+             },
+             {
+             "traineeId": "1",
+             "traineeName": "BBB",
+             "reviewDesc": "If you did not make this change, have questions, or suspect illegal attempts to access your account, please contact us.",
+             "starRatingValue": "4",
+             "reviewDate": "12/12/2017",
+             "category": "Gym",
+             },
+             {
+             "traineeId": "1",
+             "traineeName": "CCC",
+             "reviewDesc": "That's great, because now when you pay with PayPal on this device, you'll skip login and can breeze through checkout on eligible apps and merchant websites",
+             "starRatingValue": "4",
+             "reviewDate": "12/12/2017",
+             "category": "Swimming",
+             }
+             ]
+}

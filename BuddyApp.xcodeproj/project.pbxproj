@@ -1,0 +1,910 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1F2CF4B7EE766B52252C2199 /* Pods_BuddyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB5F3A5F2B52F451C492A4 /* Pods_BuddyApp.framework */; };
+		8A1CBD1B94CA990064D6D512 /* Pods_BuddyAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40E09975BC61610A3FBD011F /* Pods_BuddyAppUITests.framework */; };
+		F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60151F1DC82A00374136 /* RegisterViewController.swift */; };
+		F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60171F1DCAB300374136 /* LoginViewController.swift */; };
+		F30B601E1F1DCEED00374136 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601A1F1DCEED00374136 /* Bolts.framework */; };
+		F30B601F1F1DCEED00374136 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601B1F1DCEED00374136 /* FBSDKCoreKit.framework */; };
+		F30B60201F1DCEED00374136 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */; };
+		F30B60211F1DCEED00374136 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */; };
+		F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60221F1DD88800374136 /* HomeViewController.swift */; };
+		F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC3C1F1CE62000381B8C /* AppDelegate.swift */; };
+		F322FC3F1F1CE62000381B8C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC3E1F1CE62000381B8C /* ViewController.swift */; };
+		F322FC451F1CE62100381B8C /* BuddyApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F322FC431F1CE62100381B8C /* BuddyApp.xcdatamodeld */; };
+		F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F322FC461F1CE62100381B8C /* Assets.xcassets */; };
+		F322FC4A1F1CE62200381B8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F322FC481F1CE62200381B8C /* LaunchScreen.storyboard */; };
+		F322FC551F1CE62400381B8C /* BuddyAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC541F1CE62400381B8C /* BuddyAppTests.swift */; };
+		F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */; };
+		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
+		F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAB91F1DE60A0091900D /* BookingHistory.json */; };
+		F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */; };
+		F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */; };
+		F35FDADD1F1E517C0091900D /* BookingDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDADA1F1E517B0091900D /* BookingDetailsVC.swift */; };
+		F35FDADE1F1E517C0091900D /* BookingHistoryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDADB1F1E517B0091900D /* BookingHistoryTableCell.swift */; };
+		F35FDADF1F1E517C0091900D /* BookingHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDADC1F1E517C0091900D /* BookingHistoryVC.swift */; };
+		F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAE01F1E518D0091900D /* ReviewHistoryModel.swift */; };
+		F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAE31F1E51B50091900D /* ReviewHistoryTableCell.swift */; };
+		F35FDAE61F1E51B50091900D /* ReviewHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAE41F1E51B50091900D /* ReviewHistoryVC.swift */; };
+		F35FDAE81F1E51DE0091900D /* ReviewHistory.json in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAE71F1E51DE0091900D /* ReviewHistory.json */; };
+		F35FDAEB1F1E51EE0091900D /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAEA1F1E51EE0091900D /* ProfileVC.swift */; };
+		F35FDAED1F1E51F40091900D /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAEC1F1E51F40091900D /* ProfileModel.swift */; };
+		F35FDAF11F1E52840091900D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAF01F1E52840091900D /* Main.storyboard */; };
+		F48562D84E3A72F7B5164F69 /* Pods_BuddyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F322FC511F1CE62400381B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F322FC311F1CE62000381B8C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F322FC381F1CE62000381B8C;
+			remoteInfo = BuddyApp;
+		};
+		F322FC5C1F1CE62400381B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F322FC311F1CE62000381B8C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F322FC381F1CE62000381B8C;
+			remoteInfo = BuddyApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		195327CCCCDA0E173C4615A6 /* Pods-BuddyAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddyAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BuddyAppTests/Pods-BuddyAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		40E09975BC61610A3FBD011F /* Pods_BuddyAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BuddyAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BDB5F3A5F2B52F451C492A4 /* Pods_BuddyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BuddyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6716F58A837D4C72CA9FBE88 /* Pods-BuddyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddyApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-BuddyApp/Pods-BuddyApp.release.xcconfig"; sourceTree = "<group>"; };
+		7ADE0B70F1673C4C504F202E /* Pods-BuddyAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddyAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BuddyAppTests/Pods-BuddyAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A2B42452D93D43AB30FC1826 /* Pods-BuddyAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddyAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BuddyAppUITests/Pods-BuddyAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BuddyAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C276C8A416D6B1AE85D80F46 /* Pods-BuddyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BuddyApp/Pods-BuddyApp.debug.xcconfig"; sourceTree = "<group>"; };
+		CD4B18682203D5BC4CE94833 /* Pods-BuddyAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddyAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BuddyAppUITests/Pods-BuddyAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F30B60151F1DC82A00374136 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		F30B60171F1DCAB300374136 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F30B601A1F1DCEED00374136 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		F30B601B1F1DCEED00374136 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		F30B60221F1DD88800374136 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F322FC391F1CE62000381B8C /* BuddyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuddyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F322FC3C1F1CE62000381B8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F322FC3E1F1CE62000381B8C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F322FC441F1CE62100381B8C /* BuddyApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BuddyApp.xcdatamodel; sourceTree = "<group>"; };
+		F322FC461F1CE62100381B8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F322FC491F1CE62200381B8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F322FC4B1F1CE62200381B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F322FC501F1CE62400381B8C /* BuddyAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuddyAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F322FC541F1CE62400381B8C /* BuddyAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyAppTests.swift; sourceTree = "<group>"; };
+		F322FC561F1CE62400381B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F322FC5B1F1CE62400381B8C /* BuddyAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuddyAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyAppUITests.swift; sourceTree = "<group>"; };
+		F322FC611F1CE62500381B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F322FC6F1F1CEF2200381B8C /* Appconstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appconstants.swift; sourceTree = "<group>"; };
+		F35FDAB91F1DE60A0091900D /* BookingHistory.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BookingHistory.json; sourceTree = "<group>"; };
+		F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMethods.swift; sourceTree = "<group>"; };
+		F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryModel.swift; sourceTree = "<group>"; };
+		F35FDADA1F1E517B0091900D /* BookingDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingDetailsVC.swift; sourceTree = "<group>"; };
+		F35FDADB1F1E517B0091900D /* BookingHistoryTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryTableCell.swift; sourceTree = "<group>"; };
+		F35FDADC1F1E517C0091900D /* BookingHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryVC.swift; sourceTree = "<group>"; };
+		F35FDAE01F1E518D0091900D /* ReviewHistoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewHistoryModel.swift; sourceTree = "<group>"; };
+		F35FDAE31F1E51B50091900D /* ReviewHistoryTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewHistoryTableCell.swift; sourceTree = "<group>"; };
+		F35FDAE41F1E51B50091900D /* ReviewHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewHistoryVC.swift; sourceTree = "<group>"; };
+		F35FDAE71F1E51DE0091900D /* ReviewHistory.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ReviewHistory.json; sourceTree = "<group>"; };
+		F35FDAEA1F1E51EE0091900D /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		F35FDAEC1F1E51F40091900D /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		F35FDAF01F1E52840091900D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F322FC361F1CE62000381B8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F30B60211F1DCEED00374136 /* FBSDKShareKit.framework in Frameworks */,
+				F30B601E1F1DCEED00374136 /* Bolts.framework in Frameworks */,
+				F30B601F1F1DCEED00374136 /* FBSDKCoreKit.framework in Frameworks */,
+				F30B60201F1DCEED00374136 /* FBSDKLoginKit.framework in Frameworks */,
+				1F2CF4B7EE766B52252C2199 /* Pods_BuddyApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F322FC4D1F1CE62400381B8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F48562D84E3A72F7B5164F69 /* Pods_BuddyAppTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F322FC581F1CE62400381B8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A1CBD1B94CA990064D6D512 /* Pods_BuddyAppUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8A7AD5AFB8FF51439DD7F8C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4BDB5F3A5F2B52F451C492A4 /* Pods_BuddyApp.framework */,
+				B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */,
+				40E09975BC61610A3FBD011F /* Pods_BuddyAppUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CD726B8E4464B78A5D9F8C18 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C276C8A416D6B1AE85D80F46 /* Pods-BuddyApp.debug.xcconfig */,
+				6716F58A837D4C72CA9FBE88 /* Pods-BuddyApp.release.xcconfig */,
+				7ADE0B70F1673C4C504F202E /* Pods-BuddyAppTests.debug.xcconfig */,
+				195327CCCCDA0E173C4615A6 /* Pods-BuddyAppTests.release.xcconfig */,
+				CD4B18682203D5BC4CE94833 /* Pods-BuddyAppUITests.debug.xcconfig */,
+				A2B42452D93D43AB30FC1826 /* Pods-BuddyAppUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F30B60191F1DCECD00374136 /* ExternalFrameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F30B601A1F1DCEED00374136 /* Bolts.framework */,
+				F30B601B1F1DCEED00374136 /* FBSDKCoreKit.framework */,
+				F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */,
+				F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */,
+			);
+			name = ExternalFrameworks;
+			sourceTree = "<group>";
+		};
+		F322FC301F1CE62000381B8C = {
+			isa = PBXGroup;
+			children = (
+				F322FC3B1F1CE62000381B8C /* BuddyApp */,
+				F322FC531F1CE62400381B8C /* BuddyAppTests */,
+				F322FC5E1F1CE62500381B8C /* BuddyAppUITests */,
+				F322FC3A1F1CE62000381B8C /* Products */,
+				CD726B8E4464B78A5D9F8C18 /* Pods */,
+				8A7AD5AFB8FF51439DD7F8C3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F322FC3A1F1CE62000381B8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F322FC391F1CE62000381B8C /* BuddyApp.app */,
+				F322FC501F1CE62400381B8C /* BuddyAppTests.xctest */,
+				F322FC5B1F1CE62400381B8C /* BuddyAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
+			isa = PBXGroup;
+			children = (
+				F3990DDB1F1F1DFD000FFF7B /* Data Structure */,
+				F35FDAF01F1E52840091900D /* Main.storyboard */,
+				F35FDAE91F1E51E10091900D /* Profile View */,
+				F35FDAE21F1E519B0091900D /* Review History */,
+				F35FDAC11F1DEB7F0091900D /* Models */,
+				F35FDABE1F1DE9AB0091900D /* Common Methods */,
+				F35FDABB1F1DE9000091900D /* Booking History */,
+				F35FDAB61F1DE49B0091900D /* Temp JSON Files */,
+				F30B60191F1DCECD00374136 /* ExternalFrameworks */,
+				F322FC721F1CF1AE00381B8C /* Globals */,
+				F322FC711F1CF19500381B8C /* DataModal */,
+				F322FC3C1F1CE62000381B8C /* AppDelegate.swift */,
+				F322FC3E1F1CE62000381B8C /* ViewController.swift */,
+				F322FC461F1CE62100381B8C /* Assets.xcassets */,
+				F322FC481F1CE62200381B8C /* LaunchScreen.storyboard */,
+				F322FC4B1F1CE62200381B8C /* Info.plist */,
+				F30B60151F1DC82A00374136 /* RegisterViewController.swift */,
+				F30B60171F1DCAB300374136 /* LoginViewController.swift */,
+				F30B60221F1DD88800374136 /* HomeViewController.swift */,
+			);
+			path = BuddyApp;
+			sourceTree = "<group>";
+		};
+		F322FC531F1CE62400381B8C /* BuddyAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				F322FC541F1CE62400381B8C /* BuddyAppTests.swift */,
+				F322FC561F1CE62400381B8C /* Info.plist */,
+			);
+			path = BuddyAppTests;
+			sourceTree = "<group>";
+		};
+		F322FC5E1F1CE62500381B8C /* BuddyAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */,
+				F322FC611F1CE62500381B8C /* Info.plist */,
+			);
+			path = BuddyAppUITests;
+			sourceTree = "<group>";
+		};
+		F322FC711F1CF19500381B8C /* DataModal */ = {
+			isa = PBXGroup;
+			children = (
+				F322FC431F1CE62100381B8C /* BuddyApp.xcdatamodeld */,
+			);
+			name = DataModal;
+			sourceTree = "<group>";
+		};
+		F322FC721F1CF1AE00381B8C /* Globals */ = {
+			isa = PBXGroup;
+			children = (
+				F322FC6F1F1CEF2200381B8C /* Appconstants.swift */,
+			);
+			name = Globals;
+			sourceTree = "<group>";
+		};
+		F35FDAB61F1DE49B0091900D /* Temp JSON Files */ = {
+			isa = PBXGroup;
+			children = (
+				F35FDAB91F1DE60A0091900D /* BookingHistory.json */,
+				F35FDAE71F1E51DE0091900D /* ReviewHistory.json */,
+			);
+			name = "Temp JSON Files";
+			sourceTree = "<group>";
+		};
+		F35FDABB1F1DE9000091900D /* Booking History */ = {
+			isa = PBXGroup;
+			children = (
+				F35FDADA1F1E517B0091900D /* BookingDetailsVC.swift */,
+				F35FDADB1F1E517B0091900D /* BookingHistoryTableCell.swift */,
+				F35FDADC1F1E517C0091900D /* BookingHistoryVC.swift */,
+			);
+			name = "Booking History";
+			sourceTree = "<group>";
+		};
+		F35FDABE1F1DE9AB0091900D /* Common Methods */ = {
+			isa = PBXGroup;
+			children = (
+				F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */,
+			);
+			name = "Common Methods";
+			sourceTree = "<group>";
+		};
+		F35FDAC11F1DEB7F0091900D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F35FDAEC1F1E51F40091900D /* ProfileModel.swift */,
+				F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */,
+				F35FDAE01F1E518D0091900D /* ReviewHistoryModel.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		F35FDAE21F1E519B0091900D /* Review History */ = {
+			isa = PBXGroup;
+			children = (
+				F35FDAE31F1E51B50091900D /* ReviewHistoryTableCell.swift */,
+				F35FDAE41F1E51B50091900D /* ReviewHistoryVC.swift */,
+			);
+			name = "Review History";
+			sourceTree = "<group>";
+		};
+		F35FDAE91F1E51E10091900D /* Profile View */ = {
+			isa = PBXGroup;
+			children = (
+				F35FDAEA1F1E51EE0091900D /* ProfileVC.swift */,
+			);
+			name = "Profile View";
+			sourceTree = "<group>";
+		};
+		F3990DDB1F1F1DFD000FFF7B /* Data Structure */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Data Structure";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F322FC381F1CE62000381B8C /* BuddyApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F322FC641F1CE62500381B8C /* Build configuration list for PBXNativeTarget "BuddyApp" */;
+			buildPhases = (
+				60633CEA06E50B1A3700C0B3 /* [CP] Check Pods Manifest.lock */,
+				F322FC351F1CE62000381B8C /* Sources */,
+				F322FC361F1CE62000381B8C /* Frameworks */,
+				F322FC371F1CE62000381B8C /* Resources */,
+				B71D729F14B48C78706B2376 /* [CP] Embed Pods Frameworks */,
+				0168EF813F6F2F06C3780DEF /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BuddyApp;
+			productName = BuddyApp;
+			productReference = F322FC391F1CE62000381B8C /* BuddyApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F322FC4F1F1CE62400381B8C /* BuddyAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F322FC671F1CE62500381B8C /* Build configuration list for PBXNativeTarget "BuddyAppTests" */;
+			buildPhases = (
+				F6BF4AF2C5F7E8C01C147D3D /* [CP] Check Pods Manifest.lock */,
+				F322FC4C1F1CE62400381B8C /* Sources */,
+				F322FC4D1F1CE62400381B8C /* Frameworks */,
+				F322FC4E1F1CE62400381B8C /* Resources */,
+				7A4A0AE82A4F26CD62F7A66C /* [CP] Embed Pods Frameworks */,
+				E596715115DAEF26726611F5 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F322FC521F1CE62400381B8C /* PBXTargetDependency */,
+			);
+			name = BuddyAppTests;
+			productName = BuddyAppTests;
+			productReference = F322FC501F1CE62400381B8C /* BuddyAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F322FC5A1F1CE62400381B8C /* BuddyAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F322FC6A1F1CE62500381B8C /* Build configuration list for PBXNativeTarget "BuddyAppUITests" */;
+			buildPhases = (
+				2F22C5B0250FA9C87AD264A3 /* [CP] Check Pods Manifest.lock */,
+				F322FC571F1CE62400381B8C /* Sources */,
+				F322FC581F1CE62400381B8C /* Frameworks */,
+				F322FC591F1CE62400381B8C /* Resources */,
+				E77A6F2DC31E0DA143A7C166 /* [CP] Embed Pods Frameworks */,
+				6B1256763F7BC91874ED6277 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F322FC5D1F1CE62400381B8C /* PBXTargetDependency */,
+			);
+			name = BuddyAppUITests;
+			productName = BuddyAppUITests;
+			productReference = F322FC5B1F1CE62400381B8C /* BuddyAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F322FC311F1CE62000381B8C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Ti Technologies";
+				TargetAttributes = {
+					F322FC381F1CE62000381B8C = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 7QVT6YDQZ2;
+						ProvisioningStyle = Automatic;
+					};
+					F322FC4F1F1CE62400381B8C = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 7QVT6YDQZ2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F322FC381F1CE62000381B8C;
+					};
+					F322FC5A1F1CE62400381B8C = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 7QVT6YDQZ2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F322FC381F1CE62000381B8C;
+					};
+				};
+			};
+			buildConfigurationList = F322FC341F1CE62000381B8C /* Build configuration list for PBXProject "BuddyApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F322FC301F1CE62000381B8C;
+			productRefGroup = F322FC3A1F1CE62000381B8C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F322FC381F1CE62000381B8C /* BuddyApp */,
+				F322FC4F1F1CE62400381B8C /* BuddyAppTests */,
+				F322FC5A1F1CE62400381B8C /* BuddyAppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F322FC371F1CE62000381B8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F322FC4A1F1CE62200381B8C /* LaunchScreen.storyboard in Resources */,
+				F35FDAF11F1E52840091900D /* Main.storyboard in Resources */,
+				F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */,
+				F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */,
+				F35FDAE81F1E51DE0091900D /* ReviewHistory.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F322FC4E1F1CE62400381B8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F322FC591F1CE62400381B8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0168EF813F6F2F06C3780DEF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BuddyApp/Pods-BuddyApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2F22C5B0250FA9C87AD264A3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		60633CEA06E50B1A3700C0B3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6B1256763F7BC91874ED6277 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BuddyAppUITests/Pods-BuddyAppUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7A4A0AE82A4F26CD62F7A66C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BuddyAppTests/Pods-BuddyAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B71D729F14B48C78706B2376 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BuddyApp/Pods-BuddyApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E596715115DAEF26726611F5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BuddyAppTests/Pods-BuddyAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E77A6F2DC31E0DA143A7C166 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BuddyAppUITests/Pods-BuddyAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6BF4AF2C5F7E8C01C147D3D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F322FC351F1CE62000381B8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F35FDAE61F1E51B50091900D /* ReviewHistoryVC.swift in Sources */,
+				F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */,
+				F35FDADF1F1E517C0091900D /* BookingHistoryVC.swift in Sources */,
+				F322FC3F1F1CE62000381B8C /* ViewController.swift in Sources */,
+				F35FDAEB1F1E51EE0091900D /* ProfileVC.swift in Sources */,
+				F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */,
+				F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */,
+				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
+				F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */,
+				F35FDAED1F1E51F40091900D /* ProfileModel.swift in Sources */,
+				F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */,
+				F322FC451F1CE62100381B8C /* BuddyApp.xcdatamodeld in Sources */,
+				F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */,
+				F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */,
+				F35FDADD1F1E517C0091900D /* BookingDetailsVC.swift in Sources */,
+				F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */,
+				F35FDADE1F1E517C0091900D /* BookingHistoryTableCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F322FC4C1F1CE62400381B8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F322FC551F1CE62400381B8C /* BuddyAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F322FC571F1CE62400381B8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F322FC521F1CE62400381B8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F322FC381F1CE62000381B8C /* BuddyApp */;
+			targetProxy = F322FC511F1CE62400381B8C /* PBXContainerItemProxy */;
+		};
+		F322FC5D1F1CE62400381B8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F322FC381F1CE62000381B8C /* BuddyApp */;
+			targetProxy = F322FC5C1F1CE62400381B8C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F322FC481F1CE62200381B8C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F322FC491F1CE62200381B8C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F322FC621F1CE62500381B8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F322FC631F1CE62500381B8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F322FC651F1CE62500381B8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C276C8A416D6B1AE85D80F46 /* Pods-BuddyApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BuddyApp",
+				);
+				INFOPLIST_FILE = BuddyApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		F322FC661F1CE62500381B8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6716F58A837D4C72CA9FBE88 /* Pods-BuddyApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BuddyApp",
+				);
+				INFOPLIST_FILE = BuddyApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		F322FC681F1CE62500381B8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7ADE0B70F1673C4C504F202E /* Pods-BuddyAppTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
+				INFOPLIST_FILE = BuddyAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BuddyApp.app/BuddyApp";
+			};
+			name = Debug;
+		};
+		F322FC691F1CE62500381B8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 195327CCCCDA0E173C4615A6 /* Pods-BuddyAppTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
+				INFOPLIST_FILE = BuddyAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BuddyApp.app/BuddyApp";
+			};
+			name = Release;
+		};
+		F322FC6B1F1CE62500381B8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD4B18682203D5BC4CE94833 /* Pods-BuddyAppUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
+				INFOPLIST_FILE = BuddyAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = BuddyApp;
+			};
+			name = Debug;
+		};
+		F322FC6C1F1CE62500381B8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2B42452D93D43AB30FC1826 /* Pods-BuddyAppUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
+				INFOPLIST_FILE = BuddyAppUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = BuddyApp;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F322FC341F1CE62000381B8C /* Build configuration list for PBXProject "BuddyApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F322FC621F1CE62500381B8C /* Debug */,
+				F322FC631F1CE62500381B8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F322FC641F1CE62500381B8C /* Build configuration list for PBXNativeTarget "BuddyApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F322FC651F1CE62500381B8C /* Debug */,
+				F322FC661F1CE62500381B8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F322FC671F1CE62500381B8C /* Build configuration list for PBXNativeTarget "BuddyAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F322FC681F1CE62500381B8C /* Debug */,
+				F322FC691F1CE62500381B8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F322FC6A1F1CE62500381B8C /* Build configuration list for PBXNativeTarget "BuddyAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F322FC6B1F1CE62500381B8C /* Debug */,
+				F322FC6C1F1CE62500381B8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F322FC431F1CE62100381B8C /* BuddyApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F322FC441F1CE62100381B8C /* BuddyApp.xcdatamodel */,
+			);
+			currentVersion = F322FC441F1CE62100381B8C /* BuddyApp.xcdatamodel */;
+			path = BuddyApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F322FC311F1CE62000381B8C /* Project object */;
+}

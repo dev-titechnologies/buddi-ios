@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16D32" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BookingHistoryDB" representedClassName="BookingHistoryDB" syncable="YES" codeGenerationType="class">
+        <attribute name="bookedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="bookingId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="paymentStatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="traineeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="traineeName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trainerId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trainerName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trainingStatus" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ProfileDB" representedClassName="ProfileDB" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profileImageData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="profileImageURL" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ReviewHistoryDB" representedClassName="ReviewHistoryDB" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reviewDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reviewDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="starRatingValue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="traineeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="traineeName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trainerId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BookingHistoryDB" positionX="-63" positionY="-18" width="128" height="195"/>
+        <element name="ReviewHistoryDB" positionX="-54" positionY="63" width="128" height="150"/>
+        <element name="ProfileDB" positionX="-36" positionY="90" width="128" height="135"/>
+    </elements>
+</model>

@@ -1,0 +1,39 @@
+{
+    "code": 0,
+    "message": "success!",
+    "data": [
+             {
+             "bookingId": "100",
+             "traineeId": "1",
+             "trainerId": "10",
+             "trainingStatus": "completed",
+             "paymentStatus": "success",
+             "trainedDate": "12/12/2017",
+             "category": "Dance",
+             "traineeName": "AAA",
+             "trainerName": "XYZ"
+             },
+             {
+             "bookingId": "101",
+             "traineeId": "1",
+             "trainerId": "10",
+             "trainingStatus": "completed",
+             "paymentStatus": "success",
+             "trainedDate": "12/12/2017",
+             "category": "Gym",
+             "traineeName": "DSD",
+             "trainerName": "PSF"
+             },
+             {
+             "bookingId": "102",
+             "traineeId": "1",
+             "trainerId": "10",
+             "trainingStatus": "pending",
+             "paymentStatus": "success",
+             "trainedDate": "15/12/2017",
+             "category": "Swimming",
+             "traineeName": "CCC",
+             "trainerName": "EYU"
+             }
+             ]
+}
