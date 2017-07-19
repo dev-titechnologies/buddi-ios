@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import Foundation
+
+let appDelegate = Singleton.sharedInstance.appdelegate
+let context = Singleton.sharedInstance.context
+let userDefaults = Singleton.sharedInstance.userDefaults
 
 class Appconstants: NSObject {
 

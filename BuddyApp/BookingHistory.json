@@ -11,7 +11,8 @@
              "trainedDate": "12/12/2017",
              "category": "Dance",
              "traineeName": "AAA",
-             "trainerName": "XYZ"
+             "trainerName": "XYZ",
+             "location" : "12.95/12.65"
              },
              {
              "bookingId": "101",
@@ -22,7 +23,8 @@
              "trainedDate": "12/12/2017",
              "category": "Gym",
              "traineeName": "DSD",
-             "trainerName": "PSF"
+             "trainerName": "PSF",
+             "location" : "12.95/12.65"
              },
              {
              "bookingId": "102",
@@ -33,7 +35,8 @@
              "trainedDate": "15/12/2017",
              "category": "Swimming",
              "traineeName": "CCC",
-             "trainerName": "EYU"
+             "trainerName": "EYU",
+             "location" : "12.95/12.65"
              }
              ]
 }

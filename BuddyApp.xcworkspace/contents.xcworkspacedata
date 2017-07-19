@@ -4,16 +4,6 @@
    <FileRef
       location = "group:BuddyApp.xcodeproj">
    </FileRef>
-   <Group
-      location = "container:"
-      name = "Data Structure">
-      <FileRef
-         location = "group:/Users/titechnologies/Desktop/Jith iOS Projects/BuddyApp/buddy-ios/BuddyApp/BookingHistoryDB.swift">
-      </FileRef>
-      <FileRef
-         location = "group:BookingHistoryDB+CoreDataProperties.swift">
-      </FileRef>
-   </Group>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>

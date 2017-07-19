@@ -24,6 +24,7 @@
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reviewDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reviewDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reviewId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="starRatingValue" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="traineeId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="traineeName" optional="YES" attributeType="String" syncable="YES"/>
@@ -32,6 +33,6 @@
     <elements>
         <element name="BookingHistoryDB" positionX="-63" positionY="-18" width="128" height="195"/>
         <element name="ProfileDB" positionX="-36" positionY="90" width="128" height="135"/>
-        <element name="ReviewHistoryDB" positionX="-54" positionY="63" width="128" height="150"/>
+        <element name="ReviewHistoryDB" positionX="-54" positionY="63" width="128" height="165"/>
     </elements>
 </model>
