@@ -17,6 +17,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate {
     @IBOutlet weak var email_txt: UITextField!
     @IBOutlet weak var lastname_txt: UITextField!
     @IBOutlet weak var firstname_txt: UITextField!
+    var countryCodeReceived = String()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,7 +32,19 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    @IBAction func unwindAction(sender: UIStoryboardSegue) {
+        if sender.source is CountrySelectViewController {
+            if(countryCodeReceived != ""){
+                firstname_txt.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+                firstname_txt.text = countryCodeReceived
+            }else{
+                //commonMethods.alertView(self, title: "Error", message: "Country code fetch Error", buttonTitle: "OK")
+            }
+        }
+    }
+
+    @IBAction func countryCodeSelection(_ sender: Any) {
+    }
     @IBAction func Google_register(_ sender: Any) {
         
         GIDSignIn.sharedInstance().signIn()
@@ -71,7 +84,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate {
             "user_image": "a",
             "user_type": "a",
             "facebook_id": "a",
-            "google_id": "ios"
+            "google_id": "ios",
+            "profile_desc":"jnkolj"
 
         ]
         let headers = [
