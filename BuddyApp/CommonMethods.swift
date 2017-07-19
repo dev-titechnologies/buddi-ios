@@ -11,7 +11,7 @@ import CoreData
 
 class CommonMethods: NSObject {
 
-    
+      
 }
 
 class Singleton {
@@ -30,7 +30,8 @@ class Singleton {
         appdelegate = UIApplication.shared.delegate as! AppDelegate
         context = appdelegate.persistentContainer.viewContext
     }
-}
+    
+   }
 
 public extension Data{
     

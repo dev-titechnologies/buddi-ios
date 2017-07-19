@@ -25,16 +25,13 @@
                                 <rect key="frame" x="150" y="299" width="96" height="69"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="pWh-zZ-Adg" kind="push" id="wrx-2V-vzw"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVz-rJ-KhI">
                                 <rect key="frame" x="150" y="417" width="133" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="register"/>
                                 <connections>
-                                    <segue destination="ob5-q8-Ks5" kind="push" id="0vb-dQ-oQW"/>
+                                    <segue destination="o0Z-hL-bm9" kind="push" id="98W-cj-Ev3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -44,7 +41,45 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="916" y="35.532233883058474"/>
+            <point key="canvasLocation" x="102" y="32"/>
+        </scene>
+        <!--Registerorlogin View Controller-->
+        <scene sceneID="VFl-zF-ria">
+            <objects>
+                <viewController storyboardIdentifier="RegisterorloginViewController" id="o0Z-hL-bm9" customClass="RegisterorloginViewController" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lng-tl-aXc"/>
+                        <viewControllerLayoutGuide type="bottom" id="rHs-7n-e34"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GXj-8x-khk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="629-S4-2r6">
+                                <rect key="frame" x="0.0" y="593" width="185" height="74"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <segue destination="pWh-zZ-Adg" kind="push" id="2jw-Ht-kF3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLX-MT-jsn">
+                                <rect key="frame" x="188" y="593" width="187" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Register"/>
+                                <connections>
+                                    <segue destination="ob5-q8-Ks5" kind="show" id="KU4-nU-w6k"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZdO-7m-SZc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JjC-cu-Vsh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="102" y="725"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="bUR-66-U0P">
@@ -121,7 +156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Npo-hg-SlO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1133.5999999999999" y="760.56971514242889"/>
+            <point key="canvasLocation" x="644" y="1501"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="yyi-KN-Pte">
@@ -270,7 +305,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tAK-XU-5ao" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2416.8000000000002" y="31.934032983508249"/>
+            <point key="canvasLocation" x="2492" y="36"/>
         </scene>
         <!--Booking HistoryVC-->
         <scene sceneID="t5m-J3-X4j">
@@ -530,7 +565,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -541,7 +576,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HTr-ic-3aH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24.800000000000001" y="36.431784107946029"/>
+            <point key="canvasLocation" x="-918" y="32"/>
         </scene>
     </scenes>
 </document>
