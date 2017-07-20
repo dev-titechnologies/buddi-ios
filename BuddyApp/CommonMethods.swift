@@ -13,7 +13,7 @@ import Alamofire
 
 class CommonMethods: NSObject {
 
-    class func serverCall(APIURL : String, parameters : Dictionary<String, String>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData: JSON) -> Void)){
+    class func serverCall(APIURL : String, parameters : Dictionary<String, String>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData:DataResponse<Any>) -> Void)){
         
         let FinalURL = SERVER_URL_Local + APIURL
         Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
@@ -21,19 +21,26 @@ class CommonMethods: NSObject {
             switch response.result {
             case .success:
                 print(response)
-                if let value = response.value {
-                    let json = JSON(value)
-                    onCompletion(json)
+                if response.value != nil {
+                   // let json = JSON(value)
+                    onCompletion(response)
                 }
                 break
             case .failure(let error):
                 
                 print(error)
-                onCompletion(error as! JSON)
+                onCompletion(error as! DataResponse<Any>)
             }
         }
     }
+  class func alertView(view : UIViewController, title : String?, message: String?, buttonTitle:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: UIAlertActionStyle.default, handler: nil))
+        
+        view.present(alert, animated: true, completion: nil)
+    }
 }
+
 
 class Singleton {
     

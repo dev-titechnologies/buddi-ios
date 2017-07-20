@@ -16,7 +16,7 @@ import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
-
+ var Usertoken = String()
     var window: UIWindow?
 
 
@@ -72,7 +72,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
                             print(idToken!)
                             print(name!)
                             print(email!)
-            userDefaults.dictionary(forKey: <#T##String#>)
+           
+            
+            let googleDict = ["name":name!,
+                              "email":email!,
+                              "userid":userId!,
+                              "idToken":idToken!]
+            
+            
+            userDefaults.set(googleDict, forKey: "googledata")
             
         }
         else
