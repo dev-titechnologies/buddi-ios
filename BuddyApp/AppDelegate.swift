@@ -11,6 +11,7 @@ import CoreData
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
+import IQKeyboardManagerSwift
 
 
 @UIApplicationMain
@@ -27,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
 //        assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
         GIDSignIn.sharedInstance().clientID = "681481687812-r3p3k9upg22juaq3co7bccqlbn8blhnc.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
-
+   IQKeyboardManager.sharedManager().enable = true
         
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
@@ -65,12 +66,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
             //let userImageURL = user.profile.imageURLWithDimension(200)
             // ...
             
-            //
-            //                //print(user)
-            //                print(userId!)
-            //                print(idToken!)
-            //                print(name!)
-            //                print(email!)
+            
+                            //print(user)
+                            print(userId!)
+                            print(idToken!)
+                            print(name!)
+                            print(email!)
         }
         else
         {

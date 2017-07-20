@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.5.0)
+  - CountryPickerSwift (1.4.4)
   - FirebaseAnalytics (3.9.0):
     - FirebaseCore (~> 3.6)
     - FirebaseInstanceID (~> 1.0)
@@ -35,15 +36,19 @@ PODS:
   - GTMSessionFetcher/Core (1.1.10)
   - GTMSessionFetcher/Full (1.1.10):
     - GTMSessionFetcher/Core (= 1.1.10)
+  - IQKeyboardManagerSwift (4.0.10)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
+  - CountryPickerSwift
   - Google/SignIn
+  - IQKeyboardManagerSwift (= 4.0.10)
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  CountryPickerSwift: e31e67f2b95eb1fa6ad230e9eb0b49b020526d99
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
@@ -52,8 +57,9 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
+  IQKeyboardManagerSwift: 75ba21a23794a1e6b6fe6d9a267ea17f80e06771
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 927a8ca6edb26061104b7f1a5777ebdb88af75b0
+PODFILE CHECKSUM: 1c72b787657e9494c069c99c5eb9a45bf7f57892
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

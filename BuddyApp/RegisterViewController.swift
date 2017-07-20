@@ -11,22 +11,60 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
 import Alamofire
+import CountryPicker
 
-class RegisterViewController: UIViewController,GIDSignInUIDelegate {
+class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPickerDelegate,UITextFieldDelegate {
 
+    @IBOutlet weak var contrycode_txt: UITextField!
+    @IBOutlet weak var picker: CountryPicker!
+    @IBOutlet weak var password_txt: UITextField!
+    @IBOutlet weak var mobile_txt: UITextField!
     @IBOutlet weak var email_txt: UITextField!
     @IBOutlet weak var lastname_txt: UITextField!
     @IBOutlet weak var firstname_txt: UITextField!
+    var fbUserDictionary: NSDictionary!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        contrycode_txt.isUserInteractionEnabled = false
+    
+        
+        contrycode_txt.delegate = self
+        firstname_txt.delegate = self
+        lastname_txt.delegate = self
+        mobile_txt.delegate = self
+        password_txt.delegate = self
+        
+        
+  
         // Do any additional setup after loading the view.
         GIDSignIn.sharedInstance().signOut()
         // Do any additional setup after loading the view.
         GIDSignIn.sharedInstance().uiDelegate = self
+        
+        
+        let locale = Locale.current
+        let code = (locale as NSLocale).object(forKey: NSLocale.Key.countryCode) as! String?
+        //init Picker
+        picker.countryPickerDelegate = self
+        picker.showPhoneNumbers = true
+        picker.setCountry(code!)
+        
+        
 //JOSE
     }
 
+    @IBAction func countryCode_action(_ sender: Any) {
+        
+        
+        picker.isHidden = false
+        
+    }
+    public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
+        contrycode_txt.text = phoneCode
+         picker.isHidden = true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -61,19 +99,20 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate {
 
         
         let parameters = [
-            "register_type":"a",
-            "email":"a",
-            "password":"a",
-            "first_name": "a",
-            "last_name": "a",
-            "mobile": "ios",
-            "gender":"a",
+            "register_type":"facebook",
+            "email":self.email_txt.text!,
+            "password":self.password_txt.text,
+            "first_name":self.firstname_txt.text!,
+            "last_name": self.lastname_txt.text!,
+            "mobile": contrycode_txt.text! + mobile_txt.text!,
+            "gender":"male",
             "user_image": "a",
             "user_type": "a",
-            "facebook_id": "a",
-            "google_id": "ios"
+            "facebook_id": (self.fbUserDictionary["id"] as? String)!,
+            "google_id": "ios",
+            "profile_desc":"dd"
 
-        ]
+        ] as [String : Any]
         let headers = [
             "device_id": "y",
             "device_imei": "yu",
@@ -100,6 +139,11 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate {
         }
 
            }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     //MARK:Google SignIn Delegate
     
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
@@ -151,6 +195,10 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate {
                 if (error == nil){
                     
                     print("RESULT",result!)
+                     self.fbUserDictionary = result as? NSDictionary
+                     self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
+                    self.lastname_txt.text = (self.fbUserDictionary["last_name"] as? String)!
+                    self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
                     
                 }
             })
