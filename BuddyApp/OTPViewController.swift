@@ -48,8 +48,7 @@ CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+91 
     func OTPCall()  {
         
     }
-
-    /*
+     /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -37,6 +37,7 @@ PODS:
   - GTMSessionFetcher/Full (1.1.10):
     - GTMSessionFetcher/Core (= 1.1.10)
   - IQKeyboardManagerSwift (4.0.10)
+  - SideMenu (2.3.3)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -44,6 +45,7 @@ DEPENDENCIES:
   - CountryPickerSwift
   - Google/SignIn
   - IQKeyboardManagerSwift (= 4.0.10)
+  - SideMenu
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -58,8 +60,9 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   IQKeyboardManagerSwift: 75ba21a23794a1e6b6fe6d9a267ea17f80e06771
+  SideMenu: a447554ae5c982e8077666389e1c8b0c8656e065
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 1c72b787657e9494c069c99c5eb9a45bf7f57892
+PODFILE CHECKSUM: 73a9c9f3dcc33ffe59cc922e92b91b396bf65c71
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.1.1

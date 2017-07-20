@@ -11,17 +11,19 @@ import Foundation
 class ProfileModel{
     
     var profileImage : String = String()
-    var name: String = String()
+    var firstName: String = String()
+    var lastName: String = String()
     var email: String = String()
     var mobile: String = String()
     var gender: String = String()
     
     init(){}
     
-    init(profileImage: String, name: String, email: String, mobile: String, gender: String){
+    init(profileImage: String, firstName: String, lastName: String, email: String, mobile: String, gender: String){
         
         self.profileImage = profileImage
-        self.name = name
+        self.firstName = firstName
+        self.lastName = lastName
         self.email = email
         self.mobile = mobile
         self.gender = gender

@@ -16,6 +16,7 @@ extension ProfileDB {
         return NSFetchRequest<ProfileDB>(entityName: "ProfileDB")
     }
 
+    @NSManaged public var userId: String?
     @NSManaged public var email: String?
     @NSManaged public var gender: String?
     @NSManaged public var mobile: String?
