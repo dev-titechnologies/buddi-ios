@@ -15,6 +15,8 @@ import CountryPicker
 
 class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPickerDelegate,UITextFieldDelegate {
 
+    @IBOutlet weak var female_btn: UIButton!
+    @IBOutlet weak var male_btn: UIButton!
     @IBOutlet weak var countrycode_btn: UIButton!
     @IBOutlet weak var contrycode_txt: UITextField!
     @IBOutlet weak var picker: CountryPicker!
@@ -24,6 +26,10 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     @IBOutlet weak var lastname_txt: UITextField!
     @IBOutlet weak var firstname_txt: UITextField!
     var fbUserDictionary: NSDictionary!
+    var googleUserDictionary: NSDictionary!
+    var FullDataDictionary: NSDictionary!
+    var HeaderDictionary: NSDictionary!
+    var genderString = String()
     override func viewDidLoad() {
         super.viewDidLoad()
        // navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 188/255, green: 214/255, blue: 255/255, alpha: 1)
@@ -36,13 +42,21 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         mobile_txt.delegate = self
         password_txt.delegate = self
         
+        male_btn.layer.cornerRadius = 12
+        male_btn.layer.borderColor = UIColor.darkGray.cgColor
+        male_btn.layer.borderWidth = 2
+        male_btn.clipsToBounds = true
         
+        female_btn.layer.cornerRadius = 12
+        female_btn.layer.borderColor = UIColor.darkGray.cgColor
+        female_btn.layer.borderWidth = 2
+
+        female_btn.clipsToBounds = true
   
         // Do any additional setup after loading the view.
         GIDSignIn.sharedInstance().signOut()
-        // Do any additional setup after loading the view.
         GIDSignIn.sharedInstance().uiDelegate = self
-        
+        //GIDSignIn.sharedInstance().delegate = self as! GIDSignInDelegate
         
         let locale = Locale.current
         let code = (locale as NSLocale).object(forKey: NSLocale.Key.countryCode) as! String?
@@ -53,6 +67,19 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         
         
 //JOSE
+    }
+    @IBAction func male_action(_ sender: Any) {
+        
+        male_btn.backgroundColor = UIColor.lightGray
+        female_btn.backgroundColor = UIColor.clear
+        genderString = "male"
+        
+    }
+    @IBAction func female_action(_ sender: Any) {
+        
+        female_btn.backgroundColor = UIColor.lightGray
+        male_btn.backgroundColor = UIColor.clear
+        genderString = "female"
     }
 
     @IBAction func countryCode_action(_ sender: Any) {
@@ -98,29 +125,29 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
 
     @IBAction func next_action(_ sender: Any) {
         
-//
-//        
-//        let parameters = [
-//            "register_type":"facebook",
-//            "email":self.email_txt.text!,
-//            "password":self.password_txt.text!,
-//            "first_name":self.firstname_txt.text!,
-//            "last_name": self.lastname_txt.text!,
-//            "mobile": contrycode_txt.text! + mobile_txt.text!,
-//            "gender":"male",
-//            "user_image": "a",
-//            "user_type": "a",
-//            "facebook_id": (self.fbUserDictionary["id"] as? String)!,
-//            "google_id": "ios",
-//            "profile_desc":"dd"
-//
-//        ] as [String : Any]
-//        let headers = [
-//            "device_id": "y",
-//            "device_imei": "yu",
-//            "device_type": "ios",
-//            
-//        ]
+
+        
+         FullDataDictionary = [
+            "register_type":"facebook",
+            "email":self.email_txt.text!,
+            "password":self.password_txt.text!,
+            "first_name":self.firstname_txt.text!,
+            "last_name": self.lastname_txt.text!,
+            "mobile": contrycode_txt.text! + mobile_txt.text!,
+            "gender":genderString,
+            "user_image": "a",
+            "user_type": "a",
+            "facebook_id": (self.fbUserDictionary["id"] as? String)!,
+            "google_id": "ios",
+            "profile_desc":"dd"
+
+        ]
+        HeaderDictionary = [
+            "device_id": "y",
+            "device_imei": "yu",
+            "device_type": "ios",
+            
+        ]
 //
 //        print("PARMSSS",parameters)
 //        
@@ -162,6 +189,15 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     func sign(_ signIn: GIDSignIn!,
               dismiss viewController: UIViewController!) {
         self.dismiss(animated: true, completion: nil)
+        
+//        
+//        self.googleUserDictionary = userDefaults.dictionary(forKey: "googledata")! as NSDictionary
+//        self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
+//        //self.lastname_txt.text = (self.googleUserDictionary["last_name"] as? String)!
+//        self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
+//
+        
+        
     }
     //completed sign In
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -208,14 +244,25 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "otpview" {
+            let controller = segue.destination as! OTPViewController
+            controller.MobileNumber = contrycode_txt.text!+" "+mobile_txt.text!
+            
+           controller.DataDictionary = FullDataDictionary
+            controller.HeaderDict = HeaderDictionary
+        }
+
+        
+        
     }
-    */
+  
 
 }

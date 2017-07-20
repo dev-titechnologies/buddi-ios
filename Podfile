@@ -12,6 +12,8 @@ target 'BuddyApp' do
     pod 'CountryPickerSwift'
     pod 'IQKeyboardManagerSwift', '4.0.10'
     pod 'SideMenu'
+    pod 'SDWebImage', '~>3.8'
+
 
     # pod 'ReachabilitySwift', '~> 2.4'
     #pod 'Alamofire-SwiftyJSON'
