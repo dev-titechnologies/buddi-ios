@@ -23,32 +23,16 @@ class OTPViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func ResendOTP_action(_ sender: Any) {
-        
-        CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+91 9400657618"], headers: nil, onCompletion: { (jsondata) in
-            print("1234",jsondata)
-            print(jsondata["token"].stringValue)
-        })
-        
-        
-
-        
-        
-    }
     @IBAction func Submit_action(_ sender: Any) {
         
-CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+91 9400657618"], headers: nil, onCompletion: { (jsondata) in
+    CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+91 9400657618"], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
             print(jsondata["token"].stringValue)
         })
-        
-        
-    
     }
-    func OTPCall()  {
-        
-    }
-     /*
+ 
+
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
