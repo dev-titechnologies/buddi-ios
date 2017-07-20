@@ -12,8 +12,10 @@ import SwiftyJSON
 import Alamofire
 
 class CommonMethods: NSObject {
+    
+    
 
-    class func serverCall(APIURL : String, parameters : Dictionary<String, String>, headers: Dictionary<String, String>, onCompletion:@escaping ((_ jsonData: JSON) -> Void)){
+class func serverCall(APIURL : String, parameters : Dictionary<String, String>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData: JSON) -> Void)){
         
         let FinalURL = SERVER_URL_Local + APIURL
         Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {

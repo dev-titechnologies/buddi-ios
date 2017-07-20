@@ -15,6 +15,7 @@ import CountryPicker
 
 class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPickerDelegate,UITextFieldDelegate {
 
+    @IBOutlet weak var countrycode_btn: UIButton!
     @IBOutlet weak var contrycode_txt: UITextField!
     @IBOutlet weak var picker: CountryPicker!
     @IBOutlet weak var password_txt: UITextField!
@@ -25,7 +26,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     var fbUserDictionary: NSDictionary!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       // navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 188/255, green: 214/255, blue: 255/255, alpha: 1)
         contrycode_txt.isUserInteractionEnabled = false
     
         
@@ -62,6 +63,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
         contrycode_txt.text = phoneCode
+       // countrycode_btn.setImage(flag, for: .normal)
          picker.isHidden = true
     }
     
@@ -96,47 +98,47 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
 
     @IBAction func next_action(_ sender: Any) {
         
-
-        
-        let parameters = [
-            "register_type":"facebook",
-            "email":self.email_txt.text!,
-            "password":self.password_txt.text,
-            "first_name":self.firstname_txt.text!,
-            "last_name": self.lastname_txt.text!,
-            "mobile": contrycode_txt.text! + mobile_txt.text!,
-            "gender":"male",
-            "user_image": "a",
-            "user_type": "a",
-            "facebook_id": (self.fbUserDictionary["id"] as? String)!,
-            "google_id": "ios",
-            "profile_desc":"dd"
-
-        ] as [String : Any]
-        let headers = [
-            "device_id": "y",
-            "device_imei": "yu",
-            "device_type": "ios",
-            
-        ]
-
-        print("PARMSSS",parameters)
-        
-        
-        let urlString = "http://192.168.1.20:9002/register/register"
-        
-        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
-            response in
-            switch response.result {
-            case .success:
-                print(response)
-                
-                break
-            case .failure(let error):
-                
-                print(error)
-            }
-        }
+//
+//        
+//        let parameters = [
+//            "register_type":"facebook",
+//            "email":self.email_txt.text!,
+//            "password":self.password_txt.text!,
+//            "first_name":self.firstname_txt.text!,
+//            "last_name": self.lastname_txt.text!,
+//            "mobile": contrycode_txt.text! + mobile_txt.text!,
+//            "gender":"male",
+//            "user_image": "a",
+//            "user_type": "a",
+//            "facebook_id": (self.fbUserDictionary["id"] as? String)!,
+//            "google_id": "ios",
+//            "profile_desc":"dd"
+//
+//        ] as [String : Any]
+//        let headers = [
+//            "device_id": "y",
+//            "device_imei": "yu",
+//            "device_type": "ios",
+//            
+//        ]
+//
+//        print("PARMSSS",parameters)
+//        
+//        
+//        let urlString = "http://192.168.1.20:9002/register/register"
+//        
+//        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
+//            response in
+//            switch response.result {
+//            case .success:
+//                print(response)
+//                
+//                break
+//            case .failure(let error):
+//                
+//                print(error)
+//            }
+//        }
 
            }
     

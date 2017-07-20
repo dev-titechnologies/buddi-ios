@@ -29,6 +29,7 @@
 		F322FC551F1CE62400381B8C /* BuddyAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC541F1CE62400381B8C /* BuddyAppTests.swift */; };
 		F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */; };
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
+		F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */; };
 		F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAB91F1DE60A0091900D /* BookingHistory.json */; };
 		F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */; };
 		F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */; };
@@ -106,6 +107,7 @@
 		F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyAppUITests.swift; sourceTree = "<group>"; };
 		F322FC611F1CE62500381B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F322FC6F1F1CEF2200381B8C /* Appconstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appconstants.swift; sourceTree = "<group>"; };
+		F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		F35FDAB91F1DE60A0091900D /* BookingHistory.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BookingHistory.json; sourceTree = "<group>"; };
 		F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMethods.swift; sourceTree = "<group>"; };
 		F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryModel.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F33AE4DD1F2069D000B82E0C /* OTPViewcontroller */,
 				F302BB951F1F60E700186BCC /* LoginORRegister */,
 				F3990DF81F1F3D78000FFF7B /* Data Structure */,
 				F35FDAE91F1E51E10091900D /* Profile View */,
@@ -298,6 +301,14 @@
 				F3990E201F1F77E1000FFF7B /* APIURLs.swift */,
 			);
 			name = Globals;
+			sourceTree = "<group>";
+		};
+		F33AE4DD1F2069D000B82E0C /* OTPViewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */,
+			);
+			name = OTPViewcontroller;
 			sourceTree = "<group>";
 		};
 		F35FDAB61F1DE49B0091900D /* Temp JSON Files */ = {
@@ -669,6 +680,7 @@
 				F3990E1A1F1F6553000FFF7B /* ProfileDB.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
 				F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */,
+				F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */,
 				F3990E1F1F1F6929000FFF7B /* Reachability.swift in Sources */,
 				F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */,
 				F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */,
