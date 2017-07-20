@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CategoryListVC: UIViewController {
 
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     let categoryModelObj: CategoryModel = CategoryModel()
+    var categoriesArray = [CategoryModel]()
+    fileprivate var selectedCategories = [Int]()
     
     fileprivate let reuseIdentifier = "categoryListCellId"
-    fileprivate let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     fileprivate let itemsPerRow: CGFloat = 2
 
     override func viewDidLoad() {
@@ -27,20 +30,28 @@ class CategoryListVC: UIViewController {
 
         CommonMethods.serverCall(APIURL: "category/listCategory", parameters: [:], headers: nil, onCompletion: { (jsondata) in
             
-            print(jsondata)
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: "Error", message: "Server not responding", buttonTitle: "OK")
+                return
+            }
             
-            self.categoryModelObj.getCategoryModelFromJSONDict(dictionary: jsondata)
-//            let responseJSON = jsondata.result.value as! [String: AnyObject]
-//            if let status = responseJSON["status"] as? Int{
-//                if status == 1{
-//                    print("okkkk")
-//                    categoryModelObj.getCategoryModelFromJSONDict(dictionary: responseJSON)
-//                }
-//            }
+            if let status = jsondata["status"] as? Int{
+                if status == 1{
+                    print("okkkk")
+                    self.categoriesArray = self.categoryModelObj.getCategoryModelFromJSONDict(dictionary: jsondata)
+                    
+//                    var tempDict = [String: Any]()
+//                    var tempArray = [Dictionary<String, Any>]()
+//                    for i in 0 ..< self.categoriesArray.count{
+//                        tempDict = ["selected" : "0", "categoryModel" : self.categoriesArray[i]]
+//                        tempArray.append(tempDict)
+//                    }
+                    
+                    self.categoryModelObj.insertCategoriesToDB(categories: self.categoriesArray)
+                    self.categoryCollectionView.reloadData()
+                }
+            }
         })
-        
-        
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,18 +62,26 @@ class CategoryListVC: UIViewController {
 extension CategoryListVC : UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return categoriesArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CategoryListCell
 
-        cell.lblCategoryName.text = "Squaut"
-        cell.categoryImage.image = UIImage.init(named: "profileImage")
+        cell.lblCategoryName.text = categoriesArray[indexPath.row].categoryName
+        print("CATEG Image URL:",categoriesArray[indexPath.row].categoryImage)
+        cell.categoryImage.sd_setImage(with: URL(string: categoriesArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: "profileImage"))
+        
+        if selectedCategories.contains(indexPath.row){
+            //Cell Selected
+            cell.cellSelectionView.backgroundColor = UIColor.blue
+        }else{
+            //Cell no Selected
+            cell.cellSelectionView.backgroundColor = UIColor.lightGray
+        }
         
         return cell
-
     }
 }
 
@@ -95,4 +114,15 @@ extension CategoryListVC : UICollectionViewDelegateFlowLayout {
 
 extension CategoryListVC : UICollectionViewDelegate{
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if selectedCategories.contains(indexPath.row){
+            print("Cell deselected")
+            selectedCategories.remove(at: selectedCategories.index(of: indexPath.row)!)
+        }else{
+            print("Cell Selected")
+            selectedCategories.append(indexPath.row)
+        }
+        categoryCollectionView.reloadItems(at: [indexPath])
+    }
 }

@@ -12,7 +12,7 @@ import CoreData
 @objc(CategoryDB)
 public class CategoryDB: NSManagedObject {
 
-    class func createReviewEntry(categoryModel: CategoryModel) {
+    class func createCategoryEntry(categoryModel: CategoryModel) {
         
         print("*** Category ID:",categoryModel.categoryId)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoryDB")

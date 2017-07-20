@@ -23,18 +23,18 @@ class CommonMethods: NSObject {
             case .success:
                 print(response)
                 if let value = response.value {
-//                    let json = JSON(value)
                     onCompletion(value as! Dictionary<String, Any>)
                 }
                 break
             case .failure(let error):
-                
                 print(error)
-                onCompletion(error as! Dictionary)
+                onCompletion([:])
             }
         }
     }
-  class func alertView(view : UIViewController, title : String?, message: String?, buttonTitle:String) {
+    
+ 
+    class func alertView(view : UIViewController, title : String?, message: String?, buttonTitle:String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: buttonTitle, style: UIAlertActionStyle.default, handler: nil))
         
