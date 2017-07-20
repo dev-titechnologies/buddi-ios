@@ -25,6 +25,8 @@ class OTPViewController: UIViewController {
     }
     
     @IBAction func ResendCode_action(_ sender: Any) {
+        
+        print("ok")
     }
     
     @IBAction func changeNumber_action(_ sender: Any) {
