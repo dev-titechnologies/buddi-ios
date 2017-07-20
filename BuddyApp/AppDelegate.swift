@@ -72,6 +72,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
                             print(idToken!)
                             print(name!)
                             print(email!)
+            userDefaults.dictionary(forKey: <#T##String#>)
+            
         }
         else
         {
