@@ -12,6 +12,8 @@ import SwiftyJSON
 import Alamofire
 
 class CommonMethods: NSObject {
+    
+    
 
     class func serverCall(APIURL : String, parameters : Dictionary<String, String>, headers: Dictionary<String, String>, onCompletion:@escaping ((_ jsonData: JSON) -> Void)){
         

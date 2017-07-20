@@ -11,7 +11,8 @@ import UIKit
 class ProfileVC: UIViewController {
 
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var lblProfileName: UILabel!
+    @IBOutlet weak var lblFirstName: UILabel!
+    @IBOutlet weak var lblLastName: UILabel!
     @IBOutlet weak var lblEmailID: UILabel!
     @IBOutlet weak var lblMobile: UILabel!
     @IBOutlet weak var lblGender: UILabel!
@@ -30,9 +31,10 @@ class ProfileVC: UIViewController {
     
     func parseProfileDetails() {
         
-        let profile = ProfileModel(profileImage: "Test URL for Image", name: "ABC", email: "abc@gmail.com", mobile: "46467467", gender: "male")
+        let profile = ProfileModel(profileImage: "Test URL for Image", firstName: "ABC", lastName: "EFG", email: "abc@gmail.com", mobile: "46467467", gender: "male")
         profileImage.image = UIImage.init(named: profile.profileImage)
-        lblProfileName.text = profile.name
+        lblFirstName.text = profile.firstName
+        lblLastName.text = profile.lastName
         lblEmailID.text = profile.email
         lblMobile.text = profile.mobile
         lblGender.text = profile.gender
