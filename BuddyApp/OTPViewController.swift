@@ -15,6 +15,9 @@ class OTPViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Do any additional setup after loading the view.
+        //josee
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,6 +25,8 @@ class OTPViewController: UIViewController {
     }
     
     @IBAction func ResendCode_action(_ sender: Any) {
+        
+        print("ok")
     }
     
     @IBAction func changeNumber_action(_ sender: Any) {
@@ -29,7 +34,7 @@ class OTPViewController: UIViewController {
     
     @IBAction func Submit_action(_ sender: Any) {
         
-        CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+919400657618"], headers: nil, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+91 9400657618"], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
             print(jsondata["token"].stringValue)
         })

@@ -45,6 +45,8 @@
 		F37350951F20788100BE9DB6 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350941F20788100BE9DB6 /* ProfileModel.swift */; };
 		F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350961F207A2D00BE9DB6 /* LeftMenuTableCell.swift */; };
 		F37350991F207A2D00BE9DB6 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350971F207A2D00BE9DB6 /* LeftViewController.swift */; };
+		F373509D1F20911D00BE9DB6 /* CategoryListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373509C1F20911D00BE9DB6 /* CategoryListVC.swift */; };
+		F373509F1F20913800BE9DB6 /* CategoryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373509E1F20913800BE9DB6 /* CategoryListCell.swift */; };
 		F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */; };
 		F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */; };
 		F3990E1A1F1F6553000FFF7B /* ProfileDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E161F1F6553000FFF7B /* ProfileDB.swift */; };
@@ -125,6 +127,8 @@
 		F37350941F20788100BE9DB6 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		F37350961F207A2D00BE9DB6 /* LeftMenuTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuTableCell.swift; sourceTree = "<group>"; };
 		F37350971F207A2D00BE9DB6 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
+		F373509C1F20911D00BE9DB6 /* CategoryListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryListVC.swift; sourceTree = "<group>"; };
+		F373509E1F20913800BE9DB6 /* CategoryListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryListCell.swift; sourceTree = "<group>"; };
 		F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryDB.swift; sourceTree = "<group>"; };
 		F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookingHistoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F3990E161F1F6553000FFF7B /* ProfileDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDB.swift; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F373509B1F2090AD00BE9DB6 /* Category Lists */,
 				F373509A1F207A3800BE9DB6 /* Home Page */,
 				F33AE4DD1F2069D000B82E0C /* OTPViewcontroller */,
 				F302BB951F1F60E700186BCC /* LoginORRegister */,
@@ -379,6 +384,15 @@
 				F30B60221F1DD88800374136 /* HomeViewController.swift */,
 			);
 			name = "Home Page";
+			sourceTree = "<group>";
+		};
+		F373509B1F2090AD00BE9DB6 /* Category Lists */ = {
+			isa = PBXGroup;
+			children = (
+				F373509C1F20911D00BE9DB6 /* CategoryListVC.swift */,
+				F373509E1F20913800BE9DB6 /* CategoryListCell.swift */,
+			);
+			name = "Category Lists";
 			sourceTree = "<group>";
 		};
 		F3990DF81F1F3D78000FFF7B /* Data Structure */ = {
@@ -693,8 +707,10 @@
 				F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */,
 				F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */,
 				F3990E1A1F1F6553000FFF7B /* ProfileDB.swift in Sources */,
+				F373509F1F20913800BE9DB6 /* CategoryListCell.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
 				F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */,
+				F373509D1F20911D00BE9DB6 /* CategoryListVC.swift in Sources */,
 				F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */,
 				F3990E1F1F1F6929000FFF7B /* Reachability.swift in Sources */,
 				F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */,
