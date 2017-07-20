@@ -30,6 +30,7 @@
 		F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */; };
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
 		F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */; };
+		F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */; };
 		F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAB91F1DE60A0091900D /* BookingHistory.json */; };
 		F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */; };
 		F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */; };
@@ -115,6 +116,7 @@
 		F322FC611F1CE62500381B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F322FC6F1F1CEF2200381B8C /* Appconstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appconstants.swift; sourceTree = "<group>"; };
 		F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
+		F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterChoiceViewController.swift; sourceTree = "<group>"; };
 		F35FDAB91F1DE60A0091900D /* BookingHistory.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BookingHistory.json; sourceTree = "<group>"; };
 		F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMethods.swift; sourceTree = "<group>"; };
 		F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryModel.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F33AE4E01F20DA8F00B82E0C /* Registerviewcontroller */,
 				F373509B1F2090AD00BE9DB6 /* Category Lists */,
 				F373509A1F207A3800BE9DB6 /* Home Page */,
 				F33AE4DD1F2069D000B82E0C /* OTPViewcontroller */,
@@ -278,7 +281,6 @@
 				F35FDAF01F1E52840091900D /* Main.storyboard */,
 				F322FC481F1CE62200381B8C /* LaunchScreen.storyboard */,
 				F322FC4B1F1CE62200381B8C /* Info.plist */,
-				F30B60151F1DC82A00374136 /* RegisterViewController.swift */,
 			);
 			path = BuddyApp;
 			sourceTree = "<group>";
@@ -324,6 +326,15 @@
 				F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */,
 			);
 			name = OTPViewcontroller;
+			sourceTree = "<group>";
+		};
+		F33AE4E01F20DA8F00B82E0C /* Registerviewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				F30B60151F1DC82A00374136 /* RegisterViewController.swift */,
+				F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */,
+			);
+			name = Registerviewcontroller;
 			sourceTree = "<group>";
 		};
 		F35FDAB61F1DE49B0091900D /* Temp JSON Files */ = {
@@ -713,6 +724,7 @@
 				F3990E1C1F1F6553000FFF7B /* ReviewHistoryDB.swift in Sources */,
 				F37350AD1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift in Sources */,
 				F35FDADF1F1E517C0091900D /* BookingHistoryVC.swift in Sources */,
+				F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */,
 				F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */,
 				F322FC3F1F1CE62000381B8C /* ViewController.swift in Sources */,
 				F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */,

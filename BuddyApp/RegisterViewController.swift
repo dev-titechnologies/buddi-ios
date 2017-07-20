@@ -15,6 +15,7 @@ import CountryPicker
 
 class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPickerDelegate,UITextFieldDelegate {
 
+    @IBOutlet weak var imgview: UIImageView!
     @IBOutlet weak var female_btn: UIButton!
     @IBOutlet weak var male_btn: UIButton!
     @IBOutlet weak var countrycode_btn: UIButton!
@@ -30,11 +31,12 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     var FullDataDictionary: NSDictionary!
     var HeaderDictionary: NSDictionary!
     var genderString = String()
+    var UserType = String()
     override func viewDidLoad() {
         super.viewDidLoad()
        // navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 188/255, green: 214/255, blue: 255/255, alpha: 1)
         contrycode_txt.isUserInteractionEnabled = false
-    
+    print("qqqqq",UserType)
         
         contrycode_txt.delegate = self
         firstname_txt.delegate = self
@@ -90,7 +92,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
         contrycode_txt.text = phoneCode
-       // countrycode_btn.setImage(flag, for: .normal)
+        imgview.image = flag
+        
          picker.isHidden = true
     }
     
@@ -136,7 +139,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             "mobile": contrycode_txt.text! + mobile_txt.text!,
             "gender":genderString,
             "user_image": "a",
-            "user_type": "a",
+            "user_type": UserType,
             "facebook_id": (self.fbUserDictionary["id"] as? String)!,
             "google_id": "ios",
             "profile_desc":"dd"

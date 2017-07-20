@@ -12,18 +12,25 @@ import FBSDKLoginKit
 import GoogleSignIn
 
 class LoginViewController: UIViewController,GIDSignInUIDelegate{
+    var fbUserDictionary: NSDictionary!
+   var loginType = String()
+    var UserType = String()
 
+    @IBOutlet weak var password_txt: UITextField!
+    @IBOutlet weak var email_txt: UITextField!
     @IBOutlet weak var FB_btn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        GIDSignIn.sharedInstance().signOut()
+       
         // Do any additional setup after loading the view.
 //        GIDSignIn.sharedInstance().uiDelegate = self as! GIDSignInUIDelegate
 
-        
-        
+        print("qqqqq",UserType)
+        GIDSignIn.sharedInstance().signOut()
+        GIDSignIn.sharedInstance().uiDelegate = self
+ 
         
         
     }
@@ -31,6 +38,31 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @IBAction func forgotpq_action(_ sender: Any) {
+        
+        
+        let parameters = [
+            "login_type":"facebook",
+            "email":self.email_txt.text!,
+            "password":self.password_txt.text!,
+            "user_type": "a",
+            "facebook_id": "",
+            "google_id": "ios"
+            
+        ]
+        let headers = [
+            "device_id": "y",
+            "device_imei": "yu",
+            "device_type": "ios",
+            
+        ]
+
+        
+        
+        
+    }
+    @IBAction func NormalLogin(_ sender: Any) {
     }
     
     @IBAction func GoogleLogin_action(_ sender: Any) {
@@ -100,6 +132,8 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 }
                 if(fbloginresult.grantedPermissions.contains("email"))
                 {
+                    
+                   
                     self.getFBUserData()
                 }
             }
@@ -114,12 +148,62 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 if (error == nil){
                     
                     print("RESULT",result!)
+                     self.fbUserDictionary = result as? NSDictionary
+                    
+                    
+        self.LOginApi(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
+                    
+                    
+                    
+                    
                     
                 }
             })
         }
     }
+    func LOginApi(Email: String,Passwrd: String, loginType: String, UserType: String,FBId: String,GoogleId:String) {
+        
+        let parameters = [
+            "login_type":loginType,
+            "email":Email,
+            "password":Passwrd,
+            "user_type": UserType,
+            "facebook_id": FBId,
+            "google_id": GoogleId
+            
+        ]
+        let headers = [
+            "device_id": "y",
+            "device_imei": "yu",
+            "device_type": "ios",
+            
+            ]
+        
+
+        
+        CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+            print("REGISTER RESPONSE",jsondata)
+            
+            if let status = jsondata["status"] as? Int{
+                if status == 1{
+                    
+                    //appDelegate.Usertoken = (jsondata["token"] as? String)!
+                    
+                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
+                    
+                }
+            }
+            
+            
+        })
+        
+        
+        
     
+        
+        
+        
+    }
     /*
     // MARK: - Navigation
 
