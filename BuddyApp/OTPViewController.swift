@@ -22,15 +22,27 @@ class OTPViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    @IBAction func ResendCode_action(_ sender: Any) {
+    }
+    @IBAction func changeNumber_action(_ sender: Any) {
+    }
     
     @IBAction func Submit_action(_ sender: Any) {
         
-    CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+91 9400657618"], headers: nil, onCompletion: { (jsondata) in
+    CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+919400657618"], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
             print(jsondata["token"].stringValue)
         })
+    
     }
- 
+    func OTPCall(){
+        CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+91 9400657618"], headers: nil, onCompletion: { (jsondata) in
+            print("1234",jsondata)
+            print(jsondata["token"].stringValue)
+        })
+
+    }
+    
 
     /*
     // MARK: - Navigation
