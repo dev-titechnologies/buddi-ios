@@ -23,19 +23,19 @@ class BookingHistoryModel {
 
     init(){}
     
-    init(bookingId: String, traineeId: String, trainerId: String, trainingStatus: String, paymentStatus: String, trainedDate: String, category: String,traineeName: String, trainerName: String, location: String){
-        
-        self.bookingId = bookingId
-        self.traineeId = traineeId
-        self.trainerId = trainerId
-        self.trainingStatus = trainingStatus
-        self.paymentStatus = paymentStatus
-        self.trainedDate = trainedDate
-        self.category = category
-        self.traineeName = traineeName
-        self.trainerName = trainerName
-        self.location = location
-    }
+//    init(bookingId: String, traineeId: String, trainerId: String, trainingStatus: String, paymentStatus: String, trainedDate: String, category: String,traineeName: String, trainerName: String, location: String){
+//        
+//        self.bookingId = bookingId
+//        self.traineeId = traineeId
+//        self.trainerId = trainerId
+//        self.trainingStatus = trainingStatus
+//        self.paymentStatus = paymentStatus
+//        self.trainedDate = trainedDate
+//        self.category = category
+//        self.traineeName = traineeName
+//        self.trainerName = trainerName
+//        self.location = location
+//    }
     
     func getBookingHistoryModelFromDict(dictionary: Dictionary<String, Any>) -> BookingHistoryModel {
         

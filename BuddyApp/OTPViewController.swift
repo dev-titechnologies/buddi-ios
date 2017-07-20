@@ -50,8 +50,8 @@ var MobileNumber = String()
         CommonMethods.serverCall(APIURL: "register/verifyOTP", parameters: ["otp":Otp_txt.text!,"mobile":MobileNumber], headers: nil, onCompletion: { (jsondata) in
             print("OTP RESPONSE",jsondata)
            // print(jsondata["token"].stringValue)
-            let responseJSON = jsondata.result.value as! [String: AnyObject]
-            if let status = responseJSON["status"] as? Int{
+           
+            if let status = jsondata["status"] as? Int{
                 if status == 1{
                     
                     print("okkkk")
@@ -60,22 +60,14 @@ var MobileNumber = String()
                     
                 }
             }
-
-            
-            
-            
-        })
-        
-
-        
-        
-    }
+        }
+            )}
     
     func OTPCall(){
         CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":MobileNumber], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
-            let responseJSON = jsondata.result.value as! [String: AnyObject]
-            if let status = responseJSON["status"] as? Int{
+            
+            if let status = jsondata["status"] as? Int{
                 if status == 1{
                     
                       print("okkkk")
@@ -91,11 +83,11 @@ var MobileNumber = String()
         
         CommonMethods.serverCall(APIURL: "register/register", parameters: DataDictionary as! Dictionary<String, String>, headers: HeaderDict as? HTTPHeaders, onCompletion: { (jsondata) in
             print("REGISTER RESPONSE",jsondata)
-            let responseJSON = jsondata.result.value as! [String: AnyObject]
-            if let status = responseJSON["status"] as? Int{
+            
+            if let status = jsondata["status"] as? Int{
                 if status == 1{
                     
-                appDelegate.Usertoken = (responseJSON["token"] as? String)!
+                appDelegate.Usertoken = (jsondata["token"] as? String)!
                     
                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Registration successfull", buttonTitle: "Ok")
                     

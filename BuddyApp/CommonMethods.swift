@@ -13,23 +13,24 @@ import Alamofire
 
 class CommonMethods: NSObject {
 
-    class func serverCall(APIURL : String, parameters : Dictionary<String, String>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData:DataResponse<Any>) -> Void)){
+      class func serverCall(APIURL : String, parameters : Dictionary<String, String>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
         
         let FinalURL = SERVER_URL_Local + APIURL
+        print("Final Server URL:",FinalURL)
         Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
             response in
             switch response.result {
             case .success:
                 print(response)
-                if response.value != nil {
-                   // let json = JSON(value)
-                    onCompletion(response)
+                if let value = response.value {
+//                    let json = JSON(value)
+                    onCompletion(value as! Dictionary<String, Any>)
                 }
                 break
             case .failure(let error):
                 
                 print(error)
-                onCompletion(error as! DataResponse<Any>)
+                onCompletion(error as! Dictionary)
             }
         }
     }

@@ -68,7 +68,6 @@ class BookingHistoryVC: UIViewController {
         
         CommonMethods.serverCall(APIURL: REGISTER_URL, parameters: parameters, headers: headers) { (jsondata) in
             print("1234",jsondata)
-          //  print(jsondata["token"].stringValue)
         }
     }
     
