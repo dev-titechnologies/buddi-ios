@@ -12,6 +12,12 @@
         <attribute name="trainerName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="trainingStatus" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="CategoryDB" representedClassName="CategoryDB" syncable="YES">
+        <attribute name="categoryDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="ProfileDB" representedClassName="ProfileDB" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
@@ -36,5 +42,6 @@
         <element name="BookingHistoryDB" positionX="-63" positionY="-18" width="128" height="195"/>
         <element name="ProfileDB" positionX="-36" positionY="90" width="128" height="150"/>
         <element name="ReviewHistoryDB" positionX="-54" positionY="63" width="128" height="180"/>
+        <element name="CategoryDB" positionX="-45" positionY="90" width="128" height="105"/>
     </elements>
 </model>

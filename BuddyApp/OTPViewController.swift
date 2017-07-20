@@ -36,14 +36,14 @@ class OTPViewController: UIViewController {
         
         CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+91 9400657618"], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
-            print(jsondata["token"].stringValue)
+//            print(jsondata["token"].stringValue)
         })
     }
     
     func OTPCall(){
         CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+91 9400657618"], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
-            print(jsondata["token"].stringValue)
+//            print(jsondata["token"].stringValue)
         })
 
     }
