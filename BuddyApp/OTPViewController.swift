@@ -22,21 +22,22 @@ class OTPViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
     @IBAction func ResendCode_action(_ sender: Any) {
     }
+    
     @IBAction func changeNumber_action(_ sender: Any) {
     }
     
     @IBAction func Submit_action(_ sender: Any) {
         
-    CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+919400657618"], headers: nil, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+919400657618"], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
             print(jsondata["token"].stringValue)
         })
-    
     }
+    
     func OTPCall(){
         CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":"+91 9400657618"], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
@@ -44,16 +45,4 @@ class OTPViewController: UIViewController {
         })
 
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
