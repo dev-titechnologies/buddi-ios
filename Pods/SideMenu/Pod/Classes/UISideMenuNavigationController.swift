@@ -84,26 +84,17 @@ open class UISideMenuNavigationController: UINavigationController {
                     }
                 }
             }
-            
-            // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
-            UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration,
-                           delay: 0,
-                           usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
-                           initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
-                           options: SideMenuManager.menuAnimationOptions,
-                           animations: {
-                            SideMenuTransition.hideMenuStart()
-            }) { (finished) -> Void in
-                self.view.isHidden = true
-            }
         }
     }
     
     override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        // Hack: force selection to get cleared on UITableViewControllers when reappearing using custom transitions
-        visibleViewController?.viewWillAppear(false)
+        // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
+        if !isBeingDismissed {
+            view.isHidden = true
+            SideMenuTransition.hideMenuStart()
+        }
     }
     
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -155,6 +146,7 @@ open class UISideMenuNavigationController: UINavigationController {
         CATransaction.begin()
         CATransaction.setCompletionBlock( { () -> Void in
             self.dismiss(animated: true, completion: nil)
+            self.visibleViewController?.viewWillAppear(false) // Hack: force selection to get cleared on UITableViewControllers when reappearing using custom transitions
         })
         
         let areAnimationsEnabled = UIView.areAnimationsEnabled
