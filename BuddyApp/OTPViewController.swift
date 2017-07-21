@@ -92,6 +92,10 @@ var MobileNumber = String()
                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Registration successfull", buttonTitle: "Ok")
                     
                 }
+                else if status == 2
+                {
+                     CommonMethods.alertView(view: self, title: "FAIL", message: (jsondata["message"] as? String)!, buttonTitle: "Ok")
+                }
             }
 
             

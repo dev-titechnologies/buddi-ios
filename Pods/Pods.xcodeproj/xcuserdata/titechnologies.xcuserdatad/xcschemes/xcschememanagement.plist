@@ -74,10 +74,25 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>libPhoneNumber-iOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>033CFBB13E42555EEB9AF0EBC7249355</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>107A9565F9DF88517DFD3E28C05B2B96</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1DAADBAAD98EC12E360A2CF13876BAB6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,12 +112,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>510B9DBC0CBFF29FBA7DDEB5963D82D3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5B9A544927D9ED12AD3F9525E2E37D39</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>681BE6E3D02A43F9BA63777AC435C8FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6FEDB527302804670F65868B5442C063</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7D5D891676725492FDD435B2ACEBBB3B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -138,6 +168,11 @@
 			<true/>
 		</dict>
 		<key>C235F77E101E742652CCF98FFDFA5182</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C344F85EDF8D1D54B661EFC181ABC1A2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

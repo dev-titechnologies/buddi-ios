@@ -10,11 +10,14 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
+import SVProgressHUD
 
 class LoginViewController: UIViewController,GIDSignInUIDelegate{
     var fbUserDictionary: NSDictionary!
    var loginType = String()
     var UserType = String()
+    var googleUserDictionary: NSDictionary!
+    var jsondict: NSDictionary!
 
     @IBOutlet weak var password_txt: UITextField!
     @IBOutlet weak var email_txt: UITextField!
@@ -34,6 +37,33 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        // Define identifier
+        let notificationName = Notification.Name("NotificationIdentifier")
+        
+        
+        // Register to receive notification
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: notificationName, object: nil)
+        
+    }
+    func methodOfReceivedNotification(notif: NSNotification) {
+        
+        
+        
+        
+        self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
+        print("GOOGLE DATA ",self.googleUserDictionary)
+        SVProgressHUD.show()
+        
+        self.LOginApi(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
+        
+        
+    }
+    
+
+    
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -88,39 +118,10 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
               dismiss viewController: UIViewController!) {
         self.dismiss(animated: true, completion: nil)
     }
-    //completed sign In
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-        
-        
-        if (error == nil)
-        {
-            let userId = user.userID                  // For client-side use only!
-            let idToken = user.authentication.idToken // Safe to send to the server
-            let name = user.profile.name
-            let email = user.profile.email
-            //let userImageURL = user.profile.imageURLWithDimension(200)
-            // ...
-            
-            
-            //print(user)
-            print(userId!)
-            print(idToken!)
-            print(name!)
-            print(email!)
-        }
-        else
-        {
-            print("\(error.localizedDescription)")
-        }
-        
-        
-    }
-    
-
-    
-    
+       
     @IBAction func FaceBookLogin_Action(_ sender: Any) {
+        
+        
         
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
@@ -132,7 +133,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 }
                 if(fbloginresult.grantedPermissions.contains("email"))
                 {
-                    
+                    SVProgressHUD.show()
                    
                     self.getFBUserData()
                 }
@@ -157,6 +158,10 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     
                     
                     
+                }
+                else
+                {
+                    print("ERROR",error?.localizedDescription)
                 }
             })
         }
@@ -186,11 +191,32 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             
             if let status = jsondata["status"] as? Int{
                 if status == 1{
+                    SVProgressHUD.dismiss()
                     
-                    //appDelegate.Usertoken = (jsondata["token"] as? String)!
+                    
+                    
+                    self.jsondict = jsondata["data"]  as! NSDictionary
+                    
+                    appDelegate.Usertoken = (self.jsondict["token"] as? String)!
+                    appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
+                    appDelegate.USER_TYPE = (self.jsondict["user_type"] as? String)!
                     
                     CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                     
+                    //logintohome
+                    
+                    self.performSegue(withIdentifier: "logintohome", sender:self)
+                    
+                }
+                else if status == 2
+                {
+                     SVProgressHUD.dismiss()
+                    
+                     CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    
+                }
+                else{
+                     SVProgressHUD.dismiss()
                 }
             }
             

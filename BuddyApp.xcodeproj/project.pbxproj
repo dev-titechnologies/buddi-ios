@@ -64,6 +64,7 @@
 		F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E191F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */; };
 		F3990E1F1F1F6929000FFF7B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E1E1F1F6929000FFF7B /* Reachability.swift */; };
 		F3990E211F1F77E1000FFF7B /* APIURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E201F1F77E1000FFF7B /* APIURLs.swift */; };
+		F3AA6C831F21C4F500F44DC2 /* libPhoneNumber_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */; };
 		F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */; };
 		F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7D1F20F8BE00D51277 /* String Constants.swift */; };
 		F48562D84E3A72F7B5164F69 /* Pods_BuddyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */; };
@@ -157,6 +158,7 @@
 		F3990E191F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReviewHistoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F3990E1E1F1F6929000FFF7B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		F3990E201F1F77E1000FFF7B /* APIURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIURLs.swift; sourceTree = "<group>"; };
+		F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libPhoneNumber_iOS.framework; path = "Pods/../build/Debug-iphoneos/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"; sourceTree = "<group>"; };
 		F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategorySelectionVC.swift; sourceTree = "<group>"; };
 		F3F77C7D1F20F8BE00D51277 /* String Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String Constants.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3AA6C831F21C4F500F44DC2 /* libPhoneNumber_iOS.framework in Frameworks */,
 				F302BBA51F1FA21900186BCC /* IQKeyboardManagerSwift.framework in Frameworks */,
 				F302BBA31F1F8D2000186BCC /* CountryPicker.framework in Frameworks */,
 				F30B60211F1DCEED00374136 /* FBSDKShareKit.framework in Frameworks */,
@@ -198,6 +201,7 @@
 		8A7AD5AFB8FF51439DD7F8C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */,
 				F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */,
 				F302BBA21F1F8D2000186BCC /* CountryPicker.framework */,
 				4BDB5F3A5F2B52F451C492A4 /* Pods_BuddyApp.framework */,
@@ -945,6 +949,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/BuddyApp",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/CountryPickerSwift",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/libPhoneNumber-iOS",
 				);
 				INFOPLIST_FILE = BuddyApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
@@ -965,6 +970,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/BuddyApp",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/CountryPickerSwift",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/libPhoneNumber-iOS",
 				);
 				INFOPLIST_FILE = BuddyApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;

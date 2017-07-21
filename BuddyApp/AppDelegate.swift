@@ -17,6 +17,8 @@ import IQKeyboardManagerSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
  var Usertoken = String()
+    var UserId = Int()
+    var USER_TYPE = String()
     var window: UIWindow?
 
 
@@ -80,7 +82,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
                               "idToken":idToken!]
             
             
-            userDefaults.set(googleDict, forKey: "googledata")
+                        
+            let notificationName = Notification.Name("NotificationIdentifier")
+            
+            // Register to receive notification
+          //  NotificationCenter.default.addObserver(self, selector: #selector(RegisterViewController.methodOfReceivedNotification), name: notificationName, object: nil)
+            
+            // Post notification
+    NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["googledata":googleDict])
+            
+            // Stop listening notification
+          //  NotificationCenter.default.removeObserver(self, name: notificationName, object: nil);
+            
+            
+            
+            
             
         }
         else

@@ -37,6 +37,7 @@ PODS:
   - GTMSessionFetcher/Full (1.1.10):
     - GTMSessionFetcher/Core (= 1.1.10)
   - IQKeyboardManagerSwift (4.0.10)
+  - libPhoneNumber-iOS (0.9.10)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - CountryPickerSwift
   - Google/SignIn
   - IQKeyboardManagerSwift (= 4.0.10)
+  - libPhoneNumber-iOS (~> 0.9)
   - SDWebImage (~> 3.8)
   - SideMenu
   - SVProgressHUD
@@ -66,11 +68,12 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   IQKeyboardManagerSwift: 75ba21a23794a1e6b6fe6d9a267ea17f80e06771
+  libPhoneNumber-iOS: f721ae4d5854bce60934f9fb9b0b28e8e68913cb
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SideMenu: 3fa07dd05d4bade2b6f9889fb1877e312e1ba319
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: acc12d24b2c1bd030950e4b00bd041994e799370
+PODFILE CHECKSUM: 388906895bf7dd7c7c0f5543175fc640b9248df4
 
 COCOAPODS: 1.2.0
