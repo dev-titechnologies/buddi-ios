@@ -13,7 +13,7 @@ import Alamofire
 
 class CommonMethods: NSObject {
 
-      class func serverCall(APIURL : String, parameters : Dictionary<String, String>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
+      class func serverCall(APIURL : String, parameters : Dictionary<String, Any>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
         
         let FinalURL = SERVER_URL_Local + APIURL
         print("Final Server URL:",FinalURL)
@@ -33,6 +33,13 @@ class CommonMethods: NSObject {
         }
     }
     
+    class func checkStringNull(val: String?) -> String {
+        if let value = val {
+            return value
+        }
+        return " "
+    }
+
  
     class func alertView(view : UIViewController, title : String?, message: String?, buttonTitle:String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)

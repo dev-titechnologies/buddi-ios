@@ -12,6 +12,8 @@ import FBSDKLoginKit
 import GoogleSignIn
 import Alamofire
 import CountryPicker
+import SVProgressHUD
+import libPhoneNumber_iOS
 
 class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPickerDelegate,UITextFieldDelegate {
 
@@ -32,6 +34,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     var HeaderDictionary: NSDictionary!
     var genderString = String()
     var UserType = String()
+    var RegisterType = String()
+    var countryAlphaCode = String()
     override func viewDidLoad() {
         super.viewDidLoad()
        // navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 188/255, green: 214/255, blue: 255/255, alpha: 1)
@@ -61,7 +65,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         // Do any additional setup after loading the view.
         GIDSignIn.sharedInstance().signOut()
         GIDSignIn.sharedInstance().uiDelegate = self
-        //GIDSignIn.sharedInstance().delegate = self as! GIDSignInDelegate
+        // GIDSignIn.sharedInstance().delegate = self as! GIDSignInDelegate
+       
         
         let locale = Locale.current
         let code = (locale as NSLocale).object(forKey: NSLocale.Key.countryCode) as! String?
@@ -72,6 +77,32 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         
         
 //JOSE
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        // Define identifier
+        let notificationName = Notification.Name("NotificationIdentifier")
+       
+        
+        // Register to receive notification
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: notificationName, object: nil)
+    
+    }
+     func methodOfReceivedNotification(notif: NSNotification) {
+        
+        
+        
+        
+        self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
+        print("GOOGLE DATA ",self.googleUserDictionary)
+        
+        RegisterType = "google"
+        
+        self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
+        self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
+
+        
+        
+        
     }
     @IBAction func male_action(_ sender: Any) {
         
@@ -105,7 +136,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         // Dispose of any resources that can be recreated.
     }
     func validation() {
-        //let mobileNumber = contrycode_txt.text! + mobile_txt.text!
+        let mobileNumber = contrycode_txt.text! + mobile_txt.text!
         if firstname_txt.text!.isEmpty {
             CommonMethods.alertView(view: self, title: "", message: "Please enter your first name", buttonTitle: "Ok")
         }else if lastname_txt.text!.isEmpty {
@@ -124,17 +155,42 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         }
 
         
-//        else if(!mobileNumberValidation(mobileNumber)){
-//            CommonMethods.alertView(self, title: "", message: "Please Enter a valid mobile number", buttonTitle: "Ok")
-//        }
-//        
+        else if(!mobileNumberValidation(number: mobileNumber)){
+            CommonMethods.alertView(view: self, title: "", message: "Please Enter a valid mobile number", buttonTitle: "Ok")
+        }
+        
         else
         {
+            var FB_id = String()
+            var GOOGLE_id = String()
+            
+            if RegisterType == "facebook"
+            {
+                 FB_id = CommonMethods.checkStringNull(val: (self.fbUserDictionary["id"] as! String))
+                 GOOGLE_id = ""
+                
+
+            }
+            else if RegisterType == "google"
+            {
+                 FB_id = ""
+                 GOOGLE_id = CommonMethods.checkStringNull(val: (self.googleUserDictionary["userid"] as? String)!)
+
+                
+
+            }
+            else{
+                RegisterType = "normal"
+                
+                FB_id = ""
+                GOOGLE_id = ""
+            }
+            
             
             
             
             FullDataDictionary = [
-                "register_type":"facebook",
+                "register_type":RegisterType,
                 "email":self.email_txt.text!,
                 "password":self.password_txt.text!,
                 "first_name":self.firstname_txt.text!,
@@ -143,8 +199,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 "gender":genderString,
                 "user_image": "a",
                 "user_type": UserType,
-                "facebook_id": (self.fbUserDictionary["id"] as? String)!,
-                "google_id": "ios",
+                "facebook_id": FB_id ,
+                "google_id": GOOGLE_id ,
                 "profile_desc":"dd"
                 
             ]
@@ -159,6 +215,16 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             
                    }
     }
+    func mobileNumberValidation(number : String) -> Bool{
+        let phoneUtil = NBPhoneNumberUtil()
+        do {
+            let phoneNumber: NBPhoneNumber = try phoneUtil.parse(number, defaultRegion: countryAlphaCode)
+            return phoneUtil.isValidNumber(phoneNumber)
+        }catch{
+            return false
+        }
+    }
+
     func validate(YourEMailAddress: String) -> Bool {
         let REGEX: String
         REGEX = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
@@ -171,6 +237,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
     @IBAction func Facebook_register(_ sender: Any) {
         
+       
+        
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
             if (error == nil){
@@ -181,6 +249,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 }
                 if(fbloginresult.grantedPermissions.contains("email"))
                 {
+                    
+                     SVProgressHUD.show()
                     self.getFBUserData()
                 }
             }
@@ -259,11 +329,14 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 if (error == nil){
                     
                     print("RESULT",result!)
+                    self.RegisterType = "facebook"
+                    
                      self.fbUserDictionary = result as? NSDictionary
                      self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
                     self.lastname_txt.text = (self.fbUserDictionary["last_name"] as? String)!
                     self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
-                    
+                   
+                    SVProgressHUD.dismiss()
                 }
             })
         }

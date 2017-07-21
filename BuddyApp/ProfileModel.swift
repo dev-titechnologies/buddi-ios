@@ -27,6 +27,6 @@ class ProfileModel{
         self.email = email
         self.mobile = mobile
         self.gender = gender
-    }
+        }
 
 }
