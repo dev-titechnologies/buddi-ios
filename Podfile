@@ -13,6 +13,7 @@ target 'BuddyApp' do
     pod 'IQKeyboardManagerSwift', '4.0.10'
     pod 'SideMenu'
     pod 'SDWebImage', '~>3.8'
+    pod 'SVProgressHUD'
 
 
     # pod 'ReachabilitySwift', '~> 2.4'
