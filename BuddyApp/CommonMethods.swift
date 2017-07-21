@@ -55,6 +55,7 @@ class Singleton {
     var userDefaults = UserDefaults()
     var appdelegate = AppDelegate()
     var context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    var selectedSubCategories = [SubCategoryModel]()
 
     static let sharedInstance : Singleton = {
         let instance = Singleton()
@@ -65,6 +66,7 @@ class Singleton {
         userDefaults = UserDefaults.standard
         appdelegate = UIApplication.shared.delegate as! AppDelegate
         context = appdelegate.persistentContainer.viewContext
+        selectedSubCategories = [SubCategoryModel]()
     }
    }
 

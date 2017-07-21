@@ -9,3 +9,4 @@
 import Foundation
 
 let REGISTER_URL = "register/register"
+let CATEGORY_URL = "category/listCategory"
