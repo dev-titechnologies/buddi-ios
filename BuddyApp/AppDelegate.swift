@@ -120,6 +120,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
 
     }
 
+    
+    /**
+     Copies the sqlite, wal and shm file to the destination folder. Don't forget to merge the wal file using the commands printed int the console.
+     @param destinationPath Path where sqlite files has to be copied
+     @param persistentContainer NSPersistentContainer
+     */
+    public static func getSqliteTo(destinationPath: String, persistentContainer: NSPersistentContainer) {
+        let storeUrl = persistentContainer.persistentStoreCoordinator.persistentStores.first?.url
+        
+        let sqliteFileName = storeUrl!.lastPathComponent
+        let walFileName = sqliteFileName + "-wal"
+        let shmFileName = sqliteFileName + "-shm"
+        //Add all file names in array
+        let fileArray = [sqliteFileName, walFileName, shmFileName]
+        
+        let storeDir = storeUrl!.deletingLastPathComponent()
+        
+        // Destination dir url, make sure file don't exists in that folder
+        let destDir = URL(fileURLWithPath: destinationPath, isDirectory: true)
+        
+        do {
+            for fileName in fileArray {
+                let sourceUrl = storeDir.appendingPathComponent(fileName, isDirectory: false)
+                let destUrl = destDir.appendingPathComponent(fileName, isDirectory: false)
+                try FileManager.default.copyItem(at: sourceUrl, to: destUrl)
+                print("File: \(fileName) copied to path: \(destUrl.path)")
+            }
+        }
+        catch {
+            print("\(error)")
+        }
+        print("\n\n\n ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ NOTE ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n")
+        print("In your terminal run the following commands to merge wal file. Otherwise you may see partial or no data in \(sqliteFileName) file")
+        print("\n-------------------------------------------------")
+        print("$ cd \(destDir.path)")
+        print("$ sqlite3 \(sqliteFileName)")
+        print("sqlite> PRAGMA wal_checkpoint;")
+        print("-------------------------------------------------\n")
+        print("Press control + d")
+//        abort() // uncomment it if you don't want to quit your application
+        
+    }
+
+    
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {

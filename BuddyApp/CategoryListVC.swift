@@ -13,6 +13,10 @@ class CategoryListVC: UIViewController {
 
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     let categoryModelObj: CategoryModel = CategoryModel()
+    let subCategoryModelObj: SubCategoryModel = SubCategoryModel()
+    var selectedSubCategories = [SubCategoryModel]()
+    let singletonObj = Singleton.sharedInstance
+
     var categoriesArray = [CategoryModel]()
     fileprivate var selectedCategories = [Int]()
     
@@ -28,30 +32,56 @@ class CategoryListVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
 
-        CommonMethods.serverCall(APIURL: "category/listCategory", parameters: [:], headers: nil, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], headers: nil, onCompletion: { (jsondata) in
+            
+            print("*** Category Listing Result:",jsondata)
             
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
             }
-            
+                        
             if let status = jsondata["status"] as? Int{
                 if status == 1{
-                    print("okkkk")
-                    self.categoriesArray = self.categoryModelObj.getCategoryModelFromJSONDict(dictionary: jsondata)
                     
-//                    var tempDict = [String: Any]()
-//                    var tempArray = [Dictionary<String, Any>]()
-//                    for i in 0 ..< self.categoriesArray.count{
-//                        tempDict = ["selected" : "0", "categoryModel" : self.categoriesArray[i]]
-//                        tempArray.append(tempDict)
-//                    }
+                    let (categories,subcategories) = self.categoryModelObj.getCategoryModelFromJSONDict(dictionary: jsondata)
                     
-                    self.categoryModelObj.insertCategoriesToDB(categories: self.categoriesArray)
+                    print("*** Categories:",categories)
+                    print("*** SubCategories:",subcategories)
+                    
+                    self.categoriesArray = categories
+                    self.categoryModelObj.insertCategoriesToDB(categories: categories)
+                    self.subCategoryModelObj.insertSubCategoriesToDB(subCategories: subcategories)
                     self.categoryCollectionView.reloadData()
                 }
             }
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     
+        print("SELECTED CATEGS:",categoriesArray)
+        if segue.identifier == "nextScreenSegue"{
+            print("Selected Categories are :",selectedCategories)
+            var subCategoryIDsArray = [String]()
+            
+            for values in selectedCategories{
+                let subcategory = categoriesArray[values].subCategories
+                print("Sub Categories of \(categoriesArray[values].categoryId) are \(subcategory)")
+
+                for i in subcategory{
+                    
+                    if !subCategoryIDsArray.contains(i.subCategoryId){
+                        selectedSubCategories.append(i)
+                        subCategoryIDsArray.append(i.subCategoryId)
+                    }
+                }
+            }
+//            let nextScene =  segue.destination as! SubCategorySelectionVC
+//            nextScene.subCategories = selectedSubCategories
+            //Storing values to Singleton Object for later use
+            singletonObj.selectedSubCategories = selectedSubCategories
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,10 +104,8 @@ extension CategoryListVC : UICollectionViewDataSource{
         cell.categoryImage.sd_setImage(with: URL(string: categoriesArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: "profileImage"))
         
         if selectedCategories.contains(indexPath.row){
-            //Cell Selected
             cell.cellSelectionView.backgroundColor = UIColor.blue
         }else{
-            //Cell no Selected
             cell.cellSelectionView.backgroundColor = UIColor.lightGray
         }
         
@@ -86,11 +114,10 @@ extension CategoryListVC : UICollectionViewDataSource{
 }
 
 extension CategoryListVC : UICollectionViewDelegateFlowLayout {
-    //1
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //2
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
@@ -98,14 +125,12 @@ extension CategoryListVC : UICollectionViewDelegateFlowLayout {
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
     
-    //3
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets
     }
     
-    // 4
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
