@@ -38,6 +38,9 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         contrycode_txt.isUserInteractionEnabled = false
     print("qqqqq",UserType)
         
+        self.title = "Register"
+               
+        
         contrycode_txt.delegate = self
         firstname_txt.delegate = self
         lastname_txt.delegate = self
@@ -101,7 +104,67 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func validation() {
+        //let mobileNumber = contrycode_txt.text! + mobile_txt.text!
+        if firstname_txt.text!.isEmpty {
+            CommonMethods.alertView(view: self, title: "", message: "Please enter your first name", buttonTitle: "Ok")
+        }else if lastname_txt.text!.isEmpty {
+            CommonMethods.alertView(view: self, title: "", message: "Please enter last name", buttonTitle: "Ok")
+        }
+        else if email_txt.text!.isEmpty {
+            CommonMethods.alertView(view: self, title: "", message: "Please enter email", buttonTitle: "Ok")
+        }else if !self.validate(YourEMailAddress: email_txt.text!) {
+            CommonMethods.alertView(view: self, title: "", message: "Please enter a valid email", buttonTitle: "Ok")
+        }else if contrycode_txt.text!.isEmpty{
+            CommonMethods.alertView(view: self, title: "", message: "Please select country code", buttonTitle: "Ok")
+        }else if mobile_txt.text!.isEmpty{
+            CommonMethods.alertView(view: self, title: "", message: "Please enter your mobile number", buttonTitle: "Ok")
+        }else if genderString.isEmpty{
+            CommonMethods.alertView(view: self, title: "", message: "Please select your gender", buttonTitle: "Ok")
+        }
+
+        
+//        else if(!mobileNumberValidation(mobileNumber)){
+//            CommonMethods.alertView(self, title: "", message: "Please Enter a valid mobile number", buttonTitle: "Ok")
+//        }
+//        
+        else
+        {
+            
+            
+            
+            FullDataDictionary = [
+                "register_type":"facebook",
+                "email":self.email_txt.text!,
+                "password":self.password_txt.text!,
+                "first_name":self.firstname_txt.text!,
+                "last_name": self.lastname_txt.text!,
+                "mobile": contrycode_txt.text! + mobile_txt.text!,
+                "gender":genderString,
+                "user_image": "a",
+                "user_type": UserType,
+                "facebook_id": (self.fbUserDictionary["id"] as? String)!,
+                "google_id": "ios",
+                "profile_desc":"dd"
+                
+            ]
+            HeaderDictionary = [
+                "device_id": "y",
+                "device_imei": "yu",
+                "device_type": "ios",
+                
+            ]
+
+            
+            
+                   }
+    }
+    func validate(YourEMailAddress: String) -> Bool {
+        let REGEX: String
+        REGEX = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+        return NSPredicate(format: "SELF MATCHES %@", REGEX).evaluate(with: YourEMailAddress)
+    }
+
     @IBAction func Google_register(_ sender: Any) {
         
         GIDSignIn.sharedInstance().signIn()
@@ -128,47 +191,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
 
     @IBAction func next_action(_ sender: Any) {
         
-
-        
-         FullDataDictionary = [
-            "register_type":"facebook",
-            "email":self.email_txt.text!,
-            "password":self.password_txt.text!,
-            "first_name":self.firstname_txt.text!,
-            "last_name": self.lastname_txt.text!,
-            "mobile": contrycode_txt.text! + mobile_txt.text!,
-            "gender":genderString,
-            "user_image": "a",
-            "user_type": UserType,
-            "facebook_id": (self.fbUserDictionary["id"] as? String)!,
-            "google_id": "ios",
-            "profile_desc":"dd"
-
-        ]
-        HeaderDictionary = [
-            "device_id": "y",
-            "device_imei": "yu",
-            "device_type": "ios",
-            
-        ]
-//
-//        print("PARMSSS",parameters)
-//        
-//        
-//        let urlString = "http://192.168.1.20:9002/register/register"
-//        
-//        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
-//            response in
-//            switch response.result {
-//            case .success:
-//                print(response)
-//                
-//                break
-//            case .failure(let error):
-//                
-//                print(error)
-//            }
-//        }
+        validation()
 
            }
     
