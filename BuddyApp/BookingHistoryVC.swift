@@ -20,24 +20,45 @@ class BookingHistoryVC: UIViewController {
         super.viewDidLoad()
 
         fetchBookingData()
+        //http://192.168.1.25:2500/booking/viewBookingHistory
+//        "user_id: 123
+//        user_type : trainee/trainer
+//        token : 1234"
     }
 
     func fetchBookingData() {
-        guard let JSONData = Data.ts_dataFromJSONFile("BookingHistory") else { return }
-        let jsonObject = JSON(data: JSONData)
-        if jsonObject != JSON.null {
-            print("JSON RESP:",jsonObject)
+//        guard let JSONData = Data.ts_dataFromJSONFile("BookingHistory") else { return }
+//        let jsonObject = JSON(data: JSONData)
+//        if jsonObject != JSON.null {
+//            print("JSON RESP:",jsonObject)
+//            
+//            for dict in jsonObject["data"].arrayObject! {
+//
+//                let bookingModelObj : BookingHistoryModel = bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: dict as! Dictionary<String, Any>)
+//                bookingsArray.append(bookingModelObj)
+//                BookingHistoryDB.createBookingEntry(bookingModel: bookingModelObj)
+//            }
+//            
+//            print(bookingsArray)
+//            self.bookingHistoryTable.reloadData()
+//        }
+        
+        let parameters = ["user_id":"123","user_type":"trainer","token":"1234"]
+        
+        CommonMethods.serverCall(APIURL: "", parameters: parameters, headers: nil, onCompletion: { (jsondata) in
             
-            for dict in jsonObject["data"].arrayObject! {
-
-                let bookingModelObj : BookingHistoryModel = bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: dict as! Dictionary<String, Any>)
-                bookingsArray.append(bookingModelObj)
-                BookingHistoryDB.createBookingEntry(bookingModel: bookingModelObj)
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
             }
             
-            print(bookingsArray)
-            self.bookingHistoryTable.reloadData()
-        }
+            if let status = jsondata["status"] as? Int{
+                if status == 1{
+                    print("okkkk")
+                }
+            }
+        })
+
     }
     
     func test() {

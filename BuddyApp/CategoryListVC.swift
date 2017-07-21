@@ -31,7 +31,7 @@ class CategoryListVC: UIViewController {
         CommonMethods.serverCall(APIURL: "category/listCategory", parameters: [:], headers: nil, onCompletion: { (jsondata) in
             
             guard (jsondata["status"] as? Int) != nil else {
-                CommonMethods.alertView(view: self, title: "Error", message: "Server not responding", buttonTitle: "OK")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
             }
             

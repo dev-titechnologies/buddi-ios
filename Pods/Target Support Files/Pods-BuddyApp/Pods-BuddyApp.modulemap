@@ -1,0 +1,6 @@
+framework module Pods_BuddyApp {
+  umbrella header "Pods-BuddyApp-umbrella.h"
+
+  export *
+  module * { export * }
+}

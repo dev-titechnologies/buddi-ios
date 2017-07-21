@@ -40,7 +40,8 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
-  - SideMenu (2.3.3)
+  - SideMenu (2.3.2)
+  - SVProgressHUD (2.1.2)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -50,6 +51,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift (= 4.0.10)
   - SDWebImage (~> 3.8)
   - SideMenu
+  - SVProgressHUD
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -65,9 +67,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   IQKeyboardManagerSwift: 75ba21a23794a1e6b6fe6d9a267ea17f80e06771
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  SideMenu: a447554ae5c982e8077666389e1c8b0c8656e065
+  SideMenu: 3fa07dd05d4bade2b6f9889fb1877e312e1ba319
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 03bc5dc69a26b53a1f39a5b76dd1170dff750647
+PODFILE CHECKSUM: acc12d24b2c1bd030950e4b00bd041994e799370
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0
