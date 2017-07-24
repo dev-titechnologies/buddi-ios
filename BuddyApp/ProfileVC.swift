@@ -8,8 +8,13 @@
 
 import UIKit
 import SVProgressHUD
+import Alamofire
+import AlamofireImage
 
-class ProfileVC: UIViewController {
+
+
+
+class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
 
     @IBOutlet weak var edit_btn: UIBarButtonItem!
     @IBOutlet weak var gender_txt: UITextField!
@@ -25,6 +30,9 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var lblEmailID: UILabel!
     @IBOutlet weak var lblMobile: UILabel!
     @IBOutlet weak var lblGender: UILabel!
+    @IBOutlet weak var image_edit_btn: UIButton!
+    let imagePicker = UIImagePickerController()
+
     
     let profileDetails : ProfileModel = ProfileModel()
     var ProfileDict: NSDictionary!
@@ -34,9 +42,9 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        profileImage.layer.cornerRadius = 40
+        profileImage.layer.cornerRadius = 60
         profileImage.clipsToBounds = true
-        
+         imagePicker.delegate = self 
       
         
         
@@ -82,7 +90,7 @@ class ProfileVC: UIViewController {
         userid: "")
             
             
-            profileImage.image = UIImage.init(named: profile.profileImage)
+           // profileImage.image = UIImage.init(named: profile.profileImage)
             firstname_txt.text = profile.firstName
             lastname_txt.text = profile.lastName
             email_txt.text = profile.email
@@ -101,11 +109,23 @@ class ProfileVC: UIViewController {
       
         
     }
+    @IBAction func editImage_action(_ sender: Any) {
+        ProfilePicChoose()
+        
+    }
     @IBAction func editProfile_action(_ sender: Any) {
         
-        self.EditProfileAPI()
+        
+        image_edit_btn.isHidden = false
+        
+       // self.EditProfileAPI()
     }
     
+    @IBAction func testupload(_ sender: Any) {
+        
+        
+        self.UploadImageAPI()
+    }
     func EditProfileAPI()
     {
         
@@ -144,6 +164,25 @@ class ProfileVC: UIViewController {
     
 
     }
+   func ProfilePicChoose()
+   {
+    let actionSheet: UIAlertController = UIAlertController(title: "Edit Profile Picture", message: "", preferredStyle: .actionSheet)
+    actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(action: UIAlertAction) -> Void in
+        actionSheet.dismiss(animated: true, completion: {() -> Void in
+        })
+        
+    }))
+    actionSheet.addAction(UIAlertAction(title: "From Gallery", style: .default, handler: {(action: UIAlertAction) -> Void in
+        self.fromgallary()
+    }))
+    
+    actionSheet.addAction(UIAlertAction(title: "Take Picture", style: .default, handler: {(action: UIAlertAction) -> Void in
+        self.FromCamera()
+    }))
+    
+    
+    self.present(actionSheet, animated: true, completion: { _ in })
+    }
     
     
     func parseProfileDetails(profiledict: Dictionary<String, Any>) {
@@ -161,7 +200,7 @@ class ProfileVC: UIViewController {
         
         
         
-        profileImage.image = UIImage.init(named: profile.profileImage)
+      //  profileImage.image = UIImage.init(named: profile.profileImage)
         firstname_txt.text = profile.firstName
         lastname_txt.text = profile.lastName
         email_txt.text = profile.email
@@ -205,5 +244,79 @@ class ProfileVC: UIViewController {
              })
 
         
+    }
+    func fromgallary() {
+        
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func FromCamera(){
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+        imagePicker.cameraCaptureMode = .photo
+        imagePicker.modalPresentationStyle = .fullScreen
+        present(imagePicker,
+                              animated: true,
+                              completion: nil)
+    }
+
+    // MARK: - UIImagePickerControllerDelegate Methods
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.profileImage.image = pickedImage
+           /// self.profileImage.contentMode = .scaleAspectFit
+            
+                 }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    func UploadImageAPI() {
+        
+//        let parameters = ["file_name":"image",
+//                          "file_type":"img",
+//        "upload_type" : "profile"] as [String : Any]
+//        
+//        let headers = [
+//            "token":appDelegate.Usertoken ]
+//        
+//        
+//        let submitLink =  NSURL(string: "http://192.168.1.14:4001/upload/upload")
+//        
+//        let configuration = URLSessionConfiguration.default
+//        
+//        
+//        
+//        
+//        
+//        self.alamofireManager = Alamofire.Manager(configuration: configuration)
+//        self.alamofireManager!.upload(.POST, submitLink!, headers: headers, multipartFormData: { multipartFormData in
+//            multipartFormData.appendBodyPart(data: type.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, name :"edit_type")
+//            //multipartFormData.appendBodyPart(data: token.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, name :"token")
+//            var uploadImageData = NSData()
+//            //  collageImageData = UIImagePNGRepresentation(imagedata)!
+//            
+//            uploadImageData = imagedata
+//            
+//            multipartFormData.appendBodyPart(data: uploadImageData, name: "profile_image", fileName: "image.\("png")", mimeType: "image/\("png")")
+//            
+//        },
+//                                      encodingCompletion: { encodingResult in
+//                                        switch encodingResult {
+//                                        case .Success(let upload, _, _):
+//                                            upload.responseJSON { response in
+//                                                debugPrint(response)
+//                                                print("UPLOAD RESPONSE \(response)")
+//                                            }
+//                                        case .Failure(let encodingError):
+//                                            print("ERROR",encodingError)
+//                                            
+//                                        }
+//        })
     }
 }
