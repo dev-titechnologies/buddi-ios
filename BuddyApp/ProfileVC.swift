@@ -132,7 +132,10 @@ class ProfileVC: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == 1{
                     
+                    self.ProfileDict = jsondata["data"]  as! NSDictionary
                     
+                    self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
+
                 }
             }
         })
