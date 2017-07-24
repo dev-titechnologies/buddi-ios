@@ -49,8 +49,6 @@
 		F35FDAE61F1E51B50091900D /* ReviewHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAE41F1E51B50091900D /* ReviewHistoryVC.swift */; };
 		F35FDAE81F1E51DE0091900D /* ReviewHistory.json in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAE71F1E51DE0091900D /* ReviewHistory.json */; };
 		F35FDAF11F1E52840091900D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAF01F1E52840091900D /* Main.storyboard */; };
-		F37350931F20785600BE9DB6 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350921F20785600BE9DB6 /* ProfileVC.swift */; };
-		F37350951F20788100BE9DB6 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350941F20788100BE9DB6 /* ProfileModel.swift */; };
 		F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350961F207A2D00BE9DB6 /* LeftMenuTableCell.swift */; };
 		F37350991F207A2D00BE9DB6 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350971F207A2D00BE9DB6 /* LeftViewController.swift */; };
 		F373509D1F20911D00BE9DB6 /* CategoryListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373509C1F20911D00BE9DB6 /* CategoryListVC.swift */; };
@@ -58,10 +56,12 @@
 		F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350A01F20A7F900BE9DB6 /* CategoryModel.swift */; };
 		F37350AC1F20AA3400BE9DB6 /* CategoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350AA1F20AA3400BE9DB6 /* CategoryDB.swift */; };
 		F37350AD1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350AB1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift */; };
+		F38BB5411F26069200824C15 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5401F26069200824C15 /* ProfileVC.swift */; };
+		F38BB5431F2606A400824C15 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5421F2606A400824C15 /* ProfileModel.swift */; };
+		F38BB5451F26077B00824C15 /* ProfileDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5441F26077B00824C15 /* ProfileDB.swift */; };
+		F38BB5471F2607D300824C15 /* ProfileDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5461F2607D300824C15 /* ProfileDB+CoreDataProperties.swift */; };
 		F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */; };
 		F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */; };
-		F3990E1A1F1F6553000FFF7B /* ProfileDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E161F1F6553000FFF7B /* ProfileDB.swift */; };
-		F3990E1B1F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E171F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift */; };
 		F3990E1C1F1F6553000FFF7B /* ReviewHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */; };
 		F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E191F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */; };
 		F3990E1F1F1F6929000FFF7B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E1E1F1F6929000FFF7B /* Reachability.swift */; };
@@ -146,8 +146,6 @@
 		F35FDAE41F1E51B50091900D /* ReviewHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewHistoryVC.swift; sourceTree = "<group>"; };
 		F35FDAE71F1E51DE0091900D /* ReviewHistory.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ReviewHistory.json; sourceTree = "<group>"; };
 		F35FDAF01F1E52840091900D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		F37350921F20785600BE9DB6 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		F37350941F20788100BE9DB6 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		F37350961F207A2D00BE9DB6 /* LeftMenuTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuTableCell.swift; sourceTree = "<group>"; };
 		F37350971F207A2D00BE9DB6 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		F373509C1F20911D00BE9DB6 /* CategoryListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryListVC.swift; sourceTree = "<group>"; };
@@ -155,10 +153,12 @@
 		F37350A01F20A7F900BE9DB6 /* CategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		F37350AA1F20AA3400BE9DB6 /* CategoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDB.swift; sourceTree = "<group>"; };
 		F37350AB1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CategoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F38BB5401F26069200824C15 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		F38BB5421F2606A400824C15 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		F38BB5441F26077B00824C15 /* ProfileDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDB.swift; sourceTree = "<group>"; };
+		F38BB5461F2607D300824C15 /* ProfileDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryDB.swift; sourceTree = "<group>"; };
 		F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookingHistoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F3990E161F1F6553000FFF7B /* ProfileDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDB.swift; sourceTree = "<group>"; };
-		F3990E171F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewHistoryDB.swift; sourceTree = "<group>"; };
 		F3990E191F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReviewHistoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F3990E1E1F1F6929000FFF7B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -412,7 +412,7 @@
 		F35FDAC11F1DEB7F0091900D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F37350941F20788100BE9DB6 /* ProfileModel.swift */,
+				F38BB5421F2606A400824C15 /* ProfileModel.swift */,
 				F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */,
 				F35FDAE01F1E518D0091900D /* ReviewHistoryModel.swift */,
 				F302BB911F1F2B5A00186BCC /* LoginModel.swift */,
@@ -434,7 +434,7 @@
 		F35FDAE91F1E51E10091900D /* Profile View */ = {
 			isa = PBXGroup;
 			children = (
-				F37350921F20785600BE9DB6 /* ProfileVC.swift */,
+				F38BB5401F26069200824C15 /* ProfileVC.swift */,
 			);
 			name = "Profile View";
 			sourceTree = "<group>";
@@ -468,8 +468,8 @@
 				F316E7EA1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift */,
 				F37350AA1F20AA3400BE9DB6 /* CategoryDB.swift */,
 				F37350AB1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift */,
-				F3990E161F1F6553000FFF7B /* ProfileDB.swift */,
-				F3990E171F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift */,
+				F38BB5441F26077B00824C15 /* ProfileDB.swift */,
+				F38BB5461F2607D300824C15 /* ProfileDB+CoreDataProperties.swift */,
 				F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */,
 				F3990E191F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift */,
 				F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */,
@@ -793,11 +793,12 @@
 				F316E7F61F22361B00994447 /* Question2VC.swift in Sources */,
 				F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */,
 				F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */,
-				F3990E1A1F1F6553000FFF7B /* ProfileDB.swift in Sources */,
+				F38BB5431F2606A400824C15 /* ProfileModel.swift in Sources */,
 				F316E7EB1F21BF4E00994447 /* SubCategoryDB.swift in Sources */,
 				F373509F1F20913800BE9DB6 /* CategoryListCell.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
 				F316E7EC1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift in Sources */,
+				F38BB5411F26069200824C15 /* ProfileVC.swift in Sources */,
 				F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */,
 				F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */,
 				F373509D1F20911D00BE9DB6 /* CategoryListVC.swift in Sources */,
@@ -805,17 +806,16 @@
 				F3990E1F1F1F6929000FFF7B /* Reachability.swift in Sources */,
 				F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */,
 				F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */,
-				F37350951F20788100BE9DB6 /* ProfileModel.swift in Sources */,
-				F37350931F20785600BE9DB6 /* ProfileVC.swift in Sources */,
 				F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */,
 				F37350AC1F20AA3400BE9DB6 /* CategoryDB.swift in Sources */,
 				F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */,
+				F38BB5451F26077B00824C15 /* ProfileDB.swift in Sources */,
 				F322FC451F1CE62100381B8C /* BuddyApp.xcdatamodeld in Sources */,
 				F316E7F81F22364F00994447 /* Question3VC.swift in Sources */,
 				F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */,
 				F302BB921F1F2B5A00186BCC /* LoginModel.swift in Sources */,
-				F3990E1B1F1F6553000FFF7B /* ProfileDB+CoreDataProperties.swift in Sources */,
 				F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */,
+				F38BB5471F2607D300824C15 /* ProfileDB+CoreDataProperties.swift in Sources */,
 				F35FDADD1F1E517C0091900D /* BookingDetailsVC.swift in Sources */,
 				F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */,
 				F3990E211F1F77E1000FFF7B /* APIURLs.swift in Sources */,

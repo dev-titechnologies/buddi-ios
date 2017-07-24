@@ -199,13 +199,24 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
                     appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
-                    appDelegate.USER_TYPE = (self.jsondict["user_type"] as? String)!
+                    
+                    
+                    appDelegate.USER_TYPE =  self.UserType
+                    
+                    
+                    userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
+                    userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
+                    userDefaults.set(self.UserType, forKey: "userType")
+                    
+
+                    //appDelegate.USER_TYPE = (self.jsondict["user_type"] as? String)!
+                     self.performSegue(withIdentifier: "logintohome", sender:self)
                     
                     CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                     
                     //logintohome
                     
-                    self.performSegue(withIdentifier: "logintohome", sender:self)
+                   
                     
                 }
                 else if status == 2
