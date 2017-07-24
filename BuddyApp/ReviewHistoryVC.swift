@@ -27,21 +27,41 @@ class ReviewHistoryVC: UIViewController {
     }
     
     func fetchReviewData() {
-        guard let JSONData = Data.ts_dataFromJSONFile("ReviewHistory") else { return }
-        let jsonObject = JSON(data: JSONData)
-        if jsonObject != JSON.null {
-            print("JSON RESP:",jsonObject)
+        
+        let parameters = ["user_id":"21","user_type":"trainer"]
+        let headers = ["token":"395883b4b930662706848a34"]
+        
+        CommonMethods.serverCall(APIURL: REVIEW_HISTORY_URL, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
             
-            for dict in jsonObject["data"].arrayObject! {
-                
-                print(dict)
-                let reviewModelObj = reviewHistoryModelObj.getReviewHistoryModelFromDict(dictionary: dict as! Dictionary<String, Any>)
-                reviewsArray.append(reviewModelObj)
-                ReviewHistoryDB.createReviewEntry(reviewModel: reviewModelObj)
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
             }
             
-            self.reviewHistoryTable.reloadData()
-        }
+            if let status = jsondata["status"] as? Int{
+                
+                if status == RESPONSE_STATUS.SUCCESS {
+                    print("Review History Response:",jsondata)
+                    
+//                    let booking_history_array : Array = jsondata["data"] as! NSArray as Array
+//                    for booking_history in booking_history_array{
+//                        
+//                        let modelObject = self.bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: booking_history as! Dictionary<String, Any>)
+//                        print(modelObject)
+//                        BookingHistoryDB.createBookingEntry(bookingModel: modelObject)
+//                        self.bookingsArray.append(modelObject)
+//                        self.bookingHistoryTable.reloadData()
+//                    }
+                }else if status == RESPONSE_STATUS.FAIL {
+                    print("Server Resp Fail")
+                    
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    print("Session Expired")
+                    
+                }
+            }
+        })
+
     }
 
     override func didReceiveMemoryWarning() {

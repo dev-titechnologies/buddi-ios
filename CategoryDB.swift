@@ -18,7 +18,6 @@ public class CategoryDB: NSManagedObject {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoryDB")
         fetchRequest.predicate = NSPredicate(format: "categoryId == %@", categoryModel.categoryId)
         
-        
         do {
             let categories = try context.fetch(fetchRequest)
             
@@ -44,6 +43,27 @@ public class CategoryDB: NSManagedObject {
                 appDelegate.saveContext()
             }
             
+        }catch {
+            fatalError("Failed to create Category Entry: \(error)")
+        }
+    }
+    
+    class func getCategoryByCategoryID(categoryId: String) -> String {
+        var categoryName = String()
+        
+        print("*** Category ID:",categoryId)
+    
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoryDB")
+        fetchRequest.predicate = NSPredicate(format: "categoryId == %@", categoryId)
+        
+        do {
+            let category = try context.fetch(fetchRequest)
+            let categ = category[0] as! NSManagedObject
+            print(categ)
+            categoryName = categ.value(forKey: "categoryName") as! String
+            print(categoryName)
+            return categoryName
+
         }catch {
             fatalError("Failed to create Category Entry: \(error)")
         }

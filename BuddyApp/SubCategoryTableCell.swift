@@ -10,6 +10,7 @@ import UIKit
 
 class SubCategoryTableCell: UITableViewCell {
 
+    @IBOutlet weak var lblSubCategoryName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
 
