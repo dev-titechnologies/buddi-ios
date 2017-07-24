@@ -37,7 +37,7 @@ class ProfileVC: UIViewController {
         profileImage.layer.cornerRadius = 40
         profileImage.clipsToBounds = true
         
-       flage_img.image = UIImage(named:"info.png")
+      
         
         
         if let result = ProfileDB.fetchUser()      {
