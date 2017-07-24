@@ -2049,6 +2049,14 @@
                             <constraint firstItem="qhb-Xu-if8" firstAttribute="leading" secondItem="R6l-le-bcs" secondAttribute="leading" constant="16" id="x34-KP-dQo"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="SpC-Sj-dRK">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="wDN-Zl-HKa">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="editProfile_action:" destination="dVK-Y1-VL6" id="FdN-du-hQg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="contycode_lbl" destination="gA2-2o-hJM" id="VQL-TE-H6E"/>
