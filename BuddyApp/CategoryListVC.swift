@@ -61,7 +61,7 @@ class CategoryListVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      
         print("SELECTED CATEGS:",categoriesArray)
-        if segue.identifier == "nextScreenSegue"{
+        if segue.identifier == "CategoryToQuestion1Segue"{
             print("Selected Categories are :",selectedCategories)
             var subCategoryIDsArray = [String]()
             
@@ -77,8 +77,6 @@ class CategoryListVC: UIViewController {
                     }
                 }
             }
-//            let nextScene =  segue.destination as! SubCategorySelectionVC
-//            nextScene.subCategories = selectedSubCategories
             //Storing values to Singleton Object for later use
             singletonObj.selectedSubCategories = selectedSubCategories
         }

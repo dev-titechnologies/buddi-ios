@@ -12,43 +12,22 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
 import IQKeyboardManagerSwift
-import UserNotifications
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
  var Usertoken = String()
     var UserId = Int()
     var USER_TYPE = String()
-    var DeviceToken = String()
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
-        if #available(iOS 10.0, *) {
-            let center = UNUserNotificationCenter.current()
-            center.delegate = self
-            center.requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(grant, error)  in
-                if error == nil {
-                    if grant {
-                        application.registerForRemoteNotifications()
-                    } else {
-                        //User didn't grant permission
-                    }
-                } else {
-                    print("error: ",error!)
-                }
-            })
-        } else {
-            // Fallback on earlier versions
-            let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-            application.registerUserNotificationSettings(notificationSettings)
-        }
-        
-        
+//        var configureError: NSError?
+//        GGLContext.sharedInstance().configureWithError(&configureError)
+//        assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
         GIDSignIn.sharedInstance().clientID = "681481687812-r3p3k9upg22juaq3co7bccqlbn8blhnc.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
    IQKeyboardManager.sharedManager().enable = true
@@ -127,23 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         
         
     }
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let tokenString = deviceToken.reduce("") { string, byte in
-            string + String(format: "%02X", byte)
-        }
-        print("token: ", tokenString)
-        
-       userDefaults.set(tokenString, forKey: "devicetoken")
-        
-    }
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        print(userInfo)
-        if application.applicationState == .active {
-            //write your code here when app is in foreground
-        } else {
-            //write your code here for other state
-        }
-    }
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
