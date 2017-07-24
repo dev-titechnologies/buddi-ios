@@ -47,6 +47,25 @@ class CommonMethods: NSObject {
         
         view.present(alert, animated: true, completion: nil)
     }
+    
+    class func getDateFromString(dateString: String) -> Date {
+        // print("DAYYT",dateStr)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale     = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
+        
+        let date = dateFormatter.date(from: dateString)
+        return date!
+    }
+    
+    class func getStringFromDate(date: Date) -> String{
+        let date = NSDate()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from:date as Date)
+        print(dateString) 
+        return dateString
+    }
 }
 
 
@@ -55,7 +74,7 @@ class Singleton {
     var userDefaults = UserDefaults()
     var appdelegate = AppDelegate()
     var context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-    var selectedSubCategories = [SubCategoryModel]()
+    var selectedSubCategories : [SubCategoryModel] = [SubCategoryModel]()
 
     static let sharedInstance : Singleton = {
         let instance = Singleton()
@@ -67,8 +86,8 @@ class Singleton {
         appdelegate = UIApplication.shared.delegate as! AppDelegate
         context = appdelegate.persistentContainer.viewContext
         selectedSubCategories = [SubCategoryModel]()
-    }
-   }
+    }   
+}
 
 public extension Data{
     

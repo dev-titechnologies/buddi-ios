@@ -19,33 +19,18 @@ class BookingHistoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         fetchBookingData()
-        //http://192.168.1.25:2500/booking/viewBookingHistory
-//        "user_id: 123
-//        user_type : trainee/trainer
-//        token : 1234"
     }
 
     func fetchBookingData() {
-//        guard let JSONData = Data.ts_dataFromJSONFile("BookingHistory") else { return }
-//        let jsonObject = JSON(data: JSONData)
-//        if jsonObject != JSON.null {
-//            print("JSON RESP:",jsonObject)
-//            
-//            for dict in jsonObject["data"].arrayObject! {
-//
-//                let bookingModelObj : BookingHistoryModel = bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: dict as! Dictionary<String, Any>)
-//                bookingsArray.append(bookingModelObj)
-//                BookingHistoryDB.createBookingEntry(bookingModel: bookingModelObj)
-//            }
-//            
-//            print(bookingsArray)
-//            self.bookingHistoryTable.reloadData()
-//        }
         
-        let parameters = ["user_id":"123","user_type":"trainer","token":"1234"]
+        let parameters = ["user_id":"21","user_type":"trainer"]
+        let headers = ["token":"395883b4b930662706848a34"]
         
-        CommonMethods.serverCall(APIURL: "", parameters: parameters, headers: nil, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: BOOKING_HISTORY_URL, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
             
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
@@ -53,43 +38,38 @@ class BookingHistoryVC: UIViewController {
             }
             
             if let status = jsondata["status"] as? Int{
-                if status == 1{
-                    print("okkkk")
+                
+//                let cat = status as RESPONSE_STATUS
+//                
+//                switch cat {
+//                case .SUCCESS :
+//                    print("SUCCESS")
+//                    break;
+//                case .FAIL:
+//                    print("FAIL")
+//
+//                    break;
+//                case .SESSION_EXPIRED:
+//                    print("SESSION_EXPIRED")
+//
+//                    break;
+//                }
+                
+                if status == 1 {
+                    print("Booking History Response:",jsondata)
+                    
+                    let booking_history_array : Array = jsondata["data"] as! NSArray as Array
+                    for booking_history in booking_history_array{
+                        
+                        let modelObject = self.bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: booking_history as! Dictionary<String, Any>)
+                        print(modelObject)
+                        BookingHistoryDB.createBookingEntry(bookingModel: modelObject)
+                        self.bookingsArray.append(modelObject)
+                        self.bookingHistoryTable.reloadData()
+                    }
                 }
             }
         })
-
-    }
-    
-    func test() {
-        
-        let parameters = [
-            "register_type":"a",
-            "email":"test@gmail.com",
-            "password":"a",
-            "first_name": "a",
-            "last_name": "a",
-            "mobile": "ios",
-            "gender":"a",
-            "user_image": "a",
-            "user_type": "a",
-            "facebook_id": "a",
-            "google_id": "ios",
-            "profile_desc":"jnkolj"
-        ]
-        
-        let headers = [
-            "device_id": "y",
-            "device_imei": "yu",
-            "device_type": "ios",
-            
-            ]
-        
-        print("PARMSSS",parameters)
-        
-        CommonMethods.serverCall(APIURL: REGISTER_URL, parameters: parameters, headers: headers) { (jsondata) in
-            print("1234",jsondata)
-        }
     }
     
     //MARK: - MEMORY WARNING
@@ -111,7 +91,9 @@ extension BookingHistoryVC: UITableViewDataSource{
         let cell: BookingHistoryTableCell = tableView.dequeueReusableCell(withIdentifier: "bookinghistorycellid") as! BookingHistoryTableCell
         
         cell.category.text = bookingsArray[indexPath.row].category
-        cell.date.text     = bookingsArray[indexPath.row].trainedDate
+        let stringDate = CommonMethods.getStringFromDate(date: bookingsArray[indexPath.row].trainedDate)
+        print(stringDate)
+        cell.date.text = stringDate
         
         return cell
     }

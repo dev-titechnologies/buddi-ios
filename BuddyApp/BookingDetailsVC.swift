@@ -35,7 +35,7 @@ class BookingDetailsVC: UIViewController {
         lblBookingId.text = bookingModel.bookingId
         lblTrainerName.text = bookingModel.trainerName
         lblTrainingStatus.text = bookingModel.trainingStatus
-        lblDate.text = bookingModel.trainedDate
+        lblDate.text = CommonMethods.getStringFromDate(date: bookingModel.trainedDate)
         lblPaymentStatus.text = bookingModel.paymentStatus
         lblCategory.text = bookingModel.category
     }
