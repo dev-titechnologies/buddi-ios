@@ -10,5 +10,3 @@ import Foundation
 
 let REGISTER_URL = "register/register"
 let CATEGORY_URL = "category/listCategory"
-let BOOKING_HISTORY_URL = "booking/viewBookingHistory"
-let REVIEW_HISTORY_URL = "review/review"
