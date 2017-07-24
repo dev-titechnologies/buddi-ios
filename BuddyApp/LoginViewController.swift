@@ -18,6 +18,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     var UserType = String()
     var googleUserDictionary: NSDictionary!
     var jsondict: NSDictionary!
+    var profileImageUrl = String()
 
     @IBOutlet weak var password_txt: UITextField!
     @IBOutlet weak var email_txt: UITextField!
@@ -93,6 +94,9 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         
     }
     @IBAction func NormalLogin(_ sender: Any) {
+        
+        
+        self.LOginApi(Email: email_txt.text!, Passwrd: password_txt.text!, loginType: "normal", UserType: self.UserType, FBId: "", GoogleId: "")
     }
     
     @IBAction func GoogleLogin_action(_ sender: Any) {
@@ -150,7 +154,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     
                     print("RESULT",result!)
                      self.fbUserDictionary = result as? NSDictionary
-                    
+                                     
                     
         self.LOginApi(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
                     
@@ -183,7 +187,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             "device_type": "ios",
             
             ]
-        
+        print("LOGIN PARAMS",parameters)
 
         
         CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
@@ -199,13 +203,24 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
                     appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
-                    appDelegate.USER_TYPE = (self.jsondict["user_type"] as? String)!
+//                    appDelegate.USER_TYPE = (self.jsondict["user_type"] as? String)!
+                    
+                   appDelegate.USER_TYPE =  self.UserType
+                    
+                    
+                    userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
+                    userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
+                    userDefaults.set(self.UserType, forKey: "userType")
+
+                    
+                    
+                    self.performSegue(withIdentifier: "logintohome", sender:self)
                     
                     CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                     
                     //logintohome
                     
-                    self.performSegue(withIdentifier: "logintohome", sender:self)
+                    
                     
                 }
                 else if status == 2

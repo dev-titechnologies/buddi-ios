@@ -12,12 +12,11 @@ class SubCategorySelectionVC: UIViewController {
 
     @IBOutlet weak var subCategoryTable: UITableView!
     var subCategories = [SubCategoryModel]()
-    let singletonObj = Singleton.sharedInstance
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        subCategories = singletonObj.selectedSubCategories
         print("SubCategories:",subCategories)
     }
 
@@ -30,21 +29,16 @@ class SubCategorySelectionVC: UIViewController {
     }
 }
 
-extension SubCategorySelectionVC: UITableViewDataSource{
-   
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return subCategories.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell: SubCategoryTableCell = tableView.dequeueReusableCell(withIdentifier: "subCategoryCellId") as! SubCategoryTableCell
-        
-        cell.lblSubCategoryName.text = subCategories[indexPath.row].subCategoryName
-
-        return cell
-    }
-}
+//extension SubCategorySelectionVC: UITableViewDataSource{
+//   
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return subCategories.count
+//    }
+//    
+////    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+////        
+////    }
+//}
 
 extension SubCategorySelectionVC: UITableViewDelegate {
     
