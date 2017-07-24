@@ -78,6 +78,7 @@
 		F3990E211F1F77E1000FFF7B /* APIURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E201F1F77E1000FFF7B /* APIURLs.swift */; };
 		F3AA6C831F21C4F500F44DC2 /* libPhoneNumber_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */; };
 		F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */; };
+		F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */; };
 		F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */; };
 		F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7D1F20F8BE00D51277 /* String Constants.swift */; };
 		F48562D84E3A72F7B5164F69 /* Pods_BuddyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */; };
@@ -177,6 +178,7 @@
 		F3990E201F1F77E1000FFF7B /* APIURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIURLs.swift; sourceTree = "<group>"; };
 		F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libPhoneNumber_iOS.framework; path = "Pods/../build/Debug-iphoneos/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"; sourceTree = "<group>"; };
 		F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVideoUploadVC.swift; sourceTree = "<group>"; };
+		F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTestAnswersModel.swift; sourceTree = "<group>"; };
 		F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategorySelectionVC.swift; sourceTree = "<group>"; };
 		F3F77C7D1F20F8BE00D51277 /* String Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String Constants.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -438,6 +440,7 @@
 				F302BB911F1F2B5A00186BCC /* LoginModel.swift */,
 				F37350A01F20A7F900BE9DB6 /* CategoryModel.swift */,
 				F316E7ED1F21BF6E00994447 /* SubCategoryModel.swift */,
+				F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -810,6 +813,7 @@
 				F316E7EE1F21BF6E00994447 /* SubCategoryModel.swift in Sources */,
 				F316E7F41F220CEC00994447 /* Question1VC.swift in Sources */,
 				F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */,
+				F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */,
 				F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */,
 				F322FC3F1F1CE62000381B8C /* ViewController.swift in Sources */,
 				F316E7F61F22361B00994447 /* Question2VC.swift in Sources */,

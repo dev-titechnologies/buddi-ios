@@ -21,6 +21,14 @@ struct RESPONSE_STATUS {
     static let SESSION_EXPIRED = 3
 }
 
+struct SUB_CATEGORY_TITLES {
+    static let SQUAT = "Squat"
+    static let DEAD_LIFT = "Deadlift"
+    static let BENCH_PRESS = "Bench Press"
+    static let SNACH = "Snatch"
+    static let CLEAN_JERK = "Clean & Jerk"
+}
+
 class Appconstants: NSObject {
 
 }

@@ -28,8 +28,8 @@ class ReviewHistoryVC: UIViewController {
     
     func fetchReviewData() {
         
-        let parameters = ["user_id":"21","user_type":"trainer"]
-        let headers = ["token":"395883b4b930662706848a34"]
+        let parameters = ["user_id":"21","user_type":"trainee"]
+        let headers = ["token":"e059760236120b73def591b5"]
         
         CommonMethods.serverCall(APIURL: REVIEW_HISTORY_URL, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
             
@@ -43,15 +43,15 @@ class ReviewHistoryVC: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS {
                     print("Review History Response:",jsondata)
                     
-//                    let booking_history_array : Array = jsondata["data"] as! NSArray as Array
-//                    for booking_history in booking_history_array{
-//                        
-//                        let modelObject = self.bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: booking_history as! Dictionary<String, Any>)
-//                        print(modelObject)
-//                        BookingHistoryDB.createBookingEntry(bookingModel: modelObject)
-//                        self.bookingsArray.append(modelObject)
-//                        self.bookingHistoryTable.reloadData()
-//                    }
+                    let review_history_array : Array = jsondata["data"] as! NSArray as Array
+                    for review_history in review_history_array{
+                        
+                        let modelObject = self.reviewHistoryModelObj.getReviewHistoryModelFromDict(dictionary: review_history as! Dictionary<String, Any>)
+                        print(modelObject)
+                        ReviewHistoryDB.createReviewEntry(reviewModel: modelObject)
+                        self.reviewsArray.append(modelObject)
+                        self.reviewHistoryTable.reloadData()
+                    }
                 }else if status == RESPONSE_STATUS.FAIL {
                     print("Server Resp Fail")
                     
@@ -82,8 +82,11 @@ extension  ReviewHistoryVC: UITableViewDataSource {
         
         let cell: ReviewHistoryTableCell = tableView.dequeueReusableCell(withIdentifier: "reviewHistoryCellId") as! ReviewHistoryTableCell
         
+        let stringDate = CommonMethods.getStringFromDate(date: reviewsArray[indexPath.row].reviewDate)
+        print(stringDate)
+
         cell.lblReviewDesc.text = reviewsArray[indexPath.row].reviewDescription
-        cell.lblReviewDate.text = reviewsArray[indexPath.row].reviewDate
+        cell.lblReviewDate.text = stringDate
         cell.lblTraineeName.text = reviewsArray[indexPath.row].traineeName
         cell.lblStarRatingValue.text = reviewsArray[indexPath.row].starRatingValue
 

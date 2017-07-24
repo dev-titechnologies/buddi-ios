@@ -14,7 +14,7 @@ class ReviewHistoryModel {
     var traineeId : String = String()
     var traineeName : String = String()
     var reviewDescription : String = String()
-    var reviewDate : String = String()
+    var reviewDate : Date = Date()
     var starRatingValue : String = String()
     var category : String = String()
     var trainerId : String = String()
@@ -22,7 +22,7 @@ class ReviewHistoryModel {
 
     init(){}
     
-    init(traineeId: String, traineeName: String, reviewDescription: String, reviewDate: String, starRatingValue: String, category: String,reviewId: String, trainerId: String, trainerName: String){
+    init(traineeId: String, traineeName: String, reviewDescription: String, reviewDate: Date, starRatingValue: String, category: String,reviewId: String, trainerId: String, trainerName: String){
         
         self.reviewId = reviewId
         self.traineeId = traineeId
@@ -39,16 +39,18 @@ class ReviewHistoryModel {
     func getReviewHistoryModelFromDict(dictionary: Dictionary<String, Any>) -> ReviewHistoryModel {
         
         let model: ReviewHistoryModel = ReviewHistoryModel()
+        let trainedDate = CommonMethods.getDateFromString(dateString: dictionary["review_date"] as! String)
+        let categoryName = CategoryDB.getCategoryByCategoryID(categoryId: String(describing: dictionary["category"]!))
         
-        model.reviewId = dictionary["reviewId"] as! String
-        model.traineeId = dictionary["traineeId"] as! String
-        model.traineeName = dictionary["traineeName"] as! String
-        model.reviewDescription = dictionary["reviewDesc"] as! String
-        model.reviewDate = dictionary["reviewDate"] as! String
-        model.starRatingValue = dictionary["starRatingValue"] as! String
-        model.category = dictionary["category"] as! String
-        model.trainerId = dictionary["trainerId"] as! String
-        model.trainerName = dictionary["trainerName"] as! String
+        model.reviewId = String(describing: dictionary["review_id"]!)
+        model.traineeId = String(describing: dictionary["trainee_id"]!)
+        model.traineeName = dictionary["trainee_name"] as! String
+        model.reviewDescription = dictionary["review_desc"] as! String
+        model.reviewDate = trainedDate
+        model.starRatingValue = String(describing: dictionary["rating_count"]!)
+        model.category = categoryName
+        model.trainerId = String(describing: dictionary["trainer_id"]!)
+        model.trainerName = dictionary["trainer_name"] as! String
         
         return model
     }

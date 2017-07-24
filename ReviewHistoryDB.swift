@@ -42,7 +42,7 @@ public class ReviewHistoryDB: NSManagedObject {
                 
                 review.reviewId = reviewModel.reviewId
                 review.category = reviewModel.category
-                review.reviewDate = reviewModel.reviewDate
+                review.reviewDate = reviewModel.reviewDate as NSDate
                 review.reviewDescription = reviewModel.reviewDescription
                 review.starRatingValue = reviewModel.starRatingValue
                 review.traineeId = reviewModel.traineeId
