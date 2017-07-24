@@ -1890,9 +1890,20 @@
                                 <rect key="frame" x="0.0" y="67" width="375" height="175"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profileImage" translatesAutoresizingMaskIntoConstraints="NO" id="zcg-te-hrx">
-                                        <rect key="frame" x="153" y="55" width="80" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="119" y="21" width="120" height="120"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89j-gg-YFq">
+                                        <rect key="frame" x="119" y="21" width="120" height="120"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Edit">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="editImage_action:" destination="dVK-Y1-VL6" eventType="touchUpInside" id="BvD-gW-RfQ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.8054255374" green="0.64210174040000001" blue="0.17691577159999999" alpha="0.94311179580000004" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -2014,6 +2025,14 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BCg-DA-Tmi">
+                                <rect key="frame" x="203" y="583" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="testupload:" destination="dVK-Y1-VL6" eventType="touchUpInside" id="fDt-YZ-YfV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -2064,6 +2083,7 @@
                         <outlet property="firstname_txt" destination="qhb-Xu-if8" id="XKn-Ne-dxR"/>
                         <outlet property="flage_img" destination="cS2-ha-ONl" id="rxu-GX-1eL"/>
                         <outlet property="gender_txt" destination="1Xa-ad-y4j" id="cpp-za-ao2"/>
+                        <outlet property="image_edit_btn" destination="89j-gg-YFq" id="TxO-xd-rpO"/>
                         <outlet property="lastname_txt" destination="KA9-EJ-BSq" id="Cfj-rF-syG"/>
                         <outlet property="mobile_txt" destination="lb5-Dw-7R5" id="18T-ap-2Rv"/>
                         <outlet property="profileImage" destination="zcg-te-hrx" id="23e-OO-F8r"/>

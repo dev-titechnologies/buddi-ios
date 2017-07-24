@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (4.5.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
   - CountryPickerSwift (1.4.4)
   - FirebaseAnalytics (3.9.0):
     - FirebaseCore (~> 3.6)
@@ -47,6 +49,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
+  - AlamofireImage (~> 3.1)
   - CountryPickerSwift
   - Google/SignIn
   - IQKeyboardManagerSwift (= 4.0.10)
@@ -58,6 +61,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
   CountryPickerSwift: e31e67f2b95eb1fa6ad230e9eb0b49b020526d99
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
@@ -74,6 +78,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 388906895bf7dd7c7c0f5543175fc640b9248df4
+PODFILE CHECKSUM: d7af3a127585501ecd4f4976607b15e13d6310de
 
 COCOAPODS: 1.2.0

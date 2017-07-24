@@ -8,6 +8,7 @@ target 'BuddyApp' do
     pod 'Google/SignIn'
     pod 'SwiftyJSON'
     pod 'Alamofire', '~> 4.4'
+    pod 'AlamofireImage', '~> 3.1'
     pod 'CountryPickerSwift'
     pod 'CountryPickerSwift'
     pod 'IQKeyboardManagerSwift', '4.0.10'

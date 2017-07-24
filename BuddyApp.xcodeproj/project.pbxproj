@@ -60,6 +60,16 @@
 		F38BB5431F2606A400824C15 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5421F2606A400824C15 /* ProfileModel.swift */; };
 		F38BB5451F26077B00824C15 /* ProfileDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5441F26077B00824C15 /* ProfileDB.swift */; };
 		F38BB5471F2607D300824C15 /* ProfileDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5461F2607D300824C15 /* ProfileDB+CoreDataProperties.swift */; };
+		F38BB5491F2628E300824C15 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38BB5481F2628E300824C15 /* Alamofire.framework */; };
+		F38BB54B1F262ABB00824C15 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */; };
+		F38BB54C1F26376200824C15 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38BB5481F2628E300824C15 /* Alamofire.framework */; };
+		F38BB54D1F26376700824C15 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */; };
+		F38BB54E1F26376D00824C15 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38BB5481F2628E300824C15 /* Alamofire.framework */; };
+		F38BB54F1F26377100824C15 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */; };
+		F38BB5501F2643DB00824C15 /* AlamofireImage.framework in Sources */ = {isa = PBXBuildFile; fileRef = F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */; };
+		F38BB5511F2643E900824C15 /* Alamofire.framework in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5481F2628E300824C15 /* Alamofire.framework */; };
+		F38BB5521F2643F900824C15 /* AlamofireImage.framework in Sources */ = {isa = PBXBuildFile; fileRef = F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */; };
+		F38BB5531F2643FF00824C15 /* Alamofire.framework in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5481F2628E300824C15 /* Alamofire.framework */; };
 		F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */; };
 		F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */; };
 		F3990E1C1F1F6553000FFF7B /* ReviewHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */; };
@@ -158,6 +168,8 @@
 		F38BB5421F2606A400824C15 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		F38BB5441F26077B00824C15 /* ProfileDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDB.swift; sourceTree = "<group>"; };
 		F38BB5461F2607D300824C15 /* ProfileDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F38BB5481F2628E300824C15 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
+		F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/AlamofireImage/AlamofireImage.framework"; sourceTree = "<group>"; };
 		F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryDB.swift; sourceTree = "<group>"; };
 		F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookingHistoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewHistoryDB.swift; sourceTree = "<group>"; };
@@ -176,6 +188,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38BB54B1F262ABB00824C15 /* AlamofireImage.framework in Frameworks */,
+				F38BB5491F2628E300824C15 /* Alamofire.framework in Frameworks */,
 				F3AA6C831F21C4F500F44DC2 /* libPhoneNumber_iOS.framework in Frameworks */,
 				F302BBA51F1FA21900186BCC /* IQKeyboardManagerSwift.framework in Frameworks */,
 				F302BBA31F1F8D2000186BCC /* CountryPicker.framework in Frameworks */,
@@ -191,6 +205,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38BB54D1F26376700824C15 /* AlamofireImage.framework in Frameworks */,
+				F38BB54C1F26376200824C15 /* Alamofire.framework in Frameworks */,
 				F48562D84E3A72F7B5164F69 /* Pods_BuddyAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,6 +215,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38BB54F1F26377100824C15 /* AlamofireImage.framework in Frameworks */,
+				F38BB54E1F26376D00824C15 /* Alamofire.framework in Frameworks */,
 				8A1CBD1B94CA990064D6D512 /* Pods_BuddyAppUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,6 +227,8 @@
 		8A7AD5AFB8FF51439DD7F8C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */,
+				F38BB5481F2628E300824C15 /* Alamofire.framework */,
 				F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */,
 				F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */,
 				F302BBA21F1F8D2000186BCC /* CountryPicker.framework */,
@@ -777,6 +797,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38BB5531F2643FF00824C15 /* Alamofire.framework in Sources */,
+				F38BB5521F2643F900824C15 /* AlamofireImage.framework in Sources */,
 				F35FDAE61F1E51B50091900D /* ReviewHistoryVC.swift in Sources */,
 				F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */,
 				F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */,
@@ -839,6 +861,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38BB5511F2643E900824C15 /* Alamofire.framework in Sources */,
+				F38BB5501F2643DB00824C15 /* AlamofireImage.framework in Sources */,
 				F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
