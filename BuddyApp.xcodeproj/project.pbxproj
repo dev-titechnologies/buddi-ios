@@ -159,6 +159,7 @@
 		F3990E1E1F1F6929000FFF7B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		F3990E201F1F77E1000FFF7B /* APIURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIURLs.swift; sourceTree = "<group>"; };
 		F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libPhoneNumber_iOS.framework; path = "Pods/../build/Debug-iphoneos/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"; sourceTree = "<group>"; };
+		F3F03C6A1F25AC9F00CCD808 /* BuddyApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BuddyApp.entitlements; sourceTree = "<group>"; };
 		F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategorySelectionVC.swift; sourceTree = "<group>"; };
 		F3F77C7D1F20F8BE00D51277 /* String Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String Constants.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -293,6 +294,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F3F03C6A1F25AC9F00CCD808 /* BuddyApp.entitlements */,
 				F33AE4E01F20DA8F00B82E0C /* Registerviewcontroller */,
 				F373509B1F2090AD00BE9DB6 /* Category Lists */,
 				F373509A1F207A3800BE9DB6 /* Home Page */,
@@ -549,6 +551,11 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 7QVT6YDQZ2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					F322FC4F1F1CE62400381B8C = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -944,6 +951,7 @@
 			baseConfigurationReference = C276C8A416D6B1AE85D80F46 /* Pods-BuddyApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
 				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -965,6 +973,7 @@
 			baseConfigurationReference = 6716F58A837D4C72CA9FBE88 /* Pods-BuddyApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
 				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
