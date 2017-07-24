@@ -36,7 +36,6 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     var UserType = String()
     var RegisterType = String()
     var countryAlphaCode = String()
-    var profileImageUrl = String()
     override func viewDidLoad() {
         super.viewDidLoad()
        // navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 188/255, green: 214/255, blue: 255/255, alpha: 1)
@@ -45,7 +44,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         
         self.title = "Register"
                
-      
+        
         contrycode_txt.delegate = self
         firstname_txt.delegate = self
         lastname_txt.delegate = self
@@ -129,11 +128,6 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         contrycode_txt.text = phoneCode
         imgview.image = flag
         
-        
-        
-        let imageData = UIImagePNGRepresentation(flag)
-        userDefaults.set(imageData, forKey: "flage_img")
-        
          picker.isHidden = true
     }
     
@@ -203,7 +197,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 "last_name": self.lastname_txt.text!,
                 "mobile": contrycode_txt.text! + mobile_txt.text!,
                 "gender":genderString,
-                "user_image": "h",
+                "user_image": "a",
                 "user_type": UserType,
                 "facebook_id": FB_id ,
                 "google_id": GOOGLE_id ,
@@ -341,15 +335,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                      self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
                     self.lastname_txt.text = (self.fbUserDictionary["last_name"] as? String)!
                     self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
-                    
-                    //self.profileImageUrl = (self.fbUserDictionary ["picture"]!["data"]!["url"] as? String)!
-//                    
-//            let dict  = ((self.fbUserDictionary as? [String : String])?["picture"] as? [String : String])
-//                    self.profileImageUrl = (dict?[""])!
-//                    
-//                    print("URLL",self.profileImageUrl)
-                    
-                    
+                   
                     SVProgressHUD.dismiss()
                 }
             })

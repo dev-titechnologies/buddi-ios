@@ -20,9 +20,7 @@ extension ProfileDB {
     @NSManaged public var email: String?
     @NSManaged public var gender: String?
     @NSManaged public var mobile: String?
-    @NSManaged public var firstname: String?
-     @NSManaged public var lastname: String?
-     @NSManaged public var profile_desc: String?
+    @NSManaged public var name: String?
     @NSManaged public var profileImageData: NSData?
     @NSManaged public var profileImageURL: String?
 

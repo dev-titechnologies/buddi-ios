@@ -16,11 +16,10 @@ class ProfileModel{
     var email: String = String()
     var mobile: String = String()
     var gender: String = String()
-    var userid: String = String()
     
     init(){}
     
-    init(profileImage: String, firstName: String, lastName: String, email: String, mobile: String, gender: String, userid: String){
+    init(profileImage: String, firstName: String, lastName: String, email: String, mobile: String, gender: String){
         
         self.profileImage = profileImage
         self.firstName = firstName
@@ -28,7 +27,6 @@ class ProfileModel{
         self.email = email
         self.mobile = mobile
         self.gender = gender
-        self.userid = userid
         }
 
 }

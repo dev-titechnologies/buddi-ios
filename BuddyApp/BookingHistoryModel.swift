@@ -17,7 +17,7 @@ class BookingHistoryModel {
     var traineeName: String = String()
     var trainingStatus: String = String()
     var paymentStatus: String = String()
-    var trainedDate: String = String()
+    var trainedDate: Date = Date()
     var category: String = String()
     var location: String = String()
 
@@ -40,16 +40,18 @@ class BookingHistoryModel {
     func getBookingHistoryModelFromDict(dictionary: Dictionary<String, Any>) -> BookingHistoryModel {
         
         let model: BookingHistoryModel = BookingHistoryModel()
-        
-        model.bookingId = dictionary["bookingId"] as! String
-        model.trainerId = dictionary["trainerId"] as! String
-        model.trainedDate = dictionary["trainedDate"] as! String
-        model.category = dictionary["category"] as! String
-        model.paymentStatus = dictionary["paymentStatus"] as! String
-        model.trainingStatus = dictionary["trainingStatus"] as! String
-        model.traineeId = dictionary["traineeId"] as! String
-        model.traineeName = dictionary["traineeName"] as! String
-        model.trainerName = dictionary["trainerName"] as! String
+        let trainedDate = CommonMethods.getDateFromString(dateString: dictionary["trained_date"] as! String)
+        let categoryName = CategoryDB.getCategoryByCategoryID(categoryId: String(describing: dictionary["category"]!))
+
+        model.bookingId = String(describing: dictionary["booking_id"]!)
+        model.trainerId = String(describing: dictionary["trainer_id"]!)
+        model.trainedDate = trainedDate
+        model.category = categoryName
+        model.paymentStatus = dictionary["payment_status"] as! String
+        model.trainingStatus = dictionary["training_status"] as! String
+        model.traineeId = String(describing: dictionary["trainee_id"]!)
+        model.traineeName = dictionary["trainee_name"] as! String
+        model.trainerName = dictionary["trainer_name"] as! String
         model.location = dictionary["location"] as! String
 
         return model
