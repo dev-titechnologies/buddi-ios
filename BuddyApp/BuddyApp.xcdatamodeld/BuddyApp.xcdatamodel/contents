@@ -31,7 +31,7 @@
     </entity>
     <entity name="ReviewHistoryDB" representedClassName="ReviewHistoryDB" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="reviewDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reviewDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="reviewDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reviewId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="starRatingValue" optional="YES" attributeType="String" syncable="YES"/>

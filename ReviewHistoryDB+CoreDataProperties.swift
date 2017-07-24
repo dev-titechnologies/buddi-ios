@@ -17,7 +17,7 @@ extension ReviewHistoryDB {
     }
 
     @NSManaged public var category: String?
-    @NSManaged public var reviewDate: String?
+    @NSManaged public var reviewDate: NSDate?
     @NSManaged public var reviewDescription: String?
     @NSManaged public var reviewId: String?
     @NSManaged public var starRatingValue: String?

@@ -75,6 +75,7 @@ class Singleton {
     var appdelegate = AppDelegate()
     var context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     var selectedSubCategories : [SubCategoryModel] = [SubCategoryModel]()
+//    var trainerTestAnswers = 
 
     static let sharedInstance : Singleton = {
         let instance = Singleton()

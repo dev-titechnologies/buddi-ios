@@ -13,11 +13,73 @@ class CategoryVideoUploadVC: UIViewController {
 
     let imagePickerController = UIImagePickerController()
     var videoURL: NSURL?
+    let singletonObj = Singleton.sharedInstance
+    var subcategories = [SubCategoryModel]()
+    var subCategoryIndex = Int()
 
+    @IBOutlet weak var lblSubCategoryTitle: UILabel!
+    @IBOutlet weak var lblMainDescription: UILabel!
+    @IBOutlet weak var lblMalesDescription: UILabel!
+    @IBOutlet weak var lblFemalesDescription: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(singletonObj.selectedSubCategories)
+        subCategoryIndex = 0
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        subcategories = singletonObj.selectedSubCategories
+        
+        lblMainDescription.text = VIDEO_DESC
+        loadSubCategoryDetailsInitially()
+    }
+    
+    func loadSubCategoryDetailsInitially() {
+        
+        displayDetails(subCategoryName: subcategories[subCategoryIndex].subCategoryName)
+    }
+    
+    func displayDetails(subCategoryName: String) {
+        
+        switch subCategoryName {
+            
+        case SUB_CATEGORY_TITLES.SQUAT:
+            print("SQUAT")
+            lblSubCategoryTitle.text = SUB_CATEGORY_TITLES.SQUAT
+            lblMalesDescription.text = SQUAT_MALE_DESC
+            lblFemalesDescription.text = SQUAT_FEMALE_DESC
+            
+        case SUB_CATEGORY_TITLES.DEAD_LIFT:
+            print("DEAD_LIFT")
+            lblSubCategoryTitle.text = SUB_CATEGORY_TITLES.DEAD_LIFT
+            lblMalesDescription.text = DEADLIFT_MALE_DESC
+            lblFemalesDescription.text = DEADLIFT_FEMALE_DESC
 
+        case SUB_CATEGORY_TITLES.BENCH_PRESS:
+            print("BENCH_PRESS")
+            lblSubCategoryTitle.text = SUB_CATEGORY_TITLES.BENCH_PRESS
+            lblMalesDescription.text = BENCH_PRESS_MALE_DESC
+            lblFemalesDescription.text = BENCH_PRESS_FEMALE_DESC
+            
+        case SUB_CATEGORY_TITLES.SNACH:
+            print("SNACH")
+            lblSubCategoryTitle.text = SUB_CATEGORY_TITLES.SNACH
+            lblMalesDescription.text = SNACH_MALE_DESC
+            lblFemalesDescription.text = SNACH_FEMALE_DESC
+            
+        case SUB_CATEGORY_TITLES.CLEAN_JERK:
+            print("CLEAN_JERK")
+            lblSubCategoryTitle.text = SUB_CATEGORY_TITLES.CLEAN_JERK
+            lblMalesDescription.text = CLEAN_JERK_MALE_DESC
+            lblFemalesDescription.text = CLEAN_JERK_FEMALE_DESC
+            
+        default:
+            print("Sub Category not Defined")
+        }
     }
     
     @IBAction func pickVideoFromGalleryAction(_ sender: Any) {
@@ -28,11 +90,20 @@ class CategoryVideoUploadVC: UIViewController {
         present(imagePickerController, animated: true, completion: nil)
     }
 
+    @IBAction func subCategoryNextButton(_ sender: Any) {
+        
+        subCategoryIndex += 1
+        if subCategoryIndex == subcategories.count{
+            performSegue(withIdentifier: "afterVideoUploadSegue", sender: self)
+        }else{
+            displayDetails(subCategoryName: subcategories[subCategoryIndex].subCategoryName)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 }
-
 
 extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
 

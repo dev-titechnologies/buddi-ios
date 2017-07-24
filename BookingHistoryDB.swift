@@ -25,7 +25,7 @@ public class BookingHistoryDB: NSManagedObject {
             if bookings.count > 0 {
                 print("Booking entry present")
                 let booking = bookings[0] as! NSManagedObject
-//                booking.setValue(bookingModel.trainedDate, forKey: "bookedDate")
+                booking.setValue(bookingModel.trainedDate, forKey: "bookedDate")
                 booking.setValue(bookingModel.bookingId, forKey: "bookingId")
                 booking.setValue(bookingModel.category, forKey: "category")
                 booking.setValue(bookingModel.location, forKey: "location")
@@ -42,7 +42,7 @@ public class BookingHistoryDB: NSManagedObject {
                 let booking = NSEntityDescription.insertNewObject(forEntityName: "BookingHistoryDB", into:context) as! BookingHistoryDB
 
                 //Need to Convert String to Date
-//                            booking.bookedDate = bookingModel.trainedDate
+                booking.bookedDate = bookingModel.trainedDate as NSDate
                 booking.bookingId = bookingModel.bookingId
                 booking.category = bookingModel.category
                 booking.location = bookingModel.location
