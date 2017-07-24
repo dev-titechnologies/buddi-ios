@@ -39,23 +39,7 @@ class BookingHistoryVC: UIViewController {
             
             if let status = jsondata["status"] as? Int{
                 
-//                let cat = status as RESPONSE_STATUS
-//                
-//                switch cat {
-//                case .SUCCESS :
-//                    print("SUCCESS")
-//                    break;
-//                case .FAIL:
-//                    print("FAIL")
-//
-//                    break;
-//                case .SESSION_EXPIRED:
-//                    print("SESSION_EXPIRED")
-//
-//                    break;
-//                }
-                
-                if status == 1 {
+                if status == RESPONSE_STATUS.SUCCESS {
                     print("Booking History Response:",jsondata)
                     
                     let booking_history_array : Array = jsondata["data"] as! NSArray as Array
@@ -67,6 +51,12 @@ class BookingHistoryVC: UIViewController {
                         self.bookingsArray.append(modelObject)
                         self.bookingHistoryTable.reloadData()
                     }
+                }else if status == RESPONSE_STATUS.FAIL{
+                    print("Server Resp Fail")
+
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    print("Session Expired")
+
                 }
             }
         })
