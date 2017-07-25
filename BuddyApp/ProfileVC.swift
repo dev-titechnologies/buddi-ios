@@ -32,6 +32,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
     @IBOutlet weak var lblGender: UILabel!
     @IBOutlet weak var image_edit_btn: UIButton!
     let imagePicker = UIImagePickerController()
+    var imgData = NSData()
 
     
     let profileDetails : ProfileModel = ProfileModel()
@@ -267,7 +268,11 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.profileImage.image = pickedImage
+            
+            print("SIZE",pickedImage.size)
            /// self.profileImage.contentMode = .scaleAspectFit
+            
+            imgData = UIImageJPEGRepresentation(pickedImage, 0.6) as! NSData
             
                  }
         dismiss(animated: true, completion: nil)
@@ -278,45 +283,68 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
     }
     func UploadImageAPI() {
         
-//        let parameters = ["file_name":"image",
-//                          "file_type":"img",
-//        "upload_type" : "profile"] as [String : Any]
+        let headers = [
+            "token":appDelegate.Usertoken ]
+        let parameters = ["file_type":"img",
+                          "upload_type":"profile"]
+        
+        print("PARAMS",parameters)
+        print("HEADERS",headers)
+        
+        var filetype = String()
+        var uploadtype = String()
+        
+        filetype = "img"
+        uploadtype = "profile"
+        
+
+//
+//        let imageData = UIImagePNGRepresentation(self.profileImage.image!)!
 //        
-//        let headers = [
-//            "token":appDelegate.Usertoken ]
-//        
-//        
-//        let submitLink =  NSURL(string: "http://192.168.1.14:4001/upload/upload")
-//        
-//        let configuration = URLSessionConfiguration.default
-//        
-//        
-//        
-//        
-//        
-//        self.alamofireManager = Alamofire.Manager(configuration: configuration)
-//        self.alamofireManager!.upload(.POST, submitLink!, headers: headers, multipartFormData: { multipartFormData in
-//            multipartFormData.appendBodyPart(data: type.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, name :"edit_type")
-//            //multipartFormData.appendBodyPart(data: token.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, name :"token")
-//            var uploadImageData = NSData()
-//            //  collageImageData = UIImagePNGRepresentation(imagedata)!
+//        Alamofire.upload(imageData, to: "http://192.168.1.14:4001/upload/upload",headers: headers ).responseJSON { response in
+//            debugPrint(response)
+//        }
+        
+       // let updateUrl = NSURL(string: "http://192.168.1.14:4001/upload/upload" as String)
+        
+        
+        
+        
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            
+            if let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.6) {
+               // multipartFormData.append(data: imageData, name: "image", fileName: "file.png", mimeType: "image/png")
+                multipartFormData.append(imageData, withName: "file_name", fileName: "image", mimeType: "image/png")
+                
+            }
+            else{
+                print("NODATAAA")
+            }
+           
+            for (key, value) in parameters {
+                multipartFormData.append(value.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: key)
+                
+                
+            }
 //            
-//            uploadImageData = imagedata
-//            
-//            multipartFormData.appendBodyPart(data: uploadImageData, name: "profile_image", fileName: "image.\("png")", mimeType: "image/\("png")")
-//            
-//        },
-//                                      encodingCompletion: { encodingResult in
-//                                        switch encodingResult {
-//                                        case .Success(let upload, _, _):
-//                                            upload.responseJSON { response in
-//                                                debugPrint(response)
-//                                                print("UPLOAD RESPONSE \(response)")
-//                                            }
-//                                        case .Failure(let encodingError):
-//                                            print("ERROR",encodingError)
-//                                            
-//                                        }
-//        })
-    }
+//        multipartFormData.append(filetype.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: "file_type")
+//             multipartFormData.append(uploadtype.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: "upload_type")
+            
+            
+            
+        }, to: "http://192.168.1.14:4001/upload/upload",
+           method:.post,
+           headers:headers,
+           
+           encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    debugPrint(response)
+                }
+            case .failure(let encodingError):
+                print(encodingError)
+                
+            } })
+}
 }

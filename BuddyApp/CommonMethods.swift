@@ -87,7 +87,23 @@ class Singleton {
         appdelegate = UIApplication.shared.delegate as! AppDelegate
         context = appdelegate.persistentContainer.viewContext
         selectedSubCategories = [SubCategoryModel]()
-    }   
+    }
+    
+    let reachabilityManager = Alamofire.NetworkReachabilityManager(host: "www.apple.com")
+//    func listenForReachability() {
+//        self.reachabilityManager?.listener = { status in
+//            print("Network Status Changed: \(status)")
+//            switch status {
+//            case .NotReachable
+//            //Show error state
+//            case .Reachable(_), .Unknown: break
+//                //Hide error state
+//            }
+//        }
+//        
+//        self.reachabilityManager?.startListening()
+//    }
+    
 }
 
 public extension Data{
