@@ -10,9 +10,9 @@ import UIKit
 
 class SubmitForAdminApproval: UIViewController {
     
-    var categoryIDs: [Int] = [Int]()
+    var categoryIDs: [String] = [String]()
     var questionsDict = [String:String]()
-    var subCategoryIDs = [Int]()
+    var subCategoryIDs: [String] = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
