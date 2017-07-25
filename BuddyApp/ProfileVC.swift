@@ -11,9 +11,6 @@ import SVProgressHUD
 import Alamofire
 import AlamofireImage
 
-
-
-
 class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
 
     @IBOutlet weak var edit_btn: UIBarButtonItem!
