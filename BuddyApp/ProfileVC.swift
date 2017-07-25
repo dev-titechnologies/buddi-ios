@@ -29,7 +29,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
     @IBOutlet weak var lblGender: UILabel!
     @IBOutlet weak var image_edit_btn: UIButton!
     let imagePicker = UIImagePickerController()
-
     
     let profileDetails : ProfileModel = ProfileModel()
     var ProfileDict: NSDictionary!

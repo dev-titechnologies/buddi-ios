@@ -11,6 +11,8 @@ import UIKit
 class SubCategoryTableCell: UITableViewCell {
 
     @IBOutlet weak var lblSubCategoryName: UILabel!
+    @IBOutlet weak var cellSelectionView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 

@@ -508,7 +508,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="anO-kZ-Z2W" kind="show" id="77e-Zg-UN7"/>
+                                    <action selector="nextButtonAction:" destination="Zwj-Za-1Ie" eventType="touchUpInside" id="haT-t3-6X3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -519,6 +519,10 @@
                             <constraint firstItem="O6B-hN-jjd" firstAttribute="leading" secondItem="mC8-C0-Nad" secondAttribute="leading" id="lMd-Bk-jVq"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="txtZipCode" destination="3lc-5v-huf" id="vlb-ei-VIh"/>
+                        <segue destination="anO-kZ-Z2W" kind="show" identifier="afterZipCodeVCSegue" id="LvP-LZ-DAr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iwk-pH-iQp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -564,6 +568,9 @@
                                 <state key="normal" title="YES">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="yesButtonAction:" destination="anO-kZ-Z2W" eventType="touchUpInside" id="ci4-Ua-M3f"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcr-QB-whY">
                                 <rect key="frame" x="197" y="392" width="94" height="38"/>
@@ -572,6 +579,9 @@
                                 <state key="normal" title="NO">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="noButtonAction:" destination="anO-kZ-Z2W" eventType="touchUpInside" id="xau-Ah-RbL"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSL-dX-f5Q">
                                 <rect key="frame" x="0.0" y="603" width="375" height="64"/>
@@ -584,7 +594,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="iEN-8G-ANT" kind="show" id="gh6-Ml-DdW"/>
+                                    <action selector="nextButtonAction:" destination="anO-kZ-Z2W" eventType="touchUpInside" id="Rjd-Pq-3kZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -595,6 +605,12 @@
                             <constraint firstAttribute="trailing" secondItem="xSL-dX-f5Q" secondAttribute="trailing" id="srF-ab-f9P"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="btnNo" destination="pcr-QB-whY" id="k19-Ua-qzy"/>
+                        <outlet property="btnYes" destination="Lm0-IT-E5d" id="khd-5p-mlb"/>
+                        <outlet property="txtCurrentGymSubscriptions" destination="dim-HZ-dHd" id="Mue-RG-L0l"/>
+                        <segue destination="iEN-8G-ANT" kind="show" identifier="afterQ2VCSegue" id="mhU-nF-9Vx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gix-uj-fF8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -609,7 +625,7 @@
                         <viewControllerLayoutGuide type="bottom" id="rcd-IL-BzG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="LTz-Ob-W6q">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nice! Now tell us about your training history." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLu-8a-XMy">
@@ -622,10 +638,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i02-tx-v4i">
-                                <rect key="frame" x="0.0" y="158" width="375" height="842"/>
+                                <rect key="frame" x="0.0" y="158" width="375" height="742"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dpf-fI-9TQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="842"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="742"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVT-Qa-fkk">
                                                 <rect key="frame" x="8" y="8" width="359" height="130"/>
@@ -667,6 +683,9 @@
                                                         <state key="normal" title="YES">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="yesBtnActionEverCompletedCategory:" destination="iEN-8G-ANT" eventType="touchUpInside" id="T22-Ay-AH9"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gCc-8v-LBg">
                                                         <rect key="frame" x="185" y="83" width="94" height="38"/>
@@ -675,6 +694,9 @@
                                                         <state key="normal" title="NO">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="noBtnActionEverCompletedCategory:" destination="iEN-8G-ANT" eventType="touchUpInside" id="Oxw-1B-RWX"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.90009715030000004" green="0.90009715030000004" blue="0.90009715030000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -682,72 +704,8 @@
                                                     <constraint firstAttribute="height" constant="141" id="s6s-ou-Wqu"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QsH-q9-28a">
-                                                <rect key="frame" x="10" y="295" width="357" height="141"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Make the &quot;How long have you been training seriously?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjj-ey-fRt">
-                                                        <rect key="frame" x="2" y="8" width="355" height="60"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MeA-hk-elm">
-                                                        <rect key="frame" x="75" y="83" width="94" height="38"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <state key="normal" title="YES">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7V-XY-U8b">
-                                                        <rect key="frame" x="185" y="83" width="94" height="38"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <state key="normal" title="NO">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.90009715030000004" green="0.90009715030000004" blue="0.90009715030000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="141" id="Id6-t6-Qu8"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SDj-El-z0I">
-                                                <rect key="frame" x="11" y="601" width="355" height="141"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Are you currently a certified personal trainer?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGH-LD-fey">
-                                                        <rect key="frame" x="0.0" y="8" width="355" height="60"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDo-ep-VMz">
-                                                        <rect key="frame" x="73" y="83" width="94" height="38"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <state key="normal" title="YES">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ou-Tg-khU">
-                                                        <rect key="frame" x="183" y="83" width="94" height="38"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <state key="normal" title="NO">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.90009715030000004" green="0.90009715030000004" blue="0.90009715030000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="141" id="VHT-Xm-rlI"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gCX-Jn-zX4">
-                                                <rect key="frame" x="10" y="444" width="355" height="149"/>
+                                                <rect key="frame" x="10" y="295" width="355" height="149"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Have you ever coached anybody in this category?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfl-6U-3Md">
                                                         <rect key="frame" x="0.0" y="8" width="355" height="60"/>
@@ -763,6 +721,9 @@
                                                         <state key="normal" title="YES">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="yesBtnActionEverCoached:" destination="iEN-8G-ANT" eventType="touchUpInside" id="wyw-7V-PsM"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mm4-4U-D7J">
                                                         <rect key="frame" x="188" y="86" width="94" height="38"/>
@@ -771,6 +732,9 @@
                                                         <state key="normal" title="NO">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="noBtnActionEverCoached:" destination="iEN-8G-ANT" eventType="touchUpInside" id="Zdm-WL-CYZ"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.90009715030000004" green="0.90009715030000004" blue="0.90009715030000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -778,42 +742,77 @@
                                                     <constraint firstAttribute="height" constant="149" id="Jy1-8Z-Tkq"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SDj-El-z0I">
+                                                <rect key="frame" x="11" y="452" width="355" height="141"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Are you currently a certified personal trainer?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGH-LD-fey">
+                                                        <rect key="frame" x="0.0" y="8" width="355" height="60"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDo-ep-VMz">
+                                                        <rect key="frame" x="73" y="83" width="94" height="38"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <state key="normal" title="YES">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="yesBtnActionCertifiedTrainer:" destination="iEN-8G-ANT" eventType="touchUpInside" id="tzP-DS-Je0"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ou-Tg-khU">
+                                                        <rect key="frame" x="183" y="83" width="94" height="38"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <state key="normal" title="NO">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="noBtnActionCertifiedTrainer:" destination="iEN-8G-ANT" eventType="touchUpInside" id="RP4-FY-vOe"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.90009715030000004" green="0.90009715030000004" blue="0.90009715030000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="141" id="VHT-Xm-rlI"/>
+                                                </constraints>
+                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qcb-ys-flq">
-                                                <rect key="frame" x="0.0" y="778" width="375" height="64"/>
+                                                <rect key="frame" x="0.0" y="678" width="375" height="64"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="64" id="Pxm-Qv-kbH"/>
+                                                    <constraint firstAttribute="height" constant="64" id="kfu-mA-TFe"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <state key="normal" title="NEXT">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="jpg-vZ-UQI" kind="show" identifier="nextScreenSegue" id="WBb-TM-Nmo"/>
+                                                    <action selector="nextButtonAction:" destination="iEN-8G-ANT" eventType="touchUpInside" id="qUn-zl-RJF"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="QsH-q9-28a" firstAttribute="leading" secondItem="Dpf-fI-9TQ" secondAttribute="leading" constant="10" id="2xy-Jp-5JM"/>
-                                            <constraint firstAttribute="trailing" secondItem="Qcb-ys-flq" secondAttribute="trailing" id="3UV-8F-v1N"/>
+                                            <constraint firstAttribute="trailing" secondItem="Qcb-ys-flq" secondAttribute="trailing" id="8uk-9D-EgD"/>
                                             <constraint firstAttribute="trailing" secondItem="gCX-Jn-zX4" secondAttribute="trailing" constant="10" id="9Qp-aA-GCk"/>
                                             <constraint firstItem="gCX-Jn-zX4" firstAttribute="leading" secondItem="Dpf-fI-9TQ" secondAttribute="leading" constant="10" id="BUU-t4-dse"/>
+                                            <constraint firstAttribute="bottom" secondItem="Qcb-ys-flq" secondAttribute="bottom" id="FL2-xK-gaH"/>
                                             <constraint firstItem="SDj-El-z0I" firstAttribute="leading" secondItem="Dpf-fI-9TQ" secondAttribute="leading" constant="11" id="JKv-lN-HMa"/>
                                             <constraint firstItem="QSE-HL-qfE" firstAttribute="top" secondItem="pVT-Qa-fkk" secondAttribute="bottom" constant="8" id="JjU-tn-cFu"/>
                                             <constraint firstAttribute="trailing" secondItem="SDj-El-z0I" secondAttribute="trailing" constant="9" id="PiH-G7-Bz3"/>
-                                            <constraint firstItem="QsH-q9-28a" firstAttribute="top" secondItem="QSE-HL-qfE" secondAttribute="bottom" constant="8" id="Syz-ou-BlF"/>
                                             <constraint firstItem="pVT-Qa-fkk" firstAttribute="leading" secondItem="Dpf-fI-9TQ" secondAttribute="leading" constant="8" id="TUJ-yV-GyZ"/>
-                                            <constraint firstAttribute="trailing" secondItem="QsH-q9-28a" secondAttribute="trailing" constant="8" id="bac-lK-b9B"/>
+                                            <constraint firstItem="gCX-Jn-zX4" firstAttribute="top" secondItem="QSE-HL-qfE" secondAttribute="bottom" constant="8" id="akb-Wb-fOj"/>
                                             <constraint firstAttribute="trailing" secondItem="QSE-HL-qfE" secondAttribute="trailing" constant="8" id="bnq-J8-Ng5"/>
-                                            <constraint firstItem="Qcb-ys-flq" firstAttribute="leading" secondItem="Dpf-fI-9TQ" secondAttribute="leading" id="cYJ-vU-VBF"/>
-                                            <constraint firstAttribute="bottom" secondItem="Qcb-ys-flq" secondAttribute="bottom" id="iZm-vv-nY8"/>
                                             <constraint firstItem="SDj-El-z0I" firstAttribute="top" secondItem="gCX-Jn-zX4" secondAttribute="bottom" constant="8" id="ion-YJ-FYW"/>
                                             <constraint firstItem="pVT-Qa-fkk" firstAttribute="top" secondItem="Dpf-fI-9TQ" secondAttribute="top" constant="8" id="jkx-sU-6xq"/>
-                                            <constraint firstItem="gCX-Jn-zX4" firstAttribute="top" secondItem="QsH-q9-28a" secondAttribute="bottom" constant="8" id="luO-4S-JGJ"/>
-                                            <constraint firstItem="Qcb-ys-flq" firstAttribute="top" secondItem="SDj-El-z0I" secondAttribute="bottom" constant="36" id="tMz-53-9WK"/>
+                                            <constraint firstItem="Qcb-ys-flq" firstAttribute="top" secondItem="SDj-El-z0I" secondAttribute="bottom" constant="85" id="tXN-Sf-akd"/>
                                             <constraint firstAttribute="trailing" secondItem="pVT-Qa-fkk" secondAttribute="trailing" constant="8" id="uPF-ze-xpY"/>
                                             <constraint firstItem="QSE-HL-qfE" firstAttribute="leading" secondItem="Dpf-fI-9TQ" secondAttribute="leading" constant="8" id="vxc-84-vfi"/>
+                                            <constraint firstItem="Qcb-ys-flq" firstAttribute="leading" secondItem="Dpf-fI-9TQ" secondAttribute="leading" id="z2n-Mm-2xP"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -838,11 +837,21 @@
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="1000"/>
+                    <size key="freeformSize" width="375" height="900"/>
+                    <connections>
+                        <outlet property="btnNoCertifiedTrainer" destination="3Ou-Tg-khU" id="YBu-gL-j8D"/>
+                        <outlet property="btnNoEverCoachedAnybody" destination="Mm4-4U-D7J" id="vuy-SP-yci"/>
+                        <outlet property="btnNoEverCompletedCategory" destination="gCc-8v-LBg" id="IGJ-GD-wBL"/>
+                        <outlet property="btnYesCertifiedTrainer" destination="PDo-ep-VMz" id="5wT-hx-sR0"/>
+                        <outlet property="btnYesEverCoachedAnybody" destination="bf6-Vd-M0O" id="5Sz-td-g4Z"/>
+                        <outlet property="btnYesEverCompletedCategory" destination="zNq-HI-bdh" id="QSl-vX-JNa"/>
+                        <outlet property="txtHowLongTraining" destination="E1i-cU-8S8" id="jxH-Rx-5Jp"/>
+                        <segue destination="jpg-vZ-UQI" kind="show" identifier="afterQ3VCSegue" id="vEf-4J-msS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lzX-eL-zOB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3625" y="1652"/>
+            <point key="canvasLocation" x="3626" y="1608"/>
         </scene>
         <!--Sub Category SelectionVC-->
         <scene sceneID="Bh9-US-F4a">
@@ -870,6 +879,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gYr-PM-KGW">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mfi-YV-JyQ">
                                                     <rect key="frame" x="32" y="11" width="310" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -878,8 +891,15 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="gYr-PM-KGW" secondAttribute="bottom" id="62h-gz-hwH"/>
+                                                <constraint firstAttribute="trailing" secondItem="gYr-PM-KGW" secondAttribute="trailing" id="FcX-dq-iTQ"/>
+                                                <constraint firstItem="gYr-PM-KGW" firstAttribute="top" secondItem="3gr-g6-dD9" secondAttribute="top" id="cna-my-bVG"/>
+                                                <constraint firstItem="gYr-PM-KGW" firstAttribute="leading" secondItem="3gr-g6-dD9" secondAttribute="leading" id="kVt-EM-7c7"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="cellSelectionView" destination="gYr-PM-KGW" id="nDh-jW-QVr"/>
                                             <outlet property="lblSubCategoryName" destination="Mfi-YV-JyQ" id="6aT-XC-yT1"/>
                                         </connections>
                                     </tableViewCell>
@@ -900,7 +920,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="qma-WP-Iq9" kind="show" id="DJg-aX-mIa"/>
+                                    <action selector="nextButtonAction:" destination="jpg-vZ-UQI" eventType="touchUpInside" id="sDe-CT-AOJ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List your 1 rep max for each  movement that applies to the category you wish to coach:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEo-el-UwC">
@@ -949,6 +969,9 @@
                                         <state key="normal" title="YES">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="yesBtnActionLostOrGainWeight:" destination="jpg-vZ-UQI" eventType="touchUpInside" id="a5T-xa-egr"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Sb-wa-B9Y">
                                         <rect key="frame" x="187" y="60" width="94" height="38"/>
@@ -957,6 +980,9 @@
                                         <state key="normal" title="NO">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="noBtnActionLostOrGainWeight:" destination="jpg-vZ-UQI" eventType="touchUpInside" id="sbd-qn-5GO"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.90009715030000004" green="0.90009715030000004" blue="0.90009715030000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -989,16 +1015,18 @@
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="subCategoryTable" destination="nDV-zY-sbo" id="XFO-qd-QWH"/>
+                        <outlet property="txtCurrentWeight" destination="hhy-av-7Yg" id="kOV-iL-CeE"/>
+                        <segue destination="qma-WP-Iq9" kind="show" identifier="afterSubCategorySelectionSegue" id="eRL-j4-lIo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UoG-py-AHj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4344.8000000000002" y="1501.7991004497753"/>
+            <point key="canvasLocation" x="4345" y="1504"/>
         </scene>
-        <!--View Controller-->
+        <!--Final QuestionsVC-->
         <scene sceneID="Mrs-rh-CLp">
             <objects>
-                <viewController id="qma-WP-Iq9" sceneMemberID="viewController">
+                <viewController id="qma-WP-Iq9" customClass="FinalQuestionsVC" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SzI-sD-4C6"/>
                         <viewControllerLayoutGuide type="bottom" id="FpI-3F-fie"/>
@@ -1152,10 +1180,10 @@
             </objects>
             <point key="canvasLocation" x="5805.6000000000004" y="1503.5982008995504"/>
         </scene>
-        <!--View Controller-->
+        <!--Submit For Admin Approval-->
         <scene sceneID="DOt-e4-UxM">
             <objects>
-                <viewController id="dCC-ej-59R" sceneMemberID="viewController">
+                <viewController id="dCC-ej-59R" customClass="SubmitForAdminApproval" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R4A-Nh-Ioi"/>
                         <viewControllerLayoutGuide type="bottom" id="ul8-Xx-ObY"/>
@@ -1178,9 +1206,12 @@
                                     <constraint firstAttribute="height" constant="64" id="kH1-bn-rs0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="EXIT">
+                                <state key="normal" title="Submit for Approval">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitForApprovalAction:" destination="dCC-ej-59R" eventType="touchUpInside" id="Fcd-4F-QJO"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -12,6 +12,11 @@ import Foundation
 let appDelegate = Singleton.sharedInstance.appdelegate
 let context = Singleton.sharedInstance.context
 let userDefaults = Singleton.sharedInstance.userDefaults
+let trainerTestAnswers = Singleton.sharedInstance.trainerTestAnswers
+var selectedCategoriesSingleton = Singleton.sharedInstance.selectedCategories
+var selectedSubCategoriesSingleton = Singleton.sharedInstance.selectedSubCategories
+var selectedSubCategoriesAmongSingleton = Singleton.sharedInstance.selectedSubCategoriesAmong
+
 let SERVER_URL  = ""
 let SERVER_URL_Local = "http://192.168.1.14:4001/"
 

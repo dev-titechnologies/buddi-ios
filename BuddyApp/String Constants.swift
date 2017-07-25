@@ -10,6 +10,8 @@ import Foundation
 
 let ALERT_TITLE = "BuddyApp"
 let SERVER_NOT_RESPONDING = "Server not responding"
+let PLEASE_ENTER_ZIPCODE = "Please enter ZipCode"
+let PLEASE_ANSWER_ABOVE_QUESTIONS = "Please answer above all questions"
 
 let VIDEO_DESC = "*Videos should be anywhere between 30-90 seconds long. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 

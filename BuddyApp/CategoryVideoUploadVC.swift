@@ -13,7 +13,6 @@ class CategoryVideoUploadVC: UIViewController {
 
     let imagePickerController = UIImagePickerController()
     var videoURL: NSURL?
-    let singletonObj = Singleton.sharedInstance
     var subcategories = [SubCategoryModel]()
     var subCategoryIndex = Int()
 
@@ -24,16 +23,13 @@ class CategoryVideoUploadVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(singletonObj.selectedSubCategories)
         subCategoryIndex = 0
-        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        subcategories = singletonObj.selectedSubCategories
-        
+        subcategories = selectedSubCategoriesAmongSingleton
         lblMainDescription.text = VIDEO_DESC
         loadSubCategoryDetailsInitially()
     }

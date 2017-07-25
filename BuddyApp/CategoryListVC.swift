@@ -15,7 +15,6 @@ class CategoryListVC: UIViewController {
     let categoryModelObj: CategoryModel = CategoryModel()
     let subCategoryModelObj: SubCategoryModel = SubCategoryModel()
     var selectedSubCategories = [SubCategoryModel]()
-    let singletonObj = Singleton.sharedInstance
 
     var categoriesArray = [CategoryModel]()
     fileprivate var selectedCategories = [Int]()
@@ -63,6 +62,8 @@ class CategoryListVC: UIViewController {
         print("SELECTED CATEGS:",categoriesArray)
         if segue.identifier == "CategoryToQuestion1Segue"{
             print("Selected Categories are :",selectedCategories)
+            loadSelectedCategories()
+            print("Selected Categories are 111",selectedCategoriesSingleton)
             var subCategoryIDsArray = [String]()
             
             for values in selectedCategories{
@@ -78,7 +79,13 @@ class CategoryListVC: UIViewController {
                 }
             }
             //Storing values to Singleton Object for later use
-            singletonObj.selectedSubCategories = selectedSubCategories
+            selectedSubCategoriesSingleton = selectedSubCategories
+        }
+    }
+    
+    func loadSelectedCategories() {
+        for value in selectedCategories{
+            selectedCategoriesSingleton.append(categoriesArray[value])
         }
     }
 
