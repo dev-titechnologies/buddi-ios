@@ -55,15 +55,15 @@ class SubmitForAdminApproval: UIViewController {
     
     func loadQuestionsArray() {
         
-        questionsDict = ["weight":trainerTestAnswers.currentWeight,
-                         "pounds" : trainerTestAnswers.lostOrGainWeightInSixMonths,
-                         "certified_trainer" : trainerTestAnswers.isCertifiedTrainer,
-                         "zipcode" : trainerTestAnswers.zipCode,
-                         "military_installations" : trainerTestAnswers.isHavingMilitaryInstallations,
-                         "competed_category" : trainerTestAnswers.categoryTrainingCompletion,
-                         "training_exp" : trainerTestAnswers.trainingExperience,
-                         "gym_subscriptions" : trainerTestAnswers.gymSubscriptions
-                         ]
+//        questionsDict = ["weight":trainerTestAnswers.currentWeight,
+//                         "pounds" : trainerTestAnswers.lostOrGainWeightInSixMonths,
+//                         "certified_trainer" : trainerTestAnswers.isCertifiedTrainer,
+//                         "zipcode" : trainerTestAnswers.zipCode,
+//                         "military_installations" : trainerTestAnswers.isHavingMilitaryInstallations,
+//                         "competed_category" : trainerTestAnswers.categoryTrainingCompletion,
+//                         "training_exp" : trainerTestAnswers.trainingExperience,
+//                         "gym_subscriptions" : trainerTestAnswers.gymSubscriptions
+//                         ]
     }
     
     @IBAction func submitForApprovalAction(_ sender: Any) {
