@@ -47,8 +47,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "279"
             endingLineNumber = "279"
-            landmarkName = "RegisterViewController"
-            landmarkType = "3">
+            landmarkName = "next_action(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "271"
             endingLineNumber = "271"
-            landmarkName = "textFieldShouldReturn(_:)"
+            landmarkName = "Facebook_register(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "266"
             endingLineNumber = "266"
-            landmarkName = "next_action(_:)"
+            landmarkName = "Facebook_register(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "294"
             endingLineNumber = "294"
-            landmarkName = "sign(_:dismiss:)"
+            landmarkName = "sign(_:present:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -159,7 +159,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "309"
             endingLineNumber = "309"
-            landmarkName = "sign(_:didSignInFor:withError:)"
+            landmarkName = "sign(_:dismiss:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

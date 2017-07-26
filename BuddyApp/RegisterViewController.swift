@@ -28,16 +28,17 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     @IBOutlet weak var email_txt: UITextField!
     @IBOutlet weak var lastname_txt: UITextField!
     @IBOutlet weak var firstname_txt: UITextField!
+    
     var fbUserDictionary: NSDictionary!
     var googleUserDictionary: NSDictionary!
     var FullDataDictionary: NSDictionary!
     var HeaderDictionary: NSDictionary!
     var genderString = String()
     var UserType = String()
-    var RegisterType = String()
+    var registerType = String()
     var countryAlphaCode = String()
     var profileImageURL = String()
-    
+    var mobileNumber = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +48,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         
         self.title = "Register"
                
-        
+//        removeZerosFromBeginningInMobileNumber(mobile: "000000231234")
         contrycode_txt.delegate = self
         firstname_txt.delegate = self
         lastname_txt.delegate = self
@@ -98,7 +99,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
         print("GOOGLE DATA ",self.googleUserDictionary)
         
-        RegisterType = "google"
+        registerType = "google"
         
         self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
         self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
@@ -138,8 +139,11 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     func validation() {
-        let mobileNumber = contrycode_txt.text! + mobile_txt.text!
+        let mobileNumberCopy = contrycode_txt.text! + mobile_txt.text!
+        mobileNumber = contrycode_txt.text! + "-" + mobile_txt.text!
+        
         if firstname_txt.text!.isEmpty {
             CommonMethods.alertView(view: self, title: "", message: "Please enter your first name", buttonTitle: "Ok")
         }else if lastname_txt.text!.isEmpty {
@@ -154,21 +158,20 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             CommonMethods.alertView(view: self, title: "", message: "Please enter your mobile number", buttonTitle: "Ok")
         }else if genderString.isEmpty{
             CommonMethods.alertView(view: self, title: "", message: "Please select your gender", buttonTitle: "Ok")
-        }else if(!mobileNumberValidation(number: mobileNumber)){
+        }else if(!mobileNumberValidation(number: mobileNumberCopy)){
             CommonMethods.alertView(view: self, title: "", message: "Please Enter a valid mobile number", buttonTitle: "Ok")
         }else{
             var FB_id = String()
             var GOOGLE_id = String()
             
-            if RegisterType == "facebook"{
+            if registerType == REGISTER_TYPE.FACEBOOK{
                  FB_id = CommonMethods.checkStringNull(val: (self.fbUserDictionary["id"] as! String))
                  GOOGLE_id = ""
-            }else if RegisterType == "google"{
+            }else if registerType == REGISTER_TYPE.GOOGLE{
                  FB_id = ""
                  GOOGLE_id = CommonMethods.checkStringNull(val: (self.googleUserDictionary["userid"] as? String)!)
             }else{
-                RegisterType = "normal"
-                
+                registerType = REGISTER_TYPE.NORMAL
                 FB_id = ""
                 GOOGLE_id = ""
             }
@@ -176,12 +179,12 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             OTPCall()
             
             FullDataDictionary = [
-                "register_type":RegisterType,
+                "register_type":registerType,
                 "email":self.email_txt.text!,
                 "password":self.password_txt.text!,
                 "first_name":self.firstname_txt.text!,
                 "last_name": self.lastname_txt.text!,
-                "mobile": contrycode_txt.text! + mobile_txt.text!,
+                "mobile": mobileNumber,
                 "gender":genderString,
                 "user_image": self.profileImageURL,
                 "user_type": UserType,
@@ -202,7 +205,6 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
     
     func OTPCall(){
-        let mobileNumber = contrycode_txt.text!+" "+mobile_txt.text!
         CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":mobileNumber], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
             
@@ -221,10 +223,22 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         })
     }
     
+    func removeZerosFromBeginningInMobileNumber(mobile: String) -> String {
+        
+        var mobileCopy = mobile
+        while mobileCopy.characters.first == "0" {
+            mobileCopy.remove(at: mobileCopy.startIndex)
+        }
+        print(mobileCopy)
+        return mobileCopy
+    }
+    
     func mobileNumberValidation(number : String) -> Bool{
+
         let phoneUtil = NBPhoneNumberUtil()
         do {
             let phoneNumber: NBPhoneNumber = try phoneUtil.parse(number, defaultRegion: countryAlphaCode)
+            print("Is Valid Phone Number",phoneUtil.isValidNumber(phoneNumber))
             return phoneUtil.isValidNumber(phoneNumber)
         }catch{
             return false
@@ -330,7 +344,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 if (error == nil){
                     
                     print("RESULT",result!)
-                    self.RegisterType = "facebook"
+                    self.registerType = "facebook"
                     
                      self.fbUserDictionary = result as? NSDictionary
                      self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
@@ -358,7 +372,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         
         if segue.identifier == "otpview" {
             let controller = segue.destination as! OTPViewController
-            controller.MobileNumber = contrycode_txt.text!+" "+mobile_txt.text!
+            controller.MobileNumber = mobileNumber
             controller.DataDictionary = FullDataDictionary
             controller.HeaderDict = HeaderDictionary
         }

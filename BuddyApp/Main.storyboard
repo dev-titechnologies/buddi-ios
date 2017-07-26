@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -507,6 +507,10 @@
                                     <action selector="ResendCode_action:" destination="e3q-3l-aqO" eventType="touchUpInside" id="b5Q-NP-eIR"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mobile-chat" translatesAutoresizingMaskIntoConstraints="NO" id="3Yq-Rz-k6b">
+                                <rect key="frame" x="163" y="106" width="49" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -518,7 +522,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VNi-VH-Rhs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="lzO-aK-O5r" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1490" y="1504"/>
+            <point key="canvasLocation" x="1488.8" y="1503.5982008995504"/>
         </scene>
         <!--Question1VC-->
         <scene sceneID="nhC-0c-7CC">
@@ -2216,6 +2220,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="mobile-chat" width="1026" height="1101"/>
         <image name="Splash_Screen" width="540" height="960"/>
         <image name="bg" width="540" height="960"/>
         <image name="plogo.png" width="160" height="120"/>
