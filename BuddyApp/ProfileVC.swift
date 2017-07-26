@@ -46,6 +46,9 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
         profileImage.clipsToBounds = true
          imagePicker.delegate = self 
          EditBool = true
+              
+        
+        
         
        
         
@@ -108,8 +111,11 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
             firstname_txt.text = profile.firstName
             lastname_txt.text = profile.lastName
             email_txt.text = profile.email
-            mobile_txt.text = profile.mobile
+            //mobile_txt.text = profile.mobile
             gender_txt.text = profile.gender
+            
+            mobile_txt.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
+            contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
 
             
             
@@ -242,6 +248,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
         let profile = ProfileModel(profileImage: (profiledict["user_image"] as? String)!, firstName: (profiledict["first_name"] as? String)!, lastName: (profiledict["last_name"] as? String)!, email: (profiledict["email"] as? String)!, mobile: (profiledict["mobile"] as? String)!, gender: (profiledict["gender"] as? String)!, userid: "" )
         
         
+     
+             
         
         ProfileDB.createProfileEntry(profileModel: profile)
         
@@ -249,8 +257,11 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
         firstname_txt.text = profile.firstName
         lastname_txt.text = profile.lastName
         email_txt.text = profile.email
-        mobile_txt.text = profile.mobile
+        //mobile_txt.text = profile.mobile
         gender_txt.text = profile.gender
+        
+        mobile_txt.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
+        contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
         
         SVProgressHUD.dismiss()
         
@@ -281,6 +292,9 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
                 if status == 1{
                     
                      self.ProfileDict = jsondata["data"]  as! NSDictionary
+                    
+                                     
+                    
                     
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
                     
@@ -400,7 +414,23 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
                                 
                                 self.profileImage.image = UIImage(data:uploadImageData as Data,scale:1.0)
                                 
+                                //var data: NSData? = nil
+                                let url = URL(string:(jsonDic["Url"] as? String)!)
+                                
+                                let data = NSData.init(contentsOf: url!)
+                                
+                                ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: data!)
+                                
+                                
+
+                                
+                                
                                 CommonMethods.alertView(view: self, title: "SUCCESS", message: "Image uploaded successfully", buttonTitle: "Ok")
+                            }
+                            else if status == RESPONSE_STATUS.SESSION_EXPIRED
+                            
+                            {
+                                self.dismissOnSessionExpire()
                             }
                         }
                         else{

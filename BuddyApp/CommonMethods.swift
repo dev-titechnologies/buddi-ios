@@ -12,6 +12,10 @@ import SwiftyJSON
 import Alamofire
 
 class CommonMethods: NSObject {
+    
+    
+    
+    
 
       class func serverCall(APIURL : String, parameters : Dictionary<String, Any>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
         
@@ -74,6 +78,48 @@ class CommonMethods: NSObject {
         
         return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
     }
+    
+    class func phoneNumberSplit(number: String) -> (String, String)
+    {
+        
+        let fullName = number
+        let fullNameArr = fullName.characters.split{$0 == "-"}.map(String.init)
+        // or simply:
+        // let fullNameArr = fullName.characters.split{" "}.map(String.init)
+        
+        fullNameArr[0] // First
+        fullNameArr[1] // Last
+        print(fullNameArr[0])
+        print(fullNameArr[1])
+        
+        return (fullNameArr[0], fullNameArr[1])
+    }
+    
+    class func clearSession() {
+        
+         userDefaults.removeObject(forKey: "token")
+         userDefaults.removeObject(forKey: "user_id")
+         userDefaults.removeObject(forKey: "userType")
+    }
 
 }
+extension UIViewController {
+    
+    func dismissOnSessionExpire() {
+        //   if let presentingController = self.presentingViewController as? UINavigationController {
+      
+        
+        
+        // presentingController.popToRootViewControllerAnimated(true)
+        let controller  = storyboard?.instantiateViewController(withIdentifier: "RegisterChoiceViewController") as! RegisterChoiceViewController
+        //self.presentViewController(controller, animated: true, completion: nil)
+        controller.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(controller, animated: true)
+        // UIAlertView(title: "", message: ErrorMessage.sessionOut, delegate: nil, cancelButtonTitle: "OK").show()
+        //dismissViewControllerAnimated(true, completion: nil)
+        // }
+        
+}
+}
+
 

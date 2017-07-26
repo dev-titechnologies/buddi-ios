@@ -15,6 +15,8 @@ class LeftViewController: UIViewController {
 
     let leftMenuArray = ["Home","Payment","History","Notifications","Settings","Booking","Logout"]
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -45,5 +45,7 @@ struct REGISTER_TYPE {
 
 
 class Appconstants: NSObject {
+    
+        
 
 }

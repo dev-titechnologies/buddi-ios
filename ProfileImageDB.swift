@@ -25,7 +25,7 @@ public class ProfileImageDB: NSManagedObject {
                 print("image entry present")
                 let image = images[0] as! NSManagedObject
 
-                image.setValue(imageURL, forKey: "imageURL")
+                image.setValue(imageURL, forKey: "imageUrl")
                 image.setValue(imageData, forKey: "imageData")
                 appDelegate.saveContext()
                 
@@ -65,5 +65,5 @@ public class ProfileImageDB: NSManagedObject {
         return fetchResult
     }
     
-
+   
 }
