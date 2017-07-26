@@ -239,7 +239,6 @@
                                 </state>
                                 <connections>
                                     <action selector="next_action:" destination="ob5-q8-Ks5" eventType="touchUpInside" id="Xo3-j4-TaF"/>
-                                    <segue destination="e3q-3l-aqO" kind="show" identifier="otpview" id="exg-2m-par"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FIRST NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojI-bB-0yi">
@@ -394,11 +393,12 @@
                         <outlet property="mobile_txt" destination="6iU-Fg-Jjc" id="rSL-m8-7J4"/>
                         <outlet property="password_txt" destination="ZB0-p2-ghb" id="Crh-iv-G4u"/>
                         <outlet property="picker" destination="9F4-q0-leg" id="dg6-I6-gdP"/>
+                        <segue destination="e3q-3l-aqO" kind="show" identifier="otpview" id="Bk7-lM-w6G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Npo-hg-SlO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="829.60000000000002" y="1504.4977511244379"/>
+            <point key="canvasLocation" x="769" y="1504"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Ewq-Bh-1HP">
@@ -465,9 +465,11 @@
                     </view>
                     <connections>
                         <outlet property="Otp_txt" destination="0Kw-cz-0kz" id="1j2-6T-yzm"/>
+                        <segue destination="lzO-aK-O5r" kind="unwind" identifier="unwindSegueToRegister" unwindAction="unwindToVC1WithSegue:" id="osw-eM-eHM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VNi-VH-Rhs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="lzO-aK-O5r" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1490" y="1504"/>
         </scene>
@@ -1014,6 +1016,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
+                        <outlet property="btnNoLostOrGainWeight" destination="1Sb-wa-B9Y" id="ysN-cU-med"/>
+                        <outlet property="btnYesLostOrGainWeight" destination="Jgq-zB-MVd" id="Qux-am-ZlW"/>
                         <outlet property="subCategoryTable" destination="nDV-zY-sbo" id="XFO-qd-QWH"/>
                         <outlet property="txtCurrentWeight" destination="hhy-av-7Yg" id="kOV-iL-CeE"/>
                         <segue destination="qma-WP-Iq9" kind="show" identifier="afterSubCategorySelectionSegue" id="eRL-j4-lIo"/>
@@ -1173,6 +1177,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="btnNext" destination="3m3-8h-aIB" id="LlP-3n-oXN"/>
                         <outlet property="lblFemalesDescription" destination="PIv-sA-5nO" id="1DC-qa-Hb6"/>
                         <outlet property="lblMainDescription" destination="5CR-6r-Drx" id="jcl-KD-tdt"/>
                         <outlet property="lblMalesDescription" destination="uVf-R8-bcG" id="Jss-W5-FRz"/>

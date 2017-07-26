@@ -37,6 +37,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     var RegisterType = String()
     var countryAlphaCode = String()
     var profileImageURL = String()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        // navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 188/255, green: 214/255, blue: 255/255, alpha: 1)
@@ -142,8 +144,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             CommonMethods.alertView(view: self, title: "", message: "Please enter your first name", buttonTitle: "Ok")
         }else if lastname_txt.text!.isEmpty {
             CommonMethods.alertView(view: self, title: "", message: "Please enter last name", buttonTitle: "Ok")
-        }
-        else if email_txt.text!.isEmpty {
+        }else if email_txt.text!.isEmpty {
             CommonMethods.alertView(view: self, title: "", message: "Please enter email", buttonTitle: "Ok")
         }else if !self.validate(YourEMailAddress: email_txt.text!) {
             CommonMethods.alertView(view: self, title: "", message: "Please enter a valid email", buttonTitle: "Ok")
@@ -153,42 +154,26 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             CommonMethods.alertView(view: self, title: "", message: "Please enter your mobile number", buttonTitle: "Ok")
         }else if genderString.isEmpty{
             CommonMethods.alertView(view: self, title: "", message: "Please select your gender", buttonTitle: "Ok")
-        }
-
-        
-        else if(!mobileNumberValidation(number: mobileNumber)){
+        }else if(!mobileNumberValidation(number: mobileNumber)){
             CommonMethods.alertView(view: self, title: "", message: "Please Enter a valid mobile number", buttonTitle: "Ok")
-        }
-        
-        else
-        {
+        }else{
             var FB_id = String()
             var GOOGLE_id = String()
             
-            if RegisterType == "facebook"
-            {
+            if RegisterType == "facebook"{
                  FB_id = CommonMethods.checkStringNull(val: (self.fbUserDictionary["id"] as! String))
                  GOOGLE_id = ""
-                
-
-            }
-            else if RegisterType == "google"
-            {
+            }else if RegisterType == "google"{
                  FB_id = ""
                  GOOGLE_id = CommonMethods.checkStringNull(val: (self.googleUserDictionary["userid"] as? String)!)
-
-                
-
-            }
-            else{
+            }else{
                 RegisterType = "normal"
                 
                 FB_id = ""
                 GOOGLE_id = ""
             }
             
-            
-            
+            OTPCall()
             
             FullDataDictionary = [
                 "register_type":RegisterType,
@@ -211,11 +196,31 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 "device_type": "ios",
                 
             ]
-
-            
-            
-                   }
+        }
     }
+    
+    @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
+    
+    func OTPCall(){
+        let mobileNumber = contrycode_txt.text!+" "+mobile_txt.text!
+        CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":mobileNumber], headers: nil, onCompletion: { (jsondata) in
+            print("1234",jsondata)
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    print("OTP Sent Successfully")
+                    self.performSegue(withIdentifier: "otpview", sender: self)
+                }else if status == RESPONSE_STATUS.FAIL{
+                    print("OTP Call Failed")
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    print("OTP Call Session Expired")
+
+                }
+            }
+        })
+    }
+    
     func mobileNumberValidation(number : String) -> Bool{
         let phoneUtil = NBPhoneNumberUtil()
         do {
@@ -236,11 +241,10 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         
         GIDSignIn.sharedInstance().signIn()
     }
+    
     @IBAction func Facebook_register(_ sender: Any) {
-        
-       
-        
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logOut()
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
             if (error == nil){
                 let fbloginresult : FBSDKLoginManagerLoginResult = result!
@@ -256,15 +260,11 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 }
             }
         }
-        
-
     }
 
     @IBAction func next_action(_ sender: Any) {
-        
         validation()
-
-           }
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -359,8 +359,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         if segue.identifier == "otpview" {
             let controller = segue.destination as! OTPViewController
             controller.MobileNumber = contrycode_txt.text!+" "+mobile_txt.text!
-            
-           controller.DataDictionary = FullDataDictionary
+            controller.DataDictionary = FullDataDictionary
             controller.HeaderDict = HeaderDictionary
         }
 

@@ -10,6 +10,9 @@ import UIKit
 
 class SubCategorySelectionVC: UIViewController {
 
+    @IBOutlet weak var btnYesLostOrGainWeight: UIButton!
+    @IBOutlet weak var btnNoLostOrGainWeight: UIButton!
+
     @IBOutlet weak var subCategoryTable: UITableView!
     @IBOutlet weak var txtCurrentWeight: UITextField!
     var subCategories = [SubCategoryModel]()
@@ -30,13 +33,25 @@ class SubCategorySelectionVC: UIViewController {
     }
     
     @IBAction func yesBtnActionLostOrGainWeight(_ sender: Any) {
-        isAnsweredLostOrGainWeight = true
+        colorChangeSelectedAnswerButton(button: true)
         trainerTestAnswers.lostOrGainWeightInSixMonths = true
     }
     
     @IBAction func noBtnActionLostOrGainWeight(_ sender: Any) {
-        isAnsweredLostOrGainWeight = true
+        colorChangeSelectedAnswerButton(button: false)
         trainerTestAnswers.lostOrGainWeightInSixMonths = false
+    }
+    
+    func colorChangeSelectedAnswerButton(button: Bool) {
+        
+        isAnsweredLostOrGainWeight = true
+        if button{
+            btnYesLostOrGainWeight.backgroundColor = .blue
+            btnNoLostOrGainWeight.backgroundColor = .lightGray
+        }else{
+            btnYesLostOrGainWeight.backgroundColor = .lightGray
+            btnNoLostOrGainWeight.backgroundColor = .blue
+        }
     }
 
     @IBAction func nextButtonAction(_ sender: Any) {

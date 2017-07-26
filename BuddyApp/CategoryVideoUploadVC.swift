@@ -25,6 +25,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     @IBOutlet weak var lblMainDescription: UILabel!
     @IBOutlet weak var lblMalesDescription: UILabel!
     @IBOutlet weak var lblFemalesDescription: UILabel!
+    @IBOutlet weak var btnNext: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        btnNext.isEnabled = false
         subcategories = selectedSubCategoriesAmongSingleton
         lblMainDescription.text = VIDEO_DESC
         loadSubCategoryDetailsInitially()
@@ -100,6 +102,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
         if subCategoryIndex == subcategories.count{
             performSegue(withIdentifier: "afterVideoUploadSegue", sender: self)
         }else{
+            btnNext.isEnabled = false
             displayDetails(subCategoryName: subcategories[subCategoryIndex].subCategoryName)
         }
     }
@@ -148,15 +151,15 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                     debugPrint(response)
                     print("Video Upload Response:",response)
                     
-//                    self.loadSubCategoryURLToSingletonArray()
-                    
                     if let jsonDic = response.result.value as? NSDictionary{
                         print("DICT ",jsonDic)
                         
                         if let status = jsonDic["status"] as? Int{
                             if status == RESPONSE_STATUS.SUCCESS{
                                 self.ResponseVideoURL = (jsonDic["Url"] as? String)!
-                                CommonMethods.alertView(view: self, title: "", message: "VIDEO UPLOADED SUCCESSFULLY", buttonTitle: "Ok")
+                                self.loadSubCategoryURLToSingletonArray(videoURL: self.ResponseVideoURL)
+                                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: VIDEO_UPLOADED_SUCCESSFULLY, buttonTitle: "Ok")
+                                self.btnNext.isEnabled = true
                              }
                         }
                     }
@@ -167,9 +170,14 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
         })
     }
     
-    func loadSubCategoryURLToSingletonArray() {
+    func loadSubCategoryURLToSingletonArray(videoURL: String) {
         
+        let videoURLModelObj = VideoURLModel()
+        videoURLModelObj.subCategoryId = subcategories[subCategoryIndex].subCategoryId
+        videoURLModelObj.subCategoryName = subcategories[subCategoryIndex].subCategoryName
+        videoURLModelObj.videoURL = videoURL
         
+        subCategoryVideoURLsSingleton.append(videoURLModelObj)
     }
 }
 

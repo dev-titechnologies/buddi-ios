@@ -31,32 +31,32 @@ class Question3VC: UIViewController {
     }
 
     @IBAction func yesBtnActionEverCompletedCategory(_ sender: Any) {
-        isAnsweredEverCompletedCategory = true
+        colorChangeSelectedAnswerButton(button: true, questionNumber: 1)
         trainerTestAnswers.categoryTrainingCompletion = true
     }
     
     @IBAction func noBtnActionEverCompletedCategory(_ sender: Any) {
-        isAnsweredEverCompletedCategory = true
+        colorChangeSelectedAnswerButton(button: false, questionNumber: 1)
         trainerTestAnswers.categoryTrainingCompletion = false
     }
 
     @IBAction func yesBtnActionEverCoached(_ sender: Any) {
-        isAnsweredEverCoachedAnybody = true
+        colorChangeSelectedAnswerButton(button: true, questionNumber: 2)
         trainerTestAnswers.isAnybodyCoachedCategory = true
     }
 
     @IBAction func noBtnActionEverCoached(_ sender: Any) {
-        isAnsweredEverCoachedAnybody = true
+        colorChangeSelectedAnswerButton(button: false, questionNumber: 2)
         trainerTestAnswers.isAnybodyCoachedCategory = false
     }
     
     @IBAction func yesBtnActionCertifiedTrainer(_ sender: Any) {
-        isAnsweredCertifiedTrainer = true
+        colorChangeSelectedAnswerButton(button: true, questionNumber: 3)
         trainerTestAnswers.isCertifiedTrainer = true
     }
     
     @IBAction func noBtnActionCertifiedTrainer(_ sender: Any) {
-        isAnsweredCertifiedTrainer = true
+        colorChangeSelectedAnswerButton(button: false, questionNumber: 3)
         trainerTestAnswers.isCertifiedTrainer = false
     }
     
@@ -67,6 +67,38 @@ class Question3VC: UIViewController {
         }else{
             trainerTestAnswers.trainingExperience = txtHowLongTraining.text!
             performSegue(withIdentifier: "afterQ3VCSegue", sender: self)
+        }
+    }
+    
+    func colorChangeSelectedAnswerButton(button: Bool,questionNumber: Int) {
+        
+        if questionNumber == 1{
+            isAnsweredEverCompletedCategory = true
+            if button{
+                btnYesEverCompletedCategory.backgroundColor = .blue
+                btnNoEverCompletedCategory.backgroundColor = .lightGray
+            }else{
+                btnYesEverCompletedCategory.backgroundColor = .lightGray
+                btnNoEverCompletedCategory.backgroundColor = .blue
+            }
+        }else if questionNumber == 2{
+            isAnsweredEverCoachedAnybody = true
+            if button{
+                btnYesEverCoachedAnybody.backgroundColor = .blue
+                btnNoEverCoachedAnybody.backgroundColor = .lightGray
+            }else{
+                btnYesEverCoachedAnybody.backgroundColor = .lightGray
+                btnNoEverCoachedAnybody.backgroundColor = .blue
+            }
+        }else if questionNumber == 3{
+            isAnsweredCertifiedTrainer = true
+            if button{
+                btnYesCertifiedTrainer.backgroundColor = .blue
+                btnNoCertifiedTrainer.backgroundColor = .lightGray
+            }else{
+                btnYesCertifiedTrainer.backgroundColor = .lightGray
+                btnNoCertifiedTrainer.backgroundColor = .blue
+            }
         }
     }
     
