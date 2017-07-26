@@ -33,7 +33,7 @@ public class ProfileDB: NSManagedObject {
                 profile.setValue(profileModel.mobile, forKey: "mobile")
                 profile.setValue(profileModel.userid, forKey: "userId")
                 profile.setValue(profileModel.profileImage, forKey: "profileImageURL")
-                //profile.setValue(profileModel.profileImageData, forKey: "trainerId")
+                //profile.setValue(profileModel.profileImageData, forKey: "profileImageData")
                 
                 
                 appDelegate.saveContext()

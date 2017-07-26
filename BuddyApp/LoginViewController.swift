@@ -181,6 +181,19 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     SVProgressHUD.dismiss()
                     self.jsondict = jsondata["data"]  as! NSDictionary
                     
+                    
+                    //var data: NSData? = nil
+                    let url = URL(string:(self.jsondict["user_image"] as? String)!)
+                    
+                 let data = NSData.init(contentsOf: url!)
+                    
+            ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
+
+                    
+                    
+                    
+                    
+                    
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
                     appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
                     appDelegate.USER_TYPE =  self.UserType

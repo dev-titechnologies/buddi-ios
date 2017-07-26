@@ -82,6 +82,8 @@
 		F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EB11F27840000DAED93 /* Singleton.swift */; };
 		F3AA6C831F21C4F500F44DC2 /* libPhoneNumber_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */; };
 		F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */; };
+		F3D0EF421F289C3C009B60E7 /* ProfileImageDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */; };
+		F3D0EF431F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */; };
 		F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */; };
 		F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */; };
 		F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7D1F20F8BE00D51277 /* String Constants.swift */; };
@@ -186,6 +188,8 @@
 		F39E1EB11F27840000DAED93 /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libPhoneNumber_iOS.framework; path = "Pods/../build/Debug-iphoneos/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"; sourceTree = "<group>"; };
 		F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVideoUploadVC.swift; sourceTree = "<group>"; };
+		F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageDB.swift; sourceTree = "<group>"; };
+		F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileImageDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTestAnswersModel.swift; sourceTree = "<group>"; };
 		F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategorySelectionVC.swift; sourceTree = "<group>"; };
 		F3F77C7D1F20F8BE00D51277 /* String Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String Constants.swift"; sourceTree = "<group>"; };
@@ -499,6 +503,8 @@
 		F3990DF81F1F3D78000FFF7B /* Data Structure */ = {
 			isa = PBXGroup;
 			children = (
+				F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */,
+				F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */,
 				F316E7E91F21BF4E00994447 /* SubCategoryDB.swift */,
 				F316E7EA1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift */,
 				F37350AA1F20AA3400BE9DB6 /* CategoryDB.swift */,
@@ -824,6 +830,8 @@
 				F37350AD1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift in Sources */,
 				F35FDADF1F1E517C0091900D /* BookingHistoryVC.swift in Sources */,
 				F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */,
+				F3D0EF421F289C3C009B60E7 /* ProfileImageDB.swift in Sources */,
+				F3D0EF431F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift in Sources */,
 				F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */,
 				F316E7EE1F21BF6E00994447 /* SubCategoryModel.swift in Sources */,
 				F316E7F41F220CEC00994447 /* Question1VC.swift in Sources */,
