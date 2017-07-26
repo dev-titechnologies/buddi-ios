@@ -55,36 +55,51 @@ class SubmitForAdminApproval: UIViewController {
     
     func loadQuestionsArray() {
         
-//        questionsDict = ["weight":trainerTestAnswers.currentWeight,
-//                         "pounds" : trainerTestAnswers.lostOrGainWeightInSixMonths,
-//                         "certified_trainer" : trainerTestAnswers.isCertifiedTrainer,
-//                         "zipcode" : trainerTestAnswers.zipCode,
-//                         "military_installations" : trainerTestAnswers.isHavingMilitaryInstallations,
-//                         "competed_category" : trainerTestAnswers.categoryTrainingCompletion,
-//                         "training_exp" : trainerTestAnswers.trainingExperience,
-//                         "gym_subscriptions" : trainerTestAnswers.gymSubscriptions
-//                         ]
+        questionsDict = ["weight":trainerTestAnswers.currentWeight,
+                         "pounds" : (trainerTestAnswers.lostOrGainWeightInSixMonths ? "yes" : "no"),
+                         "certified_trainer" : (trainerTestAnswers.isCertifiedTrainer ? "yes" : "no"),
+                         "zipcode" : trainerTestAnswers.zipCode,
+                         "military_installations" : (trainerTestAnswers.isHavingMilitaryInstallations ? "yes" : "no"),
+                         "competed_category" : (trainerTestAnswers.categoryTrainingCompletion ? "yes" : "no"),
+                         "training_exp" : trainerTestAnswers.trainingExperience,
+                         "gym_subscriptions" : trainerTestAnswers.gymSubscriptions,
+                         "coached_anybody" : (trainerTestAnswers.isAnybodyCoachedCategory ? "yes" : "no")
+                         ]
     }
+    
+    func toJSONString(from object: Any) -> String? {
+        if let objectData = try? JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions(rawValue: 0)) {
+            let objectString = String(data: objectData, encoding: .utf8)
+            return objectString
+        }
+        return nil
+    }
+
     
     @IBAction func submitForApprovalAction(_ sender: Any) {
         
-        let parameters = ["user_type":appDelegate.USER_TYPE,
-                          "user_id":appDelegate.UserId,
+        let parameters = ["user_type":"trainer",
+                          "user_id":"17",
                           "cat_ids":categoryIDs,
                           "gym_id":"TestIDGYM",
                           "military":"TESTMilitary",
-                          "questions":questionsDict,
+                          "questions":toJSONString(from: questionsDict)!,
                           "cat_subs": subCategoryIDs
         ] as [String : Any]
         
         print("PARAMETERS:",parameters)
         
         let headers = [
-            "token":appDelegate.Usertoken]
+            "token":"a8f4b36dcd0f9cb724e66e9f"]
         
         CommonMethods.serverCall(APIURL: ADD_TRAINER_CATEGORIES_URL, parameters: parameters, headers: headers) { (response) in
             
             print(response)
+            if let status = response["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    self.performSegue(withIdentifier: "afterSubmitForApprovalSegue", sender: self)
+                }
+            }
         }
     }
 
