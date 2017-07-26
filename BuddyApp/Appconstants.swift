@@ -37,10 +37,12 @@ struct SUB_CATEGORY_TITLES {
     static let CLEAN_JERK = "Clean & Jerk"
 }
 
-//enum RegisterType {
-//    case "facebook"
-//    
-//}
+struct REGISTER_TYPE {
+    static let FACEBOOK = "facebook"
+    static let GOOGLE = "google"
+    static let NORMAL = "normal"
+}
+
 
 class Appconstants: NSObject {
 

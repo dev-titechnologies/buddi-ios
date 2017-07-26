@@ -34,7 +34,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     var HeaderDictionary: NSDictionary!
     var genderString = String()
     var UserType = String()
-    var RegisterType = String()
+    var registerType = String()
     var countryAlphaCode = String()
     var profileImageURL = String()
     
@@ -98,7 +98,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
         print("GOOGLE DATA ",self.googleUserDictionary)
         
-        RegisterType = "google"
+        registerType = "google"
         
         self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
         self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
@@ -160,14 +160,14 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             var FB_id = String()
             var GOOGLE_id = String()
             
-            if RegisterType == "facebook"{
+            if registerType == REGISTER_TYPE.FACEBOOK{
                  FB_id = CommonMethods.checkStringNull(val: (self.fbUserDictionary["id"] as! String))
                  GOOGLE_id = ""
-            }else if RegisterType == "google"{
+            }else if registerType == REGISTER_TYPE.GOOGLE{
                  FB_id = ""
                  GOOGLE_id = CommonMethods.checkStringNull(val: (self.googleUserDictionary["userid"] as? String)!)
             }else{
-                RegisterType = "normal"
+                registerType = REGISTER_TYPE.NORMAL
                 
                 FB_id = ""
                 GOOGLE_id = ""
@@ -176,7 +176,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             OTPCall()
             
             FullDataDictionary = [
-                "register_type":RegisterType,
+                "register_type":registerType,
                 "email":self.email_txt.text!,
                 "password":self.password_txt.text!,
                 "first_name":self.firstname_txt.text!,
@@ -330,7 +330,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 if (error == nil){
                     
                     print("RESULT",result!)
-                    self.RegisterType = "facebook"
+                    self.registerType = "facebook"
                     
                      self.fbUserDictionary = result as? NSDictionary
                      self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
