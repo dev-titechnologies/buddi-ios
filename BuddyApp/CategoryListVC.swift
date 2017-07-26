@@ -41,7 +41,7 @@ class CategoryListVC: UIViewController {
             }
                         
             if let status = jsondata["status"] as? Int{
-                if status == 1{
+                if status == RESPONSE_STATUS.SUCCESS{
                     
                     let (categories,subcategories) = self.categoryModelObj.getCategoryModelFromJSONDict(dictionary: jsondata)
                     

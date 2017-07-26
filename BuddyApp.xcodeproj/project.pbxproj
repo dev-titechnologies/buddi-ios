@@ -79,6 +79,7 @@
 		F3990E211F1F77E1000FFF7B /* APIURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E201F1F77E1000FFF7B /* APIURLs.swift */; };
 		F39E1EAE1F270ACF00DAED93 /* FinalQuestionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EAD1F270ACF00DAED93 /* FinalQuestionsVC.swift */; };
 		F39E1EB01F272CCF00DAED93 /* SubmitForAdminApproval.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EAF1F272CCF00DAED93 /* SubmitForAdminApproval.swift */; };
+		F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EB11F27840000DAED93 /* Singleton.swift */; };
 		F3AA6C831F21C4F500F44DC2 /* libPhoneNumber_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */; };
 		F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */; };
 		F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */; };
@@ -182,6 +183,7 @@
 		F3990E201F1F77E1000FFF7B /* APIURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIURLs.swift; sourceTree = "<group>"; };
 		F39E1EAD1F270ACF00DAED93 /* FinalQuestionsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalQuestionsVC.swift; sourceTree = "<group>"; };
 		F39E1EAF1F272CCF00DAED93 /* SubmitForAdminApproval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitForAdminApproval.swift; sourceTree = "<group>"; };
+		F39E1EB11F27840000DAED93 /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libPhoneNumber_iOS.framework; path = "Pods/../build/Debug-iphoneos/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"; sourceTree = "<group>"; };
 		F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVideoUploadVC.swift; sourceTree = "<group>"; };
 		F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTestAnswersModel.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 			children = (
 				F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */,
 				F3990E1E1F1F6929000FFF7B /* Reachability.swift */,
+				F39E1EB11F27840000DAED93 /* Singleton.swift */,
 			);
 			name = "Common Methods";
 			sourceTree = "<group>";
@@ -812,6 +815,7 @@
 				F35FDAE61F1E51B50091900D /* ReviewHistoryVC.swift in Sources */,
 				F39E1EAE1F270ACF00DAED93 /* FinalQuestionsVC.swift in Sources */,
 				F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */,
+				F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */,
 				F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */,
 				F37350991F207A2D00BE9DB6 /* LeftViewController.swift in Sources */,
 				F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */,

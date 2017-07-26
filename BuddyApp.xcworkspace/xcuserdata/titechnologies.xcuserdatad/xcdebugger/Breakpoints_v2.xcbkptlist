@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "270"
             endingLineNumber = "270"
-            landmarkName = "next_action(_:)"
+            landmarkName = "textFieldShouldReturn(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "265"
             endingLineNumber = "265"
-            landmarkName = "Facebook_register(_:)"
+            landmarkName = "next_action(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,6 +105,8 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
+=======
             filePath = "BuddyApp/LoginViewController.swift"
             timestampString = "522669167.923341"
             startingColumnNumber = "9223372036854775807"
@@ -121,6 +123,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+>>>>>>> 077ab7c6b0eb6523fc5da3bb6a995042b5735721
             filePath = "BuddyApp/RegisterViewController.swift"
             timestampString = "522568599.022925"
             startingColumnNumber = "9223372036854775807"
@@ -144,22 +147,6 @@
             startingLineNumber = "171"
             endingLineNumber = "171"
             landmarkName = "validation()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BuddyApp/CommonMethods.swift"
-            timestampString = "522313178.225421"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "checkStringNull(val:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -209,6 +196,52 @@
                   offsetFromSymbolStart = "480">
                </Location>
             </Locations>
+<<<<<<< HEAD
+=======
+=======
+            timestampString = "522656225.808932"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "ProfileDataAPI()"
+            landmarkType = "7">
+<<<<<<< HEAD
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BuddyApp.ProfileVC.(ProfileDataAPI () -&gt; ()).(closure #1)"
+                  moduleName = "BuddyApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/ProfileVC.swift"
+                  timestampString = "522684700.494813"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "233"
+                  endingLineNumber = "233"
+                  offsetFromSymbolStart = "236">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BuddyApp.ProfileVC.(ProfileDataAPI () -&gt; ()).(closure #1)"
+                  moduleName = "BuddyApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/ProfileVC.swift"
+                  timestampString = "522684700.497219"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "233"
+                  endingLineNumber = "233"
+                  offsetFromSymbolStart = "480">
+               </Location>
+            </Locations>
+=======
+>>>>>>> 5d1fff4c19a6f03d96333987bdb89d54c3bd8127
+>>>>>>> 5b5d97e5ee4727c903b89bf7d9f7c456726146ff
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -305,6 +338,7 @@
             endingLineNumber = "157"
             landmarkName = "getFBUserData()"
             landmarkType = "7">
+>>>>>>> 077ab7c6b0eb6523fc5da3bb6a995042b5735721
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -345,6 +379,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "BuddyApp/RegisterChoiceViewController.swift"
             timestampString = "522566823.709043"
             startingColumnNumber = "9223372036854775807"
@@ -409,6 +444,10 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 5b5d97e5ee4727c903b89bf7d9f7c456726146ff
             filePath = "BuddyApp/LoginViewController.swift"
             timestampString = "522669167.923341"
             startingColumnNumber = "9223372036854775807"
@@ -425,14 +464,15 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+>>>>>>> 077ab7c6b0eb6523fc5da3bb6a995042b5735721
             filePath = "BuddyApp/RegisterViewController.swift"
             timestampString = "522568599.022925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "133"
             endingLineNumber = "133"
-            landmarkName = "countryPhoneCodePicker(_:didSelectCountryWithName:countryCode:phoneCode:flag:)"
-            landmarkType = "7">
+            landmarkName = "RegisterViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -589,6 +629,8 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+<<<<<<< HEAD
+=======
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
@@ -701,5 +743,6 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+>>>>>>> 077ab7c6b0eb6523fc5da3bb6a995042b5735721
    </Breakpoints>
 </Bucket>

@@ -16,6 +16,8 @@ let trainerTestAnswers = Singleton.sharedInstance.trainerTestAnswers
 var selectedCategoriesSingleton = Singleton.sharedInstance.selectedCategories
 var selectedSubCategoriesSingleton = Singleton.sharedInstance.selectedSubCategories
 var selectedSubCategoriesAmongSingleton = Singleton.sharedInstance.selectedSubCategoriesAmong
+var approvedCategories = Singleton.sharedInstance.approvedCategories
+var approvalPendingCategories = Singleton.sharedInstance.approvalPendingCategories
 
 let SERVER_URL  = ""
 let SERVER_URL_Local = "http://192.168.1.14:4001/"

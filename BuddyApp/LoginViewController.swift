@@ -110,9 +110,8 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
        
     @IBAction func FaceBookLogin_Action(_ sender: Any) {
         
-        
-        
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logOut()
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
             if (error == nil){
                 let fbloginresult : FBSDKLoginManagerLoginResult = result!
@@ -126,6 +125,8 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                    
                     self.getFBUserData()
                 }
+            }else{
+                print("FB ERROR")
             }
         }
 
@@ -170,74 +171,46 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             "device_id": "y",
             "device_imei": "yu",
             "device_type": "ios",
-            
             ]
         
-
-        
         CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
-            print("REGISTER RESPONSE",jsondata)
+            print("LOGIN RESPONSE",jsondata)
             
             if let status = jsondata["status"] as? Int{
-                if status == 1{
+                if status == RESPONSE_STATUS.SUCCESS{
                     SVProgressHUD.dismiss()
-                    
-                    
-                    
                     self.jsondict = jsondata["data"]  as! NSDictionary
                     
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
                     appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
-                    
-                    
                     appDelegate.USER_TYPE =  self.UserType
-                    
-                    
                     userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")
                     
-
+                    if let category_approved = self.jsondict["category_approved"] as? NSArray{
+                        print(category_approved)
+                        
+                    }
+                    
+                    if let category_approved1 = self.jsondict["category_approved"] as? String{
+                        print(category_approved1)
+                        
+                    }
+                    
                     //appDelegate.USER_TYPE = (self.jsondict["user_type"] as? String)!
                      self.performSegue(withIdentifier: "logintohome", sender:self)
                     
                     CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                     
                     //logintohome
-                    
-                   
-                    
-                }
-                else if status == 2
-                {
+                }else if status == 2{
                      SVProgressHUD.dismiss()
-                    
                      CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
-                    
-                }
-                else{
+                }else{
                      SVProgressHUD.dismiss()
                 }
             }
-            
-            
         })
-        
-        
-        
-    
-        
-        
-        
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
