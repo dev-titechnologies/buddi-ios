@@ -12,7 +12,7 @@ class SubmitForAdminApproval: UIViewController {
     
     var categoryIDs: [String] = [String]()
     var questionsDict = [String:String]()
-    var subCategoryIDs = [String]()
+    var subCategoryIDs: [String] = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
