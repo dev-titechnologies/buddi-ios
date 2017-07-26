@@ -21,13 +21,25 @@ class Question2VC: UIViewController {
     }
 
     @IBAction func yesButtonAction(_ sender: Any) {
-        isAnsweredMilitaryInstallations = true
+        colorChangeSelectedAnswerButton(button: true)
         trainerTestAnswers.isHavingMilitaryInstallations = true
     }
     
     @IBAction func noButtonAction(_ sender: Any) {
-        isAnsweredMilitaryInstallations = true
+        colorChangeSelectedAnswerButton(button: false)
         trainerTestAnswers.isHavingMilitaryInstallations = false
+    }
+    
+    func colorChangeSelectedAnswerButton(button: Bool) {
+        
+        isAnsweredMilitaryInstallations = true
+        if button{
+            btnYes.backgroundColor = .blue
+            btnNo.backgroundColor = .lightGray
+        }else{
+            btnYes.backgroundColor = .lightGray
+            btnNo.backgroundColor = .blue
+        }
     }
     
     @IBAction func nextButtonAction(_ sender: Any) {

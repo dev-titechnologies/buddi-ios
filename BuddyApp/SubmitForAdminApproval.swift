@@ -13,6 +13,7 @@ class SubmitForAdminApproval: UIViewController {
     var categoryIDs: [String] = [String]()
     var questionsDict = [String:String]()
     var subCategoryIDs: [String] = [String]()
+    var videoURLs : [Any] = [Any]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,10 @@ class SubmitForAdminApproval: UIViewController {
         
         print("Categories",selectedCategoriesSingleton)
         print("SubCategories",selectedSubCategoriesAmongSingleton)
+        
+        for i in 0..<subCategoryVideoURLsSingleton.count{
+            print("SubCategory Video URL \(i):",subCategoryVideoURLsSingleton[i].videoURL)
+        }
         
         print("Trainer Test Answers")
         print("====================")
@@ -39,6 +44,7 @@ class SubmitForAdminApproval: UIViewController {
         loadCategoryIDs()
         loadSubCategoryIDs()
         loadQuestionsArray()
+        loadVideoURLs()
     }
     
     func loadCategoryIDs() {
@@ -51,6 +57,18 @@ class SubmitForAdminApproval: UIViewController {
         for subCategory in selectedSubCategoriesAmongSingleton{
             subCategoryIDs.append(subCategory.subCategoryId)
         }
+    }
+    
+    func loadVideoURLs(){
+        
+        for i in 0..<subCategoryVideoURLsSingleton.count{
+            
+            var sub_category_dict = [String: String]()
+            sub_category_dict["subCat_name"] = subCategoryVideoURLsSingleton[i].subCategoryName
+            sub_category_dict["video_url"] = subCategoryVideoURLsSingleton[i].videoURL
+            videoURLs.append(sub_category_dict)
+        }
+        print("Sub Category Video URL Dict:",videoURLs)
     }
     
     func loadQuestionsArray() {
@@ -78,6 +96,8 @@ class SubmitForAdminApproval: UIViewController {
     
     @IBAction func submitForApprovalAction(_ sender: Any) {
         
+        //"video_data":{"subCat_name":"Snatch","video_url":"http:\/\/192.168.1.14:4001\/video\/c3104aa7-f94c-48e0-845e-400f382ec12c.mkv"}
+        
         let parameters = ["user_type":"trainer",
                           "user_id":"17",
                           "cat_ids":categoryIDs,
@@ -90,7 +110,7 @@ class SubmitForAdminApproval: UIViewController {
         print("PARAMETERS:",parameters)
         
         let headers = [
-            "token":"a8f4b36dcd0f9cb724e66e9f"]
+            "token":appDelegate.Usertoken]
         
         CommonMethods.serverCall(APIURL: ADD_TRAINER_CATEGORIES_URL, parameters: parameters, headers: headers) { (response) in
             

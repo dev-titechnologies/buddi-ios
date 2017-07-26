@@ -18,6 +18,7 @@ var selectedSubCategoriesSingleton = Singleton.sharedInstance.selectedSubCategor
 var selectedSubCategoriesAmongSingleton = Singleton.sharedInstance.selectedSubCategoriesAmong
 var approvedCategories = Singleton.sharedInstance.approvedCategories
 var approvalPendingCategories = Singleton.sharedInstance.approvalPendingCategories
+var subCategoryVideoURLsSingleton = Singleton.sharedInstance.subCategoryVideoURLs
 
 let SERVER_URL  = ""
 let SERVER_URL_Local = "http://192.168.1.14:4001/"
@@ -35,6 +36,11 @@ struct SUB_CATEGORY_TITLES {
     static let SNACH = "Snatch"
     static let CLEAN_JERK = "Clean & Jerk"
 }
+
+//enum RegisterType {
+//    case "facebook"
+//    
+//}
 
 class Appconstants: NSObject {
 

@@ -208,7 +208,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     
                     if let category_approved1 = self.jsondict["category_approved"] as? String{
                         print(category_approved1)
-                        
+//                        category_approved1.
                     }
                     
                     //appDelegate.USER_TYPE = (self.jsondict["user_type"] as? String)!

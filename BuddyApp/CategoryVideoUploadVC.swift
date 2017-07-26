@@ -25,6 +25,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     @IBOutlet weak var lblMainDescription: UILabel!
     @IBOutlet weak var lblMalesDescription: UILabel!
     @IBOutlet weak var lblFemalesDescription: UILabel!
+    @IBOutlet weak var btnNext: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        btnNext.isEnabled = false
         subcategories = selectedSubCategoriesAmongSingleton
         lblMainDescription.text = VIDEO_DESC
         loadSubCategoryDetailsInitially()
@@ -100,32 +102,20 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
         if subCategoryIndex == subcategories.count{
             performSegue(withIdentifier: "afterVideoUploadSegue", sender: self)
         }else{
+            btnNext.isEnabled = false
             displayDetails(subCategoryName: subcategories[subCategoryIndex].subCategoryName)
         }
     }
     
-    @IBAction func cameraRoll_action(_ sender: Any) {
-       
-        
-    }
     @IBAction func camera_action(_ sender: Any) {
-        
-//        imagePicker.sourceType = .camera
-//        imagePicker.mediaTypes = [kUTTypeMovie as NSString as String]
-//        imagePicker.allowsEditing = false
-         imagePicker.delegate = self
-        
-        
+        imagePicker.delegate = self
         imagePicker.allowsEditing = false
         imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-       imagePicker.mediaTypes = [kUTTypeMovie as NSString as String]
+        imagePicker.mediaTypes = [kUTTypeMovie as NSString as String]
         imagePicker.modalPresentationStyle = .fullScreen
         present(imagePicker,
                 animated: true,
                 completion: nil)
-
-        
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -135,42 +125,21 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
         
         let headers = [
             "token":appDelegate.Usertoken ]
+        
         let parameters = ["file_type":"vid",
                           "upload_type":"other"]
         
         print("PARAMS",parameters)
         print("HEADERS",headers)
         
-//        var filetype1 = String()
-//        var uploadtype1 = String()
-//        
-//        filetype = "vid"
-//        uploadtype = "other"
-        
-        
         Alamofire.upload(multipartFormData: { multipartFormData in
-            
-            
-            
-            
             for (key, value) in parameters {
                 
                 print("PARAMETER1",value)
                 print("PARAMETER11",key)
-                
                 multipartFormData.append(value.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: key)
-                
-                
             }
-            
-          
-            
-            
-      //  multipartFormData.append(movieData, name: "file_name", fileName: "video.mov", mimeType: "video/mov")
-            
-    multipartFormData.append(self.movieData as Data, withName: "file_name", fileName: "video.mov", mimeType: "video/mov")
-            
-            
+            multipartFormData.append(self.movieData as Data, withName: "file_name", fileName: "video.mov", mimeType: "video/mov")
         }, to: "http://192.168.1.14:4001/upload/upload",
            method:.post,
            headers:headers,
@@ -180,32 +149,36 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
             case .success(let upload, _, _):
                 upload.responseJSON { response in
                     debugPrint(response)
+                    print("Video Upload Response:",response)
                     
                     if let jsonDic = response.result.value as? NSDictionary{
                         print("DICT ",jsonDic)
                         
                         if let status = jsonDic["status"] as? Int{
                             if status == RESPONSE_STATUS.SUCCESS{
-                                
                                 self.ResponseVideoURL = (jsonDic["Url"] as? String)!
-                                
-                                CommonMethods.alertView(view: self, title: "", message: "VIDEO UPLOADED SUCCESSFULLY", buttonTitle: "Ok")
+                                self.loadSubCategoryURLToSingletonArray(videoURL: self.ResponseVideoURL)
+                                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: VIDEO_UPLOADED_SUCCESSFULLY, buttonTitle: "Ok")
+                                self.btnNext.isEnabled = true
                              }
                         }
-
-                        
                     }
-                    
-                    
-                    
                 }
             case .failure(let encodingError):
                 print(encodingError)
-                
-            } })
+            }
+        })
     }
-
     
+    func loadSubCategoryURLToSingletonArray(videoURL: String) {
+        
+        let videoURLModelObj = VideoURLModel()
+        videoURLModelObj.subCategoryId = subcategories[subCategoryIndex].subCategoryId
+        videoURLModelObj.subCategoryName = subcategories[subCategoryIndex].subCategoryName
+        videoURLModelObj.videoURL = videoURL
+        
+        subCategoryVideoURLsSingleton.append(videoURLModelObj)
+    }
 }
 
 extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
@@ -214,69 +187,25 @@ extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
         videoURL = info["UIImagePickerControllerMediaURL"] as? NSURL
         print("URLL",videoURL!)
         
-       // var movieData: NSData?
         do {
             let video = try NSData(contentsOf: (info["UIImagePickerControllerMediaURL"] as? NSURL)! as URL, options: .mappedIfSafe)
-            
             movieData = video
-            
             print("Total bytes \(movieData.length/(1000*1000))")
         } catch {
             print(error)
             return
         }
         
-        
         dismiss(animated: true, completion: nil)
-         //UploadVideoAPI()
-        
-        
-//        if info[UIImagePickerControllerMediaType] as? String == (kUTTypeMovie as? String) {
-//            // here your video capture code
-//            let videoURL = info[UIImagePickerControllerMediaURL] as! NSURL!
-//            let data = NSData(contentsOf: videoURL! as URL)!
-//            print("File size before compression: \(Double(data.length / 1048576)) mb")
-//            let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
-//            compressVideo(inputURL: videoURL! as URL, outputURL: compressedURL) { (exportSession) in
-//                guard let session = exportSession else {
-//                    return
-//                }
-//                
-//                switch session.status {
-//                case .unknown:
-//                    break
-//                case .waiting:
-//                    break
-//                case .exporting:
-//                    break
-//                case .completed:
-//                    guard let compressedData = NSData(contentsOf: compressedURL) else {
-//                        return
-//                    }
-//                    print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
-//                    
-//                    self.movieData = compressedData
-//                    
-//                    
-//                    self.UploadVideoAPI()
-//                case .failed:
-//                    break
-//                case .cancelled:
-//                    break
-//                }
-//            }
-//        }
-//        self.dismiss(animated: true, completion: nil)
-//        
-        
-        
+        UploadVideoAPI()
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
 }
+
+
 extension CategoryVideoUploadVC: AVCaptureFileOutputRecordingDelegate {
     func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
         guard let data = NSData(contentsOf: outputFileURL as URL) else {
