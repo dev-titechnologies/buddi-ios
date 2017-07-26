@@ -52,7 +52,7 @@ class SubCategorySelectionVC: UIViewController {
     
     func loadSelectedSubCategoriesAmong() {
         for value in selectedSubCategoriesFromTable{
-            selectedSubCategoriesAmongSingleton.append(subCategories[selectedSubCategoriesFromTable[value]])
+            selectedSubCategoriesAmongSingleton.append(subCategories[value])
         }
     }
     

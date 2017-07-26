@@ -120,9 +120,14 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
     }
     
     @IBAction func testupload(_ sender: Any) {
+        var imagePickedData = NSData()
+        imagePickedData = UIImageJPEGRepresentation(self.profileImage.image!, 1.0)! as NSData
+   //imagePickedData = UIImageJPEGRepresentation(UIImage(named:"AC.png")!, 1.0)! as NSData
         
+//        self.UploadImageAPI()
         
-        self.UploadImageAPI()
+        self.UploadImageAPI(imagedata: imagePickedData)
+        
     }
     func EditProfileAPI()
     {
@@ -263,22 +268,24 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
     // MARK: - UIImagePickerControllerDelegate Methods
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.profileImage.image = pickedImage
-            
-            print("SIZE",pickedImage.size)
-           /// self.profileImage.contentMode = .scaleAspectFit
-            
-            imgData = UIImageJPEGRepresentation(pickedImage, 0.6) as! NSData
-            
-                 }
+//        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//            
+//            self.profileImage.image = pickedImage
+//  
+    
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
+        self.profileImage.contentMode = .scaleAspectFit //3
+        self.profileImage.image = chosenImage //4
+    
+    
+    
         dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    func UploadImageAPI() {
+    func UploadImageAPI(imagedata : NSData) {
         
         let headers = [
             "token":appDelegate.Usertoken ]
@@ -305,25 +312,46 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
        // let updateUrl = NSURL(string: "http://192.168.1.14:4001/upload/upload" as String)
         
         
+        var uploadImageData = NSData()
         
+        
+       // uploadImageData = UIImageJPEGRepresentation(UIImage(named:"AC.png")!, 1.0)! as NSData
+        
+        uploadImageData = imagedata
+        
+        self.flage_img.image = UIImage(data:uploadImageData as Data,scale:1.0)
+        
+        
+       // print("DATTTAAAA",uploadImageData)
         
         Alamofire.upload(multipartFormData: { multipartFormData in
             
+           
+            
+            
+            for (key, value) in parameters {
+                
+                print("PARAMETER1",value)
+                print("PARAMETER11",key)
+                
+                multipartFormData.append(value.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: key)
+                
+                
+            }
+
             if let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.6) {
                // multipartFormData.append(data: imageData, name: "image", fileName: "file.png", mimeType: "image/png")
-                multipartFormData.append(imageData, withName: "file_name", fileName: "image", mimeType: "image/png")
+                multipartFormData.append(uploadImageData as Data, withName: "file_name", fileName: "image.png", mimeType: "image/png")
+                
+                
+              
                 
             }
             else{
                 print("NODATAAA")
             }
            
-            for (key, value) in parameters {
-                multipartFormData.append(value.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: key)
-                
-                
-            }
-//            
+            //
 //        multipartFormData.append(filetype.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: "file_type")
 //             multipartFormData.append(uploadtype.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: "upload_type")
             
