@@ -43,5 +43,7 @@ struct SUB_CATEGORY_TITLES {
 //}
 
 class Appconstants: NSObject {
+    
+        
 
 }
