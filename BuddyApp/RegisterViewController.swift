@@ -36,6 +36,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     var UserType = String()
     var RegisterType = String()
     var countryAlphaCode = String()
+    var profileImageURL = String()
     override func viewDidLoad() {
         super.viewDidLoad()
        // navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 188/255, green: 214/255, blue: 255/255, alpha: 1)
@@ -197,7 +198,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 "last_name": self.lastname_txt.text!,
                 "mobile": contrycode_txt.text! + mobile_txt.text!,
                 "gender":genderString,
-                "user_image": "a",
+                "user_image": self.profileImageURL,
                 "user_type": UserType,
                 "facebook_id": FB_id ,
                 "google_id": GOOGLE_id ,
@@ -335,6 +336,10 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                      self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
                     self.lastname_txt.text = (self.fbUserDictionary["last_name"] as? String)!
                     self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
+                    
+                    self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
+                    
+                    print("PROFILE IMAGE ",self.profileImageURL)
                    
                     SVProgressHUD.dismiss()
                 }
