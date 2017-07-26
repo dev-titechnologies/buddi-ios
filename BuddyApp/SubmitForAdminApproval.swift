@@ -78,6 +78,8 @@ class SubmitForAdminApproval: UIViewController {
     
     @IBAction func submitForApprovalAction(_ sender: Any) {
         
+        //"video data":{"subCat_name":"Snatch","video_url":"http:\/\/192.168.1.14:4001\/video\/c3104aa7-f94c-48e0-845e-400f382ec12c.mkv"}
+        
         let parameters = ["user_type":"trainer",
                           "user_id":"17",
                           "cat_ids":categoryIDs,

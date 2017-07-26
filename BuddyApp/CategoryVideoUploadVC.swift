@@ -99,28 +99,15 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
         }
     }
     
-    @IBAction func cameraRoll_action(_ sender: Any) {
-       
-        
-    }
     @IBAction func camera_action(_ sender: Any) {
-        
-//        imagePicker.sourceType = .camera
-//        imagePicker.mediaTypes = [kUTTypeMovie as NSString as String]
-//        imagePicker.allowsEditing = false
-         imagePicker.delegate = self
-        
-        
+        imagePicker.delegate = self
         imagePicker.allowsEditing = false
         imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-       imagePicker.mediaTypes = [kUTTypeMovie as NSString as String]
+        imagePicker.mediaTypes = [kUTTypeMovie as NSString as String]
         imagePicker.modalPresentationStyle = .fullScreen
         present(imagePicker,
                 animated: true,
                 completion: nil)
-
-        
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -130,42 +117,21 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
         
         let headers = [
             "token":appDelegate.Usertoken ]
+        
         let parameters = ["file_type":"vid",
                           "upload_type":"other"]
         
         print("PARAMS",parameters)
         print("HEADERS",headers)
         
-//        var filetype1 = String()
-//        var uploadtype1 = String()
-//        
-//        filetype = "vid"
-//        uploadtype = "other"
-        
-        
         Alamofire.upload(multipartFormData: { multipartFormData in
-            
-            
-            
-            
             for (key, value) in parameters {
                 
                 print("PARAMETER1",value)
                 print("PARAMETER11",key)
-                
                 multipartFormData.append(value.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: key)
-                
-                
             }
-            
-          
-            
-            
-      //  multipartFormData.append(movieData, name: "file_name", fileName: "video.mov", mimeType: "video/mov")
-            
-    multipartFormData.append(self.movieData as Data, withName: "file_name", fileName: "video.mov", mimeType: "video/mov")
-            
-            
+            multipartFormData.append(self.movieData as Data, withName: "file_name", fileName: "video.mov", mimeType: "video/mov")
         }, to: "http://192.168.1.14:4001/upload/upload",
            method:.post,
            headers:headers,
@@ -175,14 +141,25 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
             case .success(let upload, _, _):
                 upload.responseJSON { response in
                     debugPrint(response)
+                    print("Video Upload Response:",response)
+//                    print(response as Dictionary)
+                    
+//                    if let responseDict = response as? NSDictionary as! Dictionary{
+//                        print(responseDic)
+//                    }
+                    
+                    self.loadSubCategoryURLToSingletonArray()
                 }
             case .failure(let encodingError):
                 print(encodingError)
-                
-            } })
+            }
+        })
     }
-
     
+    func loadSubCategoryURLToSingletonArray() {
+        
+        
+    }
 }
 
 extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
@@ -191,89 +168,21 @@ extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
         videoURL = info["UIImagePickerControllerMediaURL"] as? NSURL
         print("URLL",videoURL!)
         
-       // var movieData: NSData?
         do {
             let video = try NSData(contentsOf: (info["UIImagePickerControllerMediaURL"] as? NSURL)! as URL, options: .mappedIfSafe)
-            
             movieData = video
-            
             print("Total bytes \(movieData.length)")
         } catch {
             print(error)
             return
         }
         
-        
         dismiss(animated: true, completion: nil)
-         UploadVideoAPI()
+        UploadVideoAPI()
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-//    func uploadVideo() {
-//        
-//        let url = SERVER_URL_Local + "upload/upload"
-//        
-//        let request = NSMutableURLRequest(URL:url);
-//        request.HTTPMethod = "POST";
-//        
-//        let param = [
-//            "firstName"  : "TESTNAME",
-//            "lastName"    : "TESTNAMELAST",
-//            "userId"    : "10"
-//        ]
-//        
-//        let boundary = generateBoundaryString()
-//        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-//        let imageData = UIImageJPEGRepresentation(myImageView.image!, 1)
-//        if(imageData==nil)  { return; }
-//        request.HTTPBody = createBodyWithParameters(param, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
-//        
-//        myActivityIndicator.startAnimating();
-//        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
-//            data, response, error in
-//            
-//            if error != nil {
-//                print("error=\(error)", terminator: "")
-//                return
-//            }
-//            
-//            print("******* response = \(response)", terminator: "")
-//            let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-//            print("****** response data = \(responseString!)")
-//            
-//            //let json:NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions.MutableContainers )) as! NSDictionary
-//            dispatch_async(dispatch_get_main_queue(),{
-//                self.myActivityIndicator.stopAnimating()
-//                self.myImageView.image = nil;
-//            });
-//        }
-//        task.resume()
-//    }
-    
-        
-        
-//        Alamofire.upload(.POST, "upload/upload", multipartFormData: { (formData:MultipartFormData) in
-//            formData.append(videoURL! as URL, withName: "test")
-//        }, encodingCompletion: { encodingResult in
-//            switch encodingResult {
-//            case .Success(let upload, _, _):
-//                upload.progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-//                    print(totalBytesRead)
-//                }
-//                upload.responseJSON { response in
-//                    debugPrint(response)
-//                    //uploaded
-//                }
-//            case .Failure(let encodingError):
-//                //Something went wrong!
-//                if DEBUG_MODE {
-//                    print(encodingError)
-//                }
-//            }
-//        })
-        
-        
-    
 }
 

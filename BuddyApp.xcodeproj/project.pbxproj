@@ -85,6 +85,8 @@
 		F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */; };
 		F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */; };
 		F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7D1F20F8BE00D51277 /* String Constants.swift */; };
+		F3FF03E11F285F6700D4DD0D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FF03E01F285F6700D4DD0D /* StringExtension.swift */; };
+		F3FF03E31F285F8200D4DD0D /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FF03E21F285F8200D4DD0D /* DataExtension.swift */; };
 		F48562D84E3A72F7B5164F69 /* Pods_BuddyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -189,6 +191,8 @@
 		F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTestAnswersModel.swift; sourceTree = "<group>"; };
 		F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategorySelectionVC.swift; sourceTree = "<group>"; };
 		F3F77C7D1F20F8BE00D51277 /* String Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String Constants.swift"; sourceTree = "<group>"; };
+		F3FF03E01F285F6700D4DD0D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		F3FF03E21F285F8200D4DD0D /* DataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +337,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F3FF03DF1F285F4200D4DD0D /* Extensions */,
 				F3270DB41F275953004CE765 /* plogo.png */,
 				F33AE4E01F20DA8F00B82E0C /* Registerviewcontroller */,
 				F373509B1F2090AD00BE9DB6 /* Category Lists */,
@@ -520,6 +525,15 @@
 				F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */,
 			);
 			name = "Video Uploading Page";
+			sourceTree = "<group>";
+		};
+		F3FF03DF1F285F4200D4DD0D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F3FF03E01F285F6700D4DD0D /* StringExtension.swift */,
+				F3FF03E21F285F8200D4DD0D /* DataExtension.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -817,6 +831,7 @@
 				F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */,
 				F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */,
 				F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */,
+				F3FF03E31F285F8200D4DD0D /* DataExtension.swift in Sources */,
 				F37350991F207A2D00BE9DB6 /* LeftViewController.swift in Sources */,
 				F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */,
 				F316E7F11F2209C000994447 /* SubCategoryTableCell.swift in Sources */,
@@ -851,6 +866,7 @@
 				F37350AC1F20AA3400BE9DB6 /* CategoryDB.swift in Sources */,
 				F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */,
 				F38BB5451F26077B00824C15 /* ProfileDB.swift in Sources */,
+				F3FF03E11F285F6700D4DD0D /* StringExtension.swift in Sources */,
 				F322FC451F1CE62100381B8C /* BuddyApp.xcdatamodeld in Sources */,
 				F316E7F81F22364F00994447 /* Question3VC.swift in Sources */,
 				F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */,

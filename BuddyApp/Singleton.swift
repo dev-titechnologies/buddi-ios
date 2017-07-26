@@ -22,6 +22,7 @@ class Singleton {
     var trainerTestAnswers: TrainerTestAnswersModel = TrainerTestAnswersModel()
     var approvedCategories = [Int]()
     var approvalPendingCategories = [Int]()
+    var subCategoryVideoURLs = [String]()
     
     static let sharedInstance : Singleton = {
         let instance = Singleton()
