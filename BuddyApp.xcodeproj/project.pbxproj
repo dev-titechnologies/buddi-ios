@@ -36,6 +36,7 @@
 		F322FC551F1CE62400381B8C /* BuddyAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC541F1CE62400381B8C /* BuddyAppTests.swift */; };
 		F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */; };
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
+		F3270DB51F275953004CE765 /* plogo.png in Resources */ = {isa = PBXBuildFile; fileRef = F3270DB41F275953004CE765 /* plogo.png */; };
 		F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */; };
 		F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */; };
 		F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAB91F1DE60A0091900D /* BookingHistory.json */; };
@@ -147,6 +148,7 @@
 		F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyAppUITests.swift; sourceTree = "<group>"; };
 		F322FC611F1CE62500381B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F322FC6F1F1CEF2200381B8C /* Appconstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appconstants.swift; sourceTree = "<group>"; };
+		F3270DB41F275953004CE765 /* plogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plogo.png; sourceTree = "<group>"; };
 		F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterChoiceViewController.swift; sourceTree = "<group>"; };
 		F35FDAB91F1DE60A0091900D /* BookingHistory.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BookingHistory.json; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F3270DB41F275953004CE765 /* plogo.png */,
 				F33AE4E01F20DA8F00B82E0C /* Registerviewcontroller */,
 				F373509B1F2090AD00BE9DB6 /* Category Lists */,
 				F373509A1F207A3800BE9DB6 /* Home Page */,
@@ -641,6 +644,7 @@
 				F322FC4A1F1CE62200381B8C /* LaunchScreen.storyboard in Resources */,
 				F35FDAF11F1E52840091900D /* Main.storyboard in Resources */,
 				F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */,
+				F3270DB51F275953004CE765 /* plogo.png in Resources */,
 				F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */,
 				F35FDAE81F1E51DE0091900D /* ReviewHistory.json in Resources */,
 				F302BB941F1F32E900186BCC /* GoogleService-Info.plist in Resources */,

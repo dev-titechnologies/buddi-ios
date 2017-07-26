@@ -72,27 +72,16 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     @IBAction func forgotpq_action(_ sender: Any) {
         
         
-        let parameters = [
-            "login_type":"facebook",
-            "email":self.email_txt.text!,
-            "password":self.password_txt.text!,
-            "user_type": "a",
-            "facebook_id": "",
-            "google_id": "ios"
-            
-        ]
-        let headers = [
-            "device_id": "y",
-            "device_imei": "yu",
-            "device_type": "ios",
-            
-        ]
-
+        self.LOginApi(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
         
+
         
         
     }
     @IBAction func NormalLogin(_ sender: Any) {
+        
+        self.LOginApi(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
+        
     }
     
     @IBAction func GoogleLogin_action(_ sender: Any) {
