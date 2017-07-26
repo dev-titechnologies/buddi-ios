@@ -30,6 +30,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
     @IBOutlet weak var image_edit_btn: UIButton!
     let imagePicker = UIImagePickerController()
     var imgData = NSData()
+   var ProfileImageURL = String()
+    var EditBool = Bool()
 
     
     let profileDetails : ProfileModel = ProfileModel()
@@ -43,7 +45,17 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
         profileImage.layer.cornerRadius = 60
         profileImage.clipsToBounds = true
          imagePicker.delegate = self 
-      
+         EditBool = true
+        
+       
+        
+        firstname_txt.isUserInteractionEnabled = false
+        lastname_txt.isUserInteractionEnabled = false
+        email_txt.isUserInteractionEnabled = false
+        mobile_txt.isUserInteractionEnabled = false
+        gender_txt.isUserInteractionEnabled = false
+        
+        
         
         
         if let result = ProfileDB.fetchUser()      {
@@ -88,6 +100,10 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
         userid: "")
             
             
+            profileImage.sd_setImage(with: NSURL(string: profile.profileImage)! as URL)
+
+            
+            
            // profileImage.image = UIImage.init(named: profile.profileImage)
             firstname_txt.text = profile.firstName
             lastname_txt.text = profile.lastName
@@ -114,19 +130,43 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
     @IBAction func editProfile_action(_ sender: Any) {
         
         
-        image_edit_btn.isHidden = false
         
-       // self.EditProfileAPI()
+        
+        if EditBool == true
+        {
+            edit_btn.title = "Save"
+            
+            EditBool = false
+            firstname_txt.isUserInteractionEnabled = true
+            lastname_txt.isUserInteractionEnabled = true
+            image_edit_btn.isHidden = false
+            
+            
+            
+        }
+        else{
+            
+            firstname_txt.isUserInteractionEnabled = false
+            lastname_txt.isUserInteractionEnabled = false
+            image_edit_btn.isHidden = true
+            
+            edit_btn.title = "Edit"
+            EditBool = true
+            
+            EditProfileAPI()
+        }
+        
+      
     }
     
     @IBAction func testupload(_ sender: Any) {
-        var imagePickedData = NSData()
-        imagePickedData = UIImageJPEGRepresentation(self.profileImage.image!, 1.0)! as NSData
+//        var imagePickedData = NSData()
+//        imagePickedData = UIImageJPEGRepresentation(self.profileImage.image!, 1.0)! as NSData
    //imagePickedData = UIImageJPEGRepresentation(UIImage(named:"AC.png")!, 1.0)! as NSData
         
 //        self.UploadImageAPI()
         
-        self.UploadImageAPI(imagedata: imagePickedData)
+//        self.UploadImageAPI(imagedata: imagePickedData)
         
     }
     func EditProfileAPI()
@@ -139,7 +179,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
                            "first_name":self.firstname_txt.text!,
                             "last_name":self.lastname_txt.text!,
                            "gender":self.gender_txt.text!,
-                         "user_image":"",
+                         "user_image":self.ProfileImageURL,
                          "profile_desc":"tt" ] as [String : Any]
         
         let headers = [
@@ -158,6 +198,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
                     self.ProfileDict = jsondata["data"]  as! NSDictionary
                     
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
+                    
+                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Profile updated successfully", buttonTitle: "Ok")
 
                 }
             }
@@ -192,18 +234,18 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
         
         print("FINAL DICT",profiledict)
         
+       // var imagePickedData = NSData()
+       // imagePickedData = UIImageJPEGRepresentation(chosenImage, 1.0)! as NSData
         
-        let profile = ProfileModel(profileImage: (profiledict["user_image"] as? String)!, firstName: (profiledict["first_name"] as? String)!, lastName: (profiledict["last_name"] as? String)!, email: (profiledict["email"] as? String)!, mobile: (profiledict["mobile"] as? String)!, gender: (profiledict["gender"] as? String)!, userid: "")
+        
+        
+        let profile = ProfileModel(profileImage: (profiledict["user_image"] as? String)!, firstName: (profiledict["first_name"] as? String)!, lastName: (profiledict["last_name"] as? String)!, email: (profiledict["email"] as? String)!, mobile: (profiledict["mobile"] as? String)!, gender: (profiledict["gender"] as? String)!, userid: "" )
         
         
         
         ProfileDB.createProfileEntry(profileModel: profile)
         
-      //  flage_img.image = UIImage.sd_image(with: userDefaults.value(forKey: "flage_img") as! Data)
-        
-        
-        
-      //  profileImage.image = UIImage.init(named: profile.profileImage)
+        profileImage.sd_setImage(with: NSURL(string: profile.profileImage)! as URL)
         firstname_txt.text = profile.firstName
         lastname_txt.text = profile.lastName
         email_txt.text = profile.email
@@ -274,12 +316,20 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
 //  
     
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
-        self.profileImage.contentMode = .scaleAspectFit //3
-        self.profileImage.image = chosenImage //4
+       // self.profileImage.contentMode = .scaleAspectFit //3
+       // self.profileImage.image = chosenImage //4
     
     
     
         dismiss(animated: true, completion: nil)
+        
+        var imagePickedData = NSData()
+        imagePickedData = UIImageJPEGRepresentation(chosenImage, 1.0)! as NSData
+        
+        
+        self.UploadImageAPI(imagedata: imagePickedData)
+        
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -295,31 +345,12 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
         print("PARAMS",parameters)
         print("HEADERS",headers)
         
-        var filetype = String()
-        var uploadtype = String()
-        
-        filetype = "img"
-        uploadtype = "profile"
-        
-
-//
-//        let imageData = UIImagePNGRepresentation(self.profileImage.image!)!
-//        
-//        Alamofire.upload(imageData, to: "http://192.168.1.14:4001/upload/upload",headers: headers ).responseJSON { response in
-//            debugPrint(response)
-//        }
-        
-       // let updateUrl = NSURL(string: "http://192.168.1.14:4001/upload/upload" as String)
-        
         
         var uploadImageData = NSData()
         
+             uploadImageData = imagedata
         
-       // uploadImageData = UIImageJPEGRepresentation(UIImage(named:"AC.png")!, 1.0)! as NSData
         
-        uploadImageData = imagedata
-        
-        self.flage_img.image = UIImage(data:uploadImageData as Data,scale:1.0)
         
         
        // print("DATTTAAAA",uploadImageData)
@@ -350,14 +381,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
             else{
                 print("NODATAAA")
             }
-           
-            //
-//        multipartFormData.append(filetype.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: "file_type")
-//             multipartFormData.append(uploadtype.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: "upload_type")
-            
-            
-            
-        }, to: "http://192.168.1.14:4001/upload/upload",
+         }, to: "http://192.168.1.14:4001/upload/upload",
            method:.post,
            headers:headers,
            
@@ -366,9 +390,33 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
             case .success(let upload, _, _):
                 upload.responseJSON { response in
                     debugPrint(response)
+                    if let jsonDic = response.result.value as? NSDictionary{
+                        print("DICT ",jsonDic)
+                        
+                        if let status = jsonDic["status"] as? Int{
+                            if status == RESPONSE_STATUS.SUCCESS{
+                                
+                                self.ProfileImageURL = (jsonDic["Url"] as? String)!
+                                
+                                self.profileImage.image = UIImage(data:uploadImageData as Data,scale:1.0)
+                                
+                                CommonMethods.alertView(view: self, title: "SUCCESS", message: "Image uploaded successfully", buttonTitle: "Ok")
+                            }
+                        }
+                        else{
+                            
+                             CommonMethods.alertView(view: self, title: "ERROR", message: "Please try again", buttonTitle: "Ok")
+                            self.ProfileImageURL = ""
+                        }
+                        
+                        
+                    }
+    
                 }
             case .failure(let encodingError):
                 print(encodingError)
+                
+                
                 
             } })
 }

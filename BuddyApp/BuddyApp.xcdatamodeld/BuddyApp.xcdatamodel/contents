@@ -29,6 +29,10 @@
         <attribute name="profileImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="ProfileImageDB" representedClassName="ProfileImageDB" syncable="YES">
+        <attribute name="imageData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="ReviewHistoryDB" representedClassName="ReviewHistoryDB" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reviewDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -50,5 +54,6 @@
         <element name="ProfileDB" positionX="-36" positionY="90" width="128" height="180"/>
         <element name="ReviewHistoryDB" positionX="-54" positionY="63" width="128" height="180"/>
         <element name="SubCategoryDB" positionX="-45" positionY="90" width="128" height="75"/>
+        <element name="ProfileImageDB" positionX="-45" positionY="108" width="128" height="75"/>
     </elements>
 </model>

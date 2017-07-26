@@ -17,6 +17,7 @@ class ProfileModel{
     var mobile: String = String()
     var gender: String = String()
     var userid: String = String()
+    var profileImageData: Data = Data()
     
     init(){}
     
@@ -29,6 +30,7 @@ class ProfileModel{
         self.mobile = mobile
         self.gender = gender
         self.userid = userid
+        
         }
 
 }

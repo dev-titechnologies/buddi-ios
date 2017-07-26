@@ -9,11 +9,26 @@
 import UIKit
 
 class LeftViewController: UIViewController {
+    @IBOutlet weak var profileimage: UIImageView!
+    
+    var imageArray = Array<ProfileImageDB>()
 
     let leftMenuArray = ["Home","Payment","History","Notifications","Settings","Booking","Logout"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let imagearray = ProfileImageDB.fetchImage() {
+            self.imageArray = imagearray as! Array<ProfileImageDB>
+            
+            let obj = self.imageArray[0].value(forKey: "imageData")
+           // print("DBBB",obj!)
+            
+            profileimage.image = UIImage(data: obj as! Data)
+
+            
+        }
+        
 
     }
 
