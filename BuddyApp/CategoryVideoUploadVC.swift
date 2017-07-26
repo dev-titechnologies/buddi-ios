@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import MobileCoreServices
+import AVFoundation
 
 class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
 
@@ -18,6 +19,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     var subCategoryIndex = Int()
     let imagePicker = UIImagePickerController()
     var movieData = NSData()
+    var ResponseVideoURL = String()
 
     @IBOutlet weak var lblSubCategoryTitle: UILabel!
     @IBOutlet weak var lblMainDescription: UILabel!
@@ -84,6 +86,9 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     @IBAction func pickVideoFromGalleryAction(_ sender: Any) {
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        
+        
+        
         imagePickerController.mediaTypes = ["public.image", "public.movie"]
         
         present(imagePickerController, animated: true, completion: nil)
@@ -142,13 +147,19 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                 upload.responseJSON { response in
                     debugPrint(response)
                     print("Video Upload Response:",response)
-//                    print(response as Dictionary)
                     
-//                    if let responseDict = response as? NSDictionary as! Dictionary{
-//                        print(responseDic)
-//                    }
+//                    self.loadSubCategoryURLToSingletonArray()
                     
-                    self.loadSubCategoryURLToSingletonArray()
+                    if let jsonDic = response.result.value as? NSDictionary{
+                        print("DICT ",jsonDic)
+                        
+                        if let status = jsonDic["status"] as? Int{
+                            if status == RESPONSE_STATUS.SUCCESS{
+                                self.ResponseVideoURL = (jsonDic["Url"] as? String)!
+                                CommonMethods.alertView(view: self, title: "", message: "VIDEO UPLOADED SUCCESSFULLY", buttonTitle: "Ok")
+                             }
+                        }
+                    }
                 }
             case .failure(let encodingError):
                 print(encodingError)
@@ -171,7 +182,7 @@ extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
         do {
             let video = try NSData(contentsOf: (info["UIImagePickerControllerMediaURL"] as? NSURL)! as URL, options: .mappedIfSafe)
             movieData = video
-            print("Total bytes \(movieData.length)")
+            print("Total bytes \(movieData.length/(1000*1000))")
         } catch {
             print(error)
             return
@@ -186,3 +197,54 @@ extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
     }
 }
 
+
+extension CategoryVideoUploadVC: AVCaptureFileOutputRecordingDelegate {
+    func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
+        guard let data = NSData(contentsOf: outputFileURL as URL) else {
+            return
+        }
+        
+        print("File size before compression1: \(Double(data.length / 1048576)) mb")
+        let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
+        compressVideo(inputURL: outputFileURL as URL, outputURL: compressedURL) { (exportSession) in
+            guard let session = exportSession else {
+                return
+            }
+            
+            switch session.status {
+            case .unknown:
+                break
+            case .waiting:
+                break
+            case .exporting:
+                break
+            case .completed:
+                guard let compressedData = NSData(contentsOf: compressedURL) else {
+                    return
+                }
+                
+                print("File size after compression1: \(Double(compressedData.length / 1048576)) mb")
+            case .failed:
+                break
+            case .cancelled:
+                break
+            }
+        }
+    }
+    
+    func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
+        let urlAsset = AVURLAsset(url: inputURL, options: nil)
+        guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetMediumQuality) else {
+            handler(nil)
+            
+            return
+        }
+        
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = AVFileTypeQuickTimeMovie
+        exportSession.shouldOptimizeForNetworkUse = true
+        exportSession.exportAsynchronously { () -> Void in
+            handler(exportSession)
+        }
+    }
+}
