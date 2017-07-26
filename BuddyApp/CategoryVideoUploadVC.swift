@@ -197,7 +197,7 @@ extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
             
             movieData = video
             
-            print("Total bytes \(movieData.length)")
+            print("Total bytes \(movieData.length/1000*1000)")
         } catch {
             print(error)
             return
