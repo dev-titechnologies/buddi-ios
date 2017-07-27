@@ -182,39 +182,11 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")
                     
-                    print(appDelegate.UserId)
-                    
-                    var approvedCount = Int()
-                    var pendingCount = Int()
-                    
-                    if let category_approvedArray = self.jsondict["category_approved"] as? NSArray{
-                        print(category_approvedArray)
-                        
-                        approvedCount = category_approvedArray.count
-                        
-                        if approvedCount > 0 {
-                            print("*** Approved Categories Present ****")
-                            //Need to redirect to Home Screen
-                            self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
-                        }
+                    if self.UserType == "trainer" {
+                        self.segueActionsIfTrainer(dictionary: self.jsondict as! Dictionary<String, Any>!)
+                    }else if self.UserType == "trainee" {
+                        self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
                     }
-                    
-                    if let category_pendingArray = self.jsondict["category_pending"] as? NSArray{
-                        print(category_pendingArray)
-                        
-                        pendingCount = category_pendingArray.count
-                        
-                        if pendingCount > 0 && approvedCount == 0 {
-                            print("*** Pending Categories Present ****")
-                            //Redirect to Waiting for Approval Page
-                            self.performSegue(withIdentifier: "toWaitingForApprovalSegue", sender: self)
-                        }else if pendingCount == 0 && approvedCount == 0 {
-                            //Redirect to Choose Category Page
-                            print("Login to Choose Category Page")
-                            self.performSegue(withIdentifier: "loginToChooseCategorySegue", sender: self)
-                        }
-                    }
-                    
                     
                     let url = URL(string:(self.jsondict["user_image"] as? String)!)
                     let data = NSData.init(contentsOf: url!)
@@ -230,5 +202,40 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 }
             }
         })
+    }
+    
+    func segueActionsIfTrainer(dictionary: Dictionary<String, Any>!) {
+        print(dictionary)
+        
+        var approvedCount = Int()
+        var pendingCount = Int()
+        
+        if let category_approvedArray = dictionary["category_approved"] as? NSArray{
+            print(category_approvedArray)
+            
+            approvedCount = category_approvedArray.count
+            
+            if approvedCount > 0 {
+                print("*** Approved Categories Present ****")
+                //Need to redirect to Home Screen
+                self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
+            }
+        }
+        
+        if let category_pendingArray = dictionary["category_pending"] as? NSArray{
+            print(category_pendingArray)
+            
+            pendingCount = category_pendingArray.count
+            
+            if pendingCount > 0 && approvedCount == 0 {
+                print("*** Pending Categories Present ****")
+                //Redirect to Waiting for Approval Page
+                self.performSegue(withIdentifier: "toWaitingForApprovalSegue", sender: self)
+            }else if pendingCount == 0 && approvedCount == 0 {
+                //Redirect to Choose Category Page
+                print("Login to Choose Category Page")
+                self.performSegue(withIdentifier: "loginToChooseCategorySegue", sender: self)
+            }
+        }
     }
 }
