@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
                         //User didn't grant permission
                     }
                 } else {
-                    print("error: ",error!)
+                    print(" notification error: ",error!)
                 }
             })
         } else {

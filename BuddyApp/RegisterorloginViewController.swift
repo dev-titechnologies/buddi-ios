@@ -18,6 +18,17 @@ class RegisterorloginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        if userDefaults.value(forKey: "devicetoken") != nil
+        {
+            appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
+            
+            print("TOKEN 1",appDelegate.DeviceToken)
+            
+        }
+        else{
+            appDelegate.DeviceToken = "1234567890"
+        }
+
        
         
         login_btn.layer.cornerRadius = 5

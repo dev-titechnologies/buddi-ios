@@ -15,8 +15,8 @@ public class ProfileImageDB: NSManagedObject {
     class func save(imageURL: String, imageData: NSData){
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProfileImageDB")
-         print("IMGAE",imageURL)
-        print("IMGDATA",imageData)
+//         print("IMGAE",imageURL)
+//        print("IMGDATA",imageData)
         
         do {
             let images = try context.fetch(fetchRequest)
