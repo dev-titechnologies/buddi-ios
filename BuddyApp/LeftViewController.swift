@@ -14,9 +14,13 @@ class LeftViewController: UIViewController {
     var imageArray = Array<ProfileImageDB>()
     var objdata = NSData()
 
-    let leftMenuArray = ["Home","Settings","Payment Method","Become a Trainer","Training History","Invit Friends","Help","Legal","Logout"]
+    let leftMenuArrayTrainer = ["Home","Settings","Payment Method","Training History","Invit Friends","Help","Legal","Logout"]
+    let leftMenuArrayTrainee = ["Home","Settings","Payment Method","Become a Trainer","Training History","Invit Friends","Help","Legal","Logout"]
+
     
-     let ImageArray = ["HOME","SETTINGES","PAY","BECOME-TRAINER","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
+     let ImageArrayTrainer = ["HOME","SETTINGES","PAY","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
+    
+    let ImageArrayTrainee = ["HOME","SETTINGES","PAY","BECOME-TRAINER","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
     
    // let ImageArray = ["HOME","PAY","TRAINING-HISTORY","LEGAL","SETTINGES","HELP","LOGOUT"]
     
@@ -72,16 +76,44 @@ class LeftViewController: UIViewController {
 extension LeftViewController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return leftMenuArray.count
+        
+        
+        if appDelegate.USER_TYPE == "trainer"
+        {
+            return leftMenuArrayTrainer.count
+        }
+        else
+        {
+            return leftMenuArrayTrainee.count
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: LeftMenuTableCell = tableView.dequeueReusableCell(withIdentifier: "leftMenuCellId") as! LeftMenuTableCell
         
-        cell.lblLeftMenuTitle.text = leftMenuArray[indexPath.row]
+        if appDelegate.USER_TYPE == "trainer"
+        {
+            
+            cell.lblLeftMenuTitle.text = leftMenuArrayTrainer[indexPath.row]
+            
+            cell.icon_img.image = UIImage(named: ImageArrayTrainer[indexPath.row])
+
+        }
+        else
+        {
+            
+            cell.lblLeftMenuTitle.text = leftMenuArrayTrainer[indexPath.row]
+            
+            cell.icon_img.image = UIImage(named: ImageArrayTrainee[indexPath.row])
+
+        }
+
         
-        cell.icon_img.image = UIImage(named: ImageArray[indexPath.row])
+        
+        
         
         return cell
 
@@ -94,44 +126,97 @@ extension LeftViewController : UITableViewDelegate{
         
         
         
-        switch (indexPath.row)
+        if appDelegate.USER_TYPE == "trainer"
         {
-        case 0:
-            print("zero")
             
-        case 1:
-            print("one")
-            
-        case 2:
-            print("two")
-            
-        case 3:
-            print("three")
-            
-        case 4:
-            print("four")
-            self.performSegue(withIdentifier: "history", sender:self)
-            
-            
-        case 5:
-            print("five")
-            
-        case 6:
-            print("six")
-            
-        case 7:
-            print("seven")
-            
-        case 8:
-            print("eight")
-            
+            switch (indexPath.row)
+            {
+            case 0:
+                print("zero")
+                
+            case 1:
+                print("one")
+                
+            case 2:
+                print("two")
+                
+            case 3:
+                print("three")
+                 self.performSegue(withIdentifier: "history", sender:self)
+                
+            case 4:
+                print("four")
+               
+                
+                
+            case 5:
+                print("five")
+                
+            case 6:
+                print("six")
+                
+            case 7:
+                print("seven")
+                
             dismissOnSessionExpire()
+                
+            default:
+                print("Integer out of range")
+            }
             
-        default:
-            print("Integer out of range")
+
         }
+        else
+        {
+            
+            switch (indexPath.row)
+            {
+            case 0:
+                print("zero")
+                
+            case 1:
+                print("one")
+                
+            case 2:
+                print("two")
+                
+            case 3:
+                print("three")
+                
+            case 4:
+                print("four")
+                self.performSegue(withIdentifier: "history", sender:self)
+                
+                
+            case 5:
+                print("five")
+                
+            case 6:
+                print("six")
+                
+            case 7:
+                print("seven")
+                
+            case 8:
+                print("eight")
+                
+   
+            dismissOnSessionExpire()
+                
+            default:
+                print("Integer out of range")
+            }
+            
+
+        }
+
         
-    }
+        
+        
+        
+        
+        
+         }
     
 
 }
