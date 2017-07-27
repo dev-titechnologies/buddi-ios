@@ -34,6 +34,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
    var ProfileImageURL = String()
     var EditBool = Bool()
     var imageArray = Array<ProfileImageDB>()
+    var objdata = NSData()
     
     var countrypicker = CountryPicker()
 
@@ -128,18 +129,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         gender: self.profileArray[0].value(forKey: "gender") as! String,
         userid: "")
             
-            
-            if let imagearray = ProfileImageDB.fetchImage() {
-                self.imageArray = imagearray as! Array<ProfileImageDB>
-                
-                let obj = self.imageArray[0].value(forKey: "imageData")
-                // print("DBBB",obj!)
-                
-                profileImage.image = UIImage(data: obj as! Data)
-                
-                
-            }
-
+      profileImage.sd_setImage(with: URL(string: profile.profileImage))
             firstname_txt.text = profile.firstName
             lastname_txt.text = profile.lastName
             email_txt.text = profile.email
@@ -151,6 +141,31 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             countrypicker.countryPickerDelegate = self
             countrypicker.showPhoneNumbers = true
             countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
+            
+            
+//            DispatchQueue.global(qos: .background).async {
+//                print("This is run on the background queue")
+//                
+//                if let imagearray = ProfileImageDB.fetchImage() {
+//                    self.imageArray = imagearray as! Array<ProfileImageDB>
+//                    
+//                    self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
+//                    // print("DBBB",obj!)
+//                    
+//                    
+//                    
+//                    
+//                }
+//                DispatchQueue.main.async {
+//                    print("This is run on the main queue, after the previous code in outer block")
+//                    
+//                    self.profileImage.image = UIImage(data: self.objdata as Data)
+//                }
+//            }
+//            
+//            
+            
+            
             
         
         }
@@ -291,7 +306,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
 
         
-        profileImage.sd_setImage(with: NSURL(string: profile.profileImage)! as URL)
+        profileImage.sd_setImage(with: URL(string: profile.profileImage))
         firstname_txt.text = profile.firstName
         lastname_txt.text = profile.lastName
         email_txt.text = profile.email
@@ -484,14 +499,14 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                                 
                                
 //                                
-                                self.profileImage.image = UIImage(data:imagedata as Data,scale:1.0)
+                        self.profileImage.image = UIImage(data:(uploadImageData as NSData) as Data,scale:1.0)
                                  self.ProfileImageURL = (jsonDic["Url"] as? String)!
                                 self.EditProfileAPI()
                                 
                                 
                              //   CommonMethods.alertView(view: self, title: "SUCCESS", message: "Image uploaded successfully", buttonTitle: "Ok")
                                 
-                        ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: uploadImageData)
+                ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: uploadImageData as Data as Data as NSData)
                                     //
 
                                     

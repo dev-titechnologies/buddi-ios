@@ -214,8 +214,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 
             ]
             HeaderDictionary = [
-                "device_id": "y",
-                "device_imei": "yu",
+                "device_id": appDelegate.DeviceToken,
+                "device_imei": UIDevice.current.identifierForVendor!.uuidString,
                 "device_type": "ios",
                 
             ]
