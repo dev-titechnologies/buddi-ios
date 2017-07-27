@@ -554,7 +554,7 @@
                                     <constraint firstAttribute="height" constant="67" id="Fhb-NX-VR9"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are unable to auo-verify your mobile number. please enter the code recived" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QY-fJ-7FS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are unable to auo-verify your mobile number. please enter the code recieved" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QY-fJ-7FS">
                                 <rect key="frame" x="39" y="173" width="302" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="6jN-SS-jaW"/>
@@ -1027,6 +1027,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="jpg-vZ-UQI" id="HJp-vi-cHJ"/>
+                                    <outlet property="delegate" destination="jpg-vZ-UQI" id="CM3-9l-YLr"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FbD-NC-BR5">
                                 <rect key="frame" x="0.0" y="603" width="375" height="64"/>
@@ -1038,6 +1042,9 @@
                                 <state key="normal" title="NEXT">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="nextButtonAction:" destination="jpg-vZ-UQI" eventType="touchUpInside" id="E8s-hz-PCP"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List your 1 rep max for each  movement that applies to the category you wish to coach:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZv-fL-vpa">
                                 <rect key="frame" x="10" y="71" width="355" height="45"/>
@@ -1088,6 +1095,9 @@
                                         <state key="normal" title="YES">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="yesBtnActionLostOrGainWeight:" destination="jpg-vZ-UQI" eventType="touchUpInside" id="jNi-jv-jLS"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k7O-wN-Ubs">
                                         <rect key="frame" x="187" y="60" width="94" height="38"/>
@@ -1096,6 +1106,9 @@
                                         <state key="normal" title="NO">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="noBtnActionLostOrGainWeight:" destination="jpg-vZ-UQI" eventType="touchUpInside" id="F23-5k-dxH"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1127,6 +1140,10 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
+                        <outlet property="btnNoLostOrGainWeight" destination="k7O-wN-Ubs" id="8HS-oA-ZXH"/>
+                        <outlet property="btnYesLostOrGainWeight" destination="LDO-Cm-UPs" id="tdX-NS-7pp"/>
+                        <outlet property="subCategoryTable" destination="dFg-nq-1C1" id="o83-HS-gyB"/>
+                        <outlet property="txtCurrentWeight" destination="SXX-mx-tsz" id="zAS-lM-DkH"/>
                         <segue destination="qma-WP-Iq9" kind="show" identifier="afterSubCategorySelectionSegue" id="eRL-j4-lIo"/>
                     </connections>
                 </viewController>
@@ -1292,7 +1309,7 @@
                         <outlet property="lblMainDescription" destination="5CR-6r-Drx" id="jcl-KD-tdt"/>
                         <outlet property="lblMalesDescription" destination="uVf-R8-bcG" id="Jss-W5-FRz"/>
                         <outlet property="lblSubCategoryTitle" destination="KDG-CM-gSu" id="0Rw-FL-7rN"/>
-                        <segue destination="dCC-ej-59R" kind="show" identifier="afterVideoUploadSegue" id="fEp-jW-Y56"/>
+                        <segue destination="ETn-IT-nab" kind="show" identifier="waitingForAdminApprovalSegue" id="bhW-SL-F38"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGk-xA-91o" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1318,40 +1335,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EEf-Bs-SiD">
-                                <rect key="frame" x="0.0" y="603" width="375" height="64"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="kH1-bn-rs0"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="Submit for Approval">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="submitForApprovalAction:" destination="dCC-ej-59R" eventType="touchUpInside" id="Fcd-4F-QJO"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="EEf-Bs-SiD" firstAttribute="leading" secondItem="vt9-wk-zfz" secondAttribute="leading" id="DgJ-CD-9E1"/>
-                            <constraint firstAttribute="trailing" secondItem="EEf-Bs-SiD" secondAttribute="trailing" id="F2E-9r-xQo"/>
-                            <constraint firstItem="ul8-Xx-ObY" firstAttribute="top" secondItem="EEf-Bs-SiD" secondAttribute="bottom" id="lJo-tf-F4V"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <segue destination="ETn-IT-nab" kind="show" identifier="afterSubmitForApprovalSegue" id="jaj-ht-zJu"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8gs-B0-DJ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6548" y="1503.5982008995504"/>
+            <point key="canvasLocation" x="6489" y="2196"/>
         </scene>
-        <!--View Controller-->
+        <!--Waiting For ApprovalVC-->
         <scene sceneID="uXm-Pa-0WW">
             <objects>
-                <viewController id="ETn-IT-nab" sceneMemberID="viewController">
+                <viewController id="ETn-IT-nab" customClass="WaitingForApprovalVC" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DCv-Nh-ylD"/>
                         <viewControllerLayoutGuide type="bottom" id="zYr-rg-4wo"/>
@@ -1367,13 +1362,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LkF-i5-8NC">
+                                <rect key="frame" x="135" y="406" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Refresh"/>
+                                <connections>
+                                    <action selector="checkForAdminApproval:" destination="ETn-IT-nab" eventType="touchUpInside" id="MJg-Xp-ceI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="lblApprovalStatus" destination="QlY-Lv-ecq" id="fKJ-9e-JPM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zVj-sK-QyV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7284" y="1502.6986506746628"/>
+            <point key="canvasLocation" x="6535" y="1504"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="yyi-KN-Pte">
@@ -1574,6 +1580,14 @@
                                     <segue destination="5ym-9f-sIU" kind="show" id="vfy-OX-hDC"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jzj-FJ-4XK">
+                                <rect key="frame" x="158" y="196" width="109" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Approval Check"/>
+                                <connections>
+                                    <segue destination="ETn-IT-nab" kind="show" id="3s8-9R-GcC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1673,7 +1687,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2ys-g2-pZL">
                                 <rect key="frame" x="0.0" y="64" width="375" height="539"/>
-                                <color key="backgroundColor" red="0.98301894434145076" green="0.98301894434145076" blue="0.98301894434145076" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.94509803921568625" green="0.96078431372549022" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="w5T-5L-dBc">
                                     <size key="itemSize" width="172" height="129"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -2405,9 +2419,10 @@
         <image name="profileImage" width="139" height="139"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eMa-JW-peZ"/>
         <segue reference="02W-Ef-JtO"/>
         <segue reference="pMz-WA-RGb"/>
-        <segue reference="2VQ-rM-Ru6"/>
+        <segue reference="eMa-JW-peZ"/>
+        <segue reference="FZD-3a-Pg2"/>
+        <segue reference="bhW-SL-F38"/>
     </inferredMetricsTieBreakers>
 </document>
