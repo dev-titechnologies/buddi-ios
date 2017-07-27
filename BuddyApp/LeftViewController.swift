@@ -12,6 +12,7 @@ class LeftViewController: UIViewController {
     @IBOutlet weak var profileimage: UIImageView!
     
     var imageArray = Array<ProfileImageDB>()
+    var objdata = NSData()
 
     let leftMenuArray = ["Home","Settings","Payment Method","Become a Trainer","Training History","Invit Friends","Help","Legal","Logout"]
     
@@ -24,16 +25,39 @@ class LeftViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let imagearray = ProfileImageDB.fetchImage() {
-            self.imageArray = imagearray as! Array<ProfileImageDB>
+//        if let imagearray = ProfileImageDB.fetchImage() {
+//            self.imageArray = imagearray as! Array<ProfileImageDB>
+//            
+//            let obj = self.imageArray[0].value(forKey: "imageData")
+//           // print("DBBB",obj!)
+//            
+//            profileimage.image = UIImage(data: obj as! Data)
+//
+//            
+//        }
+//        
+        
+        
+        DispatchQueue.global(qos: .background).async {
+            print("This is run on the background queue")
             
-            let obj = self.imageArray[0].value(forKey: "imageData")
-           // print("DBBB",obj!)
-            
-            profileimage.image = UIImage(data: obj as! Data)
-
-            
+            if let imagearray = ProfileImageDB.fetchImage() {
+                self.imageArray = imagearray as! Array<ProfileImageDB>
+                
+                 self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
+                // print("DBBB",obj!)
+                
+                
+                
+                
+            }
+            DispatchQueue.main.async {
+                print("This is run on the main queue, after the previous code in outer block")
+                
+                self.profileimage.image = UIImage(data: self.objdata as Data)
+            }
         }
+        
         
 
     }
