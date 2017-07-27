@@ -16,6 +16,13 @@ class WaitingForApprovalVC: UIViewController {
         super.viewDidLoad()
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+    }
 
     @IBAction func checkForAdminApproval(_ sender: Any) {
         

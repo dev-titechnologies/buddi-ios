@@ -21,12 +21,20 @@ class Question2VC: UIViewController {
 
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+    }
     override func viewWillAppear(_ animated: Bool) {
         
+        self.navigationController?.isNavigationBarHidden = true
         btnYes.addShadowView()
         btnNo.addShadowView()
     }
 
+    @IBAction func backAction(_ sender: Any) {
+        
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func yesButtonAction(_ sender: Any) {
         colorChangeSelectedAnswerButton(button: true)
         trainerTestAnswers.isHavingMilitaryInstallations = true
