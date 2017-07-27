@@ -19,6 +19,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     var googleUserDictionary: NSDictionary!
     var jsondict: NSDictionary!
 
+    @IBOutlet weak var google_btn: UIButton!
     @IBOutlet weak var password_txt: UITextField!
     @IBOutlet weak var email_txt: UITextField!
     @IBOutlet weak var FB_btn: UIButton!
@@ -29,6 +30,23 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
        
         // Do any additional setup after loading the view.
 //        GIDSignIn.sharedInstance().uiDelegate = self as! GIDSignInUIDelegate
+        
+        self.title = "Login"
+        
+        google_btn.layer.borderColor = UIColor.init(colorLiteralRed: 223/255, green: 74/255, blue: 50/255, alpha: 1.0).cgColor
+        google_btn.layer.borderWidth = 2
+        google_btn.clipsToBounds = true
+        
+        FB_btn.layer.borderColor = UIColor.init(colorLiteralRed: 59/255, green: 74/255, blue: 153/255, alpha: 1.0).cgColor
+        
+        FB_btn.layer.borderWidth = 2
+        FB_btn.clipsToBounds = true
+        
+
+        
+        
+        
+        
 
         print("qqqqq",UserType)
         GIDSignIn.sharedInstance().signOut()

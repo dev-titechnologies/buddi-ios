@@ -16,7 +16,9 @@ import SVProgressHUD
 import libPhoneNumber_iOS
 
 class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPickerDelegate,UITextFieldDelegate {
+    @IBOutlet weak var facebook_btn: UIButton!
 
+    @IBOutlet weak var google_btn: UIButton!
     @IBOutlet weak var imgview: UIImageView!
     @IBOutlet weak var female_btn: UIButton!
     @IBOutlet weak var male_btn: UIButton!
@@ -47,6 +49,22 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     print("qqqqq",UserType)
         
         self.title = "Register"
+        
+        
+        
+        google_btn.layer.borderColor = UIColor.init(colorLiteralRed: 223/255, green: 74/255, blue: 50/255, alpha: 1.0).cgColor
+        google_btn.layer.borderWidth = 2
+        google_btn.clipsToBounds = true
+        
+        facebook_btn.layer.borderColor = UIColor.init(colorLiteralRed: 59/255, green: 74/255, blue: 153/255, alpha: 1.0).cgColor
+
+        facebook_btn.layer.borderWidth = 2
+        facebook_btn.clipsToBounds = true
+
+
+        
+        
+        
                
 //        removeZerosFromBeginningInMobileNumber(mobile: "000000231234")
         contrycode_txt.delegate = self
@@ -78,6 +96,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         picker.countryPickerDelegate = self
         picker.showPhoneNumbers = true
         picker.setCountry(code!)
+        
+//        picker.setCountryByPhoneCode("+91")
         
         
 //JOSE

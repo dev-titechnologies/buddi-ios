@@ -13,7 +13,11 @@ class LeftViewController: UIViewController {
     
     var imageArray = Array<ProfileImageDB>()
 
-    let leftMenuArray = ["Home","Payment","History","Notifications","Settings","Booking","Logout"]
+    let leftMenuArray = ["Home","Settings","Payment Method","Become a Trainer","Training History","Invit Friends","Help","Legal","Logout"]
+    
+     let ImageArray = ["HOME","SETTINGES","PAY","BECOME-TRAINER","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
+    
+   // let ImageArray = ["HOME","PAY","TRAINING-HISTORY","LEGAL","SETTINGES","HELP","LOGOUT"]
     
     
     
@@ -53,11 +57,57 @@ extension LeftViewController : UITableViewDataSource{
         
         cell.lblLeftMenuTitle.text = leftMenuArray[indexPath.row]
         
+        cell.icon_img.image = UIImage(named: ImageArray[indexPath.row])
+        
         return cell
 
     }
-}
+    }
 
 extension LeftViewController : UITableViewDelegate{
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        
+        switch (indexPath.row)
+        {
+        case 0:
+            print("zero")
+            
+        case 1:
+            print("one")
+            
+        case 2:
+            print("two")
+            
+        case 3:
+            print("three")
+            
+        case 4:
+            print("four")
+            self.performSegue(withIdentifier: "history", sender:self)
+            
+            
+        case 5:
+            print("five")
+            
+        case 6:
+            print("six")
+            
+        case 7:
+            print("seven")
+            
+        case 8:
+            print("eight")
+            
+            dismissOnSessionExpire()
+            
+        default:
+            print("Integer out of range")
+        }
+        
+    }
+    
+
 }

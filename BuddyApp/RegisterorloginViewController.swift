@@ -18,6 +18,8 @@ class RegisterorloginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+       
+        
         login_btn.layer.cornerRadius = 5
         login_btn.layer.borderColor = UIColor.darkGray.cgColor
         login_btn.layer.borderWidth = 2
@@ -26,6 +28,13 @@ class RegisterorloginViewController: UIViewController {
          registr_btn.layer.cornerRadius = 5
         registr_btn.clipsToBounds = true
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
     }
 
     override func didReceiveMemoryWarning() {
