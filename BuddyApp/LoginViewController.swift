@@ -200,14 +200,6 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     self.jsondict = jsondata["data"]  as! NSDictionary
                     
                     
-                    //var data: NSData? = nil
-                    let url = URL(string:(self.jsondict["user_image"] as? String)!)
-                    
-                 let data = NSData.init(contentsOf: url!)
-                    
-            ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
-
-                    
                     
                     
                     
@@ -230,6 +222,22 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     }
                     
                     //appDelegate.USER_TYPE = (self.jsondict["user_type"] as? String)!
+                    
+                    //var data: NSData? = nil
+                    let url = URL(string:(self.jsondict["user_image"] as? String)!)
+                    
+                    let data = NSData.init(contentsOf: url!)
+                    
+                    ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
+                    
+                    
+
+                    
+                    
+                    
+                    
+                    
+                    
                      self.performSegue(withIdentifier: "logintohome", sender:self)
                     
                     CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
