@@ -44,6 +44,27 @@ class CommonMethods: NSObject {
         return " "
     }
 
+    class func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.characters.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt32 = 0
+        Scanner(string: cString).scanHexInt32(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
  
     class func alertView(view : UIViewController, title : String?, message: String?, buttonTitle:String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
@@ -71,14 +92,6 @@ class CommonMethods: NSObject {
         return dateString
     }
     
-    class func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0)->UIColor {
-        let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
-        let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
-        let blue = CGFloat(rgbValue & 0xFF)/256.0
-        
-        return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
-    }
-    
     class func phoneNumberSplit(number: String) -> (String, String)
     {
         
@@ -103,6 +116,34 @@ class CommonMethods: NSObject {
     }
 
 }
+
+class ButtonWithShadow: UIButton {
+    
+    override func draw(_ rect: CGRect) {
+        updateLayerProperties()
+    }
+    
+    func updateLayerProperties() {
+        self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 3)
+        self.layer.shadowOpacity = 1.0
+        self.layer.shadowRadius = 10.0
+        self.layer.masksToBounds = false
+    }
+}
+
+extension UIView {
+    
+    func addShadowView(width:CGFloat=2.0, height:CGFloat=2.0, Opacidade:Float=0.7, maskToBounds:Bool=false, radius:CGFloat=2.0){
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: width, height: height)
+        self.layer.shadowRadius = radius
+        self.layer.shadowOpacity = Opacidade
+        self.layer.masksToBounds = maskToBounds
+        self.layer.cornerRadius = 5.0
+    }
+}
+
 extension UIViewController {
     
     func dismissOnSessionExpire() {

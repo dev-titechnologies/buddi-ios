@@ -109,9 +109,9 @@ extension CategoryListVC : UICollectionViewDataSource{
         cell.categoryImage.sd_setImage(with: URL(string: categoriesArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: "profileImage"))
         
         if selectedCategories.contains(indexPath.row){
-            cell.cellSelectionView.backgroundColor = UIColor.blue
+            cell.cellSelectionView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }else{
-            cell.cellSelectionView.backgroundColor = UIColor.lightGray
+            cell.cellSelectionView.backgroundColor = UIColor.white
         }
         
         return cell

@@ -30,6 +30,8 @@ class SubCategorySelectionVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         
+        btnYesLostOrGainWeight.addShadowView()
+        btnNoLostOrGainWeight.addShadowView()
     }
     
     @IBAction func yesBtnActionLostOrGainWeight(_ sender: Any) {
@@ -46,11 +48,11 @@ class SubCategorySelectionVC: UIViewController {
         
         isAnsweredLostOrGainWeight = true
         if button{
-            btnYesLostOrGainWeight.backgroundColor = .blue
-            btnNoLostOrGainWeight.backgroundColor = .lightGray
+            btnYesLostOrGainWeight.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+            btnNoLostOrGainWeight.backgroundColor = UIColor.white
         }else{
-            btnYesLostOrGainWeight.backgroundColor = .lightGray
-            btnNoLostOrGainWeight.backgroundColor = .blue
+            btnYesLostOrGainWeight.backgroundColor = UIColor.white
+            btnNoLostOrGainWeight.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }
     }
 
@@ -89,9 +91,9 @@ extension SubCategorySelectionVC: UITableViewDataSource{
         cell.lblSubCategoryName.text = subCategories[indexPath.row].subCategoryName
         
         if selectedSubCategoriesFromTable.contains(indexPath.row){
-            cell.cellSelectionView.backgroundColor = UIColor.blue
+            cell.cellSelectionView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }else{
-            cell.cellSelectionView.backgroundColor = UIColor.lightGray
+            cell.cellSelectionView.backgroundColor = UIColor.white
         }
 
         return cell

@@ -20,5 +20,20 @@ class CategoryListCell: UICollectionViewCell {
         categoryImage.layer.cornerRadius = categoryImage.frame.height / 2.0
         categoryImage.layer.masksToBounds = true
         
+        
+//        let outerView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+//        outerView.clipsToBounds = false
+//        outerView.layer.shadowColor = UIColor.black.cgColor
+//        outerView.layer.shadowOpacity = 1
+//        outerView.layer.shadowOffset = CGSize.zero
+//        outerView.layer.shadowRadius = 10
+//        outerView.layer.shadowPath = UIBezierPath(roundedRect: outerView.bounds, cornerRadius: 10).cgPath
+//
+//        categoryImage = UIImageView(frame: outerView.bounds)
+//        categoryImage.clipsToBounds = true
+//        categoryImage.layer.cornerRadius = 10
+//
+//        outerView.addSubview(categoryImage)
+
     }
 }

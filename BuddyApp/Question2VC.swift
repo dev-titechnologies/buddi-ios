@@ -17,7 +17,14 @@ class Question2VC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        btnYes.addShadowView()
+        btnNo.addShadowView()
     }
 
     @IBAction func yesButtonAction(_ sender: Any) {
@@ -34,11 +41,11 @@ class Question2VC: UIViewController {
         
         isAnsweredMilitaryInstallations = true
         if button{
-            btnYes.backgroundColor = .blue
-            btnNo.backgroundColor = .lightGray
+            btnYes.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+            btnNo.backgroundColor = UIColor.white
         }else{
-            btnYes.backgroundColor = .lightGray
-            btnNo.backgroundColor = .blue
+            btnYes.backgroundColor = UIColor.white
+            btnNo.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }
     }
     

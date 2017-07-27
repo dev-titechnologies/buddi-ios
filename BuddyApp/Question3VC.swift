@@ -29,6 +29,15 @@ class Question3VC: UIViewController {
         super.viewDidLoad()
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        btnYesEverCompletedCategory.addShadowView()
+        btnNoEverCompletedCategory.addShadowView()
+        btnYesEverCoachedAnybody.addShadowView()
+        btnNoEverCoachedAnybody.addShadowView()
+        btnYesCertifiedTrainer.addShadowView()
+        btnNoCertifiedTrainer.addShadowView()
+    }
 
     @IBAction func yesBtnActionEverCompletedCategory(_ sender: Any) {
         colorChangeSelectedAnswerButton(button: true, questionNumber: 1)
@@ -75,29 +84,29 @@ class Question3VC: UIViewController {
         if questionNumber == 1{
             isAnsweredEverCompletedCategory = true
             if button{
-                btnYesEverCompletedCategory.backgroundColor = .blue
-                btnNoEverCompletedCategory.backgroundColor = .lightGray
+                btnYesEverCompletedCategory.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                btnNoEverCompletedCategory.backgroundColor = UIColor.white
             }else{
-                btnYesEverCompletedCategory.backgroundColor = .lightGray
-                btnNoEverCompletedCategory.backgroundColor = .blue
+                btnYesEverCompletedCategory.backgroundColor = UIColor.white
+                btnNoEverCompletedCategory.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
             }
         }else if questionNumber == 2{
             isAnsweredEverCoachedAnybody = true
             if button{
-                btnYesEverCoachedAnybody.backgroundColor = .blue
-                btnNoEverCoachedAnybody.backgroundColor = .lightGray
+                btnYesEverCoachedAnybody.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                btnNoEverCoachedAnybody.backgroundColor = UIColor.white
             }else{
-                btnYesEverCoachedAnybody.backgroundColor = .lightGray
-                btnNoEverCoachedAnybody.backgroundColor = .blue
+                btnYesEverCoachedAnybody.backgroundColor = UIColor.white
+                btnNoEverCoachedAnybody.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
             }
         }else if questionNumber == 3{
             isAnsweredCertifiedTrainer = true
             if button{
-                btnYesCertifiedTrainer.backgroundColor = .blue
-                btnNoCertifiedTrainer.backgroundColor = .lightGray
+                btnYesCertifiedTrainer.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                btnNoCertifiedTrainer.backgroundColor = UIColor.white
             }else{
-                btnYesCertifiedTrainer.backgroundColor = .lightGray
-                btnNoCertifiedTrainer.backgroundColor = .blue
+                btnYesCertifiedTrainer.backgroundColor = UIColor.white
+                btnNoCertifiedTrainer.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
             }
         }
     }

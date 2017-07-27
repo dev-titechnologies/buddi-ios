@@ -14,10 +14,13 @@ class FinalQuestionsVC: UIViewController {
         super.viewDidLoad()
         
         
-        
-
     }
-
+    
+    @IBAction func nextAction(_ sender: Any) {
+        
+        performSegue(withIdentifier: "afterFinalQuestionsSegue", sender: self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
