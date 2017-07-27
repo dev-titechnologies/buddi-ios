@@ -225,7 +225,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
     
     func OTPCall(){
-        CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":mobileNumber], headers: nil, onCompletion: { (jsondata) in
+        
+        CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":mobileNumber, "email": self.email_txt.text!], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
             
             if let status = jsondata["status"] as? Int{
