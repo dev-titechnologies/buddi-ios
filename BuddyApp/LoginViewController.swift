@@ -174,9 +174,6 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     
                     SVProgressHUD.dismiss()
                     self.jsondict = jsondata["data"]  as! NSDictionary
-                    let url = URL(string:(self.jsondict["user_image"] as? String)!)
-                    let data = NSData.init(contentsOf: url!)
-                    ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
                     
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
                     appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
@@ -217,6 +214,12 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                             self.performSegue(withIdentifier: "loginToChooseCategorySegue", sender: self)
                         }
                     }
+                    
+                    
+                    let url = URL(string:(self.jsondict["user_image"] as? String)!)
+                    let data = NSData.init(contentsOf: url!)
+                    ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
+                    
                     CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                     
                 }else if status == RESPONSE_STATUS.FAIL{

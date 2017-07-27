@@ -15,19 +15,24 @@ public class ProfileImageDB: NSManagedObject {
     class func save(imageURL: String, imageData: NSData){
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProfileImageDB")
-        
+         print("IMGAE",imageURL)
+        print("IMGDATA",imageData)
         
         do {
             let images = try context.fetch(fetchRequest)
             
             if images.count > 0 {
                 
+                               
                 print("image entry present")
                 let image = images[0] as! NSManagedObject
+                
 
                 image.setValue(imageURL, forKey: "imageUrl")
                 image.setValue(imageData, forKey: "imageData")
                 appDelegate.saveContext()
+                
+                                
                 
             }
             else

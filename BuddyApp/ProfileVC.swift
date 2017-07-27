@@ -70,6 +70,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         if let result = ProfileDB.fetchUser()      {
             if result.count == 0
             {
+                
+                 SVProgressHUD.show()
                ProfileDataAPI()
                 
             
@@ -78,11 +80,29 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             {
                 print("from db")
                 FetchFromDb()
-            }
+                
+                
+                DispatchQueue.global(qos: .background).async {
+                    print("This is run on the background queue")
+                    
+                    self.ProfileDataAPI()
+                    
+                
+                }
+                    DispatchQueue.main.async {
+                        print("This is run on the main queue, after the previous code in outer block")
+                        
+                       
+                    }
+                }
+                
+     
             
         }
         else
         {
+            
+             SVProgressHUD.show()
             print("from api")
             ProfileDataAPI()
         }
@@ -266,6 +286,11 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         ProfileDB.createProfileEntry(profileModel: profile)
         
+        mobile_txt.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
+        contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
+        
+
+        
         profileImage.sd_setImage(with: NSURL(string: profile.profileImage)! as URL)
         firstname_txt.text = profile.firstName
         lastname_txt.text = profile.lastName
@@ -273,15 +298,26 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         //mobile_txt.text = profile.mobile
         gender_txt.text = profile.gender
         
-        mobile_txt.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
-        contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
-        
         
         countrypicker.countryPickerDelegate = self
         countrypicker.showPhoneNumbers = true
         countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
         
+//        
+//        //var data: NSData? = nil
+//        let url = URL(string:(profiledict["user_image"] as? String)!)
+//        
+//        print("IMGURL",url!)
+//        //
+//        let data = NSData.init(contentsOf: url!)
+//        
+//        print("DATAIMAGE",data!)
+//        
+//       ProfileImageDB.save(imageURL: (profiledict["user_image"] as? String)!, imageData: data!)
+//        //
+        
 
+     
         
         SVProgressHUD.dismiss()
         
@@ -300,7 +336,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     }
     func ProfileDataAPI() {
         
-    SVProgressHUD.show()
+   
         
         
         let parameters = ["user_type":appDelegate.USER_TYPE,
@@ -322,7 +358,15 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                      self.ProfileDict = jsondata["data"]  as! NSDictionary
                     
                                      
+                    let url = URL(string:(self.ProfileDict ["user_image"] as? String)!)
                     
+                    let data = NSData.init(contentsOf: url!)
+                    
+                    ProfileImageDB.save(imageURL: (self.ProfileDict["user_image"] as? String)!, imageData: data!)
+                    
+                    
+                    
+
                     
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
                     
@@ -438,22 +482,25 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                         if let status = jsonDic["status"] as? Int{
                             if status == RESPONSE_STATUS.SUCCESS{
                                 
-                                self.ProfileImageURL = (jsonDic["Url"] as? String)!
+                               
+//                                
+                                self.profileImage.image = UIImage(data:imagedata as Data,scale:1.0)
+                                 self.ProfileImageURL = (jsonDic["Url"] as? String)!
+                                self.EditProfileAPI()
                                 
-                                self.profileImage.image = UIImage(data:uploadImageData as Data,scale:1.0)
                                 
-                                //var data: NSData? = nil
-                                let url = URL(string:(jsonDic["Url"] as? String)!)
+                             //   CommonMethods.alertView(view: self, title: "SUCCESS", message: "Image uploaded successfully", buttonTitle: "Ok")
                                 
-                                let data = NSData.init(contentsOf: url!)
-                                
-                                ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: data!)
+                        ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: uploadImageData)
+                                    //
+
+                                    
                                 
                                 
 
                                 
                                 
-                                CommonMethods.alertView(view: self, title: "SUCCESS", message: "Image uploaded successfully", buttonTitle: "Ok")
+                                
                             }
                             else if status == RESPONSE_STATUS.SESSION_EXPIRED
                             
