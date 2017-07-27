@@ -66,6 +66,7 @@ class SubmitForAdminApproval: UIViewController {
             var sub_category_dict = [String: String]()
             sub_category_dict["subCat_name"] = subCategoryVideoURLsSingleton[i].subCategoryName
             sub_category_dict["video_url"] = subCategoryVideoURLsSingleton[i].videoURL
+            sub_category_dict["subCat_id"] = subCategoryVideoURLsSingleton[i].subCategoryId
             videoURLs.append(sub_category_dict)
         }
         print("Sub Category Video URL Dict:",videoURLs)
@@ -98,13 +99,14 @@ class SubmitForAdminApproval: UIViewController {
         
         //"video_data":{"subCat_name":"Snatch","video_url":"http:\/\/192.168.1.14:4001\/video\/c3104aa7-f94c-48e0-845e-400f382ec12c.mkv"}
         
-        let parameters = ["user_type":"trainer",
+        let parameters = ["user_type":appDelegate.Usertoken,
                           "user_id":"17",
-                          "cat_ids":categoryIDs,
+                          "cat_ids": toJSONString(from: categoryIDs)!,
                           "gym_id":"TestIDGYM",
                           "military":"TESTMilitary",
                           "questions":toJSONString(from: questionsDict)!,
-                          "cat_subs": subCategoryIDs
+                          "video_data" : toJSONString(from: videoURLs)!
+
         ] as [String : Any]
         
         print("PARAMETERS:",parameters)

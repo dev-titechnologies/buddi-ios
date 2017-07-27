@@ -37,6 +37,7 @@
 		F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */; };
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
 		F3270DB51F275953004CE765 /* plogo.png in Resources */ = {isa = PBXBuildFile; fileRef = F3270DB41F275953004CE765 /* plogo.png */; };
+		F33ABF6D1F29E5C200DEAE48 /* WaitingForApprovalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */; };
 		F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */; };
 		F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */; };
 		F341B0321F287070007C9AF1 /* VideoURLModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0311F287070007C9AF1 /* VideoURLModel.swift */; };
@@ -157,6 +158,7 @@
 		F322FC611F1CE62500381B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F322FC6F1F1CEF2200381B8C /* Appconstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appconstants.swift; sourceTree = "<group>"; };
 		F3270DB41F275953004CE765 /* plogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plogo.png; sourceTree = "<group>"; };
+		F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForApprovalVC.swift; sourceTree = "<group>"; };
 		F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterChoiceViewController.swift; sourceTree = "<group>"; };
 		F341B0311F287070007C9AF1 /* VideoURLModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoURLModel.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				F316E7F71F22364F00994447 /* Question3VC.swift */,
 				F39E1EAD1F270ACF00DAED93 /* FinalQuestionsVC.swift */,
 				F39E1EAF1F272CCF00DAED93 /* SubmitForAdminApproval.swift */,
+				F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */,
 			);
 			name = "Questions Pages";
 			sourceTree = "<group>";
@@ -890,6 +893,7 @@
 				F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */,
 				F38BB5451F26077B00824C15 /* ProfileDB.swift in Sources */,
 				F3FF03E11F285F6700D4DD0D /* StringExtension.swift in Sources */,
+				F33ABF6D1F29E5C200DEAE48 /* WaitingForApprovalVC.swift in Sources */,
 				F322FC451F1CE62100381B8C /* BuddyApp.xcdatamodeld in Sources */,
 				F316E7F81F22364F00994447 /* Question3VC.swift in Sources */,
 				F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */,
