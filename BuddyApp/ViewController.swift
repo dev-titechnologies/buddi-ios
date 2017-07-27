@@ -13,20 +13,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+     
         
-        
-        let fullName = "+91-9400657618"
-        let fullNameArr = fullName.characters.split{$0 == "-"}.map(String.init)
-        // or simply:
-        // let fullNameArr = fullName.characters.split{" "}.map(String.init)
-        
-        fullNameArr[0] // First
-        fullNameArr[1] // Last 
-        print(fullNameArr[0])
-        print(fullNameArr[1])
-
-        
-        
+               
         
         
         if userDefaults.value(forKey: "devicetoken") != nil
@@ -40,14 +29,22 @@ class ViewController: UIViewController {
             appDelegate.DeviceToken = "1234567890"
         }
         
-        let when = DispatchTime.now() + 5 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            // Your code with delay
-            self.loginCheck()
-        }
+//        let when = DispatchTime.now() + 5 // change 2 to desired number of seconds
+//        DispatchQueue.main.asyncAfter(deadline: when) {
+//            // Your code with delay
+//            self.loginCheck()
+//        }
         
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+          self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+         self.navigationController?.isNavigationBarHidden = false
+    }
+    
     @IBAction func logincheck_action(_ sender: Any) {
         
         self.loginCheck()

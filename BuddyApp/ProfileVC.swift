@@ -10,8 +10,9 @@ import UIKit
 import SVProgressHUD
 import Alamofire
 import AlamofireImage
+import CountryPicker
 
-class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerDelegate,UINavigationControllerDelegate{
 
     @IBOutlet weak var edit_btn: UIBarButtonItem!
     @IBOutlet weak var gender_txt: UITextField!
@@ -32,6 +33,9 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
     var imgData = NSData()
    var ProfileImageURL = String()
     var EditBool = Bool()
+    var imageArray = Array<ProfileImageDB>()
+    
+    var countrypicker = CountryPicker()
 
     
     let profileDetails : ProfileModel = ProfileModel()
@@ -48,6 +52,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
          EditBool = true
               
         
+      
+
         
         
        
@@ -103,21 +109,28 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
         userid: "")
             
             
-            profileImage.sd_setImage(with: NSURL(string: profile.profileImage)! as URL)
+            if let imagearray = ProfileImageDB.fetchImage() {
+                self.imageArray = imagearray as! Array<ProfileImageDB>
+                
+                let obj = self.imageArray[0].value(forKey: "imageData")
+                // print("DBBB",obj!)
+                
+                profileImage.image = UIImage(data: obj as! Data)
+                
+                
+            }
 
-            
-            
-           // profileImage.image = UIImage.init(named: profile.profileImage)
             firstname_txt.text = profile.firstName
             lastname_txt.text = profile.lastName
             email_txt.text = profile.email
-            //mobile_txt.text = profile.mobile
             gender_txt.text = profile.gender
             
             mobile_txt.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
             contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
 
-            
+            countrypicker.countryPickerDelegate = self
+            countrypicker.showPhoneNumbers = true
+            countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
             
         
         }
@@ -263,10 +276,25 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
         mobile_txt.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
         contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
         
+        
+        countrypicker.countryPickerDelegate = self
+        countrypicker.showPhoneNumbers = true
+        countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
+        
+
+        
         SVProgressHUD.dismiss()
         
     }
-    
+    public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
+        
+       
+        
+        flage_img.image = flag
+        
+       
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

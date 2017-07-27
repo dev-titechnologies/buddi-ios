@@ -11,6 +11,7 @@ import UIKit
 class LeftMenuTableCell: UITableViewCell {
 
     @IBOutlet weak var lblLeftMenuTitle: UILabel!
+    @IBOutlet weak var icon_img: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
