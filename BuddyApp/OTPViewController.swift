@@ -79,6 +79,15 @@ class OTPViewController: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     appDelegate.Usertoken = (jsondata["token"] as? String)!
                     CommonMethods.alertView(view: self, title: "SUCCESS", message: "Registration successfull", buttonTitle: "Ok")
+                    
+                    //Check whether user type is Trainer and Trainee
+                    if appDelegate.USER_TYPE == "trainer"{
+                        print("***** Trainer Registraion ***** ")
+                        self.performSegue(withIdentifier: "initialLaunchForTrainerSegue", sender: self)
+                    }else{
+                        print("***** Trainee Registraion ***** ")
+                        self.performSegue(withIdentifier: "toHomePageAfterTraineeRegistrationSegue", sender: self)
+                    }
                 }else if status == RESPONSE_STATUS.FAIL{
                      CommonMethods.alertView(view: self, title: "FAIL", message: (jsondata["message"] as? String)!, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{

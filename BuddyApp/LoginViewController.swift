@@ -23,12 +23,12 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     @IBOutlet weak var password_txt: UITextField!
     @IBOutlet weak var email_txt: UITextField!
     @IBOutlet weak var FB_btn: UIButton!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-       
-        // Do any additional setup after loading the view.
 //        GIDSignIn.sharedInstance().uiDelegate = self as! GIDSignInUIDelegate
         
         self.title = "Login"
@@ -42,70 +42,44 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         FB_btn.layer.borderWidth = 2
         FB_btn.clipsToBounds = true
         
-
-        
-        
-        
-        
-
         print("qqqqq",UserType)
         GIDSignIn.sharedInstance().signOut()
         GIDSignIn.sharedInstance().uiDelegate = self
- 
-        
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         // Define identifier
         let notificationName = Notification.Name("NotificationIdentifier")
         
-        
         // Register to receive notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: notificationName, object: nil)
-        
     }
+    
     func methodOfReceivedNotification(notif: NSNotification) {
-        
-        
-        
         
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
         print("GOOGLE DATA ",self.googleUserDictionary)
         SVProgressHUD.show()
-        
-        self.LOginApi(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
-        
-        
+        self.LoginAPI(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
     }
     
-
-    
-    
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     @IBAction func forgotpq_action(_ sender: Any) {
         
-        
-        self.LOginApi(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
-        
-
-        
-        
+        self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
     }
+    
     @IBAction func NormalLogin(_ sender: Any) {
         
-        self.LOginApi(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
-        
+        self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
     }
     
     @IBAction func GoogleLogin_action(_ sender: Any) {
-        
          GIDSignIn.sharedInstance().signIn()
-        
     }
     
     //MARK:Google SignIn Delegate
@@ -160,7 +134,8 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                      self.fbUserDictionary = result as? NSDictionary
                     
                     
-        self.LOginApi(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
+        
+                    self.LoginAPI(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
                     
                     
                     
@@ -174,7 +149,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             })
         }
     }
-    func LOginApi(Email: String,Passwrd: String, loginType: String, UserType: String,FBId: String,GoogleId:String) {
+    func LoginAPI(Email: String,Passwrd: String, loginType: String, UserType: String,FBId: String,GoogleId:String) {
         
         let parameters = [
             "login_type":loginType,
@@ -196,13 +171,9 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
+                    
                     SVProgressHUD.dismiss()
                     self.jsondict = jsondata["data"]  as! NSDictionary
-                    
-                    
-                    
-                    
-                    
                     
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
                     appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
@@ -211,42 +182,50 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")
                     
-                    if let category_approved = self.jsondict["category_approved"] as? NSArray{
-                        print(category_approved)
+                    print(appDelegate.UserId)
+                    
+                    var approvedCount = Int()
+                    var pendingCount = Int()
+                    
+                    if let category_approvedArray = self.jsondict["category_approved"] as? NSArray{
+                        print(category_approvedArray)
                         
+                        approvedCount = category_approvedArray.count
+                        
+                        if approvedCount > 0 {
+                            print("*** Approved Categories Present ****")
+                            //Need to redirect to Home Screen
+                            self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
+                        }
                     }
                     
-                    if let category_approved1 = self.jsondict["category_approved"] as? String{
-                        print(category_approved1)
-//                        category_approved1.
+                    if let category_pendingArray = self.jsondict["category_pending"] as? NSArray{
+                        print(category_pendingArray)
+                        
+                        pendingCount = category_pendingArray.count
+                        
+                        if pendingCount > 0 && approvedCount == 0 {
+                            print("*** Pending Categories Present ****")
+                            //Redirect to Waiting for Approval Page
+                            self.performSegue(withIdentifier: "toWaitingForApprovalSegue", sender: self)
+                        }else if pendingCount == 0 && approvedCount == 0 {
+                            //Redirect to Choose Category Page
+                            print("Login to Choose Category Page")
+                            self.performSegue(withIdentifier: "loginToChooseCategorySegue", sender: self)
+                        }
                     }
                     
-                    //appDelegate.USER_TYPE = (self.jsondict["user_type"] as? String)!
                     
-                    //var data: NSData? = nil
                     let url = URL(string:(self.jsondict["user_image"] as? String)!)
-                    
                     let data = NSData.init(contentsOf: url!)
-                    
                     ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
-                    
-                    
-
-                    
-                    
-                    
-                    
-                    
-                    
-                     self.performSegue(withIdentifier: "logintohome", sender:self)
                     
                     CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                     
-                    //logintohome
-                }else if status == 2{
+                }else if status == RESPONSE_STATUS.FAIL{
                      SVProgressHUD.dismiss()
                      CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
-                }else{
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                      SVProgressHUD.dismiss()
                 }
             }

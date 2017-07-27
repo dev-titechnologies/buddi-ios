@@ -205,7 +205,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     func submitForApprovalAction() {
         
         let parameters = ["user_type":appDelegate.Usertoken,
-                          "user_id":"17",
+                          "user_id": appDelegate.UserId,
                           "cat_ids": toJSONString(from: categoryIDs)!,
                           "gym_id":"TestIDGYM",
                           "military":"TESTMilitary",
