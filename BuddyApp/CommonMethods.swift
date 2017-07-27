@@ -142,6 +142,24 @@ extension UIView {
         self.layer.masksToBounds = maskToBounds
         self.layer.cornerRadius = 5.0
     }
+    
+    func addShadowViewToImageView(width:CGFloat=2.0, height:CGFloat=2.0, Opacidade:Float=0.7, maskToBounds:Bool=false, radius:CGFloat=2.0){
+//        self.layer.shadowColor = UIColor.black.cgColor
+//        self.layer.shadowOffset = CGSize(width: width, height: height)
+//        self.layer.shadowRadius = radius
+//        self.layer.shadowOpacity = Opacidade
+//        self.layer.masksToBounds = maskToBounds
+//        self.layer.cornerRadius = self.frame.height / 2.0
+//        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 5.0).cgPath
+        
+//        let outerView = UIView(frame: self.frame)
+//        outerView.clipsToBounds = false
+//        outerView.layer.shadowColor = UIColor.black.cgColor
+//        outerView.layer.shadowOpacity = 1
+//        outerView.layer.shadowOffset = CGSize.zero
+//        outerView.layer.shadowRadius = 10
+//        outerView.layer.shadowPath = UIBezierPath(roundedRect: outerView.bounds, cornerRadius: 10).cgPath
+    }
 }
 
 extension UIViewController {
