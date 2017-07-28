@@ -89,9 +89,6 @@ class OTPViewController: UIViewController {
                 return
                 
             }
-
-            
-            
             
             CommonMethods.serverCall(APIURL: VERIFY_OTP, parameters: ["otp":Otp_txt.text!,"mobile":MobileNumber], headers: nil, onCompletion: { (jsondata) in
                 print("OTP RESPONSE",jsondata)
@@ -100,9 +97,7 @@ class OTPViewController: UIViewController {
                     if status == RESPONSE_STATUS.SUCCESS{
                         print("okkkk")
                         self.RegistrationAPICall()
-                    }
-                    else if status == RESPONSE_STATUS.FAIL
-                        {
+                    }else if status == RESPONSE_STATUS.FAIL{
                               CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
                     }
                     else if status == RESPONSE_STATUS.SESSION_EXPIRED
@@ -121,6 +116,7 @@ class OTPViewController: UIViewController {
             CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
             return
         }
+        
         CommonMethods.showProgress()
 
         CommonMethods.serverCall(APIURL: REGISTER_URL, parameters: DataDictionary as! Dictionary<String, String>, headers: HeaderDict as? HTTPHeaders, onCompletion: { (jsondata) in
@@ -130,17 +126,27 @@ class OTPViewController: UIViewController {
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
-                    appDelegate.Usertoken = (jsondata["token"] as? String)!
-                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Registration successfull", buttonTitle: "Ok")
                     
+                    appDelegate.Usertoken = (jsondata["token"] as? String)!
+                    
+//                    appDelegate.Usertoken = (self.jsondict["token"] as? String)!
+//                    appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
+//                    appDelegate.USER_TYPE =  self.UserType
+//                    userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
+//                    userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
+//                    userDefaults.set(self.UserType, forKey: "userType")
+
+                    
+                    print("USER TYPE:", appDelegate.USER_TYPE)
                     //Check whether user type is Trainer and Trainee
                     if appDelegate.USER_TYPE == "trainer"{
-                        print("***** Trainer Registraion ***** ")
+                        print("***** Trainer Registration ***** ")
                         self.performSegue(withIdentifier: "initialLaunchForTrainerSegue", sender: self)
-                    }else{
-                        print("***** Trainee Registraion ***** ")
+                    }else if appDelegate.USER_TYPE == "trainee"{
+                        print("***** Trainee Registration ***** ")
                         self.performSegue(withIdentifier: "toHomePageAfterTraineeRegistrationSegue", sender: self)
                     }
+                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Registration successfull", buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.FAIL{
                      CommonMethods.alertView(view: self, title: "FAIL", message: (jsondata["message"] as? String)!, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{

@@ -217,10 +217,10 @@ func validate(YourEMailAddress: String) -> Bool {
         CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
             print("LOGIN RESPONSE",jsondata)
             
+            CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    CommonMethods.hideProgress()
                     self.jsondict = jsondata["data"]  as! NSDictionary
                     
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
@@ -263,6 +263,7 @@ func validate(YourEMailAddress: String) -> Bool {
             print(category_approvedArray)
             
             approvedCount = category_approvedArray.count
+            approvedCategoryCountSingleton = approvedCount
             
             if approvedCount > 0 {
                 print("*** Approved Categories Present ****")
@@ -275,6 +276,7 @@ func validate(YourEMailAddress: String) -> Bool {
             print(category_pendingArray)
             
             pendingCount = category_pendingArray.count
+            pendingCategoryCountSingleton = pendingCount
             
             if pendingCount > 0 && approvedCount == 0 {
                 print("*** Pending Categories Present ****")

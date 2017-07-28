@@ -23,6 +23,8 @@ class Singleton {
     var approvedCategories = [Int]()
     var approvalPendingCategories = [Int]()
     var subCategoryVideoURLs = [VideoURLModel]()
+    var approvedCategoryCount = Int()
+    var pendingCategoryCount = Int()
     
     static let sharedInstance : Singleton = {
         let instance = Singleton()

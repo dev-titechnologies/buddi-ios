@@ -73,11 +73,11 @@ class RegisterChoiceViewController: UIViewController {
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        appDelegate.USER_TYPE = usertype
         if segue.identifier == "toregister" {
-            
             let controller = segue.destination as! RegisterViewController
             controller.UserType = usertype
-        }else{
+        }else if segue.identifier == "tologin" {
             let controller = segue.destination as! LoginViewController
             controller.UserType = usertype
         }
