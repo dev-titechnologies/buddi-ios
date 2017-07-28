@@ -28,6 +28,18 @@ class OTPViewController: UIViewController {
     @IBAction func ResendCode_action(_ sender: Any) {
         
         print("Resend OTP Call")
+        
+        
+        guard CommonMethods.networkcheck() else {
+            
+            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            
+            return
+            
+        }
+
+        
+        
         OTPCall()
     }
     
@@ -44,8 +56,15 @@ class OTPViewController: UIViewController {
                     print("OTP Sent Successfully")
                 }else if status == RESPONSE_STATUS.FAIL{
                     print("OTP Call Failed")
+                    
+                      CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("OTP Call Session Expired")
+                    
+                self.dismissOnSessionExpire()
+                    
+                    
                 }
             }
         })
@@ -53,10 +72,27 @@ class OTPViewController: UIViewController {
     
     @IBAction func Submit_action(_ sender: Any) {
         
+        
+        
+        
+        
         if (Otp_txt.text?.isEmpty)! {
             print("pls enter otp")
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ENTER_OTP, buttonTitle: "OK")
         }else {
+            
+            
+            guard CommonMethods.networkcheck() else {
+                
+                CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+                
+                return
+                
+            }
+
+            
+            
+            
             CommonMethods.serverCall(APIURL: VERIFY_OTP, parameters: ["otp":Otp_txt.text!,"mobile":MobileNumber], headers: nil, onCompletion: { (jsondata) in
                 print("OTP RESPONSE",jsondata)
                 
@@ -65,6 +101,14 @@ class OTPViewController: UIViewController {
                         print("okkkk")
                         self.RegistrationAPICall()
                     }
+                    else if status == RESPONSE_STATUS.FAIL
+                        {
+                              CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    }
+                    else if status == RESPONSE_STATUS.SESSION_EXPIRED
+                    {
+                        self.dismissOnSessionExpire()
+                    }
                 }
             })
         }
@@ -72,8 +116,13 @@ class OTPViewController: UIViewController {
     
     func RegistrationAPICall()  {
         
-        CommonMethods.showProgress()
         
+        guard CommonMethods.networkcheck() else {
+            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            return
+        }
+        CommonMethods.showProgress()
+
         CommonMethods.serverCall(APIURL: REGISTER_URL, parameters: DataDictionary as! Dictionary<String, String>, headers: HeaderDict as? HTTPHeaders, onCompletion: { (jsondata) in
             print("REGISTER RESPONSE",jsondata)
             
@@ -97,6 +146,7 @@ class OTPViewController: UIViewController {
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("Session Expired")
                     CommonMethods.alertView(view: self, title: "FAIL", message: SESSION_EXPIRED, buttonTitle: "Ok")
+                    self.dismissOnSessionExpire()
                 }
             }
         })

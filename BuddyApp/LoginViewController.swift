@@ -65,20 +65,73 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     }
     
     @IBAction func forgotpq_action(_ sender: Any) {
+        guard CommonMethods.networkcheck() else {
+            
+            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            
+            return
+            
+        }
         
         self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
+        
     }
     
     @IBAction func NormalLogin(_ sender: Any) {
         
-        //PLEASE PUT VALIDATION
-        self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
+        validation()
     }
     
     @IBAction func GoogleLogin_action(_ sender: Any) {
+        
+        guard CommonMethods.networkcheck() else {
+            
+            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            
+            return
+            
+        }
+        
          GIDSignIn.sharedInstance().signIn()
+        
     }
     
+    func validation() {
+        
+        
+    if email_txt.text!.isEmpty {
+            CommonMethods.alertView(view: self, title: "", message: "Please enter email", buttonTitle: "Ok")
+        }else if !self.validate(YourEMailAddress: email_txt.text!) {
+            CommonMethods.alertView(view: self, title: "", message: "Please enter a valid email", buttonTitle: "Ok")
+        }else if password_txt.text!.isEmpty{
+            CommonMethods.alertView(view: self, title: "", message: "Please enter password", buttonTitle: "Ok")
+        }else{
+        
+        
+        
+        guard CommonMethods.networkcheck() else {
+            
+            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            
+            return
+            
+        }
+        
+        self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
+        
+
+        
+        
+        
+        
+            
+        }
+    }
+func validate(YourEMailAddress: String) -> Bool {
+            let REGEX: String
+            REGEX = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+            return NSPredicate(format: "SELF MATCHES %@", REGEX).evaluate(with: YourEMailAddress)
+        }
     //MARK:Google SignIn Delegate
     
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
@@ -96,6 +149,16 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     }
        
     @IBAction func FaceBookLogin_Action(_ sender: Any) {
+        
+        
+        guard CommonMethods.networkcheck() else {
+            
+            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            
+            return
+            
+        }
+        
         
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
@@ -135,7 +198,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     
     func LoginAPI(Email: String,Passwrd: String, loginType: String, UserType: String,FBId: String,GoogleId:String) {
         
-        let parameters = [
+               let parameters = [
             "login_type":loginType,
             "email":Email,
             "password":Passwrd,
@@ -183,9 +246,11 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                      CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "OK")
+                    self.dismissOnSessionExpire()
                 }
             }
         })
+    
     }
     
     func segueActionsIfTrainer(dictionary: Dictionary<String, Any>!) {

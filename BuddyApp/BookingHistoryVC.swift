@@ -53,9 +53,16 @@ class BookingHistoryVC: UIViewController {
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
                     print("Server Resp Fail")
+                      CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
 
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("Session Expired")
+                    
+                    
+                  
+                        self.dismissOnSessionExpire()
+                    
+                    
 
                 }
             }

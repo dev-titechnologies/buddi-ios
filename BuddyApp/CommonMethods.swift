@@ -110,6 +110,31 @@ class CommonMethods: NSObject {
          userDefaults.removeObject(forKey: "user_id")
          userDefaults.removeObject(forKey: "userType")
     }
+    
+    class func networkcheck() ->( Bool)
+    {
+        var statusBool = Bool()
+        
+        let status = Reach().connectionStatus()
+        switch status {
+        case .unknown, .offline:
+            print("Not connected")
+            
+            statusBool = false
+        case .online(.wwan):
+            print("Connected via WWAN")
+            
+            statusBool = true
+        case .online(.wiFi):
+            print("Connected via WiFi")
+            
+            statusBool = true
+        }
+        
+        return statusBool
+        
+    }
+
 
     class func showProgress(){
         SVProgressHUD.show()
@@ -168,18 +193,17 @@ extension UIView {
 extension UIViewController {
     
     func dismissOnSessionExpire() {
-        //   if let presentingController = self.presentingViewController as? UINavigationController {
-      
+        
+        userDefaults.removeObject(forKey: "user_id")
+        userDefaults.removeObject(forKey: "token")
+        userDefaults.removeObject(forKey: "userType")
         
         
-        // presentingController.popToRootViewControllerAnimated(true)
-        let controller  = storyboard?.instantiateViewController(withIdentifier: "RegisterorloginViewController") as! RegisterorloginViewController
+        
+             let controller  = storyboard?.instantiateViewController(withIdentifier: "RegisterorloginViewController") as! RegisterorloginViewController
         //self.presentViewController(controller, animated: true, completion: nil)
         controller.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(controller, animated: true)
-        // UIAlertView(title: "", message: ErrorMessage.sessionOut, delegate: nil, cancelButtonTitle: "OK").show()
-        //dismissViewControllerAnimated(true, completion: nil)
-        // }
         
 }
 }
