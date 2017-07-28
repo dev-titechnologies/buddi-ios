@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
      
         
+
                
         
         
@@ -25,16 +26,18 @@ class ViewController: UIViewController {
             appDelegate.DeviceToken = "1234567890"
         }
         
-//        let when = DispatchTime.now() + 5 // change 2 to desired number of seconds
-//        DispatchQueue.main.asyncAfter(deadline: when) {
-//            // Your code with delay
-//            self.loginCheck()
-//        }
+        let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            // Your code with delay
+            self.loginCheck()
+        }
+        
 
     }
     override func viewWillAppear(_ animated: Bool) {
-          self.navigationController?.isNavigationBarHidden = true
-    }
+        
+        self.navigationController?.isNavigationBarHidden = true
+              }
     
     override func viewWillDisappear(_ animated: Bool) {
          self.navigationController?.isNavigationBarHidden = false

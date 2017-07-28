@@ -26,7 +26,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash_Screen" translatesAutoresizingMaskIntoConstraints="NO" id="0jy-st-RHL">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhF-cR-67F">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhF-cR-67F">
                                 <rect key="frame" x="152" y="152" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
@@ -34,7 +34,7 @@
                                     <action selector="logincheck_action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mmQ-Fd-M9z"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVz-rJ-KhI">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVz-rJ-KhI">
                                 <rect key="frame" x="121" y="501" width="133" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="register"/>
@@ -2205,7 +2205,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profileImage" translatesAutoresizingMaskIntoConstraints="NO" id="Gsu-BK-q3c">
-                                        <rect key="frame" x="25" y="40" width="94" height="91"/>
+                                        <rect key="frame" x="50" y="40" width="94" height="91"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -2214,7 +2214,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R75-Kh-jYu">
-                                        <rect key="frame" x="25" y="152" width="94" height="37"/>
+                                        <rect key="frame" x="50" y="152" width="94" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Edit Profile">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2269,6 +2269,7 @@
                     <connections>
                         <outlet property="profileimage" destination="Gsu-BK-q3c" id="Fz1-6B-gWZ"/>
                         <segue destination="ADr-aS-S7P" kind="show" identifier="history" id="2VQ-rM-Ru6"/>
+                        <segue destination="5ym-9f-sIU" kind="show" identifier="fromlefttocatgory" id="USH-R0-s5v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gun-9H-Bqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2580,11 +2581,20 @@
         <image name="qustion" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="02W-Ef-JtO"/>
+        <segue reference="pMz-WA-RGb"/>
+        <segue reference="L1f-qm-NVu"/>
+        <segue reference="L1f-qm-NVu"/>
+        <segue reference="98W-cj-Ev3"/>
+        <segue reference="02W-Ef-JtO"/>
         <segue reference="N1B-Ap-4oI"/>
         <segue reference="02W-Ef-JtO"/>
         <segue reference="98W-cj-Ev3"/>
         <segue reference="Jie-k9-AKK"/>
         <segue reference="DFD-HP-Mur"/>
         <segue reference="FZD-3a-Pg2"/>
+        <segue reference="2VQ-rM-Ru6"/>
+        <segue reference="USH-R0-s5v"/>
+        <segue reference="bhW-SL-F38"/>
     </inferredMetricsTieBreakers>
 </document>
