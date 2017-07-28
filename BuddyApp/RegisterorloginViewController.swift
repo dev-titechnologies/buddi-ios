@@ -36,9 +36,11 @@ class RegisterorloginViewController: UIViewController {
         login_btn.layer.borderWidth = 2
         login_btn.clipsToBounds = true
         
-         registr_btn.layer.cornerRadius = 5
+        registr_btn.layer.cornerRadius = 5
         registr_btn.clipsToBounds = true
         
+//        registr_btn.addShadowView()
+//        login_btn.addShadowView()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true

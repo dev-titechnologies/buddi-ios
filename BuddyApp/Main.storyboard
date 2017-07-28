@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Unknown constraint types" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1498,6 +1498,9 @@
                                 <state key="normal" title="EXIT">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="o0Z-hL-bm9" kind="show" id="4j5-Ev-Te9"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illustration" translatesAutoresizingMaskIntoConstraints="NO" id="eCs-zc-DAU">
                                 <rect key="frame" x="112.5" y="371" width="150" height="150"/>
@@ -2566,6 +2569,11 @@
         <segue reference="02W-Ef-JtO"/>
         <segue reference="pMz-WA-RGb"/>
         <segue reference="L1f-qm-NVu"/>
+        <segue reference="L1f-qm-NVu"/>
+        <segue reference="98W-cj-Ev3"/>
+        <segue reference="02W-Ef-JtO"/>
+        <segue reference="N1B-Ap-4oI"/>
+        <segue reference="Jie-k9-AKK"/>
         <segue reference="2VQ-rM-Ru6"/>
         <segue reference="USH-R0-s5v"/>
         <segue reference="bhW-SL-F38"/>
