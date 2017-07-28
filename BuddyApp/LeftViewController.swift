@@ -15,6 +15,7 @@ class LeftViewController: UIViewController {
     var objdata = NSData()
 
     let leftMenuArrayTrainer = ["Home","Settings","Payment Method","Training History","Invit Friends","Help","Legal","Logout"]
+    
     let leftMenuArrayTrainee = ["Home","Settings","Payment Method","Become a Trainer","Training History","Invit Friends","Help","Legal","Logout"]
 
     
@@ -105,7 +106,7 @@ extension LeftViewController : UITableViewDataSource{
         else
         {
             
-            cell.lblLeftMenuTitle.text = leftMenuArrayTrainer[indexPath.row]
+            cell.lblLeftMenuTitle.text = leftMenuArrayTrainee[indexPath.row]
             
             cell.icon_img.image = UIImage(named: ImageArrayTrainee[indexPath.row])
 
@@ -182,6 +183,8 @@ extension LeftViewController : UITableViewDelegate{
                 
             case 3:
                 print("three")
+                
+                self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
                 
             case 4:
                 print("four")

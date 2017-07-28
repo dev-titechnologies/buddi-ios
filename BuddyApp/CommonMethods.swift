@@ -170,7 +170,7 @@ extension UIViewController {
         
         
         // presentingController.popToRootViewControllerAnimated(true)
-        let controller  = storyboard?.instantiateViewController(withIdentifier: "RegisterChoiceViewController") as! RegisterChoiceViewController
+        let controller  = storyboard?.instantiateViewController(withIdentifier: "RegisterorloginViewController") as! RegisterorloginViewController
         //self.presentViewController(controller, animated: true, completion: nil)
         controller.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(controller, animated: true)
