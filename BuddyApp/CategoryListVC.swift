@@ -53,6 +53,15 @@ class CategoryListVC: UIViewController {
                     self.subCategoryModelObj.insertSubCategoriesToDB(subCategories: subcategories)
                     self.categoryCollectionView.reloadData()
                 }
+                else if status == RESPONSE_STATUS.SESSION_EXPIRED
+                    
+                {
+                    self.dismissOnSessionExpire()
+                }
+                else if status == RESPONSE_STATUS.FAIL{
+                      CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    
+                }
             }
         })
     }

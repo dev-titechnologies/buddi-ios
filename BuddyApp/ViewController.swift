@@ -14,9 +14,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
      
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
+        Reach().monitorReachabilityChanges()
 
-               
+
+        
         
         
         if userDefaults.value(forKey: "devicetoken") != nil {
@@ -42,7 +44,10 @@ class ViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
          self.navigationController?.isNavigationBarHidden = false
     }
-    
+    func networkStatusChanged(_ notification: Notification) {
+        let userInfo = (notification as NSNotification).userInfo
+        print(userInfo!)
+    }
     @IBAction func logincheck_action(_ sender: Any) {
         
         self.loginCheck()

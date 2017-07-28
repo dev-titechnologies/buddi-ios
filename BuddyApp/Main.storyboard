@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Unknown constraint types" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -2251,6 +2251,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="QeE-8h-sRU"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="profileimage" destination="Gsu-BK-q3c" id="Fz1-6B-gWZ"/>
                         <segue destination="ADr-aS-S7P" kind="show" identifier="history" id="2VQ-rM-Ru6"/>
@@ -2279,9 +2280,12 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-bg" translatesAutoresizingMaskIntoConstraints="NO" id="Uzk-vN-WRf">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="175"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="zcg-te-hrx">
-                                        <rect key="frame" x="119" y="21" width="120" height="120"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user (1)" translatesAutoresizingMaskIntoConstraints="NO" id="zcg-te-hrx">
+                                        <rect key="frame" x="127.5" y="21" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="65t-DT-PAB"/>
+                                            <constraint firstAttribute="height" constant="120" id="keV-5c-fHW"/>
+                                        </constraints>
                                     </imageView>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89j-gg-YFq">
                                         <rect key="frame" x="119" y="21" width="120" height="120"/>
@@ -2300,6 +2304,8 @@
                                     <constraint firstItem="Uzk-vN-WRf" firstAttribute="top" secondItem="DD1-LF-I9O" secondAttribute="top" id="9S6-BV-a08"/>
                                     <constraint firstItem="Uzk-vN-WRf" firstAttribute="leading" secondItem="DD1-LF-I9O" secondAttribute="leading" id="9jq-zf-J4m"/>
                                     <constraint firstAttribute="bottom" secondItem="Uzk-vN-WRf" secondAttribute="bottom" id="RYW-ua-vJw"/>
+                                    <constraint firstItem="zcg-te-hrx" firstAttribute="top" secondItem="DD1-LF-I9O" secondAttribute="top" constant="21" id="SQ3-1l-OgW"/>
+                                    <constraint firstItem="zcg-te-hrx" firstAttribute="centerX" secondItem="DD1-LF-I9O" secondAttribute="centerX" id="ch9-J0-79g"/>
                                     <constraint firstAttribute="height" constant="175" id="pDi-pk-uhL"/>
                                     <constraint firstAttribute="trailing" secondItem="Uzk-vN-WRf" secondAttribute="trailing" id="qu0-wn-pIt"/>
                                 </constraints>
@@ -2560,22 +2566,17 @@
         <image name="location-map" width="256" height="256"/>
         <image name="menu-three-horizontal-lines-symbol" width="32" height="32"/>
         <image name="mobile-chat" width="1026" height="1101"/>
-        <image name="plogo.png" width="160" height="120"/>
         <image name="profile-bg" width="539" height="192"/>
         <image name="profileImage" width="139" height="139"/>
         <image name="qustion" width="256" height="256"/>
+        <image name="user (1)" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="02W-Ef-JtO"/>
-        <segue reference="pMz-WA-RGb"/>
-        <segue reference="L1f-qm-NVu"/>
         <segue reference="L1f-qm-NVu"/>
         <segue reference="98W-cj-Ev3"/>
-        <segue reference="02W-Ef-JtO"/>
-        <segue reference="N1B-Ap-4oI"/>
-        <segue reference="Jie-k9-AKK"/>
-        <segue reference="2VQ-rM-Ru6"/>
         <segue reference="USH-R0-s5v"/>
+        <segue reference="2VQ-rM-Ru6"/>
         <segue reference="bhW-SL-F38"/>
+        <segue reference="02W-Ef-JtO"/>
     </inferredMetricsTieBreakers>
 </document>

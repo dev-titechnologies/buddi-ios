@@ -14,6 +14,7 @@
 		F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */; };
 		F302BBA31F1F8D2000186BCC /* CountryPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F302BBA21F1F8D2000186BCC /* CountryPicker.framework */; };
 		F302BBA51F1FA21900186BCC /* IQKeyboardManagerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */; };
+		F3093F621F2B12D400D33324 /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3093F611F2B12D400D33324 /* Reach.swift */; };
 		F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60151F1DC82A00374136 /* RegisterViewController.swift */; };
 		F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60171F1DCAB300374136 /* LoginViewController.swift */; };
 		F30B601E1F1DCEED00374136 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601A1F1DCEED00374136 /* Bolts.framework */; };
@@ -129,6 +130,7 @@
 		F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterorloginViewController.swift; sourceTree = "<group>"; };
 		F302BBA21F1F8D2000186BCC /* CountryPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CountryPicker.framework; path = "Pods/../build/Debug-iphoneos/CountryPickerSwift/CountryPicker.framework"; sourceTree = "<group>"; };
 		F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IQKeyboardManagerSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"; sourceTree = "<group>"; };
+		F3093F611F2B12D400D33324 /* Reach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reach.swift; sourceTree = "<group>"; };
 		F30B60151F1DC82A00374136 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F30B60171F1DCAB300374136 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F30B601A1F1DCEED00374136 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -295,6 +297,14 @@
 			name = LoginORRegister;
 			sourceTree = "<group>";
 		};
+		F3093F601F2B12A000D33324 /* NetWorkCheck */ = {
+			isa = PBXGroup;
+			children = (
+				F3093F611F2B12D400D33324 /* Reach.swift */,
+			);
+			name = NetWorkCheck;
+			sourceTree = "<group>";
+		};
 		F30B60191F1DCECD00374136 /* ExternalFrameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -354,6 +364,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F3093F601F2B12A000D33324 /* NetWorkCheck */,
 				F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */,
 				F3FF03DF1F285F4200D4DD0D /* Extensions */,
 				F3270DB41F275953004CE765 /* plogo.png */,
@@ -875,6 +886,7 @@
 				F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */,
 				F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */,
 				F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */,
+				F3093F621F2B12D400D33324 /* Reach.swift in Sources */,
 				F322FC3F1F1CE62000381B8C /* ViewController.swift in Sources */,
 				F316E7F61F22361B00994447 /* Question2VC.swift in Sources */,
 				F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */,

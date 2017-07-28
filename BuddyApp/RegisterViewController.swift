@@ -181,6 +181,18 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         }else if(!mobileNumberValidation(number: mobileNumberCopy)){
             CommonMethods.alertView(view: self, title: "", message: "Please Enter a valid mobile number", buttonTitle: "Ok")
         }else{
+            
+            
+            
+            guard CommonMethods.networkcheck() else {
+                
+                CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+                
+                return
+                
+            }
+
+            
             var FB_id = String()
             var GOOGLE_id = String()
             
@@ -238,6 +250,13 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("OTP Call Session Expired")
+                    
+                   
+                        self.dismissOnSessionExpire()
+                    
+
+                    
+                    
 
                 }
             }

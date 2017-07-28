@@ -129,7 +129,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         gender: self.profileArray[0].value(forKey: "gender") as! String,
         userid: "")
             
-      profileImage.sd_setImage(with: URL(string: profile.profileImage))
+     // profileImage.sd_setImage(with: URL(string: profile.profileImage))
             firstname_txt.text = profile.firstName
             lastname_txt.text = profile.lastName
             email_txt.text = profile.email
@@ -142,30 +142,27 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             countrypicker.showPhoneNumbers = true
             countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
             
+            DispatchQueue.global(qos: .background).async {
+                print("This is run on the background queue")
+                
+                if let imagearray = ProfileImageDB.fetchImage() {
+                    self.imageArray = imagearray as! Array<ProfileImageDB>
+                    
+                    self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
+                    // print("DBBB",obj!)
+                    
+                    
+                    
+                    
+                }
+                DispatchQueue.main.async {
+                    print("This is run on the main queue, after the previous code in outer block")
+                    
+                    self.profileImage.image = UIImage(data: self.objdata as Data)
+                }
+            }
             
-//            DispatchQueue.global(qos: .background).async {
-//                print("This is run on the background queue")
-//                
-//                if let imagearray = ProfileImageDB.fetchImage() {
-//                    self.imageArray = imagearray as! Array<ProfileImageDB>
-//                    
-//                    self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
-//                    // print("DBBB",obj!)
-//                    
-//                    
-//                    
-//                    
-//                }
-//                DispatchQueue.main.async {
-//                    print("This is run on the main queue, after the previous code in outer block")
-//                    
-//                    self.profileImage.image = UIImage(data: self.objdata as Data)
-//                }
-//            }
-//            
-//            
-            
-            
+    
             
         
         }
@@ -184,6 +181,14 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     @IBAction func editProfile_action(_ sender: Any) {
         
         
+        guard CommonMethods.networkcheck() else {
+            
+            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            
+            return
+            
+        }
+
         
         
         if EditBool == true
@@ -247,7 +252,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             print("EDIT PROFILE RESPONSE",jsondata)
             
             if let status = jsondata["status"] as? Int{
-                if status == 1{
+                if status == RESPONSE_STATUS.SUCCESS{
                     
                     self.ProfileDict = jsondata["data"]  as! NSDictionary
                     
@@ -255,6 +260,16 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                     
                     CommonMethods.alertView(view: self, title: "SUCCESS", message: "Profile updated successfully", buttonTitle: "Ok")
 
+                }
+                else if status == RESPONSE_STATUS.SESSION_EXPIRED
+                    
+                {
+                    self.dismissOnSessionExpire()
+                }
+                else{
+                    
+                     CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    
                 }
             }
         })
@@ -353,6 +368,14 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
    
         
+        guard CommonMethods.networkcheck() else {
+            
+            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            
+            return
+            
+        }
+
         
         let parameters = ["user_type":appDelegate.USER_TYPE,
                           "user_id":appDelegate.UserId] as [String : Any]
@@ -368,7 +391,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             print("PROFILE RESPONSE",jsondata)
             
             if let status = jsondata["status"] as? Int{
-                if status == 1{
+                if status == RESPONSE_STATUS.SUCCESS{
                     
                      self.ProfileDict = jsondata["data"]  as! NSDictionary
                     
@@ -380,12 +403,18 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                     ProfileImageDB.save(imageURL: (self.ProfileDict["user_image"] as? String)!, imageData: data!)
                     
                     
-                    
-
-                    
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
                     
                 }
+                else if status == RESPONSE_STATUS.SESSION_EXPIRED
+                    
+                {
+                    self.dismissOnSessionExpire()
+                }
+                else{
+                     CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }
+
             }
              })
 

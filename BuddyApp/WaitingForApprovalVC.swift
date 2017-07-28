@@ -26,6 +26,19 @@ class WaitingForApprovalVC: UIViewController {
 
     @IBAction func checkForAdminApproval(_ sender: Any) {
         
+        
+        guard CommonMethods.networkcheck() else {
+            
+            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            
+            return
+            
+        }
+
+        
+        
+        
+        
         let parameters = ["user_id" : appDelegate.UserId,"user_type" : appDelegate.USER_TYPE] as [String : Any]
         let headers = ["token":appDelegate.Usertoken]
         
@@ -45,6 +58,16 @@ class WaitingForApprovalVC: UIViewController {
                     print(approvalStatusArray)
                     self.lblApprovalStatus.text = approvalStatusArray["category_status"] as! String
                 }
+                else if status == RESPONSE_STATUS.SESSION_EXPIRED
+                    
+                {
+                    self.dismissOnSessionExpire()
+                }
+                else if status == RESPONSE_STATUS.FAIL
+                {
+                     CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }
+
             }
         })
     }

@@ -226,6 +226,15 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                 if status == RESPONSE_STATUS.SUCCESS{
                     self.performSegue(withIdentifier: "waitingForAdminApprovalSegue", sender: self)
                 }
+                else if status == RESPONSE_STATUS.SESSION_EXPIRED
+                    
+                {
+                    self.dismissOnSessionExpire()
+                }
+                else
+                {
+                     CommonMethods.alertView(view: self, title: "FAILED", message: response["message"] as? String, buttonTitle: "Ok")
+                }
             }
         }
     }
@@ -235,6 +244,20 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     }
     
     func UploadVideoAPI() {
+        
+        
+        
+        guard CommonMethods.networkcheck() else {
+            
+            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            
+            return
+            
+        }
+
+        
+        
+        
         
         let headers = [
             "token":appDelegate.Usertoken]
@@ -274,6 +297,12 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: VIDEO_UPLOADED_SUCCESSFULLY, buttonTitle: "Ok")
                                 self.btnNext.isEnabled = true
                              }
+                            else if status == RESPONSE_STATUS.SESSION_EXPIRED
+                                
+                            {
+                                self.dismissOnSessionExpire()
+                            }
+
                         }
                     }
                 }
