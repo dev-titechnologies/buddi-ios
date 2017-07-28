@@ -18,14 +18,10 @@ class ViewController: UIViewController {
                
         
         
-        if userDefaults.value(forKey: "devicetoken") != nil
-        {
+        if userDefaults.value(forKey: "devicetoken") != nil {
             appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
-            
             print("TOKEN",appDelegate.DeviceToken)
-            
-        }
-        else{
+        }else{
             appDelegate.DeviceToken = "1234567890"
         }
         
@@ -34,7 +30,6 @@ class ViewController: UIViewController {
 //            // Your code with delay
 //            self.loginCheck()
 //        }
-        
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -52,24 +47,14 @@ class ViewController: UIViewController {
     
     func loginCheck() {
         
-        if userDefaults.value(forKey: "user_id") != nil
-        {
+        if userDefaults.value(forKey: "user_id") != nil{
             appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
             appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
             appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
-            
-            
             self.performSegue(withIdentifier: "tohome", sender:self)
-        }
-        else{
-            
-            
+        }else{
             self.performSegue(withIdentifier: "regorlogin", sender:self)
-            
         }
-        
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
