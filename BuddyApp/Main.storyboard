@@ -106,16 +106,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeb-iL-Agn">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="370"/>
                                 <subviews>
-                                    <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="9Uu-Mo-3JU">
-                                        <rect key="frame" x="117" y="42" width="126" height="37"/>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4I-6K-oBX">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="370"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </pageControl>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </scrollView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.46274509803921571" green="0.83921568627450982" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="370" id="uH2-51-5IC"/>
                                 </constraints>
                             </view>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="9Uu-Mo-3JU">
+                                <rect key="frame" x="124" y="56" width="126" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </pageControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to washington" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Acj-aI-84x">
                                 <rect key="frame" x="39" y="398" width="272" height="47"/>
                                 <constraints>
@@ -144,7 +150,10 @@
                     <navigationItem key="navigationItem" id="ZdO-7m-SZc"/>
                     <connections>
                         <outlet property="login_btn" destination="629-S4-2r6" id="Wo2-4K-wus"/>
+                        <outlet property="pagecontrole" destination="9Uu-Mo-3JU" id="H3W-iV-ijM"/>
                         <outlet property="registr_btn" destination="fLX-MT-jsn" id="TdM-L8-vJ4"/>
+                        <outlet property="scrollview" destination="M4I-6K-oBX" id="R7G-E8-7gn"/>
+                        <outlet property="viewone" destination="oeb-iL-Agn" id="dbZ-WC-aAB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JjC-cu-Vsh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -220,11 +229,12 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lea-F1-c78">
                                 <rect key="frame" x="7" y="72" width="168" height="59"/>
+                                <color key="backgroundColor" red="0.87450980389999999" green="0.2901960784" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="168" id="6Ze-Bi-gla"/>
                                     <constraint firstAttribute="height" constant="59" id="97V-QI-JGh"/>
                                 </constraints>
-                                <state key="normal" image="google-plus1">
+                                <state key="normal" image="google-plus-logo">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -233,11 +243,12 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUW-8e-w2U">
                                 <rect key="frame" x="189" y="72" width="177" height="59"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="59" id="G5i-FO-pQS"/>
                                     <constraint firstAttribute="width" constant="177" id="k82-8s-8Nw"/>
                                 </constraints>
-                                <state key="normal" image="facebook1">
+                                <state key="normal" image="facebook">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -1352,7 +1363,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="cameraRoll_action:" destination="acl-cp-87b" eventType="touchUpInside" id="Pnc-bq-Slx"/>
                                     <action selector="pickVideoFromGalleryAction:" destination="acl-cp-87b" eventType="touchUpInside" id="QKQ-a3-u0S"/>
                                 </connections>
                             </button>
@@ -2147,7 +2157,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2169,7 +2179,7 @@
         <scene sceneID="jC1-lN-15y">
             <objects>
                 <navigationController navigationBarHidden="YES" id="LLd-uo-cBv" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CKN-vf-25e">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKN-vf-25e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2575,7 +2585,9 @@
         <image name="Illustration" width="212" height="226"/>
         <image name="Splash_Screen" width="540" height="960"/>
         <image name="bg" width="540" height="960"/>
+        <image name="facebook" width="32" height="32"/>
         <image name="facebook1" width="16" height="36"/>
+        <image name="google-plus-logo" width="32" height="32"/>
         <image name="google-plus1" width="42" height="37"/>
         <image name="left-arrow" width="32" height="32"/>
         <image name="location-map" width="256" height="256"/>
@@ -2587,19 +2599,11 @@
         <image name="user (1)" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L1f-qm-NVu"/>
-        <segue reference="98W-cj-Ev3"/>
-        <segue reference="02W-Ef-JtO"/>
-        <segue reference="N1B-Ap-4oI"/>
-        <segue reference="02W-Ef-JtO"/>
-        <segue reference="98W-cj-Ev3"/>
-        <segue reference="Jie-k9-AKK"/>
+        <segue reference="2VQ-rM-Ru6"/>
         <segue reference="DFD-HP-Mur"/>
-        <segue reference="FZD-3a-Pg2"/>
-        <segue reference="2VQ-rM-Ru6"/>
-        <segue reference="USH-R0-s5v"/>
-        <segue reference="2VQ-rM-Ru6"/>
-        <segue reference="bhW-SL-F38"/>
         <segue reference="02W-Ef-JtO"/>
+        <segue reference="98W-cj-Ev3"/>
+        <segue reference="USH-R0-s5v"/>
+        <segue reference="bhW-SL-F38"/>
     </inferredMetricsTieBreakers>
 </document>
