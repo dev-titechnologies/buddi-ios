@@ -72,8 +72,12 @@ class OTPViewController: UIViewController {
     
     func RegistrationAPICall()  {
         
+        CommonMethods.showProgress()
+        
         CommonMethods.serverCall(APIURL: REGISTER_URL, parameters: DataDictionary as! Dictionary<String, String>, headers: HeaderDict as? HTTPHeaders, onCompletion: { (jsondata) in
             print("REGISTER RESPONSE",jsondata)
+            
+            CommonMethods.hideProgress()
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
@@ -92,6 +96,7 @@ class OTPViewController: UIViewController {
                      CommonMethods.alertView(view: self, title: "FAIL", message: (jsondata["message"] as? String)!, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("Session Expired")
+                    CommonMethods.alertView(view: self, title: "FAIL", message: SESSION_EXPIRED, buttonTitle: "Ok")
                 }
             }
         })

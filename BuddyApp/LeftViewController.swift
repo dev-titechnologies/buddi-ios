@@ -14,9 +14,9 @@ class LeftViewController: UIViewController {
     var imageArray = Array<ProfileImageDB>()
     var objdata = NSData()
 
-    let leftMenuArrayTrainer = ["Home","Settings","Payment Method","Training History","Invit Friends","Help","Legal","Logout"]
+    let leftMenuArrayTrainer = ["Home","Settings","Payment Method","Training History","Invite Friends","Help","Legal","Logout"]
     
-    let leftMenuArrayTrainee = ["Home","Settings","Payment Method","Become a Trainer","Training History","Invit Friends","Help","Legal","Logout"]
+    let leftMenuArrayTrainee = ["Home","Settings","Payment Method","Become a Trainer","Training History","Invite Friends","Help","Legal","Logout"]
 
     
      let ImageArrayTrainer = ["HOME","SETTINGES","PAY","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]

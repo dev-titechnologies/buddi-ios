@@ -52,8 +52,8 @@
         <element name="BookingHistoryDB" positionX="-63" positionY="-18" width="128" height="195"/>
         <element name="CategoryDB" positionX="-45" positionY="90" width="128" height="105"/>
         <element name="ProfileDB" positionX="-36" positionY="90" width="128" height="180"/>
+        <element name="ProfileImageDB" positionX="-45" positionY="108" width="128" height="75"/>
         <element name="ReviewHistoryDB" positionX="-54" positionY="63" width="128" height="180"/>
         <element name="SubCategoryDB" positionX="-45" positionY="90" width="128" height="75"/>
-        <element name="ProfileImageDB" positionX="-45" positionY="108" width="128" height="75"/>
     </elements>
 </model>

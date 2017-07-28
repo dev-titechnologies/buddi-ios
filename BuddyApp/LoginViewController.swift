@@ -10,7 +10,6 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
-import SVProgressHUD
 
 class LoginViewController: UIViewController,GIDSignInUIDelegate{
     var fbUserDictionary: NSDictionary!
@@ -24,8 +23,6 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     @IBOutlet weak var email_txt: UITextField!
     @IBOutlet weak var FB_btn: UIButton!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,12 +31,12 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         self.title = "Login"
         
         google_btn.layer.borderColor = UIColor.init(colorLiteralRed: 223/255, green: 74/255, blue: 50/255, alpha: 1.0).cgColor
-        google_btn.layer.borderWidth = 2
+        google_btn.layer.borderWidth = 1
         google_btn.clipsToBounds = true
         
         FB_btn.layer.borderColor = UIColor.init(colorLiteralRed: 59/255, green: 74/255, blue: 153/255, alpha: 1.0).cgColor
         
-        FB_btn.layer.borderWidth = 2
+        FB_btn.layer.borderWidth = 1
         FB_btn.clipsToBounds = true
         
         print("qqqqq",UserType)
@@ -59,7 +56,6 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
         print("GOOGLE DATA ",self.googleUserDictionary)
-        SVProgressHUD.show()
         self.LoginAPI(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
     }
     
@@ -75,6 +71,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     
     @IBAction func NormalLogin(_ sender: Any) {
         
+        //PLEASE PUT VALIDATION
         self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
     }
     
@@ -87,13 +84,11 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
         
     }
-    // Present a view that prompts the user to sign in with Google
     
     func sign(_ signIn: GIDSignIn!,
               present viewController: UIViewController!) {
         self.present(viewController, animated: true, completion: nil)
     }
-    // Dismiss the "Sign in with Google" view
     
     func sign(_ signIn: GIDSignIn!,
               dismiss viewController: UIViewController!) {
@@ -111,44 +106,33 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 if (result?.isCancelled)! {
                     return
                 }
-                if(fbloginresult.grantedPermissions.contains("email"))
-                {
-                    SVProgressHUD.show()
-                   
+                
+                if(fbloginresult.grantedPermissions.contains("email")){
                     self.getFBUserData()
                 }
             }else{
                 print("FB ERROR")
             }
         }
-
-        
-        
     }
+    
     func getFBUserData(){
+        
+        CommonMethods.showProgress()
+        
         if((FBSDKAccessToken.current()) != nil){
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
                 if (error == nil){
-                    
                     print("RESULT",result!)
-                     self.fbUserDictionary = result as? NSDictionary
-                    
-                    
-        
+                    self.fbUserDictionary = result as? NSDictionary
                     self.LoginAPI(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
-                    
-                    
-                    
-                    
-                    
-                }
-                else
-                {
+                }else{
                     print("ERROR",error?.localizedDescription)
                 }
             })
         }
     }
+    
     func LoginAPI(Email: String,Passwrd: String, loginType: String, UserType: String,FBId: String,GoogleId:String) {
         
         let parameters = [
@@ -165,6 +149,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             "device_imei": UIDevice.current.identifierForVendor!.uuidString,
             "device_type": "ios",
             ]
+        CommonMethods.showProgress()
         
         CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
             print("LOGIN RESPONSE",jsondata)
@@ -172,7 +157,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    SVProgressHUD.dismiss()
+                    CommonMethods.hideProgress()
                     self.jsondict = jsondata["data"]  as! NSDictionary
                     
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
@@ -182,23 +167,22 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")
                     
+                    let url = URL(string:(self.jsondict["user_image"] as? String)!)
+                    let data = NSData.init(contentsOf: url!)
+                    ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
+                    
                     if self.UserType == "trainer" {
                         self.segueActionsIfTrainer(dictionary: self.jsondict as! Dictionary<String, Any>!)
                     }else if self.UserType == "trainee" {
                         self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
                     }
                     
-                    let url = URL(string:(self.jsondict["user_image"] as? String)!)
-                    let data = NSData.init(contentsOf: url!)
-                    ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
-                    
                     CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                     
                 }else if status == RESPONSE_STATUS.FAIL{
-                     SVProgressHUD.dismiss()
                      CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-                     SVProgressHUD.dismiss()
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "OK")
                 }
             }
         })

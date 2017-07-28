@@ -39,14 +39,29 @@ class WaitingForApprovalVC: UIViewController {
             }
             
             if let status = jsondata["status"] as? Int{
-                if status == RESPONSE_STATUS.SUCCESS{
+                if status == RESPONSE_STATUS.SUCCESS {
                     
                     let approvalStatusArray = jsondata["data"] as! NSDictionary as! [String: Any]
                     print(approvalStatusArray)
-                    self.lblApprovalStatus.text = approvalStatusArray["category_status"] as! String
+//                    self.lblApprovalStatus.text = approvalStatusArray["category_status"] as! String
+                    if approvalStatusArray["category_status"] as! String == "approved"{
+                        self.performSegue(withIdentifier: "waitingForApprovalToHomePageSegue", sender: self)
+                    }
                 }
             }
         })
+    }
+    
+    @IBAction func exitAction(_ sender: Any) {
+        
+        if appDelegate.USER_TYPE == "trainer" {
+            
+            self.performSegue(withIdentifier: "waitingForApprovalToLoginPageSegue", sender: self)
+            
+        }else if appDelegate.USER_TYPE == "trainee"{
+            
+            self.performSegue(withIdentifier: "waitingForApprovalToHomePageSegue", sender: self)
+        }
     }
     
     override func didReceiveMemoryWarning() {

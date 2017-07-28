@@ -12,7 +12,6 @@ import FBSDKLoginKit
 import GoogleSignIn
 import Alamofire
 import CountryPicker
-import SVProgressHUD
 import libPhoneNumber_iOS
 
 class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPickerDelegate,UITextFieldDelegate {
@@ -226,9 +225,13 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     
     func OTPCall(){
         
+        CommonMethods.showProgress()
+        
         CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":mobileNumber, "email": self.email_txt.text!], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
-            
+
+            CommonMethods.hideProgress()
+
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     print("OTP Sent Successfully")
@@ -238,7 +241,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("OTP Call Session Expired")
-
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "OK")
                 }
             }
         })
@@ -287,10 +290,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 if (result?.isCancelled)! {
                     return
                 }
-                if(fbloginresult.grantedPermissions.contains("email"))
-                {
-                    
-                     SVProgressHUD.show()
+                
+                if(fbloginresult.grantedPermissions.contains("email")){
                     self.getFBUserData()
                 }
             }
@@ -360,6 +361,9 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         
     }
     func getFBUserData(){
+        
+        CommonMethods.showProgress()
+        
         if((FBSDKAccessToken.current()) != nil){
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
                 if (error == nil){
@@ -376,7 +380,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                     
                     print("PROFILE IMAGE ",self.profileImageURL)
                    
-                    SVProgressHUD.dismiss()
+                    CommonMethods.hideProgress()
                 }
             })
         }

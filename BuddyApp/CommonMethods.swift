@@ -10,13 +10,10 @@ import UIKit
 import CoreData
 import SwiftyJSON
 import Alamofire
+import SVProgressHUD
 
 class CommonMethods: NSObject {
     
-    
-    
-    
-
       class func serverCall(APIURL : String, parameters : Dictionary<String, Any>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
         
         let FinalURL = SERVER_URL_Local + APIURL
@@ -92,16 +89,15 @@ class CommonMethods: NSObject {
         return dateString
     }
     
-    class func phoneNumberSplit(number: String) -> (String, String)
-    {
+    class func phoneNumberSplit(number: String) -> (String, String) {
         
         let fullName = number
         let fullNameArr = fullName.characters.split{$0 == "-"}.map(String.init)
         // or simply:
         // let fullNameArr = fullName.characters.split{" "}.map(String.init)
         
-        fullNameArr[0] // First
-        fullNameArr[1] // Last
+//        fullNameArr[0] // First
+//        fullNameArr[1] // Last
         print(fullNameArr[0])
         print(fullNameArr[1])
         
@@ -115,6 +111,13 @@ class CommonMethods: NSObject {
          userDefaults.removeObject(forKey: "userType")
     }
 
+    class func showProgress(){
+        SVProgressHUD.show()
+    }
+    
+    class func hideProgress() {
+        SVProgressHUD.dismiss()
+    }
 }
 
 class ButtonWithShadow: UIButton {
