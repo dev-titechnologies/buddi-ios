@@ -57,7 +57,12 @@ class ViewController: UIViewController {
             appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
             appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
             appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
-            self.performSegue(withIdentifier: "tohome", sender:self)
+            
+            if appDelegate.USER_TYPE == "trainer"{
+                segueActionsForTrainer()
+            }else if appDelegate.USER_TYPE == "trainee"{
+                self.performSegue(withIdentifier: "tohome", sender:self)
+            }
         }else{
             self.performSegue(withIdentifier: "regorlogin", sender:self)
         }
@@ -75,9 +80,7 @@ class ViewController: UIViewController {
             print("*** Approved Categories Present ****")
             //Need to redirect to Home Screen
             self.performSegue(withIdentifier: "tohome", sender: self)
-        }
-        
-        if pendingCount > 0 && approvedCount == 0 {
+        }else if pendingCount > 0 && approvedCount == 0 {
             print("*** Pending Categories Present ****")
             //Redirect to Waiting for Approval Page
             self.performSegue(withIdentifier: "splashToWaitingForApprovalSegue", sender: self)
@@ -87,12 +90,17 @@ class ViewController: UIViewController {
             self.performSegue(withIdentifier: "splashToChooseCategorySegue", sender: self)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "splashToChooseCategorySegue" {
+            let chooseCategoryPage =  segue.destination as! CategoryListVC
+            chooseCategoryPage.isBackButtonHidden = true
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-
 }
 
