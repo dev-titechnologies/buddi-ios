@@ -133,7 +133,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             firstname_txt.text = profile.firstName
             lastname_txt.text = profile.lastName
             email_txt.text = profile.email
-            gender_txt.text = profile.gender
+            gender_txt.text = (profile.gender).uppercased()
             
             mobile_txt.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
             contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
@@ -316,7 +316,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         lastname_txt.text = profile.lastName
         email_txt.text = profile.email
         //mobile_txt.text = profile.mobile
-        gender_txt.text = profile.gender
+        gender_txt.text = (profile.gender).uppercased()
         
         
         countrypicker.countryPickerDelegate = self

@@ -41,6 +41,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     var countryAlphaCode = String()
     var profileImageURL = String()
     var mobileNumber = String()
+    var jsondict: NSDictionary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,33 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     print("qqqqq",UserType)
         
         self.title = "Register"
+        
+        
+        if (fbUserDictionary != nil)
+        {
+            
+            self.registerType = "facebook"
+
+            self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
+            self.lastname_txt.text = (self.fbUserDictionary["last_name"] as? String)!
+            self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
+            
+            self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
+
+        }
+        else if (googleUserDictionary != nil){
+            
+            registerType = "google"
+            self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
+            self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
+
+            
+        }
+        else{
+            
+        }
+        
+        
         
         google_btn.layer.borderColor = UIColor.init(colorLiteralRed: 223/255, green: 74/255, blue: 50/255, alpha: 1.0).cgColor
         google_btn.layer.borderWidth = 2
@@ -377,7 +405,67 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             })
         }
     }
-    
+//    func LoginAPI(Email: String,Passwrd: String, loginType: String, UserType: String,FBId: String,GoogleId:String) {
+//        
+//        let parameters = ["login_type":loginType,
+//                          "email":Email,
+//                          "password":Passwrd,
+//                          "user_type": UserType,
+//                          "facebook_id": FBId,
+//                          "google_id": GoogleId]
+//        
+//        let headers = [
+//            "device_id": appDelegate.DeviceToken,
+//            "device_imei": UIDevice.current.identifierForVendor!.uuidString,
+//            "device_type": "ios",
+//            ]
+//        
+//        print("Params:",parameters)
+//        print("Header:",headers)
+//        
+//        CommonMethods.showProgress()
+//        CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+//            print("LOGIN RESPONSE",jsondata)
+//            
+//            CommonMethods.hideProgress()
+//            if let status = jsondata["status"] as? Int{
+//                if status == RESPONSE_STATUS.SUCCESS{
+//                    self.jsondict = jsondata["data"]  as! NSDictionary
+//                    appDelegate.Usertoken = (self.jsondict["token"] as? String)!
+//                    appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
+//                    appDelegate.USER_TYPE =  self.UserType
+//                    userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
+//                    userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
+//                    userDefaults.set(self.UserType, forKey: "userType")
+//                    print(self.jsondict["trainer_type"]!)
+//                    userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
+//                    print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
+//                    
+//                    if let url = URL(string:(self.jsondict["user_image"] as? String)!){
+//                        print("Image URL:", url)
+//                        let data = NSData.init(contentsOf: url)
+//                        ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
+//                    }
+//                    
+//                    if self.UserType == "trainer" {
+//                        self.segueActionsIfTrainer(dictionary: self.jsondict as! Dictionary<String, Any>!)
+//                    }else if self.UserType == "trainee" {
+//                        self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
+//                    }
+//                    
+//                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
+//                    
+//                                 }
+//                else if status == RESPONSE_STATUS.FAIL{
+//                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+//                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+//                    self.dismissOnSessionExpire()
+//                }
+//            }
+//        })
+//        
+//    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "otpview" {

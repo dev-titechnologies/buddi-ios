@@ -72,5 +72,21 @@ public class ProfileDB: NSManagedObject {
         }
         return fetchResult
     }
-    
+    class func deleteProfile(){
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProfileDB")
+        do {
+            if let result = try? context.fetch(fetchRequest) {
+                for object in result {
+                    context.delete(object as! NSManagedObject)
+                }
+                
+                appDelegate.saveContext()
+            }
+            
+        } catch {
+            
+        }
+    }
+ 
 }

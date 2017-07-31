@@ -206,6 +206,11 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
                     print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
                     
+                    
+                   
+                    
+                    
+                    
                     if let url = URL(string:(self.jsondict["user_image"] as? String)!){
                         print("Image URL:", url)
                         let data = NSData.init(contentsOf: url)
@@ -222,7 +227,19 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     
                     }
                 else if status == RESPONSE_STATUS.FAIL{
-                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    
+                    if jsondata["message"] as? String == "Incorrect Email or Password"
+                    {
+                        
+                        self.performSegue(withIdentifier: "logintoregister", sender: self)
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                   //  CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
@@ -275,6 +292,17 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         if segue.identifier == "loginToChooseCategorySegue" {
             let chooseCategoryPage =  segue.destination as! CategoryListVC
             chooseCategoryPage.isBackButtonHidden = true
+        }
+        else if segue.identifier == "logintoregister"
+        {
+            
+            let registerPage =  segue.destination as! RegisterViewController
+            
+            registerPage.UserType = self.UserType
+            registerPage.fbUserDictionary = self.fbUserDictionary
+            registerPage.googleUserDictionary = self.googleUserDictionary
+            
+            
         }
     }
 }

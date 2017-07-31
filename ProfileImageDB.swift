@@ -27,6 +27,8 @@ public class ProfileImageDB: NSManagedObject {
                 print("image entry present")
                 let image = images[0] as! NSManagedObject
                 
+                
+                
 
                 image.setValue(imageURL, forKey: "imageUrl")
                 image.setValue(imageData, forKey: "imageData")
@@ -69,6 +71,22 @@ public class ProfileImageDB: NSManagedObject {
         }
         return fetchResult
     }
-    
+    class func deleteImages(){
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProfileImageDB")
+        do {
+            if let result = try? context.fetch(fetchRequest) {
+                for object in result {
+                    context.delete(object as! NSManagedObject)
+                }
+                
+                appDelegate.saveContext()
+            }
+            
+        } catch {
+            
+        }
+    }
+  
    
 }

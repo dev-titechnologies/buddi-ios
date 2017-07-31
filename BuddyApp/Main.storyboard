@@ -1892,6 +1892,7 @@
                         <segue destination="ETn-IT-nab" kind="show" identifier="toWaitingForApprovalSegue" id="Jie-k9-AKK"/>
                         <segue destination="5ym-9f-sIU" kind="show" identifier="loginToChooseCategorySegue" id="N1B-Ap-4oI"/>
                         <segue destination="NkY-aA-aC8" kind="show" identifier="loginToHomeSegue" id="DFD-HP-Mur"/>
+                        <segue destination="ob5-q8-Ks5" kind="show" identifier="logintoregister" id="Jnc-bx-uPX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGc-OM-vCm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2391,7 +2392,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2413,7 +2414,7 @@
         <scene sceneID="jC1-lN-15y">
             <objects>
                 <navigationController navigationBarHidden="YES" id="LLd-uo-cBv" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CKN-vf-25e">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKN-vf-25e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2500,7 +2501,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hkc-Qa-cma" id="539-F2-nse">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yC9-yW-GFi">
@@ -2883,17 +2884,12 @@
         <image name="qustion" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2VQ-rM-Ru6"/>
-        <segue reference="L1f-qm-NVu"/>
-        <segue reference="USH-R0-s5v"/>
-        <segue reference="Jie-k9-AKK"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="lS4-X5-YwA"/>
-        <segue reference="lS4-X5-YwA"/>
         <segue reference="Jie-k9-AKK"/>
-        <segue reference="hJy-Rz-WHD"/>
-        <segue reference="Nna-eT-Dhf"/>
-        <segue reference="4n1-m7-OYV"/>
+        <segue reference="N1B-Ap-4oI"/>
+        <segue reference="DFD-HP-Mur"/>
+        <segue reference="Jnc-bx-uPX"/>
         <segue reference="2VQ-rM-Ru6"/>
     </inferredMetricsTieBreakers>
 </document>
