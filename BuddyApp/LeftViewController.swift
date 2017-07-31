@@ -62,7 +62,7 @@ extension LeftViewController : UITableViewDataSource{
         
         if appDelegate.USER_TYPE == "trainer"{
             return leftMenuTrainer.count
-        }else if appDelegate.USER_TYPE == "trainee"{
+        }else{
             return leftMenuArrayTraineeCopy.count
         }
     }

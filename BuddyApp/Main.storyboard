@@ -272,8 +272,8 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUW-8e-w2U">
                                         <rect key="frame" x="182" y="11" width="166" height="59"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="facebook1">
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="facebook">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -282,8 +282,8 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lea-F1-c78">
                                         <rect key="frame" x="8" y="11" width="166" height="59"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="google-plus1">
+                                        <color key="backgroundColor" red="0.87450980389999999" green="0.2901960784" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="google-plus-logo">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -2770,7 +2770,9 @@
         <image name="Illustration" width="212" height="226"/>
         <image name="Splash_Screen" width="540" height="960"/>
         <image name="bg" width="540" height="960"/>
+        <image name="facebook" width="32" height="32"/>
         <image name="facebook1" width="16" height="36"/>
+        <image name="google-plus-logo" width="32" height="32"/>
         <image name="google-plus1" width="42" height="37"/>
         <image name="left-arrow" width="32" height="32"/>
         <image name="location-map" width="256" height="256"/>
@@ -2781,6 +2783,11 @@
         <image name="qustion" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="DFD-HP-Mur"/>
+        <segue reference="hJy-Rz-WHD"/>
+        <segue reference="lS4-X5-YwA"/>
+        <segue reference="Jie-k9-AKK"/>
+        <segue reference="USH-R0-s5v"/>
         <segue reference="N1B-Ap-4oI"/>
         <segue reference="02W-Ef-JtO"/>
         <segue reference="lS4-X5-YwA"/>
