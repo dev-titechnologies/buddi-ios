@@ -32,7 +32,7 @@ class OTPViewController: UIViewController {
         
         guard CommonMethods.networkcheck() else {
             
-            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
             
             return
             
@@ -57,7 +57,7 @@ class OTPViewController: UIViewController {
                 }else if status == RESPONSE_STATUS.FAIL{
                     print("OTP Call Failed")
                     
-                      CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                      CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                     
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("OTP Call Session Expired")
@@ -84,7 +84,7 @@ class OTPViewController: UIViewController {
             
             guard CommonMethods.networkcheck() else {
                 
-                CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
                 
                 return
                 
@@ -98,7 +98,7 @@ class OTPViewController: UIViewController {
                         print("okkkk")
                         self.RegistrationAPICall()
                     }else if status == RESPONSE_STATUS.FAIL{
-                              CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                              CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                     }
                     else if status == RESPONSE_STATUS.SESSION_EXPIRED
                     {
@@ -113,7 +113,7 @@ class OTPViewController: UIViewController {
         
         
         guard CommonMethods.networkcheck() else {
-            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
             return
         }
         
@@ -146,12 +146,12 @@ class OTPViewController: UIViewController {
                         print("***** Trainee Registration ***** ")
                         self.performSegue(withIdentifier: "toHomePageAfterTraineeRegistrationSegue", sender: self)
                     }
-                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Registration successfull", buttonTitle: "Ok")
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Registration successfull", buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.FAIL{
-                     CommonMethods.alertView(view: self, title: "FAIL", message: (jsondata["message"] as? String)!, buttonTitle: "Ok")
+                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: (jsondata["message"] as? String)!, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("Session Expired")
-                    CommonMethods.alertView(view: self, title: "FAIL", message: SESSION_EXPIRED, buttonTitle: "Ok")
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "Ok")
                     self.dismissOnSessionExpire()
                 }
             }

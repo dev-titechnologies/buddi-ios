@@ -16,10 +16,6 @@ class ViewController: UIViewController {
      
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
-
-
-        
-        
         
         if userDefaults.value(forKey: "devicetoken") != nil {
             appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
@@ -39,15 +35,17 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.isNavigationBarHidden = true
-              }
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
          self.navigationController?.isNavigationBarHidden = false
     }
+    
     func networkStatusChanged(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         print(userInfo!)
     }
+    
     @IBAction func logincheck_action(_ sender: Any) {
         
         self.loginCheck()
@@ -72,19 +70,24 @@ class ViewController: UIViewController {
     }
     
     func segueActionsForTrainer() {
-        print("Approved CAtegory Count Singleton",approvedCategoryCountSingleton)
-        print("Pending CAtegory Count Singleton",pendingCategoryCountSingleton)
         
-        if approvedCategoryCountSingleton > 0 {
+        let approvedCount = userDefaults.value(forKey: "approvedCategoryCount") as! Int
+        let pendingCount = userDefaults.value(forKey: "pendingCategoryCount") as! Int
+        
+        print("Approved Count:",approvedCount)
+        print("Pending Count:",pendingCount)
+
+        if approvedCount > 0 {
             print("*** Approved Categories Present ****")
             //Need to redirect to Home Screen
             self.performSegue(withIdentifier: "tohome", sender: self)
         }
-        if pendingCategoryCountSingleton > 0 && approvedCategoryCountSingleton == 0 {
+        
+        if pendingCount > 0 && approvedCount == 0 {
             print("*** Pending Categories Present ****")
             //Redirect to Waiting for Approval Page
             self.performSegue(withIdentifier: "splashToWaitingForApprovalSegue", sender: self)
-        }else if pendingCategoryCountSingleton == 0 && approvedCategoryCountSingleton == 0 {
+        }else if pendingCount == 0 && approvedCount == 0 {
             //Redirect to Choose Category Page
             print("Login to Choose Category Page")
             self.performSegue(withIdentifier: "splashToChooseCategorySegue", sender: self)

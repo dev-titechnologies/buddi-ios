@@ -164,28 +164,28 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         mobileNumber = contrycode_txt.text! + "-" + mobile_txt.text!
         
         if firstname_txt.text!.isEmpty {
-            CommonMethods.alertView(view: self, title: "", message: "Please enter your first name", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter your first name", buttonTitle: "Ok")
         }else if lastname_txt.text!.isEmpty {
-            CommonMethods.alertView(view: self, title: "", message: "Please enter last name", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter last name", buttonTitle: "Ok")
         }else if email_txt.text!.isEmpty {
-            CommonMethods.alertView(view: self, title: "", message: "Please enter email", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter email", buttonTitle: "Ok")
         }else if !self.validate(YourEMailAddress: email_txt.text!) {
-            CommonMethods.alertView(view: self, title: "", message: "Please enter a valid email", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter a valid email", buttonTitle: "Ok")
         }else if contrycode_txt.text!.isEmpty{
-            CommonMethods.alertView(view: self, title: "", message: "Please select country code", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please select country code", buttonTitle: "Ok")
         }else if mobile_txt.text!.isEmpty{
-            CommonMethods.alertView(view: self, title: "", message: "Please enter your mobile number", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter your mobile number", buttonTitle: "Ok")
         }else if genderString.isEmpty{
-            CommonMethods.alertView(view: self, title: "", message: "Please select your gender", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please select your gender", buttonTitle: "Ok")
         }else if(!mobileNumberValidation(number: mobileNumberCopy)){
-            CommonMethods.alertView(view: self, title: "", message: "Please Enter a valid mobile number", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please Enter a valid mobile number", buttonTitle: "Ok")
         }else{
             
             
             
             guard CommonMethods.networkcheck() else {
                 
-                CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
                 
                 return
                 

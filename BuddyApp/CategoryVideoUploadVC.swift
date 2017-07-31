@@ -94,9 +94,6 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     @IBAction func pickVideoFromGalleryAction(_ sender: Any) {
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
-        
-        
-        
         imagePickerController.mediaTypes = ["public.image", "public.movie"]
         
         present(imagePickerController, animated: true, completion: nil)
@@ -233,7 +230,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                 }
                 else
                 {
-                     CommonMethods.alertView(view: self, title: "FAILED", message: response["message"] as? String, buttonTitle: "Ok")
+                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: response["message"] as? String, buttonTitle: "Ok")
                 }
             }
         }
@@ -244,20 +241,13 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     }
     
     func UploadVideoAPI() {
-        
-        
-        
-        guard CommonMethods.networkcheck() else {
-            
-            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
-            
-            return
-            
-        }
 
+        guard CommonMethods.networkcheck() else {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
+            return
+        }
         
-        
-        
+        CommonMethods.showProgress()
         
         let headers = [
             "token":appDelegate.Usertoken]
@@ -296,10 +286,10 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                                 self.loadSubCategoryURLToSingletonArray(videoURL: self.ResponseVideoURL)
                                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: VIDEO_UPLOADED_SUCCESSFULLY, buttonTitle: "Ok")
                                 self.btnNext.isEnabled = true
-                             }
-                            else if status == RESPONSE_STATUS.SESSION_EXPIRED
-                                
-                            {
+                            }else if status == RESPONSE_STATUS.FAIL{
+                                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsonDic["message"] as? String, buttonTitle: "OK")
+                            }else if status == RESPONSE_STATUS.SESSION_EXPIRED {
+                                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "OK")
                                 self.dismissOnSessionExpire()
                             }
 

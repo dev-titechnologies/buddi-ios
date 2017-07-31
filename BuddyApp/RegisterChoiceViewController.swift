@@ -51,7 +51,6 @@ class RegisterChoiceViewController: UIViewController {
     @IBAction func User_action(_ sender: Any) {
         
         usertype = "trainee"
-        
         if choice == "register"{
              self.performSegue(withIdentifier: "toregister", sender: self)
         }else{
@@ -70,6 +69,9 @@ class RegisterChoiceViewController: UIViewController {
         }
     }
 
+    @IBAction func backAction(_ sender: Any) {
+        self.performSegue(withIdentifier: "unwindToRegOrLoginSegue", sender: self)
+    }
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
