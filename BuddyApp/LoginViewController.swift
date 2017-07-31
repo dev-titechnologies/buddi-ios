@@ -71,7 +71,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     @IBAction func forgotpq_action(_ sender: Any) {
         guard CommonMethods.networkcheck() else {
             
-            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
             
             return
             
@@ -90,7 +90,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         
         guard CommonMethods.networkcheck() else {
             
-            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
             
             return
             
@@ -104,18 +104,18 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         
         
     if email_txt.text!.isEmpty {
-            CommonMethods.alertView(view: self, title: "", message: "Please enter email", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter email", buttonTitle: "Ok")
         }else if !self.validate(YourEMailAddress: email_txt.text!) {
-            CommonMethods.alertView(view: self, title: "", message: "Please enter a valid email", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter a valid email", buttonTitle: "Ok")
         }else if password_txt.text!.isEmpty{
-            CommonMethods.alertView(view: self, title: "", message: "Please enter password", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter password", buttonTitle: "Ok")
         }else{
         
         
         
         guard CommonMethods.networkcheck() else {
             
-            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
             
             return
             
@@ -159,7 +159,7 @@ func validate(YourEMailAddress: String) -> Bool {
         
         guard CommonMethods.networkcheck() else {
             
-            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
             
             return
             
@@ -246,21 +246,23 @@ func validate(YourEMailAddress: String) -> Bool {
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")
                     
+                    if let url = URL(string:(self.jsondict["user_image"] as? String)!){
+                        print("Image URL:", url)
+                        let data = NSData.init(contentsOf: url)
+                        ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
+                    }
+                    
                     if self.UserType == "trainer" {
                         self.segueActionsIfTrainer(dictionary: self.jsondict as! Dictionary<String, Any>!)
                     }else if self.UserType == "trainee" {
                         self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
                     }
                     
-                    let url = URL(string:(self.jsondict["user_image"] as? String)!)
-                    let data = NSData.init(contentsOf: url!)
-                    ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
-                    
                     CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                     
-                }else if status == RESPONSE_STATUS.FAIL{
-                     SVProgressHUD.dismiss()
-                     CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    }
+                else if status == RESPONSE_STATUS.FAIL{
+                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                      SVProgressHUD.dismiss()
                     
@@ -284,6 +286,8 @@ func validate(YourEMailAddress: String) -> Bool {
             print(category_approvedArray)
             
             approvedCount = category_approvedArray.count
+            userDefaults.setValue(approvedCount, forKey: "approvedCategoryCount")
+//            approvedCategoryCountSingleton = approvedCount
             
             if approvedCount > 0 {
                 print("*** Approved Categories Present ****")
@@ -296,6 +300,8 @@ func validate(YourEMailAddress: String) -> Bool {
             print(category_pendingArray)
             
             pendingCount = category_pendingArray.count
+            userDefaults.setValue(approvedCount, forKey: "pendingCategoryCount")
+//            pendingCategoryCountSingleton = pendingCount
             
             if pendingCount > 0 && approvedCount == 0 {
                 print("*** Pending Categories Present ****")

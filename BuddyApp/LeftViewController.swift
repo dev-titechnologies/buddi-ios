@@ -14,7 +14,7 @@ class LeftViewController: UIViewController {
     var imageArray = Array<ProfileImageDB>()
     var objdata = NSData()
 
-    let leftMenuArrayTrainer = ["Home","Settings","Payment Method","Training History","Invit Friends","Help","Legal","Logout"]
+    let leftMenuArrayTrainer = ["Home","Settings","Add Category","Training History","Invite Friends","Help","Legal","Logout"]
     
     let leftMenuArrayTrainee = ["Home","Settings","Payment Method","Become a Trainer","Training History","Invit Friends","Help","Legal","Logout"]
 
@@ -49,26 +49,22 @@ class LeftViewController: UIViewController {
             if let imagearray = ProfileImageDB.fetchImage() {
                 self.imageArray = imagearray as! Array<ProfileImageDB>
                 
-                 self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
-                // print("DBBB",obj!)
-                
-                
-                
-                
-            }
-            DispatchQueue.main.async {
-                print("This is run on the main queue, after the previous code in outer block")
-                
-                self.profileimage.image = UIImage(data: self.objdata as Data)
+                guard self.imageArray.count > 0 else{
+                    return
+                }
+                self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
+                DispatchQueue.main.async {
+                    print("This is run on the main queue, after the previous code in outer block")
+                    self.profileimage.image = UIImage(data: self.objdata as Data)
+                }
             }
         }
-        
-        
-
     }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -142,6 +138,8 @@ extension LeftViewController : UITableViewDelegate{
                 
             case 2:
                 print("two")
+                //Add Category
+                self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
                 
             case 3:
                 print("three")
@@ -150,8 +148,6 @@ extension LeftViewController : UITableViewDelegate{
             case 4:
                 print("four")
                
-                
-                
             case 5:
                 print("five")
                 
@@ -166,12 +162,7 @@ extension LeftViewController : UITableViewDelegate{
             default:
                 print("Integer out of range")
             }
-            
-
-        }
-        else
-        {
-            
+        }else{
             switch (indexPath.row)
             {
             case 0:

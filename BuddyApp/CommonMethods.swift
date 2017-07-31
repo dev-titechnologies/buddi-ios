@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import SwiftyJSON
 import Alamofire
+import SVProgressHUD
 
 class CommonMethods: NSObject {
     
@@ -139,7 +140,13 @@ class CommonMethods: NSObject {
         
     }
 
-
+    class func showProgress(){
+        SVProgressHUD.show()
+    }
+    
+    class func hideProgress() {
+        SVProgressHUD.dismiss()
+    }
 }
 
 class ButtonWithShadow: UIButton {

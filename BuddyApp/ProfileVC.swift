@@ -147,19 +147,18 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                 
                 if let imagearray = ProfileImageDB.fetchImage() {
                     self.imageArray = imagearray as! Array<ProfileImageDB>
-                    
+                   
+                    guard self.imageArray.count > 0 else{
+                        return
+                    }
+
                     self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
-                    // print("DBBB",obj!)
-                    
-                    
-                    
-                    
+                    DispatchQueue.main.async {
+                        print("This is run on the main queue, after the previous code in outer block")
+                        self.profileImage.image = UIImage(data: self.objdata as Data)
+                    }
                 }
-                DispatchQueue.main.async {
-                    print("This is run on the main queue, after the previous code in outer block")
-                    
-                    self.profileImage.image = UIImage(data: self.objdata as Data)
-                }
+                
             }
             
     
@@ -183,7 +182,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         guard CommonMethods.networkcheck() else {
             
-            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
             
             return
             
@@ -258,7 +257,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                     
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
                     
-                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Profile updated successfully", buttonTitle: "Ok")
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Profile updated successfully", buttonTitle: "Ok")
 
                 }
                 else if status == RESPONSE_STATUS.SESSION_EXPIRED
@@ -268,7 +267,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                 }
                 else{
                     
-                     CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                     
                 }
             }
@@ -278,8 +277,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     
 
     }
-   func ProfilePicChoose()
-   {
+    
+   func ProfilePicChoose(){
     let actionSheet: UIAlertController = UIAlertController(title: "Edit Profile Picture", message: "", preferredStyle: .actionSheet)
     actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(action: UIAlertAction) -> Void in
         actionSheet.dismiss(animated: true, completion: {() -> Void in
@@ -369,9 +368,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
    
         
         guard CommonMethods.networkcheck() else {
-            
-            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
-            
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
             return
             
         }
@@ -393,18 +390,20 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                     self.ProfileDict = jsondata["data"]  as! NSDictionary
+                    self.ProfileDict = jsondata["data"]  as! NSDictionary
+
+                    if let url = URL(string:(self.ProfileDict ["user_image"] as? String)!){
+                        print("Image URL:", url)
+                        let data = NSData.init(contentsOf: url)
+                        ProfileImageDB.save(imageURL: (self.ProfileDict["user_image"] as? String)!, imageData: data!)
+                    }
+
                     
-                                     
-                    let url = URL(string:(self.ProfileDict ["user_image"] as? String)!)
-                    
-                    let data = NSData.init(contentsOf: url!)
-                    
-                    ProfileImageDB.save(imageURL: (self.ProfileDict["user_image"] as? String)!, imageData: data!)
-                    
+//                    let url = URL(string:(self.ProfileDict ["user_image"] as? String)!)
+//                    let data = NSData.init(contentsOf: url!)
+//                    ProfileImageDB.save(imageURL: (self.ProfileDict["user_image"] as? String)!, imageData: data!)
                     
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
-                    
                 }
                 else if status == RESPONSE_STATUS.SESSION_EXPIRED
                     
@@ -412,7 +411,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                     self.dismissOnSessionExpire()
                 }
                 else{
-                     CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }
 
             }
@@ -487,17 +486,12 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         Alamofire.upload(multipartFormData: { multipartFormData in
             
-           
-            
-            
             for (key, value) in parameters {
                 
                 print("PARAMETER1",value)
                 print("PARAMETER11",key)
                 
                 multipartFormData.append(value.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: key)
-                
-                
             }
 
             if let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.6) {
@@ -554,7 +548,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                         }
                         else{
                             
-                             CommonMethods.alertView(view: self, title: "ERROR", message: "Please try again", buttonTitle: "Ok")
+                             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please try again", buttonTitle: "Ok")
                             self.ProfileImageURL = ""
                         }
                         

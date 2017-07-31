@@ -29,7 +29,7 @@ class WaitingForApprovalVC: UIViewController {
         
         guard CommonMethods.networkcheck() else {
             
-            CommonMethods.alertView(view: self, title: "Alert", message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
             
             return
             
@@ -65,7 +65,7 @@ class WaitingForApprovalVC: UIViewController {
                 }
                 else if status == RESPONSE_STATUS.FAIL
                 {
-                     CommonMethods.alertView(view: self, title: "FAILED", message: jsondata["message"] as? String, buttonTitle: "Ok")
+                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }
 
             }
