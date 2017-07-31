@@ -160,6 +160,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
     
     func validation() {
+        
         let mobileNumberCopy = contrycode_txt.text! + mobile_txt.text!
         mobileNumber = contrycode_txt.text! + "-" + mobile_txt.text!
         
@@ -179,18 +180,15 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please select your gender", buttonTitle: "Ok")
         }else if(!mobileNumberValidation(number: mobileNumberCopy)){
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please Enter a valid mobile number", buttonTitle: "Ok")
+        }else if password_txt.text!.isEmpty{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please Enter Password", buttonTitle: "Ok")
         }else{
-            
-            
             
             guard CommonMethods.networkcheck() else {
                 
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
-                
                 return
-                
             }
-
             
             var FB_id = String()
             var GOOGLE_id = String()

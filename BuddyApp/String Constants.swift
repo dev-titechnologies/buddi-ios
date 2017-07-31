@@ -11,7 +11,7 @@ import Foundation
 let ALERT_TITLE = "BuddyApp"
 let SERVER_NOT_RESPONDING = "Server not responding"
 let PLEASE_ENTER_ZIPCODE = "Please enter ZipCode"
-let PLEASE_ANSWER_ABOVE_QUESTIONS = "Please answer above all questions"
+let PLEASE_ANSWER_ABOVE_QUESTIONS = "Please answer to all questions"
 let VIDEO_UPLOADED_SUCCESSFULLY = "Video uploaded successfully"
 let PLEASE_ENTER_OTP = "Please enter OTP code"
 let SESSION_EXPIRED = "Session Expired"

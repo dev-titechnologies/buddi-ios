@@ -229,6 +229,10 @@ func validate(YourEMailAddress: String) -> Bool {
                     userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")
+                    print(self.jsondict["trainer_type"]!)
+                    userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
+//                    userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
+                    print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
                     
                     if let url = URL(string:(self.jsondict["user_image"] as? String)!){
                         print("Image URL:", url)

@@ -277,6 +277,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                     debugPrint(response)
                     print("Video Upload Response:",response)
                     
+                    CommonMethods.hideProgress()
                     if let jsonDic = response.result.value as? NSDictionary{
                         print("DICT ",jsonDic)
                         
