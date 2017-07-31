@@ -62,20 +62,15 @@ class RegisterChoiceViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     @IBAction func User_action(_ sender: Any) {
         
         usertype = "trainee"
         if choice == "register"{
              self.performSegue(withIdentifier: "toregister", sender: self)
-            
-        }
-        else{
+        }else{
              self.performSegue(withIdentifier: "tologin", sender: self)
         }
-        
-        
-        
-        
     }
     
     @IBAction func Trainer_action(_ sender: Any) {
@@ -92,12 +87,9 @@ class RegisterChoiceViewController: UIViewController {
         self.performSegue(withIdentifier: "unwindToRegOrLoginSegue", sender: self)
     }
    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+
+        appDelegate.USER_TYPE = usertype
         
         if segue.identifier == "toregister" {
             let controller = segue.destination as! RegisterViewController
