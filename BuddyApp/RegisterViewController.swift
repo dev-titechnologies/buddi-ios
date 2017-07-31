@@ -50,8 +50,6 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         
         self.title = "Register"
         
-        
-        
         google_btn.layer.borderColor = UIColor.init(colorLiteralRed: 223/255, green: 74/255, blue: 50/255, alpha: 1.0).cgColor
         google_btn.layer.borderWidth = 2
         google_btn.clipsToBounds = true
@@ -60,11 +58,6 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
 
         facebook_btn.layer.borderWidth = 2
         facebook_btn.clipsToBounds = true
-
-
-        
-        
-        
                
 //        removeZerosFromBeginningInMobileNumber(mobile: "000000231234")
         contrycode_txt.delegate = self
@@ -113,28 +106,21 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
      func methodOfReceivedNotification(notif: NSNotification) {
         
-        
-        
-        
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
         print("GOOGLE DATA ",self.googleUserDictionary)
         
         registerType = "google"
-        
         self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
         self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
-
-        
-        
-        
     }
+    
     @IBAction func male_action(_ sender: Any) {
         
         male_btn.backgroundColor = UIColor.lightGray
         female_btn.backgroundColor = UIColor.clear
         genderString = "male"
-        
     }
+    
     @IBAction func female_action(_ sender: Any) {
         
         female_btn.backgroundColor = UIColor.lightGray
@@ -143,11 +129,9 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
 
     @IBAction func countryCode_action(_ sender: Any) {
-        
-        
         picker.isHidden = false
-        
     }
+    
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
         contrycode_txt.text = phoneCode
         imgview.image = flag
@@ -236,9 +220,11 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     
     func OTPCall(){
         
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":mobileNumber, "email": self.email_txt.text!], headers: nil, onCompletion: { (jsondata) in
             print("1234",jsondata)
             
+            CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     print("OTP Sent Successfully")
@@ -248,14 +234,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("OTP Call Session Expired")
-                    
-                   
-                        self.dismissOnSessionExpire()
-                    
-
-                    
-                    
-
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "OK")
+                    self.dismissOnSessionExpire()
                 }
             }
         })

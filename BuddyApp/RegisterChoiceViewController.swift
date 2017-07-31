@@ -81,17 +81,11 @@ class RegisterChoiceViewController: UIViewController {
     @IBAction func Trainer_action(_ sender: Any) {
         
         usertype = "trainer"
-        
-        if choice == "register"
-        {
+        if choice == "register"{
             self.performSegue(withIdentifier: "toregister", sender: self)
-            
-        }
-        else{
+        }else{
             self.performSegue(withIdentifier: "tologin", sender: self)
         }
-        
-
     }
 
     @IBAction func backAction(_ sender: Any) {
@@ -105,24 +99,12 @@ class RegisterChoiceViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        
-        
         if segue.identifier == "toregister" {
-            
             let controller = segue.destination as! RegisterViewController
             controller.UserType = usertype
-            
-        }
-        else{
+        }else if segue.identifier == "tologin" {
             let controller = segue.destination as! LoginViewController
             controller.UserType = usertype
         }
-        
-
-        
-        
-        
     }
-    
-
 }

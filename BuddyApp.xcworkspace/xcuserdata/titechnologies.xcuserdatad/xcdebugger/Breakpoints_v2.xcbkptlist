@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/OTPViewController.swift"
-            timestampString = "522933505.68142"
+            timestampString = "523181006.041469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "RegistrationAPICall()"
             landmarkType = "7">
          </BreakpointContent>
@@ -99,14 +99,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/LoginViewController.swift"
-            timestampString = "523176788.362315"
+            filePath = "BuddyApp/LeftViewController.swift"
+            timestampString = "523181063.863206"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "LoginAPI(Email:Passwrd:loginType:UserType:FBId:GoogleId:)"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BuddyApp.LeftViewController.viewDidLoad () -&gt; ()"
+                  moduleName = "BuddyApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/LeftViewController.swift"
+                  timestampString = "523181618.574971"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BuddyApp.LeftViewController.viewDidLoad () -&gt; ()"
+                  moduleName = "BuddyApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/LeftViewController.swift"
+                  timestampString = "523181618.582502"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "644">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -116,28 +148,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/LeftViewController.swift"
-            timestampString = "523177319.098065"
+            timestampString = "523181688.780061"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BuddyApp/LeftViewController.swift"
-            timestampString = "523177401.972076"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

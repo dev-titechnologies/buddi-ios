@@ -36,3 +36,67 @@ let SNACH_FEMALE_DESC = " -Video 1: Record yourself doing 1 rep with 951b. on th
 let CLEAN_JERK_MALE_DESC = "-Video 1: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles. \n-Video 2: Record yourself doing 1 rep with 1.5 your bodyweight on the bar from 2 different angles."
 
 let CLEAN_JERK_FEMALE_DESC = "-Video 1: Record yourself doing 1 rep with 951b. on the bar from 2 different angles. \n-Video 2: Record yourself doing 1 rep with your body weight on the bar from 2 different angles."
+
+// 9 Values
+let leftMenuTrainee = ["Home",
+                       "Settings",
+                       "Become a Trainer",
+                       "Payment Method",
+                       "Training History",
+                       "Invite Friends",
+                       "Help",
+                       "Legal",
+                       "Logout"]
+
+// 8 Values
+let leftMenuTraineeAndTrainerAlso = ["Home",
+                                    "Settings",
+                                    "Payment Method",
+                                    "Training History",
+                                    "Invite Friends",
+                                    "Help",
+                                    "Legal",
+                                    "Logout"]
+
+// 8 Values
+let leftMenuTrainer = ["Home",
+                       "Settings",
+                       "Add Category",
+                       "Training History",
+                       "Invite Friends",
+                       "Help",
+                       "Legal",
+                       "Logout"]
+
+// 8 Values
+let ImageArrayTrainer = ["HOME",
+                         "SETTINGES",
+                         "PAY",
+                         "TRAINING-HISTORY",
+                         "FRIENDS",
+                         "HELP",
+                         "LEGAL",
+                         "LOGOUT"]
+
+// 9 Values
+let ImageArrayTrainee = ["HOME",
+                         "SETTINGES",
+                         "PAY",
+                         "BECOME-TRAINER",
+                         "TRAINING-HISTORY",
+                         "FRIENDS",
+                         "HELP",
+                         "LEGAL",
+                         "LOGOUT"]
+
+// 8 Values
+let ImageArrayTraineeAndTrainerAlso = ["HOME",
+                         "SETTINGES",
+                         "PAY",
+                         "TRAINING-HISTORY",
+                         "FRIENDS",
+                         "HELP",
+                         "LEGAL",
+                         "LOGOUT"]
+
+
