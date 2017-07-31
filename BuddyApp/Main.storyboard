@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Unknown constraint types" minToolsVersion="5.1"/>
@@ -552,7 +552,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Kw-cz-0kz">
-                                <rect key="frame" x="19" y="241" width="337.5" height="30"/>
+                                <rect key="frame" x="19" y="285" width="337.5" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="AsP-yC-iKs"/>
                                 </constraints>
@@ -561,7 +561,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ENTER OTP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMc-LS-sYP">
-                                <rect key="frame" x="16" y="212" width="81" height="21"/>
+                                <rect key="frame" x="16" y="256" width="81" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="fxe-Lh-gNM"/>
                                 </constraints>
@@ -604,7 +604,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mobile-chat" translatesAutoresizingMaskIntoConstraints="NO" id="3Yq-Rz-k6b">
-                                <rect key="frame" x="163" y="62" width="49" height="53"/>
+                                <rect key="frame" x="163" y="106" width="49" height="53"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="6uj-pL-eoe"/>
                                     <constraint firstAttribute="height" constant="53" id="wCb-wI-KeO"/>
@@ -619,7 +619,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are unable to auto-verify your mobile number. Please enter the code received" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QY-fJ-7FS">
-                                <rect key="frame" x="0.0" y="129" width="375" height="36"/>
+                                <rect key="frame" x="0.0" y="173" width="375" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1470,38 +1470,53 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EON-KR-wYN">
-                                <rect key="frame" x="16" y="610" width="106" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="imD-mv-wpw">
+                                <rect key="frame" x="0.0" y="598" width="375" height="69"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Camera">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="69" id="fYW-ED-dpd"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3m3-8h-aIB">
+                                <rect key="frame" x="316" y="609" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Gdx-Oh-LJy"/>
+                                    <constraint firstAttribute="height" constant="50" id="M9h-Fh-uAj"/>
+                                </constraints>
+                                <state key="normal" title="NEXT">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="subCategoryNextButton:" destination="acl-cp-87b" eventType="touchUpInside" id="601-zA-rzr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EON-KR-wYN">
+                                <rect key="frame" x="162.5" y="609" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="fss-Bu-x71"/>
+                                    <constraint firstAttribute="width" constant="50" id="tZg-nt-UGB"/>
+                                </constraints>
+                                <state key="normal" image="click">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="camera_action:" destination="acl-cp-87b" eventType="touchUpInside" id="97K-C4-HQk"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pu6-r5-mX5">
-                                <rect key="frame" x="134" y="610" width="106" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Camera Roll">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pu6-r5-mX5">
+                                <rect key="frame" x="9" y="609" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="qXv-YD-ALW"/>
+                                    <constraint firstAttribute="height" constant="50" id="v7i-wU-Say"/>
+                                </constraints>
+                                <state key="normal" image="gallery">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="cameraRoll_action:" destination="acl-cp-87b" eventType="touchUpInside" id="Pnc-bq-Slx"/>
                                     <action selector="pickVideoFromGalleryAction:" destination="acl-cp-87b" eventType="touchUpInside" id="QKQ-a3-u0S"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3m3-8h-aIB">
-                                <rect key="frame" x="253" y="610" width="106" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="NEXT">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="subCategoryNextButton:" destination="acl-cp-87b" eventType="touchUpInside" id="601-zA-rzr"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CR-6r-Drx">
@@ -1541,6 +1556,17 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pZX-mB-7Ff" firstAttribute="top" secondItem="Pu6-r5-mX5" secondAttribute="bottom" constant="8" id="46K-vM-QGn"/>
+                            <constraint firstItem="pZX-mB-7Ff" firstAttribute="top" secondItem="EON-KR-wYN" secondAttribute="bottom" constant="8" id="4hk-YS-ThC"/>
+                            <constraint firstItem="imD-mv-wpw" firstAttribute="leading" secondItem="1BH-oQ-OQJ" secondAttribute="leading" id="5D3-hL-iPf"/>
+                            <constraint firstItem="pZX-mB-7Ff" firstAttribute="top" secondItem="3m3-8h-aIB" secondAttribute="bottom" constant="8" id="7Hc-tz-T2p"/>
+                            <constraint firstItem="EON-KR-wYN" firstAttribute="centerX" secondItem="1BH-oQ-OQJ" secondAttribute="centerX" id="92e-0x-g23"/>
+                            <constraint firstItem="pZX-mB-7Ff" firstAttribute="top" secondItem="imD-mv-wpw" secondAttribute="bottom" id="CLb-c6-bwE"/>
+                            <constraint firstItem="Pu6-r5-mX5" firstAttribute="leading" secondItem="1BH-oQ-OQJ" secondAttribute="leading" constant="9" id="EaA-BF-uqx"/>
+                            <constraint firstAttribute="trailing" secondItem="3m3-8h-aIB" secondAttribute="trailing" constant="9" id="KFN-XZ-IkW"/>
+                            <constraint firstAttribute="trailing" secondItem="imD-mv-wpw" secondAttribute="trailing" id="XQH-hz-PXP"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="btnNext" destination="3m3-8h-aIB" id="LlP-3n-oXN"/>
@@ -1553,7 +1579,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGk-xA-91o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6175" y="2737"/>
+            <point key="canvasLocation" x="6173.6000000000004" y="2736.88155922039"/>
         </scene>
         <!--Submit For Admin Approval-->
         <scene sceneID="DOt-e4-UxM">
@@ -2770,8 +2796,10 @@
         <image name="Illustration" width="212" height="226"/>
         <image name="Splash_Screen" width="540" height="960"/>
         <image name="bg" width="540" height="960"/>
+        <image name="click" width="98" height="98"/>
         <image name="facebook" width="32" height="32"/>
         <image name="facebook1" width="16" height="36"/>
+        <image name="gallery" width="64" height="64"/>
         <image name="google-plus-logo" width="32" height="32"/>
         <image name="google-plus1" width="42" height="37"/>
         <image name="left-arrow" width="32" height="32"/>
@@ -2787,6 +2815,9 @@
         <segue reference="02W-Ef-JtO"/>
         <segue reference="lS4-X5-YwA"/>
         <segue reference="Jie-k9-AKK"/>
+        <segue reference="hJy-Rz-WHD"/>
+        <segue reference="lS4-X5-YwA"/>
+        <segue reference="bhW-SL-F38"/>
         <segue reference="N1B-Ap-4oI"/>
         <segue reference="2VQ-rM-Ru6"/>
     </inferredMetricsTieBreakers>

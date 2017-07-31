@@ -329,29 +329,49 @@ extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
         print("SECONDS",audioDurationSeconds)
         
         
-        if (audioDurationSeconds < 30.0 || (audioDurationSeconds > 90.0))
+        if (audioDurationSeconds < 30.0)
         {
-            print("Less than 30 or greater than 90")
+            print("Less than 30 ")
+            
+            
+            
+            
+            dismiss(animated: true, completion: nil)
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please upload a video of duration minimum 30 seconds", buttonTitle: "Ok")
+            
+            
         }
-        else
+        else if ((audioDurationSeconds > 90.0))
         {
+            print(" greater than 90")
+            dismiss(animated: true, completion: nil)
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please upload a video of duration maximum 90 seconds", buttonTitle: "Ok")
+
+            
+            
+        }
+        else{
             
             print("upload video")
             
+            
+            do {
+                let video = try NSData(contentsOf: (info["UIImagePickerControllerMediaURL"] as? NSURL)! as URL, options: .mappedIfSafe)
+                movieData = video
+                print("Total bytes \(movieData.length/(1000*1000))")
+            } catch {
+                print(error)
+                return
+            }
+            
+            dismiss(animated: true, completion: nil)
+             UploadVideoAPI()
+
+            
+            
         }
         
-        do {
-            let video = try NSData(contentsOf: (info["UIImagePickerControllerMediaURL"] as? NSURL)! as URL, options: .mappedIfSafe)
-            movieData = video
-            print("Total bytes \(movieData.length/(1000*1000))")
-        } catch {
-            print(error)
-            return
-        }
-        
-        dismiss(animated: true, completion: nil)
-       // UploadVideoAPI()
-    }
+            }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
