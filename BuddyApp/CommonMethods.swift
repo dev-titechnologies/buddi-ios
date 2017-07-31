@@ -147,6 +147,10 @@ class CommonMethods: NSObject {
     class func hideProgress() {
         SVProgressHUD.dismiss()
     }
+    
+    class func hidesBackButton(viewController: UIViewController, isHide: Bool) {
+        viewController.navigationItem.setHidesBackButton(isHide, animated: true)
+    }
 }
 
 class ButtonWithShadow: UIButton {

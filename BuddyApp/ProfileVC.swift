@@ -302,16 +302,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         print("FINAL DICT",profiledict)
         
-       // var imagePickedData = NSData()
-       // imagePickedData = UIImageJPEGRepresentation(chosenImage, 1.0)! as NSData
-        
-        
-        
         let profile = ProfileModel(profileImage: (profiledict["user_image"] as? String)!, firstName: (profiledict["first_name"] as? String)!, lastName: (profiledict["last_name"] as? String)!, email: (profiledict["email"] as? String)!, mobile: (profiledict["mobile"] as? String)!, gender: (profiledict["gender"] as? String)!, userid: "" )
-        
-        
-     
-             
         
         ProfileDB.createProfileEntry(profileModel: profile)
         
@@ -343,19 +334,11 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                            self.profileImage.image = UIImage(data: self.objdata as Data)
             
         }
-     
-        
         SVProgressHUD.dismiss()
-        
     }
     
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
-        
-       
-        
         flage_img.image = flag
-        
-       
     }
 
     override func didReceiveMemoryWarning() {
@@ -378,9 +361,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         let headers = [
             "token":appDelegate.Usertoken ]
 
-        
         print("PARAMS",parameters)
-         print("HEADER",headers)
+        print("HEADER",headers)
         
         CommonMethods.serverCall(APIURL: "profile/viewProfile", parameters: parameters , headers: headers , onCompletion: { (jsondata) in
             print("PROFILE RESPONSE",jsondata)
@@ -397,21 +379,15 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                     }
                     
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
-                }
-                else if status == RESPONSE_STATUS.SESSION_EXPIRED
-                    
-                {
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
-                }
-                else{
+                }else{
                      CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }
-
             }
-             })
-
-        
+        })
     }
+    
     func fromgallary() {
         
         imagePicker.allowsEditing = false
@@ -440,23 +416,17 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
        // self.profileImage.contentMode = .scaleAspectFit //3
        // self.profileImage.image = chosenImage //4
-    
-    
-    
+
         dismiss(animated: true, completion: nil)
-        
         var imagePickedData = NSData()
         imagePickedData = UIImageJPEGRepresentation(chosenImage, 1.0)! as NSData
-        
-        
         self.UploadImageAPI(imagedata: imagePickedData)
-        
-        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+    
     func UploadImageAPI(imagedata : NSData) {
         
         let headers = [
@@ -469,11 +439,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         
         var uploadImageData = NSData()
-        
-             uploadImageData = imagedata
-        
-        
-        
+        uploadImageData = imagedata
         
        // print("DATTTAAAA",uploadImageData)
         
@@ -490,12 +456,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             if let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.6) {
                // multipartFormData.append(data: imageData, name: "image", fileName: "file.png", mimeType: "image/png")
                 multipartFormData.append(uploadImageData as Data, withName: "file_name", fileName: "image.png", mimeType: "image/png")
-                
-                
-              
-                
-            }
-            else{
+            }else{
                 print("NODATAAA")
             }
          }, to: "http://192.168.1.14:4001/upload/upload",
@@ -511,49 +472,29 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                         print("DICT ",jsonDic)
                         
                         if let status = jsonDic["status"] as? Int{
+                            
                             if status == RESPONSE_STATUS.SUCCESS{
                                 
-                               
-//                                
-                        self.profileImage.image = UIImage(data:(uploadImageData as NSData) as Data,scale:1.0)
+                                self.profileImage.image = UIImage(data:(uploadImageData as NSData) as Data,scale:1.0)
                                  self.ProfileImageURL = (jsonDic["Url"] as? String)!
                                 self.EditProfileAPI()
                                 
-                                
-                             //   CommonMethods.alertView(view: self, title: "SUCCESS", message: "Image uploaded successfully", buttonTitle: "Ok")
-                                
-                ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: uploadImageData as Data as Data as NSData)
-                                    //
-
-                                    
-                                
-                                
-
-                                
-                                
-                                
-                            }
-                            else if status == RESPONSE_STATUS.SESSION_EXPIRED
-                            
-                            {
+                                ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: uploadImageData as Data as Data as NSData)
+                            }else if status == RESPONSE_STATUS.FAIL{
+                                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsonDic["message"] as? String, buttonTitle: "Ok")
+                            }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "Ok")
                                 self.dismissOnSessionExpire()
                             }
-                        }
-                        else{
-                            
+                        }else{
                              CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please try again", buttonTitle: "Ok")
                             self.ProfileImageURL = ""
                         }
-                        
-                        
                     }
-    
                 }
             case .failure(let encodingError):
                 print(encodingError)
-                
-                
-                
-            } })
-}
+            }
+        })
+    }
 }

@@ -131,4 +131,12 @@ class OTPViewController: UIViewController {
             }
         })
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "initialLaunchForTrainerSegue" {
+            let chooseCategoryPage =  segue.destination as! CategoryListVC
+            chooseCategoryPage.isBackButtonHidden = true
+        }
+    }
 }

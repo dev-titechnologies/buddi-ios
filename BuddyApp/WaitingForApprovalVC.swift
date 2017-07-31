@@ -11,6 +11,7 @@ import UIKit
 class WaitingForApprovalVC: UIViewController {
 
     @IBOutlet weak var lblApprovalStatus: UILabel!
+//    var isBackButtonHidden = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,7 @@ class WaitingForApprovalVC: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -26,19 +28,12 @@ class WaitingForApprovalVC: UIViewController {
 
     @IBAction func checkForAdminApproval(_ sender: Any) {
         
-        
         guard CommonMethods.networkcheck() else {
             
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
-            
             return
-            
         }
 
-        
-        
-        
-        
         let parameters = ["user_id" : appDelegate.UserId,"user_type" : appDelegate.USER_TYPE] as [String : Any]
         let headers = ["token":appDelegate.Usertoken]
         
@@ -56,20 +51,26 @@ class WaitingForApprovalVC: UIViewController {
                     
                     let approvalStatusArray = jsondata["data"] as! NSDictionary as! [String: Any]
                     print(approvalStatusArray)
-                    self.lblApprovalStatus.text = approvalStatusArray["category_status"] as! String
-                }
-                else if status == RESPONSE_STATUS.SESSION_EXPIRED
-                    
-                {
+                    if approvalStatusArray["category_status"] as! String == "approved"{
+                        self.performSegue(withIdentifier: "waitingForApprovalToHomePageSegue", sender: self)
+                    }
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "Ok")
                     self.dismissOnSessionExpire()
                 }
-                else if status == RESPONSE_STATUS.FAIL
-                {
-                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
-                }
-
             }
         })
+    }
+    
+    @IBAction func exitAction(_ sender: Any) {
+        
+        if appDelegate.USER_TYPE == "trainer" {
+            self.performSegue(withIdentifier: "waitingForApprovalToLoginPageSegue", sender: self)
+        }else if appDelegate.USER_TYPE == "trainee"{
+            self.performSegue(withIdentifier: "waitingForApprovalToHomePageSegue", sender: self)
+        }
     }
     
     override func didReceiveMemoryWarning() {

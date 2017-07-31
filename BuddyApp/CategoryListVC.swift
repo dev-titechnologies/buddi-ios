@@ -22,6 +22,8 @@ class CategoryListVC: UIViewController {
     fileprivate let reuseIdentifier = "categoryListCellId"
     fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     fileprivate let itemsPerRow: CGFloat = 2
+    
+    var isBackButtonHidden = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,12 @@ class CategoryListVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        if isBackButtonHidden{
+            CommonMethods.hidesBackButton(viewController: self, isHide: true)
+        }else{
+            CommonMethods.hidesBackButton(viewController: self, isHide: false)
+        }
 
         CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], headers: nil, onCompletion: { (jsondata) in
             
@@ -65,6 +73,10 @@ class CategoryListVC: UIViewController {
             }
         })
     }
+    
+//    func hideBackButton(isHide: Bool) {
+//        self.navigationItem.setHidesBackButton(hideValue, animated:true);
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      

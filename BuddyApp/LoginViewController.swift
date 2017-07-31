@@ -269,4 +269,12 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "loginToChooseCategorySegue" {
+            let chooseCategoryPage =  segue.destination as! CategoryListVC
+            chooseCategoryPage.isBackButtonHidden = true
+        }
+    }
 }
