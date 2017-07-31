@@ -13,13 +13,11 @@ class LeftViewController: UIViewController {
     
     var imageArray = Array<ProfileImageDB>()
     var objdata = NSData()
+    var leftMenuArrayTrainee = [String]()
 
     let leftMenuArrayTrainer = ["Home","Settings","Add Category","Training History","Invite Friends","Help","Legal","Logout"]
     
-    let leftMenuArrayTrainee = ["Home","Settings","Payment Method","Become a Trainer","Training History","Invit Friends","Help","Legal","Logout"]
-
-    
-     let ImageArrayTrainer = ["HOME","SETTINGES","PAY","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
+    let ImageArrayTrainer = ["HOME","SETTINGES","PAY","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
     
     let ImageArrayTrainee = ["HOME","SETTINGES","PAY","BECOME-TRAINER","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
     
@@ -30,18 +28,13 @@ class LeftViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        if let imagearray = ProfileImageDB.fetchImage() {
-//            self.imageArray = imagearray as! Array<ProfileImageDB>
-//            
-//            let obj = self.imageArray[0].value(forKey: "imageData")
-//           // print("DBBB",obj!)
-//            
-//            profileimage.image = UIImage(data: obj as! Data)
-//
-//            
-//        }
-//        
-        
+    
+        print(userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
+        if (userDefaults.value(forKey: "ifAlreadyTrainer") != nil){
+            leftMenuArrayTrainee = ["Home","Settings","Payment Method","Become a Trainer","Training History","Invite Friends","Help","Legal","Logout"]
+        }else{
+            leftMenuArrayTrainee = ["Home","Settings","Payment Method","Training History","Invite Friends","Help","Legal","Logout"]
+        }
         
         DispatchQueue.global(qos: .background).async {
             print("This is run on the background queue")
@@ -76,48 +69,28 @@ extension LeftViewController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        
-        if appDelegate.USER_TYPE == "trainer"
-        {
+        if appDelegate.USER_TYPE == "trainer"{
             return leftMenuArrayTrainer.count
-        }
-        else
-        {
+        }else{
             return leftMenuArrayTrainee.count
         }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: LeftMenuTableCell = tableView.dequeueReusableCell(withIdentifier: "leftMenuCellId") as! LeftMenuTableCell
         
-        if appDelegate.USER_TYPE == "trainer"
-        {
+        if appDelegate.USER_TYPE == "trainer" {
             
             cell.lblLeftMenuTitle.text = leftMenuArrayTrainer[indexPath.row]
-            
             cell.icon_img.image = UIImage(named: ImageArrayTrainer[indexPath.row])
-
-        }
-        else
-        {
-            
+        }else{
             cell.lblLeftMenuTitle.text = leftMenuArrayTrainee[indexPath.row]
-            
             cell.icon_img.image = UIImage(named: ImageArrayTrainee[indexPath.row])
-
         }
-
-        
-        
-        
-        
         return cell
-
     }
-    }
+}
 
 extension LeftViewController : UITableViewDelegate{
     
