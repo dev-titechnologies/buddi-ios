@@ -10,6 +10,7 @@ import UIKit
 
 class LeftViewController: UIViewController {
     @IBOutlet weak var profileimage: UIImageView!
+    @IBOutlet weak var leftMenuTableview: UITableView!
     
     var imageArray = Array<ProfileImageDB>()
     var objdata = NSData()
@@ -42,6 +43,24 @@ class LeftViewController: UIViewController {
                 DispatchQueue.main.async {
                     print("This is run on the main queue, after the previous code in outer block")
                     self.profileimage.image = UIImage(data: self.objdata as Data)
+                }
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "blankPageSegue" {
+            let path = leftMenuTableview.indexPathForSelectedRow!
+
+            let blankPage =  segue.destination as! BlankViewController
+            if appDelegate.USER_TYPE == "trainer"{
+                blankPage.blankTextValue = leftMenuTrainer[path.row]
+            }else{
+                if isTraineeAlreadyTrainer {
+                    blankPage.blankTextValue = leftMenuTraineeAndTrainerAlso[path.row]
+                }else{
+                    blankPage.blankTextValue = leftMenuTrainee[path.row]
                 }
             }
         }
@@ -99,10 +118,12 @@ extension LeftViewController : UITableViewDelegate{
             case 0:
                 print("zero")
                 print("Home")
+                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 
             case 1:
                 print("one")
                 print("Settings")
+                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 
             case 2:
                 print("two")
@@ -112,25 +133,28 @@ extension LeftViewController : UITableViewDelegate{
             case 3:
                 print("three")
                 print("Training History")
-                 self.performSegue(withIdentifier: "history", sender:self)
+//                 self.performSegue(withIdentifier: "history", sender:self)
+                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 
             case 4:
                 print("four")
                 print("Invite Friends")
+                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                
             case 5:
                 print("five")
                 print("Help")
+                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 
             case 6:
                 print("six")
                 print("Legal")
+                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 
             case 7:
                 print("seven")
                 print("Logout")
-                
-            dismissOnSessionExpire()
+                dismissOnSessionExpire()
                 
             default:
                 print("Integer out of range")
@@ -143,16 +167,19 @@ extension LeftViewController : UITableViewDelegate{
             case 0:
                 print("zero")
                 print("Home")
+                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 
             case 1:
                 print("one")
                 print("Settings")
+                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 
             case 2:
                 print("two")
                 if isTraineeAlreadyTrainer{
                     //Already a Trainer
                     print("Payment Method")
+                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
 
                 }else{
                     print("Become a Trainer")
@@ -163,34 +190,41 @@ extension LeftViewController : UITableViewDelegate{
                 print("three")
                 if isTraineeAlreadyTrainer{
                     print("Training History")
+                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 }else{
                     print("Payment Method")
+                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 }
                 
             case 4:
                 print("four")
                 if isTraineeAlreadyTrainer{
                     print("Invite Friends")
+                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 }else{
                     print("Training History")
-                    self.performSegue(withIdentifier: "history", sender:self)
+//                    self.performSegue(withIdentifier: "history", sender:self)
+                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 }
                 
             case 5:
                 print("five")
                 if isTraineeAlreadyTrainer{
                     print("Help")
+                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 }else{
                     print("Invite Friends")
-
+                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 }
                 
             case 6:
                 print("six")
                 if isTraineeAlreadyTrainer{
                     print("Legal")
+                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 }else{
                     print("Help")
+                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 }
 
             case 7:
@@ -200,12 +234,14 @@ extension LeftViewController : UITableViewDelegate{
                     dismissOnSessionExpire()
                 }else{
                     print("Legal")
+                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
 
                 }
                 
             case 8:
                 print("eight")
                 if isTraineeAlreadyTrainer{
+                    
                 }else{
                     print("Logout")
                     dismissOnSessionExpire()

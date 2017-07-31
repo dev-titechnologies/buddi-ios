@@ -28,18 +28,10 @@ class ReviewHistoryVC: UIViewController {
     
     func fetchReviewData() {
         
-        
-        
-        
         guard CommonMethods.networkcheck() else {
-            
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
-            
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
             return
-            
         }
-
-        
         
         let parameters = ["user_id":"21","user_type":"trainee"]
         let headers = ["token":"e059760236120b73def591b5"]
@@ -67,20 +59,13 @@ class ReviewHistoryVC: UIViewController {
                     }
                 }else if status == RESPONSE_STATUS.FAIL {
                     print("Server Resp Fail")
-                    
-                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
-                    
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("Session Expired")
-                    
                     self.dismissOnSessionExpire()
-            
-
-                    
                 }
             }
         })
-
     }
 
     override func didReceiveMemoryWarning() {

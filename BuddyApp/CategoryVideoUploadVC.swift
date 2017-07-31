@@ -221,15 +221,10 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
             if let status = response["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     self.performSegue(withIdentifier: "waitingForAdminApprovalSegue", sender: self)
-                }
-                else if status == RESPONSE_STATUS.SESSION_EXPIRED
-                    
-                {
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: response["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
-                }
-                else
-                {
-                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: response["message"] as? String, buttonTitle: "Ok")
                 }
             }
         }
@@ -242,7 +237,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     func UploadVideoAPI() {
 
         guard CommonMethods.networkcheck() else {
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
             return
         }
         
@@ -289,10 +284,8 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                             }else if status == RESPONSE_STATUS.FAIL{
                                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsonDic["message"] as? String, buttonTitle: "OK")
                             }else if status == RESPONSE_STATUS.SESSION_EXPIRED {
-                                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "OK")
                                 self.dismissOnSessionExpire()
                             }
-
                         }
                     }
                 }

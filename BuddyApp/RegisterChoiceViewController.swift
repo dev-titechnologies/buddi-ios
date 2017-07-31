@@ -30,26 +30,15 @@ class RegisterChoiceViewController: UIViewController {
         User_btn.layer.borderWidth = 2
         User_btn.clipsToBounds = true
 
-        
-        if choice == "register"
-        {
+        if choice == "register"{
             Trainer_btn.setTitle("REGISTER AS A TRAINER",for: .normal)
-            User_btn.setTitle("REGISTER AS A USER",for: .normal)
-            
-         
-        }
-        else{
-            
+            User_btn.setTitle("REGISTER AS A TRAINEE",for: .normal)
+        }else{
             Trainer_btn.setTitle("LOGIN AS A TRAINER",for: .normal)
-            User_btn.setTitle("LOGIN AS A USER",for: .normal)
-            
-            }
-        
-        
-        
-        
-        
+            User_btn.setTitle("LOGIN AS A TRAINEE",for: .normal)
+        }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
     }

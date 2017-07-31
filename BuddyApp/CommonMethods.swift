@@ -202,9 +202,6 @@ extension UIViewController {
     
     func dismissOnSessionExpire() {
         
-        
-        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "Ok")
-        
         userDefaults.removeObject(forKey: "user_id")
         userDefaults.removeObject(forKey: "token")
         userDefaults.removeObject(forKey: "userType")
@@ -213,13 +210,12 @@ extension UIViewController {
         ProfileImageDB.deleteImages()
         ProfileDB.deleteProfile()
         
-        
-             let controller  = storyboard?.instantiateViewController(withIdentifier: "RegisterorloginViewController") as! RegisterorloginViewController
+        let controller  = storyboard?.instantiateViewController(withIdentifier: "RegisterorloginViewController") as! RegisterorloginViewController
         //self.presentViewController(controller, animated: true, completion: nil)
         controller.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(controller, animated: true)
-        
-}
+//        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "Ok")
+    }
 }
 
 
