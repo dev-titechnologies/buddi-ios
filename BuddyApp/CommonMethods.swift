@@ -206,6 +206,10 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "token")
         userDefaults.removeObject(forKey: "userType")
         
+        
+        ProfileImageDB.deleteImages()
+        ProfileDB.deleteProfile()
+        
         let controller  = storyboard?.instantiateViewController(withIdentifier: "RegisterorloginViewController") as! RegisterorloginViewController
         //self.presentViewController(controller, animated: true, completion: nil)
         controller.hidesBottomBarWhenPushed = true
