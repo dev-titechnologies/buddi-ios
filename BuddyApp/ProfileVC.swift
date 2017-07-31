@@ -320,7 +320,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
 
         
-        profileImage.sd_setImage(with: URL(string: profile.profileImage))
+       // profileImage.sd_setImage(with: URL(string: profile.profileImage))
         firstname_txt.text = profile.firstName
         lastname_txt.text = profile.lastName
         email_txt.text = profile.email
@@ -332,20 +332,17 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         countrypicker.showPhoneNumbers = true
         countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
         
-//        
-//        //var data: NSData? = nil
-//        let url = URL(string:(profiledict["user_image"] as? String)!)
-//        
-//        print("IMGURL",url!)
-//        //
-//        let data = NSData.init(contentsOf: url!)
-//        
-//        print("DATAIMAGE",data!)
-//        
-//       ProfileImageDB.save(imageURL: (profiledict["user_image"] as? String)!, imageData: data!)
-//        //
-        
-
+        if let imagearray = ProfileImageDB.fetchImage() {
+            self.imageArray = imagearray as! Array<ProfileImageDB>
+            
+            guard self.imageArray.count > 0 else{
+                return
+            }
+            
+            self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
+                           self.profileImage.image = UIImage(data: self.objdata as Data)
+            
+        }
      
         
         SVProgressHUD.dismiss()
