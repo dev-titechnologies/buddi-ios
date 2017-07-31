@@ -93,6 +93,7 @@
 		F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */; };
 		F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7D1F20F8BE00D51277 /* String Constants.swift */; };
 		F3FC70E81F2EFBC800B54A79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3FC70E71F2EFBC800B54A79 /* Main.storyboard */; };
+		F3FC70EB1F2F39DF00B54A79 /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */; };
 		F3FF03E11F285F6700D4DD0D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FF03E01F285F6700D4DD0D /* StringExtension.swift */; };
 		F3FF03E31F285F8200D4DD0D /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FF03E21F285F8200D4DD0D /* DataExtension.swift */; };
 		F48562D84E3A72F7B5164F69 /* Pods_BuddyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */; };
@@ -208,6 +209,7 @@
 		F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategorySelectionVC.swift; sourceTree = "<group>"; };
 		F3F77C7D1F20F8BE00D51277 /* String Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String Constants.swift"; sourceTree = "<group>"; };
 		F3FC70E71F2EFBC800B54A79 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
 		F3FF03E01F285F6700D4DD0D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		F3FF03E21F285F8200D4DD0D /* DataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -364,6 +366,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F3FC70E91F2F398500B54A79 /* ForgotpasswordViewcontroller */,
 				F3093F601F2B12A000D33324 /* NetWorkCheck */,
 				F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */,
 				F3FF03DF1F285F4200D4DD0D /* Extensions */,
@@ -558,6 +561,14 @@
 				F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */,
 			);
 			name = "Video Uploading Page";
+			sourceTree = "<group>";
+		};
+		F3FC70E91F2F398500B54A79 /* ForgotpasswordViewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */,
+			);
+			name = ForgotpasswordViewcontroller;
 			sourceTree = "<group>";
 		};
 		F3FF03DF1F285F4200D4DD0D /* Extensions */ = {
@@ -901,6 +912,7 @@
 				F341B0381F28D9FB007C9AF1 /* CardView.swift in Sources */,
 				F341B0321F287070007C9AF1 /* VideoURLModel.swift in Sources */,
 				F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */,
+				F3FC70EB1F2F39DF00B54A79 /* ForgotViewController.swift in Sources */,
 				F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */,
 				F373509D1F20911D00BE9DB6 /* CategoryListVC.swift in Sources */,
 				F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */,
