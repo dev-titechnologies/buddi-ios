@@ -13,27 +13,20 @@ class LeftViewController: UIViewController {
     
     var imageArray = Array<ProfileImageDB>()
     var objdata = NSData()
-    var leftMenuArrayTrainee = [String]()
-
-    let leftMenuArrayTrainer = ["Home","Settings","Add Category","Training History","Invite Friends","Help","Legal","Logout"]
-    
-    let ImageArrayTrainer = ["HOME","SETTINGES","PAY","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
-    
-    let ImageArrayTrainee = ["HOME","SETTINGES","PAY","BECOME-TRAINER","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
-    
-   // let ImageArray = ["HOME","PAY","TRAINING-HISTORY","LEGAL","SETTINGES","HELP","LOGOUT"]
-    
-    
+    var leftMenuArrayTraineeCopy = [String]()
+    var isTraineeAlreadyTrainer = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    
-        print(userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
-        if (userDefaults.value(forKey: "ifAlreadyTrainer") != nil){
-            leftMenuArrayTrainee = ["Home","Settings","Payment Method","Become a Trainer","Training History","Invite Friends","Help","Legal","Logout"]
+        if let isTraineeAlreadyTrainerHasValue = userDefaults.value(forKey: "ifAlreadyTrainer") as? Bool {
+            isTraineeAlreadyTrainer = isTraineeAlreadyTrainerHasValue
+        }
+        
+        if isTraineeAlreadyTrainer {
+            leftMenuArrayTraineeCopy = leftMenuTraineeAndTrainerAlso
         }else{
-            leftMenuArrayTrainee = ["Home","Settings","Payment Method","Training History","Invite Friends","Help","Legal","Logout"]
+            leftMenuArrayTraineeCopy = leftMenuTrainee
         }
         
         DispatchQueue.global(qos: .background).async {
@@ -61,8 +54,6 @@ class LeftViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-
 }
 
 extension LeftViewController : UITableViewDataSource{
@@ -70,9 +61,9 @@ extension LeftViewController : UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if appDelegate.USER_TYPE == "trainer"{
-            return leftMenuArrayTrainer.count
+            return leftMenuTrainer.count
         }else{
-            return leftMenuArrayTrainee.count
+            return leftMenuArrayTraineeCopy.count
         }
     }
     
@@ -81,12 +72,18 @@ extension LeftViewController : UITableViewDataSource{
         let cell: LeftMenuTableCell = tableView.dequeueReusableCell(withIdentifier: "leftMenuCellId") as! LeftMenuTableCell
         
         if appDelegate.USER_TYPE == "trainer" {
-            
-            cell.lblLeftMenuTitle.text = leftMenuArrayTrainer[indexPath.row]
+            //For Trainer
+            cell.lblLeftMenuTitle.text = leftMenuTrainer[indexPath.row]
             cell.icon_img.image = UIImage(named: ImageArrayTrainer[indexPath.row])
         }else{
-            cell.lblLeftMenuTitle.text = leftMenuArrayTrainee[indexPath.row]
-            cell.icon_img.image = UIImage(named: ImageArrayTrainee[indexPath.row])
+            //For Trainee
+            if isTraineeAlreadyTrainer{
+                cell.lblLeftMenuTitle.text = leftMenuTraineeAndTrainerAlso[indexPath.row]
+                cell.icon_img.image = UIImage(named: ImageArrayTraineeAndTrainerAlso[indexPath.row])
+            }else{
+                cell.lblLeftMenuTitle.text = leftMenuArrayTraineeCopy[indexPath.row]
+                cell.icon_img.image = UIImage(named: ImageArrayTrainee[indexPath.row])
+            }
         }
         return cell
     }
@@ -96,39 +93,42 @@ extension LeftViewController : UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
-        
-        if appDelegate.USER_TYPE == "trainer"
-        {
-            
-            switch (indexPath.row)
-            {
+        if appDelegate.USER_TYPE == "trainer"{
+
+            switch (indexPath.row) {
             case 0:
                 print("zero")
+                print("Home")
                 
             case 1:
                 print("one")
+                print("Settings")
                 
             case 2:
                 print("two")
-                //Add Category
+                print("Add Category")
                 self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
                 
             case 3:
                 print("three")
+                print("Training History")
                  self.performSegue(withIdentifier: "history", sender:self)
                 
             case 4:
                 print("four")
+                print("Invite Friends")
                
             case 5:
                 print("five")
+                print("Help")
                 
             case 6:
                 print("six")
+                print("Legal")
                 
             case 7:
                 print("seven")
+                print("Logout")
                 
             dismissOnSessionExpire()
                 
@@ -136,56 +136,84 @@ extension LeftViewController : UITableViewDelegate{
                 print("Integer out of range")
             }
         }else{
+            //For Trainee
+            
             switch (indexPath.row)
             {
             case 0:
                 print("zero")
+                print("Home")
                 
             case 1:
                 print("one")
+                print("Settings")
                 
             case 2:
                 print("two")
+                if isTraineeAlreadyTrainer{
+                    //Already a Trainer
+                    print("Payment Method")
+
+                }else{
+                    print("Become a Trainer")
+                    self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
+                }
                 
             case 3:
                 print("three")
-                
-                self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
+                if isTraineeAlreadyTrainer{
+                    print("Training History")
+                }else{
+                    print("Payment Method")
+                }
                 
             case 4:
                 print("four")
-                self.performSegue(withIdentifier: "history", sender:self)
-                
+                if isTraineeAlreadyTrainer{
+                    print("Invite Friends")
+                }else{
+                    print("Training History")
+                    self.performSegue(withIdentifier: "history", sender:self)
+                }
                 
             case 5:
                 print("five")
+                if isTraineeAlreadyTrainer{
+                    print("Help")
+                }else{
+                    print("Invite Friends")
+
+                }
                 
             case 6:
                 print("six")
-                
+                if isTraineeAlreadyTrainer{
+                    print("Legal")
+                }else{
+                    print("Help")
+                }
+
             case 7:
                 print("seven")
+                if isTraineeAlreadyTrainer{
+                    print("Logout")
+                    dismissOnSessionExpire()
+                }else{
+                    print("Legal")
+
+                }
                 
             case 8:
                 print("eight")
-                
-   
-            dismissOnSessionExpire()
+                if isTraineeAlreadyTrainer{
+                }else{
+                    print("Logout")
+                    dismissOnSessionExpire()
+                }
                 
             default:
                 print("Integer out of range")
             }
-            
-
         }
-
-        
-        
-        
-        
-        
-        
-         }
-    
-
+    }
 }
