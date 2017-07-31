@@ -351,6 +351,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         SVProgressHUD.dismiss()
         
     }
+    
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
         
        
@@ -397,11 +398,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                         let data = NSData.init(contentsOf: url)
                         ProfileImageDB.save(imageURL: (self.ProfileDict["user_image"] as? String)!, imageData: data!)
                     }
-
-                    
-//                    let url = URL(string:(self.ProfileDict ["user_image"] as? String)!)
-//                    let data = NSData.init(contentsOf: url!)
-//                    ProfileImageDB.save(imageURL: (self.ProfileDict["user_image"] as? String)!, imageData: data!)
                     
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
                 }

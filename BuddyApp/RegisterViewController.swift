@@ -353,9 +353,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         {
             print("\(error.localizedDescription)")
         }
-        
-        
     }
+    
     func getFBUserData(){
         if((FBSDKAccessToken.current()) != nil){
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
@@ -379,14 +378,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         }
     }
     
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         
         if segue.identifier == "otpview" {
             let controller = segue.destination as! OTPViewController
@@ -394,10 +386,5 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             controller.DataDictionary = FullDataDictionary
             controller.HeaderDict = HeaderDictionary
         }
-
-        
-        
     }
-  
-
 }

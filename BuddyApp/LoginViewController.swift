@@ -10,7 +10,6 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
-import SVProgressHUD
 
 class LoginViewController: UIViewController,GIDSignInUIDelegate{
     var fbUserDictionary: NSDictionary!
@@ -23,8 +22,6 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     @IBOutlet weak var password_txt: UITextField!
     @IBOutlet weak var email_txt: UITextField!
     @IBOutlet weak var FB_btn: UIButton!
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +56,6 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
         print("GOOGLE DATA ",self.googleUserDictionary)
-        SVProgressHUD.show()
         self.LoginAPI(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
     }
     
@@ -69,85 +65,62 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     }
     
     @IBAction func forgotpq_action(_ sender: Any) {
+        
         guard CommonMethods.networkcheck() else {
-            
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
-            
             return
-            
         }
         
         self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
-        
     }
     
     @IBAction func NormalLogin(_ sender: Any) {
-        
-      validation()
+        validation()
     }
     
     @IBAction func GoogleLogin_action(_ sender: Any) {
-        
         guard CommonMethods.networkcheck() else {
-            
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
-            
             return
-            
         }
-        
          GIDSignIn.sharedInstance().signIn()
-        
     }
+    
     
     func validation() {
         
-        
-    if email_txt.text!.isEmpty {
+        if email_txt.text!.isEmpty {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter email", buttonTitle: "Ok")
         }else if !self.validate(YourEMailAddress: email_txt.text!) {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter a valid email", buttonTitle: "Ok")
         }else if password_txt.text!.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter password", buttonTitle: "Ok")
         }else{
-        
-        
-        
-        guard CommonMethods.networkcheck() else {
-            
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
-            
-            return
-            
-        }
-        
-        self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
-        
-
-        
-        
-        
-        
-            
+            guard CommonMethods.networkcheck() else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
+                return
+            }
+            self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
         }
     }
-func validate(YourEMailAddress: String) -> Bool {
-            let REGEX: String
-            REGEX = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
-            return NSPredicate(format: "SELF MATCHES %@", REGEX).evaluate(with: YourEMailAddress)
-        }
-    //MARK:Google SignIn Delegate
+
+    func validate(YourEMailAddress: String) -> Bool {
+        let REGEX: String
+        REGEX = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+        return NSPredicate(format: "SELF MATCHES %@", REGEX).evaluate(with: YourEMailAddress)
+    }
+    
+    //MARK: - Google SignIn Delegate
     
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
         
     }
-    // Present a view that prompts the user to sign in with Google
+    
     
     func sign(_ signIn: GIDSignIn!,
               present viewController: UIViewController!) {
         self.present(viewController, animated: true, completion: nil)
     }
-    // Dismiss the "Sign in with Google" view
     
     func sign(_ signIn: GIDSignIn!,
               dismiss viewController: UIViewController!) {
@@ -155,16 +128,12 @@ func validate(YourEMailAddress: String) -> Bool {
     }
        
     @IBAction func FaceBookLogin_Action(_ sender: Any) {
-        
-        
+      
         guard CommonMethods.networkcheck() else {
             
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
-            
             return
-            
         }
-        
         
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
@@ -175,70 +144,58 @@ func validate(YourEMailAddress: String) -> Bool {
                 if (result?.isCancelled)! {
                     return
                 }
-                if(fbloginresult.grantedPermissions.contains("email"))
-                {
-                    SVProgressHUD.show()
-                   
+                
+                if(fbloginresult.grantedPermissions.contains("email")){
                     self.getFBUserData()
                 }
             }else{
                 print("FB ERROR")
             }
         }
-
-        
-        
     }
+    
     func getFBUserData(){
         if((FBSDKAccessToken.current()) != nil){
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
                 if (error == nil){
                     
                     print("RESULT",result!)
-                     self.fbUserDictionary = result as? NSDictionary
-                    
-                    
-        
+                    self.fbUserDictionary = result as? NSDictionary
                     self.LoginAPI(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
-                    
-                    
-                    
-                    
-                    
-                }
-                else
-                {
+                }else{
                     print("ERROR",error?.localizedDescription)
                 }
             })
         }
     }
+    
     func LoginAPI(Email: String,Passwrd: String, loginType: String, UserType: String,FBId: String,GoogleId:String) {
         
-               let parameters = [
-            "login_type":loginType,
-            "email":Email,
-            "password":Passwrd,
-            "user_type": UserType,
-            "facebook_id": FBId,
-            "google_id": GoogleId
-            
-        ]
+       let parameters = ["login_type":loginType,
+                        "email":Email,
+                        "password":Passwrd,
+                        "user_type": UserType,
+                        "facebook_id": FBId,
+                        "google_id": GoogleId]
+        
         let headers = [
             "device_id": appDelegate.DeviceToken,
             "device_imei": UIDevice.current.identifierForVendor!.uuidString,
             "device_type": "ios",
             ]
         
+        print("Params:",parameters)
+        print("Header:",headers)
+        
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
             print("LOGIN RESPONSE",jsondata)
             
+            CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    SVProgressHUD.dismiss()
                     self.jsondict = jsondata["data"]  as! NSDictionary
-                    
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
                     appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
                     appDelegate.USER_TYPE =  self.UserType
@@ -247,7 +204,6 @@ func validate(YourEMailAddress: String) -> Bool {
                     userDefaults.set(self.UserType, forKey: "userType")
                     print(self.jsondict["trainer_type"]!)
                     userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
-//                    userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
                     print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
                     
                     if let url = URL(string:(self.jsondict["user_image"] as? String)!){
@@ -268,12 +224,7 @@ func validate(YourEMailAddress: String) -> Bool {
                 else if status == RESPONSE_STATUS.FAIL{
                      CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-                     SVProgressHUD.dismiss()
-                    
                     self.dismissOnSessionExpire()
-                    
-                    
-                    
                 }
             }
         })

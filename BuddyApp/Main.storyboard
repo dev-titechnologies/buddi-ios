@@ -2294,7 +2294,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2316,7 +2316,7 @@
         <scene sceneID="jC1-lN-15y">
             <objects>
                 <navigationController navigationBarHidden="YES" id="LLd-uo-cBv" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKN-vf-25e">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CKN-vf-25e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2784,15 +2784,10 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="DFD-HP-Mur"/>
-        <segue reference="hJy-Rz-WHD"/>
-        <segue reference="lS4-X5-YwA"/>
-        <segue reference="Jie-k9-AKK"/>
-        <segue reference="USH-R0-s5v"/>
-        <segue reference="N1B-Ap-4oI"/>
         <segue reference="02W-Ef-JtO"/>
         <segue reference="lS4-X5-YwA"/>
         <segue reference="Jie-k9-AKK"/>
-        <segue reference="DFD-HP-Mur"/>
+        <segue reference="N1B-Ap-4oI"/>
         <segue reference="2VQ-rM-Ru6"/>
     </inferredMetricsTieBreakers>
 </document>
