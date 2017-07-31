@@ -57,13 +57,7 @@ class ViewController: UIViewController {
             appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
             appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
             appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
-            
-            //If Trainer
-            if appDelegate.USER_TYPE == "trainer"{
-                segueActionsForTrainer()
-            }else if appDelegate.USER_TYPE == "trainee"{
-                self.performSegue(withIdentifier: "tohome", sender:self)
-            }
+            self.performSegue(withIdentifier: "tohome", sender:self)
         }else{
             self.performSegue(withIdentifier: "regorlogin", sender:self)
         }

@@ -10,6 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
+import SVProgressHUD
 
 class LoginViewController: UIViewController,GIDSignInUIDelegate{
     var fbUserDictionary: NSDictionary!
@@ -23,6 +24,8 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     @IBOutlet weak var email_txt: UITextField!
     @IBOutlet weak var FB_btn: UIButton!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,12 +34,12 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         self.title = "Login"
         
         google_btn.layer.borderColor = UIColor.init(colorLiteralRed: 223/255, green: 74/255, blue: 50/255, alpha: 1.0).cgColor
-        google_btn.layer.borderWidth = 1
+        google_btn.layer.borderWidth = 2
         google_btn.clipsToBounds = true
         
         FB_btn.layer.borderColor = UIColor.init(colorLiteralRed: 59/255, green: 74/255, blue: 153/255, alpha: 1.0).cgColor
         
-        FB_btn.layer.borderWidth = 1
+        FB_btn.layer.borderWidth = 2
         FB_btn.clipsToBounds = true
         
         print("qqqqq",UserType)
@@ -56,6 +59,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
         print("GOOGLE DATA ",self.googleUserDictionary)
+        SVProgressHUD.show()
         self.LoginAPI(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
     }
     
@@ -79,7 +83,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     
     @IBAction func NormalLogin(_ sender: Any) {
         
-        validation()
+      validation()
     }
     
     @IBAction func GoogleLogin_action(_ sender: Any) {
@@ -137,11 +141,13 @@ func validate(YourEMailAddress: String) -> Bool {
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
         
     }
+    // Present a view that prompts the user to sign in with Google
     
     func sign(_ signIn: GIDSignIn!,
               present viewController: UIViewController!) {
         self.present(viewController, animated: true, completion: nil)
     }
+    // Dismiss the "Sign in with Google" view
     
     func sign(_ signIn: GIDSignIn!,
               dismiss viewController: UIViewController!) {
@@ -169,33 +175,44 @@ func validate(YourEMailAddress: String) -> Bool {
                 if (result?.isCancelled)! {
                     return
                 }
-                
-                if(fbloginresult.grantedPermissions.contains("email")){
+                if(fbloginresult.grantedPermissions.contains("email"))
+                {
+                    SVProgressHUD.show()
+                   
                     self.getFBUserData()
                 }
             }else{
                 print("FB ERROR")
             }
         }
+
+        
+        
     }
-    
     func getFBUserData(){
-        
-        CommonMethods.showProgress()
-        
         if((FBSDKAccessToken.current()) != nil){
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
                 if (error == nil){
+                    
                     print("RESULT",result!)
-                    self.fbUserDictionary = result as? NSDictionary
+                     self.fbUserDictionary = result as? NSDictionary
+                    
+                    
+        
                     self.LoginAPI(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
-                }else{
+                    
+                    
+                    
+                    
+                    
+                }
+                else
+                {
                     print("ERROR",error?.localizedDescription)
                 }
             })
         }
     }
-    
     func LoginAPI(Email: String,Passwrd: String, loginType: String, UserType: String,FBId: String,GoogleId:String) {
         
                let parameters = [
@@ -212,15 +229,14 @@ func validate(YourEMailAddress: String) -> Bool {
             "device_imei": UIDevice.current.identifierForVendor!.uuidString,
             "device_type": "ios",
             ]
-        CommonMethods.showProgress()
         
         CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
             print("LOGIN RESPONSE",jsondata)
             
-            CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
+                    SVProgressHUD.dismiss()
                     self.jsondict = jsondata["data"]  as! NSDictionary
                     
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
@@ -246,13 +262,18 @@ func validate(YourEMailAddress: String) -> Bool {
                         self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
                     }
                     
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Successfully Logged in", buttonTitle: "Ok")
+                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                     
-                }else if status == RESPONSE_STATUS.FAIL{
+                    }
+                else if status == RESPONSE_STATUS.FAIL{
                      CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "OK")
+                     SVProgressHUD.dismiss()
+                    
                     self.dismissOnSessionExpire()
+                    
+                    
+                    
                 }
             }
         })

@@ -17,8 +17,7 @@ class LeftViewController: UIViewController {
 
     let leftMenuArrayTrainer = ["Home","Settings","Add Category","Training History","Invite Friends","Help","Legal","Logout"]
     
-    
-     let ImageArrayTrainer = ["HOME","SETTINGES","PAY","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
+    let ImageArrayTrainer = ["HOME","SETTINGES","PAY","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
     
     let ImageArrayTrainee = ["HOME","SETTINGES","PAY","BECOME-TRAINER","TRAINING-HISTORY","FRIENDS","HELP","LEGAL","LOGOUT"]
     

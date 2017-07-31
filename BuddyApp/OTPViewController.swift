@@ -89,6 +89,9 @@ class OTPViewController: UIViewController {
                 return
                 
             }
+
+            
+            
             
             CommonMethods.serverCall(APIURL: VERIFY_OTP, parameters: ["otp":Otp_txt.text!,"mobile":MobileNumber], headers: nil, onCompletion: { (jsondata) in
                 print("OTP RESPONSE",jsondata)
@@ -112,38 +115,26 @@ class OTPViewController: UIViewController {
     func RegistrationAPICall()  {
         
         
+        
         guard CommonMethods.networkcheck() else {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
             return
+            
         }
-        
-        CommonMethods.showProgress()
 
+        
         CommonMethods.serverCall(APIURL: REGISTER_URL, parameters: DataDictionary as! Dictionary<String, String>, headers: HeaderDict as? HTTPHeaders, onCompletion: { (jsondata) in
             print("REGISTER RESPONSE",jsondata)
             
-            CommonMethods.hideProgress()
-            
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
-                    
                     appDelegate.Usertoken = (jsondata["token"] as? String)!
-                    
-//                    appDelegate.Usertoken = (self.jsondict["token"] as? String)!
-//                    appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
-//                    appDelegate.USER_TYPE =  self.UserType
-//                    userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
-//                    userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
-//                    userDefaults.set(self.UserType, forKey: "userType")
-
-                    
-                    print("USER TYPE:", appDelegate.USER_TYPE)
-                    //Check whether user type is Trainer and Trainee
+                                     //Check whether user type is Trainer and Trainee
                     if appDelegate.USER_TYPE == "trainer"{
-                        print("***** Trainer Registration ***** ")
+                        print("***** Trainer Registraion ***** ")
                         self.performSegue(withIdentifier: "initialLaunchForTrainerSegue", sender: self)
-                    }else if appDelegate.USER_TYPE == "trainee"{
-                        print("***** Trainee Registration ***** ")
+                    }else{
+                        print("***** Trainee Registraion ***** ")
                         self.performSegue(withIdentifier: "toHomePageAfterTraineeRegistrationSegue", sender: self)
                     }
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Registration successfull", buttonTitle: "Ok")
@@ -151,8 +142,12 @@ class OTPViewController: UIViewController {
                      CommonMethods.alertView(view: self, title: ALERT_TITLE, message: (jsondata["message"] as? String)!, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("Session Expired")
+                    
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "Ok")
                     self.dismissOnSessionExpire()
+    
+                    
+                    
                 }
             }
         })

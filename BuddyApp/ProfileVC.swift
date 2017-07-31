@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 import Alamofire
 import AlamofireImage
 import CountryPicker
@@ -67,11 +68,17 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         
         
-        if let result = ProfileDB.fetchUser(){
-            if result.count == 0{
-               ProfileDataAPI()
-            }else{
+        if let result = ProfileDB.fetchUser()      {
+            if result.count == 0
+            {
                 
+                 SVProgressHUD.show()
+               ProfileDataAPI()
+                
+            
+            }
+            else
+            {
                 print("from db")
                 FetchFromDb()
                 
@@ -93,12 +100,19 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
      
             
         }
-        else{
+        else
+        {
+            
+             SVProgressHUD.show()
             print("from api")
             ProfileDataAPI()
         }
+        
+        
+
+        
+
     }
-    
     func FetchFromDb() {
         
         if let result = ProfileDB.fetchUser()      {
@@ -288,13 +302,23 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         print("FINAL DICT",profiledict)
         
+       // var imagePickedData = NSData()
+       // imagePickedData = UIImageJPEGRepresentation(chosenImage, 1.0)! as NSData
+        
+        
+        
         let profile = ProfileModel(profileImage: (profiledict["user_image"] as? String)!, firstName: (profiledict["first_name"] as? String)!, lastName: (profiledict["last_name"] as? String)!, email: (profiledict["email"] as? String)!, mobile: (profiledict["mobile"] as? String)!, gender: (profiledict["gender"] as? String)!, userid: "" )
         
+        
+     
+             
         
         ProfileDB.createProfileEntry(profileModel: profile)
         
         mobile_txt.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
         contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
+        
+
         
         profileImage.sd_setImage(with: URL(string: profile.profileImage))
         firstname_txt.text = profile.firstName
@@ -308,24 +332,47 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         countrypicker.showPhoneNumbers = true
         countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
         
-        CommonMethods.hideProgress()
+//        
+//        //var data: NSData? = nil
+//        let url = URL(string:(profiledict["user_image"] as? String)!)
+//        
+//        print("IMGURL",url!)
+//        //
+//        let data = NSData.init(contentsOf: url!)
+//        
+//        print("DATAIMAGE",data!)
+//        
+//       ProfileImageDB.save(imageURL: (profiledict["user_image"] as? String)!, imageData: data!)
+//        //
+        
+
+     
+        
+        SVProgressHUD.dismiss()
+        
     }
-    
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
         
+       
+        
         flage_img.image = flag
+        
+       
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
     func ProfileDataAPI() {
+        
+   
         
         guard CommonMethods.networkcheck() else {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
             return
+            
         }
+
         
         let parameters = ["user_type":appDelegate.USER_TYPE,
                           "user_id":appDelegate.UserId] as [String : Any]
@@ -333,10 +380,9 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         let headers = [
             "token":appDelegate.Usertoken ]
 
-        print("PARAMS",parameters)
-        print("HEADER",headers)
         
-        CommonMethods.showProgress()
+        print("PARAMS",parameters)
+         print("HEADER",headers)
         
         CommonMethods.serverCall(APIURL: "profile/viewProfile", parameters: parameters , headers: headers , onCompletion: { (jsondata) in
             print("PROFILE RESPONSE",jsondata)

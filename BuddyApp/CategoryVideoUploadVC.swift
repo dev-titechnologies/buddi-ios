@@ -320,6 +320,26 @@ extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
         videoURL = info["UIImagePickerControllerMediaURL"] as? NSURL
         print("URLL",videoURL!)
         
+        let asset = AVURLAsset.init(url: videoURL as! URL)
+       
+       // let asset = AVURLAsset(URL: NSURL(videoURL), options: nil)
+        let audioDuration = asset.duration
+        let audioDurationSeconds = CMTimeGetSeconds(audioDuration)
+        
+        print("SECONDS",audioDurationSeconds)
+        
+        
+        if (audioDurationSeconds < 30.0 || (audioDurationSeconds > 90.0))
+        {
+            print("Less than 30 or greater than 90")
+        }
+        else
+        {
+            
+            print("upload video")
+            
+        }
+        
         do {
             let video = try NSData(contentsOf: (info["UIImagePickerControllerMediaURL"] as? NSURL)! as URL, options: .mappedIfSafe)
             movieData = video
@@ -330,7 +350,7 @@ extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
         }
         
         dismiss(animated: true, completion: nil)
-        UploadVideoAPI()
+       // UploadVideoAPI()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

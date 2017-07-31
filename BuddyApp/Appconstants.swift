@@ -19,8 +19,7 @@ var selectedSubCategoriesAmongSingleton = Singleton.sharedInstance.selectedSubCa
 var approvedCategories = Singleton.sharedInstance.approvedCategories
 var approvalPendingCategories = Singleton.sharedInstance.approvalPendingCategories
 var subCategoryVideoURLsSingleton = Singleton.sharedInstance.subCategoryVideoURLs
-var pendingCategoryCountSingleton = Singleton.sharedInstance.pendingCategoryCount
-var approvedCategoryCountSingleton = Singleton.sharedInstance.approvedCategoryCount
+
 
 let SERVER_URL  = ""
 let SERVER_URL_Local = "http://192.168.1.14:4001/"
