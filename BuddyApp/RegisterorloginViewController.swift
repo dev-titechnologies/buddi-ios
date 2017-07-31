@@ -42,18 +42,15 @@ class RegisterorloginViewController: UIViewController,UIScrollViewDelegate{
         registr_btn.layer.cornerRadius = 5
         registr_btn.clipsToBounds = true
         
-//        registr_btn.addShadowView()
-//        login_btn.addShadowView()
-        
         //1
         self.scrollview.frame = CGRect(x:0, y:0, width:self.viewone.frame.width, height:self.viewone.frame.height)
         let scrollViewWidth:CGFloat = self.scrollview.frame.width
         let scrollViewHeight:CGFloat = self.scrollview.frame.height
         //2
-//        textView.textAlignment = .center
-//        textView.text = "Sweettutos.com is your blog of choice for Mobile tutorials"
-//        textView.textColor = .black
-//        self.startButton.layer.cornerRadius = 4.0
+        //        textView.textAlignment = .center
+        //        textView.text = "Sweettutos.com is your blog of choice for Mobile tutorials"
+        //        textView.textColor = .black
+        //        self.startButton.layer.cornerRadius = 4.0
         //3
         let imgOne = UIImageView(frame: CGRect(x:0, y:0,width:scrollViewWidth, height:scrollViewHeight))
         imgOne.image = UIImage(named: "Splash_Screen")
@@ -73,7 +70,8 @@ class RegisterorloginViewController: UIViewController,UIScrollViewDelegate{
         self.scrollview.contentSize = CGSize(width:self.scrollview.frame.width * 4, height:self.scrollview.frame.height)
         self.scrollview.delegate = self
         self.pagecontrole.currentPage = 0
-
+        
+        
         
         
         

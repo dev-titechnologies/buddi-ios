@@ -202,6 +202,9 @@ extension UIViewController {
     
     func dismissOnSessionExpire() {
         
+        
+        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "Ok")
+        
         userDefaults.removeObject(forKey: "user_id")
         userDefaults.removeObject(forKey: "token")
         userDefaults.removeObject(forKey: "userType")

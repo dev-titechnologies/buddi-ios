@@ -66,12 +66,12 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     
     @IBAction func forgotpq_action(_ sender: Any) {
         
-        guard CommonMethods.networkcheck() else {
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
-            return
-        }
-        
-        self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
+//        guard CommonMethods.networkcheck() else {
+//            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
+//            return
+//        }
+//        
+//        self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
     }
     
     @IBAction func NormalLogin(_ sender: Any) {
