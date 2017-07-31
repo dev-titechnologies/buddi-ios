@@ -477,7 +477,9 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                                 
                                 self.profileImage.image = UIImage(data:(uploadImageData as NSData) as Data,scale:1.0)
                                  self.ProfileImageURL = (jsonDic["Url"] as? String)!
-                                self.EditProfileAPI()
+                                //self.EditProfileAPI()
+                                
+                                self.EditProfileAPIforImage()
                                 
                                 ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: uploadImageData as Data as Data as NSData)
                             }else if status == RESPONSE_STATUS.FAIL{
@@ -496,5 +498,55 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                 print(encodingError)
             }
         })
+    }
+    func EditProfileAPIforImage()
+    {
+        
+        
+        
+        let parameters = ["user_type":appDelegate.USER_TYPE,
+                          "user_id":appDelegate.UserId,
+                          "first_name":self.firstname_txt.text!,
+                          "last_name":self.lastname_txt.text!,
+                          "gender":self.gender_txt.text!,
+                          "user_image":self.ProfileImageURL,
+                          "profile_desc":"tt" ] as [String : Any]
+        
+        let headers = [
+            "token":appDelegate.Usertoken ]
+        
+        
+        print("PARAMS",parameters)
+        print("HEADER",headers)
+        
+        CommonMethods.serverCall(APIURL: "profile/editProfile", parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+            print("EDIT PROFILE RESPONSE",jsondata)
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    self.ProfileDict = jsondata["data"]  as! NSDictionary
+                    
+                    self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
+                    
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Profile Image updated successfully", buttonTitle: "Ok")
+                    
+                }
+                else if status == RESPONSE_STATUS.SESSION_EXPIRED
+                    
+                {
+                    self.dismissOnSessionExpire()
+                }
+                else{
+                    
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    
+                }
+            }
+        })
+        
+        
+        
+        
     }
 }

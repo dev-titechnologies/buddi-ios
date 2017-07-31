@@ -94,7 +94,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     @IBAction func pickVideoFromGalleryAction(_ sender: Any) {
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
-        imagePickerController.mediaTypes = ["public.image", "public.movie"]
+        imagePickerController.mediaTypes = ["public.movie"]
         
         present(imagePickerController, animated: true, completion: nil)
     }
