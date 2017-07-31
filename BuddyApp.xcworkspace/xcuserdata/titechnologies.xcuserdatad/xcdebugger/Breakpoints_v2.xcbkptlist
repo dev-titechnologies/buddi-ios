@@ -9,10 +9,11 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/ProfileVC.swift"
-            timestampString = "522947460.390375"
+            filePath = "BuddyApp/CategoryVideoUploadVC.swift"
+            timestampString = "522936433.525675"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "218"
             endingLineNumber = "218"
             landmarkName = "editProfile_action(_:)"
@@ -74,6 +75,11 @@
             startingLineNumber = "191"
             endingLineNumber = "191"
             landmarkName = "LoginAPI(Email:Passwrd:loginType:UserType:FBId:GoogleId:)"
+=======
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "pickVideoFromGalleryAction(_:)"
+>>>>>>> 9dd971e80d0914692d8339f5dcc0778e0c4cbdef
             landmarkType = "7">
             <Locations>
                <Location
@@ -115,6 +121,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "BuddyApp/ProfileVC.swift"
             timestampString = "523189532.652239"
             startingColumnNumber = "9223372036854775807"
@@ -122,6 +129,15 @@
             startingLineNumber = "369"
             endingLineNumber = "369"
             landmarkName = "ProfileDataAPI()"
+=======
+            filePath = "BuddyApp/LeftViewController.swift"
+            timestampString = "523177910.227889"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "viewDidLoad()"
+>>>>>>> 9dd971e80d0914692d8339f5dcc0778e0c4cbdef
             landmarkType = "7">
             <Locations>
                <Location
@@ -131,6 +147,7 @@
                   symbolName = "BuddyApp.ProfileVC.(ProfileDataAPI () -&gt; ()).(closure #1)"
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
+<<<<<<< HEAD
                   urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/ProfileVC.swift"
                   timestampString = "523190974.481862"
                   startingColumnNumber = "9223372036854775807"
@@ -138,11 +155,21 @@
                   startingLineNumber = "370"
                   endingLineNumber = "370"
                   offsetFromSymbolStart = "236">
+=======
+                  urlString = "file:///Users/titechnologies/Desktop/BuddyApp1/BuddyApp/LeftViewController.swift"
+                  timestampString = "523187855.211395"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "888">
+>>>>>>> 9dd971e80d0914692d8339f5dcc0778e0c4cbdef
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
+<<<<<<< HEAD
                   symbolName = "BuddyApp.ProfileVC.(ProfileDataAPI () -&gt; ()).(closure #1)"
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
@@ -153,6 +180,18 @@
                   startingLineNumber = "370"
                   endingLineNumber = "370"
                   offsetFromSymbolStart = "480">
+=======
+                  symbolName = "BuddyApp.LeftViewController.(viewDidLoad () -&gt; ()).(closure #1)"
+                  moduleName = "BuddyApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/titechnologies/Desktop/BuddyApp1/BuddyApp/LeftViewController.swift"
+                  timestampString = "523187855.213828"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "20">
+>>>>>>> 9dd971e80d0914692d8339f5dcc0778e0c4cbdef
                </Location>
             </Locations>
          </BreakpointContent>
@@ -163,6 +202,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "BuddyApp/LoginViewController.swift"
             timestampString = "523190718.730014"
             startingColumnNumber = "9223372036854775807"
@@ -219,6 +259,16 @@
                   offsetFromSymbolStart = "528">
                </Location>
             </Locations>
+=======
+            filePath = "BuddyApp/CategoryVideoUploadVC.swift"
+            timestampString = "523187128.969116"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "subCategoryNextButton(_:)"
+            landmarkType = "7">
+>>>>>>> 9dd971e80d0914692d8339f5dcc0778e0c4cbdef
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -227,6 +277,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "BuddyApp/ViewController.swift"
             timestampString = "523190850.243495"
             startingColumnNumber = "9223372036854775807"
@@ -234,6 +285,15 @@
             startingLineNumber = "56"
             endingLineNumber = "56"
             landmarkName = "loginCheck()"
+=======
+            filePath = "BuddyApp/CategoryVideoUploadVC.swift"
+            timestampString = "523187157.727415"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "submitForApprovalAction()"
+>>>>>>> 9dd971e80d0914692d8339f5dcc0778e0c4cbdef
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -1814,6 +1814,7 @@
                                 </state>
                                 <connections>
                                     <action selector="forgotpq_action:" destination="pWh-zZ-Adg" eventType="touchUpInside" id="cpd-3a-5QU"/>
+                                    <segue destination="b7I-a5-7Nc" kind="show" id="4bg-Ts-qNO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4J-GD-Qgu">
@@ -1889,6 +1890,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGc-OM-vCm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="917.60000000000002" y="826.23688155922048"/>
+        </scene>
+        <!--Forgot View Controller-->
+        <scene sceneID="7Sx-yS-Lhe">
+            <objects>
+                <viewController storyboardIdentifier="ForgotViewController" id="b7I-a5-7Nc" customClass="ForgotViewController" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YLp-un-BB7"/>
+                        <viewControllerLayoutGuide type="bottom" id="Muk-PF-JKN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZJ0-TQ-HiC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wfa-sT-CNq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1644" y="779"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="FWC-aK-VhJ">
@@ -2815,6 +2834,9 @@
         <segue reference="pMz-WA-RGb"/>
         <segue reference="21t-ww-Awf"/>
         <segue reference="L1f-qm-NVu"/>
+        <segue reference="lS4-X5-YwA"/>
+        <segue reference="Jie-k9-AKK"/>
+        <segue reference="N1B-Ap-4oI"/>
         <segue reference="2VQ-rM-Ru6"/>
         <segue reference="Nna-eT-Dhf"/>
     </inferredMetricsTieBreakers>
