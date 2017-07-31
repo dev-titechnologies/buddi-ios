@@ -500,8 +500,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                     
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
                     
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Profile Image updated successfully", buttonTitle: "Ok")
-                    
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Profile picture updated", buttonTitle: "Ok")
                 }
                 else if status == RESPONSE_STATUS.SESSION_EXPIRED
                     
