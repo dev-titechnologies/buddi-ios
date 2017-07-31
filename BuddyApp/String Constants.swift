@@ -73,25 +73,25 @@ let leftMenuTrainer = ["Home",
                        "Logout"]
 
 // 8 Values
-let ImageArrayTrainer = ["HOME",
-                         "SETTINGES",
-                         "PAY",
-                         "TRAINING-HISTORY",
-                         "FRIENDS",
-                         "HELP",
-                         "LEGAL",
-                         "LOGOUT"]
+let ImageArrayTrainer = ["ic_home",
+                         "ic_settings",
+                         "ic_payment",
+                         "ic_history",
+                         "ic_people",
+                         "ic_help",
+                         "ic_notifications",
+                         "ic_exit_to_app"]
 
 // 9 Values
-let ImageArrayTrainee = ["HOME",
-                         "SETTINGES",
-                         "PAY",
-                         "BECOME-TRAINER",
-                         "TRAINING-HISTORY",
-                         "FRIENDS",
-                         "HELP",
-                         "LEGAL",
-                         "LOGOUT"]
+let ImageArrayTrainee = ["ic_home",
+                         "ic_settings",
+                         "ic_payment",
+                         "ic_check_circle",
+                         "ic_history",
+                         "ic_people",
+                         "ic_help",
+                         "ic_notifications",
+                         "ic_exit_to_app"]
 
 // 8 Values
 let ImageArrayTraineeAndTrainerAlso = ["HOME",
