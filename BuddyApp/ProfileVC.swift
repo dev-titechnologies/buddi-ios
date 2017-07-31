@@ -470,10 +470,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             }
         })
     }
-    func EditProfileAPIforImage()
-    {
-        
-        
+    
+    func EditProfileAPIforImage(){
         
         let parameters = ["user_type":appDelegate.USER_TYPE,
                           "user_id":appDelegate.UserId,
@@ -486,7 +484,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         let headers = [
             "token":appDelegate.Usertoken ]
         
-        
         print("PARAMS",parameters)
         print("HEADER",headers)
         
@@ -495,29 +492,16 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
-                    
                     self.ProfileDict = jsondata["data"]  as! NSDictionary
-                    
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
-                    
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Profile Image updated successfully", buttonTitle: "Ok")
-                    
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Profile picture updated", buttonTitle: "Ok")
                 }
-                else if status == RESPONSE_STATUS.SESSION_EXPIRED
-                    
-                {
+                else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
-                }
-                else{
-                    
+                }else{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
-                    
                 }
             }
         })
-        
-        
-        
-        
     }
 }

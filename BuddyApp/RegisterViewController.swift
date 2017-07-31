@@ -52,9 +52,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         self.title = "Register"
         
         
-        if (fbUserDictionary != nil)
-        {
-            
+        if (fbUserDictionary != nil){
             self.registerType = "facebook"
 
             self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
@@ -62,21 +60,11 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
             
             self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
-
-        }
-        else if (googleUserDictionary != nil){
-            
+        }else if (googleUserDictionary != nil){
             registerType = "google"
             self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
             self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
-
-            
         }
-        else{
-            
-        }
-        
-        
         
         google_btn.layer.borderColor = UIColor.init(colorLiteralRed: 223/255, green: 74/255, blue: 50/255, alpha: 1.0).cgColor
         google_btn.layer.borderWidth = 2
@@ -111,7 +99,6 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         GIDSignIn.sharedInstance().signOut()
         GIDSignIn.sharedInstance().uiDelegate = self
         // GIDSignIn.sharedInstance().delegate = self as! GIDSignInDelegate
-       
         
         let locale = Locale.current
         let code = (locale as NSLocale).object(forKey: NSLocale.Key.countryCode) as! String?
