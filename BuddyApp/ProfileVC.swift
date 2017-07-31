@@ -181,40 +181,26 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         
         guard CommonMethods.networkcheck() else {
-            
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
-            
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
             return
-            
         }
-
         
-        
-        if EditBool == true
-        {
+        if EditBool == true{
             edit_btn.title = "Save"
             
             EditBool = false
             firstname_txt.isUserInteractionEnabled = true
             lastname_txt.isUserInteractionEnabled = true
             image_edit_btn.isHidden = false
-            
-            
-            
-        }
-        else{
+        }else{
             
             firstname_txt.isUserInteractionEnabled = false
             lastname_txt.isUserInteractionEnabled = false
             image_edit_btn.isHidden = true
-            
             edit_btn.title = "Edit"
             EditBool = true
-            
             EditProfileAPI()
         }
-        
-      
     }
     
     @IBAction func testupload(_ sender: Any) {
@@ -259,44 +245,31 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Profile updated successfully", buttonTitle: "Ok")
 
-                }
-                else if status == RESPONSE_STATUS.SESSION_EXPIRED
-                    
-                {
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
-                }
-                else{
-                    
-                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
-                    
                 }
             }
         })
-        
-        
-    
-
     }
     
    func ProfilePicChoose(){
-    let actionSheet: UIAlertController = UIAlertController(title: "Edit Profile Picture", message: "", preferredStyle: .actionSheet)
-    actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(action: UIAlertAction) -> Void in
-        actionSheet.dismiss(animated: true, completion: {() -> Void in
-        })
+   
+        let actionSheet: UIAlertController = UIAlertController(title: "Edit Profile Picture", message: "", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(action: UIAlertAction) -> Void in
+            actionSheet.dismiss(animated: true, completion: {() -> Void in
+            })
+        }))
+        actionSheet.addAction(UIAlertAction(title: "From Gallery", style: .default, handler: {(action: UIAlertAction) -> Void in
+            self.fromgallary()
+        }))
         
-    }))
-    actionSheet.addAction(UIAlertAction(title: "From Gallery", style: .default, handler: {(action: UIAlertAction) -> Void in
-        self.fromgallary()
-    }))
-    
-    actionSheet.addAction(UIAlertAction(title: "Take Picture", style: .default, handler: {(action: UIAlertAction) -> Void in
-        self.FromCamera()
-    }))
-    
-    
-    self.present(actionSheet, animated: true, completion: { _ in })
+        actionSheet.addAction(UIAlertAction(title: "Take Picture", style: .default, handler: {(action: UIAlertAction) -> Void in
+            self.FromCamera()
+        }))
+        self.present(actionSheet, animated: true, completion: { _ in })
     }
-    
     
     func parseProfileDetails(profiledict: Dictionary<String, Any>) {
         
@@ -349,9 +322,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
    
         
         guard CommonMethods.networkcheck() else {
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
             return
-            
         }
 
         
@@ -379,10 +351,10 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                     }
                     
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
-                }else{
-                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }
             }
         })
@@ -483,7 +455,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                             }else if status == RESPONSE_STATUS.FAIL{
                                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsonDic["message"] as? String, buttonTitle: "Ok")
                             }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-                                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "Ok")
                                 self.dismissOnSessionExpire()
                             }
                         }else{

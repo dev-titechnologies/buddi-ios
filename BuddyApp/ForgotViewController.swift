@@ -37,8 +37,9 @@ class ForgotViewController: UIViewController {
         
         
     }
-  func ForgotAPI()
-   {
+    
+  func ForgotAPI(){
+    
     let parameters = [
     "email": self.Password_txt.text!]
     
@@ -48,38 +49,21 @@ class ForgotViewController: UIViewController {
         "device_type": "ios",
         ]
 
-    print("parameters",parameters)
-    CommonMethods.serverCall(APIURL: "login/forgotPassword", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
-        print("FORGOT RESPONSE",jsondata)
+        print("parameters",parameters)
+        CommonMethods.serverCall(APIURL: "login/forgotPassword", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+            print("FORGOT RESPONSE",jsondata)
+            
+            CommonMethods.hideProgress()
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SUCCESSFULLY_SENT_PASSWORD, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
         
-        CommonMethods.hideProgress()
-        if let status = jsondata["status"] as? Int{
-            if status == RESPONSE_STATUS.SUCCESS{
-                
-               //  self.navigationController?.popViewController(animated: true)
-        CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Send password", buttonTitle: "Ok")
-                
-                
-               
-                
-            }
-            else if status == RESPONSE_STATUS.FAIL{
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
-            }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-                self.dismissOnSessionExpire()
-            }
-        }
-    })
-    
+        })
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

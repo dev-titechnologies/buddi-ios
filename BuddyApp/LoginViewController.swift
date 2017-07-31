@@ -80,12 +80,11 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     
     @IBAction func GoogleLogin_action(_ sender: Any) {
         guard CommonMethods.networkcheck() else {
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
             return
         }
          GIDSignIn.sharedInstance().signIn()
     }
-    
     
     func validation() {
         
@@ -97,7 +96,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter password", buttonTitle: "Ok")
         }else{
             guard CommonMethods.networkcheck() else {
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
                 return
             }
             self.LoginAPI(Email: self.email_txt.text!, Passwrd: self.password_txt.text!, loginType: "normal", UserType: UserType, FBId: "", GoogleId: "")
@@ -130,8 +129,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     @IBAction func FaceBookLogin_Action(_ sender: Any) {
       
         guard CommonMethods.networkcheck() else {
-            
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
             return
         }
         
@@ -218,17 +216,14 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                         self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
                     }
                     
-                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
-                    
-                    }
-                else if status == RESPONSE_STATUS.FAIL{
+//                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SUCCESSFULLY_LOGGED_IN, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.FAIL{
                      CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
             }
         })
-    
     }
     
     func segueActionsIfTrainer(dictionary: Dictionary<String, Any>!) {
@@ -255,7 +250,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             print(category_pendingArray)
             
             pendingCount = category_pendingArray.count
-            userDefaults.setValue(approvedCount, forKey: "pendingCategoryCount")
+            userDefaults.setValue(pendingCount, forKey: "pendingCategoryCount")
 //            pendingCategoryCountSingleton = pendingCount
             
             if pendingCount > 0 && approvedCount == 0 {

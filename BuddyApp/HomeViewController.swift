@@ -21,14 +21,10 @@ class HomeViewController: UIViewController {
             
         }
         else{
-            
-            
             print("Please check internet connection")
         }
-        
-        
-
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

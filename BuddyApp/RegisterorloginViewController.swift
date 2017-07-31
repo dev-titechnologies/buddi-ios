@@ -124,18 +124,9 @@ class RegisterorloginViewController: UIViewController,UIScrollViewDelegate{
         let controller = segue.destination as! RegisterChoiceViewController
 
         if segue.identifier == "register" {
-            
-            
             controller.choice = "register"
-            
-        }
-        else{
+        }else{
             controller.choice = "login"
         }
-
-        
-        
     }
- 
-
 }

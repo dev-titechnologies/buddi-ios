@@ -57,13 +57,7 @@ class BookingHistoryVC: UIViewController {
 
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("Session Expired")
-                    
-                    
-                  
-                        self.dismissOnSessionExpire()
-                    
-                    
-
+                    self.dismissOnSessionExpire()
                 }
             }
         })

@@ -52,11 +52,13 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         
         google_btn.layer.borderColor = UIColor.init(colorLiteralRed: 223/255, green: 74/255, blue: 50/255, alpha: 1.0).cgColor
         google_btn.layer.borderWidth = 2
+        google_btn.layer.cornerRadius = 5
         google_btn.clipsToBounds = true
         
         facebook_btn.layer.borderColor = UIColor.init(colorLiteralRed: 59/255, green: 74/255, blue: 153/255, alpha: 1.0).cgColor
 
         facebook_btn.layer.borderWidth = 2
+        facebook_btn.layer.cornerRadius = 5
         facebook_btn.clipsToBounds = true
                
 //        removeZerosFromBeginningInMobileNumber(mobile: "000000231234")
@@ -104,6 +106,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: notificationName, object: nil)
     
     }
+    
      func methodOfReceivedNotification(notif: NSNotification) {
         
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
@@ -171,7 +174,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             
             guard CommonMethods.networkcheck() else {
                 
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please check your internet connectivity", buttonTitle: "Ok")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
                 return
             }
             
@@ -234,7 +237,6 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("OTP Call Session Expired")
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "OK")
                     self.dismissOnSessionExpire()
                 }
             }

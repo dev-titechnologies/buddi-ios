@@ -15,6 +15,10 @@ let PLEASE_ANSWER_ABOVE_QUESTIONS = "Please answer to all questions"
 let VIDEO_UPLOADED_SUCCESSFULLY = "Video uploaded successfully"
 let PLEASE_ENTER_OTP = "Please enter OTP code"
 let SESSION_EXPIRED = "Session Expired"
+let PLEASE_CHECK_INTERNET = "Please check your internet connectivity"
+let SUCCESSFULLY_SENT_PASSWORD = "A link to reset your password has been sent to your Email address"
+let SUCCESSFULLY_LOGGED_IN = "Welcome user"
+
 
 let VIDEO_DESC = "*Videos should be anywhere between 30-90 seconds long. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 
