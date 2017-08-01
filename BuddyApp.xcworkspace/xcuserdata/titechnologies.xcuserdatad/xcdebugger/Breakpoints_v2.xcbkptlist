@@ -55,13 +55,8 @@
             timestampString = "523264458.645257"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-<<<<<<< HEAD
             startingLineNumber = "150"
             endingLineNumber = "150"
-=======
-            startingLineNumber = "147"
-            endingLineNumber = "147"
->>>>>>> 414bc18ef66c879e430ed35fe1c42899a0f6b0dc
             landmarkName = "female_action(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -73,48 +68,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/LoginViewController.swift"
-            timestampString = "523254675.753316"
+            timestampString = "523211279.762759"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "LoginAPI(Email:Passwrd:loginType:UserType:FBId:GoogleId:)"
             landmarkType = "7">
-<<<<<<< HEAD
-=======
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BuddyApp.LoginViewController.LoginAPI (Email : Swift.String, Passwrd : Swift.String, loginType : Swift.String, UserType : Swift.String, FBId : Swift.String, GoogleId : Swift.String) -&gt; ()"
-                  moduleName = "BuddyApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/titechnologies/Desktop/BuddyApp1/BuddyApp/LoginViewController.swift"
-                  timestampString = "523262967.395673"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "192"
-                  endingLineNumber = "192"
-                  offsetFromSymbolStart = "2236">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BuddyApp.LoginViewController.(LoginAPI (Email : Swift.String, Passwrd : Swift.String, loginType : Swift.String, UserType : Swift.String, FBId : Swift.String, GoogleId : Swift.String) -&gt; ()).(closure #1)"
-                  moduleName = "BuddyApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/titechnologies/Desktop/BuddyApp1/BuddyApp/LoginViewController.swift"
-                  timestampString = "523262967.398057"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "193"
-                  endingLineNumber = "193"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
->>>>>>> 414bc18ef66c879e430ed35fe1c42899a0f6b0dc
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -139,13 +99,8 @@
                   symbolName = "BuddyApp.ProfileVC.(ProfileDataAPI () -&gt; ()).(closure #1)"
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
-<<<<<<< HEAD
                   urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/ProfileVC.swift"
                   timestampString = "523265423.867459"
-=======
-                  urlString = "file:///Users/titechnologies/Desktop/BuddyApp1/BuddyApp/ProfileVC.swift"
-                  timestampString = "523262967.403555"
->>>>>>> 414bc18ef66c879e430ed35fe1c42899a0f6b0dc
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "342"
@@ -159,13 +114,8 @@
                   symbolName = "BuddyApp.ProfileVC.(ProfileDataAPI () -&gt; ()).(closure #1)"
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
-<<<<<<< HEAD
                   urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/ProfileVC.swift"
                   timestampString = "523265423.870736"
-=======
-                  urlString = "file:///Users/titechnologies/Desktop/BuddyApp1/BuddyApp/ProfileVC.swift"
-                  timestampString = "523262967.405899"
->>>>>>> 414bc18ef66c879e430ed35fe1c42899a0f6b0dc
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "342"
@@ -182,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/LoginViewController.swift"
-            timestampString = "523254675.753316"
+            timestampString = "523211279.762759"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
             landmarkName = "LoginAPI(Email:Passwrd:loginType:UserType:FBId:GoogleId:)"
             landmarkType = "7">
             <Locations>
@@ -230,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/LoginViewController.swift"
-            timestampString = "523254675.753316"
+            timestampString = "523202259.65393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "methodOfReceivedNotification(notif:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -261,13 +211,8 @@
                   symbolName = "BuddyApp.LeftViewController.viewDidLoad () -&gt; ()"
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
-<<<<<<< HEAD
                   urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/LeftViewController.swift"
                   timestampString = "523265423.891912"
-=======
-                  urlString = "file:///Users/titechnologies/Desktop/BuddyApp1/BuddyApp/LeftViewController.swift"
-                  timestampString = "523262967.420507"
->>>>>>> 414bc18ef66c879e430ed35fe1c42899a0f6b0dc
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "23"
@@ -281,13 +226,8 @@
                   symbolName = "BuddyApp.LeftViewController.viewDidLoad () -&gt; ()"
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
-<<<<<<< HEAD
                   urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/LeftViewController.swift"
                   timestampString = "523265423.89507"
-=======
-                  urlString = "file:///Users/titechnologies/Desktop/BuddyApp1/BuddyApp/LeftViewController.swift"
-                  timestampString = "523262967.422824"
->>>>>>> 414bc18ef66c879e430ed35fe1c42899a0f6b0dc
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "23"
@@ -303,7 +243,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-<<<<<<< HEAD
             filePath = "BuddyApp/LoginViewController.swift"
             timestampString = "523264831.927742"
             startingColumnNumber = "9223372036854775807"
@@ -311,15 +250,22 @@
             startingLineNumber = "225"
             endingLineNumber = "225"
             landmarkName = "LoginAPI(Email:Passwrd:loginType:UserType:FBId:GoogleId:)"
-=======
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
             filePath = "BuddyApp/Question2VC.swift"
-            timestampString = "523262960.413697"
+            timestampString = "523266144.640773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "textFieldShouldBeginEditing(_:)"
->>>>>>> 414bc18ef66c879e430ed35fe1c42899a0f6b0dc
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "getGymDetails()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

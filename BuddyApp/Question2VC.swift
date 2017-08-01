@@ -14,6 +14,7 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
     @IBOutlet weak var btnYes: UIButton!
     @IBOutlet weak var btnNo: UIButton!
     var isAnsweredMilitaryInstallations = Bool()
+    var gymArray = [GymModel]()
     
     //DropDown Variable
     var objDropDown:VDropDownViewController!
@@ -26,17 +27,26 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
         
         txtCurrentGymSubscriptions.delegate = self
         
- arr = ["one","two","three","four","five"]
+        arr = ["one","two","three","four","five"]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.isNavigationBarHidden = true
+        getGymDetails()
         btnYes.addShadowView()
         btnNo.addShadowView()
+    }
+    
+    func getGymDetails() {
+        
+        CommonMethods.serverCall(APIURL: "gym/listGyms", parameters: nil, headers: nil) { (response) in
+            print("GYM RESP:",response)
+        }
     }
 
     @IBAction func backAction(_ sender: Any) {

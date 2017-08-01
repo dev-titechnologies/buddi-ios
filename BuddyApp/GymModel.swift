@@ -10,5 +10,6 @@ import Foundation
 
 class GymModel{
     
-    
+    var gymId : String = String()
+    var gymName : String = String()
 }
