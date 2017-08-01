@@ -431,7 +431,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             }else{
                 print("NODATAAA")
             }
-         }, to: "http://192.168.1.14:4001/upload/upload",
+         }, to: "http://git.titechnologies.in:4001/upload/upload",
            method:.post,
            headers:headers,
            

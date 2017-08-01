@@ -65,13 +65,15 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
                         print(modelObject)
                         self.gymArray.append(modelObject)
                         self.gymNamesArray.append(modelObject.gymName)
+                        
+                        
                     }
+               // let orderedSet = NSMutableOrderedSet(array: self.gymNamesArray, copyItems: true)
                     
-//                    NSArray * uniqueArray = [[NSOrderedSet orderedSetWithArray:duplicatesArray] array];
-
-//                    gymNamesArrayCopy = NSOrderedSet.init(array: self.gymNamesArray)
-//                    print(self.gymNamesArrayCopy)
-                }else if status == RESPONSE_STATUS.FAIL{
+                    self.arr = NSMutableOrderedSet(array: self.gymNamesArray, copyItems: true)
+                    print("ARRR",self.arr)
+                    
+                    }else if status == RESPONSE_STATUS.FAIL{
                     
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
 //                    self.dis

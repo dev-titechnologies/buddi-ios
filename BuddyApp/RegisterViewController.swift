@@ -131,8 +131,11 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         print("GOOGLE DATA ",self.googleUserDictionary)
         
         registerType = "google"
-        self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
-        self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
+         self.LoginAPI(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
+        
+        
+//        self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
+//        self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
     }
     
     @IBAction func male_action(_ sender: Any) {
@@ -384,79 +387,154 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                     self.registerType = "facebook"
                     
                      self.fbUserDictionary = result as? NSDictionary
-                     self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
-                    self.lastname_txt.text = (self.fbUserDictionary["last_name"] as? String)!
-                    self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
                     
-                    self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
+                    self.LoginAPI(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
                     
-                    print("PROFILE IMAGE ",self.profileImageURL)
+                    
+                    
+//                    
+//                     self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
+//                    self.lastname_txt.text = (self.fbUserDictionary["last_name"] as? String)!
+//                    self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
+//                    
+//                    self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
+//                    
+//                    print("PROFILE IMAGE ",self.profileImageURL)
                    
                     SVProgressHUD.dismiss()
                 }
             })
         }
     }
-//    func LoginAPI(Email: String,Passwrd: String, loginType: String, UserType: String,FBId: String,GoogleId:String) {
-//        
-//        let parameters = ["login_type":loginType,
-//                          "email":Email,
-//                          "password":Passwrd,
-//                          "user_type": UserType,
-//                          "facebook_id": FBId,
-//                          "google_id": GoogleId]
-//        
-//        let headers = [
-//            "device_id": appDelegate.DeviceToken,
-//            "device_imei": UIDevice.current.identifierForVendor!.uuidString,
-//            "device_type": "ios",
-//            ]
-//        
-//        print("Params:",parameters)
-//        print("Header:",headers)
-//        
-//        CommonMethods.showProgress()
-//        CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
-//            print("LOGIN RESPONSE",jsondata)
-//            
-//            CommonMethods.hideProgress()
-//            if let status = jsondata["status"] as? Int{
-//                if status == RESPONSE_STATUS.SUCCESS{
-//                    self.jsondict = jsondata["data"]  as! NSDictionary
-//                    appDelegate.Usertoken = (self.jsondict["token"] as? String)!
-//                    appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
-//                    appDelegate.USER_TYPE =  self.UserType
-//                    userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
-//                    userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
-//                    userDefaults.set(self.UserType, forKey: "userType")
-//                    print(self.jsondict["trainer_type"]!)
-//                    userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
-//                    print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
-//                    
-//                    if let url = URL(string:(self.jsondict["user_image"] as? String)!){
-//                        print("Image URL:", url)
-//                        let data = NSData.init(contentsOf: url)
-//                        ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
-//                    }
-//                    
-//                    if self.UserType == "trainer" {
-//                        self.segueActionsIfTrainer(dictionary: self.jsondict as! Dictionary<String, Any>!)
-//                    }else if self.UserType == "trainee" {
-//                        self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
-//                    }
-//                    
-//                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
-//                    
-//                                 }
-//                else if status == RESPONSE_STATUS.FAIL{
-//                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
-//                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-//                    self.dismissOnSessionExpire()
-//                }
-//            }
-//        })
-//        
-//    }
+    func LoginAPI(Email: String,Passwrd: String, loginType: String, UserType: String,FBId: String,GoogleId:String) {
+        
+        let parameters = ["login_type":loginType,
+                          "email":Email,
+                          "password":Passwrd,
+                          "user_type": UserType,
+                          "facebook_id": FBId,
+                          "google_id": GoogleId]
+        
+        let headers = [
+            "device_id": appDelegate.DeviceToken,
+            "device_imei": UIDevice.current.identifierForVendor!.uuidString,
+            "device_type": "ios",
+            ]
+        
+        print("Params:",parameters)
+        print("Header:",headers)
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+            print("LOGIN RESPONSE",jsondata)
+            
+            CommonMethods.hideProgress()
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    self.jsondict = jsondata["data"]  as! NSDictionary
+                    appDelegate.Usertoken = (self.jsondict["token"] as? String)!
+                    appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
+                    appDelegate.USER_TYPE =  self.UserType
+                    userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
+                    userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
+                    userDefaults.set(self.UserType, forKey: "userType")
+                    print(self.jsondict["trainer_type"]!)
+                    userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
+                    print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
+                    
+                    if let url = URL(string:(self.jsondict["user_image"] as? String)!){
+                        print("Image URL:", url)
+                        let data = NSData.init(contentsOf: url)
+                        ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
+                    }
+                    
+                    if self.UserType == "trainer" {
+                        self.segueActionsIfTrainer(dictionary: self.jsondict as! Dictionary<String, Any>!)
+                    }else if self.UserType == "trainee" {
+                        self.performSegue(withIdentifier: "loginToHomeSegueR", sender: self)
+                    }
+                    
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SUCCESSFULLY_LOGGED_IN, buttonTitle: "Ok")
+                    
+                                 }
+                else if status == RESPONSE_STATUS.FAIL{
+                    if jsondata["status_type"] as? String == "UserNotRegistered" {
+                        
+                        if self.registerType == REGISTER_TYPE.FACEBOOK{
+                            
+                            self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
+                            self.lastname_txt.text = (self.fbUserDictionary["last_name"] as? String)!
+                            self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
+                            
+                            self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
+                            
+                            print("PROFILE IMAGE ",self.profileImageURL)
+                            
+                            
+
+                            
+                            
+                        }else if self.registerType == REGISTER_TYPE.GOOGLE{
+                            
+                            self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
+                            self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
+
+                            
+                        }
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    }
+                    
+                    }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        })
+        
+    }
+    func segueActionsIfTrainer(dictionary: Dictionary<String, Any>!) {
+        print(dictionary)
+        
+        var approvedCount = Int()
+        var pendingCount = Int()
+        
+        if let category_approvedArray = dictionary["category_approved"] as? NSArray{
+            print(category_approvedArray)
+            
+            approvedCount = category_approvedArray.count
+            userDefaults.setValue(approvedCount, forKey: "approvedCategoryCount")
+            //            approvedCategoryCountSingleton = approvedCount
+            
+            if approvedCount > 0 {
+                print("*** Approved Categories Present ****")
+                //Need to redirect to Home Screen
+                self.performSegue(withIdentifier: "loginToHomeSegueR", sender: self)
+            }
+        }
+        
+        if let category_pendingArray = dictionary["category_pending"] as? NSArray{
+            print(category_pendingArray)
+            
+            pendingCount = category_pendingArray.count
+            userDefaults.setValue(pendingCount, forKey: "pendingCategoryCount")
+            //            pendingCategoryCountSingleton = pendingCount
+            
+            if pendingCount > 0 && approvedCount == 0 {
+                print("*** Pending Categories Present ****")
+                //Redirect to Waiting for Approval Page
+                self.performSegue(withIdentifier: "toWaitingForApprovalSegueR", sender: self)
+            }else if pendingCount == 0 && approvedCount == 0 {
+                //Redirect to Choose Category Page
+                print("Login to Choose Category Page")
+                self.performSegue(withIdentifier: "loginToChooseCategorySegueR", sender: self)
+            }
+        }
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -465,6 +543,10 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             controller.MobileNumber = mobileNumber
             controller.DataDictionary = FullDataDictionary
             controller.HeaderDict = HeaderDictionary
+        }
+        else if segue.identifier == "loginToChooseCategorySegueR" {
+            let chooseCategoryPage =  segue.destination as! CategoryListVC
+            chooseCategoryPage.isBackButtonHidden = true
         }
     }
 }

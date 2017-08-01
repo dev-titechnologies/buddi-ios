@@ -260,7 +260,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                 multipartFormData.append(value.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: key)
             }
             multipartFormData.append(self.movieData as Data, withName: "file_name", fileName: "video.mov", mimeType: "video/mov")
-        }, to: "http://192.168.1.14:4001/upload/upload",
+        }, to: "http://git.titechnologies.in:4001/upload/upload",
            method:.post,
            headers:headers,
            
