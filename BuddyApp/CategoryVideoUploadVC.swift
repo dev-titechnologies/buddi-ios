@@ -323,11 +323,11 @@ extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
         if (audioDurationSeconds < 30.0){
             print("Less than 30 ")
             dismiss(animated: true, completion: nil)
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please upload a video of duration minimum 30 seconds", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: UPLOAD_VIDEO_MINIMUM_DURATION, buttonTitle: "Ok")
         }else if ((audioDurationSeconds > 90.0)){
             print(" greater than 90")
             dismiss(animated: true, completion: nil)
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please upload a video of duration maximum 90 seconds", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: UPLOAD_VIDEO_MAXIMUM_DURATION, buttonTitle: "Ok")
         }else{
             print("upload video")
             do {

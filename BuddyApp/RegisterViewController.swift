@@ -124,6 +124,9 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     
      func methodOfReceivedNotification(notif: NSNotification) {
         
+        let notificationName = Notification.Name("NotificationIdentifier")
+        NotificationCenter.default.removeObserver(self, name: notificationName, object: nil);
+
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
         print("GOOGLE DATA ",self.googleUserDictionary)
         
