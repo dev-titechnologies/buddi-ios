@@ -222,7 +222,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                           "user_id":appDelegate.UserId,
                            "first_name":self.firstname_txt.text!,
                             "last_name":self.lastname_txt.text!,
-                           "gender":self.gender_txt.text!,
+                           "gender":(self.gender_txt.text!).lowercased(),
                          "user_image":self.ProfileImageURL,
                          "profile_desc":"tt" ] as [String : Any]
         
@@ -477,7 +477,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                           "user_id":appDelegate.UserId,
                           "first_name":self.firstname_txt.text!,
                           "last_name":self.lastname_txt.text!,
-                          "gender":self.gender_txt.text!,
+                          "gender":(self.gender_txt.text!).lowercased(),
                           "user_image":self.ProfileImageURL,
                           "profile_desc":"tt" ] as [String : Any]
         
