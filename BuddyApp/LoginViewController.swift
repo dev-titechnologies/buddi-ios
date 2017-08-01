@@ -221,8 +221,11 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     
 //                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.FAIL{
-                    if jsondata["message"] as? String == "Incorrect Email or Password"{
+                    
+                    if jsondata["status_type"] as? String == "UserNotRegistered" {
                         self.performSegue(withIdentifier: "logintoregister", sender: self)
+                    }else if jsondata["status_type"] as? String == "UserNotValid" {
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
                     }
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()

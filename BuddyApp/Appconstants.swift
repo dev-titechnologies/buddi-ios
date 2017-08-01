@@ -22,6 +22,7 @@ var subCategoryVideoURLsSingleton = Singleton.sharedInstance.subCategoryVideoURL
 
 
 let SERVER_URL  = ""
+//let SERVER_URL_Local = "http://192.168.1.14:4001/"
 let SERVER_URL_Local = "http://git.titechnologies.in:4001/"
 
 struct RESPONSE_STATUS {
