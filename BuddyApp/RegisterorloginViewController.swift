@@ -12,7 +12,6 @@ class RegisterorloginViewController: UIViewController,UIScrollViewDelegate{
     
     @IBOutlet weak var pagecontrole: UIPageControl!
     @IBOutlet weak var scrollview: UIScrollView!
-    @IBOutlet weak var viewone: UIView!
     @IBOutlet weak var registr_btn: UIButton!
     @IBOutlet weak var login_btn: UIButton!
 
@@ -43,9 +42,13 @@ class RegisterorloginViewController: UIViewController,UIScrollViewDelegate{
         registr_btn.clipsToBounds = true
         
         //1
-        self.scrollview.frame = CGRect(x:0, y:0, width:self.viewone.frame.width, height:self.viewone.frame.height)
+        self.scrollview.frame = CGRect(x:0, y:0, width:self.view.frame.width, height:431)
         let scrollViewWidth:CGFloat = self.scrollview.frame.width
         let scrollViewHeight:CGFloat = self.scrollview.frame.height
+        
+        print("SCROOL HEIGHT",scrollViewHeight)
+        print("SCROOL WIDTH",scrollViewWidth)
+        
         //2
         //        textView.textAlignment = .center
         //        textView.text = "Sweettutos.com is your blog of choice for Mobile tutorials"
@@ -65,9 +68,12 @@ class RegisterorloginViewController: UIViewController,UIScrollViewDelegate{
         self.scrollview.addSubview(imgTwo)
         self.scrollview.addSubview(imgThree)
         self.scrollview.addSubview(imgFour)
-        self.viewone.addSubview(self.scrollview)
+       
         //4
         self.scrollview.contentSize = CGSize(width:self.scrollview.frame.width * 4, height:self.scrollview.frame.height)
+        
+        print("ACTUAL HEIGHT",self.scrollview.frame.height)
+        
         self.scrollview.delegate = self
         self.pagecontrole.currentPage = 0
         
