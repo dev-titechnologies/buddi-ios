@@ -15,6 +15,9 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
     @IBOutlet weak var btnNo: UIButton!
     var isAnsweredMilitaryInstallations = Bool()
     var gymArray = [GymModel]()
+    let gymModelObj : GymModel = GymModel()
+    var gymNamesArray = [String]()
+    var gymNamesArrayCopy = [Any]()
     
     //DropDown Variable
     var objDropDown:VDropDownViewController!
@@ -44,8 +47,36 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
     
     func getGymDetails() {
         
-        CommonMethods.serverCall(APIURL: "gym/listGyms", parameters: nil, headers: nil) { (response) in
-            print("GYM RESP:",response)
+        CommonMethods.serverCall(APIURL: "gym/listGyms", parameters: [:], headers: nil) { (jsondata) in
+            print("GYM RESP:",jsondata)
+            
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    let gym_array : Array = jsondata["data"] as! NSArray as Array
+                    for gym in gym_array{
+                        
+                        let modelObject = self.gymModelObj.gymModelFromDict(dictionary: gym as! Dictionary<String, Any>)
+                        print(modelObject)
+                        self.gymArray.append(modelObject)
+                        self.gymNamesArray.append(modelObject.gymName)
+                    }
+                    
+//                    NSArray * uniqueArray = [[NSOrderedSet orderedSetWithArray:duplicatesArray] array];
+
+//                    gymNamesArrayCopy = NSOrderedSet.init(array: self.gymNamesArray)
+//                    print(self.gymNamesArrayCopy)
+                }else if status == RESPONSE_STATUS.FAIL{
+                    
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+//                    self.dis
+                }
+            }
         }
     }
 
@@ -53,6 +84,7 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
         
         self.navigationController?.popViewController(animated: true)
     }
+    
     @IBAction func yesButtonAction(_ sender: Any) {
         colorChangeSelectedAnswerButton(button: true)
         trainerTestAnswers.isHavingMilitaryInstallations = true
@@ -88,6 +120,7 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
     //MARK: textfield Delegate
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
