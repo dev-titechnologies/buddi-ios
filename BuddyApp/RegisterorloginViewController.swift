@@ -77,6 +77,20 @@ class RegisterorloginViewController: UIViewController,UIScrollViewDelegate{
         
         
     }
+    func moveToNextPage (){
+        
+        let pageWidth:CGFloat = self.scrollview.frame.width
+        let maxWidth:CGFloat = pageWidth * 4
+        let contentOffset:CGFloat = self.scrollview.contentOffset.x
+        
+        var slideToX = contentOffset + pageWidth
+        
+        if  contentOffset + pageWidth == maxWidth{
+            slideToX = 0
+        }
+        self.scrollview.scrollRectToVisible(CGRect(x:slideToX, y:0, width:pageWidth, height:self.scrollview.frame.height), animated: true)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
     }

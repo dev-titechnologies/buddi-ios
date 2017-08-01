@@ -8,17 +8,25 @@
 
 import UIKit
 
-class Question2VC: UIViewController {
+class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
 
     @IBOutlet weak var txtCurrentGymSubscriptions: UITextField!
     @IBOutlet weak var btnYes: UIButton!
     @IBOutlet weak var btnNo: UIButton!
     var isAnsweredMilitaryInstallations = Bool()
     
+    //DropDown Variable
+    var objDropDown:VDropDownViewController!
+    var arr:NSMutableOrderedSet = NSMutableOrderedSet()
+    var SelectedData = Array<String>()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        txtCurrentGymSubscriptions.delegate = self
+        
+ arr = ["one","two","three","four","five"]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -70,4 +78,50 @@ class Question2VC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    //MARK: textfield Delegate
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        if textField == txtCurrentGymSubscriptions{
+            ShowDropDown(isMultipleSelectionAllow: true, vc: self, OnView: textField, ArrData: arr, ArrSelectedData: SelectedData)
+            return false
+            
+        }else{
+            return true
+        }
+    }
+    
+    //MARK: Delegate method DropDown
+    func VDropDownDidSelect(_ tableView: UITableView, View:UIView, Index: IndexPath, SelectedItem:String, MultipleSelectedItems:Array<String>, isMulple:Bool) {
+        
+        if View is UITextField {
+           
+                var strJoinValue = MultipleSelectedItems.joined(separator: ",")
+                SelectedData = MultipleSelectedItems
+                if MultipleSelectedItems.count == 0
+                {
+                    strJoinValue = ""
+                }
+                txtCurrentGymSubscriptions.text = strJoinValue
+            
+            print("LIST",MultipleSelectedItems)
+            
+        }
+    }
+    
+    func VDropDownHide() {
+        print("Hide DropDown")
+    }
+    
+    // MARK: show dropdown on View
+    func ShowDropDown(isMultipleSelectionAllow:Bool, vc:UIViewController, OnView:UIView, ArrData:NSMutableOrderedSet, ArrSelectedData:Array<String>) -> Void {
+        
+        objDropDown = VDropDownViewController.init(nibName: "DropDownListView", bundle: nil)
+        objDropDown.view.frame = CGRect.init(x: 0, y: 20, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        objDropDown.isMultipleSelectionAllow = isMultipleSelectionAllow
+        objDropDown.mAryPassedData = ArrData
+        objDropDown.delegate = vc as? VDropDown
+        objDropDown.selectedData = ArrSelectedData
+        objDropDown.ShowDropDown(self, OnView:OnView);
+    }
+
 }

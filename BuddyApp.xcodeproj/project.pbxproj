@@ -22,6 +22,15 @@
 		F30B60201F1DCEED00374136 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */; };
 		F30B60211F1DCEED00374136 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */; };
 		F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60221F1DD88800374136 /* HomeViewController.swift */; };
+		F315E9961F30585700850A44 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = F315E98D1F30585700850A44 /* check.png */; };
+		F315E9971F30585700850A44 /* DropDown_Checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F315E98E1F30585700850A44 /* DropDown_Checked@2x.png */; };
+		F315E9981F30585700850A44 /* DropDown_Done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F315E98F1F30585700850A44 /* DropDown_Done@2x.png */; };
+		F315E9991F30585700850A44 /* DropDown_Unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F315E9901F30585700850A44 /* DropDown_Unchecked@2x.png */; };
+		F315E99A1F30585700850A44 /* DropDownListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F315E9911F30585700850A44 /* DropDownListView.xib */; };
+		F315E99B1F30585700850A44 /* DropDownViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F315E9921F30585700850A44 /* DropDownViewCell.xib */; };
+		F315E99C1F30585700850A44 /* DropDownViewCellMultiple.xib in Resources */ = {isa = PBXBuildFile; fileRef = F315E9931F30585700850A44 /* DropDownViewCellMultiple.xib */; };
+		F315E99D1F30585700850A44 /* VDropDownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315E9941F30585700850A44 /* VDropDownViewController.swift */; };
+		F315E99E1F30585700850A44 /* VTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315E9951F30585700850A44 /* VTableViewCell.swift */; };
 		F316E7EB1F21BF4E00994447 /* SubCategoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F316E7E91F21BF4E00994447 /* SubCategoryDB.swift */; };
 		F316E7EC1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F316E7EA1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift */; };
 		F316E7EE1F21BF6E00994447 /* SubCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F316E7ED1F21BF6E00994447 /* SubCategoryModel.swift */; };
@@ -141,6 +150,15 @@
 		F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		F30B60221F1DD88800374136 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F315E98D1F30585700850A44 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		F315E98E1F30585700850A44 /* DropDown_Checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DropDown_Checked@2x.png"; sourceTree = "<group>"; };
+		F315E98F1F30585700850A44 /* DropDown_Done@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DropDown_Done@2x.png"; sourceTree = "<group>"; };
+		F315E9901F30585700850A44 /* DropDown_Unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DropDown_Unchecked@2x.png"; sourceTree = "<group>"; };
+		F315E9911F30585700850A44 /* DropDownListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownListView.xib; sourceTree = "<group>"; };
+		F315E9921F30585700850A44 /* DropDownViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownViewCell.xib; sourceTree = "<group>"; };
+		F315E9931F30585700850A44 /* DropDownViewCellMultiple.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownViewCellMultiple.xib; sourceTree = "<group>"; };
+		F315E9941F30585700850A44 /* VDropDownViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VDropDownViewController.swift; sourceTree = "<group>"; };
+		F315E9951F30585700850A44 /* VTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTableViewCell.swift; sourceTree = "<group>"; };
 		F316E7E91F21BF4E00994447 /* SubCategoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoryDB.swift; sourceTree = "<group>"; };
 		F316E7EA1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SubCategoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F316E7ED1F21BF6E00994447 /* SubCategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoryModel.swift; sourceTree = "<group>"; };
@@ -323,6 +341,22 @@
 			name = ExternalFrameworks;
 			sourceTree = "<group>";
 		};
+		F315E98C1F30585700850A44 /* VDropDownClass */ = {
+			isa = PBXGroup;
+			children = (
+				F315E98D1F30585700850A44 /* check.png */,
+				F315E98E1F30585700850A44 /* DropDown_Checked@2x.png */,
+				F315E98F1F30585700850A44 /* DropDown_Done@2x.png */,
+				F315E9901F30585700850A44 /* DropDown_Unchecked@2x.png */,
+				F315E9911F30585700850A44 /* DropDownListView.xib */,
+				F315E9921F30585700850A44 /* DropDownViewCell.xib */,
+				F315E9931F30585700850A44 /* DropDownViewCellMultiple.xib */,
+				F315E9941F30585700850A44 /* VDropDownViewController.swift */,
+				F315E9951F30585700850A44 /* VTableViewCell.swift */,
+			);
+			path = VDropDownClass;
+			sourceTree = "<group>";
+		};
 		F316E7EF1F22073300994447 /* Sub Category Selection */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +404,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F315E98C1F30585700850A44 /* VDropDownClass */,
 				F3FC70E91F2F398500B54A79 /* ForgotpasswordViewcontroller */,
 				F3093F601F2B12A000D33324 /* NetworkCheck */,
 				F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */,
@@ -711,13 +746,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F315E9971F30585700850A44 /* DropDown_Checked@2x.png in Resources */,
 				F322FC4A1F1CE62200381B8C /* LaunchScreen.storyboard in Resources */,
 				F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */,
+				F315E9961F30585700850A44 /* check.png in Resources */,
 				F3270DB51F275953004CE765 /* plogo.png in Resources */,
+				F315E9981F30585700850A44 /* DropDown_Done@2x.png in Resources */,
 				F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */,
+				F315E9991F30585700850A44 /* DropDown_Unchecked@2x.png in Resources */,
 				F35FDAE81F1E51DE0091900D /* ReviewHistory.json in Resources */,
+				F315E99A1F30585700850A44 /* DropDownListView.xib in Resources */,
 				F302BB941F1F32E900186BCC /* GoogleService-Info.plist in Resources */,
 				F3FC70E81F2EFBC800B54A79 /* Main.storyboard in Resources */,
+				F315E99B1F30585700850A44 /* DropDownViewCell.xib in Resources */,
+				F315E99C1F30585700850A44 /* DropDownViewCellMultiple.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,7 +983,9 @@
 				F341B0341F28D664007C9AF1 /* UIColorExtension.swift in Sources */,
 				F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */,
 				F38BB5471F2607D300824C15 /* ProfileDB+CoreDataProperties.swift in Sources */,
+				F315E99D1F30585700850A44 /* VDropDownViewController.swift in Sources */,
 				F35FDADD1F1E517C0091900D /* BookingDetailsVC.swift in Sources */,
+				F315E99E1F30585700850A44 /* VTableViewCell.swift in Sources */,
 				F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */,
 				F3990E211F1F77E1000FFF7B /* APIURLs.swift in Sources */,
 				F35FDADE1F1E517C0091900D /* BookingHistoryTableCell.swift in Sources */,
