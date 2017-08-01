@@ -69,10 +69,15 @@ class CategoryListVC: UIViewController {
         })
     }
     
-//    func hideBackButton(isHide: Bool) {
-//        self.navigationItem.setHidesBackButton(hideValue, animated:true);
-//    }
-    
+    @IBAction func categoryNextAction(_ sender: Any) {
+        
+        if selectedCategories.count > 0{
+            performSegue(withIdentifier: "CategoryToQuestion1Segue", sender: self)
+        }else{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose atleast one category", buttonTitle: "OK")
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      
         print("SELECTED CATEGS:",categoriesArray)
@@ -122,7 +127,7 @@ extension CategoryListVC : UICollectionViewDataSource{
 
         cell.lblCategoryName.text = categoriesArray[indexPath.row].categoryName
         print("CATEG Image URL:",categoriesArray[indexPath.row].categoryImage)
-        cell.categoryImage.sd_setImage(with: URL(string: categoriesArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: "profileImage"))
+        cell.categoryImage.sd_setImage(with: URL(string: categoriesArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: ""))
         
         if selectedCategories.contains(indexPath.row){
             cell.cellSelectionView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
