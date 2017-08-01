@@ -54,6 +54,9 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     
     func methodOfReceivedNotification(notif: NSNotification) {
         
+        let notificationName = Notification.Name("NotificationIdentifier")
+        NotificationCenter.default.removeObserver(self, name: notificationName, object: nil);
+        
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
         print("GOOGLE DATA ",self.googleUserDictionary)
         self.LoginAPI(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
