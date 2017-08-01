@@ -20,7 +20,7 @@ class CommonMethods: NSObject {
 
       class func serverCall(APIURL : String, parameters : Dictionary<String, Any>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
         
-        let FinalURL = SERVER_URL_Local + APIURL
+        let FinalURL = SERVER_URL + APIURL
         print("Final Server URL:",FinalURL)
         Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
             response in

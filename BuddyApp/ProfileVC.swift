@@ -409,11 +409,11 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         print("PARAMS",parameters)
         print("HEADERS",headers)
         
-        
+        let imageUploadURL = SERVER_URL + UPLOAD_VIDEO_AND_IMAGE
+        print("Image Upload URL",imageUploadURL)
+
         var uploadImageData = NSData()
         uploadImageData = imagedata
-        
-       // print("DATTTAAAA",uploadImageData)
         
         Alamofire.upload(multipartFormData: { multipartFormData in
             
@@ -431,7 +431,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             }else{
                 print("NODATAAA")
             }
-         }, to: "http://192.168.1.14:4001/upload/upload",
+         }, to: imageUploadURL,
            method:.post,
            headers:headers,
            

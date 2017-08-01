@@ -8,29 +8,30 @@
 
 import UIKit
 
-class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
+class Question2VC: UIViewController{
 
     @IBOutlet weak var txtCurrentGymSubscriptions: UITextField!
     @IBOutlet weak var btnYes: UIButton!
     @IBOutlet weak var btnNo: UIButton!
     var isAnsweredMilitaryInstallations = Bool()
+    
     var gymArray = [GymModel]()
+    var gymArraySelected = [GymModel]()
     let gymModelObj : GymModel = GymModel()
     var gymNamesArray = [String]()
     var gymNamesArrayCopy = [Any]()
+    var orderedSet = NSMutableOrderedSet()
     
     //DropDown Variable
     var objDropDown:VDropDownViewController!
     var arr:NSMutableOrderedSet = NSMutableOrderedSet()
     var SelectedData = Array<String>()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         txtCurrentGymSubscriptions.delegate = self
         
-        arr = ["one","two","three","four","five"]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,25 +67,17 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
                         self.gymArray.append(modelObject)
                         self.gymNamesArray.append(modelObject.gymName)
                     }
-                    
-//                    NSArray * uniqueArray = [[NSOrderedSet orderedSetWithArray:duplicatesArray] array];
-
-//                    gymNamesArrayCopy = NSOrderedSet.init(array: self.gymNamesArray)
-//                    print(self.gymNamesArrayCopy)
+                    self.orderedSet = NSMutableOrderedSet(array: self.gymNamesArray, copyItems: true)
                 }else if status == RESPONSE_STATUS.FAIL{
-                    
-                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-//                    self.dis
+                    print("Gym Details fetch issue")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED {
+                    print("Gym Details fetch issue1")
                 }
             }
         }
     }
-
-    @IBAction func backAction(_ sender: Any) {
-        
-        self.navigationController?.popViewController(animated: true)
-    }
     
+    //MARK: - YES/NO BUTTON ACTIONS
     @IBAction func yesButtonAction(_ sender: Any) {
         colorChangeSelectedAnswerButton(button: true)
         trainerTestAnswers.isHavingMilitaryInstallations = true
@@ -95,6 +88,8 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
         trainerTestAnswers.isHavingMilitaryInstallations = false
     }
     
+    //MARK: - OTHER FUNCTIONS
+
     func colorChangeSelectedAnswerButton(button: Bool) {
         
         isAnsweredMilitaryInstallations = true
@@ -107,47 +102,57 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
         }
     }
     
+    //MARK:- NEXT/BACK BUTTON ACTIONS
     @IBAction func nextButtonAction(_ sender: Any) {
         
         if txtCurrentGymSubscriptions.text == "" || !isAnsweredMilitaryInstallations{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ANSWER_ABOVE_QUESTIONS, buttonTitle: "OK")
         }else{
-            trainerTestAnswers.gymSubscriptions = txtCurrentGymSubscriptions.text!
+            trainerTestAnswers.gymSubscriptions = gymArraySelected
             performSegue(withIdentifier: "afterQ2VCSegue", sender: self)
         }
+    }
+    
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+}
+
+extension Question2VC: UITextFieldDelegate {
     
-    //MARK: textfield Delegate
+    //MARK:- Textfield Delegate
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         if textField == txtCurrentGymSubscriptions{
-            ShowDropDown(isMultipleSelectionAllow: true, vc: self, OnView: textField, ArrData: arr, ArrSelectedData: SelectedData)
+            ShowDropDown(isMultipleSelectionAllow: true, vc: self, OnView: textField, ArrData: orderedSet, ArrSelectedData: SelectedData)
             return false
-            
         }else{
             return true
         }
     }
+}
+
+extension Question2VC: VDropDown{
     
-    //MARK: Delegate method DropDown
+    //MARK:- Delegate method DropDown
     func VDropDownDidSelect(_ tableView: UITableView, View:UIView, Index: IndexPath, SelectedItem:String, MultipleSelectedItems:Array<String>, isMulple:Bool) {
         
         if View is UITextField {
-           
-                var strJoinValue = MultipleSelectedItems.joined(separator: ",")
-                SelectedData = MultipleSelectedItems
-                if MultipleSelectedItems.count == 0
-                {
-                    strJoinValue = ""
-                }
-                txtCurrentGymSubscriptions.text = strJoinValue
             
+            print("Indexpath:",Index.row)
+            var strJoinValue = MultipleSelectedItems.joined(separator: ",")
+            SelectedData = MultipleSelectedItems
+            if MultipleSelectedItems.count == 0
+            {
+                strJoinValue = ""
+            }
+            txtCurrentGymSubscriptions.text = strJoinValue
             print("LIST",MultipleSelectedItems)
-            
+            gymArraySelected.append(gymArray[Index.row])
         }
     }
     
@@ -155,7 +160,7 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
         print("Hide DropDown")
     }
     
-    // MARK: show dropdown on View
+    // MARK:- show dropdown on View
     func ShowDropDown(isMultipleSelectionAllow:Bool, vc:UIViewController, OnView:UIView, ArrData:NSMutableOrderedSet, ArrSelectedData:Array<String>) -> Void {
         
         objDropDown = VDropDownViewController.init(nibName: "DropDownListView", bundle: nil)
@@ -166,5 +171,4 @@ class Question2VC: UIViewController,VDropDown,UITextFieldDelegate{
         objDropDown.selectedData = ArrSelectedData
         objDropDown.ShowDropDown(self, OnView:OnView);
     }
-
 }

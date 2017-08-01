@@ -26,7 +26,7 @@ class VDropDownViewController: UIViewController, UITableViewDelegate, UITableVie
     private static var SingleCellID = "idDropDownViewCellSingle"
     private static var NIBMultiPleCellID = "DropDownViewCellMultiple"
     private static var MultipleCellID = "idDropDownViewCellMultiple"
-    private static var CellHeight:CGFloat = 30
+    private static var CellHeight:CGFloat = 40
     
     var VC = UIViewController()
     var mAryData : Array<String> = Array<String>()

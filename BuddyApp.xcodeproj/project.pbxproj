@@ -46,7 +46,6 @@
 		F322FC551F1CE62400381B8C /* BuddyAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC541F1CE62400381B8C /* BuddyAppTests.swift */; };
 		F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */; };
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
-		F3270DB51F275953004CE765 /* plogo.png in Resources */ = {isa = PBXBuildFile; fileRef = F3270DB41F275953004CE765 /* plogo.png */; };
 		F330A1001F2F731D00C69871 /* BlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F330A0FF1F2F731D00C69871 /* BlankViewController.swift */; };
 		F33ABF6D1F29E5C200DEAE48 /* WaitingForApprovalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */; };
 		F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */; };
@@ -180,7 +179,6 @@
 		F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyAppUITests.swift; sourceTree = "<group>"; };
 		F322FC611F1CE62500381B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F322FC6F1F1CEF2200381B8C /* Appconstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appconstants.swift; sourceTree = "<group>"; };
-		F3270DB41F275953004CE765 /* plogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plogo.png; sourceTree = "<group>"; };
 		F330A0FF1F2F731D00C69871 /* BlankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlankViewController.swift; sourceTree = "<group>"; };
 		F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BuddyApp.entitlements; sourceTree = "<group>"; };
 		F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForApprovalVC.swift; sourceTree = "<group>"; };
@@ -305,20 +303,20 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		F302BB901F1F297B00186BCC /* LoginViewcontroller */ = {
+		F302BB901F1F297B00186BCC /* Login Viewcontroller */ = {
 			isa = PBXGroup;
 			children = (
 				F30B60171F1DCAB300374136 /* LoginViewController.swift */,
 			);
-			name = LoginViewcontroller;
+			name = "Login Viewcontroller";
 			sourceTree = "<group>";
 		};
-		F302BB951F1F60E700186BCC /* LoginORRegister */ = {
+		F302BB951F1F60E700186BCC /* Login OR Register */ = {
 			isa = PBXGroup;
 			children = (
 				F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */,
 			);
-			name = LoginORRegister;
+			name = "Login OR Register";
 			sourceTree = "<group>";
 		};
 		F3093F601F2B12A000D33324 /* NetworkCheck */ = {
@@ -332,6 +330,7 @@
 		F30B60191F1DCECD00374136 /* ExternalFrameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F315E98C1F30585700850A44 /* VDropDownClass */,
 				F341B0371F28D9FB007C9AF1 /* CardView.swift */,
 				F30B601A1F1DCEED00374136 /* Bolts.framework */,
 				F30B601B1F1DCEED00374136 /* FBSDKCoreKit.framework */,
@@ -404,23 +403,21 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
-				F315E98C1F30585700850A44 /* VDropDownClass */,
-				F3FC70E91F2F398500B54A79 /* ForgotpasswordViewcontroller */,
+				F3FC70E91F2F398500B54A79 /* Forgot Password */,
 				F3093F601F2B12A000D33324 /* NetworkCheck */,
 				F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */,
 				F3FF03DF1F285F4200D4DD0D /* Extensions */,
-				F3270DB41F275953004CE765 /* plogo.png */,
-				F33AE4E01F20DA8F00B82E0C /* Registerviewcontroller */,
+				F33AE4E01F20DA8F00B82E0C /* Register Viewcontroller */,
 				F373509B1F2090AD00BE9DB6 /* Category Lists */,
 				F373509A1F207A3800BE9DB6 /* Home Page */,
 				F33AE4DD1F2069D000B82E0C /* OTPViewcontroller */,
-				F302BB951F1F60E700186BCC /* LoginORRegister */,
+				F302BB951F1F60E700186BCC /* Login OR Register */,
 				F3990DF81F1F3D78000FFF7B /* Data Structure */,
 				F35FDAE91F1E51E10091900D /* Profile View */,
 				F35FDAE21F1E519B0091900D /* Review History */,
 				F35FDAC11F1DEB7F0091900D /* Models */,
 				F35FDABE1F1DE9AB0091900D /* Common Methods */,
-				F302BB901F1F297B00186BCC /* LoginViewcontroller */,
+				F302BB901F1F297B00186BCC /* Login Viewcontroller */,
 				F35FDABB1F1DE9000091900D /* Booking History */,
 				F35FDAB61F1DE49B0091900D /* Temp JSON Files */,
 				F30B60191F1DCECD00374136 /* ExternalFrameworks */,
@@ -482,13 +479,13 @@
 			name = OTPViewcontroller;
 			sourceTree = "<group>";
 		};
-		F33AE4E01F20DA8F00B82E0C /* Registerviewcontroller */ = {
+		F33AE4E01F20DA8F00B82E0C /* Register Viewcontroller */ = {
 			isa = PBXGroup;
 			children = (
 				F30B60151F1DC82A00374136 /* RegisterViewController.swift */,
 				F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */,
 			);
-			name = Registerviewcontroller;
+			name = "Register Viewcontroller";
 			sourceTree = "<group>";
 		};
 		F35FDAB61F1DE49B0091900D /* Temp JSON Files */ = {
@@ -604,12 +601,12 @@
 			name = "Video Uploading Page";
 			sourceTree = "<group>";
 		};
-		F3FC70E91F2F398500B54A79 /* ForgotpasswordViewcontroller */ = {
+		F3FC70E91F2F398500B54A79 /* Forgot Password */ = {
 			isa = PBXGroup;
 			children = (
 				F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */,
 			);
-			name = ForgotpasswordViewcontroller;
+			name = "Forgot Password";
 			sourceTree = "<group>";
 		};
 		F3FF03DF1F285F4200D4DD0D /* Extensions */ = {
@@ -700,7 +697,7 @@
 					F322FC381F1CE62000381B8C = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 7QVT6YDQZ2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -710,7 +707,7 @@
 					F322FC4F1F1CE62400381B8C = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 7QVT6YDQZ2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						TestTargetID = F322FC381F1CE62000381B8C;
 					};
 					F322FC5A1F1CE62400381B8C = {
@@ -750,7 +747,6 @@
 				F322FC4A1F1CE62200381B8C /* LaunchScreen.storyboard in Resources */,
 				F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */,
 				F315E9961F30585700850A44 /* check.png in Resources */,
-				F3270DB51F275953004CE765 /* plogo.png in Resources */,
 				F315E9981F30585700850A44 /* DropDown_Done@2x.png in Resources */,
 				F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */,
 				F315E9991F30585700850A44 /* DropDown_Unchecked@2x.png in Resources */,
@@ -1149,8 +1145,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.titechnologies.BuddyApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "96a90820-2405-49ec-acc3-e67fc0351c71";
+				PROVISIONING_PROFILE_SPECIFIER = BuddyAppDevelopment;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1162,7 +1158,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: DEEPU ZACHARIA (7QVT6YDQZ2)";
 				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1175,8 +1171,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.titechnologies.BuddyApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "b014fdc4-b356-4cb2-81bd-b3ed39d3cc78";
+				PROVISIONING_PROFILE_SPECIFIER = BuddyAppAdHoc;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1193,6 +1189,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BuddyApp.app/BuddyApp";
 			};
@@ -1209,6 +1206,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BuddyApp.app/BuddyApp";
 			};
@@ -1219,11 +1217,13 @@
 			baseConfigurationReference = CD4B18682203D5BC4CE94833 /* Pods-BuddyAppUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
 				INFOPLIST_FILE = BuddyAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = BuddyApp;
 			};
@@ -1234,11 +1234,13 @@
 			baseConfigurationReference = A2B42452D93D43AB30FC1826 /* Pods-BuddyAppUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
 				INFOPLIST_FILE = BuddyAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = BuddyApp;
 			};

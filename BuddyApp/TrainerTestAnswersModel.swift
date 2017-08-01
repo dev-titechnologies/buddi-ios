@@ -11,7 +11,7 @@ import Foundation
 class TrainerTestAnswersModel {
     
     var zipCode : String = String()
-    var gymSubscriptions : String = String()
+    var gymSubscriptions : [GymModel] = [GymModel]()
     var isHavingMilitaryInstallations : Bool = Bool()
     var trainingExperience : String = String()
     var categoryTrainingCompletion : Bool = Bool()

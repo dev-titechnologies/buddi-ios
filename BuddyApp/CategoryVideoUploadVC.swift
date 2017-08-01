@@ -29,9 +29,10 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     
     //For Admin Approval
     var categoryIDs: [String] = [String]()
-    var questionsDict = [String:String]()
+    var questionsDict = [String:Any]()
     var subCategoryIDs: [String] = [String]()
     var videoURLs : [Any] = [Any]()
+    var gymIds : [Any] = [Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,11 +145,20 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
         print("Current Weight:",trainerTestAnswers.currentWeight)
         print("Lost or Gain Weight in 6 Months:",trainerTestAnswers.lostOrGainWeightInSixMonths)
         
+        loadGymIDs()
         loadCategoryIDs()
         loadSubCategoryIDs()
         loadQuestionsArray()
         loadVideoURLs()
         submitForApprovalAction()
+    }
+    
+    func loadGymIDs() {
+        
+        for gym in trainerTestAnswers.gymSubscriptions{
+            print("Gym IDs:",gym.gymId)
+            gymIds.append(gym.gymId)
+        }
     }
     
     func loadCategoryIDs() {
@@ -185,7 +195,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                          "military_installations" : (trainerTestAnswers.isHavingMilitaryInstallations ? "yes" : "no"),
                          "competed_category" : (trainerTestAnswers.categoryTrainingCompletion ? "yes" : "no"),
                          "training_exp" : trainerTestAnswers.trainingExperience,
-                         "gym_subscriptions" : trainerTestAnswers.gymSubscriptions,
+                         "gym_subscriptions" : toJSONString(from: gymIds)! ,
                          "coached_anybody" : (trainerTestAnswers.isAnybodyCoachedCategory ? "yes" : "no")
         ]
     }
@@ -205,7 +215,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                           "cat_ids": toJSONString(from: categoryIDs)!,
                           "gym_id":"TestIDGYM",
                           "military":"TESTMilitary",
-                          "questions":toJSONString(from: questionsDict)!,
+                          "questions": toJSONString(from: questionsDict)!,
                           "video_data" : toJSONString(from: videoURLs)!
             
             ] as [String : Any]
@@ -251,7 +261,9 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
         
         print("PARAMS",parameters)
         print("HEADERS",headers)
-        
+        let videoUploadURL = SERVER_URL + UPLOAD_VIDEO_AND_IMAGE
+        print("Video Upload URL",videoUploadURL)
+
         Alamofire.upload(multipartFormData: { multipartFormData in
             for (key, value) in parameters {
                 
@@ -260,7 +272,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                 multipartFormData.append(value.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: key)
             }
             multipartFormData.append(self.movieData as Data, withName: "file_name", fileName: "video.mov", mimeType: "video/mov")
-        }, to: "http://192.168.1.14:4001/upload/upload",
+        }, to: videoUploadURL,
            method:.post,
            headers:headers,
            
