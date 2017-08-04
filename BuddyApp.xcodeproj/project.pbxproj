@@ -94,6 +94,13 @@
 		F39E1EAE1F270ACF00DAED93 /* FinalQuestionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EAD1F270ACF00DAED93 /* FinalQuestionsVC.swift */; };
 		F39E1EB01F272CCF00DAED93 /* SubmitForAdminApproval.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EAF1F272CCF00DAED93 /* SubmitForAdminApproval.swift */; };
 		F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EB11F27840000DAED93 /* Singleton.swift */; };
+		F3A907791F32E45A00474F5E /* TraineeHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907781F32E45A00474F5E /* TraineeHomePage.swift */; };
+		F3A9077B1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A9077A1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift */; };
+		F3A907801F32F15D00474F5E /* ChooseGenderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A9077F1F32F15D00474F5E /* ChooseGenderTableCell.swift */; };
+		F3A907821F32F30100474F5E /* ChooseSessionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907811F32F30100474F5E /* ChooseSessionTableCell.swift */; };
+		F3A907841F32FD5A00474F5E /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907831F32FD5A00474F5E /* SectionHeaderCell.swift */; };
+		F3A907861F3352DD00474F5E /* ShowTrainersOnMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907851F3352DC00474F5E /* ShowTrainersOnMapVC.swift */; };
+		F3A907881F33578100474F5E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A907871F33578000474F5E /* CoreLocation.framework */; };
 		F3AA6C831F21C4F500F44DC2 /* libPhoneNumber_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */; };
 		F3AF9D431F30661000D0CF05 /* GymModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AF9D421F30661000D0CF05 /* GymModel.swift */; };
 		F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */; };
@@ -220,6 +227,13 @@
 		F39E1EAD1F270ACF00DAED93 /* FinalQuestionsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalQuestionsVC.swift; sourceTree = "<group>"; };
 		F39E1EAF1F272CCF00DAED93 /* SubmitForAdminApproval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitForAdminApproval.swift; sourceTree = "<group>"; };
 		F39E1EB11F27840000DAED93 /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
+		F3A907781F32E45A00474F5E /* TraineeHomePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraineeHomePage.swift; sourceTree = "<group>"; };
+		F3A9077A1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseSessionAndGenderVC.swift; sourceTree = "<group>"; };
+		F3A9077F1F32F15D00474F5E /* ChooseGenderTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseGenderTableCell.swift; sourceTree = "<group>"; };
+		F3A907811F32F30100474F5E /* ChooseSessionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseSessionTableCell.swift; sourceTree = "<group>"; };
+		F3A907831F32FD5A00474F5E /* SectionHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeaderCell.swift; sourceTree = "<group>"; };
+		F3A907851F3352DC00474F5E /* ShowTrainersOnMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowTrainersOnMapVC.swift; sourceTree = "<group>"; };
+		F3A907871F33578000474F5E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libPhoneNumber_iOS.framework; path = "Pods/../build/Debug-iphoneos/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"; sourceTree = "<group>"; };
 		F3AF9D421F30661000D0CF05 /* GymModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymModel.swift; sourceTree = "<group>"; };
 		F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVideoUploadVC.swift; sourceTree = "<group>"; };
@@ -239,6 +253,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3A907881F33578100474F5E /* CoreLocation.framework in Frameworks */,
 				F38BB54B1F262ABB00824C15 /* AlamofireImage.framework in Frameworks */,
 				F38BB5491F2628E300824C15 /* Alamofire.framework in Frameworks */,
 				F3AA6C831F21C4F500F44DC2 /* libPhoneNumber_iOS.framework in Frameworks */,
@@ -278,6 +293,7 @@
 		8A7AD5AFB8FF51439DD7F8C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F3A907871F33578000474F5E /* CoreLocation.framework */,
 				F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */,
 				F38BB5481F2628E300824C15 /* Alamofire.framework */,
 				F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */,
@@ -403,12 +419,13 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F3A907771F32E3F600474F5E /* Trainer Home */,
+				F3A907761F32E3D900474F5E /* Trainee Home */,
 				F3FC70E91F2F398500B54A79 /* Forgot Password */,
 				F3093F601F2B12A000D33324 /* NetworkCheck */,
 				F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */,
 				F3FF03DF1F285F4200D4DD0D /* Extensions */,
 				F33AE4E01F20DA8F00B82E0C /* Register Viewcontroller */,
-				F373509B1F2090AD00BE9DB6 /* Category Lists */,
 				F373509A1F207A3800BE9DB6 /* Home Page */,
 				F33AE4DD1F2069D000B82E0C /* OTPViewcontroller */,
 				F302BB951F1F60E700186BCC /* Login OR Register */,
@@ -591,6 +608,35 @@
 			);
 			name = "Data Structure";
 			path = ..;
+			sourceTree = "<group>";
+		};
+		F3A907761F32E3D900474F5E /* Trainee Home */ = {
+			isa = PBXGroup;
+			children = (
+				F3A9077C1F32EF9100474F5E /* Choose Session and Gender Page */,
+				F3A907781F32E45A00474F5E /* TraineeHomePage.swift */,
+				F3A907851F3352DC00474F5E /* ShowTrainersOnMapVC.swift */,
+			);
+			name = "Trainee Home";
+			sourceTree = "<group>";
+		};
+		F3A907771F32E3F600474F5E /* Trainer Home */ = {
+			isa = PBXGroup;
+			children = (
+				F373509B1F2090AD00BE9DB6 /* Category Lists */,
+			);
+			name = "Trainer Home";
+			sourceTree = "<group>";
+		};
+		F3A9077C1F32EF9100474F5E /* Choose Session and Gender Page */ = {
+			isa = PBXGroup;
+			children = (
+				F3A9077A1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift */,
+				F3A9077F1F32F15D00474F5E /* ChooseGenderTableCell.swift */,
+				F3A907811F32F30100474F5E /* ChooseSessionTableCell.swift */,
+				F3A907831F32FD5A00474F5E /* SectionHeaderCell.swift */,
+			);
+			name = "Choose Session and Gender Page";
 			sourceTree = "<group>";
 		};
 		F3C3FC7B1F25BC4C00AEDB5F /* Video Uploading Page */ = {
@@ -924,6 +970,7 @@
 				F39E1EAE1F270ACF00DAED93 /* FinalQuestionsVC.swift in Sources */,
 				F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */,
 				F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */,
+				F3A907821F32F30100474F5E /* ChooseSessionTableCell.swift in Sources */,
 				F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */,
 				F3FF03E31F285F8200D4DD0D /* DataExtension.swift in Sources */,
 				F37350991F207A2D00BE9DB6 /* LeftViewController.swift in Sources */,
@@ -949,7 +996,9 @@
 				F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */,
 				F38BB5431F2606A400824C15 /* ProfileModel.swift in Sources */,
 				F316E7EB1F21BF4E00994447 /* SubCategoryDB.swift in Sources */,
+				F3A907861F3352DD00474F5E /* ShowTrainersOnMapVC.swift in Sources */,
 				F373509F1F20913800BE9DB6 /* CategoryListCell.swift in Sources */,
+				F3A907801F32F15D00474F5E /* ChooseGenderTableCell.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
 				F341B0361F28D80F007C9AF1 /* ColorCodes.swift in Sources */,
 				F316E7EC1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift in Sources */,
@@ -964,14 +1013,17 @@
 				F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */,
 				F3990E1F1F1F6929000FFF7B /* Reachability.swift in Sources */,
 				F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */,
+				F3A907841F32FD5A00474F5E /* SectionHeaderCell.swift in Sources */,
 				F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */,
 				F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */,
 				F37350AC1F20AA3400BE9DB6 /* CategoryDB.swift in Sources */,
 				F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */,
+				F3A9077B1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift in Sources */,
 				F38BB5451F26077B00824C15 /* ProfileDB.swift in Sources */,
 				F3FF03E11F285F6700D4DD0D /* StringExtension.swift in Sources */,
 				F33ABF6D1F29E5C200DEAE48 /* WaitingForApprovalVC.swift in Sources */,
 				F322FC451F1CE62100381B8C /* BuddyApp.xcdatamodeld in Sources */,
+				F3A907791F32E45A00474F5E /* TraineeHomePage.swift in Sources */,
 				F316E7F81F22364F00994447 /* Question3VC.swift in Sources */,
 				F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */,
 				F302BB921F1F2B5A00186BCC /* LoginModel.swift in Sources */,

@@ -61,7 +61,7 @@ class ViewController: UIViewController {
             if appDelegate.USER_TYPE == "trainer"{
                 segueActionsForTrainer()
             }else if appDelegate.USER_TYPE == "trainee"{
-                self.performSegue(withIdentifier: "tohome", sender:self)
+                self.performSegue(withIdentifier: "toTraineeHomeSegue", sender:self)
             }
         }else{
             self.performSegue(withIdentifier: "regorlogin", sender:self)

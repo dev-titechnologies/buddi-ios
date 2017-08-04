@@ -119,7 +119,9 @@ class OTPViewController: UIViewController {
                         
                     }else if appDelegate.USER_TYPE == "trainee"{
                         print("***** Trainee Registraion ***** ")
-                        self.performSegue(withIdentifier: "toHomePageAfterTraineeRegistrationSegue", sender: self)
+                        //toTraineeHomeAfterRegistrationSegue
+                        //toHomePageAfterTraineeRegistrationSegue
+                        self.performSegue(withIdentifier: "toTraineeHomeAfterRegistrationSegue", sender: self)
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Successfully registered as a Trainee", buttonTitle: "Ok")
                     }
                     

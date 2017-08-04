@@ -165,7 +165,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
     }
     
     func validation() {
@@ -320,6 +320,11 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     @IBAction func next_action(_ sender: Any) {
         validation()
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        picker.isHidden = true
+    }
+
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
