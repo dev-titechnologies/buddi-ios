@@ -105,4 +105,27 @@ let ImageArrayTraineeAndTrainerAlso = ["HOME",
                          "LEGAL",
                          "LOGOUT"]
 
+let weightRangeArray = ["60 - 65",
+                        "66 - 70",
+                        "71 - 75",
+                        "76 - 80",
+                        "81 - 85",
+                        "86 - 90",
+                        "91 - 95",
+                        "96 - 100",
+                        "101 - 105",
+                        "106 - 110"]
+
+let trainingExperienceArray = ["< 1","1 - 2","2 - 3","3 - 4","4 - 5","5 - 6", "6 - 7", "7 - 8", "8 - 9", "9 - 10", "> 10"]
+
+let trainingExperienceOrderedSet = NSMutableOrderedSet(array: trainingExperienceArray, copyItems: true)
+let weightRangeOrderedSet = NSMutableOrderedSet(array: weightRangeArray, copyItems: true)
+
+let trainingDurationArray = ["15 Minutes", "30 Minutes", "1 Hour"]
+
+let trainingExperienceYearsArray = Array(0...10)
+let trainingExperienceMonthsArray = Array(0...12)
+
+let currentWeightONEArray = Array(100...400)
+let currentWeightSecondArray = Array(1...50)
 

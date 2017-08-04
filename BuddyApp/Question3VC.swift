@@ -24,9 +24,18 @@ class Question3VC: UIViewController {
     var isAnsweredEverCompletedCategory = Bool()
     var isAnsweredEverCoachedAnybody = Bool()
     var isAnsweredCertifiedTrainer = Bool()
+   
+    var objDropDown:VDropDownViewController!
+    var SelectedData = Array<String>()
+    
+    @IBOutlet weak var pickerCardView: CardView!
+    @IBOutlet weak var pickerView: UIPickerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        print(trainingExperienceYearsArray)
+        print(trainingExperienceMonthsArray)
 
     }
     
@@ -111,6 +120,9 @@ class Question3VC: UIViewController {
         }
     }
     
+    @IBAction func pickerCloseAction(_ sender: Any) {
+        pickerCardView.isHidden = true
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -119,4 +131,89 @@ class Question3VC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
+}
+
+extension Question3VC: UITextFieldDelegate {
+    
+    //MARK:- Textfield Delegate
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        if textField == txtHowLongTraining{
+            pickerCardView.isHidden = false
+//            ShowDropDown(isMultipleSelectionAllow: false, vc: self, OnView: textField, ArrData: trainingExperienceOrderedSet, ArrSelectedData: SelectedData)
+            return false
+        }else{
+            return true
+        }
+    }
+}
+
+//extension Question3VC: VDropDown{
+//    
+//    //MARK:- Delegate method DropDown
+//    func VDropDownDidSelect(_ tableView: UITableView, View:UIView, Index: IndexPath, SelectedItem:String, MultipleSelectedItems:Array<String>, isMulple:Bool) {
+//        
+//        if View is UITextField {
+//            
+//            print("Indexpath:",Index.row)
+////            var strJoinValue = MultipleSelectedItems.joined(separator: ",")
+////            SelectedData = MultipleSelectedItems
+////            if MultipleSelectedItems.count == 0 {
+////                strJoinValue = ""
+////            }
+//            txtHowLongTraining.text = SelectedItem
+//        }
+//    }
+//    
+//    func VDropDownHide() {
+//        print("Hide DropDown")
+//    }
+//    
+//    // MARK:- show dropdown on View
+//    func ShowDropDown(isMultipleSelectionAllow:Bool, vc:UIViewController, OnView:UIView, ArrData:NSMutableOrderedSet, ArrSelectedData:Array<String>) -> Void {
+//        
+//        objDropDown = VDropDownViewController.init(nibName: "DropDownListView", bundle: nil)
+//        objDropDown.view.frame = CGRect.init(x: 0, y: 20, width: self.view.frame.size.width, height: self.view.frame.size.height)
+//        objDropDown.isMultipleSelectionAllow = isMultipleSelectionAllow
+//        objDropDown.mAryPassedData = ArrData
+//        objDropDown.delegate = vc as? VDropDown
+//        objDropDown.selectedData = ArrSelectedData
+//        objDropDown.ShowDropDown(self, OnView:OnView);
+//    }
+//}
+
+
+extension Question3VC: UIPickerViewDataSource, UIPickerViewDelegate {
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        if component == 0 {
+            return trainingExperienceYearsArray.count
+        }else {
+            return trainingExperienceMonthsArray.count
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        if component == 0 {
+            return String(trainingExperienceYearsArray[row])
+        }else {
+            return String(trainingExperienceMonthsArray[row])
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        let selectedValueFirstRow = pickerView.selectedRow(inComponent: 0)
+        let selectedValueSecondRow = pickerView.selectedRow(inComponent: 1)
+
+        print("Year:\(trainingExperienceYearsArray[selectedValueFirstRow]) & Month: \(trainingExperienceMonthsArray[selectedValueSecondRow])")
+        txtHowLongTraining.text = String(trainingExperienceYearsArray[selectedValueFirstRow]) + " Years and " + String(trainingExperienceMonthsArray[selectedValueSecondRow]) + " Months"
+    }
+
 }

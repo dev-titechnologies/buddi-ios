@@ -40,7 +40,7 @@ class Question2VC: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
         getGymDetails()
         btnYes.addShadowView()
         btnNo.addShadowView()

@@ -299,6 +299,8 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                                 self.dismissOnSessionExpire()
                             }
                         }
+                    }else{
+                        print("Video Upload Failure")
                     }
                 }
             case .failure(let encodingError):
@@ -328,15 +330,11 @@ extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
        
        // let asset = AVURLAsset(URL: NSURL(videoURL), options: nil)
         let audioDuration = asset.duration
-        var audioDurationSeconds = CMTimeGetSeconds(audioDuration)
+        let audioDurationSeconds = CMTimeGetSeconds(audioDuration)
         
         print("SECONDS",audioDurationSeconds)
         
-        if (audioDurationSeconds < 30.0){
-            print("Less than 30 ")
-            dismiss(animated: true, completion: nil)
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: UPLOAD_VIDEO_MINIMUM_DURATION, buttonTitle: "Ok")
-        }else if ((audioDurationSeconds > 90.0)){
+        if ((audioDurationSeconds > 90.0)){
             print(" greater than 90")
             dismiss(animated: true, completion: nil)
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: UPLOAD_VIDEO_MAXIMUM_DURATION, buttonTitle: "Ok")

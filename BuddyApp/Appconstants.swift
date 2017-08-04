@@ -20,6 +20,10 @@ var approvedCategories = Singleton.sharedInstance.approvedCategories
 var approvalPendingCategories = Singleton.sharedInstance.approvalPendingCategories
 var subCategoryVideoURLsSingleton = Singleton.sharedInstance.subCategoryVideoURLs
 
+//For Trainee
+var choosedCategoryOfTrainee = Singleton.sharedInstance.choosedCategory
+var choosedSessionOfTrainee = Singleton.sharedInstance.choosedSession
+var choosedTrainerGenderOfTrainee = Singleton.sharedInstance.choosedTrainerGender
 
 //let SERVER_URL = "http://192.168.1.14:4001/"
 let SERVER_URL = "http://git.titechnologies.in:4001/"
@@ -44,6 +48,10 @@ struct REGISTER_TYPE {
     static let NORMAL = "normal"
 }
 
+struct GENDER {
+    static let MALE = "male"
+    static let FEMALE = "female"
+}
 
 class Appconstants: NSObject {
     
