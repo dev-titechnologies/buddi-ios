@@ -197,9 +197,12 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
                     self.jsondict = jsondata["data"]  as! NSDictionary
+                    
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
                     appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
                     appDelegate.USER_TYPE =  self.UserType
+                    appDelegate.userName = (self.jsondict["first_name"] as? String)! + " " + (self.jsondict["last_name"] as? String)!
+                    
                     userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")

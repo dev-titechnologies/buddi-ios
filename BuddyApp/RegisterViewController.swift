@@ -43,11 +43,16 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     var mobileNumber = String()
     var jsondict: NSDictionary!
     
+    let myView = UIView()
+    
+    @IBOutlet weak var countryPickerCardView: CardView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        // navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 188/255, green: 214/255, blue: 255/255, alpha: 1)
         contrycode_txt.isUserInteractionEnabled = false
-    print("qqqqq",UserType)
+    
+        print("qqqqq",UserType)
         
         self.title = "Register"
         
@@ -106,12 +111,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         picker.countryPickerDelegate = self
         picker.showPhoneNumbers = true
         picker.setCountry(code!)
-        
-//        picker.setCountryByPhoneCode("+91")
-        
-        
-//JOSE
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         // Define identifier
         let notificationName = Notification.Name("NotificationIdentifier")
@@ -153,19 +154,18 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
 
     @IBAction func countryCode_action(_ sender: Any) {
+        myView.isHidden = false
+        countryPickerCardView.isHidden = false
         picker.isHidden = false
     }
     
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
         contrycode_txt.text = phoneCode
         imgview.image = flag
-        
-         picker.isHidden = true
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-
     }
     
     func validation() {
@@ -293,7 +293,6 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
 
     @IBAction func Google_register(_ sender: Any) {
-        
         GIDSignIn.sharedInstance().signIn()
     }
     
@@ -316,21 +315,26 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             }
         }
     }
-
+    
+    @IBAction func pickerCloseAction(_ sender: Any) {
+        countryPickerCardView.isHidden = true
+    }
+    
     @IBAction func next_action(_ sender: Any) {
         validation()
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        countryPickerCardView.isHidden = true
         picker.isHidden = true
     }
-
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    //MARK:Google SignIn Delegate
+    
+    //MARK: - Google SignIn Delegate
     
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
         
@@ -411,6 +415,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             })
         }
     }
+    
     func LoginAPI(Email: String,Passwrd: String, loginType: String, UserType: String,FBId: String,GoogleId:String) {
         
         let parameters = ["login_type":loginType,
@@ -437,9 +442,12 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     self.jsondict = jsondata["data"]  as! NSDictionary
+                    
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
                     appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
                     appDelegate.USER_TYPE =  self.UserType
+                    appDelegate.userName = (self.jsondict["first_name"] as? String)! + " " + (self.jsondict["last_name"] as? String)!
+
                     userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")
@@ -474,25 +482,10 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                             self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
                             
                             print("PROFILE IMAGE ",self.profileImageURL)
-                            
-                            
-
-                            
-                            
                         }else if self.registerType == REGISTER_TYPE.GOOGLE{
-                            
                             self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
                             self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
-
-                            
                         }
-                        
-                        
-                        
-                        
-                        
-                        
-                        
                     }
                     
                     }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -502,6 +495,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         })
         
     }
+    
     func segueActionsIfTrainer(dictionary: Dictionary<String, Any>!) {
         print(dictionary)
         
