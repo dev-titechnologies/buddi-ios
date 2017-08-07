@@ -16,6 +16,7 @@ class LeftViewController: UIViewController {
     var objdata = NSData()
     var leftMenuArrayTraineeCopy = [String]()
     var isTraineeAlreadyTrainer = Bool()
+    @IBOutlet weak var profileName: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,10 @@ class LeftViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        profileName.text = appDelegate.userName
+    }
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "blankPageSegue" {

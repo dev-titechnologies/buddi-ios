@@ -47,87 +47,57 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         profileImage.layer.cornerRadius = 60
         profileImage.clipsToBounds = true
-         imagePicker.delegate = self 
-         EditBool = true
-              
-        
-      
-
-        
-        
-       
-        
+        imagePicker.delegate = self
+        EditBool = true
         firstname_txt.isUserInteractionEnabled = false
         lastname_txt.isUserInteractionEnabled = false
         email_txt.isUserInteractionEnabled = false
         mobile_txt.isUserInteractionEnabled = false
         gender_txt.isUserInteractionEnabled = false
         
-        
-        
-        
         if let result = ProfileDB.fetchUser()      {
             if result.count == 0
             {
-                
-                 SVProgressHUD.show()
+                SVProgressHUD.show()
                ProfileDataAPI()
-                
-            
-            }
-            else
-            {
+            }else{
                 print("from db")
                 FetchFromDb()
-                
-                
                 DispatchQueue.global(qos: .background).async {
                     print("This is run on the background queue")
                     
                     self.ProfileDataAPI()
+                }
+                
+                DispatchQueue.main.async {
                     
-                
+                    print("This is run on the main queue, after the previous code in outer block")
                 }
-                    DispatchQueue.main.async {
-                        print("This is run on the main queue, after the previous code in outer block")
-                        
-                       
-                    }
-                }
-                
-     
-            
-        }
-        else
-        {
-            
-             SVProgressHUD.show()
+            }
+        }else{
+            SVProgressHUD.show()
             print("from api")
             ProfileDataAPI()
         }
-        
-        
-
-        
-
     }
+    
     func FetchFromDb() {
         
-        if let result = ProfileDB.fetchUser()      {
-        
-         self.profileArray = result as! Array<ProfileDB>
+        if let result = ProfileDB.fetchUser() {
+            self.profileArray = result as! Array<ProfileDB>
             
             let obj = self.profileArray[0].value(forKey: "firstname")
             print("DBBB",obj!)
-            
-    let profile = ProfileModel(profileImage: self.profileArray[0].value(forKey: "profileImageURL") as! String, firstName: self.profileArray[0].value(forKey: "firstname") as! String,
-        lastName: self.profileArray[0].value(forKey: "lastname") as! String,
-        email: self.profileArray[0].value(forKey: "email") as! String,
-        mobile: self.profileArray[0].value(forKey: "mobile") as! String,
-        gender: self.profileArray[0].value(forKey: "gender") as! String,
-        userid: "")
+   
+            let profile = ProfileModel(profileImage: self.profileArray[0].value(forKey: "profileImageURL") as! String, firstName: self.profileArray[0].value(forKey: "firstname") as! String,
+                                       lastName: self.profileArray[0].value(forKey: "lastname") as! String,
+                                       email: self.profileArray[0].value(forKey: "email") as! String,
+                                       mobile: self.profileArray[0].value(forKey: "mobile") as! String,
+                                       gender: self.profileArray[0].value(forKey: "gender") as! String,
+                                       userid: "")
             
      // profileImage.sd_setImage(with: URL(string: profile.profileImage))
             firstname_txt.text = profile.firstName

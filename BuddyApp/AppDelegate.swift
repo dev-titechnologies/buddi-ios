@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     var UserId = Int()
     var USER_TYPE = String()
     var DeviceToken = String()
+    var userName = String()
+    
     var window: UIWindow?
 
 

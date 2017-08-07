@@ -126,6 +126,6 @@ let trainingDurationArray = ["15 Minutes", "30 Minutes", "1 Hour"]
 let trainingExperienceYearsArray = Array(0...10)
 let trainingExperienceMonthsArray = Array(0...12)
 
-let currentWeightONEArray = Array(100...400)
+let currentWeightONEArray = [100,200,300,400]
 let currentWeightSecondArray = Array(1...50)
 
