@@ -54,9 +54,7 @@ extension AssignedTrainerProfileView: UITableViewDataSource{
         }else{
             let cell: AssignedTrainerEmailCell = tableView.dequeueReusableCell(withIdentifier: "emailCellId") as! AssignedTrainerEmailCell
             return cell
-
         }
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
