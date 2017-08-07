@@ -9,15 +9,23 @@
 import UIKit
 import CoreLocation
 import MapKit
+import GoogleMaps
 
 class ShowTrainersOnMapVC: UIViewController {
 
+    @IBOutlet weak var mapview: GMSMapView!
     var locationManager: CLLocationManager!
     var lat = String()
     var long = String()
+    var mapView = GMSMapView()
+    var jsonarray = NSArray()
+    var jsondict = NSDictionary()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 13.0)
+//        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+//    
 
     }
     
@@ -65,6 +73,22 @@ class ShowTrainersOnMapVC: UIViewController {
                     
                     print(jsondata)
                     
+                    self.jsonarray = jsondata["data"]  as! NSArray
+                    
+                    
+                    for jsondict in self.jsonarray
+                    {
+                    
+                        self.jsondict = jsondict as! NSDictionary
+                        
+                        print(Double(self.jsondict["latitude"] as! String)!)
+                        
+                self.MarkPoints(latitude: Double(self.jsondict["latitude"] as! String)!, logitude: Double(self.jsondict["longitude"] as! String)!)
+                        
+                }
+                    
+                    
+                    
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -95,6 +119,34 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             
             print("**********************")
             
+            
+            
+            // I have taken a pin image which is a custom image
+            let markerImage = UIImage(named: "mapsicon")!.withRenderingMode(.alwaysTemplate)
+            
+            //creating a marker view
+            let markerView = UIImageView(image: markerImage)
+            
+            //changing the tint color of the image
+            markerView.tintColor = UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            
+            
+            //  marker.icon = markerImage
+           
+
+            
+            
+           mapview.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+            
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude:location.coordinate.latitude, longitude: location.coordinate.longitude)
+            
+            
+             marker.iconView = markerView
+            marker.title = "Sydney"
+            marker.snippet = "Australia"
+            marker.map = mapview
+            
             lat = String(location.coordinate.latitude)
             long = String(location.coordinate.longitude)
             
@@ -103,6 +155,46 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             long = "76.9065"
             
             showTrainersList()
+        }
+        
+        
+        locationManager.stopUpdatingLocation()
+        
+        
+        
+        
+        
+    }
+    func MarkPoints(latitude: Double, logitude: Double )
+    {
+        let marker = GMSMarker()
+        
+        
+        
+        // I have taken a pin image which is a custom image
+        let markerImage = UIImage(named: "mapsicon")!.withRenderingMode(.alwaysTemplate)
+        
+        //creating a marker view
+        let markerView = UIImageView(image: markerImage)
+        
+        //changing the tint color of the image
+        markerView.tintColor = UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+
+        marker.position = CLLocationCoordinate2D(latitude:CLLocationDegrees(latitude), longitude:CLLocationDegrees(logitude))
+        
+        
+      
+        
+      //  marker.icon = markerImage
+        marker.iconView = markerView
+        marker.title = "Sydney"
+        marker.snippet = "Australia"
+        marker.map = mapview
+
+    }
+       private func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.authorizedWhenInUse {
+            mapview.isMyLocationEnabled = true
         }
     }
 }

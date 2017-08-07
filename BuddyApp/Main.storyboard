@@ -2959,33 +2959,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hM1-mX-gFb">
-                                <rect key="frame" x="0.0" y="603" width="375" height="64"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="39P-zQ-ytE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="NEXT">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextButtonActions:" destination="Og4-Nq-7KZ" eventType="touchUpInside" id="UHH-oZ-C4J"/>
-                                    <segue destination="chc-2H-Gha" kind="show" id="JmG-dT-Maz"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4QL-IN-MSy" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="4QL-IN-MSy" firstAttribute="leading" secondItem="TbR-AY-BHQ" secondAttribute="leading" id="2VI-kc-wax"/>
+                            <constraint firstItem="2oF-Nb-A5K" firstAttribute="centerY" secondItem="TbR-AY-BHQ" secondAttribute="centerY" constant="258.5" id="V9J-8R-h6i"/>
+                            <constraint firstItem="4QL-IN-MSy" firstAttribute="top" secondItem="nyP-ca-L2r" secondAttribute="bottom" id="cM4-NO-73E"/>
+                            <constraint firstItem="2oF-Nb-A5K" firstAttribute="centerX" secondItem="4QL-IN-MSy" secondAttribute="centerX" id="kA7-LW-h71"/>
+                            <constraint firstItem="3OO-6E-F0a" firstAttribute="top" secondItem="4QL-IN-MSy" secondAttribute="bottom" id="nvL-P1-WY1"/>
+                            <constraint firstAttribute="trailing" secondItem="4QL-IN-MSy" secondAttribute="trailing" id="r3C-7n-DD6"/>
                             <constraint firstItem="3OO-6E-F0a" firstAttribute="top" secondItem="hM1-mX-gFb" secondAttribute="bottom" id="8Ai-zi-Wgr"/>
                             <constraint firstAttribute="trailing" secondItem="hM1-mX-gFb" secondAttribute="trailing" id="9Jv-o6-TuA"/>
                             <constraint firstItem="hM1-mX-gFb" firstAttribute="leading" secondItem="TbR-AY-BHQ" secondAttribute="leading" id="Bqj-A3-jtp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapview" destination="4QL-IN-MSy" id="Z9y-GC-avG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t5J-KQ-bdW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3047" y="-1602"/>
+            <point key="canvasLocation" x="3045.5999999999999" y="-1602.5487256371816"/>
         </scene>
         <!--Assigned Trainer Profile View-->
         <scene sceneID="uPH-Eg-711">
@@ -3889,6 +3887,15 @@
         <segue reference="aeW-2V-3OK"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="pMz-WA-RGb"/>
+        <segue reference="pMz-WA-RGb"/>
+        <segue reference="hJy-Rz-WHD"/>
+        <segue reference="N1B-Ap-4oI"/>
+        <segue reference="Jie-k9-AKK"/>
+        <segue reference="aeW-2V-3OK"/>
+        <segue reference="Jnc-bx-uPX"/>
+        <segue reference="oJI-IR-BP8"/>
+        <segue reference="4n1-m7-OYV"/>
+        <segue reference="FZD-3a-Pg2"/>
         <segue reference="Jnc-bx-uPX"/>
         <segue reference="haF-FG-Ghd"/>
         <segue reference="9VY-QH-Amq"/>

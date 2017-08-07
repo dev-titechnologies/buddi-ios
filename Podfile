@@ -16,6 +16,8 @@ target 'BuddyApp' do
     pod 'SDWebImage', '~>3.8'
     pod 'SVProgressHUD'
     pod 'libPhoneNumber-iOS', '~> 0.9'
+    pod 'GoogleMaps'
+    pod 'GooglePlaces'
 
 
     # pod 'ReachabilitySwift', '~> 2.4'
