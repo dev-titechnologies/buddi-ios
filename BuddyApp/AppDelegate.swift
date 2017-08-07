@@ -13,6 +13,7 @@ import FBSDKLoginKit
 import GoogleSignIn
 import IQKeyboardManagerSwift
 import UserNotifications
+import GoogleMaps
 
 
 @UIApplicationMain
@@ -49,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         }
         
         
+        GMSServices.provideAPIKey("AIzaSyCSZe_BrUnVvqOg4OCQUHY7fFem6bvxOkc")
         GIDSignIn.sharedInstance().clientID = "681481687812-r3p3k9upg22juaq3co7bccqlbn8blhnc.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
    IQKeyboardManager.sharedManager().enable = true
