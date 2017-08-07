@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Unknown constraint types" minToolsVersion="5.1"/>
@@ -3884,6 +3884,15 @@
         <image name="rightArrow" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="haF-FG-Ghd"/>
+        <segue reference="Jnc-bx-uPX"/>
+        <segue reference="hJy-Rz-WHD"/>
+        <segue reference="lS4-X5-YwA"/>
+        <segue reference="9VY-QH-Amq"/>
+        <segue reference="LcX-CV-PIt"/>
+        <segue reference="2VQ-rM-Ru6"/>
+        <segue reference="aeW-2V-3OK"/>
+        <segue reference="hJy-Rz-WHD"/>
         <segue reference="pMz-WA-RGb"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="Jnc-bx-uPX"/>
