@@ -49,6 +49,7 @@
 		F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */; };
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
 		F330A1001F2F731D00C69871 /* BlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F330A0FF1F2F731D00C69871 /* BlankViewController.swift */; };
+		F334D6C01F39B12300435BD2 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F334D6BF1F39B12300435BD2 /* TimerViewController.swift */; };
 		F33ABF6D1F29E5C200DEAE48 /* WaitingForApprovalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */; };
 		F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */; };
 		F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */; };
@@ -198,6 +199,7 @@
 		F322FC6F1F1CEF2200381B8C /* Appconstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appconstants.swift; sourceTree = "<group>"; };
 		F330A0FF1F2F731D00C69871 /* BlankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlankViewController.swift; sourceTree = "<group>"; };
 		F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BuddyApp.entitlements; sourceTree = "<group>"; };
+		F334D6BF1F39B12300435BD2 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForApprovalVC.swift; sourceTree = "<group>"; };
 		F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterChoiceViewController.swift; sourceTree = "<group>"; };
@@ -505,6 +507,14 @@
 			name = Globals;
 			sourceTree = "<group>";
 		};
+		F334D6BE1F39B0AB00435BD2 /* TimerViewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				F334D6BF1F39B12300435BD2 /* TimerViewController.swift */,
+			);
+			name = TimerViewcontroller;
+			sourceTree = "<group>";
+		};
 		F33AE4DD1F2069D000B82E0C /* OTPViewcontroller */ = {
 			isa = PBXGroup;
 			children = (
@@ -643,6 +653,7 @@
 		F3A907761F32E3D900474F5E /* Trainee Pages */ = {
 			isa = PBXGroup;
 			children = (
+				F334D6BE1F39B0AB00435BD2 /* TimerViewcontroller */,
 				F364A8FA1F34B30B0001C570 /* Assigned Trainer Profile View */,
 				F3A9077C1F32EF9100474F5E /* Choose Session and Gender Page */,
 				F3A907781F32E45A00474F5E /* TraineeHomePage.swift */,
@@ -1081,6 +1092,7 @@
 				F316E7F81F22364F00994447 /* Question3VC.swift in Sources */,
 				F364A8FE1F34B36E0001C570 /* AssignedTrainerSocialMediaCell.swift in Sources */,
 				F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */,
+				F334D6C01F39B12300435BD2 /* TimerViewController.swift in Sources */,
 				F302BB921F1F2B5A00186BCC /* LoginModel.swift in Sources */,
 				F39E1EB01F272CCF00DAED93 /* SubmitForAdminApproval.swift in Sources */,
 				F341B0341F28D664007C9AF1 /* UIColorExtension.swift in Sources */,

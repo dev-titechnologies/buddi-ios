@@ -29,8 +29,27 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
     @IBAction func nextButtonActions(_ sender: Any) {
-        performSegue(withIdentifier: "afterChoosingSessionAndGenderSegue", sender: self)
-    }
+        
+        if choosedSessionOfTrainee.isEmpty
+        {
+            
+            
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose a session duration", buttonTitle: "Ok")
+            
+        }
+        else if choosedTrainerGenderOfTrainee.isEmpty
+        {
+             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose a preferred gender", buttonTitle: "Ok")
+            
+        }
+        else
+        {
+            performSegue(withIdentifier: "afterChoosingSessionAndGenderSegue", sender: self)
+
+        }
+        
+        
+           }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
