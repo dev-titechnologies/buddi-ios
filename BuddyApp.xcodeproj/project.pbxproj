@@ -22,6 +22,8 @@
 		F30B60201F1DCEED00374136 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */; };
 		F30B60211F1DCEED00374136 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */; };
 		F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60221F1DD88800374136 /* HomeViewController.swift */; };
+		F315428E1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315428D1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift */; };
+		F31542901F38802E0070EEC6 /* TrainerProfileModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */; };
 		F315E9961F30585700850A44 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = F315E98D1F30585700850A44 /* check.png */; };
 		F315E9971F30585700850A44 /* DropDown_Checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F315E98E1F30585700850A44 /* DropDown_Checked@2x.png */; };
 		F315E9981F30585700850A44 /* DropDown_Done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F315E98F1F30585700850A44 /* DropDown_Done@2x.png */; };
@@ -161,6 +163,8 @@
 		F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		F30B60221F1DD88800374136 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F315428D1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTraineeRouteViewController.swift; sourceTree = "<group>"; };
+		F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileModal.swift; sourceTree = "<group>"; };
 		F315E98D1F30585700850A44 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		F315E98E1F30585700850A44 /* DropDown_Checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DropDown_Checked@2x.png"; sourceTree = "<group>"; };
 		F315E98F1F30585700850A44 /* DropDown_Done@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DropDown_Done@2x.png"; sourceTree = "<group>"; };
@@ -557,6 +561,7 @@
 				F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */,
 				F341B0311F287070007C9AF1 /* VideoURLModel.swift */,
 				F3AF9D421F30661000D0CF05 /* GymModel.swift */,
+				F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -585,6 +590,7 @@
 				F364A8FB1F34B3520001C570 /* AssignedTrainerProfileTableCaptionsCell.swift */,
 				F364A8FD1F34B36E0001C570 /* AssignedTrainerSocialMediaCell.swift */,
 				F364A8FF1F34B3950001C570 /* AssignedTrainerEmailCell.swift */,
+				F315428D1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift */,
 			);
 			name = "Assigned Trainer Profile View";
 			sourceTree = "<group>";
@@ -1001,6 +1007,7 @@
 				F37350991F207A2D00BE9DB6 /* LeftViewController.swift in Sources */,
 				F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */,
 				F316E7F11F2209C000994447 /* SubCategoryTableCell.swift in Sources */,
+				F315428E1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift in Sources */,
 				F3990E1C1F1F6553000FFF7B /* ReviewHistoryDB.swift in Sources */,
 				F37350AD1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift in Sources */,
 				F35FDADF1F1E517C0091900D /* BookingHistoryVC.swift in Sources */,
@@ -1025,6 +1032,7 @@
 				F3A907861F3352DD00474F5E /* ShowTrainersOnMapVC.swift in Sources */,
 				F373509F1F20913800BE9DB6 /* CategoryListCell.swift in Sources */,
 				F3A907801F32F15D00474F5E /* ChooseGenderTableCell.swift in Sources */,
+				F31542901F38802E0070EEC6 /* TrainerProfileModal.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
 				F341B0361F28D80F007C9AF1 /* ColorCodes.swift in Sources */,
 				F316E7EC1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift in Sources */,
