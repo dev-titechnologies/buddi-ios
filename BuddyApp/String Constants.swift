@@ -97,14 +97,14 @@ let ImageArrayTrainee = ["ic_home",
                          "ic_exit_to_app"]
 
 // 8 Values
-let ImageArrayTraineeAndTrainerAlso = ["HOME",
-                         "SETTINGES",
-                         "PAY",
-                         "TRAINING-HISTORY",
-                         "FRIENDS",
-                         "HELP",
-                         "LEGAL",
-                         "LOGOUT"]
+let ImageArrayTraineeAndTrainerAlso = ["ic_home",
+                         "ic_settings",
+                         "ic_payment",
+                         "ic_history",
+                         "ic_people",
+                         "ic_help",
+                         "ic_notifications",
+                         "ic_exit_to_app"]
 
 let weightRangeArray = ["60 - 65",
                         "66 - 70",

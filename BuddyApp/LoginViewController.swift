@@ -59,6 +59,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
         print("GOOGLE DATA ",self.googleUserDictionary)
+        CommonMethods.showProgress()
         self.LoginAPI(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
     }
     
@@ -164,9 +165,16 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
                 if (error == nil){
                     
-                    print("RESULT",result!)
+                    print("RESULT Login",result!)
                     self.fbUserDictionary = result as? NSDictionary
-                    self.LoginAPI(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
+                    
+                    var emailId = ""
+                    if (self.fbUserDictionary["email"] as? String) != nil{
+                        emailId = (self.fbUserDictionary["email"] as? String!)!
+                        print("*** Email present in FB: \(emailId)")
+                    }
+
+                    self.LoginAPI(Email: emailId, Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
                 }else{
                     CommonMethods.hideProgress()
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
@@ -229,7 +237,6 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                         self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
                     }
                     
-//                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.FAIL{
                     
                     if jsondata["status_type"] as? String == "UserNotRegistered" {
