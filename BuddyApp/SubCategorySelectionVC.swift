@@ -78,6 +78,7 @@ class SubCategorySelectionVC: UIViewController {
     }
     
     func loadSelectedSubCategoriesAmong() {
+        selectedSubCategoriesAmongSingleton.removeAll()
         for value in selectedSubCategoriesFromTable{
             selectedSubCategoriesAmongSingleton.append(subCategories[value])
         }

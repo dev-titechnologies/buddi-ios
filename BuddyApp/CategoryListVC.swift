@@ -39,10 +39,12 @@ class CategoryListVC: UIViewController {
             CommonMethods.hidesBackButton(viewController: self, isHide: false)
         }
 
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], headers: nil, onCompletion: { (jsondata) in
             
             print("*** Category Listing Result:",jsondata)
-            
+            CommonMethods.hideProgress()
+
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
@@ -65,6 +67,8 @@ class CategoryListVC: UIViewController {
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
+            }else{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Request timed out", buttonTitle: "Ok")
             }
         })
     }
@@ -86,7 +90,8 @@ class CategoryListVC: UIViewController {
             loadSelectedCategories()
             print("Selected Categories are 111",selectedCategoriesSingleton)
             var subCategoryIDsArray = [String]()
-            
+            selectedSubCategories = [SubCategoryModel]()
+
             for values in selectedCategories{
                 let subcategory = categoriesArray[values].subCategories
                 print("Sub Categories of \(categoriesArray[values].categoryId) are \(subcategory)")

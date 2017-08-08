@@ -131,6 +131,8 @@ class OTPViewController: UIViewController {
                     print("Session Expired")
                     self.dismissOnSessionExpire()
                 }
+            }else{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Request timed out", buttonTitle: "OK")
             }
         })
     }

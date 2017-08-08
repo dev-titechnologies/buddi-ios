@@ -1650,12 +1650,13 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3m3-8h-aIB">
-                                <rect key="frame" x="316" y="609" width="50" height="50"/>
+                                <rect key="frame" x="290" y="609" width="76" height="50"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="Gdx-Oh-LJy"/>
+                                    <constraint firstAttribute="width" constant="76" id="Gdx-Oh-LJy"/>
                                     <constraint firstAttribute="height" constant="50" id="M9h-Fh-uAj"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                                 <state key="normal" title="NEXT">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -4172,10 +4173,23 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GI9-TU-hGk"/>
+        <segue reference="bhW-SL-F38"/>
+        <segue reference="GI9-TU-hGk"/>
+        <segue reference="aeW-2V-3OK"/>
+        <segue reference="hJy-Rz-WHD"/>
+        <segue reference="pMz-WA-RGb"/>
+        <segue reference="Jnc-bx-uPX"/>
+        <segue reference="haF-FG-Ghd"/>
+        <segue reference="9VY-QH-Amq"/>
+        <segue reference="FZD-3a-Pg2"/>
+        <segue reference="oJI-IR-BP8"/>
+        <segue reference="USH-R0-s5v"/>
         <segue reference="21t-ww-Awf"/>
         <segue reference="adG-ob-O6L"/>
         <segue reference="TiO-dc-s3t"/>
         <segue reference="pMz-WA-RGb"/>
+        <segue reference="hJy-Rz-WHD"/>
+        <segue reference="Jnc-bx-uPX"/>
         <segue reference="4nA-c5-JhR"/>
         <segue reference="FZD-3a-Pg2"/>
         <segue reference="hJy-Rz-WHD"/>

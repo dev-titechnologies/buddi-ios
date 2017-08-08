@@ -9,16 +9,18 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/ProfileVC.swift"
-            timestampString = "523198791.490266"
+            filePath = "BuddyApp/CategoryVideoUploadVC.swift"
+            timestampString = "523872477.532356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
-            landmarkName = "EditProfileAPI()"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "subCategoryNextButton(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+<<<<<<< HEAD
+=======
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
@@ -509,5 +511,6 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+>>>>>>> 378ddf698771bbb2030afb68f30517c825ece053
    </Breakpoints>
 </Bucket>

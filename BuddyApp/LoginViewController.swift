@@ -135,6 +135,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             return
         }
         
+//        CommonMethods.showProgress()
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
@@ -142,13 +143,17 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 let fbloginresult : FBSDKLoginManagerLoginResult = result!
                 
                 if (result?.isCancelled)! {
+//                    CommonMethods.hideProgress()
                     return
                 }
                 
                 if(fbloginresult.grantedPermissions.contains("email")){
+                    CommonMethods.showProgress()
                     self.getFBUserData()
                 }
             }else{
+//                CommonMethods.hideProgress()
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
                 print("FB ERROR")
             }
         }
@@ -163,7 +168,9 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     self.fbUserDictionary = result as? NSDictionary
                     self.LoginAPI(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
                 }else{
-                    print("ERROR",error?.localizedDescription)
+                    CommonMethods.hideProgress()
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
+                    print("ERROR123",error?.localizedDescription)
                 }
             })
         }
@@ -233,6 +240,8 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
+            }else{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Request timed out", buttonTitle: "OK")
             }
         })
     }
