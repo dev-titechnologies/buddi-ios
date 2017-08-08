@@ -37,7 +37,7 @@ class CommonMethods: NSObject {
             }
         }
     }
-    
+        
     class func checkStringNull(val: String?) -> String {
         if let value = val {
             return value

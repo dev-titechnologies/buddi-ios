@@ -184,7 +184,7 @@ extension LeftViewController : UITableViewDelegate{
                 if isTraineeAlreadyTrainer{
                     //Already a Trainer
                     print("Payment Method")
-                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                    self.performSegue(withIdentifier: "addPaymentMethodSegue", sender: self)
 
                 }else{
                     print("Become a Trainer")
@@ -198,7 +198,7 @@ extension LeftViewController : UITableViewDelegate{
                     self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 }else{
                     print("Payment Method")
-                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                    self.performSegue(withIdentifier: "addPaymentMethodSegue", sender: self)
                 }
                 
             case 4:

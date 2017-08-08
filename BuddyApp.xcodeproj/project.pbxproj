@@ -118,6 +118,7 @@
 		F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7D1F20F8BE00D51277 /* String Constants.swift */; };
 		F3FC70E81F2EFBC800B54A79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3FC70E71F2EFBC800B54A79 /* Main.storyboard */; };
 		F3FC70EB1F2F39DF00B54A79 /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */; };
+		F3FD7DD91F38321C00986815 /* AddPaymentMethodVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FD7DD81F38321C00986815 /* AddPaymentMethodVC.swift */; };
 		F3FF03E11F285F6700D4DD0D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FF03E01F285F6700D4DD0D /* StringExtension.swift */; };
 		F3FF03E31F285F8200D4DD0D /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FF03E21F285F8200D4DD0D /* DataExtension.swift */; };
 		F48562D84E3A72F7B5164F69 /* Pods_BuddyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C97FF2CF38BCAC9F612A54 /* Pods_BuddyAppTests.framework */; };
@@ -258,6 +259,7 @@
 		F3F77C7D1F20F8BE00D51277 /* String Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String Constants.swift"; sourceTree = "<group>"; };
 		F3FC70E71F2EFBC800B54A79 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
+		F3FD7DD81F38321C00986815 /* AddPaymentMethodVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentMethodVC.swift; sourceTree = "<group>"; };
 		F3FF03E01F285F6700D4DD0D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		F3FF03E21F285F8200D4DD0D /* DataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -598,8 +600,8 @@
 		F373509A1F207A3800BE9DB6 /* Home Page */ = {
 			isa = PBXGroup;
 			children = (
-				F37350961F207A2D00BE9DB6 /* LeftMenuTableCell.swift */,
-				F37350971F207A2D00BE9DB6 /* LeftViewController.swift */,
+				F3FD7DDA1F38383800986815 /* Left Menu */,
+				F3FD7DD71F3831E700986815 /* Add Payment Method */,
 				F30B60221F1DD88800374136 /* HomeViewController.swift */,
 				F330A0FF1F2F731D00C69871 /* BlankViewController.swift */,
 			);
@@ -682,6 +684,23 @@
 				F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */,
 			);
 			name = "Forgot Password";
+			sourceTree = "<group>";
+		};
+		F3FD7DD71F3831E700986815 /* Add Payment Method */ = {
+			isa = PBXGroup;
+			children = (
+				F3FD7DD81F38321C00986815 /* AddPaymentMethodVC.swift */,
+			);
+			name = "Add Payment Method";
+			sourceTree = "<group>";
+		};
+		F3FD7DDA1F38383800986815 /* Left Menu */ = {
+			isa = PBXGroup;
+			children = (
+				F37350961F207A2D00BE9DB6 /* LeftMenuTableCell.swift */,
+				F37350971F207A2D00BE9DB6 /* LeftViewController.swift */,
+			);
+			name = "Left Menu";
 			sourceTree = "<group>";
 		};
 		F3FF03DF1F285F4200D4DD0D /* Extensions */ = {
@@ -782,12 +801,11 @@
 					F322FC4F1F1CE62400381B8C = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 7QVT6YDQZ2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						TestTargetID = F322FC381F1CE62000381B8C;
 					};
 					F322FC5A1F1CE62400381B8C = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 7QVT6YDQZ2;
 						ProvisioningStyle = Automatic;
 						TestTargetID = F322FC381F1CE62000381B8C;
 					};
@@ -1013,6 +1031,7 @@
 				F35FDADF1F1E517C0091900D /* BookingHistoryVC.swift in Sources */,
 				F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */,
 				F3D0EF421F289C3C009B60E7 /* ProfileImageDB.swift in Sources */,
+				F3FD7DD91F38321C00986815 /* AddPaymentMethodVC.swift in Sources */,
 				F3D0EF431F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift in Sources */,
 				F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */,
 				F316E7EE1F21BF6E00994447 /* SubCategoryModel.swift in Sources */,
@@ -1143,9 +1162,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Info Ti Technologies (74E64HKFV4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Info Ti Technologies (74E64HKFV4)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1165,6 +1186,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1193,9 +1216,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: DEEPU ZACHARIA (7QVT6YDQZ2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: DEEPU ZACHARIA (7QVT6YDQZ2)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1208,6 +1233,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = BuddyAppAdHoc;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -1218,8 +1245,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C276C8A416D6B1AE85D80F46 /* Pods-BuddyApp.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Info Ti Technologies (74E64HKFV4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1244,8 +1273,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6716F58A837D4C72CA9FBE88 /* Pods-BuddyApp.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: DEEPU ZACHARIA (7QVT6YDQZ2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1272,7 +1303,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BuddyAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppTests;
@@ -1289,7 +1321,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BuddyAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppTests;
@@ -1306,7 +1339,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BuddyAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppUITests;
@@ -1323,7 +1356,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BuddyAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppUITests;

@@ -14,6 +14,31 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Braintree-Braintree-Drop-In-Localization.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Braintree-Braintree-UI-Localization.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Braintree.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>BraintreeDropIn-Braintree-UIKit-Localization.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>BraintreeDropIn.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CountryPickerSwift-CountryPicker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,12 +112,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>071988BC0E6E8C2E371A8AAA8CDE7C81</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>107A9565F9DF88517DFD3E28C05B2B96</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1563F5690FD1A3BEDF50EC72ED0D45B9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1E0CFE680C24070BC13172C74DE84E7E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>296D8032D191933F805CC1B45CBF63FC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>312B3E952FE0D7D7ECFB3CFF8C2E6CD1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,6 +172,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>869E615C8531BD3E053C61D3B5D13485</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>86A815B0D02089D55C430233E96261BE</key>
 		<dict>
 			<key>primary</key>
@@ -152,7 +202,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>ADF0DC2A0B77AF29AC83587513649EE6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B1C4AAFAF49036C7007633DAA3C806AD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B392A75949C2E2CC78856A180E92BBE7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B7F9C17EEF35B1512FDCE8283D7E6ACC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B99B1C9286F23A2C3898F225F464CFE7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BC672EBF510D3D0A90489ABF7354C7D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

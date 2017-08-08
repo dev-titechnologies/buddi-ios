@@ -66,7 +66,9 @@ class SubCategorySelectionVC: UIViewController {
 
     @IBAction func nextButtonAction(_ sender: Any) {
         
-        if txtCurrentWeight.text == "" || !isAnsweredLostOrGainWeight{
+        if selectedSubCategoriesFromTable.count == 0 {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose atleast a subcategory", buttonTitle: "OK")
+        }else if txtCurrentWeight.text == "" || !isAnsweredLostOrGainWeight{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ANSWER_ABOVE_QUESTIONS, buttonTitle: "OK")
         }else{
             trainerTestAnswers.currentWeight = txtCurrentWeight.text!

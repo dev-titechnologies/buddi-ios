@@ -14,6 +14,8 @@ import GoogleSignIn
 import IQKeyboardManagerSwift
 import UserNotifications
 import GoogleMaps
+import Braintree
+import BraintreeDropIn
 
 
 @UIApplicationMain
@@ -55,13 +57,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         GMSServices.provideAPIKey("AIzaSyCSZe_BrUnVvqOg4OCQUHY7fFem6bvxOkc")
         GIDSignIn.sharedInstance().clientID = "681481687812-r3p3k9upg22juaq3co7bccqlbn8blhnc.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
-   IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().enable = true
         
+//        BTAppSwitch.setReturnURLScheme("com.titechnologies.BuddyApp.payments")
+
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-
     }
+    
+//    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+//        if url.scheme?.localizedCaseInsensitiveCompare("com.titechnologies.BuddyApp.payments") == .orderedSame {
+//            return BTAppSwitch.handleOpen(url, options: options)
+//        }
+//        return false
+//    }
+    
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
         let googleDidHandle = GIDSignIn.sharedInstance().handle(url as URL!,
@@ -73,6 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             open: url as URL!,
             sourceApplication: sourceApplication,
             annotation: annotation)
+        
         
         return googleDidHandle || facebookDidHandle
     }

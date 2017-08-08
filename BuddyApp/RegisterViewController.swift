@@ -457,8 +457,9 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                     
                     if let url = URL(string:(self.jsondict["user_image"] as? String)!){
                         print("Image URL:", url)
-                        let data = NSData.init(contentsOf: url)
-                        ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
+                        if let data = NSData.init(contentsOf: url) {
+                            ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data)
+                        }
                     }
                     
                     if self.UserType == "trainer" {
@@ -487,13 +488,11 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                             self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
                         }
                     }
-                    
-                    }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
             }
         })
-        
     }
     
     func segueActionsIfTrainer(dictionary: Dictionary<String, Any>!) {
