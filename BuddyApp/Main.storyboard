@@ -1650,12 +1650,13 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3m3-8h-aIB">
-                                <rect key="frame" x="316" y="609" width="50" height="50"/>
+                                <rect key="frame" x="290" y="609" width="76" height="50"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="Gdx-Oh-LJy"/>
+                                    <constraint firstAttribute="width" constant="76" id="Gdx-Oh-LJy"/>
                                     <constraint firstAttribute="height" constant="50" id="M9h-Fh-uAj"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                                 <state key="normal" title="NEXT">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -2573,7 +2574,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3457,7 +3458,7 @@
         <scene sceneID="jC1-lN-15y">
             <objects>
                 <navigationController navigationBarHidden="YES" id="LLd-uo-cBv" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKN-vf-25e">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CKN-vf-25e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -4067,11 +4068,11 @@
         <image name="rightArrow" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="21t-ww-Awf"/>
+        <segue reference="bhW-SL-F38"/>
+        <segue reference="GI9-TU-hGk"/>
         <segue reference="adG-ob-O6L"/>
         <segue reference="pMz-WA-RGb"/>
         <segue reference="TiO-dc-s3t"/>
-        <segue reference="GI9-TU-hGk"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="Jnc-bx-uPX"/>
         <segue reference="4nA-c5-JhR"/>

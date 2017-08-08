@@ -20,9 +20,10 @@ let SUCCESSFULLY_SENT_PASSWORD = "A link to reset your password has been sent to
 let SUCCESSFULLY_LOGGED_IN = "Welcome user"
 let UPLOAD_VIDEO_MINIMUM_DURATION = "Please upload a video of 30 seconds minimum duration"
 let UPLOAD_VIDEO_MAXIMUM_DURATION = "Please upload a video of 90 seconds maximum duration"
+let REQUEST_TIMED_OUT = "Request timed out"
 
 
-let VIDEO_DESC = "*Videos should be anywhere between 30-90 seconds long. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
+let VIDEO_DESC = "*Videos should be anywhere between 0-90 seconds long. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 
 let SQUAT_MALE_DESC = "Video 1: Record yourself doing 1 rep with 135lb on the bar from 2 different angles.\nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles."
 let SQUAT_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 95lb on the bar from 2 different angles.\nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar form 2 different angles."

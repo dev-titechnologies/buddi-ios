@@ -297,6 +297,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
     
     @IBAction func Facebook_register(_ sender: Any) {
+//        CommonMethods.showProgress()
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
@@ -304,14 +305,17 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 let fbloginresult : FBSDKLoginManagerLoginResult = result!
                 
                 if (result?.isCancelled)! {
+//                    CommonMethods.hideProgress()
                     return
                 }
-                if(fbloginresult.grantedPermissions.contains("email"))
-                {
-                    
-                     SVProgressHUD.show()
+                if(fbloginresult.grantedPermissions.contains("email")){
+                    CommonMethods.showProgress()
                     self.getFBUserData()
                 }
+            }else{
+//                CommonMethods.hideProgress()
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
+                print("FB ERROR")
             }
         }
     }
@@ -398,19 +402,10 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                      self.fbUserDictionary = result as? NSDictionary
                     
                     self.LoginAPI(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
-                    
-                    
-                    
-//                    
-//                     self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
-//                    self.lastname_txt.text = (self.fbUserDictionary["last_name"] as? String)!
-//                    self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
-//                    
-//                    self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
-//                    
-//                    print("PROFILE IMAGE ",self.profileImageURL)
-                   
-                    SVProgressHUD.dismiss()
+                }else{
+                    CommonMethods.hideProgress()
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
+                    print("ERROR123",error?.localizedDescription)
                 }
             })
         }

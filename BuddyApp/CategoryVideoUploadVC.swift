@@ -42,7 +42,8 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        btnNext.isEnabled = false
+        print("Singleton SubCateg count :\(selectedSubCategoriesAmongSingleton.count)")
+        btnNext.isHidden = true
         subcategories = selectedSubCategoriesAmongSingleton
         lblMainDescription.text = VIDEO_DESC
         loadSubCategoryDetailsInitially()
@@ -103,12 +104,16 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     @IBAction func subCategoryNextButton(_ sender: Any) {
         
         subCategoryIndex += 1
+        print("subCategoryIndex:\(subCategoryIndex)")
+        print("subcategories Count:\(subcategories.count)")
+
         if subCategoryIndex == subcategories.count{
             userDefaults.setValue(1, forKey: "pendingCategoryCount")
             //Server call for Submit for Admin Approval
             initializaionForAdminApproval()
-        }else{
-            btnNext.isEnabled = false
+        }else if subCategoryIndex < subcategories.count{
+//            btnNext.isEnabled = false
+            btnNext.isHidden = true
             displayDetails(subCategoryName: subcategories[subCategoryIndex].subCategoryName)
         }
     }
@@ -292,7 +297,8 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                                 self.ResponseVideoURL = (jsonDic["Url"] as? String)!
                                 self.loadSubCategoryURLToSingletonArray(videoURL: self.ResponseVideoURL)
                                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: VIDEO_UPLOADED_SUCCESSFULLY, buttonTitle: "Ok")
-                                self.btnNext.isEnabled = true
+                                self.btnNext.isHidden = false
+//                                self.btnNext.isEnabled = true
                             }else if status == RESPONSE_STATUS.FAIL{
                                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsonDic["message"] as? String, buttonTitle: "OK")
                             }else if status == RESPONSE_STATUS.SESSION_EXPIRED {
