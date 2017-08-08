@@ -20,6 +20,9 @@ class ShowTrainersOnMapVC: UIViewController {
     var mapView = GMSMapView()
     var jsonarray = NSArray()
     var jsondict = NSDictionary()
+    var TrainerProfileDictionary: NSDictionary!
+    
+    let TrainerprofileDetails : TrainerProfileModal = TrainerProfileModal()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +30,9 @@ class ShowTrainersOnMapVC: UIViewController {
 //        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
 //    
 
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +50,72 @@ class ShowTrainersOnMapVC: UIViewController {
         }
     }
     
+    @IBAction func Next_action(_ sender: Any) {
+        
+        CommonMethods.showProgress()
+        
+        RandomSelectTrainer()
+    }
+    
+    func RandomSelectTrainer()
+    {
+        
+        let headers = [
+            "token":appDelegate.Usertoken]
+        
+        let parameters = ["user_id" : appDelegate.UserId,
+                          "gender" : choosedTrainerGenderOfTrainee,
+                          "category" : choosedCategoryOfTrainee.categoryId,
+                          "latitude" : lat,
+                          "longitude" : long,
+                          "duration" : choosedSessionOfTrainee
+            ] as [String : Any]
+        
+        print("Header:\(headers)")
+        print("Params:\(parameters)")
+        
+        CommonMethods.serverCall(APIURL: RANDOM_SELECTOR, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+            
+            print("*** Random Trainer Result:",jsondata)
+            
+            guard (jsondata["status"] as? Int) != nil else {
+                 CommonMethods.hideProgress()
+                
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                  //  print(jsondata)
+                    
+                    
+                    CommonMethods.hideProgress()
+                    
+                    self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
+                    
+                    
+                  //  self.TrainerprofileDetails.getTrainerProfileModelFromDict(dictionary: jsondata["data"] as? NSDictionary as! Dictionary<String, Any>)
+                    
+//                     let modelObject = self.TrainerprofileDetails.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+//                    
+                    
+                    self.performSegue(withIdentifier: "totrainerprofile", sender: self)
+                    
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                     CommonMethods.hideProgress()
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                     CommonMethods.hideProgress()
+                    self.dismissOnSessionExpire()
+                }
+            }
+        })
+
+        
+    }
     func showTrainersList() {
         
         let headers = [
@@ -101,6 +173,20 @@ class ShowTrainersOnMapVC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "totrainerprofile"
+        {
+            
+            let TrainerProPage =  segue.destination as! AssignedTrainerProfileView
+        
+        TrainerProPage.TrainerprofileDictionary = self.TrainerProfileDictionary
+            
+        }
+            
+        
+    }
+
     
 }
 
@@ -118,7 +204,27 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             print("Accu \(location.horizontalAccuracy)")
             
             print("**********************")
+//            let marker = GMSMarker()
+//            
+//            let userPath = GMSMutablePath()
+//            
+//            userPath.add(location.coordinate) //userPath -> GMSMutablePath
+//            let polyline = GMSPolyline(path: userPath)
+//            polyline.strokeColor = UIColor.red
+//            polyline.strokeWidth = 5
+//            CATransaction.begin()
+//            CATransaction.setAnimationDuration(2.0)
+//            marker.position = location.coordinate
+//            marker.rotation = location.course
+//            polyline.map = self.mapview
+//            CATransaction.commit()
+//            
             
+            
+            
+            
+            
+
             
             
             // I have taken a pin image which is a custom image
@@ -138,8 +244,13 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             
            mapview.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
             
+            
+            
+            
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude:location.coordinate.latitude, longitude: location.coordinate.longitude)
+            
+            
             
             
              marker.iconView = markerView

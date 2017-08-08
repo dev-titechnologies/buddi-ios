@@ -20,11 +20,32 @@ class AssignedTrainerProfileView: UIViewController {
     @IBOutlet weak var trainerDescriptionTable: UITableView!
     
     var assignedTrainerProfileView = [String]()
+    var TrainerprofileDictionary: NSDictionary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         assignedTrainerProfileView = ["Gym Subscriptions", "Training Category", "Training History", "Coaching History", "Certifications"]
+        
+        
+        
+        print(self.TrainerprofileDictionary)
+        
+ lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + (self.TrainerprofileDictionary["last_name"] as? String)!
+        
+        
+        lblTrainerAge.text =  CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["age"] as? String)
+        lblTrainerHeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["height"] as? String)
+        lblTrainerWeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["weight"] as? String)
+        
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,6 +64,8 @@ extension AssignedTrainerProfileView: UITableViewDataSource{
         
         if indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3 || indexPath.row == 4 {
             let cell: AssignedTrainerProfileTableCaptionsCell = tableView.dequeueReusableCell(withIdentifier: "captionCellId") as! AssignedTrainerProfileTableCaptionsCell
+            
+            cell.title_lbl.text = assignedTrainerProfileView[indexPath.row]
             
             
             return cell

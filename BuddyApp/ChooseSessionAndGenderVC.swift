@@ -129,11 +129,20 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
 extension ChooseSessionAndGenderVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 0
+        {
+            sessionChoosed = indexPath.row
+            chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 0), with: .automatic)
+            choosedSessionOfTrainee = trainingDurationArray[indexPath.row]
+            print("Choosed Session:\(choosedSessionOfTrainee)")
+        }
+        else
+        {
+            
+        }
 
-        sessionChoosed = indexPath.row
-        chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 0), with: .automatic)
-        choosedSessionOfTrainee = trainingDurationArray[indexPath.row]
-        print("Choosed Session:\(choosedSessionOfTrainee)")
+       
     }
 }
 

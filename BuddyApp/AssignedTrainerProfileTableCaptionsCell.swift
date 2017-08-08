@@ -10,6 +10,7 @@ import UIKit
 
 class AssignedTrainerProfileTableCaptionsCell: UITableViewCell {
 
+    @IBOutlet weak var title_lbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
