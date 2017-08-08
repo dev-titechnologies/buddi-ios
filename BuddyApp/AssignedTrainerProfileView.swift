@@ -52,6 +52,11 @@ class AssignedTrainerProfileView: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    @IBAction func Cancel_action(_ sender: Any) {
+        
+        self.navigationController?.popViewController(animated: true)
+        
+    }
 }
 
 extension AssignedTrainerProfileView: UITableViewDataSource{

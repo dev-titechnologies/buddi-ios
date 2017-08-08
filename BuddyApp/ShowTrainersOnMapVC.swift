@@ -46,6 +46,13 @@ class ShowTrainersOnMapVC: UIViewController {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             self.locationManager.requestAlwaysAuthorization()
+            
+            
+        self.mapview?.isMyLocationEnabled = true
+
+            
+            
+            
             locationManager.startUpdatingLocation()
         }
     }
@@ -204,28 +211,6 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             print("Accu \(location.horizontalAccuracy)")
             
             print("**********************")
-//            let marker = GMSMarker()
-//            
-//            let userPath = GMSMutablePath()
-//            
-//            userPath.add(location.coordinate) //userPath -> GMSMutablePath
-//            let polyline = GMSPolyline(path: userPath)
-//            polyline.strokeColor = UIColor.red
-//            polyline.strokeWidth = 5
-//            CATransaction.begin()
-//            CATransaction.setAnimationDuration(2.0)
-//            marker.position = location.coordinate
-//            marker.rotation = location.course
-//            polyline.map = self.mapview
-//            CATransaction.commit()
-//            
-            
-            
-            
-            
-            
-
-            
             
             // I have taken a pin image which is a custom image
             let markerImage = UIImage(named: "mapsicon")!.withRenderingMode(.alwaysTemplate)
@@ -236,40 +221,32 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             //changing the tint color of the image
             markerView.tintColor = UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 1.0)
             
-            
-            //  marker.icon = markerImage
-           
-
-            
-            
-           mapview.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
-            
-            
-            
-            
+           mapview.camera = GMSCameraPosition(target: location.coordinate, zoom: 18, bearing: 0, viewingAngle: 0)
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude:location.coordinate.latitude, longitude: location.coordinate.longitude)
             
-            
-            
-            
-             marker.iconView = markerView
-            marker.title = "Sydney"
-            marker.snippet = "Australia"
-            marker.map = mapview
+//             marker.iconView = markerView
+//            marker.title = "Sydney"
+//            marker.snippet = "Australia"
+//            marker.map = mapview
             
             lat = String(location.coordinate.latitude)
             long = String(location.coordinate.longitude)
             
-            //For Demo
-            lat = "8.9300"
-            long = "76.9065"
+//            //For Demo
+//            lat = "8.9300"
+//            long = "76.9065"
+            
+
+            self.locationManager.stopUpdatingLocation()
+            
+            
             
             showTrainersList()
         }
         
         
-        locationManager.stopUpdatingLocation()
+       
         
         
         
@@ -304,6 +281,7 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
 
     }
        private func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        mapview.isMyLocationEnabled = true
         if status == CLAuthorizationStatus.authorizedWhenInUse {
             mapview.isMyLocationEnabled = true
         }
