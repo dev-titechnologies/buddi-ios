@@ -79,7 +79,7 @@ class ViewController: UIViewController {
         if approvedCount > 0 {
             print("*** Approved Categories Present ****")
             //Need to redirect to Home Screen
-            self.performSegue(withIdentifier: "tohome", sender: self)
+            self.performSegue(withIdentifier: "splashToTrainerHomePageSegue", sender: self)
         }else if pendingCount > 0 && approvedCount == 0 {
             print("*** Pending Categories Present ****")
             //Redirect to Waiting for Approval Page

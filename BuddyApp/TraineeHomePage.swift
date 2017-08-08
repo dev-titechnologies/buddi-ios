@@ -19,15 +19,23 @@ class TraineeHomePage: UIViewController {
     fileprivate var deSelectedCategory = [Int]()
     fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     fileprivate let itemsPerRow: CGFloat = 2
+    @IBOutlet weak var imgInstantBooking: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         getCategoryList()
         selectedCategory.removeAll()
+    }
+    
+    func loadInstantBookingImage() {
+        
+        imgInstantBooking.layer.cornerRadius = imgInstantBooking.frame.size.width / 2
+        imgInstantBooking.sd_setImage(with: URL(string: "http://git.titechnologies.in:4001/images/category/instant-booking.png"), placeholderImage: UIImage(named: ""))
     }
     
     func getCategoryList() {

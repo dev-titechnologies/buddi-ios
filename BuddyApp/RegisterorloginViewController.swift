@@ -56,13 +56,13 @@ class RegisterorloginViewController: UIViewController,UIScrollViewDelegate{
         //        self.startButton.layer.cornerRadius = 4.0
         //3
         let imgOne = UIImageView(frame: CGRect(x:0, y:0,width:scrollViewWidth, height:scrollViewHeight))
-        imgOne.image = UIImage(named: "Splash_Screen")
+        imgOne.image = UIImage(named: "Splash_Screen1")
         let imgTwo = UIImageView(frame: CGRect(x:scrollViewWidth, y:0,width:scrollViewWidth, height:scrollViewHeight))
-        imgTwo.image = UIImage(named: "Splash_Screen")
+        imgTwo.image = UIImage(named: "Splash_Screen1")
         let imgThree = UIImageView(frame: CGRect(x:scrollViewWidth*2, y:0,width:scrollViewWidth, height:scrollViewHeight))
-        imgThree.image = UIImage(named: "Splash_Screen")
+        imgThree.image = UIImage(named: "Splash_Screen1")
         let imgFour = UIImageView(frame: CGRect(x:scrollViewWidth*3, y:0,width:scrollViewWidth, height:scrollViewHeight))
-        imgFour.image = UIImage(named: "Splash_Screen")
+        imgFour.image = UIImage(named: "Splash_Screen1")
         
         self.scrollview.addSubview(imgOne)
         self.scrollview.addSubview(imgTwo)

@@ -18,6 +18,8 @@ target 'BuddyApp' do
     pod 'libPhoneNumber-iOS', '~> 0.9'
     pod 'GoogleMaps'
     pod 'GooglePlaces'
+    pod 'Braintree'
+    pod 'BraintreeDropIn'
 
 
     # pod 'ReachabilitySwift', '~> 2.4'

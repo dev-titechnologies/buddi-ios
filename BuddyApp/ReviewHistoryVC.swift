@@ -34,7 +34,7 @@ class ReviewHistoryVC: UIViewController {
         }
         
         let parameters = ["user_id":"21","user_type":"trainee"]
-        let headers = ["token":"e059760236120b73def591b5"]
+        let headers = ["token":appDelegate.Usertoken]
         
         CommonMethods.serverCall(APIURL: REVIEW_HISTORY_URL, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
             

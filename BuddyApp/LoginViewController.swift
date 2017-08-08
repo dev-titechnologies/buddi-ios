@@ -64,7 +64,6 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func forgotpq_action(_ sender: Any) {
@@ -212,8 +211,9 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     
                     if let url = URL(string:(self.jsondict["user_image"] as? String)!){
                         print("Image URL:", url)
-                        let data = NSData.init(contentsOf: url)
-                        ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data!)
+                        if let data = NSData.init(contentsOf: url){
+                            ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data)
+                        }
                     }
                     
                     if self.UserType == "trainer" {
@@ -253,7 +253,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             if approvedCount > 0 {
                 print("*** Approved Categories Present ****")
                 //Need to redirect to Home Screen
-                self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
+                self.performSegue(withIdentifier: "loginToTrainerHomePage", sender: self)
             }
         }
         
