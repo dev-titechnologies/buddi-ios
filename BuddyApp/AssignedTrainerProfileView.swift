@@ -19,6 +19,7 @@ class AssignedTrainerProfileView: UIViewController {
     @IBOutlet weak var lblMeetingDescription: UILabel!
     @IBOutlet weak var trainerDescriptionTable: UITableView!
     
+    @IBOutlet weak var reviewview: UIView!
     var assignedTrainerProfileView = [String]()
     var TrainerprofileDictionary: NSDictionary!
     
@@ -31,7 +32,7 @@ class AssignedTrainerProfileView: UIViewController {
         
         print(self.TrainerprofileDictionary)
         
- lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + (self.TrainerprofileDictionary["last_name"] as? String)!
+ lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + " " + (self.TrainerprofileDictionary["last_name"] as? String)!
         
         
         lblTrainerAge.text =  CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["age"] as? String)
@@ -54,11 +55,19 @@ class AssignedTrainerProfileView: UIViewController {
     
     @IBAction func Cancel_action(_ sender: Any) {
         
-        self.navigationController?.popViewController(animated: true)
+      //  self.navigationController?.popViewController(animated: true)
         
-    }
+        let bgview = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width , height: self.view.frame.height))
+        
+        bgview.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.3)
+        
+        self.reviewview.isHidden = false
+        bgview.addSubview(reviewview)
+        self.view.addSubview(bgview)
+        
+    
 }
-
+}
 extension AssignedTrainerProfileView: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

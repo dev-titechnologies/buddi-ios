@@ -62,6 +62,17 @@ class ShowTrainersOnMapVC: UIViewController {
         CommonMethods.showProgress()
         
         RandomSelectTrainer()
+        
+//        let bgview = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width , height: self.view.frame.height))
+//        
+//        bgview.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.3)
+//        
+//        self.view.addSubview(bgview)
+//        
+
+        
+        
+        
     }
     
     func RandomSelectTrainer()

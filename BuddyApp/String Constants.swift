@@ -8,7 +8,7 @@
 
 import Foundation
 
-let ALERT_TITLE = "BuddyApp"
+let ALERT_TITLE = "Buddi"
 let SERVER_NOT_RESPONDING = "Server not responding"
 let PLEASE_ENTER_ZIPCODE = "Please enter ZipCode"
 let PLEASE_ANSWER_ABOVE_QUESTIONS = "Please answer to all questions"
