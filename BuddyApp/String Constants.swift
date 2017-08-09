@@ -122,7 +122,7 @@ let trainingExperienceArray = ["< 1","1 - 2","2 - 3","3 - 4","4 - 5","5 - 6", "6
 let trainingExperienceOrderedSet = NSMutableOrderedSet(array: trainingExperienceArray, copyItems: true)
 let weightRangeOrderedSet = NSMutableOrderedSet(array: weightRangeArray, copyItems: true)
 
-let trainingDurationArray = ["15 Minutes", "30 Minutes", "1 Hour"]
+let trainingDurationArray = ["30 Minutes", "1 Hour"]
 
 let trainingExperienceYearsArray = Array(0...10)
 let trainingExperienceMonthsArray = Array(0...12)

@@ -20,7 +20,7 @@ target 'BuddyApp' do
     pod 'GooglePlaces'
     pod 'Braintree'
     pod 'BraintreeDropIn'
-
+    pod 'Socket.IO-Client-Swift'
 
     # pod 'ReachabilitySwift', '~> 2.4'
     #pod 'Alamofire-SwiftyJSON'

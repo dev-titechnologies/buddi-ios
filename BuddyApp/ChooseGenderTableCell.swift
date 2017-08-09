@@ -10,6 +10,7 @@ import UIKit
 
 class ChooseGenderTableCell: UITableViewCell {
 
+    @IBOutlet weak var btnNopreferance: UIButton!
     @IBOutlet weak var btnMale: UIButton!
     @IBOutlet weak var btnFemale: UIButton!
     
@@ -18,17 +19,28 @@ class ChooseGenderTableCell: UITableViewCell {
         
         btnMale.backgroundColor = .white
         btnFemale.backgroundColor = .white
+        btnNopreferance.backgroundColor = .white
     }
 
+    @IBAction func NoPreferaceAction(_ sender: Any) {
+        
+        btnNopreferance.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+        btnFemale.backgroundColor = .white
+        btnMale.backgroundColor = .white
+        choosedTrainerGenderOfTrainee = "no preferance"
+        
+    }
     @IBAction func btnMaleAction(_ sender: Any) {
         
         btnMale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-        btnFemale.backgroundColor = .white
+        btnNopreferance.backgroundColor = .white
+         btnFemale.backgroundColor = .white
         choosedTrainerGenderOfTrainee = "male"
     }
     
     @IBAction func btnFemaleAction(_ sender: Any) {
         btnMale.backgroundColor = .white
+        btnNopreferance.backgroundColor = .white
         btnFemale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         choosedTrainerGenderOfTrainee = "female"
 

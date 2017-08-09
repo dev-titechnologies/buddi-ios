@@ -91,6 +91,7 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
             
             genderCell.btnMale.addShadowView()
             genderCell.btnFemale.addShadowView()
+            genderCell.btnNopreferance.addShadowView()
             
             return genderCell
         }
@@ -138,7 +139,18 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if collapseArray[indexPath.section]{
-            return 60
+            
+            if indexPath.section == 0
+            {
+              return 60
+            }
+            else
+            {
+                return 114
+            }
+            
+            
+            
         }else{
             return 0
         }
@@ -148,18 +160,13 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
 extension ChooseSessionAndGenderVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if indexPath.section == 0
-        {
+       
             sessionChoosed = indexPath.row
             chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 0), with: .automatic)
             choosedSessionOfTrainee = trainingDurationArray[indexPath.row]
             print("Choosed Session:\(choosedSessionOfTrainee)")
-        }
-        else
-        {
-            
-        }
+        
+        
 
        
     }

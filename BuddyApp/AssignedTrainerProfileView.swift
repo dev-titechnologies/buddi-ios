@@ -61,6 +61,8 @@ class AssignedTrainerProfileView: UIViewController {
         
         bgview.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.3)
         
+        self.reviewview.frame =  CGRect(x: 40, y: 40, width: self.view.frame.width , height: self.view.frame.height)
+        
         self.reviewview.isHidden = false
         bgview.addSubview(reviewview)
         self.view.addSubview(bgview)
