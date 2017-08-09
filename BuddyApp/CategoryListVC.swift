@@ -22,6 +22,7 @@ class CategoryListVC: UIViewController {
     fileprivate let reuseIdentifier = "categoryListCellId"
     fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     fileprivate let itemsPerRow: CGFloat = 2
+    var approvedCategoriesIdArray = [String]()
     
     var isBackButtonHidden = Bool()
 
@@ -39,17 +40,25 @@ class CategoryListVC: UIViewController {
             CommonMethods.hidesBackButton(viewController: self, isHide: false)
         }
 
+        self.approvedCategoriesIdArray = userDefaults.stringArray(forKey: "approvedOrPendingCategoriesIdArray") ?? [String]()
+        print("ApprovedCategories ID retrieved from userdefaults:\(self.approvedCategoriesIdArray)")
+
+        listCategoryServerCall()
+    }
+    
+    func listCategoryServerCall() {
+        
         CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], headers: nil, onCompletion: { (jsondata) in
             
             print("*** Category Listing Result:",jsondata)
             CommonMethods.hideProgress()
-
+            
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
             }
-                        
+            
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
@@ -58,12 +67,32 @@ class CategoryListVC: UIViewController {
                     print("*** Categories:",categories)
                     print("*** SubCategories:",subcategories)
                     
-                    self.categoriesArray = categories
+                    //Remove approved categories from listing
+                    self.categoriesArray.removeAll()
+                    var isCategoryAlreadyApproved = false
+                    
+                    for i in 0..<categories.count{
+                        for j in 0..<self.approvedCategoriesIdArray.count{
+                            if categories[i].categoryId == self.approvedCategoriesIdArray[j]{
+                                isCategoryAlreadyApproved = true
+                                break
+                            }
+                        }
+                        
+                        if !isCategoryAlreadyApproved{
+                            self.categoriesArray.append(categories[i])
+                        }
+                        isCategoryAlreadyApproved = false
+                    }
+
+                    print("******* Filtered list of categories *******")
+                    print(self.categoriesArray)
+                    
                     self.categoryModelObj.insertCategoriesToDB(categories: categories)
                     self.subCategoryModelObj.insertSubCategoriesToDB(subCategories: subcategories)
-                    self.categoryCollectionView.reloadData()
+                    self.reloadCollectionView()
                 }else if status == RESPONSE_STATUS.FAIL{
-                      CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
@@ -73,10 +102,24 @@ class CategoryListVC: UIViewController {
         })
     }
     
+    func reloadCollectionView() {
+        
+        if self.categoriesArray.count > 0 {
+            self.categoryCollectionView.reloadData()
+        }else{
+            self.categoryCollectionView.isHidden = true
+        }
+    }
+    
     @IBAction func categoryNextAction(_ sender: Any) {
         
         if selectedCategories.count > 0{
-            performSegue(withIdentifier: "CategoryToQuestion1Segue", sender: self)
+            
+            if approvedCategoriesIdArray.count > 0 {
+                performSegue(withIdentifier: "categoryToSubCategorySelectionSegue", sender: self)
+            }else{
+                performSegue(withIdentifier: "CategoryToQuestion1Segue", sender: self)
+            }
         }else{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose atleast one category", buttonTitle: "OK")
         }
@@ -85,7 +128,7 @@ class CategoryListVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      
         print("SELECTED CATEGS:",categoriesArray)
-        if segue.identifier == "CategoryToQuestion1Segue"{
+        if segue.identifier == "CategoryToQuestion1Segue" || segue.identifier == "categoryToSubCategorySelectionSegue" {
             print("Selected Categories are :",selectedCategories)
             loadSelectedCategories()
             print("Selected Categories are 111",selectedCategoriesSingleton)
@@ -110,6 +153,7 @@ class CategoryListVC: UIViewController {
     }
     
     func loadSelectedCategories() {
+        selectedCategoriesSingleton.removeAll()
         for value in selectedCategories{
             selectedCategoriesSingleton.append(categoriesArray[value])
         }

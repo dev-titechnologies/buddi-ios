@@ -205,6 +205,9 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "user_id")
         userDefaults.removeObject(forKey: "token")
         userDefaults.removeObject(forKey: "userType")
+        userDefaults.removeObject(forKey: "approvedOrPendingCategoriesIdArray")
+
+        
         
         ProfileImageDB.deleteImages()
         ProfileDB.deleteProfile()

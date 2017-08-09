@@ -64,6 +64,7 @@ class AddPaymentMethodVC: UIViewController {
     }
 
     @IBAction func testPayment(_ sender: Any) {
+        fetchExistingPaymentMethod(clientToken: self.clientToken)
         showDropIn(clientTokenOrTokenizationKey: self.clientToken)
     }
     
@@ -97,7 +98,29 @@ class AddPaymentMethodVC: UIViewController {
         }
     }
     
+    func fetchExistingPaymentMethod(clientToken: String) {
+        print("***** Fetch Existing payment method *****")
+        BTDropInResult.fetch(forAuthorization: clientToken, handler: { (result, error) in
+            if (error != nil) {
+                print("ERROR")
+            } else if let result = result {
+                // Use the BTDropInResult properties to update your UI
+                let selectedPaymentOptionType = result.paymentOptionType
+                let selectedPaymentMethod = result.paymentMethod
+                let selectedPaymentMethodIcon = result.paymentIcon
+                let selectedPaymentMethodDescription = result.paymentDescription
+                
+                print("Method: \(String(describing: selectedPaymentMethod))")
+                print("paymentOptionType: \(selectedPaymentOptionType)")
+                print("paymentDescription: \(selectedPaymentMethodDescription)")
+                print("paymentIcon: \(selectedPaymentMethodIcon)")
+            }
+        })
+    }
+    
     func showDropIn(clientTokenOrTokenizationKey: String) {
+        
+        print("***** showDropIn *****")
         let request =  BTDropInRequest()
         let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
         { (controller, result, error) in
@@ -125,7 +148,7 @@ class AddPaymentMethodVC: UIViewController {
     func postNonceToServer(paymentMethodNonce: String) {
         
         //"fake-valid-nonce"
-        
+        print("Nounce:\(paymentMethodNonce)")
         let headers = [
             "token":appDelegate.Usertoken]
 

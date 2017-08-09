@@ -9,6 +9,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "BuddyApp/ProfileVC.swift"
             timestampString = "523198791.490266"
             startingColumnNumber = "9223372036854775807"
@@ -16,6 +17,15 @@
             startingLineNumber = "204"
             endingLineNumber = "204"
             landmarkName = "EditProfileAPI()"
+=======
+            filePath = "BuddyApp/CategoryListVC.swift"
+            timestampString = "523965522.937045"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "prepare(for:sender:)"
+>>>>>>> 90a6919a56f5777cbfd861675cd381b266a9bc9f
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,17 +35,18 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/ProfileVC.swift"
-            timestampString = "523198791.490266"
+            filePath = "BuddyApp/Question1VC.swift"
+            timestampString = "523967993.459453"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
-            landmarkName = "EditProfileAPI()"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "nextButtonAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
+<<<<<<< HEAD
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
@@ -510,11 +521,14 @@
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
+=======
+>>>>>>> 90a6919a56f5777cbfd861675cd381b266a9bc9f
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
             timestampString = "523961235.941433"
             startingColumnNumber = "9223372036854775807"
@@ -522,6 +536,15 @@
             startingLineNumber = "107"
             endingLineNumber = "107"
             landmarkName = "RandomSelectTrainer()"
+=======
+            filePath = "BuddyApp/Question3VC.swift"
+            timestampString = "523968333.282663"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "pickerView(_:didSelectRow:inComponent:)"
+>>>>>>> 90a6919a56f5777cbfd861675cd381b266a9bc9f
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -531,6 +554,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
             timestampString = "523961235.941433"
             startingColumnNumber = "9223372036854775807"
@@ -605,5 +629,17 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+=======
+            filePath = "BuddyApp/Question3VC.swift"
+            timestampString = "523968339.596624"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "pickerView(_:didSelectRow:inComponent:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+>>>>>>> 90a6919a56f5777cbfd861675cd381b266a9bc9f
    </Breakpoints>
 </Bucket>

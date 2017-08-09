@@ -11,6 +11,7 @@ import Foundation
 let ALERT_TITLE = "Buddi"
 let SERVER_NOT_RESPONDING = "Server not responding"
 let PLEASE_ENTER_ZIPCODE = "Please enter ZipCode"
+let PLEASE_ENTER_VALID_ZIPCODE = "Please enter valid ZipCode"
 let PLEASE_ANSWER_ABOVE_QUESTIONS = "Please answer to all questions"
 let VIDEO_UPLOADED_SUCCESSFULLY = "Video uploaded successfully"
 let PLEASE_ENTER_OTP = "Please enter OTP code"
@@ -21,6 +22,7 @@ let SUCCESSFULLY_LOGGED_IN = "Welcome user"
 let UPLOAD_VIDEO_MINIMUM_DURATION = "Please upload a video of 30 seconds minimum duration"
 let UPLOAD_VIDEO_MAXIMUM_DURATION = "Please upload a video of 90 seconds maximum duration"
 let REQUEST_TIMED_OUT = "Request timed out"
+let ARE_YOU_SURE_WANT_TO_LOGOUT = "Are you sure you want to log out?"
 
 
 let VIDEO_DESC = "*Videos should be anywhere between 0-90 seconds long. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
@@ -97,14 +99,14 @@ let ImageArrayTrainee = ["ic_home",
                          "ic_exit_to_app"]
 
 // 8 Values
-let ImageArrayTraineeAndTrainerAlso = ["HOME",
-                         "SETTINGES",
-                         "PAY",
-                         "TRAINING-HISTORY",
-                         "FRIENDS",
-                         "HELP",
-                         "LEGAL",
-                         "LOGOUT"]
+let ImageArrayTraineeAndTrainerAlso = ["ic_home",
+                         "ic_settings",
+                         "ic_payment",
+                         "ic_history",
+                         "ic_people",
+                         "ic_help",
+                         "ic_notifications",
+                         "ic_exit_to_app"]
 
 let weightRangeArray = ["60 - 65",
                         "66 - 70",
@@ -124,9 +126,9 @@ let weightRangeOrderedSet = NSMutableOrderedSet(array: weightRangeArray, copyIte
 
 let trainingDurationArray = ["30 Minutes", "1 Hour"]
 
-let trainingExperienceYearsArray = Array(0...10)
+let trainingExperienceYearsArray = ["1","2","3","4","5","6","7","8","9","10","10+"]
 let trainingExperienceMonthsArray = Array(0...12)
 
 let currentWeightONEArray = [100,200,300,400]
-let currentWeightSecondArray = Array(1...50)
+let currentWeightSecondArray = Array(1..<100)
 

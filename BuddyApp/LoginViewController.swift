@@ -59,6 +59,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
         print("GOOGLE DATA ",self.googleUserDictionary)
+        CommonMethods.showProgress()
         self.LoginAPI(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
     }
     
@@ -164,9 +165,16 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
                 if (error == nil){
                     
-                    print("RESULT",result!)
+                    print("RESULT Login",result!)
                     self.fbUserDictionary = result as? NSDictionary
-                    self.LoginAPI(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
+                    
+                    var emailId = ""
+                    if (self.fbUserDictionary["email"] as? String) != nil{
+                        emailId = (self.fbUserDictionary["email"] as? String!)!
+                        print("*** Email present in FB: \(emailId)")
+                    }
+
+                    self.LoginAPI(Email: emailId, Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
                 }else{
                     CommonMethods.hideProgress()
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
@@ -229,7 +237,6 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                         self.performSegue(withIdentifier: "loginToHomeSegue", sender: self)
                     }
                     
-//                    CommonMethods.alertView(view: self, title: "SUCCESS", message: "Successfully Logged in", buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.FAIL{
                     
                     if jsondata["status_type"] as? String == "UserNotRegistered" {
@@ -241,7 +248,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     self.dismissOnSessionExpire()
                 }
             }else{
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Request timed out", buttonTitle: "OK")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
             }
         })
     }
@@ -252,12 +259,16 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         var approvedCount = Int()
         var pendingCount = Int()
         
+        approvedOrPendingCategoriesSingleton.removeAll()
         if let category_approvedArray = dictionary["category_approved"] as? NSArray{
             print(category_approvedArray)
             
+            for i in 0..<category_approvedArray.count{
+                approvedOrPendingCategoriesSingleton.append(category_approvedArray[i] as! String)
+            }
+            
             approvedCount = category_approvedArray.count
             userDefaults.setValue(approvedCount, forKey: "approvedCategoryCount")
-//            approvedCategoryCountSingleton = approvedCount
             
             if approvedCount > 0 {
                 print("*** Approved Categories Present ****")
@@ -269,9 +280,12 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         if let category_pendingArray = dictionary["category_pending"] as? NSArray{
             print(category_pendingArray)
             
+            for i in 0..<category_pendingArray.count{
+                approvedOrPendingCategoriesSingleton.append(category_pendingArray[i] as! String)
+            }
+            
             pendingCount = category_pendingArray.count
             userDefaults.setValue(pendingCount, forKey: "pendingCategoryCount")
-//            pendingCategoryCountSingleton = pendingCount
             
             if pendingCount > 0 && approvedCount == 0 {
                 print("*** Pending Categories Present ****")
@@ -283,6 +297,9 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 self.performSegue(withIdentifier: "loginToChooseCategorySegue", sender: self)
             }
         }
+        
+        print("Approved and Pending Categories Id:\(approvedOrPendingCategoriesSingleton)")
+        userDefaults.set(approvedOrPendingCategoriesSingleton, forKey: "approvedOrPendingCategoriesIdArray")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

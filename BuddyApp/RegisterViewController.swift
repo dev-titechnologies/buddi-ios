@@ -56,13 +56,15 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         
         self.title = "Register"
         
-        
-        if (fbUserDictionary != nil){
+         if (fbUserDictionary != nil){
             self.registerType = "facebook"
 
             self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
             self.lastname_txt.text = (self.fbUserDictionary["last_name"] as? String)!
-            self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
+            
+            if (self.fbUserDictionary["email"] as? String) != nil{
+                self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
+            }
             
             self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
         }else if (googleUserDictionary != nil){
@@ -401,7 +403,13 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                     
                      self.fbUserDictionary = result as? NSDictionary
                     
-                    self.LoginAPI(Email: "", Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
+                    var emailId = ""
+                    if (self.fbUserDictionary["email"] as? String) != nil{
+                        emailId = (self.fbUserDictionary["email"] as? String!)!
+                        print("*** Email present in FB: \(emailId)")
+                    }
+                    
+                    self.LoginAPI(Email: emailId, Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
                 }else{
                     CommonMethods.hideProgress()
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
@@ -457,10 +465,11 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                         }
                     }
                     
+                    print("User Type Check:\(self.UserType)")
                     if self.UserType == "trainer" {
                         self.segueActionsIfTrainer(dictionary: self.jsondict as! Dictionary<String, Any>!)
                     }else if self.UserType == "trainee" {
-                        self.performSegue(withIdentifier: "loginToHomeSegueR", sender: self)
+                        self.performSegue(withIdentifier: "registerToToTraineeHomeSegue", sender: self)
                     }
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SUCCESSFULLY_LOGGED_IN, buttonTitle: "Ok")
@@ -473,7 +482,10 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                             
                             self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
                             self.lastname_txt.text = (self.fbUserDictionary["last_name"] as? String)!
-                            self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
+                            
+                            if (self.fbUserDictionary["email"] as? String) != nil{
+                                self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
+                            }
                             
                             self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
                             
@@ -505,7 +517,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             
             if approvedCount > 0 {
                 print("*** Approved Categories Present ****")
-                //Need to redirect to Home Screen
+                //Need to redirect to Trainer Home Screen
                 self.performSegue(withIdentifier: "loginToHomeSegueR", sender: self)
             }
         }

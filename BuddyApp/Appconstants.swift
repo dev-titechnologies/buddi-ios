@@ -16,7 +16,7 @@ let trainerTestAnswers = Singleton.sharedInstance.trainerTestAnswers
 var selectedCategoriesSingleton = Singleton.sharedInstance.selectedCategories
 var selectedSubCategoriesSingleton = Singleton.sharedInstance.selectedSubCategories
 var selectedSubCategoriesAmongSingleton = Singleton.sharedInstance.selectedSubCategoriesAmong
-var approvedCategories = Singleton.sharedInstance.approvedCategories
+var approvedOrPendingCategoriesSingleton = Singleton.sharedInstance.approvedOrPendingCategories
 var approvalPendingCategories = Singleton.sharedInstance.approvalPendingCategories
 var subCategoryVideoURLsSingleton = Singleton.sharedInstance.subCategoryVideoURLs
 

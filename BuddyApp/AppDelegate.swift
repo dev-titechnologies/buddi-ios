@@ -59,8 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         GIDSignIn.sharedInstance().delegate = self
         IQKeyboardManager.sharedManager().enable = true
         
-//        BTAppSwitch.setReturnURLScheme("com.titechnologies.BuddyApp.payments")
-
+        BTAppSwitch.setReturnURLScheme("com.titechnologies.BuddyApp.payments")
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         

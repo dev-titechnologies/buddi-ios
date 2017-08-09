@@ -11,7 +11,6 @@ import UIKit
 class WaitingForApprovalVC: UIViewController {
 
     @IBOutlet weak var lblApprovalStatus: UILabel!
-//    var isBackButtonHidden = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
