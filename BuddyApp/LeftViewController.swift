@@ -71,6 +71,20 @@ class LeftViewController: UIViewController {
         }
     }
     
+    func logoutAlert() {
+        
+        let alert = UIAlertController(title: ALERT_TITLE, message: ARE_YOU_SURE_WANT_TO_LOGOUT, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+            self.dismissOnSessionExpire()
+        }))
+        alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+            
+        }))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -138,8 +152,7 @@ extension LeftViewController : UITableViewDelegate{
             case 3:
                 print("three")
                 print("Training History")
-//                 self.performSegue(withIdentifier: "history", sender:self)
-                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                self.performSegue(withIdentifier: "bookingHistorySegue", sender: self)
                 
             case 4:
                 print("four")
@@ -159,7 +172,8 @@ extension LeftViewController : UITableViewDelegate{
             case 7:
                 print("seven")
                 print("Logout")
-                dismissOnSessionExpire()
+                logoutAlert()
+//                dismissOnSessionExpire()
                 
             default:
                 print("Integer out of range")
@@ -172,7 +186,7 @@ extension LeftViewController : UITableViewDelegate{
             case 0:
                 print("zero")
                 print("Home")
-                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                self.performSegue(withIdentifier: "leftMenuToTraineeHomeSegue", sender: self)
                 
             case 1:
                 print("one")
@@ -236,7 +250,7 @@ extension LeftViewController : UITableViewDelegate{
                 print("seven")
                 if isTraineeAlreadyTrainer{
                     print("Logout")
-                    dismissOnSessionExpire()
+                    logoutAlert()
                 }else{
                     print("Legal")
                     self.performSegue(withIdentifier: "blankPageSegue", sender: self)
@@ -249,7 +263,7 @@ extension LeftViewController : UITableViewDelegate{
                     
                 }else{
                     print("Logout")
-                    dismissOnSessionExpire()
+                    logoutAlert()
                 }
                 
             default:
@@ -257,4 +271,6 @@ extension LeftViewController : UITableViewDelegate{
             }
         }
     }
+    
+    
 }

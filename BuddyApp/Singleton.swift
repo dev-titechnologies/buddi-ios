@@ -20,7 +20,7 @@ class Singleton {
     var selectedSubCategories : [SubCategoryModel] = [SubCategoryModel]()
     var selectedSubCategoriesAmong : [SubCategoryModel] = [SubCategoryModel]()
     var trainerTestAnswers: TrainerTestAnswersModel = TrainerTestAnswersModel()
-    var approvedCategories = [Int]()
+    var approvedOrPendingCategories = [String]()
     var approvalPendingCategories = [Int]()
     var subCategoryVideoURLs = [VideoURLModel]()
     

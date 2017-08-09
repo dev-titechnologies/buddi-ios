@@ -248,7 +248,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     self.dismissOnSessionExpire()
                 }
             }else{
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Request timed out", buttonTitle: "OK")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
             }
         })
     }
@@ -259,12 +259,16 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         var approvedCount = Int()
         var pendingCount = Int()
         
+        approvedOrPendingCategoriesSingleton.removeAll()
         if let category_approvedArray = dictionary["category_approved"] as? NSArray{
             print(category_approvedArray)
             
+            for i in 0..<category_approvedArray.count{
+                approvedOrPendingCategoriesSingleton.append(category_approvedArray[i] as! String)
+            }
+            
             approvedCount = category_approvedArray.count
             userDefaults.setValue(approvedCount, forKey: "approvedCategoryCount")
-//            approvedCategoryCountSingleton = approvedCount
             
             if approvedCount > 0 {
                 print("*** Approved Categories Present ****")
@@ -276,9 +280,12 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         if let category_pendingArray = dictionary["category_pending"] as? NSArray{
             print(category_pendingArray)
             
+            for i in 0..<category_pendingArray.count{
+                approvedOrPendingCategoriesSingleton.append(category_pendingArray[i] as! String)
+            }
+            
             pendingCount = category_pendingArray.count
             userDefaults.setValue(pendingCount, forKey: "pendingCategoryCount")
-//            pendingCategoryCountSingleton = pendingCount
             
             if pendingCount > 0 && approvedCount == 0 {
                 print("*** Pending Categories Present ****")
@@ -290,6 +297,9 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 self.performSegue(withIdentifier: "loginToChooseCategorySegue", sender: self)
             }
         }
+        
+        print("Approved and Pending Categories Id:\(approvedOrPendingCategoriesSingleton)")
+        userDefaults.set(approvedOrPendingCategoriesSingleton, forKey: "approvedOrPendingCategoriesIdArray")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

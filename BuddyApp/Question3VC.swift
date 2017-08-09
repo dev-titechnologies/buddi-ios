@@ -126,7 +126,6 @@ class Question3VC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -211,9 +210,12 @@ extension Question3VC: UIPickerViewDataSource, UIPickerViewDelegate {
         
         let selectedValueFirstRow = pickerView.selectedRow(inComponent: 0)
         let selectedValueSecondRow = pickerView.selectedRow(inComponent: 1)
-
-        print("Year:\(trainingExperienceYearsArray[selectedValueFirstRow]) & Month: \(trainingExperienceMonthsArray[selectedValueSecondRow])")
-        txtHowLongTraining.text = String(trainingExperienceYearsArray[selectedValueFirstRow]) + " Years and " + String(trainingExperienceMonthsArray[selectedValueSecondRow]) + " Months"
+        
+        if selectedValueFirstRow == 10{
+            txtHowLongTraining.text = "Over 10 years"
+        }else{
+            txtHowLongTraining.text = String(trainingExperienceYearsArray[selectedValueFirstRow]) + " Years and " + String(trainingExperienceMonthsArray[selectedValueSecondRow]) + " Months"
+        }
     }
 
 }
