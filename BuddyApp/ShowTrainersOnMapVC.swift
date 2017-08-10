@@ -27,6 +27,11 @@ class ShowTrainersOnMapVC: UIViewController {
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
     
+    //Payment Transaction Variables
+    var transactionId = String()
+    var transactionStatus = String()
+    var transactionAmount = String()
+    
     let TrainerprofileDetails : TrainerProfileModal = TrainerProfileModal()
 
     override func viewDidLoad() {
@@ -36,9 +41,9 @@ class ShowTrainersOnMapVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         getCurrentLocationDetails()
-        
-        
+        fetchPaymentNonceFromUserDefault()
     }
     
     func fetchPaymentNonceFromUserDefault() {
@@ -66,17 +71,31 @@ class ShowTrainersOnMapVC: UIViewController {
         if isNoncePresent {
             postNonceToServer(paymentMethodNonce: paymentNonce)
         }else{
-            //AddPaymentVCID
-            moveToAddPaymentMethodScreen()
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ADD_PAYMENT_METHOD, buttonTitle: "OK")
+            alertForAddPaymentMethod()
         }
     }
     
+    func alertForAddPaymentMethod() {
+        
+        let alert = UIAlertController(title: ALERT_TITLE, message: PLEASE_ADD_PAYMENT_METHOD, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+            self.moveToAddPaymentMethodScreen()
+        }))
+        alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func moveToAddPaymentMethodScreen() {
+        //Method 1
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let paymentMethodPage : AddPaymentMethodVC = mainStoryboard.instantiateViewController(withIdentifier: "AddPaymentVCID") as! AddPaymentMethodVC
         paymentMethodPage.isFromBookingPage = true
-        self.present(paymentMethodPage, animated: true, completion: nil)
+        self.navigationController?.pushViewController(paymentMethodPage, animated: true)
+//        self.present(paymentMethodPage, animated: true, completion: nil)
     }
     
     func postNonceToServer(paymentMethodNonce: String) {
@@ -97,14 +116,27 @@ class ShowTrainersOnMapVC: UIViewController {
         Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: headers).responseJSON {
             response in
             print("Checkout page Response:\(response)")
-            if let data = response.data {
-                let json = String(data: data, encoding: String.Encoding.utf8)
-                print("Response: \(String(describing: json!))")
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, buttonTitle: "OK")
-                //Assigning Trainer
-                self.RandomSelectTrainer()
-            }else{
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_COULD_NOT_PROCESSED, buttonTitle: "OK")
+            
+            CommonMethods.hideProgress()
+            if let jsondata = response.value as? [String: AnyObject] {
+                print(jsondata)
+                if let status = jsondata["status"] as? Int{
+                    if status == RESPONSE_STATUS.SUCCESS{
+                        
+                        let transactionDict = jsondata["data"]  as! NSDictionary
+                        self.transactionId = transactionDict["transactionId"] as! String
+                        self.transactionAmount = transactionDict["amount"] as! String
+                        self.transactionStatus = transactionDict["status"] as! String
+
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, buttonTitle: "OK")
+                        //Assigning Trainer
+                        self.RandomSelectTrainer()
+                    }else if status == RESPONSE_STATUS.FAIL{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                        self.dismissOnSessionExpire()
+                    }
+                }
             }
         }
     }
@@ -114,16 +146,31 @@ class ShowTrainersOnMapVC: UIViewController {
         let headers = [
             "token":appDelegate.Usertoken]
         
+        //            training_time,
+        //            promocode
+        //            OR
+        //            transaction_id,
+        //            amount,
+        //            transaction_status"
+
+        //Parameters :- If payment is via Promo Code
         let parameters = ["user_id" : appDelegate.UserId,
                           "gender" : choosedTrainerGenderOfTrainee,
                           "category" : choosedCategoryOfTrainee.categoryId,
                           "latitude" : lat,
                           "longitude" : long,
-                          "duration" : choosedSessionOfTrainee
+                          "training_time" : choosedSessionOfTrainee,
+                          "promocode" : "TEST CODE"
             ] as [String : Any]
         
+        let parameters1 = ["transaction_id" : transactionId,
+                           "amount" : transactionAmount,
+                           "transaction_status" : transactionStatus
+        ] as [String : Any]
+        
         print("Header:\(headers)")
-        print("Params:\(parameters)")
+        print("Parameters:\(parameters)")
+        print("Parameters1:\(parameters1)")
         
         CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: RANDOM_SELECTOR, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
@@ -136,8 +183,8 @@ class ShowTrainersOnMapVC: UIViewController {
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
-                    self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
-                    self.performSegue(withIdentifier: "totrainerprofile", sender: self)
+//                    self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
+//                    self.performSegue(withIdentifier: "totrainerprofile", sender: self)
                     
                     if (jsondata["data"] as? NSDictionary) != nil {
                         

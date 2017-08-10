@@ -34,6 +34,11 @@ class AddPaymentMethodVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        if isFromBookingPage{
+            print("**** From Booking Page ****")
+        }
+        
+        CommonMethods.showProgress()
         btnAddPayment.addShadowView()
         selectPaymentModeView.isHidden = true
         getClientToken()

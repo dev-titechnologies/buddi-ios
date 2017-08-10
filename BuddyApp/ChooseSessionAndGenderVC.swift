@@ -30,26 +30,14 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     
     @IBAction func nextButtonActions(_ sender: Any) {
         
-        if choosedSessionOfTrainee.isEmpty
-        {
-            
-            
+        if choosedSessionOfTrainee.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose a session duration", buttonTitle: "Ok")
-            
-        }
-        else if choosedTrainerGenderOfTrainee.isEmpty
-        {
+        }else if choosedTrainerGenderOfTrainee.isEmpty{
              CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose a preferred gender", buttonTitle: "Ok")
-            
-        }
-        else
-        {
+        }else{
             performSegue(withIdentifier: "afterChoosingSessionAndGenderSegue", sender: self)
-
         }
-        
-        
-           }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -139,18 +127,11 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if collapseArray[indexPath.section]{
-            
-            if indexPath.section == 0
-            {
+            if indexPath.section == 0{
               return 60
-            }
-            else
-            {
+            }else{
                 return 114
             }
-            
-            
-            
         }else{
             return 0
         }
@@ -161,14 +142,17 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        
-            sessionChoosed = indexPath.row
-            chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 0), with: .automatic)
-            choosedSessionOfTrainee = trainingDurationArray[indexPath.row]
-            print("Choosed Session:\(choosedSessionOfTrainee)")
+        sessionChoosed = indexPath.row
+        chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 0), with: .automatic)
         
-        
-
-       
+        if indexPath.section == 0{
+            if indexPath.row == 0 {
+                choosedSessionOfTrainee = "30"
+            }else{
+                choosedSessionOfTrainee = "60"
+            }
+        }
+        print("Choosed Session:\(choosedSessionOfTrainee)")
     }
 }
 
