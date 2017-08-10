@@ -23,7 +23,10 @@ let UPLOAD_VIDEO_MINIMUM_DURATION = "Please upload a video of 30 seconds minimum
 let UPLOAD_VIDEO_MAXIMUM_DURATION = "Please upload a video of 90 seconds maximum duration"
 let REQUEST_TIMED_OUT = "Request timed out"
 let ARE_YOU_SURE_WANT_TO_LOGOUT = "Are you sure you want to log out?"
-
+let PAYMENT_METHOD_FETCH_ERROR = "Could not fetch payment methods"
+let PLEASE_ADD_PAYMENT_METHOD = "Please add payment method"
+let PAYMENT_COULD_NOT_PROCESSED = "Payment could not processed, please retry."
+let PAYMENT_SUCCESSFULL = "Payment has been successfully done"
 
 let VIDEO_DESC = "*Videos should be anywhere between 0-90 seconds long. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 

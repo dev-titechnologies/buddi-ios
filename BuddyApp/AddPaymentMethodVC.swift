@@ -15,6 +15,15 @@ class AddPaymentMethodVC: UIViewController {
     
     var clientToken = String()
     var isAppliedPromoCode = Bool()
+    
+    @IBOutlet weak var lblCardEndingWith: UILabel!
+    @IBOutlet weak var imgCardIcon: UIImageView!
+    @IBOutlet weak var selectPaymentModeView: UIView!
+    
+    @IBOutlet weak var testView: BTUIKPaymentOptionCardView!
+    @IBOutlet weak var btnAddPayment: UIButton!
+    
+    var isFromBookingPage = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +33,14 @@ class AddPaymentMethodVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        if isFromBookingPage{
+            print("**** From Booking Page ****")
+        }
+        
+        CommonMethods.showProgress()
+        btnAddPayment.addShadowView()
+        selectPaymentModeView.isHidden = true
         getClientToken()
     }
     
@@ -42,15 +59,7 @@ class AddPaymentMethodVC: UIViewController {
         let FinalURL = SERVER_URL + CREATE_CLIENT_TOKEN
         print("Final Server URL:",FinalURL)
 
-//        Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody).responseJSON { response in
-//            
-//            if let data = response.data {
-//                let json = String(data: data, encoding: String.Encoding.utf8)
-//                self.clientToken = json!
-//                print(self.clientToken)
-//            }
-//        }
-        
+        CommonMethods.showProgress()
         Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
             response in
             
@@ -58,18 +67,86 @@ class AddPaymentMethodVC: UIViewController {
             if let result = response.value as? Dictionary<String, Any>{
                 self.clientToken = result["data"] as! String
                 print("Client token:\(self.clientToken)")
-
+                userDefaults.set(self.clientToken, forKey: "clientTokenForPayment")
+                
+                //Fetch Existing payment methods if any
+                self.fetchExistingPaymentMethod(clientToken: self.clientToken)
             }
         }
     }
 
-    @IBAction func testPayment(_ sender: Any) {
-        fetchExistingPaymentMethod(clientToken: self.clientToken)
+    @IBAction func addPaymentAction(_ sender: Any) {
         showDropIn(clientTokenOrTokenizationKey: self.clientToken)
     }
     
-    func applyPromoCode(){
+    func fetchExistingPaymentMethod(clientToken: String) {
         
+        CommonMethods.showProgress()
+        print("***** Fetch Existing payment method *****")
+        BTDropInResult.fetch(forAuthorization: clientToken, handler: { (result, error) in
+            if (error != nil) {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_METHOD_FETCH_ERROR, buttonTitle: "OK")
+                print("ERROR")
+            } else if let result = result {
+                
+                self.selectPaymentModeView.isHidden = false
+                let selectedPaymentOptionType = result.paymentOptionType
+                let selectedPaymentMethod = result.paymentMethod
+                let selectedPaymentMethodIcon = result.paymentIcon
+                let selectedPaymentMethodDescription = result.paymentDescription
+                
+                print("Method: \(String(describing: selectedPaymentMethod))")
+                print("paymentOptionType: \(selectedPaymentOptionType.rawValue)")
+                print("paymentDescription: \(selectedPaymentMethodDescription)")
+                print("paymentIcon: \(selectedPaymentMethodIcon)")
+                
+                self.lblCardEndingWith.text = (selectedPaymentMethod?.type)! + " " + selectedPaymentMethodDescription
+                
+                let paymentMethodType = BTUIKViewUtil.paymentOptionType(forPaymentInfoType: result.paymentMethod?.type)
+                
+                CommonMethods.hideProgress()
+
+                self.testView.paymentOptionType = paymentMethodType
+                let nounce = result.paymentMethod?.nonce
+                print("New Received nonce:\(String(describing: nounce))")
+                userDefaults.set(nounce, forKey: "paymentNonce")
+            }
+        })
+    }
+
+    func showDropIn(clientTokenOrTokenizationKey: String) {
+        
+        print("***** showDropIn *****")
+        let request =  BTDropInRequest()
+        let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
+        { (controller, result, error) in
+            if (error != nil) {
+                print("ERROR")
+            } else if (result?.isCancelled == true) {
+                print("CANCELLED")
+            } else if let result = result {
+                
+                let selectedPaymentOptionType = result.paymentOptionType
+                let selectedPaymentMethod = result.paymentMethod
+                let selectedPaymentMethodIcon = result.paymentIcon
+                let selectedPaymentMethodDescription = result.paymentDescription
+                
+                print("Method: \(String(describing: selectedPaymentMethod))")
+                print("paymentOptionType: \(selectedPaymentOptionType.rawValue)")
+                print("paymentDescription: \(selectedPaymentMethodDescription)")
+                print("paymentIcon: \(selectedPaymentMethodIcon)")
+
+                self.lblCardEndingWith.text = (selectedPaymentMethod?.type)! + " " + selectedPaymentMethodDescription
+                
+                let paymentMethodType = BTUIKViewUtil.paymentOptionType(forPaymentInfoType: result.paymentMethod?.type)
+                self.testView.paymentOptionType = paymentMethodType
+            }
+            controller.dismiss(animated: true, completion: nil)
+        }
+        self.present(dropIn!, animated: true, completion: nil)
+    }
+    
+    func applyPromoCode(){
         let headers = [
             "token":appDelegate.Usertoken]
         
@@ -94,79 +171,6 @@ class AddPaymentMethodVC: UIViewController {
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
-            }
-        }
-    }
-    
-    func fetchExistingPaymentMethod(clientToken: String) {
-        print("***** Fetch Existing payment method *****")
-        BTDropInResult.fetch(forAuthorization: clientToken, handler: { (result, error) in
-            if (error != nil) {
-                print("ERROR")
-            } else if let result = result {
-                // Use the BTDropInResult properties to update your UI
-                let selectedPaymentOptionType = result.paymentOptionType
-                let selectedPaymentMethod = result.paymentMethod
-                let selectedPaymentMethodIcon = result.paymentIcon
-                let selectedPaymentMethodDescription = result.paymentDescription
-                
-                print("Method: \(String(describing: selectedPaymentMethod))")
-                print("paymentOptionType: \(selectedPaymentOptionType)")
-                print("paymentDescription: \(selectedPaymentMethodDescription)")
-                print("paymentIcon: \(selectedPaymentMethodIcon)")
-            }
-        })
-    }
-    
-    func showDropIn(clientTokenOrTokenizationKey: String) {
-        
-        print("***** showDropIn *****")
-        let request =  BTDropInRequest()
-        let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
-        { (controller, result, error) in
-            if (error != nil) {
-                print("ERROR")
-            } else if (result?.isCancelled == true) {
-                print("CANCELLED")
-            } else if let result = result {
-                print(result.paymentMethod?.nonce as Any)
-                
-                print("Method: \(String(describing: result.paymentMethod))")
-                print("paymentOptionType: \(String(describing: result.paymentOptionType))")
-                print("paymentOptionType: \(String(describing: result.paymentOptionType))")
-                print("paymentDescription: \(String(describing: result.paymentDescription))")
-                print("paymentIcon: \(String(describing: result.paymentIcon))")
-                
-                print(result)
-                self.postNonceToServer(paymentMethodNonce: (result.paymentMethod?.nonce)!)
-            }
-            controller.dismiss(animated: true, completion: nil)
-        }
-        self.present(dropIn!, animated: true, completion: nil)
-    }
-    
-    func postNonceToServer(paymentMethodNonce: String) {
-        
-        //"fake-valid-nonce"
-        print("Nounce:\(paymentMethodNonce)")
-        let headers = [
-            "token":appDelegate.Usertoken]
-
-        let parameters =  ["amount" : "10.00",
-                           "user_id" : appDelegate.UserId
-                           ] as [String : Any]
-        print("PARAMS: \(parameters)")
-        
-        let FinalURL = SERVER_URL + PAYMENT_CHECKOUT
-        print("Final Server URL:",FinalURL)
-
-//        Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody).responseJSON { response in
-        Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: headers).responseJSON {
-            response in
-        print("Checkout page Response:\(response)")
-            if let data = response.data {
-                let json = String(data: data, encoding: String.Encoding.utf8)
-                print("Response: \(String(describing: json!))")
             }
         }
     }

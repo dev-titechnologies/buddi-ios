@@ -249,7 +249,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "177"
             endingLineNumber = "177"
-            landmarkName = "showTrainersList()"
+            landmarkName = "RandomSelectTrainer()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -265,7 +265,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "399"
             endingLineNumber = "399"
-            landmarkName = "MarkPoints(latitude:logitude:)"
+            landmarkName = "DrowRoute(OriginLat:OriginLong:DestiLat:DestiLong:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -375,57 +375,9 @@
             timestampString = "524046574.093647"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "showTrainersList()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BuddyApp.ShowTrainersOnMapVC.showTrainersList () -&gt; ()"
-                  moduleName = "BuddyApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/titechnologies/Desktop/BuddyApp1/BuddyApp/ShowTrainersOnMapVC.swift"
-                  timestampString = "524048010.459725"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "163"
-                  endingLineNumber = "163"
-                  offsetFromSymbolStart = "1488">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BuddyApp.ShowTrainersOnMapVC.(showTrainersList () -&gt; ()).(closure #1)"
-                  moduleName = "BuddyApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/titechnologies/Desktop/BuddyApp1/BuddyApp/ShowTrainersOnMapVC.swift"
-                  timestampString = "524048010.462211"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "165"
-                  endingLineNumber = "165"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
-            timestampString = "524046574.093647"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "168"
             endingLineNumber = "168"
-            landmarkName = "showTrainersList()"
+            landmarkName = "RandomSelectTrainer()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -441,7 +393,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
             endingLineNumber = "102"
-            landmarkName = "RandomSelectTrainer()"
+            landmarkName = "postNonceToServer(paymentMethodNonce:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -489,7 +441,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
             endingLineNumber = "108"
-            landmarkName = "RandomSelectTrainer()"
+            landmarkName = "postNonceToServer(paymentMethodNonce:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -505,7 +457,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "87"
             endingLineNumber = "87"
-            landmarkName = "RandomSelectTrainer()"
+            landmarkName = "alertForAddPaymentMethod()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -521,7 +473,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "337"
             endingLineNumber = "337"
-            landmarkName = "DrowRoute(OriginLat:OriginLong:DestiLat:DestiLong:)"
+            landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -537,7 +489,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "352"
             endingLineNumber = "352"
-            landmarkName = "DrowRoute(OriginLat:OriginLong:DestiLat:DestiLong:)"
+            landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -444,7 +444,6 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
-				F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */,
 				F3B52EDF1F3AE452007910BC /* SocketIO */,
 				F3A907771F32E3F600474F5E /* Trainer Pages */,
 				F3A907761F32E3D900474F5E /* Trainee Pages */,
@@ -662,6 +661,7 @@
 		F3A907761F32E3D900474F5E /* Trainee Pages */ = {
 			isa = PBXGroup;
 			children = (
+				F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */,
 				F334D6C11F39F0F700435BD2 /* America.gpx */,
 				F334D6BE1F39B0AB00435BD2 /* TimerViewcontroller */,
 				F364A8FA1F34B30B0001C570 /* Assigned Trainer Profile View */,
