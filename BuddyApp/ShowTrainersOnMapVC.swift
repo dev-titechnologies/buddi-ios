@@ -11,6 +11,8 @@ import CoreLocation
 import MapKit
 import GoogleMaps
 import Alamofire
+import Braintree
+import BraintreeDropIn
 
 class ShowTrainersOnMapVC: UIViewController {
 
@@ -22,8 +24,11 @@ class ShowTrainersOnMapVC: UIViewController {
     var jsonarray = NSArray()
     var jsondict = NSDictionary()
     var TrainerProfileDictionary: NSDictionary!
+    
     var paymentNonce = String()
     var isNoncePresent = Bool()
+    var isClientTokenPresent = Bool()
+    
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
     
@@ -31,6 +36,8 @@ class ShowTrainersOnMapVC: UIViewController {
     var transactionId = String()
     var transactionStatus = String()
     var transactionAmount = String()
+    
+    var isPromoCodeExists = Bool()
     
     let TrainerprofileDetails : TrainerProfileModal = TrainerProfileModal()
 
@@ -43,14 +50,14 @@ class ShowTrainersOnMapVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         getCurrentLocationDetails()
-        fetchPaymentNonceFromUserDefault()
+        fetchClientTokenFromUserDefault()
     }
     
-    func fetchPaymentNonceFromUserDefault() {
+    func fetchClientTokenFromUserDefault() {
         
-        if let nonce = userDefaults.value(forKey: "paymentNonce") as? String{
-            paymentNonce = nonce
-            isNoncePresent = true
+        if let clientToken = userDefaults.value(forKey: "clientTokenForPayment") as? String{
+            fetchExistingPaymentMethod(clientToken: clientToken)
+            isClientTokenPresent = true
         }
     }
     
@@ -120,6 +127,7 @@ class ShowTrainersOnMapVC: UIViewController {
             CommonMethods.hideProgress()
             if let jsondata = response.value as? [String: AnyObject] {
                 print(jsondata)
+                
                 if let status = jsondata["status"] as? Int{
                     if status == RESPONSE_STATUS.SUCCESS{
                         
@@ -136,6 +144,8 @@ class ShowTrainersOnMapVC: UIViewController {
                     }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                         self.dismissOnSessionExpire()
                     }
+                }else{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
                 }
             }
         }
@@ -146,31 +156,30 @@ class ShowTrainersOnMapVC: UIViewController {
         let headers = [
             "token":appDelegate.Usertoken]
         
-        //            training_time,
-        //            promocode
-        //            OR
-        //            transaction_id,
-        //            amount,
-        //            transaction_status"
-
         //Parameters :- If payment is via Promo Code
-        let parameters = ["user_id" : appDelegate.UserId,
+        var parameters = ["user_id" : appDelegate.UserId,
                           "gender" : choosedTrainerGenderOfTrainee,
                           "category" : choosedCategoryOfTrainee.categoryId,
                           "latitude" : lat,
                           "longitude" : long,
                           "training_time" : choosedSessionOfTrainee,
-                          "promocode" : "TEST CODE"
             ] as [String : Any]
         
-        let parameters1 = ["transaction_id" : transactionId,
-                           "amount" : transactionAmount,
-                           "transaction_status" : transactionStatus
-        ] as [String : Any]
+        if isPromoCodeExists{
+            //With Promo Code
+            parameters = parameters.merged(with: ["promocode" : "TEST CODE"])
+        }else{
+            //With Payment Transaction
+            let transactionDict = ["transaction_id" : transactionId,
+                          "amount" : transactionAmount,
+                          "transaction_status" : transactionStatus
+                ] as [String : Any]
+            
+            parameters = parameters.merged(with: transactionDict)
+        }
         
         print("Header:\(headers)")
         print("Parameters:\(parameters)")
-        print("Parameters1:\(parameters1)")
         
         CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: RANDOM_SELECTOR, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
@@ -185,8 +194,6 @@ class ShowTrainersOnMapVC: UIViewController {
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
-//                    self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
-//                    self.performSegue(withIdentifier: "totrainerprofile", sender: self)
                     
                     if (jsondata["data"] as? NSDictionary) != nil {
                         
@@ -287,6 +294,35 @@ class ShowTrainersOnMapVC: UIViewController {
             })
         }
     }
+    
+    func fetchExistingPaymentMethod(clientToken: String) {
+        
+        print("***** Fetch Existing payment method *****")
+        CommonMethods.showProgress()
+        BTDropInResult.fetch(forAuthorization: clientToken, handler: { (result, error) in
+            if (error != nil) {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_METHOD_FETCH_ERROR, buttonTitle: "OK")
+                print("ERROR")
+            } else if let result = result {
+                
+                let selectedPaymentOptionType = result.paymentOptionType
+                let selectedPaymentMethod = result.paymentMethod
+                let selectedPaymentMethodIcon = result.paymentIcon
+                let selectedPaymentMethodDescription = result.paymentDescription
+                
+                print("Method: \(String(describing: selectedPaymentMethod))")
+                print("paymentOptionType: \(selectedPaymentOptionType.rawValue)")
+                print("paymentDescription: \(selectedPaymentMethodDescription)")
+                print("paymentIcon: \(selectedPaymentMethodIcon)")
+                
+                let nounce = result.paymentMethod?.nonce
+                self.isNoncePresent = true
+                self.paymentNonce = nounce!
+                CommonMethods.hideProgress()
+                print("New Received nonce:\(String(describing: nounce))")
+            }
+        })
+    }
 }
 
 extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
@@ -317,30 +353,9 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude:location.coordinate.latitude, longitude: location.coordinate.longitude)
             
-//             marker.iconView = markerView
-//            marker.title = "Sydney"
-//            marker.snippet = "Australia"
-//            marker.map = mapview
-            
             lat = String(location.coordinate.latitude)
             long = String(location.coordinate.longitude)
             
-//            //For Demo
-//            lat = "8.9300"
-//            long = "76.9065"
-            
-
-//            if TrainerProfileDictionary.allValues.isEmpty
-//            {
-//                
-//            }
-//            else{
-//                
-//                self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float((self.TrainerProfileDictionary["latitude"] as? String)!)!, DestiLong: Float((self.TrainerProfileDictionary["longitude"] as? String)!)!)
-//                
-//
-//            }
-//            
             self.addHandlers()
             self.locationManager.stopUpdatingLocation()
             
