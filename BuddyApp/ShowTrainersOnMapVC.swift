@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 import GoogleMaps
+import Alamofire
 
 class ShowTrainersOnMapVC: UIViewController {
 
@@ -21,22 +22,28 @@ class ShowTrainersOnMapVC: UIViewController {
     var jsonarray = NSArray()
     var jsondict = NSDictionary()
     var TrainerProfileDictionary: NSDictionary!
+    var paymentNonce = String()
+    var isNoncePresent = Bool()
     
     let TrainerprofileDetails : TrainerProfileModal = TrainerProfileModal()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 13.0)
-//        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//    
 
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         getCurrentLocationDetails()
+        
+        
+    }
+    
+    func fetchPaymentNonceFromUserDefault() {
+        
+        if let nonce = userDefaults.value(forKey: "paymentNonce") as? String{
+            paymentNonce = nonce
+            isNoncePresent = true
+        }
     }
     
     func getCurrentLocationDetails() {
@@ -46,37 +53,60 @@ class ShowTrainersOnMapVC: UIViewController {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             self.locationManager.requestAlwaysAuthorization()
-            
-            
-        self.mapview?.isMyLocationEnabled = true
-
-            
-            
-            
+            self.mapview?.isMyLocationEnabled = true
             locationManager.startUpdatingLocation()
         }
     }
     
     @IBAction func Next_action(_ sender: Any) {
         
-        CommonMethods.showProgress()
-        
-        RandomSelectTrainer()
-        
-//        let bgview = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width , height: self.view.frame.height))
-//        
-//        bgview.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.3)
-//        
-//        self.view.addSubview(bgview)
-//        
-
-        
-        
-        
+        if isNoncePresent {
+            postNonceToServer(paymentMethodNonce: paymentNonce)
+        }else{
+            //AddPaymentVCID
+            moveToAddPaymentMethodScreen()
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ADD_PAYMENT_METHOD, buttonTitle: "OK")
+        }
     }
     
-    func RandomSelectTrainer()
-    {
+    func moveToAddPaymentMethodScreen() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let paymentMethodPage : AddPaymentMethodVC = mainStoryboard.instantiateViewController(withIdentifier: "AddPaymentVCID") as! AddPaymentMethodVC
+        paymentMethodPage.isFromBookingPage = true
+        self.present(paymentMethodPage, animated: true, completion: nil)
+    }
+    
+    func postNonceToServer(paymentMethodNonce: String) {
+        
+        //DEMO NONCE :"fake-valid-nonce"
+        print("Nounce:\(paymentMethodNonce)")
+        let headers = [
+            "token":appDelegate.Usertoken]
+        
+        let parameters =  ["nonce" : paymentMethodNonce
+            ] as [String : Any]
+        print("PARAMS: \(parameters)")
+        
+        let FinalURL = SERVER_URL + PAYMENT_CHECKOUT
+        print("Final Server URL:",FinalURL)
+        
+        CommonMethods.showProgress()
+        Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: headers).responseJSON {
+            response in
+            print("Checkout page Response:\(response)")
+            if let data = response.data {
+                let json = String(data: data, encoding: String.Encoding.utf8)
+                print("Response: \(String(describing: json!))")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, buttonTitle: "OK")
+                //Assigning Trainer
+                self.RandomSelectTrainer()
+            }else{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_COULD_NOT_PROCESSED, buttonTitle: "OK")
+            }
+        }
+    }
+    
+    func RandomSelectTrainer(){
         
         let headers = [
             "token":appDelegate.Usertoken]
@@ -92,48 +122,30 @@ class ShowTrainersOnMapVC: UIViewController {
         print("Header:\(headers)")
         print("Params:\(parameters)")
         
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: RANDOM_SELECTOR, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
             
             print("*** Random Trainer Result:",jsondata)
             
+            CommonMethods.hideProgress()
             guard (jsondata["status"] as? Int) != nil else {
-                 CommonMethods.hideProgress()
-                
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
             }
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
-                    
-                  //  print(jsondata)
-                    
-                    
-                    CommonMethods.hideProgress()
-                    
                     self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
-                    
-                    
-                  //  self.TrainerprofileDetails.getTrainerProfileModelFromDict(dictionary: jsondata["data"] as? NSDictionary as! Dictionary<String, Any>)
-                    
-//                     let modelObject = self.TrainerprofileDetails.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
-//                    
-                    
                     self.performSegue(withIdentifier: "totrainerprofile", sender: self)
-                    
-                    
                 }else if status == RESPONSE_STATUS.FAIL{
-                     CommonMethods.hideProgress()
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-                     CommonMethods.hideProgress()
                     self.dismissOnSessionExpire()
                 }
             }
         })
-
-        
     }
+    
     func showTrainersList() {
         
         let headers = [
@@ -164,21 +176,11 @@ class ShowTrainersOnMapVC: UIViewController {
                     print(jsondata)
                     
                     self.jsonarray = jsondata["data"]  as! NSArray
-                    
-                    
-                    for jsondict in self.jsonarray
-                    {
-                    
+                    for jsondict in self.jsonarray{
                         self.jsondict = jsondict as! NSDictionary
-                        
                         print(Double(self.jsondict["latitude"] as! String)!)
-                        
-                self.MarkPoints(latitude: Double(self.jsondict["latitude"] as! String)!, logitude: Double(self.jsondict["longitude"] as! String)!)
-                        
-                }
-                    
-                    
-                    
+                        self.MarkPoints(latitude: Double(self.jsondict["latitude"] as! String)!, logitude: Double(self.jsondict["longitude"] as! String)!)
+                    }
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -191,21 +193,14 @@ class ShowTrainersOnMapVC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "totrainerprofile"
-        {
-            
+        if segue.identifier == "totrainerprofile"{
             let TrainerProPage =  segue.destination as! AssignedTrainerProfileView
-        
-        TrainerProPage.TrainerprofileDictionary = self.TrainerProfileDictionary
-            
+            TrainerProPage.TrainerprofileDictionary = self.TrainerProfileDictionary
         }
-            
-        
     }
-
-    
 }
 
 extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
@@ -255,21 +250,10 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             
             showTrainersList()
         }
-        
-        
-       
-        
-        
-        
-        
-        
     }
-    func MarkPoints(latitude: Double, logitude: Double )
-    {
+    
+    func MarkPoints(latitude: Double, logitude: Double ){
         let marker = GMSMarker()
-        
-        
-        
         // I have taken a pin image which is a custom image
         let markerImage = UIImage(named: "mapsicon")!.withRenderingMode(.alwaysTemplate)
         
@@ -281,17 +265,14 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
 
         marker.position = CLLocationCoordinate2D(latitude:CLLocationDegrees(latitude), longitude:CLLocationDegrees(logitude))
         
-        
-      
-        
       //  marker.icon = markerImage
         marker.iconView = markerView
         marker.title = "Sydney"
         marker.snippet = "Australia"
         marker.map = mapview
-
     }
-       private func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    
+    private func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         mapview.isMyLocationEnabled = true
         if status == CLAuthorizationStatus.authorizedWhenInUse {
             mapview.isMyLocationEnabled = true
