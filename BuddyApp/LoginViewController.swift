@@ -224,7 +224,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
                     print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
                     
-                    if let url = URL(string:(self.jsondict["user_image"] as? String)!){
+                    if let url = URL(string:(CommonMethods.checkStringNull(val: self.jsondict["user_image"] as? String))){
                         print("Image URL:", url)
                         if let data = NSData.init(contentsOf: url){
                             ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data)

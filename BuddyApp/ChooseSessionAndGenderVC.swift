@@ -163,7 +163,16 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
        
             sessionChoosed = indexPath.row
             chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 0), with: .automatic)
-            choosedSessionOfTrainee = trainingDurationArray[indexPath.row]
+          //  choosedSessionOfTrainee = trainingDurationArray[indexPath.row]
+        
+        if trainingDurationArray[indexPath.row] == "30 Minutes"
+        {
+            choosedSessionOfTrainee = "30"
+        }
+        else{
+            choosedSessionOfTrainee = "60"
+        }
+        
             print("Choosed Session:\(choosedSessionOfTrainee)")
         
         

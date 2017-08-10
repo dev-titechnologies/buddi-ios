@@ -92,7 +92,8 @@ class ShowTrainersOnMapVC: UIViewController {
                           "category" : choosedCategoryOfTrainee.categoryId,
                           "latitude" : lat,
                           "longitude" : long,
-                          "duration" : choosedSessionOfTrainee
+                          "training_time" : choosedSessionOfTrainee,
+                          "promocode" : "test"
             ] as [String : Any]
         
         print("Header:\(headers)")
@@ -100,7 +101,7 @@ class ShowTrainersOnMapVC: UIViewController {
         
         CommonMethods.serverCall(APIURL: RANDOM_SELECTOR, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
             
-          //  print("*** Random Trainer Result:",jsondata)
+        print("*** Random Trainer Result:",jsondata)
             
             guard (jsondata["status"] as? Int) != nil else {
                  CommonMethods.hideProgress()
@@ -228,12 +229,12 @@ class ShowTrainersOnMapVC: UIViewController {
     func addHandlers() {
         
         
-        parameterdict.setValue("/location/addLocation/", forKey: "url")
+        parameterdict.setValue("/location/addLocation", forKey: "url")
         
         
        
         datadict.setValue(appDelegate.UserId, forKey: "user_id")
-        datadict.setValue(appDelegate.USER_TYPE, forKey: "user_type")
+        datadict.setValue("trainee", forKey: "user_type")
         datadict.setValue(lat, forKey: "latitude")
         datadict.setValue(long, forKey: "longitude")
         datadict.setValue("online", forKey: "avail_status")
@@ -316,7 +317,7 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             
             
             
-            showTrainersList()
+           // showTrainersList()
         }
         
         
