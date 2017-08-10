@@ -84,6 +84,9 @@ PODS:
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - SideMenu (2.3.2)
+  - Socket.IO-Client-Swift (11.0.2):
+    - StarscreamSocketIO (~> 8.0.2)
+  - StarscreamSocketIO (8.0.2)
   - SVProgressHUD (2.1.2)
   - SwiftyJSON (3.1.4)
 
@@ -100,6 +103,7 @@ DEPENDENCIES:
   - libPhoneNumber-iOS (~> 0.9)
   - SDWebImage (~> 3.8)
   - SideMenu
+  - Socket.IO-Client-Swift
   - SVProgressHUD
   - SwiftyJSON
 
@@ -123,9 +127,11 @@ SPEC CHECKSUMS:
   libPhoneNumber-iOS: f721ae4d5854bce60934f9fb9b0b28e8e68913cb
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SideMenu: 3fa07dd05d4bade2b6f9889fb1877e312e1ba319
+  Socket.IO-Client-Swift: 17d4daf85d74125c33481d9bc40cbe678f0d631a
+  StarscreamSocketIO: c02ffb2920bd38de6658ce213071fc4ae0e35423
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: c9bad1b5be15219df9029a26a20478caa921e332
+PODFILE CHECKSUM: f0c29e691c879c4a8d456163ef40afe0e9380993
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

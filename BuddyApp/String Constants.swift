@@ -129,7 +129,7 @@ let weightRangeOrderedSet = NSMutableOrderedSet(array: weightRangeArray, copyIte
 
 let trainingDurationArray = ["30 Minutes", "1 Hour"]
 
-let trainingExperienceYearsArray = ["1","2","3","4","5","6","7","8","9","10","10+",]
+let trainingExperienceYearsArray = ["1","2","3","4","5","6","7","8","9","10","10+"]
 let trainingExperienceMonthsArray = Array(0...12)
 
 let currentWeightONEArray = [100,200,300,400]

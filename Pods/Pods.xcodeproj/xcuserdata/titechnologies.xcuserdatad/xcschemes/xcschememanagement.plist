@@ -99,6 +99,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Socket.IO-Client-Swift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>StarscreamSocketIO.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -113,6 +123,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>071988BC0E6E8C2E371A8AAA8CDE7C81</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B0F0AA26B3106CC27A23D50994A59FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,17 +147,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>296D8032D191933F805CC1B45CBF63FC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>312B3E952FE0D7D7ECFB3CFF8C2E6CD1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>365EF43D76D13634227E8C48BC8A163C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,7 +157,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4A5406A152D145AC59663E7A14FB13D3</key>
+		<key>3D901413B8B676CD7AB49E69570A24B2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -167,17 +172,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>77AD35576C6C7520BB202C5C21A69239</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>7D5D891676725492FDD435B2ACEBBB3B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>869E615C8531BD3E053C61D3B5D13485</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>86A815B0D02089D55C430233E96261BE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -193,11 +198,6 @@
 			<true/>
 		</dict>
 		<key>9EFE4C70245EE2857D336B8B9FA4E825</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AD00BD2D3A56BFA855A0D6C84C48095A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -238,6 +238,26 @@
 			<true/>
 		</dict>
 		<key>C235F77E101E742652CCF98FFDFA5182</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CEAD2AEF44CEAF21DDD122683133DF13</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D4285AC4D3A4591A28A23497497CF1F7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EE3F6CBFB6223226CC8B571BA5BAEE74</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE9EC88330ECF1E64F44D3595117BB13</key>
 		<dict>
 			<key>primary</key>
 			<true/>

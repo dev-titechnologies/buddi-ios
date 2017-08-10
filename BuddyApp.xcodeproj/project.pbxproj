@@ -50,6 +50,7 @@
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
 		F330A1001F2F731D00C69871 /* BlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F330A0FF1F2F731D00C69871 /* BlankViewController.swift */; };
 		F334D6C01F39B12300435BD2 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F334D6BF1F39B12300435BD2 /* TimerViewController.swift */; };
+		F334D6C21F39F0F700435BD2 /* America.gpx in Resources */ = {isa = PBXBuildFile; fileRef = F334D6C11F39F0F700435BD2 /* America.gpx */; };
 		F33ABF6D1F29E5C200DEAE48 /* WaitingForApprovalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */; };
 		F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */; };
 		F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */; };
@@ -110,7 +111,10 @@
 		F3A907881F33578100474F5E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A907871F33578000474F5E /* CoreLocation.framework */; };
 		F3AA6C831F21C4F500F44DC2 /* libPhoneNumber_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */; };
 		F3AF9D431F30661000D0CF05 /* GymModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AF9D421F30661000D0CF05 /* GymModel.swift */; };
+		F3B52EE11F3AE4CC007910BC /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B52EE01F3AE4CC007910BC /* SocketIOManager.swift */; };
+		F3B52EE31F3AE66D007910BC /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3B52EE21F3AE66D007910BC /* SocketIO.framework */; };
 		F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */; };
+		F3CD1E301F3B18C100398705 /* mapstogpx20170809_095410.gpx in Resources */ = {isa = PBXBuildFile; fileRef = F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */; };
 		F3D0EF421F289C3C009B60E7 /* ProfileImageDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */; };
 		F3D0EF431F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */; };
 		F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */; };
@@ -199,6 +203,7 @@
 		F330A0FF1F2F731D00C69871 /* BlankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlankViewController.swift; sourceTree = "<group>"; };
 		F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BuddyApp.entitlements; sourceTree = "<group>"; };
 		F334D6BF1F39B12300435BD2 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
+		F334D6C11F39F0F700435BD2 /* America.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = America.gpx; sourceTree = "<group>"; };
 		F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForApprovalVC.swift; sourceTree = "<group>"; };
 		F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterChoiceViewController.swift; sourceTree = "<group>"; };
@@ -251,7 +256,10 @@
 		F3A907871F33578000474F5E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libPhoneNumber_iOS.framework; path = "Pods/../build/Debug-iphoneos/libPhoneNumber-iOS/libPhoneNumber_iOS.framework"; sourceTree = "<group>"; };
 		F3AF9D421F30661000D0CF05 /* GymModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymModel.swift; sourceTree = "<group>"; };
+		F3B52EE01F3AE4CC007910BC /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
+		F3B52EE21F3AE66D007910BC /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/Socket.IO-Client-Swift/SocketIO.framework"; sourceTree = "<group>"; };
 		F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVideoUploadVC.swift; sourceTree = "<group>"; };
+		F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mapstogpx20170809_095410.gpx; sourceTree = "<group>"; };
 		F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageDB.swift; sourceTree = "<group>"; };
 		F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileImageDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTestAnswersModel.swift; sourceTree = "<group>"; };
@@ -269,6 +277,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3B52EE31F3AE66D007910BC /* SocketIO.framework in Frameworks */,
 				F3A907881F33578100474F5E /* CoreLocation.framework in Frameworks */,
 				F38BB54B1F262ABB00824C15 /* AlamofireImage.framework in Frameworks */,
 				F38BB5491F2628E300824C15 /* Alamofire.framework in Frameworks */,
@@ -309,6 +318,7 @@
 		8A7AD5AFB8FF51439DD7F8C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F3B52EE21F3AE66D007910BC /* SocketIO.framework */,
 				F3A907871F33578000474F5E /* CoreLocation.framework */,
 				F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */,
 				F38BB5481F2628E300824C15 /* Alamofire.framework */,
@@ -434,6 +444,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F3B52EDF1F3AE452007910BC /* SocketIO */,
 				F3A907771F32E3F600474F5E /* Trainer Pages */,
 				F3A907761F32E3D900474F5E /* Trainee Pages */,
 				F3FC70E91F2F398500B54A79 /* Forgot Password */,
@@ -650,6 +661,8 @@
 		F3A907761F32E3D900474F5E /* Trainee Pages */ = {
 			isa = PBXGroup;
 			children = (
+				F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */,
+				F334D6C11F39F0F700435BD2 /* America.gpx */,
 				F334D6BE1F39B0AB00435BD2 /* TimerViewcontroller */,
 				F364A8FA1F34B30B0001C570 /* Assigned Trainer Profile View */,
 				F3A9077C1F32EF9100474F5E /* Choose Session and Gender Page */,
@@ -676,6 +689,14 @@
 				F3A907831F32FD5A00474F5E /* SectionHeaderCell.swift */,
 			);
 			name = "Choose Session and Gender Page";
+			sourceTree = "<group>";
+		};
+		F3B52EDF1F3AE452007910BC /* SocketIO */ = {
+			isa = PBXGroup;
+			children = (
+				F3B52EE01F3AE4CC007910BC /* SocketIOManager.swift */,
+			);
+			name = SocketIO;
 			sourceTree = "<group>";
 		};
 		F3C3FC7B1F25BC4C00AEDB5F /* Video Uploading Page */ = {
@@ -845,11 +866,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F315E9971F30585700850A44 /* DropDown_Checked@2x.png in Resources */,
+				F3CD1E301F3B18C100398705 /* mapstogpx20170809_095410.gpx in Resources */,
 				F322FC4A1F1CE62200381B8C /* LaunchScreen.storyboard in Resources */,
 				F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */,
 				F315E9961F30585700850A44 /* check.png in Resources */,
 				F315E9981F30585700850A44 /* DropDown_Done@2x.png in Resources */,
 				F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */,
+				F334D6C21F39F0F700435BD2 /* America.gpx in Resources */,
 				F315E9991F30585700850A44 /* DropDown_Unchecked@2x.png in Resources */,
 				F35FDAE81F1E51DE0091900D /* ReviewHistory.json in Resources */,
 				F315E99A1F30585700850A44 /* DropDownListView.xib in Resources */,
@@ -1046,6 +1069,7 @@
 				F316E7F41F220CEC00994447 /* Question1VC.swift in Sources */,
 				F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */,
 				F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */,
+				F3B52EE11F3AE4CC007910BC /* SocketIOManager.swift in Sources */,
 				F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */,
 				F364A8FC1F34B3520001C570 /* AssignedTrainerProfileTableCaptionsCell.swift in Sources */,
 				F3093F621F2B12D400D33324 /* Reach.swift in Sources */,
