@@ -114,6 +114,7 @@
 		F3B52EE11F3AE4CC007910BC /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B52EE01F3AE4CC007910BC /* SocketIOManager.swift */; };
 		F3B52EE31F3AE66D007910BC /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3B52EE21F3AE66D007910BC /* SocketIO.framework */; };
 		F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */; };
+		F3C685771F3C5D4C00AA8CC7 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C685761F3C5D4C00AA8CC7 /* DictionaryExtension.swift */; };
 		F3CD1E301F3B18C100398705 /* mapstogpx20170809_095410.gpx in Resources */ = {isa = PBXBuildFile; fileRef = F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */; };
 		F3D0EF421F289C3C009B60E7 /* ProfileImageDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */; };
 		F3D0EF431F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */; };
@@ -259,6 +260,7 @@
 		F3B52EE01F3AE4CC007910BC /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		F3B52EE21F3AE66D007910BC /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/Socket.IO-Client-Swift/SocketIO.framework"; sourceTree = "<group>"; };
 		F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVideoUploadVC.swift; sourceTree = "<group>"; };
+		F3C685761F3C5D4C00AA8CC7 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mapstogpx20170809_095410.gpx; sourceTree = "<group>"; };
 		F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageDB.swift; sourceTree = "<group>"; };
 		F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileImageDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -738,6 +740,7 @@
 				F3FF03E01F285F6700D4DD0D /* StringExtension.swift */,
 				F3FF03E21F285F8200D4DD0D /* DataExtension.swift */,
 				F341B0331F28D664007C9AF1 /* UIColorExtension.swift */,
+				F3C685761F3C5D4C00AA8CC7 /* DictionaryExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1100,6 +1103,7 @@
 				F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */,
 				F3A907841F32FD5A00474F5E /* SectionHeaderCell.swift in Sources */,
 				F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */,
+				F3C685771F3C5D4C00AA8CC7 /* DictionaryExtension.swift in Sources */,
 				F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */,
 				F37350AC1F20AA3400BE9DB6 /* CategoryDB.swift in Sources */,
 				F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */,
