@@ -90,7 +90,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             self.profileArray = result as! Array<ProfileDB>
             
             let obj = self.profileArray[0].value(forKey: "firstname")
-            print("DBBB",obj!)
+            print("DBBB",self.profileArray[0])
    
             let profile = ProfileModel(profileImage: self.profileArray[0].value(forKey: "profileImageURL") as! String, firstName: self.profileArray[0].value(forKey: "firstname") as! String,
                                        lastName: self.profileArray[0].value(forKey: "lastname") as! String,
