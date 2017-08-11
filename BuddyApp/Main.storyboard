@@ -3088,11 +3088,8 @@ Good luck!
                         <constraints>
                             <constraint firstItem="4QL-IN-MSy" firstAttribute="leading" secondItem="TbR-AY-BHQ" secondAttribute="leading" id="2VI-kc-wax"/>
                             <constraint firstAttribute="leading" secondItem="TbR-AY-BHQ" secondAttribute="leading" id="Bqj-A3-jtp"/>
-<<<<<<< HEAD
                             <constraint firstAttribute="trailing" secondItem="KrP-Kv-hkM" secondAttribute="trailing" constant="14" id="NaG-0W-6wc"/>
-=======
                             <constraint firstItem="6G5-V9-bL5" firstAttribute="leading" secondItem="TbR-AY-BHQ" secondAttribute="leading" id="EFe-kd-6Fo"/>
->>>>>>> 1d51472aaa701565b13e3031e41329f760a8f2c0
                             <constraint firstItem="4QL-IN-MSy" firstAttribute="top" secondItem="nyP-ca-L2r" secondAttribute="bottom" id="cM4-NO-73E"/>
                             <constraint firstAttribute="trailing" secondItem="6G5-V9-bL5" secondAttribute="trailing" id="dg6-Pu-qXo"/>
                             <constraint firstItem="3OO-6E-F0a" firstAttribute="top" secondItem="O8z-M3-oC6" secondAttribute="bottom" constant="18" id="fOV-mm-PEE"/>
@@ -3100,11 +3097,8 @@ Good luck!
                             <constraint firstAttribute="centerX" secondItem="4QL-IN-MSy" secondAttribute="centerX" id="kA7-LW-h71"/>
                             <constraint firstItem="3OO-6E-F0a" firstAttribute="top" secondItem="4QL-IN-MSy" secondAttribute="bottom" id="nvL-P1-WY1"/>
                             <constraint firstAttribute="trailing" secondItem="4QL-IN-MSy" secondAttribute="trailing" id="r3C-7n-DD6"/>
-<<<<<<< HEAD
                             <constraint firstItem="KrP-Kv-hkM" firstAttribute="top" secondItem="nyP-ca-L2r" secondAttribute="bottom" constant="8" id="uSF-Hq-MUS"/>
-=======
                             <constraint firstItem="3OO-6E-F0a" firstAttribute="top" secondItem="6G5-V9-bL5" secondAttribute="bottom" id="uZD-EG-tPE"/>
->>>>>>> 1d51472aaa701565b13e3031e41329f760a8f2c0
                         </constraints>
                     </view>
                     <connections>
@@ -4557,7 +4551,6 @@ Good luck!
         <image name="rightArrow" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
         <segue reference="L6f-51-y41"/>
         <segue reference="oJI-IR-BP8"/>
         <segue reference="2VQ-rM-Ru6"/>
@@ -4568,7 +4561,6 @@ Good luck!
         <segue reference="VDG-Dp-UF6"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="Hon-zV-Vye"/>
-=======
         <segue reference="Hon-zV-Vye"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="lS4-X5-YwA"/>
@@ -4579,6 +4571,5 @@ Good luck!
         <segue reference="2VQ-rM-Ru6"/>
         <segue reference="USH-R0-s5v"/>
         <segue reference="fqg-MV-HkZ"/>
->>>>>>> 1d51472aaa701565b13e3031e41329f760a8f2c0
     </inferredMetricsTieBreakers>
 </document>
