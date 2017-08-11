@@ -32,6 +32,8 @@ class SocketIOManager: NSObject {
     }
     func establishConnection() {
         
+        print("ESTABLISH CONNECTION")
+        
         socket.connect()
     }
     

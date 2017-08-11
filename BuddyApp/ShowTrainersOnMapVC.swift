@@ -32,6 +32,9 @@ class ShowTrainersOnMapVC: UIViewController {
     
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
+    var parameterdict1 = NSMutableDictionary()
+    var datadict1 = NSMutableDictionary()
+
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 5.0, left: 0, bottom: 0, right: 0)
     fileprivate let itemsPerRow: CGFloat = 4
@@ -285,18 +288,26 @@ class ShowTrainersOnMapVC: UIViewController {
     
     //MARK: - BRAINTREE FUNCTIONS
     
-    func addHandlersTrainer() {
-        
-        parameterdict.setValue("/location/receiveTrainerLocation", forKey: "url")
     
-        datadict.setValue(appDelegate.UserId, forKey: "user_id")
-        datadict.setValue("75", forKey: "trainer_id")
-        parameterdict.setValue(datadict, forKey: "data")
-        print("PARADICT_ReciveTrinerLocation",parameterdict)
-        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+    func addHandlersTrainer(){
+        
+        parameterdict1.setValue("/location/receiveTrainerLocation", forKey: "url")
+    
+        datadict1.setValue(appDelegate.UserId, forKey: "user_id")
+        datadict1.setValue(self.TrainerProfileDictionary["trainer_id"], forKey: "trainer_id")
+        parameterdict1.setValue(datadict1, forKey: "data")
+        print("PARADICT_ReceivedTrainerLocation",parameterdict1)
+       // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
+        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
+        
         SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
                 print("Socket Message Info1",messageInfo)
+                
+               // print(Float(messageInfo["longitude"] as! String)!)
+                
+               self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float((messageInfo["message"] as! NSDictionary)["latitude"] as! String)!, DestiLong: Float((messageInfo["message"] as! NSDictionary)["longitude"] as! String!)!)
+                
             })
         }
     }
@@ -416,7 +427,7 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             lat = String(location.coordinate.latitude)
             long = String(location.coordinate.longitude)
             
-           // self.addHandlers()
+          //  self.addHandlers()
             self.locationManager.stopUpdatingLocation()
             
             
@@ -429,6 +440,9 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
     func DrowRoute(OriginLat: Float, OriginLong: Float, DestiLat: Float, DestiLong: Float){
         
         print("LAT$LONG",lat)
+        
+        MarkPoints(latitude: Double(DestiLat), logitude: Double(DestiLong))
+        
         
         let origin = "\(OriginLat),\(OriginLong)"
         let destination = "\(DestiLat),\(DestiLong)"
