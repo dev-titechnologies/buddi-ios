@@ -41,37 +41,32 @@ class TrainerProfileModal{
         self.distance = distance
         self.Lattitude = lattitude
         self.Longitude = longittude
-        
-        
     }
+    
     func getTrainerProfileModelFromDict(dictionary: Dictionary<String, Any>) -> TrainerProfileModal {
         
         let model: TrainerProfileModal = TrainerProfileModal()
         
-       // model.profileImage =  dictionary["booking_id"] as! String
+        let trainerDetailsDict = dictionary["trainer_details"] as! Dictionary<String, Any>
+        print("Trainer Basic Details:\(trainerDetailsDict)")
         
-        
-        print(dictionary["first_name"] as! String)
-        
-        
-        model.firstName =  dictionary["first_name"] as! String
-        model.lastName = dictionary["last_name"] as! String
+        model.firstName =  trainerDetailsDict["trainer_first_name"] as! String
+        model.lastName = trainerDetailsDict["trainer_last_name"] as! String
        // model.mobile = dictionary["trainer_id"] as! String
-        model.gender = CommonMethods.checkStringNull(val: dictionary["gender"] as? String)
-        model.userid = String(describing: dictionary["user_id"]!)
-        model.age = CommonMethods.checkStringNull(val: dictionary["age"] as? String)
-        model.rating = String(describing: dictionary["rating"]!)
-        model.Height = CommonMethods.checkStringNull(val: dictionary["height"] as? String)
-        model.Weight = CommonMethods.checkStringNull(val: dictionary["weight"] as? String)
-        model.distance = CommonMethods.checkStringNull(val: dictionary["distance"] as? String)
-        model.Lattitude = String(describing: dictionary["latitude"]!)
-        model.Longitude = String(describing: dictionary["longitude"]!)
+        model.gender = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_gender"] as? String)
+        model.userid = String(describing: dictionary["trainer_id"]!)
+        model.age = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_age"] as? String)
+        model.rating = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_rating"] as? String)
+        model.Height = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_height"] as? String)
+        model.Weight = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_weight"] as? String)
+        model.distance = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_distance"] as? String)
+        model.Lattitude = String(describing: trainerDetailsDict["trainer_latitude"]!)
+        model.Longitude = String(describing: trainerDetailsDict["trainer_longitude"]!)
+        
+        print("Creating Model for Trainer:\(model)")
 
         return model
-        
     }
-    
-
     
 }
 
