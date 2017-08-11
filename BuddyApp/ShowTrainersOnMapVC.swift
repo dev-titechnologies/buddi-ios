@@ -32,6 +32,9 @@ class ShowTrainersOnMapVC: UIViewController {
     
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
+    var parameterdict1 = NSMutableDictionary()
+    var datadict1 = NSMutableDictionary()
+
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 5.0, left: 0, bottom: 0, right: 0)
     fileprivate let itemsPerRow: CGFloat = 4
@@ -270,7 +273,7 @@ class ShowTrainersOnMapVC: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     print(jsondata)
                     self.jsonarray = jsondata["data"]  as! NSArray
-                    for jsondict in self.jsonarray{
+                   // for jsondict in self.jsonarray{
                         if self.jsonarray.count == 0{
                             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                         } else{
@@ -279,10 +282,8 @@ class ShowTrainersOnMapVC: UIViewController {
                                 print(Double(self.jsondict["latitude"] as! String)!)
                                 self.MarkPoints(latitude: Double(self.jsondict["latitude"] as! String)!, logitude: Double(self.jsondict["longitude"] as! String)!)
                             }
-                            self.MarkPoints(latitude: Double(self.jsondict["latitude"] as! String)!, logitude:
-                            Double(self.jsondict["longitude"] as! String)!)
-                        }
-                    }
+                                               }
+                   // }
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -328,19 +329,26 @@ class ShowTrainersOnMapVC: UIViewController {
     
     func addHandlersTrainer()
     {
+       
         
         
-        
-        parameterdict.setValue("/location/receiveTrainerLocation", forKey: "url")
+        parameterdict1.setValue("/location/receiveTrainerLocation", forKey: "url")
     
-        datadict.setValue(appDelegate.UserId, forKey: "user_id")
-        datadict.setValue("75", forKey: "trainer_id")
-        parameterdict.setValue(datadict, forKey: "data")
-        print("PARADICT_ReciveTrinerLocation",parameterdict)
-        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+        datadict1.setValue(appDelegate.UserId, forKey: "user_id")
+        datadict1.setValue(self.TrainerProfileDictionary["trainer_id"], forKey: "trainer_id")
+        parameterdict1.setValue(datadict1, forKey: "data")
+        print("PARADICT_ReciveTrinerLocation",parameterdict1)
+       // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
+        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
+        
         SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
                 print("Socket Message Info1",messageInfo)
+                
+               // print(Float(messageInfo["longitude"] as! String)!)
+                
+               self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float((messageInfo["message"] as! NSDictionary)["latitude"] as! String)!, DestiLong: Float((messageInfo["message"] as! NSDictionary)["longitude"] as! String!)!)
+                
             })
         }
 
@@ -408,7 +416,7 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             lat = String(location.coordinate.latitude)
             long = String(location.coordinate.longitude)
             
-           // self.addHandlers()
+          //  self.addHandlers()
             self.locationManager.stopUpdatingLocation()
             
             
@@ -421,6 +429,9 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
     func DrowRoute(OriginLat: Float, OriginLong: Float, DestiLat: Float, DestiLong: Float){
         
         print("LAT$LONG",lat)
+        
+        MarkPoints(latitude: Double(DestiLat), logitude: Double(DestiLong))
+        
         
         let origin = "\(OriginLat),\(OriginLong)"
         let destination = "\(DestiLat),\(DestiLong)"
