@@ -3021,11 +3021,11 @@ Good luck!
                                     <action selector="reviewAction:" destination="SHT-lJ-KGh" eventType="touchUpInside" id="Qae-qE-aF2"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8z-M3-oC6">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8z-M3-oC6">
                                 <rect key="frame" x="13" y="597" width="348" height="62"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="kIo-GW-erR"/>
+                                    <constraint firstAttribute="height" constant="62" id="kIo-GW-erR"/>
                                     <constraint firstAttribute="width" constant="348" id="mrS-Bi-Q5s"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -3088,11 +3088,11 @@ Good luck!
                         <constraints>
                             <constraint firstItem="4QL-IN-MSy" firstAttribute="leading" secondItem="TbR-AY-BHQ" secondAttribute="leading" id="2VI-kc-wax"/>
                             <constraint firstAttribute="leading" secondItem="TbR-AY-BHQ" secondAttribute="leading" id="Bqj-A3-jtp"/>
-                            <constraint firstAttribute="trailing" secondItem="KrP-Kv-hkM" secondAttribute="trailing" constant="14" id="NaG-0W-6wc"/>
                             <constraint firstItem="6G5-V9-bL5" firstAttribute="leading" secondItem="TbR-AY-BHQ" secondAttribute="leading" id="EFe-kd-6Fo"/>
+                            <constraint firstAttribute="trailing" secondItem="KrP-Kv-hkM" secondAttribute="trailing" constant="14" id="NaG-0W-6wc"/>
                             <constraint firstItem="4QL-IN-MSy" firstAttribute="top" secondItem="nyP-ca-L2r" secondAttribute="bottom" id="cM4-NO-73E"/>
                             <constraint firstAttribute="trailing" secondItem="6G5-V9-bL5" secondAttribute="trailing" id="dg6-Pu-qXo"/>
-                            <constraint firstItem="3OO-6E-F0a" firstAttribute="top" secondItem="O8z-M3-oC6" secondAttribute="bottom" constant="18" id="fOV-mm-PEE"/>
+                            <constraint firstItem="3OO-6E-F0a" firstAttribute="top" secondItem="O8z-M3-oC6" secondAttribute="bottom" constant="8" id="fOV-mm-PEE"/>
                             <constraint firstItem="O8z-M3-oC6" firstAttribute="centerX" secondItem="TbR-AY-BHQ" secondAttribute="centerX" id="ic2-dP-U1Y"/>
                             <constraint firstAttribute="centerX" secondItem="4QL-IN-MSy" secondAttribute="centerX" id="kA7-LW-h71"/>
                             <constraint firstItem="3OO-6E-F0a" firstAttribute="top" secondItem="4QL-IN-MSy" secondAttribute="bottom" id="nvL-P1-WY1"/>
@@ -3106,6 +3106,7 @@ Good luck!
                         <outlet property="mapview" destination="4QL-IN-MSy" id="Z9y-GC-avG"/>
                         <segue destination="chc-2H-Gha" kind="show" identifier="totrainerprofile" id="j2f-dg-unJ"/>
                         <segue destination="Aia-cI-dmK" kind="show" identifier="trainerReviewPageSegue" id="IIP-sz-Dfm"/>
+                        <segue destination="3tw-Fw-C7S" kind="show" identifier="trainerTraineeRouteVCSegue" id="5ep-Qg-p10"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t5J-KQ-bdW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3219,9 +3220,6 @@ Good luck!
                                         <state key="normal" title="Done">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <connections>
-                                            <segue destination="3tw-Fw-C7S" kind="show" id="Phs-up-Fq9"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5n7-mi-8rL">
                                         <rect key="frame" x="8" y="70" width="52" height="30"/>
@@ -3533,7 +3531,7 @@ Good luck!
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J7u-h3-oPS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3864.8000000000002" y="-1603.4482758620691"/>
+            <point key="canvasLocation" x="3817" y="-2320"/>
         </scene>
         <!--Trainer Review Page-->
         <scene sceneID="hG1-se-oID">
@@ -3777,7 +3775,7 @@ Good luck!
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7WX-rg-zp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4608.8000000000002" y="-1599.8500749625189"/>
+            <point key="canvasLocation" x="4004" y="-1561"/>
         </scene>
         <!--Timer View Controller-->
         <scene sceneID="Mb0-pI-3GQ">
@@ -4551,16 +4549,6 @@ Good luck!
         <image name="rightArrow" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L6f-51-y41"/>
-        <segue reference="oJI-IR-BP8"/>
-        <segue reference="2VQ-rM-Ru6"/>
-        <segue reference="USH-R0-s5v"/>
-        <segue reference="fqg-MV-HkZ"/>
-        <segue reference="21t-ww-Awf"/>
-        <segue reference="lS4-X5-YwA"/>
-        <segue reference="VDG-Dp-UF6"/>
-        <segue reference="hJy-Rz-WHD"/>
-        <segue reference="Hon-zV-Vye"/>
         <segue reference="Hon-zV-Vye"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="lS4-X5-YwA"/>

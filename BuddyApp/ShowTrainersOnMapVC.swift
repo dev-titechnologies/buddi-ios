@@ -30,8 +30,6 @@ class ShowTrainersOnMapVC: UIViewController {
     var isNoncePresent = Bool()
     var isClientTokenPresent = Bool()
     
-    var selectedTrainerName = String()
-    
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
     var parameterdict1 = NSMutableDictionary()
@@ -51,8 +49,8 @@ class ShowTrainersOnMapVC: UIViewController {
     
     var isPromoCodeExists = Bool()
     
-    let TrainerprofileDetails : TrainerProfileModal = TrainerProfileModal()
-
+    var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
+    
     
     //MARK: - VIEW CYCLES
     
@@ -98,15 +96,13 @@ class ShowTrainersOnMapVC: UIViewController {
     }
     
     @IBAction func Next_action(_ sender: Any) {
+//        self.RandomSelectTrainer()
         
-        
-        self.RandomSelectTrainer()
-        
-//        if isNoncePresent {
-//            postNonceToServer(paymentMethodNonce: paymentNonce)
-//        }else{
-//            alertForAddPaymentMethod()
-//        }
+        if isNoncePresent {
+            postNonceToServer(paymentMethodNonce: paymentNonce)
+        }else{
+            alertForAddPaymentMethod()
+        }
     }
     
     func alertForAddPaymentMethod() {
@@ -143,10 +139,9 @@ class ShowTrainersOnMapVC: UIViewController {
         if segue.identifier == "totrainerprofile"{
             let TrainerProPage =  segue.destination as! AssignedTrainerProfileView
             TrainerProPage.TrainerprofileDictionary = self.TrainerProfileDictionary
-        }else if segue.identifier == "trainerReviewPageSegue" {
-            let trainerReviewPage =  segue.destination as! TrainerReviewPage
-            trainerReviewPage.reviewDict.trainerName = selectedTrainerName
-            
+        }else if segue.identifier == "trainerTraineeRouteVCSegue" {
+            let trainerRoutePage =  segue.destination as! TrainerTraineeRouteViewController
+            trainerRoutePage.trainerProfileDetails = selectedTrainerProfileDetails
         }
     }
     
@@ -220,22 +215,19 @@ class ShowTrainersOnMapVC: UIViewController {
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
-                    
+                    let trainerProfileModelObj = TrainerProfileModal()
                     if (jsondata["data"] as? NSDictionary) != nil {
                         
                         self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
                         
-                        let firstName = self.TrainerProfileDictionary["trainer_first_name"] as! String
-                        let lastName = self.TrainerProfileDictionary["trainer_last_name"] as! String
-                        self.selectedTrainerName = firstName + " " + lastName
+                        print("Selected Trainer Details:\(self.TrainerProfileDictionary)")
                         
-                        print("Lat:\(self.lat)")
-                        print("Long:\(self.long)")
-
+                        self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+                        self.performSegue(withIdentifier: "trainerTraineeRouteVCSegue", sender: self)
                         
-                        self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String)!)!, DestiLong: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_longitude"] as? String)!)!)
+//                        self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String)!)!, DestiLong: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_longitude"] as? String)!)!)
                         
-                        self.addHandlersTrainer()
+//                        self.addHandlersTrainer()
                     }else{
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     }
@@ -296,17 +288,15 @@ class ShowTrainersOnMapVC: UIViewController {
     
     //MARK: - BRAINTREE FUNCTIONS
     
-    func addHandlersTrainer()
-    {
-       
-        
+    
+    func addHandlersTrainer(){
         
         parameterdict1.setValue("/location/receiveTrainerLocation", forKey: "url")
     
         datadict1.setValue(appDelegate.UserId, forKey: "user_id")
         datadict1.setValue(self.TrainerProfileDictionary["trainer_id"], forKey: "trainer_id")
         parameterdict1.setValue(datadict1, forKey: "data")
-        print("PARADICT_ReciveTrinerLocation",parameterdict1)
+        print("PARADICT_ReceivedTrainerLocation",parameterdict1)
        // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
         
@@ -320,8 +310,6 @@ class ShowTrainersOnMapVC: UIViewController {
                 
             })
         }
-
-        
     }
     
     func fetchExistingPaymentMethod(clientToken: String) {
@@ -384,9 +372,13 @@ class ShowTrainersOnMapVC: UIViewController {
                         self.transactionAmount = transactionDict["amount"] as! String
                         self.transactionStatus = transactionDict["status"] as! String
                         
-                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, buttonTitle: "OK")
-                        //Assigning Trainer
-                        self.RandomSelectTrainer()
+                        let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                            self.RandomSelectTrainer()
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                        
                     }else if status == RESPONSE_STATUS.FAIL{
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                     }else if status == RESPONSE_STATUS.SESSION_EXPIRED{

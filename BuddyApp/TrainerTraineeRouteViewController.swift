@@ -16,13 +16,13 @@ class TrainerTraineeRouteViewController: UIViewController {
     var locationManager: CLLocationManager!
     var lat = Float()
     var long = Float()
-     let TrainerprofileDetails = TrainerProfileModal()
+    var trainerProfileDetails = TrainerProfileModal()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         print("PROFILE NAMEEE",TrainerprofileDetails.firstName)
+         print("PROFILE NAMEEE",trainerProfileDetails.firstName)
         
 
         // Do any additional setup after loading the view.
