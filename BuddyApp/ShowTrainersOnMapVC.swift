@@ -16,6 +16,7 @@ import BraintreeDropIn
 
 class ShowTrainersOnMapVC: UIViewController {
 
+    @IBOutlet weak var collectionview: UICollectionView!
     @IBOutlet weak var mapview: GMSMapView!
     var locationManager: CLLocationManager!
     var lat = String()
@@ -34,6 +35,12 @@ class ShowTrainersOnMapVC: UIViewController {
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
     
+    fileprivate let sectionInsets = UIEdgeInsets(top: 5.0, left: 0, bottom: 0, right: 0)
+    fileprivate let itemsPerRow: CGFloat = 4
+
+    let imagearray = ["play","close","message","stop"]
+    
+    
     //Payment Transaction Variables
     var transactionId = String()
     var transactionStatus = String()
@@ -48,7 +55,16 @@ class ShowTrainersOnMapVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        collectionview.delegate = self
+        
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.itemSize = CGSize(width: 70, height: 70)
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5)
+        flowLayout.minimumLineSpacing = 100
+        flowLayout.scrollDirection = UICollectionViewScrollDirection.horizontal
+        flowLayout.minimumInteritemSpacing = 0.0
+        collectionview.collectionViewLayout = flowLayout
         SocketIOManager.sharedInstance.establishConnection()
     }
     
@@ -80,11 +96,14 @@ class ShowTrainersOnMapVC: UIViewController {
     
     @IBAction func Next_action(_ sender: Any) {
         
-        if isNoncePresent {
-            postNonceToServer(paymentMethodNonce: paymentNonce)
-        }else{
-            alertForAddPaymentMethod()
-        }
+        
+        self.RandomSelectTrainer()
+        
+//        if isNoncePresent {
+//            postNonceToServer(paymentMethodNonce: paymentNonce)
+//        }else{
+//            alertForAddPaymentMethod()
+//        }
     }
     
     func alertForAddPaymentMethod() {
@@ -155,6 +174,8 @@ class ShowTrainersOnMapVC: UIViewController {
     //MARK: - API CALLS
     func RandomSelectTrainer(){
         
+        isPromoCodeExists = true
+        
         let headers = [
             "token":appDelegate.Usertoken]
         
@@ -201,6 +222,7 @@ class ShowTrainersOnMapVC: UIViewController {
                         
                         self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
                         
+<<<<<<< HEAD
                         let firstName = self.TrainerProfileDictionary["trainer_first_name"] as! String
                         let lastName = self.TrainerProfileDictionary["trainer_last_name"] as! String
                         self.selectedTrainerName = firstName + " " + lastName
@@ -209,6 +231,15 @@ class ShowTrainersOnMapVC: UIViewController {
                         print("Long:\(self.long)")
 
 //                        self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float((self.TrainerProfileDictionary["latitude"] as? String)!)!, DestiLong: Float((self.TrainerProfileDictionary["longitude"] as? String)!)!)
+=======
+                       // let lat = (self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String
+                        
+                        self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String)!)!, DestiLong: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_longitude"] as? String)!)!)
+                        
+                        self.addHandlersTrainer()
+                        
+                        
+>>>>>>> 1d51472aaa701565b13e3031e41329f760a8f2c0
                     }else{
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     }
@@ -268,6 +299,27 @@ class ShowTrainersOnMapVC: UIViewController {
     }
     
     //MARK: - BRAINTREE FUNCTIONS
+    
+    func addHandlersTrainer()
+    {
+        
+        
+        
+        parameterdict.setValue("/location/receiveTrainerLocation", forKey: "url")
+    
+        datadict.setValue(appDelegate.UserId, forKey: "user_id")
+        datadict.setValue("75", forKey: "trainer_id")
+        parameterdict.setValue(datadict, forKey: "data")
+        print("PARADICT_ReciveTrinerLocation",parameterdict)
+        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+        SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
+                print("Socket Message Info1",messageInfo)
+            })
+        }
+
+        
+    }
     
     func fetchExistingPaymentMethod(clientToken: String) {
         
@@ -380,7 +432,7 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
             lat = String(location.coordinate.latitude)
             long = String(location.coordinate.longitude)
             
-            self.addHandlers()
+           // self.addHandlers()
             self.locationManager.stopUpdatingLocation()
             
             
@@ -457,5 +509,60 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
         if status == CLAuthorizationStatus.authorizedWhenInUse {
             mapview.isMyLocationEnabled = true
         }
+    }
+}
+
+extension ShowTrainersOnMapVC : UICollectionViewDelegateFlowLayout {
+    
+//    func collectionView(_ collectionView: UICollectionView,
+//                        layout collectionViewLayout: UICollectionViewLayout,
+//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+//        let availableWidth = view.frame.width - paddingSpace
+//        let widthPerItem = availableWidth / itemsPerRow
+//        
+//        return CGSize(width: 50, height: 50)
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView,
+//                        layout collectionViewLayout: UICollectionViewLayout,
+//                        insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return sectionInsets
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return sectionInsets.left
+//    }
+}
+extension ShowTrainersOnMapVC : UICollectionViewDataSource{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MapBottamButtonid", for: indexPath as IndexPath) as! MapBottamButtonCell
+//        cell.imageview.layer.cornerRadius = 18
+//        cell.imageview.clipsToBounds = true
+        cell.bgview.layer.cornerRadius = 30
+        cell.bgview.clipsToBounds = true
+        
+        cell.imageview.backgroundColor = UIColor.clear
+        cell.imageview.image = UIImage(named:imagearray[indexPath.row])
+        
+   
+        
+        return cell
+    }
+}
+
+
+extension ShowTrainersOnMapVC : UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    print("INDEXPATH",indexPath.row)
+    
     }
 }
