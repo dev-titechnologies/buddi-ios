@@ -120,6 +120,7 @@
 		F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */; };
 		F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */; };
 		F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7D1F20F8BE00D51277 /* String Constants.swift */; };
+		F3FBA7BF1F3C70DB00B882B7 /* MapBottamButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FBA7BE1F3C70DB00B882B7 /* MapBottamButtonCell.swift */; };
 		F3FC70E81F2EFBC800B54A79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3FC70E71F2EFBC800B54A79 /* Main.storyboard */; };
 		F3FC70EB1F2F39DF00B54A79 /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */; };
 		F3FD7DD91F38321C00986815 /* AddPaymentMethodVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FD7DD81F38321C00986815 /* AddPaymentMethodVC.swift */; };
@@ -265,6 +266,7 @@
 		F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTestAnswersModel.swift; sourceTree = "<group>"; };
 		F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategorySelectionVC.swift; sourceTree = "<group>"; };
 		F3F77C7D1F20F8BE00D51277 /* String Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String Constants.swift"; sourceTree = "<group>"; };
+		F3FBA7BE1F3C70DB00B882B7 /* MapBottamButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapBottamButtonCell.swift; sourceTree = "<group>"; };
 		F3FC70E71F2EFBC800B54A79 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
 		F3FD7DD81F38321C00986815 /* AddPaymentMethodVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentMethodVC.swift; sourceTree = "<group>"; };
@@ -667,6 +669,7 @@
 				F3A9077C1F32EF9100474F5E /* Choose Session and Gender Page */,
 				F3A907781F32E45A00474F5E /* TraineeHomePage.swift */,
 				F3A907851F3352DC00474F5E /* ShowTrainersOnMapVC.swift */,
+				F3FBA7BE1F3C70DB00B882B7 /* MapBottamButtonCell.swift */,
 			);
 			name = "Trainee Pages";
 			sourceTree = "<group>";
@@ -1122,6 +1125,7 @@
 				F35FDADD1F1E517C0091900D /* BookingDetailsVC.swift in Sources */,
 				F315E99E1F30585700850A44 /* VTableViewCell.swift in Sources */,
 				F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */,
+				F3FBA7BF1F3C70DB00B882B7 /* MapBottamButtonCell.swift in Sources */,
 				F3990E211F1F77E1000FFF7B /* APIURLs.swift in Sources */,
 				F35FDADE1F1E517C0091900D /* BookingHistoryTableCell.swift in Sources */,
 			);
