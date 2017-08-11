@@ -30,6 +30,8 @@ class ShowTrainersOnMapVC: UIViewController {
     var isNoncePresent = Bool()
     var isClientTokenPresent = Bool()
     
+    var selectedTrainerName = String()
+    
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
     var parameterdict1 = NSMutableDictionary()
@@ -51,6 +53,9 @@ class ShowTrainersOnMapVC: UIViewController {
     
     let TrainerprofileDetails : TrainerProfileModal = TrainerProfileModal()
 
+    
+    //MARK: - VIEW CYCLES
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,13 +64,10 @@ class ShowTrainersOnMapVC: UIViewController {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: 70, height: 70)
         flowLayout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5)
-       flowLayout.minimumLineSpacing = 100
+        flowLayout.minimumLineSpacing = 100
         flowLayout.scrollDirection = UICollectionViewScrollDirection.horizontal
         flowLayout.minimumInteritemSpacing = 0.0
         collectionview.collectionViewLayout = flowLayout
-        
-        
-
         SocketIOManager.sharedInstance.establishConnection()
     }
     
@@ -130,52 +132,49 @@ class ShowTrainersOnMapVC: UIViewController {
 //        self.present(paymentMethodPage, animated: true, completion: nil)
     }
     
-    func postNonceToServer(paymentMethodNonce: String) {
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    //MARK: - PREPARE FOR SEGUE
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        //DEMO NONCE :"fake-valid-nonce"
-        print("Nounce:\(paymentMethodNonce)")
-        let headers = [
-            "token":appDelegate.Usertoken]
-        
-        let parameters =  ["nonce" : paymentMethodNonce
-            ] as [String : Any]
-        print("PARAMS: \(parameters)")
-        
-        let FinalURL = SERVER_URL + PAYMENT_CHECKOUT
-        print("Final Server URL:",FinalURL)
-        
-        CommonMethods.showProgress()
-        Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: headers).responseJSON {
-            response in
-            print("Checkout page Response:\(response)")
+        if segue.identifier == "totrainerprofile"{
+            let TrainerProPage =  segue.destination as! AssignedTrainerProfileView
+            TrainerProPage.TrainerprofileDictionary = self.TrainerProfileDictionary
+        }else if segue.identifier == "trainerReviewPageSegue" {
+            let trainerReviewPage =  segue.destination as! TrainerReviewPage
+            trainerReviewPage.reviewDict.trainerName = selectedTrainerName
             
-            CommonMethods.hideProgress()
-            if let jsondata = response.value as? [String: AnyObject] {
-                print(jsondata)
-                
-                if let status = jsondata["status"] as? Int{
-                    if status == RESPONSE_STATUS.SUCCESS{
-                        
-                        let transactionDict = jsondata["data"]  as! NSDictionary
-                        self.transactionId = transactionDict["transactionId"] as! String
-                        self.transactionAmount = transactionDict["amount"] as! String
-                        self.transactionStatus = transactionDict["status"] as! String
-
-                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, buttonTitle: "OK")
-                        //Assigning Trainer
-                        self.RandomSelectTrainer()
-                    }else if status == RESPONSE_STATUS.FAIL{
-                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
-                    }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-                        self.dismissOnSessionExpire()
-                    }
-                }else{
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
-                }
-            }
         }
     }
     
+    
+
+    //MARK: - SOCKET CONNECTION
+    
+    func addHandlers() {
+        
+        datadict.setValue(appDelegate.UserId, forKey: "user_id")
+        datadict.setValue("trainee", forKey: "user_type")
+        datadict.setValue(lat, forKey: "latitude")
+        datadict.setValue(long, forKey: "longitude")
+        datadict.setValue("online", forKey: "avail_status")
+        
+        parameterdict.setValue("/location/addLocation", forKey: "url")
+        parameterdict.setValue(datadict, forKey: "data")
+        print("PARADICT",parameterdict)
+        
+        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+        SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
+                print("Socket Message Info",messageInfo)
+            })
+        }
+    }
+    
+    //MARK: - API CALLS
     func RandomSelectTrainer(){
         
         isPromoCodeExists = true
@@ -190,7 +189,7 @@ class ShowTrainersOnMapVC: UIViewController {
                           "latitude" : lat,
                           "longitude" : long,
                           "training_time" : choosedSessionOfTrainee,
-            ] as [String : Any]
+                          ] as [String : Any]
         
         if isPromoCodeExists{
             //With Promo Code
@@ -198,8 +197,8 @@ class ShowTrainersOnMapVC: UIViewController {
         }else{
             //With Payment Transaction
             let transactionDict = ["transaction_id" : transactionId,
-                          "amount" : transactionAmount,
-                          "transaction_status" : transactionStatus
+                                   "amount" : transactionAmount,
+                                   "transaction_status" : transactionStatus
                 ] as [String : Any]
             
             parameters = parameters.merged(with: transactionDict)
@@ -211,7 +210,7 @@ class ShowTrainersOnMapVC: UIViewController {
         CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: RANDOM_SELECTOR, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
             
-        print("*** Random Trainer Result:",jsondata)
+            print("*** Random Trainer Result:",jsondata)
             
             CommonMethods.hideProgress()
             guard (jsondata["status"] as? Int) != nil else {
@@ -226,13 +225,17 @@ class ShowTrainersOnMapVC: UIViewController {
                         
                         self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
                         
-                       // let lat = (self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String
+                        let firstName = self.TrainerProfileDictionary["trainer_first_name"] as! String
+                        let lastName = self.TrainerProfileDictionary["trainer_last_name"] as! String
+                        self.selectedTrainerName = firstName + " " + lastName
+                        
+                        print("Lat:\(self.lat)")
+                        print("Long:\(self.long)")
+
                         
                         self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String)!)!, DestiLong: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_longitude"] as? String)!)!)
                         
                         self.addHandlersTrainer()
-                        
-                        
                     }else{
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     }
@@ -249,13 +252,13 @@ class ShowTrainersOnMapVC: UIViewController {
         
         let headers = [
             "token":appDelegate.Usertoken]
-
+        
         let parameters = ["user_id" : appDelegate.UserId,
                           "gender" : choosedTrainerGenderOfTrainee,
                           "category" : choosedCategoryOfTrainee.categoryId,
                           "latitude" : lat,
                           "longitude" : long
-                          ] as [String : Any]
+            ] as [String : Any]
         
         print("Header:\(headers)")
         print("Params:\(parameters)")
@@ -273,17 +276,15 @@ class ShowTrainersOnMapVC: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     print(jsondata)
                     self.jsonarray = jsondata["data"]  as! NSArray
-                   // for jsondict in self.jsonarray{
-                        if self.jsonarray.count == 0{
-                            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
-                        } else{
-                            for jsondict in self.jsonarray{
-                                self.jsondict = jsondict as! NSDictionary
-                                print(Double(self.jsondict["latitude"] as! String)!)
-                                self.MarkPoints(latitude: Double(self.jsondict["latitude"] as! String)!, logitude: Double(self.jsondict["longitude"] as! String)!)
-                            }
-                                               }
-                   // }
+                    if self.jsonarray.count == 0{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
+                    } else{
+                        for dict in self.jsonarray{
+                            let tempDict = dict as! NSDictionary
+                            print(Double(tempDict["latitude"] as! String)!)
+                            self.MarkPoints(latitude: Double(tempDict["latitude"] as! String)!, logitude: Double(tempDict["longitude"] as! String)!)
+                        }
+                    }
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -292,40 +293,8 @@ class ShowTrainersOnMapVC: UIViewController {
             }
         })
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "totrainerprofile"{
-            let TrainerProPage =  segue.destination as! AssignedTrainerProfileView
-            TrainerProPage.TrainerprofileDictionary = self.TrainerProfileDictionary
-        }
-    }
-
-    //SOCKET CONNECTION
-    
-    func addHandlers() {
-        
-        
-        parameterdict.setValue("/location/addLocation", forKey: "url")
-       
-        datadict.setValue(appDelegate.UserId, forKey: "user_id")
-        datadict.setValue("trainee", forKey: "user_type")
-        datadict.setValue(lat, forKey: "latitude")
-        datadict.setValue(long, forKey: "longitude")
-        datadict.setValue("online", forKey: "avail_status")
-        parameterdict.setValue(datadict, forKey: "data")
-        print("PARADICT",parameterdict)
-        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
-        SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
-            DispatchQueue.main.async(execute: { () -> Void in
-                print("Socket Message Info",messageInfo)
-            })
-        }
-    }
+    //MARK: - BRAINTREE FUNCTIONS
     
     func addHandlersTrainer()
     {
@@ -382,6 +351,56 @@ class ShowTrainersOnMapVC: UIViewController {
                 print("New Received nonce:\(String(describing: nounce))")
             }
         })
+    }
+    
+    func postNonceToServer(paymentMethodNonce: String) {
+        
+        //DEMO NONCE :"fake-valid-nonce"
+        print("Nounce:\(paymentMethodNonce)")
+        let headers = [
+            "token":appDelegate.Usertoken]
+        
+        let parameters =  ["nonce" : paymentMethodNonce
+            ] as [String : Any]
+        print("PARAMS: \(parameters)")
+        
+        let FinalURL = SERVER_URL + PAYMENT_CHECKOUT
+        print("Final Server URL:",FinalURL)
+        
+        CommonMethods.showProgress()
+        Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: headers).responseJSON {
+            response in
+            print("Checkout page Response:\(response)")
+            
+            CommonMethods.hideProgress()
+            if let jsondata = response.value as? [String: AnyObject] {
+                print(jsondata)
+                
+                if let status = jsondata["status"] as? Int{
+                    if status == RESPONSE_STATUS.SUCCESS{
+                        
+                        let transactionDict = jsondata["data"]  as! NSDictionary
+                        self.transactionId = transactionDict["transactionId"] as! String
+                        self.transactionAmount = transactionDict["amount"] as! String
+                        self.transactionStatus = transactionDict["status"] as! String
+                        
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, buttonTitle: "OK")
+                        //Assigning Trainer
+                        self.RandomSelectTrainer()
+                    }else if status == RESPONSE_STATUS.FAIL{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                        self.dismissOnSessionExpire()
+                    }
+                }else{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
+                }
+            }
+        }
+    }
+    
+    @IBAction func reviewAction(_ sender: Any) {
+        performSegue(withIdentifier: "trainerReviewPageSegue", sender: self)
     }
 }
 

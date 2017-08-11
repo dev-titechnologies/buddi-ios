@@ -228,12 +228,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
-            timestampString = "524127103.138643"
+            timestampString = "524128280.888568"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
-            landmarkName = "fetchExistingPaymentMethod(clientToken:)"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
+            landmarkName = "postNonceToServer(paymentMethodNonce:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -260,12 +260,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
-            timestampString = "524127690.584325"
+            timestampString = "524128280.888568"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "448"
-            endingLineNumber = "448"
-            landmarkName = "DrowRoute(OriginLat:OriginLong:DestiLat:DestiLong:)"
+            startingLineNumber = "434"
+            endingLineNumber = "434"
+            landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -409,7 +409,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "133"
             endingLineNumber = "133"
-            landmarkName = "postNonceToServer(paymentMethodNonce:)"
+            landmarkName = "moveToAddPaymentMethodScreen()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -436,12 +436,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
-            timestampString = "524127103.138643"
+            timestampString = "524128280.888568"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
-            landmarkName = "fetchExistingPaymentMethod(clientToken:)"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
+            landmarkName = "postNonceToServer(paymentMethodNonce:)"
             landmarkType = "7">
             <Locations>
                <Location
