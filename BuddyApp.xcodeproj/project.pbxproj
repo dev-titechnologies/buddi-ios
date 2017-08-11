@@ -115,6 +115,8 @@
 		F3B52EE31F3AE66D007910BC /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3B52EE21F3AE66D007910BC /* SocketIO.framework */; };
 		F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */; };
 		F3C685771F3C5D4C00AA8CC7 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C685761F3C5D4C00AA8CC7 /* DictionaryExtension.swift */; };
+		F3C6857A1F3C821A00AA8CC7 /* TrainerReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C685791F3C821A00AA8CC7 /* TrainerReviewPage.swift */; };
+		F3C6857D1F3C857900AA8CC7 /* TrainerReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C6857C1F3C857900AA8CC7 /* TrainerReviewModel.swift */; };
 		F3CD1E301F3B18C100398705 /* mapstogpx20170809_095410.gpx in Resources */ = {isa = PBXBuildFile; fileRef = F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */; };
 		F3D0EF421F289C3C009B60E7 /* ProfileImageDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */; };
 		F3D0EF431F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */; };
@@ -261,6 +263,8 @@
 		F3B52EE21F3AE66D007910BC /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/Socket.IO-Client-Swift/SocketIO.framework"; sourceTree = "<group>"; };
 		F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVideoUploadVC.swift; sourceTree = "<group>"; };
 		F3C685761F3C5D4C00AA8CC7 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
+		F3C685791F3C821A00AA8CC7 /* TrainerReviewPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerReviewPage.swift; sourceTree = "<group>"; };
+		F3C6857C1F3C857900AA8CC7 /* TrainerReviewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerReviewModel.swift; sourceTree = "<group>"; };
 		F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mapstogpx20170809_095410.gpx; sourceTree = "<group>"; };
 		F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageDB.swift; sourceTree = "<group>"; };
 		F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileImageDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -374,6 +378,7 @@
 		F30B60191F1DCECD00374136 /* ExternalFrameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F3B52EDF1F3AE452007910BC /* SocketIO */,
 				F315E98C1F30585700850A44 /* VDropDownClass */,
 				F341B0371F28D9FB007C9AF1 /* CardView.swift */,
 				F30B601A1F1DCEED00374136 /* Bolts.framework */,
@@ -446,7 +451,6 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
-				F3B52EDF1F3AE452007910BC /* SocketIO */,
 				F3A907771F32E3F600474F5E /* Trainer Pages */,
 				F3A907761F32E3D900474F5E /* Trainee Pages */,
 				F3FC70E91F2F398500B54A79 /* Forgot Password */,
@@ -584,6 +588,7 @@
 				F341B0311F287070007C9AF1 /* VideoURLModel.swift */,
 				F3AF9D421F30661000D0CF05 /* GymModel.swift */,
 				F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */,
+				F3C6857C1F3C857900AA8CC7 /* TrainerReviewModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -663,8 +668,8 @@
 		F3A907761F32E3D900474F5E /* Trainee Pages */ = {
 			isa = PBXGroup;
 			children = (
-				F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */,
-				F334D6C11F39F0F700435BD2 /* America.gpx */,
+				F3C6857B1F3C853900AA8CC7 /* GPX Files */,
+				F3C685781F3C81F800AA8CC7 /* Review Page */,
 				F334D6BE1F39B0AB00435BD2 /* TimerViewcontroller */,
 				F364A8FA1F34B30B0001C570 /* Assigned Trainer Profile View */,
 				F3A9077C1F32EF9100474F5E /* Choose Session and Gender Page */,
@@ -707,6 +712,23 @@
 				F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */,
 			);
 			name = "Video Uploading Page";
+			sourceTree = "<group>";
+		};
+		F3C685781F3C81F800AA8CC7 /* Review Page */ = {
+			isa = PBXGroup;
+			children = (
+				F3C685791F3C821A00AA8CC7 /* TrainerReviewPage.swift */,
+			);
+			name = "Review Page";
+			sourceTree = "<group>";
+		};
+		F3C6857B1F3C853900AA8CC7 /* GPX Files */ = {
+			isa = PBXGroup;
+			children = (
+				F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */,
+				F334D6C11F39F0F700435BD2 /* America.gpx */,
+			);
+			name = "GPX Files";
 			sourceTree = "<group>";
 		};
 		F3FC70E91F2F398500B54A79 /* Forgot Password */ = {
@@ -1052,6 +1074,7 @@
 				F39E1EAE1F270ACF00DAED93 /* FinalQuestionsVC.swift in Sources */,
 				F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */,
 				F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */,
+				F3C6857D1F3C857900AA8CC7 /* TrainerReviewModel.swift in Sources */,
 				F3A907821F32F30100474F5E /* ChooseSessionTableCell.swift in Sources */,
 				F364A9001F34B3950001C570 /* AssignedTrainerEmailCell.swift in Sources */,
 				F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */,
@@ -1123,6 +1146,7 @@
 				F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */,
 				F38BB5471F2607D300824C15 /* ProfileDB+CoreDataProperties.swift in Sources */,
 				F315E99D1F30585700850A44 /* VDropDownViewController.swift in Sources */,
+				F3C6857A1F3C821A00AA8CC7 /* TrainerReviewPage.swift in Sources */,
 				F35FDADD1F1E517C0091900D /* BookingDetailsVC.swift in Sources */,
 				F315E99E1F30585700850A44 /* VTableViewCell.swift in Sources */,
 				F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */,

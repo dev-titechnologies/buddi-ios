@@ -24,6 +24,7 @@ class AddPaymentMethodVC: UIViewController {
     @IBOutlet weak var btnAddPayment: UIButton!
     
     var isFromBookingPage = Bool()
+    var isControlInSamePage = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class AddPaymentMethodVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        isControlInSamePage = true
         if isFromBookingPage{
             print("**** From Booking Page ****")
         }
@@ -44,6 +46,9 @@ class AddPaymentMethodVC: UIViewController {
         getClientToken()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        isControlInSamePage = false
+    }
     
     @IBAction func applyPromoCodeAction(_ sender: Any) {
         applyPromoCode()
@@ -70,7 +75,9 @@ class AddPaymentMethodVC: UIViewController {
                 userDefaults.set(self.clientToken, forKey: "clientTokenForPayment")
                 
                 //Fetch Existing payment methods if any
-                self.fetchExistingPaymentMethod(clientToken: self.clientToken)
+                if self.isControlInSamePage {
+                    self.fetchExistingPaymentMethod(clientToken: self.clientToken)
+                }
             }
         }
     }

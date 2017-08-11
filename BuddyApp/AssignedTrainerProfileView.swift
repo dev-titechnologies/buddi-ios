@@ -23,6 +23,7 @@ class AssignedTrainerProfileView: UIViewController {
     var assignedTrainerProfileView = [String]()
     var TrainerprofileDictionary: NSDictionary!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
