@@ -222,7 +222,6 @@ class ShowTrainersOnMapVC: UIViewController {
                         
                         self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
                         
-<<<<<<< HEAD
                         let firstName = self.TrainerProfileDictionary["trainer_first_name"] as! String
                         let lastName = self.TrainerProfileDictionary["trainer_last_name"] as! String
                         self.selectedTrainerName = firstName + " " + lastName
@@ -230,16 +229,10 @@ class ShowTrainersOnMapVC: UIViewController {
                         print("Lat:\(self.lat)")
                         print("Long:\(self.long)")
 
-//                        self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float((self.TrainerProfileDictionary["latitude"] as? String)!)!, DestiLong: Float((self.TrainerProfileDictionary["longitude"] as? String)!)!)
-=======
-                       // let lat = (self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String
                         
                         self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String)!)!, DestiLong: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_longitude"] as? String)!)!)
                         
                         self.addHandlersTrainer()
-                        
-                        
->>>>>>> 1d51472aaa701565b13e3031e41329f760a8f2c0
                     }else{
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     }
