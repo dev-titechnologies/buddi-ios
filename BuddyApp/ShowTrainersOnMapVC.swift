@@ -16,7 +16,7 @@ import BraintreeDropIn
 
 class ShowTrainersOnMapVC: UIViewController {
 
-    @IBOutlet weak var collectionview: UICollectionView!
+
     @IBOutlet weak var mapview: GMSMapView!
     var locationManager: CLLocationManager!
     var lat = String()
@@ -56,18 +56,7 @@ class ShowTrainersOnMapVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionview.delegate = self
-        
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.itemSize = CGSize(width: 70, height: 70)
-        flowLayout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5)
-        flowLayout.minimumLineSpacing = 100
-        flowLayout.scrollDirection = UICollectionViewScrollDirection.horizontal
-        flowLayout.minimumInteritemSpacing = 0.0
-        collectionview.collectionViewLayout = flowLayout
-        SocketIOManager.sharedInstance.establishConnection()
-    }
+        }
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -510,57 +499,3 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
     }
 }
 
-extension ShowTrainersOnMapVC : UICollectionViewDelegateFlowLayout {
-    
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-//        let availableWidth = view.frame.width - paddingSpace
-//        let widthPerItem = availableWidth / itemsPerRow
-//        
-//        return CGSize(width: 50, height: 50)
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return sectionInsets
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return sectionInsets.left
-//    }
-}
-extension ShowTrainersOnMapVC : UICollectionViewDataSource{
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MapBottamButtonid", for: indexPath as IndexPath) as! MapBottamButtonCell
-//        cell.imageview.layer.cornerRadius = 18
-//        cell.imageview.clipsToBounds = true
-        cell.bgview.layer.cornerRadius = 30
-        cell.bgview.clipsToBounds = true
-        
-        cell.imageview.backgroundColor = UIColor.clear
-        cell.imageview.image = UIImage(named:imagearray[indexPath.row])
-        
-   
-        
-        return cell
-    }
-}
-
-
-extension ShowTrainersOnMapVC : UICollectionViewDelegate{
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-    print("INDEXPATH",indexPath.row)
-    
-    }
-}
