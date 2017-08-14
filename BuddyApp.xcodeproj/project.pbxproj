@@ -10,7 +10,6 @@
 		1F2CF4B7EE766B52252C2199 /* Pods_BuddyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB5F3A5F2B52F451C492A4 /* Pods_BuddyApp.framework */; };
 		8A1CBD1B94CA990064D6D512 /* Pods_BuddyAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40E09975BC61610A3FBD011F /* Pods_BuddyAppUITests.framework */; };
 		F302BB921F1F2B5A00186BCC /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BB911F1F2B5A00186BCC /* LoginModel.swift */; };
-		F302BB941F1F32E900186BCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F302BB931F1F32E900186BCC /* GoogleService-Info.plist */; };
 		F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */; };
 		F302BBA31F1F8D2000186BCC /* CountryPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F302BBA21F1F8D2000186BCC /* CountryPicker.framework */; };
 		F302BBA51F1FA21900186BCC /* IQKeyboardManagerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */; };
@@ -79,6 +78,7 @@
 		F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350A01F20A7F900BE9DB6 /* CategoryModel.swift */; };
 		F37350AC1F20AA3400BE9DB6 /* CategoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350AA1F20AA3400BE9DB6 /* CategoryDB.swift */; };
 		F37350AD1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350AB1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift */; };
+		F38A872D1F3DB71F003745E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F38A872C1F3DB71F003745E6 /* GoogleService-Info.plist */; };
 		F38BB5411F26069200824C15 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5401F26069200824C15 /* ProfileVC.swift */; };
 		F38BB5431F2606A400824C15 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5421F2606A400824C15 /* ProfileModel.swift */; };
 		F38BB5451F26077B00824C15 /* ProfileDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5441F26077B00824C15 /* ProfileDB.swift */; };
@@ -159,7 +159,6 @@
 		C276C8A416D6B1AE85D80F46 /* Pods-BuddyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddyApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BuddyApp/Pods-BuddyApp.debug.xcconfig"; sourceTree = "<group>"; };
 		CD4B18682203D5BC4CE94833 /* Pods-BuddyAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddyAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BuddyAppUITests/Pods-BuddyAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F302BB911F1F2B5A00186BCC /* LoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
-		F302BB931F1F32E900186BCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterorloginViewController.swift; sourceTree = "<group>"; };
 		F302BBA21F1F8D2000186BCC /* CountryPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CountryPicker.framework; path = "Pods/../build/Debug-iphoneos/CountryPickerSwift/CountryPicker.framework"; sourceTree = "<group>"; };
 		F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IQKeyboardManagerSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"; sourceTree = "<group>"; };
@@ -235,6 +234,7 @@
 		F37350A01F20A7F900BE9DB6 /* CategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		F37350AA1F20AA3400BE9DB6 /* CategoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDB.swift; sourceTree = "<group>"; };
 		F37350AB1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CategoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F38A872C1F3DB71F003745E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F38BB5401F26069200824C15 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		F38BB5421F2606A400824C15 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		F38BB5441F26077B00824C15 /* ProfileDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDB.swift; sourceTree = "<group>"; };
@@ -474,7 +474,7 @@
 				F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */,
 				F322FC3C1F1CE62000381B8C /* AppDelegate.swift */,
 				F322FC3E1F1CE62000381B8C /* ViewController.swift */,
-				F302BB931F1F32E900186BCC /* GoogleService-Info.plist */,
+				F38A872C1F3DB71F003745E6 /* GoogleService-Info.plist */,
 				F322FC461F1CE62100381B8C /* Assets.xcassets */,
 				F3FC70E71F2EFBC800B54A79 /* Main.storyboard */,
 				F322FC481F1CE62200381B8C /* LaunchScreen.storyboard */,
@@ -727,8 +727,6 @@
 		F3C6857B1F3C853900AA8CC7 /* GPX Files */ = {
 			isa = PBXGroup;
 			children = (
-				F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */,
-				F334D6C11F39F0F700435BD2 /* America.gpx */,
 			);
 			name = "GPX Files";
 			sourceTree = "<group>";
@@ -894,6 +892,7 @@
 			files = (
 				F315E9971F30585700850A44 /* DropDown_Checked@2x.png in Resources */,
 				F3CD1E301F3B18C100398705 /* mapstogpx20170809_095410.gpx in Resources */,
+				F38A872D1F3DB71F003745E6 /* GoogleService-Info.plist in Resources */,
 				F322FC4A1F1CE62200381B8C /* LaunchScreen.storyboard in Resources */,
 				F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */,
 				F315E9961F30585700850A44 /* check.png in Resources */,
@@ -902,7 +901,6 @@
 				F315E9991F30585700850A44 /* DropDown_Unchecked@2x.png in Resources */,
 				F35FDAE81F1E51DE0091900D /* ReviewHistory.json in Resources */,
 				F315E99A1F30585700850A44 /* DropDownListView.xib in Resources */,
-				F302BB941F1F32E900186BCC /* GoogleService-Info.plist in Resources */,
 				F3FC70E81F2EFBC800B54A79 /* Main.storyboard in Resources */,
 				F315E99B1F30585700850A44 /* DropDownViewCell.xib in Resources */,
 				F315E99C1F30585700850A44 /* DropDownViewCellMultiple.xib in Resources */,
