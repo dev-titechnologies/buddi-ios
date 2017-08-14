@@ -307,6 +307,15 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
+            filePath = "BuddyApp/AppDelegate.swift"
+            timestampString = "524382140.232923"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
+            landmarkName = "userNotificationCenter(_:willPresent:withCompletionHandler:)"
+=======
             filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
             timestampString = "524378618.38309"
             startingColumnNumber = "9223372036854775807"
@@ -314,6 +323,7 @@
             startingLineNumber = "180"
             endingLineNumber = "180"
             landmarkName = "RandomSelectTrainer()"
+>>>>>>> fd43dadfcd7045946a698b9f854ebbee5798b03f
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -323,6 +333,18 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
+            filePath = "BuddyApp/AppDelegate.swift"
+            timestampString = "524382140.232923"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
+            landmarkName = "userNotificationCenter(_:didReceive:withCompletionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+=======
             filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
             timestampString = "524378618.38309"
             startingColumnNumber = "9223372036854775807"
@@ -557,6 +579,7 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+<<<<<<< HEAD
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
@@ -621,5 +644,8 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+=======
+>>>>>>> fd43dadfcd7045946a698b9f854ebbee5798b03f
+>>>>>>> 92d3ca08d49b47da6b2fef2f1c4e8232592648a7
    </Breakpoints>
 </Bucket>

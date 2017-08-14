@@ -16,22 +16,24 @@ import UserNotifications
 import GoogleMaps
 import Braintree
 import BraintreeDropIn
-
+import Firebase
+import FirebaseMessaging
+//import FirebaseAnalytics
+//import FirebaseInstanceID
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNotificationCenterDelegate {
- var Usertoken = String()
+ 
+    var Usertoken = String()
     var UserId = Int()
     var USER_TYPE = String()
     var DeviceToken = String()
     var userName = String()
-    
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
+        configureFirebase(application: application)
         
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()
@@ -52,10 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             application.registerUserNotificationSettings(notificationSettings)
         }
-        
-        
-        GMSServices.provideAPIKey("AIzaSyCSZe_BrUnVvqOg4OCQUHY7fFem6bvxOkc")
-        GIDSignIn.sharedInstance().clientID = "681481687812-r3p3k9upg22juaq3co7bccqlbn8blhnc.apps.googleusercontent.com"
+                
+        GMSServices.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
+        GIDSignIn.sharedInstance().clientID = "635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         IQKeyboardManager.sharedManager().enable = true
         
@@ -84,7 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             sourceApplication: sourceApplication,
             annotation: annotation)
         
-        
         return googleDidHandle || facebookDidHandle
     }
     
@@ -94,64 +94,71 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         
-        
-        
         if (error == nil)
         {
             let userId = user.userID                  // For client-side use only!
             let idToken = user.authentication.idToken // Safe to send to the server
             let name = user.profile.name
             let email = user.profile.email
-            //let userImageURL = user.profile.imageURLWithDimension(200)
-            // ...
-            
-            
-                            //print(user)
                             print(userId!)
-                            print(idToken!)
-                            print(name!)
-                            print(email!)
-           
+            print(idToken!)
+            print(name!)
+            print(email!)
             
             let googleDict = ["name":name!,
                               "email":email!,
                               "userid":userId!,
                               "idToken":idToken!]
             
-            
-                        
             let notificationName = Notification.Name("NotificationIdentifier")
             
-            // Register to receive notification
-          //  NotificationCenter.default.addObserver(self, selector: #selector(RegisterViewController.methodOfReceivedNotification), name: notificationName, object: nil)
-            
             // Post notification
-    NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["googledata":googleDict])
-            
-            // Stop listening notification
-          //  NotificationCenter.default.removeObserver(self, name: notificationName, object: nil);
-            
-            
-            
-            
-            
-        }
-        else
-        {
+            NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["googledata":googleDict])
+        }else{
             print("\(error.localizedDescription)")
         }
-        
-        
     }
+    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenString = deviceToken.reduce("") { string, byte in
             string + String(format: "%02X", byte)
         }
         print("token: ", tokenString)
         
+        if let refreshedToken = FIRInstanceID.instanceID().token() {
+            print("InstanceID token: \(refreshedToken)")
+        }
+
+        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
+
+        if let refreshedToken = FIRInstanceID.instanceID().token() {
+            print("InstanceID token1: \(refreshedToken)")
+        }
+
+        let refreshedToken = FIRInstanceID.instanceID().token()
+        print("InstanceID token 12345: \(String(describing: refreshedToken))")
+
         userDefaults.set(tokenString, forKey: "devicetoken")
-        
     }
+    
+    func tokenRefreshNotification(notification: NSNotification) {
+        // NOTE: It can be nil here
+        let refreshedToken = FIRInstanceID.instanceID().token()
+        print("InstanceID token 12345: \(String(describing: refreshedToken))")
+        
+        connectToFcm()
+    }
+    
+    func connectToFcm() {
+        FIRMessaging.messaging().connect { (error) in
+            if (error != nil) {
+                print("Unable to connect with FCM. \(String(describing: error))")
+            } else {
+                print("Connected to FCM.")
+            }
+        }
+    }
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         print(userInfo)
         if application.applicationState == .active {
@@ -281,3 +288,69 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
 
 }
 
+extension AppDelegate: FIRMessagingDelegate {
+    
+    /// The callback to handle data message received via FCM for devices running iOS 10 or above.
+    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+        print("applicationReceivedRemoteMessage")
+    }
+    
+    // Registering for Firebase notifications
+    func configureFirebase(application: UIApplication) {
+        
+        print("configureFirebase")
+        FIRApp.configure()
+        
+        FIRMessaging.messaging().remoteMessageDelegate = self
+        
+        // Register for remote notifications. This shows a permission dialog on first run, to
+        // show the dialog at a more appropriate time move this registration accordingly.
+        // [START register_for_notifications]
+        
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        application.registerForRemoteNotifications()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification),
+                                                         name: NSNotification.Name.firInstanceIDTokenRefresh, object: nil)
+    }
+    
+    //MARK: FCM Token Refreshed
+    func messaging(_ messaging: FIRMessaging, didRefreshRegistrationToken fcmToken: String) {
+        // FCM token updated, update it on Backend Server
+        print("didRefreshRegistrationToken")
+    }
+    
+    
+    func messaging(_ messaging: FIRMessaging, didReceive remoteMessage: FIRMessagingRemoteMessage) {
+        print("remoteMessage: \(remoteMessage)")
+    }
+    
+    //Called when a notification is delivered to a foreground app.
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
+        
+        print("willPresent notification")
+    }
+    
+    //Called to let your app know which action was selected by the user for a given notification.
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("User Info = \(response.notification.request.content.userInfo)")
+        
+        completionHandler()
+    }
+}

@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) location use.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -33,7 +31,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.681481687812-r3p3k9upg22juaq3co7bccqlbn8blhnc</string>
+				<string>com.googleusercontent.apps.635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2</string>
 			</array>
 		</dict>
 		<dict>
@@ -41,19 +39,19 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.BuddyApp</string>
+				<string>com.titechnologies.BuddyApp</string>
 			</array>
 		</dict>
-        <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLName</key>
-            <string>com.titechnologies.BuddyApp</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>com.titechnologies.BuddyApp.payments</string>
-            </array>
-        </dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.titechnologies.BuddyApp</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.titechnologies.BuddyApp.payments</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>2</string>
@@ -69,7 +67,7 @@
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
-        <string>com.titechnologies.BuddyApp.payments</string>
+		<string>com.titechnologies.BuddyApp.payments</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -82,6 +80,8 @@
 	<string>This app requires access to the camera.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Use Location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME) location use.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app requires access to the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
