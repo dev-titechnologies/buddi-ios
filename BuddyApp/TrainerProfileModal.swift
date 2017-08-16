@@ -12,6 +12,7 @@ class TrainerProfileModal{
     var profileImage : String = String()
     var Booking_id: String = String()
     var Trainer_id: String = String()
+     var Trainee_id: String = String()
     var firstName: String = String()
     var lastName: String = String()
     var mobile: String = String()
@@ -28,11 +29,12 @@ class TrainerProfileModal{
     
     init(){}
     
-    init(profileImage: String, firstName: String, lastName: String, mobile: String, gender: String, userid: String, rating: String, age: String, height: String, weight: String, distance: String, lattitude: String, longittude: String, bookingId: String, trainerId: String){
+    init(profileImage: String, firstName: String, lastName: String, mobile: String, gender: String, userid: String, rating: String, age: String, height: String, weight: String, distance: String, lattitude: String, longittude: String, bookingId: String, trainerId: String,traineeId: String){
         
         self.profileImage = profileImage
         self.Booking_id = bookingId
         self.Trainer_id = trainerId
+        self.Trainee_id = traineeId
         self.firstName = firstName
         self.lastName = lastName
         self.mobile = mobile
@@ -58,6 +60,7 @@ class TrainerProfileModal{
         model.lastName = trainerDetailsDict["trainer_last_name"] as! String
         model.Booking_id = String(dictionary["book_id"] as! Int)
         model.Trainer_id = String(dictionary["trainer_id"] as! Int)
+        model.Trainee_id = String(dictionary["trainee_id"] as! Int)
         model.gender = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_gender"] as? String)
         model.userid = String(describing: dictionary["trainer_id"]!)
         model.age = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_age"] as? String)

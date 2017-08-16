@@ -70,6 +70,19 @@ class CommonMethods: NSObject {
         view.present(alert, animated: true, completion: nil)
     }
     
+//    class func getCurrentDateString() -> Date{
+//        let date = Date()
+//        let calendar = Calendar.current
+//        
+//        let hour = calendar.component(.hour, from: date)
+//        let minutes = calendar.component(.minute, from: date)
+//        let seconds = calendar.component(.second, from: date)
+//        print("hours = \(hour):\(minutes):\(seconds)")
+//        
+//        return "\(hour):\(minutes):\(seconds)"
+//    }
+
+    
     class func getDateFromString(dateString: String) -> Date {
         // print("DAYYT",dateStr)
         let dateFormatter = DateFormatter()

@@ -14,6 +14,9 @@ class TrainerTraineeRouteViewController: UIViewController {
     @IBOutlet weak var timer_lbl: UILabel!
     @IBOutlet weak var mapview: GMSMapView!
     @IBOutlet weak var collectionview: UICollectionView!
+    
+    
+    var TIMERCHECK = Bool()
     var locationManager: CLLocationManager!
     var lat = Float()
     var long = Float()
@@ -32,6 +35,8 @@ class TrainerTraineeRouteViewController: UIViewController {
 
     
     //TIMER
+    
+    var TimeDict = NSMutableDictionary()
     var myMutableString = NSMutableAttributedString()
 
     var seconds = Int()
@@ -41,15 +46,23 @@ class TrainerTraineeRouteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // print("PROFILE NAMEEE",trainerProfileDetails.firstName)
         
-        seconds = Int(choosedSessionOfTrainee)!*60
-        
-        timer_lbl.text = choosedSessionOfTrainee + ":" + "00"
-        
-        
-        SocketIOManager.sharedInstance.establishConnection()
+        if TIMERCHECK
+        {
+            self.runTimer()
+        }
+        else
+        {
+            seconds = Int(choosedSessionOfTrainee)!*60
+            
+            timer_lbl.text = choosedSessionOfTrainee + ":" + "00"
+            
+            
+            SocketIOManager.sharedInstance.establishConnection()
+            
 
+        }
+        
         
         collectionview.delegate = self
         
@@ -95,7 +108,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
     }
     
-    //MARK: -BOOKING ACTION API
+    //MARK: - API
     func BookingAction(Action_status: String) {
         
         let headers = [
@@ -125,7 +138,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                     {
                         if dict["status"] as! String == "cancelled"
                         {
-                            self.navigationController?.popViewController(animated: true)
+                           // self.navigationController?.popViewController(animated: true)
                         }
                     }
                     
@@ -141,7 +154,51 @@ class TrainerTraineeRouteViewController: UIViewController {
             }
         })
     }
-    
+    func SessionStartAPI() {
+        
+        let headers = [
+            "token":appDelegate.Usertoken]
+        
+        let parameters = ["book_id" : trainerProfileDetails.Booking_id,
+                          "user_type" : appDelegate.USER_TYPE,
+                          "trainer_id" : trainerProfileDetails.Trainer_id,
+                          "trainee_id" : trainerProfileDetails.Trainee_id
+            ] as [String : Any]
+        
+        print("Header:\(headers)")
+        print("Params:\(parameters)")
+        
+        CommonMethods.serverCall(APIURL: SESSION_START, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+            
+            print("*** SessionStart Result:",jsondata)
+            
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    
+                    if self.isTimerRunning == false {
+                        self.runTimer()
+                        
+                    }
+                                      
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
+                    
+                    
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        })
+    }
+  
     
     
 //MARK: -TIMER ACTIONS
@@ -159,6 +216,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         } else {
             seconds -= 1
             //  timerLabel.text = timeString(time: TimeInterval(seconds))
+            //print("SECONDS",seconds)
             
             myMutableString = NSMutableAttributedString(string: timeString(time: TimeInterval(seconds)), attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 70.0)])
             myMutableString.addAttribute(NSForegroundColorAttributeName, value: CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR), range: NSRange(location:3,length:2))
@@ -166,10 +224,15 @@ class TrainerTraineeRouteViewController: UIViewController {
             myMutableString.addAttribute(NSForegroundColorAttributeName, value: CommonMethods.hexStringToUIColor(hex: TIMER_COLOR), range: NSRange(location:0,length:3))
             
             timer_lbl.attributedText = myMutableString
-            //timerLabel.text = myMutableString.string
-            // timerLabel.text = String(seconds)
-            //            labelButton.setTitle(timeString(time: TimeInterval(seconds)), for: UIControlState.normal)
-        }
+            
+            
+            TimeDict.setValue(seconds, forKey: "TimeRemains")
+            TimeDict.setValue(Date(), forKey: "currenttime")
+            
+            userDefaults.setValue(TimeDict, forKey: "TimerData")
+            
+            
+            }
     }
     func timeString(time:TimeInterval) -> String {
        // let hours = Int(time) / 3600
@@ -245,8 +308,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         //  marker.icon = markerImage
         marker.iconView = markerView
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
+        marker.title = appDelegate.USER_TYPE
+        marker.snippet = ""
         marker.map = mapview
     }
     //MARK: - SOCKET CONNECTION
@@ -344,30 +407,33 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
             
         }
         
-        
-        if appDelegate.USER_TYPE == "trainer"
+        if TIMERCHECK
         {
-            self.addHandlers()
-        }
-        else{
+        
+        
+        
+           }
+        else
+        {
             
-            self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
             
-            self.addHandlersTrainer()
+            
+            if appDelegate.USER_TYPE == "trainer"
+            {
+                self.addHandlers()
+            }
+            else{
+                
+                self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
+                self.addHandlersTrainer()
+                
+            }
 
             
-            
         }
-        
-        
-        
-        
+    
         locationManager.stopUpdatingLocation()
-        
-        
-        
-        
-        
+       
     }
     private func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.authorizedWhenInUse {
@@ -439,11 +505,8 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
            {
             cell1.menu_btn.setImage(UIImage(named: "stop"), for: .normal)
            
-            
-            if isTimerRunning == false {
-                self.runTimer()
-                
-            }
+            self.SessionStartAPI()
+           
             BoolArray.insert(true, at: 1)
             }
            else{
