@@ -122,6 +122,8 @@
 		F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */; };
 		F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */; };
 		F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7D1F20F8BE00D51277 /* String Constants.swift */; };
+		F3FAAE9F1F41A575007DF154 /* TrainerProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FAAE9E1F41A574007DF154 /* TrainerProfilePage.swift */; };
+		F3FAAEA11F41B71E007DF154 /* TrainerProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FAAEA01F41B71E007DF154 /* TrainerProfileModel.swift */; };
 		F3FBA7BF1F3C70DB00B882B7 /* MapBottamButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FBA7BE1F3C70DB00B882B7 /* MapBottamButtonCell.swift */; };
 		F3FC70E81F2EFBC800B54A79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3FC70E71F2EFBC800B54A79 /* Main.storyboard */; };
 		F3FC70EB1F2F39DF00B54A79 /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */; };
@@ -270,6 +272,8 @@
 		F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTestAnswersModel.swift; sourceTree = "<group>"; };
 		F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategorySelectionVC.swift; sourceTree = "<group>"; };
 		F3F77C7D1F20F8BE00D51277 /* String Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String Constants.swift"; sourceTree = "<group>"; };
+		F3FAAE9E1F41A574007DF154 /* TrainerProfilePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfilePage.swift; sourceTree = "<group>"; };
+		F3FAAEA01F41B71E007DF154 /* TrainerProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileModel.swift; sourceTree = "<group>"; };
 		F3FBA7BE1F3C70DB00B882B7 /* MapBottamButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapBottamButtonCell.swift; sourceTree = "<group>"; };
 		F3FC70E71F2EFBC800B54A79 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
@@ -466,7 +470,7 @@
 				F35FDAC11F1DEB7F0091900D /* Models */,
 				F35FDABE1F1DE9AB0091900D /* Common Methods */,
 				F302BB901F1F297B00186BCC /* Login Viewcontroller */,
-				F35FDABB1F1DE9000091900D /* Booking History */,
+				F35FDABB1F1DE9000091900D /* Booking/Training History */,
 				F35FDAB61F1DE49B0091900D /* Temp JSON Files */,
 				F30B60191F1DCECD00374136 /* ExternalFrameworks */,
 				F322FC721F1CF1AE00381B8C /* Globals */,
@@ -555,14 +559,14 @@
 			name = "Temp JSON Files";
 			sourceTree = "<group>";
 		};
-		F35FDABB1F1DE9000091900D /* Booking History */ = {
+		F35FDABB1F1DE9000091900D /* Booking/Training History */ = {
 			isa = PBXGroup;
 			children = (
 				F35FDADA1F1E517B0091900D /* BookingDetailsVC.swift */,
 				F35FDADB1F1E517B0091900D /* BookingHistoryTableCell.swift */,
 				F35FDADC1F1E517C0091900D /* BookingHistoryVC.swift */,
 			);
-			name = "Booking History";
+			name = "Booking/Training History";
 			sourceTree = "<group>";
 		};
 		F35FDABE1F1DE9AB0091900D /* Common Methods */ = {
@@ -589,6 +593,7 @@
 				F3AF9D421F30661000D0CF05 /* GymModel.swift */,
 				F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */,
 				F3C6857C1F3C857900AA8CC7 /* TrainerReviewModel.swift */,
+				F3FAAEA01F41B71E007DF154 /* TrainerProfileModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -606,6 +611,7 @@
 			isa = PBXGroup;
 			children = (
 				F38BB5401F26069200824C15 /* ProfileVC.swift */,
+				F3FAAE9E1F41A574007DF154 /* TrainerProfilePage.swift */,
 			);
 			name = "Profile View";
 			sourceTree = "<group>";
@@ -1072,6 +1078,7 @@
 				F35FDAE61F1E51B50091900D /* ReviewHistoryVC.swift in Sources */,
 				F39E1EAE1F270ACF00DAED93 /* FinalQuestionsVC.swift in Sources */,
 				F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */,
+				F3FAAE9F1F41A575007DF154 /* TrainerProfilePage.swift in Sources */,
 				F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */,
 				F3C6857D1F3C857900AA8CC7 /* TrainerReviewModel.swift in Sources */,
 				F3A907821F32F30100474F5E /* ChooseSessionTableCell.swift in Sources */,
@@ -1140,6 +1147,7 @@
 				F364A8FE1F34B36E0001C570 /* AssignedTrainerSocialMediaCell.swift in Sources */,
 				F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */,
 				F334D6C01F39B12300435BD2 /* TimerViewController.swift in Sources */,
+				F3FAAEA11F41B71E007DF154 /* TrainerProfileModel.swift in Sources */,
 				F302BB921F1F2B5A00186BCC /* LoginModel.swift in Sources */,
 				F341B0341F28D664007C9AF1 /* UIColorExtension.swift in Sources */,
 				F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */,

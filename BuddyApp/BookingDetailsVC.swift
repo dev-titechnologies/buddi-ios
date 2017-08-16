@@ -9,15 +9,15 @@
 import UIKit
 
 class BookingDetailsVC: UIViewController {
-
-    @IBOutlet weak var lblBookingId: UILabel!
-    @IBOutlet weak var lblTrainerName: UILabel!
-    @IBOutlet weak var lblTrainingStatus: UILabel!
-    @IBOutlet weak var lblPaymentStatus: UILabel!
-    @IBOutlet weak var lblDate: UILabel!
-    @IBOutlet weak var lblCategory: UILabel!
     
     var bookingModel = BookingHistoryModel()
+    
+    @IBOutlet weak var imgTrainingPic: UIImageView!
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
+    @IBOutlet weak var imgTrainerPic: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +32,6 @@ class BookingDetailsVC: UIViewController {
     
     func parsingBookingDetails(bookingModel: BookingHistoryModel) {
         
-        lblBookingId.text = bookingModel.bookingId
-        lblTrainerName.text = bookingModel.trainerName
-        lblTrainingStatus.text = bookingModel.trainingStatus
-        lblDate.text = CommonMethods.getStringFromDate(date: bookingModel.trainedDate)
-        lblPaymentStatus.text = bookingModel.paymentStatus
-        lblCategory.text = bookingModel.category
     }
 
     override func didReceiveMemoryWarning() {

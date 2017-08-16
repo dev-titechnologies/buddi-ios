@@ -13,10 +13,6 @@ import Alamofire
 import SVProgressHUD
 
 class CommonMethods: NSObject {
-    
-    
-    
-    
 
       class func serverCall(APIURL : String, parameters : Dictionary<String, Any>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
         
@@ -204,6 +200,7 @@ extension UIViewController {
         
         userDefaults.removeObject(forKey: "user_id")
         userDefaults.removeObject(forKey: "token")
+        userDefaults.removeObject(forKey: "userName")
         userDefaults.removeObject(forKey: "userType")
         userDefaults.removeObject(forKey: "approvedOrPendingCategoriesIdArray")
         userDefaults.removeObject(forKey: "clientTokenForPayment")

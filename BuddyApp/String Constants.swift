@@ -27,6 +27,7 @@ let PAYMENT_METHOD_FETCH_ERROR = "Could not fetch payment methods"
 let PLEASE_ADD_PAYMENT_METHOD = "Please add payment method"
 let PAYMENT_COULD_NOT_PROCESSED = "Payment could not be processed, please try again."
 let PAYMENT_SUCCESSFULL = "Payment successfull"
+let PROFILE_UPDATED_SUCCESSFULLY = "Profile updated successfully"
 
 let VIDEO_DESC = "*Videos should be anywhere between 0-90 seconds long. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 

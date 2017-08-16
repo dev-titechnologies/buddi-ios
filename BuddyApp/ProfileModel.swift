@@ -30,7 +30,5 @@ class ProfileModel{
         self.mobile = mobile
         self.gender = gender
         self.userid = userid
-        
-        }
-
+    }
 }

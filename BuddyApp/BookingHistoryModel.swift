@@ -20,6 +20,7 @@ class BookingHistoryModel {
     var trainedDate: Date = Date()
     var category: String = String()
     var location: String = String()
+    var trainerImage: String = String()
 
     init(){}
     
