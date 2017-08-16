@@ -10,3 +10,4 @@ import Foundation
 
 let APP_BLUE_COLOR = "#47CBFB"
 let WHITE_COLOR = "#FFFFF"
+let DARK_GRAY_COLOR = "555555"

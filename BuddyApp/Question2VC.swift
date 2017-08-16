@@ -21,6 +21,7 @@ class Question2VC: UIViewController{
     var gymNamesArray = [String]()
     var gymNamesArrayCopy = [Any]()
     var orderedSet = NSMutableOrderedSet()
+    @IBOutlet weak var btnNext: UIButton!
     
     //DropDown Variable
     var objDropDown:VDropDownViewController!
@@ -100,6 +101,12 @@ class Question2VC: UIViewController{
             btnYes.backgroundColor = UIColor.white
             btnNo.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }
+        
+        if txtCurrentGymSubscriptions.text != "" {
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+        }else{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
+        }
     }
     
     //MARK:- NEXT/BACK BUTTON ACTIONS
@@ -153,6 +160,12 @@ extension Question2VC: VDropDown{
             txtCurrentGymSubscriptions.text = strJoinValue
             print("LIST",MultipleSelectedItems)
             gymArraySelected.append(gymArray[Index.row])
+            
+            if txtCurrentGymSubscriptions.text != "" && isAnsweredMilitaryInstallations {
+                btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+            }else{
+                btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
+            }
         }
     }
     

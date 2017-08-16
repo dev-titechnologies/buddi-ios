@@ -29,7 +29,7 @@ let PAYMENT_COULD_NOT_PROCESSED = "Payment could not be processed, please try ag
 let PAYMENT_SUCCESSFULL = "Payment successfull"
 let PROFILE_UPDATED_SUCCESSFULLY = "Profile updated successfully"
 
-let VIDEO_DESC = "*Videos should be anywhere between 0-90 seconds long. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
+let VIDEO_DESC = "*Videos should be no longer than 90 seconds. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 
 let SQUAT_MALE_DESC = "Video 1: Record yourself doing 1 rep with 135lb on the bar from 2 different angles.\nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles."
 let SQUAT_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 95lb on the bar from 2 different angles.\nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar form 2 different angles."
@@ -128,7 +128,7 @@ let trainingExperienceArray = ["< 1","1 - 2","2 - 3","3 - 4","4 - 5","5 - 6", "6
 let trainingExperienceOrderedSet = NSMutableOrderedSet(array: trainingExperienceArray, copyItems: true)
 let weightRangeOrderedSet = NSMutableOrderedSet(array: weightRangeArray, copyItems: true)
 
-let trainingDurationArray = ["30 Minutes", "1 Hour"]
+let trainingDurationArray = ["40 Minutes", "1 Hour"]
 
 let trainingExperienceYearsArray = ["1","2","3","4","5","6","7","8","9","10","10+"]
 let trainingExperienceMonthsArray = Array(0...12)

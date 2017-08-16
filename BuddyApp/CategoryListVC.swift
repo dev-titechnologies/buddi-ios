@@ -24,6 +24,7 @@ class CategoryListVC: UIViewController {
     fileprivate let itemsPerRow: CGFloat = 2
     var approvedCategoriesIdArray = [String]()
     
+    @IBOutlet weak var btnNext: UIButton!
     var isBackButtonHidden = Bool()
 
     override func viewDidLoad() {
@@ -224,5 +225,11 @@ extension CategoryListVC : UICollectionViewDelegate{
             selectedCategories.append(indexPath.row)
         }
         categoryCollectionView.reloadItems(at: [indexPath])
+        
+        if selectedCategories.count > 0 {
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+        }else{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
+        }
     }
 }

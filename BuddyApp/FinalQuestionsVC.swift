@@ -9,11 +9,17 @@
 import UIKit
 
 class FinalQuestionsVC: UIViewController {
+    @IBOutlet weak var btnNext: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
     }
     
     @IBAction func nextAction(_ sender: Any) {
