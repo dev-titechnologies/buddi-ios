@@ -11,3 +11,5 @@ import Foundation
 let APP_BLUE_COLOR = "#47CBFB"
 let WHITE_COLOR = "#FFFFF"
 let DARK_GRAY_COLOR = "555555"
+let START_BTN_COLOR = "#F5F5F5"
+let TIMER_COLOR = "#8C8C8C"
