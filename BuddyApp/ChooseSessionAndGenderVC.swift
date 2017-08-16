@@ -11,11 +11,13 @@ import UIKit
 class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
 
     @IBOutlet weak var chooseSessionAndGenderTable: UITableView!
+    @IBOutlet weak var btnNext: UIButton!
    
     let headerSectionTitles = ["Choose Session Duration" ,"Choose Trainer Gender"]
     var collapseArray = [Bool]()
     var sessionChoosed = Int()
     var headerChoosed = Int()
+    var isChoosedGender = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +83,22 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
             genderCell.btnFemale.addShadowView()
             genderCell.btnNopreferance.addShadowView()
             
+            genderCell.btnMale.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
+            genderCell.btnFemale.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
+            genderCell.btnNopreferance.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
+
             return genderCell
+        }
+    }
+    
+    func choosedGender(sender : UIButton){
+        print("Button Tapped 123")
+        
+        isChoosedGender = true
+        if !choosedSessionOfTrainee.isEmpty{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+        }else{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
         }
     }
     
@@ -147,12 +164,18 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
         
         if indexPath.section == 0{
             if indexPath.row == 0 {
-                choosedSessionOfTrainee = "30"
+                choosedSessionOfTrainee = "40"
             }else{
                 choosedSessionOfTrainee = "60"
             }
         }
         print("Choosed Session:\(choosedSessionOfTrainee)")
+        
+        if !choosedSessionOfTrainee.isEmpty && isChoosedGender {
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+        }else{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
+        }
     }
 }
 

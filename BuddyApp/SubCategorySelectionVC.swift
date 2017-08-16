@@ -18,7 +18,6 @@ class SubCategorySelectionVC: UIViewController {
     var subCategories = [SubCategoryModel]()
     
     var selectedSubCategoriesFromTable = [Int]()
-    
     var isAnsweredLostOrGainWeight = Bool()
     
     var objDropDown:VDropDownViewController!
@@ -26,6 +25,7 @@ class SubCategorySelectionVC: UIViewController {
     
     @IBOutlet weak var pickerCardView: CardView!
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var btnNext: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +62,8 @@ class SubCategorySelectionVC: UIViewController {
             btnYesLostOrGainWeight.backgroundColor = UIColor.white
             btnNoLostOrGainWeight.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }
+        
+        changeNextButtonColor()
     }
 
     @IBAction func nextButtonAction(_ sender: Any) {
@@ -81,6 +83,15 @@ class SubCategorySelectionVC: UIViewController {
         selectedSubCategoriesAmongSingleton.removeAll()
         for value in selectedSubCategoriesFromTable{
             selectedSubCategoriesAmongSingleton.append(subCategories[value])
+        }
+    }
+    
+    func changeNextButtonColor() {
+        
+        if selectedSubCategoriesFromTable.count > 0 && txtCurrentWeight.text != "" && isAnsweredLostOrGainWeight{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+        }else{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
         }
     }
     
@@ -127,6 +138,8 @@ extension SubCategorySelectionVC: UITableViewDelegate {
             selectedSubCategoriesFromTable.append(indexPath.row)
         }
         subCategoryTable.reloadRows(at: [indexPath], with: .automatic)
+        
+        changeNextButtonColor()
     }
 }
 
@@ -209,6 +222,8 @@ extension SubCategorySelectionVC: UIPickerViewDataSource, UIPickerViewDelegate {
         let selectedValueSecondRow = pickerView.selectedRow(inComponent: 1)
         
         txtCurrentWeight.text = String(currentWeightONEArray[selectedValueFirstRow] + currentWeightSecondArray[selectedValueSecondRow]) + " lbs"
+        
+        changeNextButtonColor()
     }
     
 }

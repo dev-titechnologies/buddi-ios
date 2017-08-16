@@ -30,6 +30,7 @@ class Question3VC: UIViewController {
     
     @IBOutlet weak var pickerCardView: CardView!
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var btnNext: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,6 +118,12 @@ class Question3VC: UIViewController {
                 btnYesCertifiedTrainer.backgroundColor = UIColor.white
                 btnNoCertifiedTrainer.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
             }
+        }
+        
+        if txtHowLongTraining.text != "" && isAnsweredEverCompletedCategory && isAnsweredEverCoachedAnybody && isAnsweredCertifiedTrainer {
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+        }else{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
         }
     }
     
@@ -215,6 +222,12 @@ extension Question3VC: UIPickerViewDataSource, UIPickerViewDelegate {
             txtHowLongTraining.text = "Over 10 years"
         }else{
             txtHowLongTraining.text = String(trainingExperienceYearsArray[selectedValueFirstRow]) + " Years and " + String(trainingExperienceMonthsArray[selectedValueSecondRow]) + " Months"
+        }
+        
+        if txtHowLongTraining.text != "" && isAnsweredEverCompletedCategory && isAnsweredEverCoachedAnybody && isAnsweredCertifiedTrainer {
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+        }else{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
         }
     }
 
