@@ -10,8 +10,10 @@ import UIKit
 
 class BookingHistoryTableCell: UITableViewCell {
 
-    @IBOutlet weak var category: UILabel!
     @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var imgTrainingPic: UIImageView!
+    @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

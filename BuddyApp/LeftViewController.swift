@@ -30,7 +30,16 @@ class LeftViewController: UIViewController {
         }else{
             leftMenuArrayTraineeCopy = leftMenuTrainee
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
+        parseNameAndImage()
+    }
+    
+    func parseNameAndImage() {
         
+        profileName.text = userDefaults.value(forKey: "userName") as? String
         DispatchQueue.global(qos: .background).async {
             print("This is run on the background queue")
             
@@ -49,10 +58,6 @@ class LeftViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        profileName.text = appDelegate.userName
-    }
-        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "blankPageSegue" {
@@ -68,6 +73,17 @@ class LeftViewController: UIViewController {
                     blankPage.blankTextValue = leftMenuTrainee[path.row]
                 }
             }
+        }
+    }
+    
+    @IBAction func viewProfileButtonAction(_ sender: Any) {
+        
+    
+        if appDelegate.USER_TYPE == "trainer"{
+            self.performSegue(withIdentifier: "trainerProfileSegue", sender: self)
+
+        }else{
+            self.performSegue(withIdentifier: "traineeProfileSegue", sender: self)
         }
     }
     
@@ -209,7 +225,7 @@ extension LeftViewController : UITableViewDelegate{
                 print("three")
                 if isTraineeAlreadyTrainer{
                     print("Training History")
-                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                    self.performSegue(withIdentifier: "bookingHistorySegue", sender: self)
                 }else{
                     print("Payment Method")
                     self.performSegue(withIdentifier: "addPaymentMethodSegue", sender: self)
@@ -223,7 +239,7 @@ extension LeftViewController : UITableViewDelegate{
                 }else{
                     print("Training History")
 //                    self.performSegue(withIdentifier: "history", sender:self)
-                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                    self.performSegue(withIdentifier: "bookingHistorySegue", sender: self)
                 }
                 
             case 5:

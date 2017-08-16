@@ -124,19 +124,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             string + String(format: "%02X", byte)
         }
         print("token: ", tokenString)
-        
-        if let refreshedToken = FIRInstanceID.instanceID().token() {
-            print("InstanceID token: \(refreshedToken)")
-        }
-
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
+    
+        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: .sandbox)
 
         if let refreshedToken = FIRInstanceID.instanceID().token() {
             print("InstanceID token1: \(refreshedToken)")
         }
-
-        let refreshedToken = FIRInstanceID.instanceID().token()
-        print("InstanceID token 12345: \(String(describing: refreshedToken))")
 
         userDefaults.set(tokenString, forKey: "devicetoken")
     }
@@ -145,7 +138,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         // NOTE: It can be nil here
         let refreshedToken = FIRInstanceID.instanceID().token()
         print("InstanceID token 12345: \(String(describing: refreshedToken))")
-        
         connectToFcm()
     }
     

@@ -27,8 +27,8 @@ class BookingHistoryVC: UIViewController {
 
     func fetchBookingData() {
         
-        let parameters = ["user_id":"21","user_type":"trainer"]
-        let headers = ["token":"395883b4b930662706848a34"]
+        let parameters = ["user_id":appDelegate.UserId,"user_type":appDelegate.USER_TYPE] as [String : Any]
+        let headers = ["token":appDelegate.Usertoken]
         
         CommonMethods.serverCall(APIURL: BOOKING_HISTORY_URL, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
             
@@ -81,10 +81,12 @@ extension BookingHistoryVC: UITableViewDataSource{
 
         let cell: BookingHistoryTableCell = tableView.dequeueReusableCell(withIdentifier: "bookinghistorycellid") as! BookingHistoryTableCell
         
-        cell.category.text = bookingsArray[indexPath.row].category
         let stringDate = CommonMethods.getStringFromDate(date: bookingsArray[indexPath.row].trainedDate)
-        print(stringDate)
+       
         cell.date.text = stringDate
+        cell.lblDescription.text = "Crossfit" + " session with " + "Test User"
+        cell.lblAmount.text = "$ 72"
+//        cell.imgTrainingPic.sd_setImage(with: URL(string: "", placeholderImage: UIImage(named: "")))
         
         return cell
     }

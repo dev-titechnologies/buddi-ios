@@ -38,7 +38,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     
     var countrypicker = CountryPicker()
 
-    
     let profileDetails : ProfileModel = ProfileModel()
     var ProfileDict: NSDictionary!
     
@@ -139,16 +138,13 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     override func viewWillAppear(_ animated: Bool) {
         
        // parseProfileDetails()
-        
-      
-        
     }
+    
     @IBAction func editImage_action(_ sender: Any) {
         ProfilePicChoose()
-        
     }
+    
     @IBAction func editProfile_action(_ sender: Any) {
-        
         
         guard CommonMethods.networkcheck() else {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
@@ -183,10 +179,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
 //        self.UploadImageAPI(imagedata: imagePickedData)
         
     }
-    func EditProfileAPI()
-    {
-        
-        
+    
+    func EditProfileAPI(){
         
         let parameters = ["user_type":appDelegate.USER_TYPE,
                           "user_id":appDelegate.UserId,
@@ -287,16 +281,14 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
     func ProfileDataAPI() {
-        
-   
         
         guard CommonMethods.networkcheck() else {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
             return
         }
 
-        
         let parameters = ["user_type":appDelegate.USER_TYPE,
                           "user_id":appDelegate.UserId] as [String : Any]
         

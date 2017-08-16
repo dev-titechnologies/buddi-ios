@@ -218,10 +218,12 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     appDelegate.userName = (self.jsondict["first_name"] as? String)! + " " + (self.jsondict["last_name"] as? String)!
                     
                     userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
+                    userDefaults.set(appDelegate.userName, forKey: "userName")
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")
-                    print(self.jsondict["trainer_type"]!)
                     userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
+
+                    print(self.jsondict["trainer_type"]!)
                     print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
                     
                     if let url = URL(string:(CommonMethods.checkStringNull(val: self.jsondict["user_image"] as? String))){
