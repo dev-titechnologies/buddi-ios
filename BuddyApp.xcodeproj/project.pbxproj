@@ -618,6 +618,7 @@
 				F364A8FD1F34B36E0001C570 /* AssignedTrainerSocialMediaCell.swift */,
 				F364A8FF1F34B3950001C570 /* AssignedTrainerEmailCell.swift */,
 				F315428D1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift */,
+				F3FBA7BE1F3C70DB00B882B7 /* MapBottamButtonCell.swift */,
 			);
 			name = "Assigned Trainer Profile View";
 			sourceTree = "<group>";
@@ -676,7 +677,6 @@
 				F3A9077C1F32EF9100474F5E /* Choose Session and Gender Page */,
 				F3A907781F32E45A00474F5E /* TraineeHomePage.swift */,
 				F3A907851F3352DC00474F5E /* ShowTrainersOnMapVC.swift */,
-				F3FBA7BE1F3C70DB00B882B7 /* MapBottamButtonCell.swift */,
 			);
 			name = "Trainee Pages";
 			sourceTree = "<group>";

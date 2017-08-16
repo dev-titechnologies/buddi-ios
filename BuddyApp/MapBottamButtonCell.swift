@@ -10,6 +10,9 @@ import UIKit
 
 class MapBottamButtonCell: UICollectionViewCell {
     
+    @IBOutlet weak var menu_btn: UIButton!
     @IBOutlet weak var bgview: UIView!
-    @IBOutlet weak var imageview: UIImageView!
+    @IBOutlet weak var name_lbl: UILabel!
+   
+    @IBOutlet weak var line_lbl: UILabel!
 }
