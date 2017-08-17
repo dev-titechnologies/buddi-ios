@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 import Alamofire
 import AlamofireImage
 import CountryPicker
@@ -15,72 +14,96 @@ import CountryPicker
 class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerDelegate,UINavigationControllerDelegate{
 
     @IBOutlet weak var edit_btn: UIBarButtonItem!
-    @IBOutlet weak var gender_txt: UITextField!
     @IBOutlet weak var flage_img: UIImageView!
     @IBOutlet weak var contycode_lbl: UILabel!
-    @IBOutlet weak var mobile_txt: UITextField!
-    @IBOutlet weak var email_txt: UITextField!
     @IBOutlet weak var lastname_txt: UITextField!
     @IBOutlet weak var firstname_txt: UITextField!
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var lblFirstName: UILabel!
-    @IBOutlet weak var lblLastName: UILabel!
-    @IBOutlet weak var lblEmailID: UILabel!
+    @IBOutlet weak var image_edit_btn: UIButton!
+    @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblMobile: UILabel!
     @IBOutlet weak var lblGender: UILabel!
-    @IBOutlet weak var image_edit_btn: UIButton!
+
     let imagePicker = UIImagePickerController()
+    
     var imgData = NSData()
-   var ProfileImageURL = String()
-    var EditBool = Bool()
+    var ProfileImageURL = String()
     var imageArray = Array<ProfileImageDB>()
     var objdata = NSData()
-    
     var countrypicker = CountryPicker()
 
     let profileDetails : ProfileModel = ProfileModel()
     var ProfileDict: NSDictionary!
-    
     var profileArray = Array<ProfileDB>()
     
+    var isEditingProfile = Bool()
+    var isUpdatingProfileImage = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        profileImage.layer.cornerRadius = 60
-        profileImage.clipsToBounds = true
         imagePicker.delegate = self
-        EditBool = true
-        firstname_txt.isUserInteractionEnabled = false
-        lastname_txt.isUserInteractionEnabled = false
-        email_txt.isUserInteractionEnabled = false
-        mobile_txt.isUserInteractionEnabled = false
-        gender_txt.isUserInteractionEnabled = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         
-        if let result = ProfileDB.fetchUser()      {
-            if result.count == 0
-            {
-                SVProgressHUD.show()
-               ProfileDataAPI()
+        print("*** viewWillAppear")
+
+        if !isUpdatingProfileImage{
+            changeTextColorGrey()
+            fetchFromDBAndServer()
+        }
+    }
+    
+    func fetchFromDBAndServer() {
+        
+        if let result = ProfileDB.fetchUser() {
+            if result.count == 0{
+                CommonMethods.showProgress()
+                ProfileDataAPI()
             }else{
                 print("from db")
                 FetchFromDb()
                 DispatchQueue.global(qos: .background).async {
                     print("This is run on the background queue")
-                    
                     self.ProfileDataAPI()
-                }
-                
-                DispatchQueue.main.async {
-                    
-                    print("This is run on the main queue, after the previous code in outer block")
                 }
             }
         }else{
-            SVProgressHUD.show()
+            CommonMethods.showProgress()
             print("from api")
             ProfileDataAPI()
         }
+    }
+    
+    func changeTextColorBlack() {
+        
+        edit_btn.title = "Save"
+        firstname_txt.textColor = .black
+        lastname_txt.textColor = .black
+        
+        firstname_txt.isUserInteractionEnabled = true
+        lastname_txt.isUserInteractionEnabled = true
+        
+        image_edit_btn.isUserInteractionEnabled = true
+        image_edit_btn.isHidden = false
+    }
+
+    func changeTextColorGrey() {
+        
+        edit_btn.title = "Edit"
+        firstname_txt.textColor = .gray
+        lastname_txt.textColor = .gray
+        lblEmail.textColor = .gray
+        contycode_lbl.textColor = .gray
+        lblMobile.textColor = .gray
+        lblGender.textColor = .gray
+        
+        firstname_txt.isUserInteractionEnabled = false
+        lastname_txt.isUserInteractionEnabled = false
+        
+        image_edit_btn.isUserInteractionEnabled = false
+        image_edit_btn.isHidden = true
     }
     
     func FetchFromDb() {
@@ -88,7 +111,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         if let result = ProfileDB.fetchUser() {
             self.profileArray = result as! Array<ProfileDB>
             
-            let obj = self.profileArray[0].value(forKey: "firstname")
             print("DBBB",self.profileArray[0])
    
             let profile = ProfileModel(profileImage: self.profileArray[0].value(forKey: "profileImageURL") as! String, firstName: self.profileArray[0].value(forKey: "firstname") as! String,
@@ -101,10 +123,10 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
      // profileImage.sd_setImage(with: URL(string: profile.profileImage))
             firstname_txt.text = profile.firstName
             lastname_txt.text = profile.lastName
-            email_txt.text = profile.email
-            gender_txt.text = (profile.gender).uppercased()
+            lblEmail.text = profile.email
+            lblGender.text = (profile.gender).uppercased()
             
-            mobile_txt.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
+            lblMobile.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
             contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
 
             countrypicker.countryPickerDelegate = self
@@ -127,17 +149,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                         self.profileImage.image = UIImage(data: self.objdata as Data)
                     }
                 }
-                
             }
-            
-    
-            
-        
         }
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        
-       // parseProfileDetails()
     }
     
     @IBAction func editImage_action(_ sender: Any) {
@@ -151,21 +164,13 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             return
         }
         
-        if EditBool == true{
-            edit_btn.title = "Save"
-            
-            EditBool = false
-            firstname_txt.isUserInteractionEnabled = true
-            lastname_txt.isUserInteractionEnabled = true
-            image_edit_btn.isHidden = false
-        }else{
-            
-            firstname_txt.isUserInteractionEnabled = false
-            lastname_txt.isUserInteractionEnabled = false
-            image_edit_btn.isHidden = true
-            edit_btn.title = "Edit"
-            EditBool = true
+        if isEditingProfile == true{
+            isEditingProfile = false
+            changeTextColorGrey()
             EditProfileAPI()
+        }else{
+            isEditingProfile = true
+            changeTextColorBlack()
         }
     }
     
@@ -184,20 +189,19 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         let parameters = ["user_type":appDelegate.USER_TYPE,
                           "user_id":appDelegate.UserId,
-                           "first_name":self.firstname_txt.text!,
-                            "last_name":self.lastname_txt.text!,
-                           "gender":(self.gender_txt.text!).lowercased(),
-                         "user_image":self.ProfileImageURL,
-                         "profile_desc":"tt" ] as [String : Any]
+                          "first_name":self.firstname_txt.text!,
+                          "last_name":self.lastname_txt.text!,
+                          "gender":(self.lblGender.text!).lowercased(),
+                          "user_image":self.ProfileImageURL,
+                          "profile_desc":"tt" ] as [String : Any]
         
         let headers = [
             "token":appDelegate.Usertoken ]
         
-        
         print("PARAMS",parameters)
         print("HEADER",headers)
         
-        CommonMethods.serverCall(APIURL: "profile/editProfile", parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: EDIT_PROFILE, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
             print("EDIT PROFILE RESPONSE",jsondata)
             
             if let status = jsondata["status"] as? Int{
@@ -243,18 +247,16 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         ProfileDB.createProfileEntry(profileModel: profile)
         
-        mobile_txt.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
+        lblMobile.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
         contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
         
+        let userName = profile.firstName + " " + profile.lastName as String
+        userDefaults.set(userName, forKey: "userName")
 
-        
-       // profileImage.sd_setImage(with: URL(string: profile.profileImage))
         firstname_txt.text = profile.firstName
         lastname_txt.text = profile.lastName
-        email_txt.text = profile.email
-        //mobile_txt.text = profile.mobile
-        gender_txt.text = (profile.gender).uppercased()
-        
+        lblEmail.text = profile.email
+        lblGender.text = (profile.gender).uppercased()
         
         countrypicker.countryPickerDelegate = self
         countrypicker.showPhoneNumbers = true
@@ -264,6 +266,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             self.imageArray = imagearray as! Array<ProfileImageDB>
             
             guard self.imageArray.count > 0 else{
+                CommonMethods.hideProgress()
                 return
             }
             
@@ -271,7 +274,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                            self.profileImage.image = UIImage(data: self.objdata as Data)
             
         }
-        SVProgressHUD.dismiss()
+        CommonMethods.hideProgress()
     }
     
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
@@ -298,7 +301,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         print("PARAMS",parameters)
         print("HEADER",headers)
         
-        CommonMethods.serverCall(APIURL: "profile/viewProfile", parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: VIEW_PROFILE, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
             print("PROFILE RESPONSE",jsondata)
             
             if let status = jsondata["status"] as? Int{
@@ -342,16 +345,10 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     // MARK: - UIImagePickerControllerDelegate Methods
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            
-//            self.profileImage.image = pickedImage
-//  
-    
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
-       // self.profileImage.contentMode = .scaleAspectFit //3
-       // self.profileImage.image = chosenImage //4
-
         dismiss(animated: true, completion: nil)
+        
+        CommonMethods.showProgress()
         var imagePickedData = NSData()
         imagePickedData = UIImageJPEGRepresentation(chosenImage, 1.0)! as NSData
         self.UploadImageAPI(imagedata: imagePickedData)
@@ -439,7 +436,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                           "user_id":appDelegate.UserId,
                           "first_name":self.firstname_txt.text!,
                           "last_name":self.lastname_txt.text!,
-                          "gender":(self.gender_txt.text!).lowercased(),
+                          "gender":(self.lblGender.text!).lowercased(),
                           "user_image":self.ProfileImageURL,
                           "profile_desc":"tt" ] as [String : Any]
         
@@ -449,9 +446,11 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         print("PARAMS",parameters)
         print("HEADER",headers)
         
-        CommonMethods.serverCall(APIURL: "profile/editProfile", parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: EDIT_PROFILE, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
             print("EDIT PROFILE RESPONSE",jsondata)
             
+            CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     self.ProfileDict = jsondata["data"]  as! NSDictionary
