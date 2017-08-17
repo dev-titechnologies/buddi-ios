@@ -9,29 +9,114 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var TimerDict = NSDictionary()
+    var numOfDays = Int()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let date = Date()
+        let calendar = Calendar.current
+        
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let seconds = calendar.component(.second, from: date)
+        print("hours ",date)
+
+        
+        
+        
      
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
         
-        if userDefaults.value(forKey: "devicetoken") != nil {
-            appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
-            print("TOKEN",appDelegate.DeviceToken)
-        }else{
-            appDelegate.DeviceToken = "1234567890"
-        }
         
-        let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            // Your code with delay
-            self.loginCheck()
-        }
         
+        
+        if userDefaults.value(forKey: "TimerData") != nil {
+            
+            TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
+            
+            print("TIMERDICT",TimerDict)
+            
+            let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
+            
+            print("OLD DATE",date)
+            print("CURRENT DATE",Date())
+            
+            
+            if date > Date()
+            {
+                print("ongoing")
+                 numOfDays = Date().daysBetweenDate(toDate: date)
+                
+                print("DIFFERENCE",numOfDays)
+                
+                self.showTimer(time: numOfDays)
+            }
+            else
+            {
+                print("completed")
+                
+                if userDefaults.value(forKey: "devicetoken") != nil {
+                    appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
+                    print("TOKEN",appDelegate.DeviceToken)
+                }else{
+                    appDelegate.DeviceToken = "1234567890"
+                }
+                
+                let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    // Your code with delay
+                    self.loginCheck()
+                }
+                
 
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+        }else{
+            
+            
+            if userDefaults.value(forKey: "devicetoken") != nil {
+                appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
+                print("TOKEN",appDelegate.DeviceToken)
+            }else{
+                appDelegate.DeviceToken = "1234567890"
+            }
+            
+            let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                // Your code with delay
+                self.loginCheck()
+            }
+            
+
+            
+            
+        }
+        
+        
+      
     }
+    func showTimer(time: Int) {
+        
+        appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
+        appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
+        appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
+        
+         self.performSegue(withIdentifier: "splashToTrainerHomePageSegue", sender: self)
+        
+   }
+
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.isNavigationBarHidden = true
@@ -97,10 +182,22 @@ class ViewController: UIViewController {
             let chooseCategoryPage =  segue.destination as! CategoryListVC
             chooseCategoryPage.isBackButtonHidden = true
         }
+        else if segue.identifier == "splashToTrainerHomePageSegue"
+        {
+            let timerPage =  segue.destination as! TrainerTraineeRouteViewController
+            
+            timerPage.seconds = numOfDays
+            timerPage.TIMERCHECK = true
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 }
-
+extension Date {
+    func daysBetweenDate(toDate: Date) -> Int {
+        let components = Calendar.current.dateComponents([.second], from: self, to: toDate)
+        return components.second ?? 0
+    }
+}
