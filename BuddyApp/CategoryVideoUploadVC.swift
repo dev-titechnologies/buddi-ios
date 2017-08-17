@@ -148,8 +148,9 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
         print("Anybody Coached:",trainerTestAnswers.isAnybodyCoachedCategory)
         print("Certified Personal Trainer:",trainerTestAnswers.isCertifiedTrainer)
         print("Current Weight:",trainerTestAnswers.currentWeight)
-        print("Lost or Gain Weight in 6 Months:",trainerTestAnswers.lostOrGainWeightInSixMonths)
-        
+//        print("Lost or Gain Weight in 6 Months:",trainerTestAnswers.lostOrGainWeightInSixMonths)
+        print("Exercise Nutrition:",trainerTestAnswers.exerciseNutrition)
+
         loadGymIDs()
         loadCategoryIDs()
         loadSubCategoryIDs()

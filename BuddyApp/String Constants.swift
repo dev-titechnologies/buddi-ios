@@ -136,3 +136,6 @@ let trainingExperienceMonthsArray = Array(0...12)
 let currentWeightONEArray = [100,200,300,400]
 let currentWeightSecondArray = Array(1..<100)
 
+let exerciseNutritionArray = ["Not at all", "Somewhat knowledgeable", "Extremely knowledgeable"]
+
+

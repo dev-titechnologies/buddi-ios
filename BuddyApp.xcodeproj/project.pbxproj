@@ -49,6 +49,7 @@
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
 		F330A1001F2F731D00C69871 /* BlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F330A0FF1F2F731D00C69871 /* BlankViewController.swift */; };
 		F334D6C01F39B12300435BD2 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F334D6BF1F39B12300435BD2 /* TimerViewController.swift */; };
+		F338F39C1F459C8800B92450 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F338F39B1F459C8800B92450 /* Main.storyboard */; };
 		F33ABF6D1F29E5C200DEAE48 /* WaitingForApprovalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */; };
 		F33AE4DF1F206A0000B82E0C /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */; };
 		F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */; };
@@ -125,7 +126,6 @@
 		F3FAAE9F1F41A575007DF154 /* TrainerProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FAAE9E1F41A574007DF154 /* TrainerProfilePage.swift */; };
 		F3FAAEA11F41B71E007DF154 /* TrainerProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FAAEA01F41B71E007DF154 /* TrainerProfileModel.swift */; };
 		F3FBA7BF1F3C70DB00B882B7 /* MapBottamButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FBA7BE1F3C70DB00B882B7 /* MapBottamButtonCell.swift */; };
-		F3FC70E81F2EFBC800B54A79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3FC70E71F2EFBC800B54A79 /* Main.storyboard */; };
 		F3FC70EB1F2F39DF00B54A79 /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */; };
 		F3FD7DD91F38321C00986815 /* AddPaymentMethodVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FD7DD81F38321C00986815 /* AddPaymentMethodVC.swift */; };
 		F3FF03E11F285F6700D4DD0D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FF03E01F285F6700D4DD0D /* StringExtension.swift */; };
@@ -207,6 +207,7 @@
 		F330A0FF1F2F731D00C69871 /* BlankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlankViewController.swift; sourceTree = "<group>"; };
 		F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BuddyApp.entitlements; sourceTree = "<group>"; };
 		F334D6BF1F39B12300435BD2 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
+		F338F39B1F459C8800B92450 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForApprovalVC.swift; sourceTree = "<group>"; };
 		F33AE4DE1F206A0000B82E0C /* OTPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterChoiceViewController.swift; sourceTree = "<group>"; };
@@ -275,7 +276,6 @@
 		F3FAAE9E1F41A574007DF154 /* TrainerProfilePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfilePage.swift; sourceTree = "<group>"; };
 		F3FAAEA01F41B71E007DF154 /* TrainerProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileModel.swift; sourceTree = "<group>"; };
 		F3FBA7BE1F3C70DB00B882B7 /* MapBottamButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapBottamButtonCell.swift; sourceTree = "<group>"; };
-		F3FC70E71F2EFBC800B54A79 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F3FC70EA1F2F39DF00B54A79 /* ForgotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
 		F3FD7DD81F38321C00986815 /* AddPaymentMethodVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPaymentMethodVC.swift; sourceTree = "<group>"; };
 		F3FF03E01F285F6700D4DD0D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
@@ -480,7 +480,7 @@
 				F322FC3E1F1CE62000381B8C /* ViewController.swift */,
 				F38A872C1F3DB71F003745E6 /* GoogleService-Info.plist */,
 				F322FC461F1CE62100381B8C /* Assets.xcassets */,
-				F3FC70E71F2EFBC800B54A79 /* Main.storyboard */,
+				F338F39B1F459C8800B92450 /* Main.storyboard */,
 				F322FC481F1CE62200381B8C /* LaunchScreen.storyboard */,
 				F322FC4B1F1CE62200381B8C /* Info.plist */,
 				F364A8F61F34826D0001C570 /* ViewControllerPopOver.swift */,
@@ -903,11 +903,11 @@
 				F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */,
 				F315E9961F30585700850A44 /* check.png in Resources */,
 				F315E9981F30585700850A44 /* DropDown_Done@2x.png in Resources */,
+				F338F39C1F459C8800B92450 /* Main.storyboard in Resources */,
 				F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */,
 				F315E9991F30585700850A44 /* DropDown_Unchecked@2x.png in Resources */,
 				F35FDAE81F1E51DE0091900D /* ReviewHistory.json in Resources */,
 				F315E99A1F30585700850A44 /* DropDownListView.xib in Resources */,
-				F3FC70E81F2EFBC800B54A79 /* Main.storyboard in Resources */,
 				F315E99B1F30585700850A44 /* DropDownViewCell.xib in Resources */,
 				F315E99C1F30585700850A44 /* DropDownViewCellMultiple.xib in Resources */,
 			);

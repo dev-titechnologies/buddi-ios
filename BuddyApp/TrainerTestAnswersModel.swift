@@ -19,4 +19,5 @@ class TrainerTestAnswersModel {
     var isCertifiedTrainer : Bool = Bool()
     var currentWeight: String = String()
     var lostOrGainWeightInSixMonths: Bool = Bool()
+    var exerciseNutrition: String = String()
 }
