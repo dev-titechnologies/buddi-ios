@@ -226,6 +226,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     print(self.jsondict["trainer_type"]!)
                     print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
                     
+                    //Need to do in Background queue
                     if let url = URL(string:(CommonMethods.checkStringNull(val: self.jsondict["user_image"] as? String))){
                         print("Image URL:", url)
                         if let data = NSData.init(contentsOf: url){

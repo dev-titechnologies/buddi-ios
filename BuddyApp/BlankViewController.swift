@@ -21,7 +21,9 @@ class BlankViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         blankText.text = blankTextValue
+        self.navigationItem.hidesBackButton = true
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

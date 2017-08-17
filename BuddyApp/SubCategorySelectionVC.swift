@@ -10,8 +10,8 @@ import UIKit
 
 class SubCategorySelectionVC: UIViewController {
 
-    @IBOutlet weak var btnYesLostOrGainWeight: UIButton!
-    @IBOutlet weak var btnNoLostOrGainWeight: UIButton!
+//    @IBOutlet weak var btnYesLostOrGainWeight: UIButton!
+//    @IBOutlet weak var btnNoLostOrGainWeight: UIButton!
 
     @IBOutlet weak var subCategoryTable: UITableView!
     @IBOutlet weak var txtCurrentWeight: UITextField!
@@ -27,6 +27,13 @@ class SubCategorySelectionVC: UIViewController {
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var btnNext: UIButton!
 
+    @IBOutlet weak var txtExerciseNutrition: UITextField!
+    var orderedSetExerciseNutrition = NSMutableOrderedSet()
+    
+    var isTextBoxCurrentWeight = Bool()
+    var isTextBoxExerciseNutrition = Bool()
+    
+    @IBOutlet weak var pickerViewTitle: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,39 +45,39 @@ class SubCategorySelectionVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         
-        btnYesLostOrGainWeight.addShadowView()
-        btnNoLostOrGainWeight.addShadowView()
+//        btnYesLostOrGainWeight.addShadowView()
+//        btnNoLostOrGainWeight.addShadowView()
     }
     
-    @IBAction func yesBtnActionLostOrGainWeight(_ sender: Any) {
-        colorChangeSelectedAnswerButton(button: true)
-        trainerTestAnswers.lostOrGainWeightInSixMonths = true
-    }
+//    @IBAction func yesBtnActionLostOrGainWeight(_ sender: Any) {
+//        colorChangeSelectedAnswerButton(button: true)
+//        trainerTestAnswers.lostOrGainWeightInSixMonths = true
+//    }
+//    
+//    @IBAction func noBtnActionLostOrGainWeight(_ sender: Any) {
+//        colorChangeSelectedAnswerButton(button: false)
+//        trainerTestAnswers.lostOrGainWeightInSixMonths = false
+//    }
     
-    @IBAction func noBtnActionLostOrGainWeight(_ sender: Any) {
-        colorChangeSelectedAnswerButton(button: false)
-        trainerTestAnswers.lostOrGainWeightInSixMonths = false
-    }
+//    func colorChangeSelectedAnswerButton(button: Bool) {
     
-    func colorChangeSelectedAnswerButton(button: Bool) {
-        
-        isAnsweredLostOrGainWeight = true
-        if button{
-            btnYesLostOrGainWeight.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-            btnNoLostOrGainWeight.backgroundColor = UIColor.white
-        }else{
-            btnYesLostOrGainWeight.backgroundColor = UIColor.white
-            btnNoLostOrGainWeight.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-        }
-        
-        changeNextButtonColor()
-    }
+//        isAnsweredLostOrGainWeight = true
+//        if button{
+//            btnYesLostOrGainWeight.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+//            btnNoLostOrGainWeight.backgroundColor = UIColor.white
+//        }else{
+//            btnYesLostOrGainWeight.backgroundColor = UIColor.white
+//            btnNoLostOrGainWeight.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+//        }
+//        
+//        changeNextButtonColor()
+//    }
 
     @IBAction func nextButtonAction(_ sender: Any) {
         
         if selectedSubCategoriesFromTable.count == 0 {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose atleast a subcategory", buttonTitle: "OK")
-        }else if txtCurrentWeight.text == "" || !isAnsweredLostOrGainWeight{
+        }else if txtCurrentWeight.text == "" || txtExerciseNutrition.text == "" {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ANSWER_ABOVE_QUESTIONS, buttonTitle: "OK")
         }else{
             trainerTestAnswers.currentWeight = txtCurrentWeight.text!
@@ -88,7 +95,7 @@ class SubCategorySelectionVC: UIViewController {
     
     func changeNextButtonColor() {
         
-        if selectedSubCategoriesFromTable.count > 0 && txtCurrentWeight.text != "" && isAnsweredLostOrGainWeight{
+        if selectedSubCategoriesFromTable.count > 0 && txtCurrentWeight.text != "" && txtExerciseNutrition.text != ""{
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }else{
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
@@ -96,6 +103,8 @@ class SubCategorySelectionVC: UIViewController {
     }
     
     @IBAction func pickerCloseAction(_ sender: Any) {
+        pickerView.delegate = nil
+        pickerView.dataSource = nil
         pickerCardView.isHidden = true
     }
     
@@ -149,9 +158,28 @@ extension SubCategorySelectionVC: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         if textField == txtCurrentWeight{
+            
+            isTextBoxCurrentWeight = true
+            isTextBoxExerciseNutrition = false
+            pickerView.delegate = self
+            pickerView.dataSource = self
             pickerCardView.isHidden = false
-//            ShowDropDown(isMultipleSelectionAllow: false, vc: self, OnView: textField, ArrData: weightRangeOrderedSet, ArrSelectedData: SelectedData)
+            pickerViewTitle.text = "lbs"
             return false
+            
+        }else if textField == txtExerciseNutrition {
+            
+            isTextBoxCurrentWeight = false
+            isTextBoxExerciseNutrition = true
+            pickerView.delegate = self
+            pickerView.dataSource = self
+            pickerCardView.isHidden = false
+            pickerViewTitle.text = "Exercise Nutrition"
+
+            return false
+//            orderedSetExerciseNutrition = NSMutableOrderedSet(array: exerciseNutritionArray, copyItems: true)
+//            ShowDropDown(isMultipleSelectionAllow: false, vc: self, OnView: textField, ArrData: orderedSetExerciseNutrition, ArrSelectedData: SelectedData)
+//            return false
         }else{
             return true
         }
@@ -165,13 +193,15 @@ extension SubCategorySelectionVC: UITextFieldDelegate {
 //        
 //        if View is UITextField {
 //            
-////            print("Indexpath:",Index.row)
-////            var strJoinValue = MultipleSelectedItems.joined(separator: ",")
-////            SelectedData = MultipleSelectedItems
-////            if MultipleSelectedItems.count == 0 {
-////                strJoinValue = ""
-////            }
-//            txtCurrentWeight.text = SelectedItem
+//            print("Indexpath:",Index.row)
+//            var strJoinValue = MultipleSelectedItems.joined(separator: ",")
+//            SelectedData = MultipleSelectedItems
+//            if MultipleSelectedItems.count == 0 {
+//                strJoinValue = ""
+//            }
+//            txtExerciseNutrition.text = SelectedItem
+//            trainerTestAnswers.exerciseNutrition = SelectedItem
+//            changeNextButtonColor()
 //        }
 //    }
 //    
@@ -183,7 +213,7 @@ extension SubCategorySelectionVC: UITextFieldDelegate {
 //    func ShowDropDown(isMultipleSelectionAllow:Bool, vc:UIViewController, OnView:UIView, ArrData:NSMutableOrderedSet, ArrSelectedData:Array<String>) -> Void {
 //        
 //        objDropDown = VDropDownViewController.init(nibName: "DropDownListView", bundle: nil)
-//        objDropDown.view.frame = CGRect.init(x: 0, y: 20, width: self.view.frame.size.width, height: self.view.frame.size.height)
+//        objDropDown.view.frame = CGRect.init(x: 10, y: 100, width: self.view.frame.size.width, height: self.view.frame.size.height)
 //        objDropDown.isMultipleSelectionAllow = isMultipleSelectionAllow
 //        objDropDown.mAryPassedData = ArrData
 //        objDropDown.delegate = vc as? VDropDown
@@ -195,36 +225,53 @@ extension SubCategorySelectionVC: UITextFieldDelegate {
 extension SubCategorySelectionVC: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
+        
+        if isTextBoxCurrentWeight{
+            return 2
+        }else{
+            return 1
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        if component == 0 {
-            return currentWeightONEArray.count
+        if isTextBoxCurrentWeight{
+            if component == 0 {
+                return currentWeightONEArray.count
+            }else {
+                return currentWeightSecondArray.count
+            }
         }else {
-            return currentWeightSecondArray.count
+            return exerciseNutritionArray.count
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        if component == 0 {
-            return String(currentWeightONEArray[row])
-        }else {
-            return String(currentWeightSecondArray[row])
+       
+        if isTextBoxCurrentWeight{
+            if component == 0 {
+                return String(currentWeightONEArray[row])
+            }else {
+                return String(currentWeightSecondArray[row])
+            }
+        }else{
+            return exerciseNutritionArray[row]
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        let selectedValueFirstRow = pickerView.selectedRow(inComponent: 0)
-        let selectedValueSecondRow = pickerView.selectedRow(inComponent: 1)
-        
-        txtCurrentWeight.text = String(currentWeightONEArray[selectedValueFirstRow] + currentWeightSecondArray[selectedValueSecondRow]) + " lbs"
-        
-        changeNextButtonColor()
+        if isTextBoxCurrentWeight{
+            let selectedValueFirstRow = pickerView.selectedRow(inComponent: 0)
+            let selectedValueSecondRow = pickerView.selectedRow(inComponent: 1)
+            
+            txtCurrentWeight.text = String(currentWeightONEArray[selectedValueFirstRow] + currentWeightSecondArray[selectedValueSecondRow]) + " lbs"
+            
+            changeNextButtonColor()
+        }else if isTextBoxExerciseNutrition{
+            let selectedValueRow = pickerView.selectedRow(inComponent: 0)
+            txtExerciseNutrition.text = exerciseNutritionArray[selectedValueRow]
+        }
     }
-    
 }
 
