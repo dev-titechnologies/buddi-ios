@@ -486,8 +486,8 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
         
       //  marker.icon = markerImage
         marker.iconView = markerView
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
+        marker.title = "Trainer"
+        marker.snippet = ""
         marker.map = mapview
     }
     

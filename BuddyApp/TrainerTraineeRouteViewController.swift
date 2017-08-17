@@ -459,20 +459,32 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         cell1.menu_btn.tag = indexPath.row
         cell1.menu_btn.addTarget(self, action: #selector(TrainerTraineeRouteViewController.TapedIndex), for: .touchUpInside)
         
-        
-        if indexPath.row == 3
-        {
-            cell1.line_lbl.isHidden = true
-        }
-        else
-        {
-            
-        }
-        
-        
         cell1.bgview.backgroundColor = CommonMethods.hexStringToUIColor(hex: START_BTN_COLOR)
         cell1.menu_btn.setImage(UIImage(named: imagearrayDark[indexPath.row]), for: .normal)
         cell1.name_lbl.text = MenuLabelArray[indexPath.row]
+        
+
+       
+         if indexPath.row == 1
+        {
+            if TIMERCHECK
+            {
+                
+                 cell1.bgview.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                cell1.menu_btn.setImage(UIImage(named: "stop"), for: .normal)
+                cell1.name_lbl.text = "Stop"
+                BoolArray.insert(true, at: 1)
+                
+            }
+
+        }
+      else if indexPath.row == 3
+        {
+            cell1.line_lbl.isHidden = true
+        }
+        
+        
+        
         
         
         return cell1
@@ -504,6 +516,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
            if !BoolArray[1]
            {
             cell1.menu_btn.setImage(UIImage(named: "stop"), for: .normal)
+            cell1.name_lbl.text = "Stop"
            
             self.SessionStartAPI()
            
@@ -511,6 +524,9 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             }
            else{
             cell1.menu_btn.setImage(UIImage(named: "play"), for: .normal)
+            cell1.name_lbl.text = "Start"
+            
+            userDefaults.removeObject(forKey: "TimerData")
             
             timer.invalidate()
             
@@ -523,6 +539,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         else if sender.tag == 2
         {
              print("2")
+            self.performSegue(withIdentifier: "timertotrainer", sender: self)
         }
         else if sender.tag == 3
         {
