@@ -313,7 +313,6 @@ class ShowTrainersOnMapVC: UIViewController {
         let headers = [
             "token":appDelegate.Usertoken]
         
-        
         print("Header:\(headers)")
         print("Params:\(parameters)")
         

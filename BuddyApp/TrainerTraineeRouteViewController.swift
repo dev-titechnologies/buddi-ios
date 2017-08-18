@@ -46,6 +46,9 @@ class TrainerTraineeRouteViewController: UIViewController {
     @IBOutlet weak var cancelAlertView: CardView!
     @IBOutlet weak var btnNoCancelAlert: UIButton!
     @IBOutlet weak var btnYesCancelAlert: UIButton!
+    @IBOutlet weak var cancelAlertViewTitle: UILabel!
+    var isCancelAlert = Bool()
+    var isStopAlert = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -407,7 +410,15 @@ class TrainerTraineeRouteViewController: UIViewController {
     @IBAction func cancelAlertYesAction(_ sender: Any) {
 
         removeTransactionDetailsFromUserDefault()
-        self.BookingAction(Action_status: "cancel")
+        if isCancelAlert{
+            self.BookingAction(Action_status: "cancel")
+        }else if isStopAlert{
+            
+//            cell1.menu_btn.setImage(UIImage(named: "play"), for: .normal)
+//            cell1.name_lbl.text = "Start"
+            BoolArray.insert(false, at: 1)
+            self.BookingAction(Action_status: "complete")
+        }
     }
     
     @IBAction func cancelAlertNoAction(_ sender: Any) {
@@ -515,7 +526,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
     func TapedIndex(sender:UIButton!) {
         
         sender.isSelected = !(sender.isSelected)
-         let indexpath = NSIndexPath(row: sender.tag, section: 0)
+        let indexpath = NSIndexPath(row: sender.tag, section: 0)
         
         cell1 = collectionview.cellForItem(at: indexpath as IndexPath) as! MapBottamButtonCell
         
@@ -523,8 +534,13 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         cell1.menu_btn.setImage(UIImage(named: imagearray[sender.tag]), for: .normal)
 
         if sender.tag == 0{
+            
             print("CANCEL ACTION")
             cancelAlertView.isHidden = false
+            cancelAlertViewTitle.text = "Are you sure you want to cancel this session?"
+            isCancelAlert = true
+            isStopAlert = false
+            
         }else if sender.tag == 1 {
             print("START AND STOP ACTIONS")
             removeTransactionDetailsFromUserDefault()
@@ -536,10 +552,9 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                 BoolArray.insert(true, at: 1)
             }else{
                 //STOP
-                cell1.menu_btn.setImage(UIImage(named: "play"), for: .normal)
-                cell1.name_lbl.text = "Start"
-                BoolArray.insert(false, at: 1)
-                self.BookingAction(Action_status: "complete")
+                isCancelAlert = false
+                isStopAlert = true
+                cancelAlertViewTitle.text = "Are you sure you want to cancel this session?"
             }
         }else if sender.tag == 2{
              print("PROFILE ACTION")
