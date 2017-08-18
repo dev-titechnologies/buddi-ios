@@ -46,12 +46,11 @@ class TrainerProfilePage: UIViewController {
         
         imagePicker.delegate = self
         trainerProfileViewTableCaptionsArray = ["Gym Subscriptions", "Training Category", "Certifications"]
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        print("*** viewWillAppear")
+        print("*** viewWillAppear Trainer")
         if !isUpdatingProfileImage{
             changeTextColorGrey()
             parseTrainerProfileDetails()
@@ -200,6 +199,9 @@ class TrainerProfilePage: UIViewController {
     
     func fillValuesInForm(profile: TrainerProfileModal) {
         
+        let userName = profile.firstName + " " + profile.lastName as String
+        userDefaults.set(userName, forKey: "userName")
+
         lblTrainerName.text = profile.firstName + " " + profile.lastName
         lblAge.text = "Trainer (\(profile.age))"
         lblHeight.text = "\(profile.Height) cm"
