@@ -212,6 +212,12 @@ class ShowTrainersOnMapVC: UIViewController {
                         print("Selected Trainer Details:\(self.TrainerProfileDictionary)")
                         
                         self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+                        
+            TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
+                        
+                        
+                        
+                        
                         self.performSegue(withIdentifier: "trainerTraineeRouteVCSegue", sender: self)
                         
 //                        self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String)!)!, DestiLong: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_longitude"] as? String)!)!)

@@ -21,6 +21,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     var lat = Float()
     var long = Float()
     var trainerProfileDetails = TrainerProfileModal()
+    var TrainerProfileDictionary: NSDictionary!
 
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
@@ -33,7 +34,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     var indexpath1 = NSIndexPath()
     var BoolArray: [Bool] = [false,false,false,false]
 
-    
+    var profileArray = Array<TrainerProfileDetail>()
     //TIMER
     
     var TimeDict = NSMutableDictionary()
@@ -49,6 +50,10 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         if TIMERCHECK
         {
+            seconds = 120
+            
+            FetchFromDb()
+            
             self.runTimer()
         }
         else
@@ -86,7 +91,17 @@ class TrainerTraineeRouteViewController: UIViewController {
             
         }
         else{
-            self.navigationItem.leftBarButtonItem = nil
+            if TIMERCHECK
+            {
+                self.navigationItem.leftBarButtonItem = nil
+                self.navigationItem.hidesBackButton = true
+            }
+            else
+            {
+                self.navigationItem.leftBarButtonItem = nil
+            }
+            
+            
         }
         
         getCurrentLocationDetails()
@@ -107,7 +122,32 @@ class TrainerTraineeRouteViewController: UIViewController {
        
         
     }
-    
+    func FetchFromDb() {
+        
+        if let result = TrainerProfileDetail.fetchBookingDetails() {
+            self.profileArray = result as! Array<TrainerProfileDetail>
+            
+        let bookingObj = self.profileArray[0]
+            
+            trainerProfileDetails = TrainerProfileModal.init(profileImage: bookingObj.value(forKey: "profileimage") as! String,
+                firstName: CommonMethods.checkStringNull(val: bookingObj.value(forKey:"firstname") as? String) ,
+                lastName: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"lastname") as? String),
+                mobile: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"mobile") as? String),
+                gender: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"gender") as? String),
+                userid: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"userId") as? String),
+                rating: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"rating") as? String),
+                age: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"age") as? String),
+                height: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"height") as? String),
+                weight: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"weight") as? String),
+                distance: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"distance") as? String),
+                lattitude: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"lattitude") as? String),
+                longittude: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"longitude") as? String),
+                bookingId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"bookingId") as? String),
+                trainerId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"trainerId") as? String),
+                traineeId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"traineeId") as? String))
+            
+        }
+    }
     //MARK: - API
     func BookingAction(Action_status: String) {
         
@@ -138,7 +178,14 @@ class TrainerTraineeRouteViewController: UIViewController {
                     {
                         if dict["status"] as! String == "cancelled"
                         {
+                            self.timer.invalidate()
+                            self.timer_lbl.text = "00" + ":" + "00"
+                             userDefaults.removeObject(forKey: "TimerData")
+                            TrainerProfileDetail.deleteBookingDetails()
+                            
                            // self.navigationController?.popViewController(animated: true)
+                            
+                            //self.navigationController?.popToViewController(ViewController, animated: true)
                         }
                     }
                     
@@ -213,6 +260,9 @@ class TrainerTraineeRouteViewController: UIViewController {
         if seconds < 1 {
             timer.invalidate()
             //Send alert to indicate time's up.
+            
+            self.BookingAction(Action_status: "complete")
+            
         } else {
             seconds -= 1
             //  timerLabel.text = timeString(time: TimeInterval(seconds))
@@ -359,16 +409,14 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //MARK: - PREPARE FOR SEGUE
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+        
+        if segue.identifier == "fromtimertotrainerprofile"{
+            let TrainerProPage =  segue.destination as! AssignedTrainerProfileView
+            TrainerProPage.TrainerId = self.trainerProfileDetails.Trainer_id
+        }    }
 
 }
 extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
@@ -526,11 +574,13 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             cell1.menu_btn.setImage(UIImage(named: "play"), for: .normal)
             cell1.name_lbl.text = "Start"
             
-            userDefaults.removeObject(forKey: "TimerData")
+           // userDefaults.removeObject(forKey: "TimerData")
             
-            timer.invalidate()
+            //timer.invalidate()
             
             BoolArray.insert(false, at: 1)
+            self.BookingAction(Action_status: "cancel")
+            
             }
             
             
@@ -539,7 +589,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         else if sender.tag == 2
         {
              print("2")
-            self.performSegue(withIdentifier: "timertotrainer", sender: self)
+            self.performSegue(withIdentifier: "fromtimertotrainerprofile", sender: self)
         }
         else if sender.tag == 3
         {
