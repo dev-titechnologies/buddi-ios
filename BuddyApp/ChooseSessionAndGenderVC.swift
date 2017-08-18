@@ -170,6 +170,7 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
             }
         }
         print("Choosed Session:\(choosedSessionOfTrainee)")
+        userDefaults.set(choosedSessionOfTrainee, forKey: "backupTrainingSessionChoosed")
         
         if !choosedSessionOfTrainee.isEmpty && isChoosedGender {
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)

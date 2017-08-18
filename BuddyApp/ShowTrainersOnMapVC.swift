@@ -35,6 +35,7 @@ class ShowTrainersOnMapVC: UIViewController {
     var parameterdict1 = NSMutableDictionary()
     var datadict1 = NSMutableDictionary()
 
+    @IBOutlet weak var btnNext: UIButton!
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 5.0, left: 0, bottom: 0, right: 0)
     fileprivate let itemsPerRow: CGFloat = 4
@@ -51,17 +52,24 @@ class ShowTrainersOnMapVC: UIViewController {
     
     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
     
+    var isFromSplashScreen = Bool()
     
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        }
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         
         getCurrentLocationDetails()
-        fetchClientTokenFromUserDefault()
+
+        if isFromSplashScreen{
+            self.navigationItem.hidesBackButton = true
+        }else{
+            fetchClientTokenFromUserDefault()
+        }
     }
     
     func fetchClientTokenFromUserDefault() {
@@ -85,12 +93,15 @@ class ShowTrainersOnMapVC: UIViewController {
     }
     
     @IBAction func Next_action(_ sender: Any) {
-//        self.RandomSelectTrainer()
-        
-        if isNoncePresent {
-            postNonceToServer(paymentMethodNonce: paymentNonce)
+
+        if isFromSplashScreen{
+            RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromBackup())
         }else{
-            alertForAddPaymentMethod()
+            if isNoncePresent {
+                postNonceToServer(paymentMethodNonce: paymentNonce)
+            }else{
+                alertForAddPaymentMethod()
+            }
         }
     }
     
@@ -133,8 +144,6 @@ class ShowTrainersOnMapVC: UIViewController {
             trainerRoutePage.trainerProfileDetails = selectedTrainerProfileDetails
         }
     }
-    
-    
 
     //MARK: - SOCKET CONNECTION
     
@@ -158,15 +167,38 @@ class ShowTrainersOnMapVC: UIViewController {
         }
     }
     
-    //MARK: - API CALLS
-    func RandomSelectTrainer(){
+    //MARK: - GET PARAMETERS
+    
+    func getShowTrainersListParameters() -> Dictionary <String,Any> {
         
-        isPromoCodeExists = true
+        let parameters = ["user_id" : appDelegate.UserId,
+                          "gender" : choosedTrainerGenderOfTrainee,
+                          "category" : choosedCategoryOfTrainee.categoryId,
+                          "latitude" : lat,
+                          "longitude" : long
+            ] as [String : Any]
         
-        let headers = [
-            "token":appDelegate.Usertoken]
+        return parameters
+    }
+    
+    func getShowTrainersListParametersFromBackup() -> Dictionary <String,Any> {
         
-        //Parameters :- If payment is via Promo Code
+        let transactionCategoryChoosedBackup = userDefaults.value(forKey: "backupTrainingCategoryChoosed") as! String
+        let transactionGenderChoosedBackup = userDefaults.value(forKey: "backupTrainingGenderChoosed") as! String
+        
+        
+        let parameters = ["user_id" : appDelegate.UserId,
+                          "gender" : transactionGenderChoosedBackup,
+                          "category" : transactionCategoryChoosedBackup,
+                          "latitude" : lat,
+                          "longitude" : long
+            ] as [String : Any]
+        
+        return parameters
+    }
+    
+    func getRandomSelectAPIParameters() -> Dictionary <String,Any> {
+        
         var parameters = ["user_id" : appDelegate.UserId,
                           "gender" : choosedTrainerGenderOfTrainee,
                           "category" : choosedCategoryOfTrainee.categoryId,
@@ -187,6 +219,50 @@ class ShowTrainersOnMapVC: UIViewController {
             
             parameters = parameters.merged(with: transactionDict)
         }
+        
+        return parameters
+    }
+    
+    func getRandomSelectAPIParametersFromBackup() -> Dictionary <String,Any>{
+        
+        let transactionIdBackup = userDefaults.value(forKey: "backupPaymentTransactionId") as! String
+        let transactionAmountBackup = userDefaults.value(forKey: "backupIsTransactionAmount") as! String
+        let transactionCategoryChoosedBackup = userDefaults.value(forKey: "backupTrainingCategoryChoosed") as! String
+        let transactionGenderChoosedBackup = userDefaults.value(forKey: "backupTrainingGenderChoosed") as! String
+        let transactionSessionChoosedBackup = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
+        let transactionStatusBackup = userDefaults.value(forKey: "backupIsTransactionStatus") as! String
+        
+        var parameters = ["user_id" : appDelegate.UserId,
+                          "gender" : transactionGenderChoosedBackup,
+                          "category" : transactionCategoryChoosedBackup,
+                          "latitude" : lat,
+                          "longitude" : long,
+                          "training_time" : transactionSessionChoosedBackup,
+                          ] as [String : Any]
+        
+        if isPromoCodeExists{
+            //With Promo Code
+            parameters = parameters.merged(with: ["promocode" : "TEST CODE"])
+        }else{
+            //With Payment Transaction
+            let transactionDict = ["transaction_id" : transactionIdBackup,
+                                   "amount" : transactionAmountBackup,
+                                   "transaction_status" : transactionStatusBackup
+                ] as [String : Any]
+            
+            parameters = parameters.merged(with: transactionDict)
+        }
+        
+        return parameters
+    }
+    
+    //MARK: - API CALLS
+    func RandomSelectTrainer(parameters : Dictionary <String,Any>){
+        
+//        isPromoCodeExists = true
+        
+        let headers = [
+            "token":appDelegate.Usertoken]
         
         print("Header:\(headers)")
         print("Parameters:\(parameters)")
@@ -215,9 +291,6 @@ class ShowTrainersOnMapVC: UIViewController {
                         
             TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
                         
-                        
-                        
-                        
                         self.performSegue(withIdentifier: "trainerTraineeRouteVCSegue", sender: self)
                         
 //                        self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String)!)!, DestiLong: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_longitude"] as? String)!)!)
@@ -235,17 +308,11 @@ class ShowTrainersOnMapVC: UIViewController {
         })
     }
     
-    func showTrainersList() {
+    func showTrainersList(parameters: Dictionary <String,Any>) {
         
         let headers = [
             "token":appDelegate.Usertoken]
         
-        let parameters = ["user_id" : appDelegate.UserId,
-                          "gender" : choosedTrainerGenderOfTrainee,
-                          "category" : choosedCategoryOfTrainee.categoryId,
-                          "latitude" : lat,
-                          "longitude" : long
-            ] as [String : Any]
         
         print("Header:\(headers)")
         print("Params:\(parameters)")
@@ -264,8 +331,10 @@ class ShowTrainersOnMapVC: UIViewController {
                     print(jsondata)
                     self.jsonarray = jsondata["data"]  as! NSArray
                     if self.jsonarray.count == 0{
+                        self.btnNext.isHidden = true
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     } else{
+                        self.btnNext.isHidden = false
                         for dict in self.jsonarray{
                             let tempDict = dict as! NSDictionary
                             print(Double(tempDict["latitude"] as! String)!)
@@ -367,15 +436,23 @@ class ShowTrainersOnMapVC: UIViewController {
                 if let status = jsondata["status"] as? Int{
                     if status == RESPONSE_STATUS.SUCCESS{
                         
+                        self.navigationItem.hidesBackButton = true
+                        
                         let transactionDict = jsondata["data"]  as! NSDictionary
                         self.transactionId = transactionDict["transactionId"] as! String
                         self.transactionAmount = transactionDict["amount"] as! String
                         self.transactionStatus = transactionDict["status"] as! String
                         
+                        //Store Transaction Details and filter criterias to UserDefault for future use if Booking failed
+                        userDefaults.set(self.transactionId, forKey: "backupPaymentTransactionId")
+                        userDefaults.set(self.transactionAmount, forKey: "backupIsTransactionAmount")
+                        userDefaults.set(true, forKey: "backupIsTransactionSuccessfull")
+                        userDefaults.set(self.transactionStatus, forKey: "backupIsTransactionStatus")
+
                         let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
                         
                         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
-                            self.RandomSelectTrainer()
+                            self.RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
                         }))
                         self.present(alert, animated: true, completion: nil)
                         
@@ -389,10 +466,6 @@ class ShowTrainersOnMapVC: UIViewController {
                 }
             }
         }
-    }
-    
-    @IBAction func reviewAction(_ sender: Any) {
-        performSegue(withIdentifier: "trainerReviewPageSegue", sender: self)
     }
 }
 
@@ -430,10 +503,11 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
           //  self.addHandlers()
             self.locationManager.stopUpdatingLocation()
             
-            
-            
-          
-            showTrainersList()
+            if isFromSplashScreen{
+                showTrainersList(parameters: getShowTrainersListParametersFromBackup())
+            }else{
+                showTrainersList(parameters: getShowTrainersListParameters())
+            }
         }
     }
     

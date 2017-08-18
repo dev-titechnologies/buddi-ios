@@ -49,7 +49,6 @@
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
 		F330A1001F2F731D00C69871 /* BlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F330A0FF1F2F731D00C69871 /* BlankViewController.swift */; };
 		F334D6C01F39B12300435BD2 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F334D6BF1F39B12300435BD2 /* TimerViewController.swift */; };
-		F338F39C1F459C8800B92450 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F338F39B1F459C8800B92450 /* Main.storyboard */; };
 		F338F3A31F45AAD700B92450 /* TrainerProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F338F3A11F45AAD700B92450 /* TrainerProfileDetail.swift */; };
 		F338F3A41F45AAD700B92450 /* TrainerProfileDetail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F338F3A21F45AAD700B92450 /* TrainerProfileDetail+CoreDataProperties.swift */; };
 		F33ABF6D1F29E5C200DEAE48 /* WaitingForApprovalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */; };
@@ -209,7 +208,6 @@
 		F330A0FF1F2F731D00C69871 /* BlankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlankViewController.swift; sourceTree = "<group>"; };
 		F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BuddyApp.entitlements; sourceTree = "<group>"; };
 		F334D6BF1F39B12300435BD2 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
-		F338F39B1F459C8800B92450 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F338F3A11F45AAD700B92450 /* TrainerProfileDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileDetail.swift; sourceTree = "<group>"; };
 		F338F3A21F45AAD700B92450 /* TrainerProfileDetail+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TrainerProfileDetail+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F33ABF6C1F29E5C200DEAE48 /* WaitingForApprovalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForApprovalVC.swift; sourceTree = "<group>"; };

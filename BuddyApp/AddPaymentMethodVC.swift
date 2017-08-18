@@ -110,6 +110,12 @@ class AddPaymentMethodVC: UIViewController {
                     CommonMethods.hideProgress()
                     return
                 }
+                
+                if self.isFromBookingPage{
+                    print("*** Returning back to booking Page after adding payment method123")
+                    self.navigationController?.popViewController(animated: true)
+                }
+                
                 self.selectPaymentModeView.isHidden = false
                 self.lblCardEndingWith.text = (selectedPaymentMethod?.type)! + " " + selectedPaymentMethodDescription
                 

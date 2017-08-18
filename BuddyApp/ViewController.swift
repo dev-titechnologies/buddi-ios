@@ -25,20 +25,12 @@ class ViewController: UIViewController {
         let seconds = calendar.component(.second, from: date)
         print("hours ",date)
 
-        
-        
-        
-     
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
-        
-        
-        
         
         if userDefaults.value(forKey: "TimerData") != nil {
             
             TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
-            
             print("TIMERDICT",TimerDict)
             
             let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
@@ -47,19 +39,15 @@ class ViewController: UIViewController {
             print("CURRENT DATE",Date())
             
             
-            if date > Date()
-            {
+            if date > Date(){
                 print("ongoing")
                  numOfDays = Date().daysBetweenDate(toDate: date)
                 
                 print("DIFFERENCE",numOfDays)
                 
                 self.showTimer(time: numOfDays)
-            }
-            else
-            {
+            }else{
                 print("completed")
-                
                 if userDefaults.value(forKey: "devicetoken") != nil {
                     appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
                     print("TOKEN",appDelegate.DeviceToken)
@@ -72,20 +60,8 @@ class ViewController: UIViewController {
                     // Your code with delay
                     self.loginCheck()
                 }
-                
-
-                
-                
             }
-            
-            
-            
-            
-            
-            
         }else{
-            
-            
             if userDefaults.value(forKey: "devicetoken") != nil {
                 appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
                 print("TOKEN",appDelegate.DeviceToken)
@@ -98,23 +74,14 @@ class ViewController: UIViewController {
                 // Your code with delay
                 self.loginCheck()
             }
-            
-
-            
-            
         }
-        
-        
-      
     }
+    
     func showTimer(time: Int) {
-        
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
-        
-         self.performSegue(withIdentifier: "splashToTrainerHomePageSegue", sender: self)
-        
+        self.performSegue(withIdentifier: "splashToTrainerHomePageSegue", sender: self)
    }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -146,10 +113,26 @@ class ViewController: UIViewController {
             if appDelegate.USER_TYPE == "trainer"{
                 segueActionsForTrainer()
             }else if appDelegate.USER_TYPE == "trainee"{
-                self.performSegue(withIdentifier: "toTraineeHomeSegue", sender:self)
+                segueActionsForTrainee()
             }
         }else{
             self.performSegue(withIdentifier: "regorlogin", sender:self)
+        }
+    }
+    
+    func segueActionsForTrainee() {
+        
+        //Need to check if payment done and the session has not been started yet
+        if let paymentStatus = userDefaults.value(forKey: "backupIsTransactionSuccessfull") as? Bool{
+            print("Payment Status from backup:\(paymentStatus)")
+            
+            if paymentStatus {
+                print("*** Redirecting to Show trainers page")
+                self.performSegue(withIdentifier: "splashToShowTrainersPageSegue", sender:self)
+            }
+        }else{
+            print("**** TEST Payment Check")
+            self.performSegue(withIdentifier: "toTraineeHomeSegue", sender:self)
         }
     }
     
@@ -181,13 +164,13 @@ class ViewController: UIViewController {
         if segue.identifier == "splashToChooseCategorySegue" {
             let chooseCategoryPage =  segue.destination as! CategoryListVC
             chooseCategoryPage.isBackButtonHidden = true
-        }
-        else if segue.identifier == "splashToTrainerHomePageSegue"
-        {
+        }else if segue.identifier == "splashToTrainerHomePageSegue" {
             let timerPage =  segue.destination as! TrainerTraineeRouteViewController
-            
             timerPage.seconds = numOfDays
             timerPage.TIMERCHECK = true
+        }else if segue.identifier == "splashToShowTrainersPageSegue"{
+            let showTrainersOnMapPage =  segue.destination as! ShowTrainersOnMapVC
+            showTrainersOnMapPage.isFromSplashScreen = true
         }
     }
 
