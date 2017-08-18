@@ -48,12 +48,31 @@
         <attribute name="subCategoryId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subCategoryName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="TrainerProfileDetail" representedClassName="TrainerProfileDetail" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bookingId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lattitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profileimage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="traineeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trainerId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weight" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="BookingHistoryDB" positionX="-63" positionY="-18" width="128" height="195"/>
         <element name="CategoryDB" positionX="-45" positionY="90" width="128" height="105"/>
         <element name="ProfileDB" positionX="-36" positionY="90" width="128" height="180"/>
+        <element name="ProfileImageDB" positionX="-45" positionY="108" width="128" height="75"/>
         <element name="ReviewHistoryDB" positionX="-54" positionY="63" width="128" height="180"/>
         <element name="SubCategoryDB" positionX="-45" positionY="90" width="128" height="75"/>
-        <element name="ProfileImageDB" positionX="-45" positionY="108" width="128" height="75"/>
+        <element name="TrainerProfileDetail" positionX="-45" positionY="108" width="128" height="285"/>
     </elements>
 </model>

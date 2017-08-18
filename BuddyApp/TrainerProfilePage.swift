@@ -37,7 +37,7 @@ class TrainerProfilePage: UIViewController {
 
     @IBOutlet weak var btnChooseProfileImage: UIButton!
     var trainerProfileViewTableCaptionsArray = [String]()
-    let trainerProfileModel = TrainerProfileModel()
+    let trainerProfileModel = TrainerProfileModal()
     
     var countrypicker = CountryPicker()
 
@@ -86,7 +86,7 @@ class TrainerProfilePage: UIViewController {
                     let profileDict = jsondata["data"]  as! NSDictionary
                     print(profileDict)
 
-                    let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict)
+                    let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict as! Dictionary<String, Any>)
                     self.fillValuesInForm(profile: profileObj)
                     
                 }else if status == RESPONSE_STATUS.FAIL{
@@ -174,7 +174,7 @@ class TrainerProfilePage: UIViewController {
                     let profileDict = jsondata["data"]  as! NSDictionary
                     print(profileDict)
                     
-                    let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict)
+                    let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict as! Dictionary<String, Any>)
                     self.fillValuesInForm(profile: profileObj)
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PROFILE_UPDATED_SUCCESSFULLY, buttonTitle: "Ok")
@@ -197,18 +197,18 @@ class TrainerProfilePage: UIViewController {
         chooseProfilePicture()
     }
     
-    func fillValuesInForm(profile: TrainerProfileModel) {
+    func fillValuesInForm(profile: TrainerProfileModal) {
         
         let userName = profile.firstName + " " + profile.lastName as String
         userDefaults.set(userName, forKey: "userName")
 
         lblTrainerName.text = profile.firstName + " " + profile.lastName
         lblAge.text = "Trainer (\(profile.age))"
-        lblHeight.text = "\(profile.height) cm"
-        lblWeight.text = "\(profile.weight) lbs"
+        lblHeight.text = "\(profile.Height) cm"
+        lblWeight.text = "\(profile.Weight) lbs"
         txtFirstName.text = profile.firstName
         txtLastName.text = profile.lastName
-        lblEmail.text = profile.email
+        //lblEmail.text = profile.email
         lblCountryCode.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
         lblMobile.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
         lblGender.text = profile.gender.uppercased()

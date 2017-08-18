@@ -22,28 +22,34 @@ class AssignedTrainerProfileView: UIViewController {
     @IBOutlet weak var reviewview: UIView!
     var assignedTrainerProfileView = [String]()
     var TrainerprofileDictionary: NSDictionary!
+    var TrainerId = String()
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("VIEWDIDLOAD")
 
         assignedTrainerProfileView = ["Gym Subscriptions", "Training Category", "Training History", "Coaching History", "Certifications"]
         
+        self.parseTrainerProfileDetails()
         
+       // print(self.TrainerprofileDictionary)
         
-        print(self.TrainerprofileDictionary)
+// lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + " " + (self.TrainerprofileDictionary["last_name"] as? String)!
         
- lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + " " + (self.TrainerprofileDictionary["last_name"] as? String)!
-        
-        
-        lblTrainerAge.text =  CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["age"] as? String)
-        lblTrainerHeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["height"] as? String)
-        lblTrainerWeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["weight"] as? String)
-        
+//        
+//        lblTrainerAge.text =  CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["age"] as? String)
+//        lblTrainerHeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["height"] as? String)
+//        lblTrainerWeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["weight"] as? String)
+//        
         
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        
+         print("VIEWWILLAPPEAR")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -53,22 +59,54 @@ class AssignedTrainerProfileView: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+    func parseTrainerProfileDetails() {
+        
+        guard CommonMethods.networkcheck() else {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
+            return
+        }
+        
+        let parameters = ["user_type":"trainer",
+                          "user_id":TrainerId] as [String : Any]
+        
+        let headers = [
+            "token":appDelegate.Usertoken ]
+        
+        print("PARAMS",parameters)
+        print("HEADER",headers)
+        
+        CommonMethods.serverCall(APIURL: VIEW_PROFILE, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+            print("PROFILE RESPONSE",jsondata)
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    self.TrainerprofileDictionary = jsondata["data"]  as! NSDictionary
+                    print(self.TrainerprofileDictionary)
+                    
+                     self.lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + " " + (self.TrainerprofileDictionary["last_name"] as? String)!
+                    
+                    
+                           self.lblTrainerAge.text =  CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["age"] as? String)
+                            self.lblTrainerHeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["height"] as? String)
+                            self.lblTrainerWeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["weight"] as? String)
+                            
+
+                    
+                    
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        })
+    }
+
     @IBAction func Cancel_action(_ sender: Any) {
         
-      //  self.navigationController?.popViewController(animated: true)
-        
-        let bgview = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width , height: self.view.frame.height))
-        
-        bgview.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.3)
-        
-        self.reviewview.frame =  CGRect(x: 40, y: 40, width: self.view.frame.width , height: self.view.frame.height)
-        
-        self.reviewview.isHidden = false
-        bgview.addSubview(reviewview)
-        self.view.addSubview(bgview)
-        
-    
+    self.navigationController?.popViewController(animated: true)
 }
 }
 extension AssignedTrainerProfileView: UITableViewDataSource{
