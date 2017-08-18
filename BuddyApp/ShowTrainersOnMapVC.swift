@@ -327,6 +327,11 @@ class ShowTrainersOnMapVC: UIViewController {
                 print("paymentDescription: \(selectedPaymentMethodDescription)")
                 print("paymentIcon: \(selectedPaymentMethodIcon)")
                 
+                if selectedPaymentMethod == nil{
+                    CommonMethods.hideProgress()
+                    return
+                }
+                
                 let nounce = result.paymentMethod?.nonce
                 self.isNoncePresent = true
                 self.paymentNonce = nounce!

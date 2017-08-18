@@ -96,7 +96,6 @@ class AddPaymentMethodVC: UIViewController {
                 print("ERROR")
             } else if let result = result {
                 
-                self.selectPaymentModeView.isHidden = false
                 let selectedPaymentOptionType = result.paymentOptionType
                 let selectedPaymentMethod = result.paymentMethod
                 let selectedPaymentMethodIcon = result.paymentIcon
@@ -107,6 +106,11 @@ class AddPaymentMethodVC: UIViewController {
                 print("paymentDescription: \(selectedPaymentMethodDescription)")
                 print("paymentIcon: \(selectedPaymentMethodIcon)")
                 
+                if selectedPaymentMethod == nil{
+                    CommonMethods.hideProgress()
+                    return
+                }
+                self.selectPaymentModeView.isHidden = false
                 self.lblCardEndingWith.text = (selectedPaymentMethod?.type)! + " " + selectedPaymentMethodDescription
                 
                 let paymentMethodType = BTUIKViewUtil.paymentOptionType(forPaymentInfoType: result.paymentMethod?.type)
@@ -147,6 +151,11 @@ class AddPaymentMethodVC: UIViewController {
                 
                 let paymentMethodType = BTUIKViewUtil.paymentOptionType(forPaymentInfoType: result.paymentMethod?.type)
                 self.testView.paymentOptionType = paymentMethodType
+                
+                if self.isFromBookingPage{
+                    print("*** Returning back to booking Page after adding payment method")
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
             controller.dismiss(animated: true, completion: nil)
         }
