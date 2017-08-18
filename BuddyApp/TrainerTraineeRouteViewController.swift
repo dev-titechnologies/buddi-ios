@@ -44,18 +44,20 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     //Cancel Alert View
     @IBOutlet weak var cancelAlertView: CardView!
+    @IBOutlet weak var btnNoCancelAlert: UIButton!
+    @IBOutlet weak var btnYesCancelAlert: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        if TIMERCHECK{
-//            seconds = 120
+        if TIMERCHECK {
             FetchFromDb()
             self.runTimer()
         }else{
-            seconds = Int(choosedSessionOfTrainee)!*60
-            timer_lbl.text = choosedSessionOfTrainee + ":" + "00"
+            if appDelegate.USER_TYPE == "trainee"{
+                seconds = Int(choosedSessionOfTrainee)!*60
+                timer_lbl.text = choosedSessionOfTrainee + ":" + "00"
+            }
             SocketIOManager.sharedInstance.establishConnection()
         }
         
@@ -71,12 +73,16 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        btnNoCancelAlert.addShadowView()
+        btnYesCancelAlert.addShadowView()
+        
         if appDelegate.USER_TYPE == "trainer"{
             
         }else if appDelegate.USER_TYPE == "trainee"{
             self.navigationItem.leftBarButtonItem = nil
             self.navigationItem.hidesBackButton = true
         }
+        
         getCurrentLocationDetails()
     }
     
@@ -144,26 +150,24 @@ class TrainerTraineeRouteViewController: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    if let dict = jsondata["data"]  as? NSDictionary
-                    {
-                        if dict["status"] as! String == "cancelled"
-                        {
+                    if let dict = jsondata["data"]  as? NSDictionary {
+                        if dict["status"] as! String == "cancelled" || dict["status"] as! String == "completed" {
                             self.timer.invalidate()
                             self.timer_lbl.text = "00" + ":" + "00"
                             userDefaults.removeObject(forKey: "TimerData")
                             TrainerProfileDetail.deleteBookingDetails()
                             
-                           // self.navigationController?.popViewController(animated: true)
-                            
-                            //self.navigationController?.popToViewController(ViewController, animated: true)
+                            if appDelegate.USER_TYPE == "trainer" {
+                                self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
+                            }else if appDelegate.USER_TYPE == "trainee" {
+                                self.performSegue(withIdentifier: "trainingCancelledToTraineeHomeSegue", sender: self)
+                            }
                         }
                     }
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     
-
-                    
-                    }else if status == RESPONSE_STATUS.FAIL{
+                }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
@@ -398,8 +402,17 @@ class TrainerTraineeRouteViewController: UIViewController {
         print("*** Unwind SEgue Identifier:\(segue.identifier)")
     }
     
+    //MARK: - CANCEL ALERT VIEW ACTIONS
     
+    @IBAction func cancelAlertYesAction(_ sender: Any) {
+
+        removeTransactionDetailsFromUserDefault()
+        self.BookingAction(Action_status: "cancel")
+    }
     
+    @IBAction func cancelAlertNoAction(_ sender: Any) {
+        cancelAlertView.isHidden = true
+    }
 }
 
 
@@ -439,34 +452,18 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
             
         }
         
-        if TIMERCHECK
-        {
-        
-        
-        
-           }
-        else
-        {
-            
-            
-            
-            if appDelegate.USER_TYPE == "trainer"
-            {
+        if TIMERCHECK{
+        }else{
+            if appDelegate.USER_TYPE == "trainer"{
                 self.addHandlers()
-            }
-            else{
-                
+            }else{
                 self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
                 self.addHandlersTrainer()
-                
             }
-
-            
         }
-    
         locationManager.stopUpdatingLocation()
-       
     }
+    
     private func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.authorizedWhenInUse {
             mapview.isMyLocationEnabled = true
@@ -491,7 +488,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         cell1.menu_btn.tag = indexPath.row
         cell1.menu_btn.addTarget(self, action: #selector(TrainerTraineeRouteViewController.TapedIndex), for: .touchUpInside)
         
-        cell1.bgview.backgroundColor = CommonMethods.hexStringToUIColor(hex: START_BTN_COLOR)
+        cell1.bgview.backgroundColor = UIColor.clear
         cell1.menu_btn.setImage(UIImage(named: imagearrayDark[indexPath.row]), for: .normal)
         cell1.name_lbl.text = MenuLabelArray[indexPath.row]
         
@@ -509,16 +506,9 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                 
             }
 
-        }
-      else if indexPath.row == 3
-        {
+        }else if indexPath.row == 3{
             cell1.line_lbl.isHidden = true
         }
-        
-        
-        
-        
-        
         return cell1
     }
     
@@ -534,18 +524,12 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
 
         if sender.tag == 0{
             print("CANCEL ACTION")
-            
-            
-            //TempCheck
-            removeTransactionDetailsFromUserDefault()
-            self.BookingAction(Action_status: "cancel")
+            cancelAlertView.isHidden = false
         }else if sender.tag == 1 {
             print("START AND STOP ACTIONS")
+            removeTransactionDetailsFromUserDefault()
             if !BoolArray[1]{
                 //START
-                
-                removeTransactionDetailsFromUserDefault()
-
                 cell1.menu_btn.setImage(UIImage(named: "stop"), for: .normal)
                 cell1.name_lbl.text = "Stop"
                 self.SessionStartAPI()
@@ -554,11 +538,8 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                 //STOP
                 cell1.menu_btn.setImage(UIImage(named: "play"), for: .normal)
                 cell1.name_lbl.text = "Start"
-               // userDefaults.removeObject(forKey: "TimerData")
-                //timer.invalidate()
-                
                 BoolArray.insert(false, at: 1)
-                self.BookingAction(Action_status: "cancel")
+                self.BookingAction(Action_status: "complete")
             }
         }else if sender.tag == 2{
              print("PROFILE ACTION")

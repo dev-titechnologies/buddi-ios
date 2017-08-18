@@ -21,6 +21,8 @@ class BookingHistoryModel {
     var category: String = String()
     var location: String = String()
     var trainerImage: String = String()
+    var amount : String = String()
+    var categoryImage : String = String()
 
     init(){}
     
@@ -42,8 +44,13 @@ class BookingHistoryModel {
         
         let model: BookingHistoryModel = BookingHistoryModel()
         let trainedDate = CommonMethods.getDateFromString(dateString: dictionary["trained_date"] as! String)
-        let categoryName = CategoryDB.getCategoryByCategoryID(categoryId: String(describing: dictionary["category"]!))
-
+//        let categoryName = CategoryDB.getCategoryByCategoryID(categoryId: String(describing: dictionary["category"]!))
+        
+        let categArray = dictionary["category"] as! NSArray as Array
+        let categoryName = categArray[0]["categoryName"] as! String
+        let categoryImage = categArray[0]["categoryBookImage"] as! String
+        print(categoryName)
+        
         model.bookingId = String(describing: dictionary["booking_id"]!)
         model.trainerId = String(describing: dictionary["trainer_id"]!)
         model.trainedDate = trainedDate
@@ -54,7 +61,9 @@ class BookingHistoryModel {
         model.traineeName = dictionary["trainee_name"] as! String
         model.trainerName = dictionary["trainer_name"] as! String
         model.location = dictionary["location"] as! String
-
+        model.amount = dictionary["amount"] as! String
+        model.categoryImage = categoryImage
+        
         return model
     }
     

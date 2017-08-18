@@ -81,7 +81,7 @@ class ViewController: UIViewController {
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
-        self.performSegue(withIdentifier: "splashToTrainerHomePageSegue", sender: self)
+        self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
    }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -164,13 +164,15 @@ class ViewController: UIViewController {
         if segue.identifier == "splashToChooseCategorySegue" {
             let chooseCategoryPage =  segue.destination as! CategoryListVC
             chooseCategoryPage.isBackButtonHidden = true
-        }else if segue.identifier == "splashToTrainerHomePageSegue" {
-            let timerPage =  segue.destination as! TrainerTraineeRouteViewController
-            timerPage.seconds = numOfDays
-            timerPage.TIMERCHECK = true
         }else if segue.identifier == "splashToShowTrainersPageSegue"{
             let showTrainersOnMapPage =  segue.destination as! ShowTrainersOnMapVC
             showTrainersOnMapPage.isFromSplashScreen = true
+        }else if segue.identifier == "splashToTrainerHomePageSegueRunTime" {
+            let timerPage =  segue.destination as! TrainerTraineeRouteViewController
+            if userDefaults.value(forKey: "TimerData") != nil {
+                timerPage.seconds = numOfDays
+                timerPage.TIMERCHECK = true
+            }
         }
     }
 
@@ -178,6 +180,7 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 }
+
 extension Date {
     func daysBetweenDate(toDate: Date) -> Int {
         let components = Calendar.current.dateComponents([.second], from: self, to: toDate)

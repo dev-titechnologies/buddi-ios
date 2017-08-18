@@ -86,8 +86,8 @@ class TrainerProfilePage: UIViewController {
                     let profileDict = jsondata["data"]  as! NSDictionary
                     print(profileDict)
 
-                    let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict as! Dictionary<String, Any>)
-                    self.fillValuesInForm(profile: profileObj)
+//                    let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict as! Dictionary<String, Any>)
+                    self.fillValuesInForm(profile: profileDict)
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -174,8 +174,8 @@ class TrainerProfilePage: UIViewController {
                     let profileDict = jsondata["data"]  as! NSDictionary
                     print(profileDict)
                     
-                    let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict as! Dictionary<String, Any>)
-                    self.fillValuesInForm(profile: profileObj)
+                   // let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict as! Dictionary<String, Any>)
+                    self.fillValuesInForm(profile: profileDict)
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PROFILE_UPDATED_SUCCESSFULLY, buttonTitle: "Ok")
                     
@@ -197,26 +197,26 @@ class TrainerProfilePage: UIViewController {
         chooseProfilePicture()
     }
     
-    func fillValuesInForm(profile: TrainerProfileModal) {
+    func fillValuesInForm(profile: NSDictionary) {
         
-        let userName = profile.firstName + " " + profile.lastName as String
+        let userName = (profile["first_name"] as! String) + " " + (profile["last_name"] as! String)
         userDefaults.set(userName, forKey: "userName")
 
-        lblTrainerName.text = profile.firstName + " " + profile.lastName
-        lblAge.text = "Trainer (\(profile.age))"
-        lblHeight.text = "\(profile.Height) cm"
-        lblWeight.text = "\(profile.Weight) lbs"
-        txtFirstName.text = profile.firstName
-        txtLastName.text = profile.lastName
+        lblTrainerName.text = (profile["first_name"] as! String) + " " + (profile["last_name"] as! String)
+        lblAge.text = "Trainer (\(CommonMethods.checkStringNull(val:profile["age"] as? String)))"
+        lblHeight.text = "\(CommonMethods.checkStringNull(val:profile["height"] as? String)) cm"
+        lblWeight.text = "\(CommonMethods.checkStringNull(val:profile["weight"] as? String)) lbs"
+        txtFirstName.text = profile["first_name"] as? String
+        txtLastName.text = profile["last_name"] as? String
         //lblEmail.text = profile.email
-        lblCountryCode.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
-        lblMobile.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
-        lblGender.text = profile.gender.uppercased()
-        profileImage.sd_setImage(with: URL(string: profile.profileImage), placeholderImage: UIImage(named: "profileDemoImage"))
+        lblCountryCode.text = CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).0
+        lblMobile.text = CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).1
+        lblGender.text = (profile["gender"] as! String).uppercased()
+        profileImage.sd_setImage(with: URL(string: profile["user_image"] as! String), placeholderImage: UIImage(named: "profileDemoImage"))
 
         countrypicker.countryPickerDelegate = self
         countrypicker.showPhoneNumbers = true
-        countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
+        countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).0)
     }
 }
 
