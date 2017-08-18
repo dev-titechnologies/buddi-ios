@@ -113,7 +113,7 @@ class ViewController: UIViewController {
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         
-         self.performSegue(withIdentifier: "splashToTrainerHomePageSegue", sender: self)
+         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
         
    }
 
@@ -182,12 +182,22 @@ class ViewController: UIViewController {
             let chooseCategoryPage =  segue.destination as! CategoryListVC
             chooseCategoryPage.isBackButtonHidden = true
         }
-        else if segue.identifier == "splashToTrainerHomePageSegue"
+        else if segue.identifier == "splashToTrainerHomePageSegueRunTime"
         {
             let timerPage =  segue.destination as! TrainerTraineeRouteViewController
             
-            timerPage.seconds = numOfDays
-            timerPage.TIMERCHECK = true
+            
+             if userDefaults.value(forKey: "TimerData") != nil {
+                
+                timerPage.seconds = numOfDays
+                timerPage.TIMERCHECK = true
+            }
+            else
+             {
+                
+            }
+            
+           
         }
     }
 

@@ -50,7 +50,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         if TIMERCHECK
         {
-            seconds = 120
+            //seconds = 120
             
             FetchFromDb()
             
@@ -58,10 +58,18 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
         else
         {
-            seconds = Int(choosedSessionOfTrainee)!*60
             
-            timer_lbl.text = choosedSessionOfTrainee + ":" + "00"
+             if appDelegate.USER_TYPE == "trainer"{
+            }
+            else
+             {
+                            seconds = Int(choosedSessionOfTrainee)!*60
+                
+                            timer_lbl.text = choosedSessionOfTrainee + ":" + "00"
+                
+            }
             
+      
             
             SocketIOManager.sharedInstance.establishConnection()
             
@@ -507,7 +515,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         cell1.menu_btn.tag = indexPath.row
         cell1.menu_btn.addTarget(self, action: #selector(TrainerTraineeRouteViewController.TapedIndex), for: .touchUpInside)
         
-        cell1.bgview.backgroundColor = CommonMethods.hexStringToUIColor(hex: START_BTN_COLOR)
+        cell1.bgview.backgroundColor = UIColor.clear
         cell1.menu_btn.setImage(UIImage(named: imagearrayDark[indexPath.row]), for: .normal)
         cell1.name_lbl.text = MenuLabelArray[indexPath.row]
         
