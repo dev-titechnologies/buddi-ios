@@ -12,7 +12,8 @@ class ViewController: UIViewController {
     
     var TimerDict = NSDictionary()
     var numOfDays = Int()
-
+     var TrainerProfileDictionary = NSDictionary()
+let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -27,6 +28,20 @@ class ViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
+        
+        // Define identifier
+        let notificationName = Notification.Name("FCMNotificationIdentifier")
+        
+        // Register to receive notification
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: notificationName, object: nil)
+
+        
+              
+        
+        
+        
+        
+        
         
         if userDefaults.value(forKey: "TimerData") != nil {
             
@@ -76,7 +91,25 @@ class ViewController: UIViewController {
             }
         }
     }
-    
+    func methodOfReceivedNotification(notif: NSNotification) {
+        
+//        
+//        self.navigationController!.pushViewController(self.storyboard!.instantiateViewController(withIdentifier: "TrainerTraineeRouteViewController") as UIViewController, animated: true)
+        
+      //  let notificationName = Notification.Name("FCMNotificationIdentifier")
+       // NotificationCenter.default.removeObserver(self, name: notificationNameFCM, object: nil);
+        
+        self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text: notif.userInfo!["pushData"] as! String)! as NSDictionary
+        
+       
+        
+        appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
+        appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
+        appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
+        self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+       
+    }
+   
     func showTimer(time: Int) {
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
@@ -172,6 +205,17 @@ class ViewController: UIViewController {
             if userDefaults.value(forKey: "TimerData") != nil {
                 timerPage.seconds = numOfDays
                 timerPage.TIMERCHECK = true
+            }
+            else
+            {
+               
+                     timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
+                timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
+                print("SECONDSSSS",timerPage.seconds)
+                
+                
+                
+               
             }
         }
     }

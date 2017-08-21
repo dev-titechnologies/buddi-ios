@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     var DeviceToken = String()
     var userName = String()
     var window: UIWindow?
+    let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -125,19 +126,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         }
         print("token: ", tokenString)
     
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: .sandbox)
+        
 
         if let refreshedToken = FIRInstanceID.instanceID().token() {
+            
+            let data = refreshedToken.data(using: .utf8)!
+            
+            FIRInstanceID.instanceID().setAPNSToken(data, type: .sandbox)
             print("InstanceID token1: \(refreshedToken)")
+            
+            userDefaults.set(refreshedToken, forKey: "devicetoken")
         }
 
-        userDefaults.set(tokenString, forKey: "devicetoken")
+        
     }
     
     func tokenRefreshNotification(notification: NSNotification) {
         // NOTE: It can be nil here
         let refreshedToken = FIRInstanceID.instanceID().token()
         print("InstanceID token 12345: \(String(describing: refreshedToken))")
+        
+        if let refreshedToken = FIRInstanceID.instanceID().token() {
+            
+            let data = refreshedToken.data(using: .utf8)!
+            
+            FIRInstanceID.instanceID().setAPNSToken(data, type: .sandbox)
+            print("InstanceID token11: \(refreshedToken)")
+        }
+        
+        userDefaults.set(refreshedToken, forKey: "devicetoken")
+
+        
         connectToFcm()
     }
     
@@ -155,6 +174,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         print(userInfo)
         if application.applicationState == .active {
             //write your code here when app is in foreground
+            
+            print("ACTIVE")
+            
         } else {
             //write your code here for other state
         }
@@ -284,7 +306,7 @@ extension AppDelegate: FIRMessagingDelegate {
     
     /// The callback to handle data message received via FCM for devices running iOS 10 or above.
     func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
-        print("applicationReceivedRemoteMessage")
+        print("applicationReceivedRemoteMessage",remoteMessage.appData)
     }
     
     // Registering for Firebase notifications
@@ -335,13 +357,99 @@ extension AppDelegate: FIRMessagingDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .badge, .sound])
         
-        print("willPresent notification")
+        print("willPresent notification",notification.request.content.userInfo)
+          let NotificationDict = (notification.request.content.userInfo as NSDictionary)["data"] as! String
+        
+      
+        if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "1"
+        {
+            
+            // Post notification
+            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
+            
+
+        }
+        else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"
+        {
+            print("TYPE 2")
+            
+            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
+            
+        }
+        else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"
+        {
+            
+             CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
+            print("3")
+        }
+        else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"
+        {
+             print("4")
+            
+             CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
+        }
+        
+        
+        
+      
+        
     }
     
     //Called to let your app know which action was selected by the user for a given notification.
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print("User Info = \(response.notification.request.content.userInfo)")
+        
+        if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "1"
+        {
+            
+            let NotificationDict = (response.notification.request.content.userInfo as NSDictionary)["data"] as! String
+            
+            print("RECIVED",NotificationDict)
+            
+            // let notificationName = Notification.Name("FCMNotificationIdentifier")
+            
+            // Post notification
+            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
+            
+            
+        }
+        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"
+        {
+            print("TYPE 2")
+            
+            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
+            
+        }
+        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"
+        {
+            print("3")
+            
+            
+            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
+
+            
+        }
+        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"
+        {
+            print("4")
+            
+            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
+            
+        }
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+  
+        
         
         completionHandler()
     }
