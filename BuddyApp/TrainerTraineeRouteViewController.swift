@@ -61,6 +61,33 @@ class TrainerTraineeRouteViewController: UIViewController {
                 seconds = Int(choosedSessionOfTrainee)!*60
                 timer_lbl.text = choosedSessionOfTrainee + ":" + "00"
             }
+            else
+            {
+                
+                timer_lbl.text = String(seconds/60) + ":" + "00"
+                
+                trainerProfileDetails = TrainerProfileModal.init(profileImage: "",
+                                            firstName: TrainerProfileDictionary["trainee_name"] as! String,
+                                            lastName: "",
+                                            mobile: "",
+                                            gender: "",
+                                            userid: String(appDelegate.UserId),
+                                            rating: "",
+                                            age: "",
+                                            height: "",
+                                            weight: "",
+                                            distance: "",
+                                            lattitude: TrainerProfileDictionary["trainee_latitude"] as! String,
+                                            longittude: TrainerProfileDictionary["trainee_longitude"] as! String,
+                                            bookingId: String(TrainerProfileDictionary["book_id"] as! Int) ,
+                                            trainerId: String(appDelegate.UserId),
+                                            traineeId: String(TrainerProfileDictionary["trainee_id"] as! Int))
+                
+                
+                TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
+
+                
+            }
             SocketIOManager.sharedInstance.establishConnection()
         }
         
@@ -466,6 +493,8 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
         if TIMERCHECK{
         }else{
             if appDelegate.USER_TYPE == "trainer"{
+                  self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
+                
                 self.addHandlers()
             }else{
                 self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)

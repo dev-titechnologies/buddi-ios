@@ -854,8 +854,11 @@
 					F322FC381F1CE62000381B8C = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 7QVT6YDQZ2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -1266,8 +1269,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9b0de96e-e491-4682-a66f-9ba459291217";
+				PROVISIONING_PROFILE_SPECIFIER = BuddyAppDevelopment;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1329,8 +1332,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Info Ti Technologies (74E64HKFV4)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Info Ti Technologies (74E64HKFV4)";
+				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BuddyApp",
@@ -1342,8 +1345,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.titechnologies.BuddyApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9b0de96e-e491-4682-a66f-9ba459291217";
+				PROVISIONING_PROFILE_SPECIFIER = BuddyAppDevelopment;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
