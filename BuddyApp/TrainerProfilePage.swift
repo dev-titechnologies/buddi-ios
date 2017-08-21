@@ -9,10 +9,12 @@
 import UIKit
 import CountryPicker
 import Alamofire
+import MapKit
 
 class TrainerProfilePage: UIViewController {
 
     //Trainer Header Outlets
+    @IBOutlet weak var StatusSwitch: UISwitch!
     @IBOutlet weak var lblTrainerName: UILabel!
     @IBOutlet weak var lblAge: UILabel!
     @IBOutlet weak var lblHeight: UILabel!
@@ -29,6 +31,12 @@ class TrainerProfilePage: UIViewController {
     
     @IBOutlet weak var btnEdit: UIBarButtonItem!
     
+    //SOCKET
+    var parameterdict = NSMutableDictionary()
+    var datadict = NSMutableDictionary()
+    var timer = Timer()
+
+    
     var isEditingProfile = Bool()
     var isUpdatingProfileImage = Bool()
     
@@ -38,14 +46,26 @@ class TrainerProfilePage: UIViewController {
     @IBOutlet weak var btnChooseProfileImage: UIButton!
     var trainerProfileViewTableCaptionsArray = [String]()
     let trainerProfileModel = TrainerProfileModal()
+    var locationManager: CLLocationManager!
+    var lat = Float()
+    var long = Float()
+
     
     var countrypicker = CountryPicker()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+         SocketIOManager.sharedInstance.establishConnection()
+        StatusSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
+        self.UpdateLocationAPI(Status: "online")
+        
         imagePicker.delegate = self
         trainerProfileViewTableCaptionsArray = ["Gym Subscriptions", "Training Category", "Certifications"]
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("*** viewDidAppear Trainer")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,8 +75,73 @@ class TrainerProfilePage: UIViewController {
             changeTextColorGrey()
             parseTrainerProfileDetails()
         }
+        getCurrentLocationDetails()
+    }
+    func getCurrentLocationDetails() {
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            self.locationManager.requestAlwaysAuthorization()
+           
+            locationManager.startUpdatingLocation()
+        }
+    
+    }
+    @IBAction func StatusSwitch_action(_ sender: Any) {
+        
+        
+        
+        
+        
+    }
+    //MARK: - SOCKET CONNECTION
+    
+    func addHandlers() {
+        
+        datadict.setValue(appDelegate.UserId, forKey: "user_id")
+        datadict.setValue(appDelegate.USER_TYPE, forKey: "user_type")
+        datadict.setValue(lat, forKey: "latitude")
+        datadict.setValue(long, forKey: "longitude")
+        datadict.setValue("online", forKey: "avail_status")
+        
+        parameterdict.setValue("/location/addLocation", forKey: "url")
+        parameterdict.setValue(datadict, forKey: "data")
+        print("PARADICT11",parameterdict)
+        
+        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+        SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
+                print("Socket Message InfoProfile",messageInfo)
+            })
+        }
     }
 
+    func switchValueDidChange(sender:UISwitch!) {
+        if sender.isOn
+        {
+            
+            print("ON STATUS")
+            
+            self.UpdateLocationAPI(Status: "online")
+            
+            timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
+            
+        }
+        else{
+            print("OFF STATUS")
+            self.UpdateLocationAPI(Status: "offline")
+
+        }
+        
+        
+    }
+    func updateLocation(){
+        NSLog("counting..")
+        
+        addHandlers()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -96,6 +181,51 @@ class TrainerProfilePage: UIViewController {
                 }
             }
         })
+    }
+    func UpdateLocationAPI(Status: String)
+    {
+        
+        guard CommonMethods.networkcheck() else {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
+            return
+        }
+        
+        let parameters = ["user_type":appDelegate.USER_TYPE,
+                          "user_id":appDelegate.UserId,
+                          "avail_status":Status
+            ] as [String : Any]
+        
+        let headers = [
+            "token":appDelegate.Usertoken ]
+        
+        print("PARAMS",parameters)
+        print("HEADER",headers)
+        
+        CommonMethods.serverCall(APIURL: UPDATE_LOCATION_STATUS, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+            print("STATUS RESPONSE",jsondata)
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                   if  jsondata["status"] as? String == "online"
+                   {
+                    self.addHandlers()
+                    }
+                   else{
+                    self.timer.invalidate()
+                    }
+                    
+                    
+                    
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        })
+
     }
     
     func changeTextColorBlack() {
@@ -407,4 +537,36 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
         })
     }
 
+}
+extension TrainerProfilePage: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        for location in locations {
+            
+            print("**********************")
+            print("Long \(location.coordinate.longitude)")
+            print("Lati \(location.coordinate.latitude)")
+            print("Alt \(location.altitude)")
+            print("Sped \(location.speed)")
+            print("Accu \(location.horizontalAccuracy)")
+            
+            print("**********************")
+            
+            
+            
+            
+            lat = Float(location.coordinate.latitude)
+            long = Float(location.coordinate.longitude)
+            
+        }
+//        self.addHandlers()
+               locationManager.stopUpdatingLocation()
+        
+    }
+    private func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.authorizedWhenInUse {
+          
+        }
+    }
 }
