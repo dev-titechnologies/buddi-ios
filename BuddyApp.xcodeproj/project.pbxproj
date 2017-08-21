@@ -20,7 +20,6 @@
 		F30B601F1F1DCEED00374136 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601B1F1DCEED00374136 /* FBSDKCoreKit.framework */; };
 		F30B60201F1DCEED00374136 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */; };
 		F30B60211F1DCEED00374136 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */; };
-		F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60221F1DD88800374136 /* HomeViewController.swift */; };
 		F315428E1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315428D1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift */; };
 		F31542901F38802E0070EEC6 /* TrainerProfileModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */; };
 		F315E9961F30585700850A44 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = F315E98D1F30585700850A44 /* check.png */; };
@@ -96,6 +95,8 @@
 		F38BB5511F2643E900824C15 /* Alamofire.framework in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5481F2628E300824C15 /* Alamofire.framework */; };
 		F38BB5521F2643F900824C15 /* AlamofireImage.framework in Sources */ = {isa = PBXBuildFile; fileRef = F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */; };
 		F38BB5531F2643FF00824C15 /* Alamofire.framework in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5481F2628E300824C15 /* Alamofire.framework */; };
+		F390DE071F4AB71600C52034 /* HelpPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F390DE061F4AB71500C52034 /* HelpPageVC.swift */; };
+		F390DE091F4AB77500C52034 /* LegalPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F390DE081F4AB77500C52034 /* LegalPageVC.swift */; };
 		F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */; };
 		F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */; };
 		F3990E1C1F1F6553000FFF7B /* ReviewHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */; };
@@ -172,7 +173,6 @@
 		F30B601B1F1DCEED00374136 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
-		F30B60221F1DD88800374136 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F315428D1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTraineeRouteViewController.swift; sourceTree = "<group>"; };
 		F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileModal.swift; sourceTree = "<group>"; };
 		F315E98D1F30585700850A44 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
@@ -247,6 +247,8 @@
 		F38BB5461F2607D300824C15 /* ProfileDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F38BB5481F2628E300824C15 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/AlamofireImage/AlamofireImage.framework"; sourceTree = "<group>"; };
+		F390DE061F4AB71500C52034 /* HelpPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpPageVC.swift; sourceTree = "<group>"; };
+		F390DE081F4AB77500C52034 /* LegalPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegalPageVC.swift; sourceTree = "<group>"; };
 		F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryDB.swift; sourceTree = "<group>"; };
 		F3990DFE1F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookingHistoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F3990E181F1F6553000FFF7B /* ReviewHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewHistoryDB.swift; sourceTree = "<group>"; };
@@ -635,8 +637,9 @@
 			children = (
 				F3FD7DDA1F38383800986815 /* Left Menu */,
 				F3FD7DD71F3831E700986815 /* Add Payment Method */,
-				F30B60221F1DD88800374136 /* HomeViewController.swift */,
 				F330A0FF1F2F731D00C69871 /* BlankViewController.swift */,
+				F390DE061F4AB71500C52034 /* HelpPageVC.swift */,
+				F390DE081F4AB77500C52034 /* LegalPageVC.swift */,
 			);
 			name = "Home Page";
 			sourceTree = "<group>";
@@ -1083,6 +1086,7 @@
 				F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */,
 				F3FAAE9F1F41A575007DF154 /* TrainerProfilePage.swift in Sources */,
 				F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */,
+				F390DE071F4AB71600C52034 /* HelpPageVC.swift in Sources */,
 				F3C6857D1F3C857900AA8CC7 /* TrainerReviewModel.swift in Sources */,
 				F3A907821F32F30100474F5E /* ChooseSessionTableCell.swift in Sources */,
 				F364A9001F34B3950001C570 /* AssignedTrainerEmailCell.swift in Sources */,
@@ -1128,6 +1132,7 @@
 				F341B0381F28D9FB007C9AF1 /* CardView.swift in Sources */,
 				F3AF9D431F30661000D0CF05 /* GymModel.swift in Sources */,
 				F341B0321F287070007C9AF1 /* VideoURLModel.swift in Sources */,
+				F390DE091F4AB77500C52034 /* LegalPageVC.swift in Sources */,
 				F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */,
 				F3FC70EB1F2F39DF00B54A79 /* ForgotViewController.swift in Sources */,
 				F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */,
@@ -1150,7 +1155,6 @@
 				F3A907791F32E45A00474F5E /* TraineeHomePage.swift in Sources */,
 				F316E7F81F22364F00994447 /* Question3VC.swift in Sources */,
 				F364A8FE1F34B36E0001C570 /* AssignedTrainerSocialMediaCell.swift in Sources */,
-				F30B60231F1DD88800374136 /* HomeViewController.swift in Sources */,
 				F334D6C01F39B12300435BD2 /* TimerViewController.swift in Sources */,
 				F302BB921F1F2B5A00186BCC /* LoginModel.swift in Sources */,
 				F341B0341F28D664007C9AF1 /* UIColorExtension.swift in Sources */,
