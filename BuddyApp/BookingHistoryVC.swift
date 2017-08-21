@@ -27,9 +27,13 @@ class BookingHistoryVC: UIViewController {
 
     func fetchBookingData() {
         
-        let parameters = ["user_id":appDelegate.UserId,"user_type":appDelegate.USER_TYPE] as [String : Any]
+        let parameters = ["user_id":"75",
+                          "user_type":appDelegate.USER_TYPE]
+            as [String : Any]
+        
         let headers = ["token":appDelegate.Usertoken]
         
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: BOOKING_HISTORY_URL, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
             
             guard (jsondata["status"] as? Int) != nil else {
@@ -49,10 +53,10 @@ class BookingHistoryVC: UIViewController {
                         print(modelObject)
                         BookingHistoryDB.createBookingEntry(bookingModel: modelObject)
                         self.bookingsArray.append(modelObject)
+                        CommonMethods.hideProgress()
                         self.bookingHistoryTable.reloadData()
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
-                    print("Server Resp Fail")
                       CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
 
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -81,12 +85,13 @@ extension BookingHistoryVC: UITableViewDataSource{
 
         let cell: BookingHistoryTableCell = tableView.dequeueReusableCell(withIdentifier: "bookinghistorycellid") as! BookingHistoryTableCell
         
-        let stringDate = CommonMethods.getStringFromDate(date: bookingsArray[indexPath.row].trainedDate)
+        let booking = bookingsArray[indexPath.row]
+        let stringDate = CommonMethods.getStringFromDate(date: booking.trainedDate)
        
         cell.date.text = stringDate
-        cell.lblDescription.text = "Crossfit" + " session with " + "Test User"
-        cell.lblAmount.text = "$ 72"
-//        cell.imgTrainingPic.sd_setImage(with: URL(string: "", placeholderImage: UIImage(named: "")))
+        cell.lblDescription.text = booking.category + " session with " + booking.trainerName
+        cell.lblAmount.text = "$" + booking.amount
+        cell.imgTrainingPic.sd_setImage(with: URL(string: booking.categoryImage), placeholderImage: UIImage(named: ""))
         
         return cell
     }

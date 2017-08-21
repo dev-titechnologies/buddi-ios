@@ -72,6 +72,7 @@ class TraineeHomePage: UIViewController {
     @IBAction func nextButtonAction(_ sender: Any) {
         if selectedCategory.count > 0{
             choosedCategoryOfTrainee = categoriesArray[selectedCategory[0]]
+            userDefaults.set(choosedCategoryOfTrainee.categoryId, forKey: "backupTrainingCategoryChoosed")
             print("Choosed Category:\(choosedCategoryOfTrainee.categoryName)")
             performSegue(withIdentifier: "afterCategorySelectionTraineeSegue", sender: self)
         }else{
@@ -136,7 +137,6 @@ extension TraineeHomePage : UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
 }
-
 
 extension TraineeHomePage : UICollectionViewDelegate{
     

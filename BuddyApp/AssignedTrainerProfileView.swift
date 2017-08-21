@@ -103,12 +103,10 @@ class AssignedTrainerProfileView: UIViewController {
             }
         })
     }
+    @IBAction func doneAction(_ sender: Any) {
+    }
+}
 
-    @IBAction func Cancel_action(_ sender: Any) {
-        
-    self.navigationController?.popViewController(animated: true)
-}
-}
 extension AssignedTrainerProfileView: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -32,6 +32,13 @@ class BookingDetailsVC: UIViewController {
     
     func parsingBookingDetails(bookingModel: BookingHistoryModel) {
         
+        let stringDate = CommonMethods.getStringFromDate(date: bookingModel.trainedDate)
+        
+        lblDate.text = stringDate
+        lblDescription.text = bookingModel.category + " session with " + bookingModel.trainerName
+        lblAmount.text = "$" + bookingModel.amount
+        imgTrainingPic.sd_setImage(with: URL(string: bookingModel.categoryImage), placeholderImage: UIImage(named: ""))
+        imgTrainerPic.sd_setImage(with: URL(string: bookingModel.trainerImage), placeholderImage: UIImage(named: ""))
     }
 
     override func didReceiveMemoryWarning() {

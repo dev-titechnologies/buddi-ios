@@ -28,14 +28,16 @@ class ChooseGenderTableCell: UITableViewCell {
         btnFemale.backgroundColor = .white
         btnMale.backgroundColor = .white
         choosedTrainerGenderOfTrainee = "no preferance"
-        
+        userDefaults.set(choosedTrainerGenderOfTrainee, forKey: "backupTrainingGenderChoosed")
     }
+    
     @IBAction func btnMaleAction(_ sender: Any) {
         
         btnMale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         btnNopreferance.backgroundColor = .white
-         btnFemale.backgroundColor = .white
+        btnFemale.backgroundColor = .white
         choosedTrainerGenderOfTrainee = "male"
+        userDefaults.set(choosedTrainerGenderOfTrainee, forKey: "backupTrainingGenderChoosed")
     }
     
     @IBAction func btnFemaleAction(_ sender: Any) {
@@ -43,11 +45,11 @@ class ChooseGenderTableCell: UITableViewCell {
         btnNopreferance.backgroundColor = .white
         btnFemale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         choosedTrainerGenderOfTrainee = "female"
-
+        userDefaults.set(choosedTrainerGenderOfTrainee, forKey: "backupTrainingGenderChoosed")
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
     }
-
 }

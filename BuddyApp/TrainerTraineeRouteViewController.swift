@@ -11,10 +11,10 @@ import MapKit
 import GoogleMaps
 
 class TrainerTraineeRouteViewController: UIViewController {
+    
     @IBOutlet weak var timer_lbl: UILabel!
     @IBOutlet weak var mapview: GMSMapView!
     @IBOutlet weak var collectionview: UICollectionView!
-    
     
     var TIMERCHECK = Bool()
     var locationManager: CLLocationManager!
@@ -36,49 +36,35 @@ class TrainerTraineeRouteViewController: UIViewController {
 
     var profileArray = Array<TrainerProfileDetail>()
     //TIMER
-    
     var TimeDict = NSMutableDictionary()
     var myMutableString = NSMutableAttributedString()
-
     var seconds = Int()
     var timer = Timer()
     var isTimerRunning = false
+    
+    //Cancel Alert View
+    @IBOutlet weak var cancelAlertView: CardView!
+    @IBOutlet weak var btnNoCancelAlert: UIButton!
+    @IBOutlet weak var btnYesCancelAlert: UIButton!
+    @IBOutlet weak var cancelAlertViewTitle: UILabel!
+    var isCancelAlert = Bool()
+    var isStopAlert = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        if TIMERCHECK
-        {
-            //seconds = 120
-            
+        if TIMERCHECK {
             FetchFromDb()
-            
             self.runTimer()
-        }
-        else
-        {
-            
-             if appDelegate.USER_TYPE == "trainer"{
+        }else{
+            if appDelegate.USER_TYPE == "trainee"{
+                seconds = Int(choosedSessionOfTrainee)!*60
+                timer_lbl.text = choosedSessionOfTrainee + ":" + "00"
             }
-            else
-             {
-                            seconds = Int(choosedSessionOfTrainee)!*60
-                
-                            timer_lbl.text = choosedSessionOfTrainee + ":" + "00"
-                
-            }
-            
-      
-            
             SocketIOManager.sharedInstance.establishConnection()
-            
-
         }
-        
         
         collectionview.delegate = self
-        
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: 170, height: 70)
         flowLayout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5)
@@ -86,30 +72,18 @@ class TrainerTraineeRouteViewController: UIViewController {
         flowLayout.scrollDirection = UICollectionViewScrollDirection.horizontal
         flowLayout.minimumInteritemSpacing = 0.0
         collectionview.collectionViewLayout = flowLayout
-
-      
-        
-
-        // Do any additional setup after loading the view.
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         
-        if appDelegate.USER_TYPE == "trainer"
-        {
+        btnNoCancelAlert.addShadowView()
+        btnYesCancelAlert.addShadowView()
+        
+        if appDelegate.USER_TYPE == "trainer"{
             
-        }
-        else{
-            if TIMERCHECK
-            {
-                self.navigationItem.leftBarButtonItem = nil
-                self.navigationItem.hidesBackButton = true
-            }
-            else
-            {
-                self.navigationItem.leftBarButtonItem = nil
-            }
-            
-            
+        }else if appDelegate.USER_TYPE == "trainee"{
+            self.navigationItem.leftBarButtonItem = nil
+            self.navigationItem.hidesBackButton = true
         }
         
         getCurrentLocationDetails()
@@ -125,11 +99,8 @@ class TrainerTraineeRouteViewController: UIViewController {
             self.mapview?.isMyLocationEnabled = true
             locationManager.startUpdatingLocation()
         }
-        
-        
-       
-        
     }
+    
     func FetchFromDb() {
         
         if let result = TrainerProfileDetail.fetchBookingDetails() {
@@ -153,9 +124,9 @@ class TrainerTraineeRouteViewController: UIViewController {
                 bookingId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"bookingId") as? String),
                 trainerId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"trainerId") as? String),
                 traineeId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"traineeId") as? String))
-            
         }
     }
+    
     //MARK: - API
     func BookingAction(Action_status: String) {
         
@@ -182,26 +153,24 @@ class TrainerTraineeRouteViewController: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    if let dict = jsondata["data"]  as? NSDictionary
-                    {
-                        if dict["status"] as! String == "cancelled"
-                        {
+                    if let dict = jsondata["data"]  as? NSDictionary {
+                        if dict["status"] as! String == "cancelled" || dict["status"] as! String == "completed" {
                             self.timer.invalidate()
                             self.timer_lbl.text = "00" + ":" + "00"
-                             userDefaults.removeObject(forKey: "TimerData")
+                            userDefaults.removeObject(forKey: "TimerData")
                             TrainerProfileDetail.deleteBookingDetails()
                             
-                           // self.navigationController?.popViewController(animated: true)
-                            
-                            //self.navigationController?.popToViewController(ViewController, animated: true)
+                            if appDelegate.USER_TYPE == "trainer" {
+                                self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
+                            }else if appDelegate.USER_TYPE == "trainee" {
+                                self.performSegue(withIdentifier: "trainingCancelledToTraineeHomeSegue", sender: self)
+                            }
                         }
                     }
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     
-
-                    
-                    }else if status == RESPONSE_STATUS.FAIL{
+                }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
@@ -209,6 +178,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             }
         })
     }
+    
     func SessionStartAPI() {
         
         let headers = [
@@ -424,9 +394,39 @@ class TrainerTraineeRouteViewController: UIViewController {
         if segue.identifier == "fromtimertotrainerprofile"{
             let TrainerProPage =  segue.destination as! AssignedTrainerProfileView
             TrainerProPage.TrainerId = self.trainerProfileDetails.Trainer_id
-        }    }
+        }
+        //For REview Segue
+        //        performSegue(withIdentifier: "trainerReviewPageSegue", sender: self)
 
+    }
+    
+    @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
+    
+        print("*** Unwind SEgue Identifier:\(segue.identifier)")
+    }
+    
+    //MARK: - CANCEL ALERT VIEW ACTIONS
+    
+    @IBAction func cancelAlertYesAction(_ sender: Any) {
+
+        removeTransactionDetailsFromUserDefault()
+        if isCancelAlert{
+            self.BookingAction(Action_status: "cancel")
+        }else if isStopAlert{
+            
+//            cell1.menu_btn.setImage(UIImage(named: "play"), for: .normal)
+//            cell1.name_lbl.text = "Start"
+            BoolArray.insert(false, at: 1)
+            self.BookingAction(Action_status: "complete")
+        }
+    }
+    
+    @IBAction func cancelAlertNoAction(_ sender: Any) {
+        cancelAlertView.isHidden = true
+    }
 }
+
+
 extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -463,34 +463,18 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
             
         }
         
-        if TIMERCHECK
-        {
-        
-        
-        
-           }
-        else
-        {
-            
-            
-            
-            if appDelegate.USER_TYPE == "trainer"
-            {
+        if TIMERCHECK{
+        }else{
+            if appDelegate.USER_TYPE == "trainer"{
                 self.addHandlers()
-            }
-            else{
-                
+            }else{
                 self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
                 self.addHandlersTrainer()
-                
             }
-
-            
         }
-    
         locationManager.stopUpdatingLocation()
-       
     }
+    
     private func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.authorizedWhenInUse {
             mapview.isMyLocationEnabled = true
@@ -533,81 +517,63 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                 
             }
 
-        }
-      else if indexPath.row == 3
-        {
+        }else if indexPath.row == 3{
             cell1.line_lbl.isHidden = true
         }
-        
-        
-        
-        
-        
         return cell1
     }
+    
     func TapedIndex(sender:UIButton!) {
         
         sender.isSelected = !(sender.isSelected)
-         let indexpath = NSIndexPath(row: sender.tag, section: 0)
+        let indexpath = NSIndexPath(row: sender.tag, section: 0)
         
         cell1 = collectionview.cellForItem(at: indexpath as IndexPath) as! MapBottamButtonCell
         
         cell1.bgview.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         cell1.menu_btn.setImage(UIImage(named: imagearray[sender.tag]), for: .normal)
 
-        
-        
-        if sender.tag == 0
-        {
-            print("0")
+        if sender.tag == 0{
             
-            self.BookingAction(Action_status: "cancel")
+            print("CANCEL ACTION")
+            cancelAlertView.isHidden = false
+            cancelAlertViewTitle.text = "Are you sure you want to cancel this session?"
+            isCancelAlert = true
+            isStopAlert = false
             
-            
-        }
-        else if sender.tag == 1
-        {
-             print("1")
-            
-           if !BoolArray[1]
-           {
-            cell1.menu_btn.setImage(UIImage(named: "stop"), for: .normal)
-            cell1.name_lbl.text = "Stop"
-           
-            self.SessionStartAPI()
-           
-            BoolArray.insert(true, at: 1)
+        }else if sender.tag == 1 {
+            print("START AND STOP ACTIONS")
+            removeTransactionDetailsFromUserDefault()
+            if !BoolArray[1]{
+                //START
+                cell1.menu_btn.setImage(UIImage(named: "stop"), for: .normal)
+                cell1.name_lbl.text = "Stop"
+                self.SessionStartAPI()
+                BoolArray.insert(true, at: 1)
+            }else{
+                //STOP
+                isCancelAlert = false
+                isStopAlert = true
+                cancelAlertViewTitle.text = "Are you sure you want to cancel this session?"
             }
-           else{
-            cell1.menu_btn.setImage(UIImage(named: "play"), for: .normal)
-            cell1.name_lbl.text = "Start"
-            
-           // userDefaults.removeObject(forKey: "TimerData")
-            
-            //timer.invalidate()
-            
-            BoolArray.insert(false, at: 1)
-            self.BookingAction(Action_status: "cancel")
-            
-            }
-            
-            
-            
-        }
-        else if sender.tag == 2
-        {
-             print("2")
+        }else if sender.tag == 2{
+             print("PROFILE ACTION")
             self.performSegue(withIdentifier: "fromtimertotrainerprofile", sender: self)
+        }else if sender.tag == 3{
+             print("MESSAGE ACTION")
         }
-        else if sender.tag == 3
-        {
-             print("3")
-        }
-        else{
-             print("4")
-        }
-        
-        
+    }
+    
+    func removeTransactionDetailsFromUserDefault() {
+        //Clear the Userdefault values related to the Transaction
+    
+        userDefaults.removeObject(forKey: "backupPaymentTransactionId")
+        userDefaults.removeObject(forKey: "backupIsTransactionAmount")
+        userDefaults.removeObject(forKey: "backupIsTransactionSuccessfull")
+        userDefaults.removeObject(forKey: "backupTrainingCategoryChoosed")
+        userDefaults.removeObject(forKey: "backupTrainingGenderChoosed")
+        userDefaults.removeObject(forKey: "backupTrainingSessionChoosed")
+        userDefaults.removeObject(forKey: "backupIsTransactionStatus")
     }
 }
 
@@ -630,28 +596,25 @@ extension TrainerTraineeRouteViewController : UICollectionViewDelegate{
         }
         
         switch (indexPath.row) {
-        case 0:
-            print("zero")
-            
-            
-        case 1:
-            
-            print("one")
-            
-        case 2:
-            
-            print("two")
-        case 3:
-            
-            print("three")
-            
-        default:
-            
-            print("Integer out of range")
-        
-        
-        
-        
+            case 0:
+                print("zero")
+                
+                
+            case 1:
+                
+                print("one")
+                
+            case 2:
+                
+                print("two")
+            case 3:
+                
+                print("three")
+                
+            default:
+                
+                print("Integer out of range")
+        }
+
     }
-}
 }

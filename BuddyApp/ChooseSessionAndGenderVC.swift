@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreLocation
+
 
 class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
 
@@ -19,6 +21,11 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     var headerChoosed = Int()
     var isChoosedGender = Bool()
     
+    var locationManager: CLLocationManager!
+    var lat = String()
+    var long = String()
+    var isFetchedLatAndLong = Bool()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,14 +37,26 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        getCurrentLocationDetails()
+    }
+    
     @IBAction func nextButtonActions(_ sender: Any) {
+        moveToShowTrainersOnMapPage()
+    }
+    
+    func moveToShowTrainersOnMapPage() {
         
         if choosedSessionOfTrainee.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose a session duration", buttonTitle: "Ok")
         }else if choosedTrainerGenderOfTrainee.isEmpty{
-             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose a preferred gender", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose a preferred gender", buttonTitle: "Ok")
         }else{
-            performSegue(withIdentifier: "afterChoosingSessionAndGenderSegue", sender: self)
+            if !isFetchedLatAndLong{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Location has not been fetched, please wait", buttonTitle: "OK")
+            }else{
+                showTrainersList(parameters: getShowTrainersListParameters())
+            }
         }
     }
     
@@ -153,6 +172,54 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
             return 0
         }
     }
+    
+    func getCurrentLocationDetails() {
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            self.locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func showTrainersList(parameters: Dictionary <String,Any>) {
+        
+        let headers = [
+            "token":appDelegate.Usertoken]
+        
+        print("Header:\(headers)")
+        print("Params:\(parameters)")
+        
+        CommonMethods.serverCall(APIURL: SEARCH_TRAINER, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+            
+            print("*** Search Trainer Listing Result:",jsondata)
+            
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    print(jsondata)
+                    
+                    let trainersFoundArray = jsondata["data"]  as! NSArray
+                    if trainersFoundArray.count > 0 {
+                        self.performSegue(withIdentifier: "afterChoosingSessionAndGenderSegue", sender: self)
+                    }else{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "No Trainers Found", buttonTitle: "OK")
+                    }
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        })
+    }
 }
 
 extension ChooseSessionAndGenderVC: UITableViewDelegate {
@@ -170,6 +237,7 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
             }
         }
         print("Choosed Session:\(choosedSessionOfTrainee)")
+        userDefaults.set(choosedSessionOfTrainee, forKey: "backupTrainingSessionChoosed")
         
         if !choosedSessionOfTrainee.isEmpty && isChoosedGender {
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
@@ -179,6 +247,40 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
     }
 }
 
+extension ChooseSessionAndGenderVC: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        for location in locations {
+            
+            print("**********************")
+            print("Long \(location.coordinate.longitude)")
+            print("Lati \(location.coordinate.latitude)")
+            print("Alt \(location.altitude)")
+            print("Sped \(location.speed)")
+            print("Accu \(location.horizontalAccuracy)")
+            
+            print("**********************")
+            
+            lat = String(location.coordinate.latitude)
+            long = String(location.coordinate.longitude)
+            isFetchedLatAndLong = true
+            self.locationManager.stopUpdatingLocation()
+        }
+    }
+    
+    func getShowTrainersListParameters() -> Dictionary <String,Any> {
+        
+        let parameters = ["user_id" : appDelegate.UserId,
+                          "gender" : choosedTrainerGenderOfTrainee,
+                          "category" : choosedCategoryOfTrainee.categoryId,
+                          "latitude" : lat,
+                          "longitude" : long
+            ] as [String : Any]
+        
+        return parameters
+    }
+}
 
 
 
