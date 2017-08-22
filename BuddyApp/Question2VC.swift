@@ -153,8 +153,7 @@ extension Question2VC: VDropDown{
             print("Indexpath:",Index.row)
             var strJoinValue = MultipleSelectedItems.joined(separator: ",")
             SelectedData = MultipleSelectedItems
-            if MultipleSelectedItems.count == 0
-            {
+            if MultipleSelectedItems.count == 0 {
                 strJoinValue = ""
             }
             txtCurrentGymSubscriptions.text = strJoinValue

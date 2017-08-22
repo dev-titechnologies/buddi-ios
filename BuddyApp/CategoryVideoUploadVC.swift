@@ -195,7 +195,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     func loadQuestionsArray() {
         
         questionsDict = ["weight":trainerTestAnswers.currentWeight,
-                         "pounds" : (trainerTestAnswers.lostOrGainWeightInSixMonths ? "yes" : "no"),
+                         "pounds" : trainerTestAnswers.exerciseNutrition,
                          "certified_trainer" : (trainerTestAnswers.isCertifiedTrainer ? "yes" : "no"),
                          "zipcode" : trainerTestAnswers.zipCode,
                          "military_installations" : (trainerTestAnswers.isHavingMilitaryInstallations ? "yes" : "no"),

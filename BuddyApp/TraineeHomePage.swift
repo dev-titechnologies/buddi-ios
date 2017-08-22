@@ -24,7 +24,7 @@ class TraineeHomePage: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        self.title = PAGE_TITLE.CHOOSE_CATEGORY
     }
     
     override func viewWillAppear(_ animated: Bool) {

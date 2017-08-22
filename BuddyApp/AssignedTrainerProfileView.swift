@@ -24,8 +24,6 @@ class AssignedTrainerProfileView: UIViewController {
     var TrainerprofileDictionary: NSDictionary!
     var TrainerId = String()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,9 +41,8 @@ class AssignedTrainerProfileView: UIViewController {
 //        lblTrainerAge.text =  CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["age"] as? String)
 //        lblTrainerHeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["height"] as? String)
 //        lblTrainerWeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["weight"] as? String)
-//        
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
         

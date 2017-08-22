@@ -54,7 +54,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     
         print("qqqqq",UserType)
         
-        self.title = "Register"
+        self.title = PAGE_TITLE.REGISTER
         
          if (fbUserDictionary != nil){
             self.registerType = "facebook"

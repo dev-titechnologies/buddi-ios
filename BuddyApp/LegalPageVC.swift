@@ -18,6 +18,7 @@ class LegalPageVC: UIViewController {
         super.viewDidLoad()
 
         print("Legal Page viewDidLoad")
+        self.title = PAGE_TITLE.LEGAL
     }
 
     override func didReceiveMemoryWarning() {

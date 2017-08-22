@@ -59,6 +59,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         print("viewDidLoad")
         
+        self.title = PAGE_TITLE.TRAINING_SESSION
+        
         if TIMERCHECK {
             FetchFromDb()
             self.runTimer()
@@ -110,9 +112,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
 
-        
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
-
         
         // Define identifier
         let notificationName = Notification.Name("SessionNotification")
@@ -120,66 +120,46 @@ class TrainerTraineeRouteViewController: UIViewController {
         // Register to receive notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.SessionTimerNotification), name: notificationName, object: nil)
         
-
-        
         print("viewWillAppear")
         btnNoCancelAlert.addShadowView()
         btnYesCancelAlert.addShadowView()
             
         getCurrentLocationDetails()
     }
-    func SessionTimerNotification(notif: NSNotification)
-    {
-       if notif.userInfo!["pushData"] as! String == "2"
-       {
+    
+    func SessionTimerNotification(notif: NSNotification){
+       
+        if notif.userInfo!["pushData"] as! String == "2"{
         
-        let alertController = UIAlertController(title: ALERT_TITLE, message: "Session has started", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
+            let alertController = UIAlertController(title: ALERT_TITLE, message: "Session has started", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
         
-        // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
-            (result : UIAlertAction) -> Void in
-            print("OK")
-            
-            
-            print("START CLICK")
-            self.SessionStartAPI()
-            self.BoolArray.insert(true, at: 1)
-            self.TIMERCHECK = true
-            self.collectionview.reloadData()
-            
-            
-
-        }
-        
-        
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-        
-        
-        
-        
-             }
-        else if notif.userInfo!["pushData"] as! String == "3"
-       {
-        
-        self.timer.invalidate()
-        removeTransactionDetailsFromUserDefault()
-        self.BookingAction(Action_status: "cancel")
-
-        }
-        else if notif.userInfo!["pushData"] as! String == "4"
-       {
-        self.timer.invalidate()
-         self.BookingAction(Action_status: "complete")
-        
+            // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                (result : UIAlertAction) -> Void in
+                print("OK")
+                print("START CLICK")
+                self.SessionStartAPI()
+                self.BoolArray.insert(true, at: 1)
+                self.TIMERCHECK = true
+                self.collectionview.reloadData()
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }else if notif.userInfo!["pushData"] as! String == "3"{
+            self.timer.invalidate()
+            removeTransactionDetailsFromUserDefault()
+            self.BookingAction(Action_status: "cancel")
+        }else if notif.userInfo!["pushData"] as! String == "4"{
+            self.timer.invalidate()
+            self.BookingAction(Action_status: "complete")
         }
     }
+    
     func methodOfReceivedNotification(notif: NSNotification) {
         
       print("ENTRE FORGROUND",notif.name.rawValue)
         
-        if notif.name.rawValue == "UIApplicationWillEnterForegroundNotification"
-        {
+        if notif.name.rawValue == "UIApplicationWillEnterForegroundNotification"{
             if userDefaults.value(forKey: "TimerData") != nil {
                 
                 TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
@@ -190,35 +170,20 @@ class TrainerTraineeRouteViewController: UIViewController {
                 print("OLD DATE",date)
                 print("CURRENT DATE",Date())
                 
-                
                 if date > Date(){
                     print("ongoing")
                     numOfDays = Date().daysBetweenDate(toDate: date)
-                    
                     seconds = numOfDays
-                    
                     self.runTimer()
-                    
                     print("DIFFERENCE",numOfDays)
-                    
                     //self.showTimer(time: numOfDays)
                 }else{
                     print("completed")
-                    
                 }
-            }else{
             }
-            
-
-        }
-        else if notif.name.rawValue == "UIApplicationDidEnterBackgroundNotification"
-        {
+        }else if notif.name.rawValue == "UIApplicationDidEnterBackgroundNotification"{
             self.timer.invalidate()
         }
-        
-        
-        
-        
     }
 
     func getCurrentLocationDetails() {
@@ -265,10 +230,17 @@ class TrainerTraineeRouteViewController: UIViewController {
         let headers = [
             "token":appDelegate.Usertoken]
         
-        let parameters = ["book_id" : trainerProfileDetails.Booking_id,
+        var parameters = ["book_id" : trainerProfileDetails.Booking_id,
                           "action" : Action_status,
                           "trainer_id" : trainerProfileDetails.Trainer_id
                         ] as [String : Any]
+        
+        if Action_status == "cancel"{
+            let tempDict = ["reason" : txtCancelReason.text,
+                            ] as [String : Any]
+            
+            parameters = parameters.merged(with: tempDict)
+        }
         
         print("Header:\(headers)")
         print("Params:\(parameters)")

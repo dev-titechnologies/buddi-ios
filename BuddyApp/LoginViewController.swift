@@ -28,7 +28,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
 
 //        GIDSignIn.sharedInstance().uiDelegate = self as! GIDSignInUIDelegate
         
-        self.title = "Login"
+        self.title = PAGE_TITLE.LOGIN
         
         google_btn.layer.borderColor = UIColor.init(colorLiteralRed: 223/255, green: 74/255, blue: 50/255, alpha: 1.0).cgColor
         google_btn.layer.borderWidth = 2

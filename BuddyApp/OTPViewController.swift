@@ -19,6 +19,7 @@ class OTPViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = PAGE_TITLE.OTP_CODE
     }
 
     override func didReceiveMemoryWarning() {
