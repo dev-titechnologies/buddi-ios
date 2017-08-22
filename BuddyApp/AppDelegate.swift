@@ -324,15 +324,22 @@ extension AppDelegate: FIRMessagingDelegate {
         {
             print("TYPE 2")
             
-            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(remoteMessage.appData as NSDictionary)["type"] as! String])
+            
+
+          //  CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
             
         }
         else if (remoteMessage.appData as NSDictionary)["type"] as! String == "3"
         {
             userDefaults.removeObject(forKey: "TimerData")
             TrainerProfileDetail.deleteBookingDetails()
+            
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(remoteMessage.appData as NSDictionary)["type"] as! String])
+            
 
-            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
+
+           // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
             
             
             print("3")
@@ -342,8 +349,12 @@ extension AppDelegate: FIRMessagingDelegate {
             print("4")
             userDefaults.removeObject(forKey: "TimerData")
             TrainerProfileDetail.deleteBookingDetails()
+            
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(remoteMessage.appData as NSDictionary)["type"] as! String])
+            
 
-            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
+
+           // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
         }
         
         
@@ -478,40 +489,27 @@ extension AppDelegate: FIRMessagingDelegate {
             
            // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
             
-             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
+           //  NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
             
             
         }
         else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"
         {
             print("3")
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
             
-            
-            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
+            //CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
 
             
         }
         else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"
         {
             print("4")
-            
-            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
+          //  CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
             
         }
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
   
-        
-        
         completionHandler()
     }
 }
