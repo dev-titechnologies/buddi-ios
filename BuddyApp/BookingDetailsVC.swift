@@ -12,13 +12,14 @@ class BookingDetailsVC: UIViewController {
     
     var bookingModel = BookingHistoryModel()
     
-    @IBOutlet weak var imgTrainingPic: UIImageView!
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblAmount: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var imgTrainerPic: UIImageView!
     
-    
+    @IBOutlet weak var lblTrainerName: UILabel!
+    @IBOutlet weak var imgTrainingPic: UIImageView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,7 +39,9 @@ class BookingDetailsVC: UIViewController {
         lblDescription.text = bookingModel.category + " session with " + bookingModel.trainerName
         lblAmount.text = "$" + bookingModel.amount
         imgTrainingPic.sd_setImage(with: URL(string: bookingModel.categoryImage), placeholderImage: UIImage(named: ""))
-        imgTrainerPic.sd_setImage(with: URL(string: bookingModel.trainerImage), placeholderImage: UIImage(named: ""))
+        
+        lblTrainerName.text = "You rated " + bookingModel.trainerName
+        imgTrainerPic.sd_setImage(with: URL(string: bookingModel.trainerImage), placeholderImage: UIImage(named: "profileDemoImage"))
     }
 
     override func didReceiveMemoryWarning() {

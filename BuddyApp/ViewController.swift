@@ -12,18 +12,19 @@ class ViewController: UIViewController {
     
     var TimerDict = NSDictionary()
     var numOfDays = Int()
-     var TrainerProfileDictionary = NSDictionary()
-let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
+    var TrainerProfileDictionary = NSDictionary()
+    let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         let date = Date()
-        let calendar = Calendar.current
+//        let calendar = Calendar.current
         
-        let hour = calendar.component(.hour, from: date)
-        let minutes = calendar.component(.minute, from: date)
-        let seconds = calendar.component(.second, from: date)
+//        let hour = calendar.component(.hour, from: date)
+//        let minutes = calendar.component(.minute, from: date)
+//        let seconds = calendar.component(.second, from: date)
         print("hours ",date)
 
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
@@ -35,13 +36,6 @@ let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
         // Register to receive notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: notificationName, object: nil)
 
-        
-              
-        
-        
-        
-        
-        
         
         if userDefaults.value(forKey: "TimerData") != nil {
             
@@ -59,7 +53,6 @@ let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
                  numOfDays = Date().daysBetweenDate(toDate: date)
                 
                 print("DIFFERENCE",numOfDays)
-                
                 self.showTimer(time: numOfDays)
             }else{
                 print("completed")
@@ -131,11 +124,6 @@ let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
         print(userInfo!)
     }
     
-    @IBAction func logincheck_action(_ sender: Any) {
-        
-        self.loginCheck()
-    }
-    
     func loginCheck() {
         
         if userDefaults.value(forKey: "user_id") != nil{
@@ -205,17 +193,10 @@ let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
             if userDefaults.value(forKey: "TimerData") != nil {
                 timerPage.seconds = numOfDays
                 timerPage.TIMERCHECK = true
-            }
-            else
-            {
-               
-                     timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
+            }else{
+                timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
                 timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
                 print("SECONDSSSS",timerPage.seconds)
-                
-                
-                
-               
             }
         }
     }

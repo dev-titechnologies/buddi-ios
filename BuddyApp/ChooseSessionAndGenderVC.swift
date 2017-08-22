@@ -38,6 +38,8 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        choosedSessionOfTrainee = ""
+        choosedTrainerGenderOfTrainee = ""
         getCurrentLocationDetails()
     }
     
@@ -48,12 +50,12 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     func moveToShowTrainersOnMapPage() {
         
         if choosedSessionOfTrainee.isEmpty{
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose a session duration", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_SESSION_DURATION, buttonTitle: "Ok")
         }else if choosedTrainerGenderOfTrainee.isEmpty{
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose a preferred gender", buttonTitle: "Ok")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_PREFERRED_GENDER, buttonTitle: "Ok")
         }else{
             if !isFetchedLatAndLong{
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Location has not been fetched, please wait", buttonTitle: "OK")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: LOCATION_HAS_NOT_FETCH_PLEASE_WAIT, buttonTitle: "OK")
             }else{
                 showTrainersList(parameters: getShowTrainersListParameters())
             }
@@ -97,6 +99,8 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
             return sessionCell
         }else{
             let genderCell: ChooseGenderTableCell = tableView.dequeueReusableCell(withIdentifier: "chooseGenderCellId") as! ChooseGenderTableCell
+            
+            genderCell.selectionStyle = UITableViewCellSelectionStyle.none
             
             genderCell.btnMale.addShadowView()
             genderCell.btnFemale.addShadowView()

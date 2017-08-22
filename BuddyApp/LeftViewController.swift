@@ -17,6 +17,7 @@ class LeftViewController: UIViewController {
     var leftMenuArrayTraineeCopy = [String]()
     var isTraineeAlreadyTrainer = Bool()
     @IBOutlet weak var profileName: UILabel!
+    @IBOutlet weak var lblEmailId: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,8 @@ class LeftViewController: UIViewController {
     func parseNameAndImage() {
         
         profileName.text = userDefaults.value(forKey: "userName") as? String
+        lblEmailId.text = userDefaults.value(forKey: "userEmailId") as? String
+        
         DispatchQueue.global(qos: .background).async {
             print("This is run on the background queue")
             
@@ -151,41 +154,46 @@ extension LeftViewController : UITableViewDelegate{
 
             switch (indexPath.row) {
             case 0:
-                print("zero")
+                print("Zero")
                 print("Home")
                 self.performSegue(withIdentifier: "trainerProfileSegue", sender: self)
                 
             case 1:
-                print("one")
+                print("One")
                 print("Settings")
                 self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 
             case 2:
-                print("two")
+                print("Two")
+                print("Payment Method")
+                self.performSegue(withIdentifier: "addPaymentMethodSegue", sender: self)
+
+            case 3:
+                print("Three")
                 print("Add Category")
                 self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
                 
-            case 3:
-                print("three")
+            case 4:
+                print("Four")
                 print("Training History")
                 self.performSegue(withIdentifier: "bookingHistorySegue", sender: self)
                 
-            case 4:
-                print("four")
+            case 5:
+                print("Five")
                 print("Invite Friends")
                 self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                
-            case 5:
-                print("five")
+            case 6:
+                print("Six")
                 print("Help")
                 self.performSegue(withIdentifier: "leftMenuToHelpPageSegue", sender: self)
-            case 6:
-                print("six")
+            case 7:
+                print("Seven")
                 print("Legal")
                 self.performSegue(withIdentifier: "leftMenuToLegalPageSegue", sender: self)
                 
-            case 7:
-                print("seven")
+            case 8:
+                print("Eight")
                 print("Logout")
                 logoutAlert()
 //                dismissOnSessionExpire()
@@ -195,7 +203,7 @@ extension LeftViewController : UITableViewDelegate{
             }
         }else{
             //For Trainee
-            
+                        
             switch (indexPath.row)
             {
             case 0:
@@ -210,24 +218,19 @@ extension LeftViewController : UITableViewDelegate{
                 
             case 2:
                 print("two")
-                if isTraineeAlreadyTrainer{
-                    //Already a Trainer
-                    print("Payment Method")
-                    self.performSegue(withIdentifier: "addPaymentMethodSegue", sender: self)
-
-                }else{
-                    print("Become a Trainer")
-                    self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
-                }
+                print("Payment Method")
+                self.performSegue(withIdentifier: "addPaymentMethodSegue", sender: self)
                 
             case 3:
                 print("three")
+                
                 if isTraineeAlreadyTrainer{
+                    //Already a Trainer
                     print("Training History")
                     self.performSegue(withIdentifier: "bookingHistorySegue", sender: self)
                 }else{
-                    print("Payment Method")
-                    self.performSegue(withIdentifier: "addPaymentMethodSegue", sender: self)
+                    print("Become a Trainer")
+                    self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
                 }
                 
             case 4:
@@ -237,7 +240,6 @@ extension LeftViewController : UITableViewDelegate{
                     self.performSegue(withIdentifier: "blankPageSegue", sender: self)
                 }else{
                     print("Training History")
-//                    self.performSegue(withIdentifier: "history", sender:self)
                     self.performSegue(withIdentifier: "bookingHistorySegue", sender: self)
                 }
                 
