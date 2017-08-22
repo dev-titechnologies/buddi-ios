@@ -22,6 +22,11 @@ class TrainerTraineeRouteViewController: UIViewController {
     var long = Float()
     var trainerProfileDetails = TrainerProfileModal()
     var TrainerProfileDictionary: NSDictionary!
+    
+    
+    var TimerDict = NSDictionary()
+    var numOfDays = Int()
+
 
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
@@ -103,13 +108,119 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
+
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
+
+        
+        // Define identifier
+        let notificationName = Notification.Name("SessionNotification")
+        
+        // Register to receive notification
+        NotificationCenter.default.addObserver(self, selector: #selector(self.SessionTimerNotification), name: notificationName, object: nil)
+        
+
+        
         print("viewWillAppear")
         btnNoCancelAlert.addShadowView()
         btnYesCancelAlert.addShadowView()
             
         getCurrentLocationDetails()
     }
-    
+    func SessionTimerNotification(notif: NSNotification)
+    {
+       if notif.userInfo!["pushData"] as! String == "2"
+       {
+        
+        let alertController = UIAlertController(title: ALERT_TITLE, message: "Session has started", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
+        
+        // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+            (result : UIAlertAction) -> Void in
+            print("OK")
+            
+            
+            print("START CLICK")
+            self.SessionStartAPI()
+            self.BoolArray.insert(true, at: 1)
+            self.TIMERCHECK = true
+            self.collectionview.reloadData()
+            
+            
+
+        }
+        
+        
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+        
+        
+        
+             }
+        else if notif.userInfo!["pushData"] as! String == "3"
+       {
+        
+        self.timer.invalidate()
+        removeTransactionDetailsFromUserDefault()
+        self.BookingAction(Action_status: "cancel")
+
+        }
+        else if notif.userInfo!["pushData"] as! String == "4"
+       {
+        self.timer.invalidate()
+         self.BookingAction(Action_status: "complete")
+        
+        }
+    }
+    func methodOfReceivedNotification(notif: NSNotification) {
+        
+      print("ENTRE FORGROUND",notif.name.rawValue)
+        
+        if notif.name.rawValue == "UIApplicationWillEnterForegroundNotification"
+        {
+            if userDefaults.value(forKey: "TimerData") != nil {
+                
+                TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
+                print("TIMERDICT",TimerDict)
+                
+                let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
+                
+                print("OLD DATE",date)
+                print("CURRENT DATE",Date())
+                
+                
+                if date > Date(){
+                    print("ongoing")
+                    numOfDays = Date().daysBetweenDate(toDate: date)
+                    
+                    seconds = numOfDays
+                    
+                    self.runTimer()
+                    
+                    print("DIFFERENCE",numOfDays)
+                    
+                    //self.showTimer(time: numOfDays)
+                }else{
+                    print("completed")
+                    
+                }
+            }else{
+            }
+            
+
+        }
+        else if notif.name.rawValue == "UIApplicationDidEnterBackgroundNotification"
+        {
+            self.timer.invalidate()
+        }
+        
+        
+        
+        
+    }
+
     func getCurrentLocationDetails() {
         
         if CLLocationManager.locationServicesEnabled() {
@@ -264,7 +375,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         } else {
             seconds -= 1
             //  timerLabel.text = timeString(time: TimeInterval(seconds))
-            //print("SECONDS",seconds)
+           // print("SECONDS",seconds)
             
             myMutableString = NSMutableAttributedString(string: timeString(time: TimeInterval(seconds)), attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 70.0)])
             myMutableString.addAttribute(NSForegroundColorAttributeName, value: CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR), range: NSRange(location:3,length:2))
@@ -325,7 +436,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                             let path = GMSPath.init(fromEncodedPath: points! as! String)
                             let polyline = GMSPolyline.init(path: path)
                             polyline.strokeWidth = 3
-                            polyline.strokeColor = UIColor.black
+                            polyline.strokeColor = CommonMethods.hexStringToUIColor(hex: ROUTE_BLUE_COLOR)
                             
                             let bounds = GMSCoordinateBounds(path: path!)
                             self.mapview!.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 30.0))
@@ -356,7 +467,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         //  marker.icon = markerImage
         marker.iconView = markerView
-        marker.title = appDelegate.USER_TYPE
+        marker.title = trainerProfileDetails.firstName
         marker.snippet = ""
         marker.map = mapview
     }
@@ -604,6 +715,8 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                 
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
                     self.BoolArray.insert(false, at: 1)
+                    self.timer.invalidate()
+                     self.timer_lbl.text = "00" + ":" + "00"
                     self.BookingAction(Action_status: "complete")
                 }))
                 alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in

@@ -31,31 +31,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     var userName = String()
     var window: UIWindow?
     let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
+    let SessionNotification = Notification.Name("SessionNotification")
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         configureFirebase(application: application)
         
-        if #available(iOS 10.0, *) {
-            let center = UNUserNotificationCenter.current()
-            center.delegate = self
-            center.requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(grant, error)  in
-                if error == nil {
-                    if grant {
-                        application.registerForRemoteNotifications()
-                    } else {
-                        //User didn't grant permission
-                    }
-                } else {
-                    print(" notification error: ",error!)
-                }
-            })
-        } else {
-            // Fallback on earlier versions
-            let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-            application.registerUserNotificationSettings(notificationSettings)
-        }
-                
+//        if #available(iOS 10.0, *) {
+//            let center = UNUserNotificationCenter.current()
+//            center.delegate = self
+//            center.requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(grant, error)  in
+//                if error == nil {
+//                    if grant {
+//                        application.registerForRemoteNotifications()
+//                    } else {
+//                        //User didn't grant permission
+//                    }
+//                } else {
+//                    print(" notification error: ",error!)
+//                }
+//            })
+//        } else {
+//            // Fallback on earlier versions
+//            let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+//            application.registerUserNotificationSettings(notificationSettings)
+//        }
+        
         GMSServices.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
         GIDSignIn.sharedInstance().clientID = "635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
@@ -307,6 +308,60 @@ extension AppDelegate: FIRMessagingDelegate {
     /// The callback to handle data message received via FCM for devices running iOS 10 or above.
     func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
         print("applicationReceivedRemoteMessage",remoteMessage.appData)
+        
+        let NotificationDict = (remoteMessage.appData as NSDictionary)["data"] as! String
+        
+        
+        if (remoteMessage.appData as NSDictionary)["type"] as! String == "1"
+        {
+            
+            // Post notification
+            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
+            
+            
+        }
+        else if (remoteMessage.appData as NSDictionary)["type"] as! String == "2"
+        {
+            print("TYPE 2")
+            
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(remoteMessage.appData as NSDictionary)["type"] as! String])
+            
+
+          //  CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
+            
+        }
+        else if (remoteMessage.appData as NSDictionary)["type"] as! String == "3"
+        {
+            userDefaults.removeObject(forKey: "TimerData")
+            TrainerProfileDetail.deleteBookingDetails()
+            
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(remoteMessage.appData as NSDictionary)["type"] as! String])
+            
+
+
+           // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
+            
+            
+            print("3")
+        }
+        else if (remoteMessage.appData as NSDictionary)["type"] as! String == "4"
+        {
+            print("4")
+            userDefaults.removeObject(forKey: "TimerData")
+            TrainerProfileDetail.deleteBookingDetails()
+            
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(remoteMessage.appData as NSDictionary)["type"] as! String])
+            
+
+
+           // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
+        }
+        
+        
+        
+        
+        
+        
     }
     
     // Registering for Firebase notifications
@@ -373,20 +428,34 @@ extension AppDelegate: FIRMessagingDelegate {
         {
             print("TYPE 2")
             
-            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
+            
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
+            
+
+            
+           // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
             
         }
         else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"
         {
             
-             CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
+           //  CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
             print("3")
+            
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
+            
+
+            
+            
         }
         else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"
         {
              print("4")
             
-             CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
+            
+
+             //CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
         }
         
         
@@ -418,39 +487,29 @@ extension AppDelegate: FIRMessagingDelegate {
         {
             print("TYPE 2")
             
-            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
+           // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
+            
+           //  NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
+            
             
         }
         else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"
         {
             print("3")
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
             
-            
-            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
+            //CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
 
             
         }
         else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"
         {
             print("4")
-            
-            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
+          //  CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
             
         }
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
   
-        
-        
         completionHandler()
     }
 }
