@@ -59,6 +59,7 @@ class ShowTrainersOnMapVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = PAGE_TITLE.TRAINERS_LISTING
     }
     
     override func viewWillAppear(_ animated: Bool) {

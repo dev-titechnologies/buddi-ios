@@ -16,8 +16,7 @@ class ForgotViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        self.title = "Forgot password"
-        
+        self.title = PAGE_TITLE.FORGOT_PASSWORD
     }
 
     override func didReceiveMemoryWarning() {

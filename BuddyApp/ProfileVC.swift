@@ -42,6 +42,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = PAGE_TITLE.TRAINEE_PROFILE
         imagePicker.delegate = self
     }
     

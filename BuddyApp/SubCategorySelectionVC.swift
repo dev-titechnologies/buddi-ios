@@ -81,6 +81,7 @@ class SubCategorySelectionVC: UIViewController {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ANSWER_ABOVE_QUESTIONS, buttonTitle: "OK")
         }else{
             trainerTestAnswers.currentWeight = txtCurrentWeight.text!
+            trainerTestAnswers.exerciseNutrition = txtExerciseNutrition.text!
             loadSelectedSubCategoriesAmong()
             performSegue(withIdentifier: "afterSubCategorySelectionSegue", sender: self)
         }
@@ -266,7 +267,6 @@ extension SubCategorySelectionVC: UIPickerViewDataSource, UIPickerViewDelegate {
             let selectedValueSecondRow = pickerView.selectedRow(inComponent: 1)
             
             txtCurrentWeight.text = String(currentWeightONEArray[selectedValueFirstRow] + currentWeightSecondArray[selectedValueSecondRow]) + " lbs"
-            
             changeNextButtonColor()
         }else if isTextBoxExerciseNutrition{
             let selectedValueRow = pickerView.selectedRow(inComponent: 0)

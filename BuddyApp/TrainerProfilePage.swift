@@ -56,7 +56,9 @@ class TrainerProfilePage: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         SocketIOManager.sharedInstance.establishConnection()
+        self.title = PAGE_TITLE.TRAINER_PROFILE
+
+        SocketIOManager.sharedInstance.establishConnection()
         StatusSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
         self.UpdateLocationAPI(Status: "online")
         

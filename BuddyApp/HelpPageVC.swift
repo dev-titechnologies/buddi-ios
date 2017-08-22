@@ -13,7 +13,7 @@ class HelpPageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.title = PAGE_TITLE.HELP
     }
 
     override func didReceiveMemoryWarning() {

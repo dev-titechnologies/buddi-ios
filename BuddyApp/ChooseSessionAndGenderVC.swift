@@ -29,6 +29,9 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        self.title = PAGE_TITLE.CHOOSE_SESSION_AND_GENDER
+        
         sessionChoosed = -1
         headerChoosed = -1
         

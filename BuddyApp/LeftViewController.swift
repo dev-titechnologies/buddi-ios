@@ -113,8 +113,8 @@ class LeftViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    func LogOutAPI()
-    {
+    
+    func LogOutAPI(){
             let headers = [
             "device_id": appDelegate.DeviceToken,
             "device_imei": UIDevice.current.identifierForVendor!.uuidString,
@@ -122,7 +122,6 @@ class LeftViewController: UIViewController {
             "token":appDelegate.DeviceToken
             ]
         
-       
         print("Header:",headers)
         
         CommonMethods.showProgress()

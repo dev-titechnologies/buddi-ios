@@ -29,7 +29,7 @@ class AddPaymentMethodVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.title = PAGE_TITLE.ADD_PAYMENT_METHOD
 
     }
     

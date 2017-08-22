@@ -311,57 +311,26 @@ extension AppDelegate: FIRMessagingDelegate {
         
         let NotificationDict = (remoteMessage.appData as NSDictionary)["data"] as! String
         
-        
-        if (remoteMessage.appData as NSDictionary)["type"] as! String == "1"
-        {
-            
+        if (remoteMessage.appData as NSDictionary)["type"] as! String == "1"{
             // Post notification
             NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
-            
-            
-        }
-        else if (remoteMessage.appData as NSDictionary)["type"] as! String == "2"
-        {
+        }else if (remoteMessage.appData as NSDictionary)["type"] as! String == "2"{
             print("TYPE 2")
-            
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(remoteMessage.appData as NSDictionary)["type"] as! String])
-            
-
           //  CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
-            
-        }
-        else if (remoteMessage.appData as NSDictionary)["type"] as! String == "3"
-        {
+        }else if (remoteMessage.appData as NSDictionary)["type"] as! String == "3"{
             userDefaults.removeObject(forKey: "TimerData")
             TrainerProfileDetail.deleteBookingDetails()
-            
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(remoteMessage.appData as NSDictionary)["type"] as! String])
-            
-
-
            // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
-            
-            
             print("3")
-        }
-        else if (remoteMessage.appData as NSDictionary)["type"] as! String == "4"
-        {
+        } else if (remoteMessage.appData as NSDictionary)["type"] as! String == "4"{
             print("4")
             userDefaults.removeObject(forKey: "TimerData")
             TrainerProfileDetail.deleteBookingDetails()
-            
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(remoteMessage.appData as NSDictionary)["type"] as! String])
-            
-
-
            // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
         }
-        
-        
-        
-        
-        
-        
     }
     
     // Registering for Firebase notifications
@@ -416,52 +385,24 @@ extension AppDelegate: FIRMessagingDelegate {
           let NotificationDict = (notification.request.content.userInfo as NSDictionary)["data"] as! String
         
       
-        if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "1"
-        {
-            
+        if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "1"{
             // Post notification
             NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
-            
-
-        }
-        else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"
-        {
+        }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{
             print("TYPE 2")
-            
-            
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
             
-
-            
            // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
-            
-        }
-        else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"
-        {
+        }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"{
             
            //  CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
             print("3")
-            
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
-            
-
-            
-            
-        }
-        else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"
-        {
-             print("4")
-            
+        }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"{
+            print("4")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
-            
-
              //CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
         }
-        
-        
-        
-      
-        
     }
     
     //Called to let your app know which action was selected by the user for a given notification.
@@ -469,47 +410,25 @@ extension AppDelegate: FIRMessagingDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print("User Info = \(response.notification.request.content.userInfo)")
         
-        if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "1"
-        {
-            
+        if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "1"{
             let NotificationDict = (response.notification.request.content.userInfo as NSDictionary)["data"] as! String
-            
             print("RECIVED",NotificationDict)
-            
             // let notificationName = Notification.Name("FCMNotificationIdentifier")
-            
             // Post notification
             NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
-            
-            
-        }
-        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"
-        {
+        }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{
             print("TYPE 2")
-            
            // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
-            
            //  NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
-            
-            
-        }
-        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"
-        {
+        }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"{
             print("3")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
-            
             //CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
-
-            
-        }
-        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"
-        {
+        }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"{
             print("4")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
           //  CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
-            
         }
-  
         completionHandler()
     }
 }

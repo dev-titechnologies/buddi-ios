@@ -19,6 +19,7 @@ class BookingHistoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = PAGE_TITLE.TRAINING_HISTORY
     }
     
     override func viewWillAppear(_ animated: Bool) {
