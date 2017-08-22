@@ -153,7 +153,7 @@ extension LeftViewController : UITableViewDelegate{
             case 0:
                 print("zero")
                 print("Home")
-                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                self.performSegue(withIdentifier: "trainerProfileSegue", sender: self)
                 
             case 1:
                 print("one")
@@ -178,12 +178,11 @@ extension LeftViewController : UITableViewDelegate{
             case 5:
                 print("five")
                 print("Help")
-                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
-                
+                self.performSegue(withIdentifier: "leftMenuToHelpPageSegue", sender: self)
             case 6:
                 print("six")
                 print("Legal")
-                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                self.performSegue(withIdentifier: "leftMenuToLegalPageSegue", sender: self)
                 
             case 7:
                 print("seven")
@@ -246,7 +245,7 @@ extension LeftViewController : UITableViewDelegate{
                 print("five")
                 if isTraineeAlreadyTrainer{
                     print("Help")
-                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                    self.performSegue(withIdentifier: "leftMenuToHelpPageSegue", sender: self)
                 }else{
                     print("Invite Friends")
                     self.performSegue(withIdentifier: "blankPageSegue", sender: self)
@@ -256,10 +255,10 @@ extension LeftViewController : UITableViewDelegate{
                 print("six")
                 if isTraineeAlreadyTrainer{
                     print("Legal")
-                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                    self.performSegue(withIdentifier: "leftMenuToLegalPageSegue", sender: self)
                 }else{
                     print("Help")
-                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                    self.performSegue(withIdentifier: "leftMenuToHelpPageSegue", sender: self)
                 }
 
             case 7:
@@ -269,8 +268,7 @@ extension LeftViewController : UITableViewDelegate{
                     logoutAlert()
                 }else{
                     print("Legal")
-                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
-
+                    self.performSegue(withIdentifier: "leftMenuToLegalPageSegue", sender: self)
                 }
                 
             case 8:

@@ -47,7 +47,7 @@ class ShowTrainersOnMapVC: UIViewController {
     var transactionId = String()
     var transactionStatus = String()
     var transactionAmount = String()
-    
+    var isPaymentSuccess = Bool()
     var isPromoCodeExists = Bool()
     
     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
@@ -97,7 +97,9 @@ class ShowTrainersOnMapVC: UIViewController {
         if isFromSplashScreen{
             RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromBackup())
         }else{
-            if isNoncePresent {
+            if isPaymentSuccess{
+                RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
+            }else if isNoncePresent {
                 postNonceToServer(paymentMethodNonce: paymentNonce)
             }else{
                 alertForAddPaymentMethod()
@@ -289,8 +291,8 @@ class ShowTrainersOnMapVC: UIViewController {
                         
                         self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
                         
-            TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
-                        
+                        TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
+                        self.isPaymentSuccess = false
                         self.performSegue(withIdentifier: "trainerTraineeRouteVCSegue", sender: self)
                         
 //                        self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String)!)!, DestiLong: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_longitude"] as? String)!)!)
@@ -437,6 +439,7 @@ class ShowTrainersOnMapVC: UIViewController {
                         
                         self.navigationItem.hidesBackButton = true
                         
+                        self.isPaymentSuccess = true
                         let transactionDict = jsondata["data"]  as! NSDictionary
                         self.transactionId = transactionDict["transactionId"] as! String
                         self.transactionAmount = transactionDict["amount"] as! String

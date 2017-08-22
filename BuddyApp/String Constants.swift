@@ -28,6 +28,8 @@ let PLEASE_ADD_PAYMENT_METHOD = "Please add payment method"
 let PAYMENT_COULD_NOT_PROCESSED = "Payment could not be processed, please try again."
 let PAYMENT_SUCCESSFULL = "Payment successfull"
 let PROFILE_UPDATED_SUCCESSFULLY = "Profile updated successfully"
+let ARE_YOU_SURE_WANT_TO_STOP_SESSION = "Are you sure you want to stop this session"
+let PLEASE_ENTER_CANCEL_REASON = "Please enter cancellation reason"
 
 let VIDEO_DESC = "*Videos should be no longer than 90 seconds. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 

@@ -15,7 +15,7 @@ public class TrainerProfileDetail: NSManagedObject {
     class func createProfileBookingEntry(TrainerProfileModal: TrainerProfileModal) {
         
         print("*** Review ID:",TrainerProfileModal.userid)
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProfileDB")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TrainerProfileDetail")
         fetchRequest.predicate = NSPredicate(format: "userId == %@", TrainerProfileModal.userid)
         
         do {
@@ -29,9 +29,9 @@ public class TrainerProfileDetail: NSManagedObject {
                 profile.setValue(TrainerProfileModal.lastName, forKey: "lastname")
                 profile.setValue(TrainerProfileModal.gender, forKey: "gender")
                 profile.setValue(TrainerProfileModal.Height, forKey: "height")
-                 profile.setValue(TrainerProfileModal.Weight, forKey: "weight")
-                 profile.setValue(TrainerProfileModal.rating, forKey: "rating")
-                 profile.setValue(TrainerProfileModal.age, forKey: "age")
+                profile.setValue(TrainerProfileModal.Weight, forKey: "weight")
+                profile.setValue(TrainerProfileModal.rating, forKey: "rating")
+                profile.setValue(TrainerProfileModal.age, forKey: "age")
                 profile.setValue(TrainerProfileModal.userid, forKey: "userId")
                 profile.setValue(TrainerProfileModal.profileImage, forKey: "profileimage")
                 profile.setValue(TrainerProfileModal.Booking_id, forKey: "bookingId")
@@ -40,9 +40,7 @@ public class TrainerProfileDetail: NSManagedObject {
                 profile.setValue(TrainerProfileModal.Lattitude, forKey: "lattitude")
                 profile.setValue(TrainerProfileModal.Longitude, forKey: "longitude")
                
-
                 //profile.setValue(profileModel.profileImageData, forKey: "profileImageData")
-                
                 
                 appDelegate.saveContext()
             }else{
@@ -62,8 +60,6 @@ public class TrainerProfileDetail: NSManagedObject {
                 profile.setValue(TrainerProfileModal.Trainer_id, forKey: "trainerId")
                 profile.setValue(TrainerProfileModal.Lattitude, forKey: "lattitude")
                 profile.setValue(TrainerProfileModal.Longitude, forKey: "longitude")
-                
-                
 
                 appDelegate.saveContext()
             }

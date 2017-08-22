@@ -1,30 +1,21 @@
 //
-//  HomeViewController.swift
+//  HelpPageVC.swift
 //  BuddyApp
 //
-//  Created by Ti Technologies on 18/07/17.
+//  Created by Jithesh Xavier on 21/08/17.
 //  Copyright © 2017 Ti Technologies. All rights reserved.
 //
 
 import UIKit
-import CoreData
 
-class HomeViewController: UIViewController {
+class HelpPageVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
-        if CommonMethods.networkcheck() == true{
-            
-            print("internet available")
-            
-        }
-        else{
-            print("Please check internet connection")
-        }
+        // Do any additional setup after loading the view.
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

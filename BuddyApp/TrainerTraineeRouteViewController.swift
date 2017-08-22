@@ -47,19 +47,27 @@ class TrainerTraineeRouteViewController: UIViewController {
     @IBOutlet weak var btnNoCancelAlert: UIButton!
     @IBOutlet weak var btnYesCancelAlert: UIButton!
     @IBOutlet weak var cancelAlertViewTitle: UILabel!
-    var isCancelAlert = Bool()
-    var isStopAlert = Bool()
+    @IBOutlet weak var txtCancelReason: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("viewDidLoad")
         
         if TIMERCHECK {
             FetchFromDb()
             self.runTimer()
         }else{
             if appDelegate.USER_TYPE == "trainee"{
-                seconds = Int(choosedSessionOfTrainee)!*60
-                timer_lbl.text = choosedSessionOfTrainee + ":" + "00"
+                
+                var sessionTime = String()
+                if choosedSessionOfTrainee == ""{
+                    sessionTime = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
+                }else{
+                    sessionTime = choosedSessionOfTrainee
+                }
+                seconds = Int(sessionTime)!*60
+                timer_lbl.text = sessionTime + ":" + "00"
             }
             else
             {
@@ -103,6 +111,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        print("viewWillAppear")
         btnNoCancelAlert.addShadowView()
         btnYesCancelAlert.addShadowView()
         
@@ -187,6 +196,8 @@ class TrainerTraineeRouteViewController: UIViewController {
                             userDefaults.removeObject(forKey: "TimerData")
                             TrainerProfileDetail.deleteBookingDetails()
                             
+                            //Add Review Screen here
+                            
                             if appDelegate.USER_TYPE == "trainer" {
                                 self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
                             }else if appDelegate.USER_TYPE == "trainee" {
@@ -232,15 +243,11 @@ class TrainerTraineeRouteViewController: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    
                     if self.isTimerRunning == false {
                         self.runTimer()
-                        
                     }
                                       
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
-                    
-                    
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -259,8 +266,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     func runTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(TrainerTraineeRouteViewController.updateTimer)), userInfo: nil, repeats: true)
         isTimerRunning = true
-       
     }
+    
     func updateTimer() {
         if seconds < 1 {
             timer.invalidate()
@@ -429,22 +436,19 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
     
-        print("*** Unwind SEgue Identifier:\(segue.identifier)")
+        print("*** Unwind SEgue Identifier:\(String(describing: segue.identifier))")
     }
     
     //MARK: - CANCEL ALERT VIEW ACTIONS
     
     @IBAction func cancelAlertYesAction(_ sender: Any) {
 
-        removeTransactionDetailsFromUserDefault()
-        if isCancelAlert{
-            self.BookingAction(Action_status: "cancel")
-        }else if isStopAlert{
+        if txtCancelReason.text == "" {
             
-//            cell1.menu_btn.setImage(UIImage(named: "play"), for: .normal)
-//            cell1.name_lbl.text = "Start"
-            BoolArray.insert(false, at: 1)
-            self.BookingAction(Action_status: "complete")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ENTER_CANCEL_REASON, buttonTitle: "OK")
+        }else{
+            removeTransactionDetailsFromUserDefault()
+            self.BookingAction(Action_status: "cancel")
         }
     }
     
@@ -519,33 +523,30 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "MapBottamButtonid", for: indexPath as IndexPath) as! MapBottamButtonCell
-        //        cell.imageview.layer.cornerRadius = 18
-        //        cell.imageview.clipsToBounds = true
-        cell1.bgview.layer.cornerRadius = 25
-        cell1.bgview.clipsToBounds = true
-        
         cell1.menu_btn.backgroundColor = UIColor.clear
         cell1.menu_btn.tag = indexPath.row
         cell1.menu_btn.addTarget(self, action: #selector(TrainerTraineeRouteViewController.TapedIndex), for: .touchUpInside)
         
-        cell1.bgview.backgroundColor = UIColor.clear
         cell1.menu_btn.setImage(UIImage(named: imagearrayDark[indexPath.row]), for: .normal)
         cell1.name_lbl.text = MenuLabelArray[indexPath.row]
         
-
-       
-         if indexPath.row == 1
-        {
-            if TIMERCHECK
-            {
-                
-                 cell1.bgview.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-                cell1.menu_btn.setImage(UIImage(named: "stop"), for: .normal)
+        if indexPath.row == 0 && isTimerRunning {
+            print("**** Reloading indexpath 0 ****")
+            cell1.name_lbl.textColor = .lightGray
+        }else if indexPath.row == 0 && !isTimerRunning {
+            cell1.name_lbl.textColor = .black
+        }
+        
+        if indexPath.row == 1{
+            
+            if TIMERCHECK{
+                cell1.menu_btn.setImage(UIImage(named: "session_stop"), for: .normal)
                 cell1.name_lbl.text = "Stop"
                 BoolArray.insert(true, at: 1)
-                
+            }else{
+                cell1.menu_btn.setImage(UIImage(named: "play-dark"), for: .normal)
+                cell1.name_lbl.text = "Start"
             }
-
         }else if indexPath.row == 3{
             cell1.line_lbl.isHidden = true
         }
@@ -558,32 +559,38 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         let indexpath = NSIndexPath(row: sender.tag, section: 0)
         
         cell1 = collectionview.cellForItem(at: indexpath as IndexPath) as! MapBottamButtonCell
-        
-        cell1.bgview.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-        cell1.menu_btn.setImage(UIImage(named: imagearray[sender.tag]), for: .normal)
 
-        if sender.tag == 0{
+        if sender.tag == 0 && !isTimerRunning{
             
             print("CANCEL ACTION")
+            removeTransactionDetailsFromUserDefault()
             cancelAlertView.isHidden = false
-            cancelAlertViewTitle.text = "Are you sure you want to cancel this session?"
-            isCancelAlert = true
-            isStopAlert = false
+            cancelAlertViewTitle.text = "Are you sure you want to Cancel this session?"
             
         }else if sender.tag == 1 {
             print("START AND STOP ACTIONS")
+            print("Bool Array:\(BoolArray)")
             removeTransactionDetailsFromUserDefault()
             if !BoolArray[1]{
                 //START
-                cell1.menu_btn.setImage(UIImage(named: "stop"), for: .normal)
+                print("START CLICK")
+                cell1.menu_btn.setImage(UIImage(named: "session_stop"), for: .normal)
                 cell1.name_lbl.text = "Stop"
                 self.SessionStartAPI()
                 BoolArray.insert(true, at: 1)
             }else{
                 //STOP
-                isCancelAlert = false
-                isStopAlert = true
-                cancelAlertViewTitle.text = "Are you sure you want to cancel this session?"
+                print("STOP CLICK")
+                let alert = UIAlertController(title: ALERT_TITLE, message: ARE_YOU_SURE_WANT_TO_STOP_SESSION, preferredStyle: UIAlertControllerStyle.alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                    self.BoolArray.insert(false, at: 1)
+                    self.BookingAction(Action_status: "complete")
+                }))
+                alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+                    
+                }))
+                self.present(alert, animated: true, completion: nil)
             }
         }else if sender.tag == 2{
              print("PROFILE ACTION")
@@ -614,25 +621,27 @@ extension TrainerTraineeRouteViewController : UICollectionViewDelegate{
         indexpath1 = indexPath as NSIndexPath
         
         print("INDEXPATH",indexPath.row)
-//        cell1 = collectionview.cellForItem(at: indexPath) as! MapBottamButtonCell
+//        cell = collectionview.cellForItem(at: indexPath) as! MapBottamButtonCell
 //        // cell1.imageview.image = UIImage(named:imagearray[indexPath.row])
 //        cell1.menu_btn.setImage(UIImage(named: imagearray[indexPath.row]), for: .normal)
 //        cell1.bgview.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         
-        if isTimerRunning == false {
+//        cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "MapBottamButtonid", for: indexPath as IndexPath) as! MapBottamButtonCell
+
+        if isTimerRunning == false && indexPath.row == 1{
             self.runTimer()
-            
         }
         
         switch (indexPath.row) {
             case 0:
                 print("zero")
                 
-                
             case 1:
                 
                 print("one")
-                
+                let index_path = NSIndexPath(index: 0)
+                collectionview.reloadItems(at: [index_path as IndexPath])
+            
             case 2:
                 
                 print("two")
