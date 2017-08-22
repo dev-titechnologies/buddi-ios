@@ -95,7 +95,9 @@ class LeftViewController: UIViewController {
         let alert = UIAlertController(title: ALERT_TITLE, message: ARE_YOU_SURE_WANT_TO_LOGOUT, preferredStyle: UIAlertControllerStyle.alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
-            self.dismissOnSessionExpire()
+            
+            self.LogOutAPI()
+            //self.dismissOnSessionExpire()
         }))
         alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
             
@@ -110,6 +112,39 @@ class LeftViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func LogOutAPI(){
+            let headers = [
+            "device_id": appDelegate.DeviceToken,
+            "device_imei": UIDevice.current.identifierForVendor!.uuidString,
+            "device_type": "ios",
+            "token":appDelegate.DeviceToken
+            ]
+        
+        print("Header:",headers)
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: "login/logout", parameters: ["":""], headers: headers , onCompletion: { (jsondata) in
+            print("LOGOUT RESPONSE",jsondata)
+            
+            CommonMethods.hideProgress()
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    self.dismissOnSessionExpire()
+                }else if status == RESPONSE_STATUS.FAIL{
+                    
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
+                    
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }else{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
+            }
+        })
+
     }
 }
 
