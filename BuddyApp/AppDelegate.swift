@@ -410,7 +410,7 @@ extension AppDelegate: FIRMessagingDelegate {
     //Called when a notification is delivered to a foreground app.
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .badge, .sound])
+        completionHandler([])
         
         print("willPresent notification",notification.request.content.userInfo)
           let NotificationDict = (notification.request.content.userInfo as NSDictionary)["data"] as! String
