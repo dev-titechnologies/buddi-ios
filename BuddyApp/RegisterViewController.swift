@@ -453,6 +453,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
 
                     userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
                     userDefaults.set(appDelegate.userName, forKey: "userName")
+                    userDefaults.set((self.jsondict["email"] as? String)!, forKey: "userEmailId")
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")
                     print(self.jsondict["trainer_type"]!)

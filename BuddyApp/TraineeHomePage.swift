@@ -76,7 +76,7 @@ class TraineeHomePage: UIViewController {
             print("Choosed Category:\(choosedCategoryOfTrainee.categoryName)")
             performSegue(withIdentifier: "afterCategorySelectionTraineeSegue", sender: self)
         }else{
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose atleast one category", buttonTitle: "OK")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_ATLEAST_ONE_CATEGORY, buttonTitle: "OK")
         }
     }
 

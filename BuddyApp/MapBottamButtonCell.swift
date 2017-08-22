@@ -12,5 +12,6 @@ class MapBottamButtonCell: UICollectionViewCell {
     
     @IBOutlet weak var menu_btn: UIButton!
     @IBOutlet weak var name_lbl: UILabel!
-    @IBOutlet weak var line_lbl: UILabel!
+    @IBOutlet weak var leftLine: UILabel!
+    @IBOutlet weak var rightLine: UILabel!
 }

@@ -64,7 +64,6 @@ class TrainerTraineeRouteViewController: UIViewController {
             self.runTimer()
         }else{
             if appDelegate.USER_TYPE == "trainee"{
-                
                 var sessionTime = String()
                 if choosedSessionOfTrainee == ""{
                     sessionTime = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
@@ -73,12 +72,8 @@ class TrainerTraineeRouteViewController: UIViewController {
                 }
                 seconds = Int(sessionTime)!*60
                 timer_lbl.text = sessionTime + ":" + "00"
-            }
-            else
-            {
-                
+            }else{
                 timer_lbl.text = String(seconds/60) + ":" + "00"
-                
                 trainerProfileDetails = TrainerProfileModal.init(profileImage: "",
                                             firstName: TrainerProfileDictionary["trainee_name"] as! String,
                                             lastName: "",
@@ -96,10 +91,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                                             trainerId: String(appDelegate.UserId),
                                             traineeId: String(TrainerProfileDictionary["trainee_id"] as! Int))
                 
-                
                 TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
-
-                
             }
             SocketIOManager.sharedInstance.establishConnection()
         }
@@ -133,14 +125,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         print("viewWillAppear")
         btnNoCancelAlert.addShadowView()
         btnYesCancelAlert.addShadowView()
-        
-        if appDelegate.USER_TYPE == "trainer"{
             
-        }else if appDelegate.USER_TYPE == "trainee"{
-            self.navigationItem.leftBarButtonItem = nil
-            self.navigationItem.hidesBackButton = true
-        }
-        
         getCurrentLocationDetails()
     }
     func SessionTimerNotification(notif: NSNotification)
@@ -331,7 +316,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     func SessionStartAPI() {
         
         let headers = [
-            "token":appDelegate.Usertoken]
+            "token" : appDelegate.Usertoken
+        ]
         
         let parameters = ["book_id" : trainerProfileDetails.Booking_id,
                           "user_type" : appDelegate.USER_TYPE,
@@ -584,8 +570,6 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
             
             print("**********************")
             
-            
-            
             // I have taken a pin image which is a custom image
             let markerImage = UIImage(named: "mapsicon")!.withRenderingMode(.alwaysTemplate)
             
@@ -642,26 +626,61 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         cell1.name_lbl.text = MenuLabelArray[indexPath.row]
         
         if indexPath.row == 0 && isTimerRunning {
+            //Cancel
             print("**** Reloading indexpath 0 ****")
             cell1.name_lbl.textColor = .lightGray
+            cell1.menu_btn.setImage(UIImage(named: "cancel_gray"), for: .normal)
+            cell1.leftLine.isHidden = true
+            cell1.rightLine.isHidden = false
         }else if indexPath.row == 0 && !isTimerRunning {
             cell1.name_lbl.textColor = .black
+            cell1.menu_btn.setImage(UIImage(named: "cancel_gray"), for: .normal)
+            cell1.leftLine.isHidden = true
+            cell1.rightLine.isHidden = false
         }
         
         if indexPath.row == 1{
-            
+            //Start / Stop
+            cell1.leftLine.isHidden = false
+            cell1.rightLine.isHidden = false
             if TIMERCHECK{
                 cell1.menu_btn.setImage(UIImage(named: "session_stop"), for: .normal)
                 cell1.name_lbl.text = "Stop"
                 BoolArray.insert(true, at: 1)
             }else{
-                cell1.menu_btn.setImage(UIImage(named: "play-dark"), for: .normal)
+                cell1.menu_btn.setImage(UIImage(named: "play_gray"), for: .normal)
                 cell1.name_lbl.text = "Start"
             }
-        }else if indexPath.row == 3{
-            cell1.line_lbl.isHidden = true
         }
+        
+        if indexPath.row == 2{
+            //Profile
+            cell1.menu_btn.setImage(UIImage(named: "man"), for: .normal)
+            cell1.name_lbl.text = "Profile"
+        }
+        
+        if indexPath.row == 3{
+            //Message
+            cell1.menu_btn.setImage(UIImage(named: "message_gray"), for: .normal)
+            cell1.name_lbl.text = "Message"
+            cell1.leftLine.isHidden = false
+            cell1.rightLine.isHidden = true
+        }
+        
         return cell1
+    }
+    
+    // removing spacing
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
     }
     
     func TapedIndex(sender:UIButton!) {
@@ -676,7 +695,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             print("CANCEL ACTION")
             removeTransactionDetailsFromUserDefault()
             cancelAlertView.isHidden = false
-            cancelAlertViewTitle.text = "Are you sure you want to Cancel this session?"
+            cancelAlertViewTitle.text = ARE_YOU_SURE_WANT_TO_CANCEL_SESSION
             
         }else if sender.tag == 1 {
             print("START AND STOP ACTIONS")
@@ -692,7 +711,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             }else{
                 //STOP
                 print("STOP CLICK")
-                let alert = UIAlertController(title: ALERT_TITLE, message: ARE_YOU_SURE_WANT_TO_STOP_SESSION, preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: ALERT_TITLE, message: ARE_YOU_SURE_WANT_TO_CANCEL_SESSION, preferredStyle: UIAlertControllerStyle.alert)
                 
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
                     self.BoolArray.insert(false, at: 1)

@@ -98,7 +98,7 @@ class CategoryListVC: UIViewController {
                     self.dismissOnSessionExpire()
                 }
             }else{
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Request timed out", buttonTitle: "Ok")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "Ok")
             }
         })
     }
@@ -107,8 +107,10 @@ class CategoryListVC: UIViewController {
         
         if self.categoriesArray.count > 0 {
             self.categoryCollectionView.reloadData()
+            btnNext.isHidden = false
         }else{
             self.categoryCollectionView.isHidden = true
+            btnNext.isHidden = true
         }
     }
     
@@ -122,7 +124,7 @@ class CategoryListVC: UIViewController {
                 performSegue(withIdentifier: "CategoryToQuestion1Segue", sender: self)
             }
         }else{
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose atleast one category", buttonTitle: "OK")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_ATLEAST_ONE_CATEGORY, buttonTitle: "OK")
         }
     }
 

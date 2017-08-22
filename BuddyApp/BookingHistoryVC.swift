@@ -27,7 +27,7 @@ class BookingHistoryVC: UIViewController {
 
     func fetchBookingData() {
         
-        let parameters = ["user_id":"75",
+        let parameters = ["user_id":appDelegate.UserId,
                           "user_type":appDelegate.USER_TYPE]
             as [String : Any]
         
@@ -54,7 +54,13 @@ class BookingHistoryVC: UIViewController {
                         BookingHistoryDB.createBookingEntry(bookingModel: modelObject)
                         self.bookingsArray.append(modelObject)
                         CommonMethods.hideProgress()
-                        self.bookingHistoryTable.reloadData()
+                        
+                        if self.bookingsArray.count > 0 {
+                            self.bookingHistoryTable.isHidden = false
+                            self.bookingHistoryTable.reloadData()
+                        }else{
+                            self.bookingHistoryTable.isHidden = true
+                        }
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
                       CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

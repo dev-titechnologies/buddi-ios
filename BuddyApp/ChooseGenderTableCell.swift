@@ -27,7 +27,7 @@ class ChooseGenderTableCell: UITableViewCell {
         btnNopreferance.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         btnFemale.backgroundColor = .white
         btnMale.backgroundColor = .white
-        choosedTrainerGenderOfTrainee = "no preferance"
+        choosedTrainerGenderOfTrainee = "nopreference"
         userDefaults.set(choosedTrainerGenderOfTrainee, forKey: "backupTrainingGenderChoosed")
     }
     
