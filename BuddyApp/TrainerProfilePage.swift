@@ -50,9 +50,8 @@ class TrainerProfilePage: UIViewController {
     var lat = Float()
     var long = Float()
 
-    
     var countrypicker = CountryPicker()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,6 +78,7 @@ class TrainerProfilePage: UIViewController {
         }
         getCurrentLocationDetails()
     }
+    
     func getCurrentLocationDetails() {
         
         if CLLocationManager.locationServicesEnabled() {
@@ -86,18 +86,14 @@ class TrainerProfilePage: UIViewController {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             self.locationManager.requestAlwaysAuthorization()
-           
             locationManager.startUpdatingLocation()
         }
-    
     }
+    
     @IBAction func StatusSwitch_action(_ sender: Any) {
         
-        
-        
-        
-        
     }
+    
     //MARK: - SOCKET CONNECTION
     
     func addHandlers() {
@@ -121,29 +117,21 @@ class TrainerProfilePage: UIViewController {
     }
 
     func switchValueDidChange(sender:UISwitch!) {
-        if sender.isOn
-        {
-            
+        if sender.isOn{
             print("ON STATUS")
-            
             self.UpdateLocationAPI(Status: "online")
-            
             timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
-            
-        }
-        else{
+        }else{
             print("OFF STATUS")
             self.UpdateLocationAPI(Status: "offline")
-
         }
-        
-        
     }
+    
     func updateLocation(){
         NSLog("counting..")
-        
         addHandlers()
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -164,9 +152,11 @@ class TrainerProfilePage: UIViewController {
         print("PARAMS",parameters)
         print("HEADER",headers)
         
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: VIEW_PROFILE, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
             print("PROFILE RESPONSE",jsondata)
             
+            CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
@@ -181,11 +171,13 @@ class TrainerProfilePage: UIViewController {
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
+            }else{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
             }
         })
     }
-    func UpdateLocationAPI(Status: String)
-    {
+    
+    func UpdateLocationAPI(Status: String){
         
         guard CommonMethods.networkcheck() else {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
@@ -203,23 +195,19 @@ class TrainerProfilePage: UIViewController {
         print("PARAMS",parameters)
         print("HEADER",headers)
         
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: UPDATE_LOCATION_STATUS, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
-            print("STATUS RESPONSE",jsondata)
+            print("**** Availability status response",jsondata)
             
+            CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                   if  jsondata["status"] as? String == "online"
-                   {
-                    self.addHandlers()
+                    if jsondata["status"] as? String == "online"{
+                        self.addHandlers()
+                    }else{
+                        self.timer.invalidate()
                     }
-                   else{
-                    self.timer.invalidate()
-                    }
-                    
-                    
-                    
-                    
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -227,7 +215,6 @@ class TrainerProfilePage: UIViewController {
                 }
             }
         })
-
     }
     
     func changeTextColorBlack() {
@@ -280,6 +267,7 @@ class TrainerProfilePage: UIViewController {
     
     func editProfileServerCall() {
         
+        print("***** Edit profile Server Call *****")
         let parameters = ["user_type" : appDelegate.USER_TYPE,
                           "user_id" : appDelegate.UserId,
                           "first_name" : txtFirstName.text!,
@@ -331,20 +319,41 @@ class TrainerProfilePage: UIViewController {
     
     func fillValuesInForm(profile: NSDictionary) {
         
+        print("*** fillValuesInForm :\(profile)")
         let userName = (profile["first_name"] as! String) + " " + (profile["last_name"] as! String)
         userDefaults.set(userName, forKey: "userName")
+        
+        if let age = profile["age"] as? String{
+            lblAge.text = "Trainer \(age))"
+        }else{
+            lblAge.text = "Trainer"
+        }
 
         lblTrainerName.text = (profile["first_name"] as! String) + " " + (profile["last_name"] as! String)
-        lblAge.text = "Trainer (\(CommonMethods.checkStringNull(val:profile["age"] as? String)))"
-        lblHeight.text = "\(CommonMethods.checkStringNull(val:profile["height"] as? String)) cm"
-        lblWeight.text = "\(CommonMethods.checkStringNull(val:profile["weight"] as? String)) lbs"
+//        lblHeight.text = "\(CommonMethods.checkStringNull(val:profile["height"] as? String)) cm"
+//        lblWeight.text = "\(CommonMethods.checkStringNull(val:profile["weight"] as? String)) lbs"
         txtFirstName.text = profile["first_name"] as? String
         txtLastName.text = profile["last_name"] as? String
-        //lblEmail.text = profile.email
+        lblEmail.text = profile["email"] as? String
         lblCountryCode.text = CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).0
         lblMobile.text = CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).1
         lblGender.text = (profile["gender"] as! String).uppercased()
-        profileImage.sd_setImage(with: URL(string: profile["user_image"] as! String), placeholderImage: UIImage(named: "profileDemoImage"))
+        
+        if let image_url = profile["user_image"] as? String{
+            profileImage.sd_setImage(with: URL(string:image_url)) { (image, error, cacheType, imageURL) in
+                
+                print("Image completion block")
+                if image != nil {
+                    print("image found")
+                    self.profileImage.image = image
+                }else{
+                    print("image not found")
+                    self.profileImage.image = UIImage(named: "profileDemoImage")
+                }
+            }
+        }else{
+            profileImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "profileDemoImage"))
+        }
 
         countrypicker.countryPickerDelegate = self
         countrypicker.showPhoneNumbers = true
@@ -453,7 +462,6 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
         dismiss(animated: true, completion: nil)
     
-        CommonMethods.showProgress()
         var imagePickedData = NSData()
         imagePickedData = UIImageJPEGRepresentation(chosenImage, 1.0)! as NSData
         self.uploadImageAPI(imagedata: imagePickedData)
@@ -462,7 +470,7 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-
+    
     func uploadImageAPI(imagedata : NSData) {
         
         print("**** uploadImageAPI")
@@ -477,10 +485,9 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
         let imageUploadURL = SERVER_URL + UPLOAD_VIDEO_AND_IMAGE
         print("Image Upload URL",imageUploadURL)
         
+        CommonMethods.showProgress()
         var uploadImageData = NSData()
         uploadImageData = imagedata
-        
-        CommonMethods.showProgress()
         
         Alamofire.upload(multipartFormData: { multipartFormData in
             
@@ -515,11 +522,12 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
                             
                             if status == RESPONSE_STATUS.SUCCESS{
                                 
+                                CommonMethods.hideProgress()
                                 self.profileImage.image = UIImage(data:(uploadImageData as NSData) as Data,scale:1.0)
                                 self.profileImageURL = (jsonDic["Url"] as? String)!
                                 self.isUpdatingProfileImage = false
-                                print("*** editProfileServerCall inside Image upload")
-                                self.editProfileServerCall()
+//                                print("*** editProfileServerCall inside Image upload")
+//                                self.editProfileServerCall()
                                 
                                 ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: uploadImageData as Data as Data as NSData)
                             }else if status == RESPONSE_STATUS.FAIL{
@@ -554,9 +562,6 @@ extension TrainerProfilePage: CLLocationManagerDelegate {
             print("Accu \(location.horizontalAccuracy)")
             
             print("**********************")
-            
-            
-            
             
             lat = Float(location.coordinate.latitude)
             long = Float(location.coordinate.longitude)

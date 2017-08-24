@@ -34,6 +34,9 @@ let PLEASE_CHOOSE_ATLEAST_ONE_CATEGORY = "Please choose atleast one category"
 let PLEASE_CHOOSE_SESSION_DURATION = "Please choose a session duration"
 let PLEASE_CHOOSE_PREFERRED_GENDER = "Please choose a preferred gender"
 let LOCATION_HAS_NOT_FETCH_PLEASE_WAIT = "Location has not been fetched, please wait"
+let PLEASE_ALLOW_LOCATION_ACCESS = "Please allow location access to proceed"
+let PLEASE_WAIT_FETCHING_PAYMENT_METHODS = "Please wait... fetching payment methods."
+
 
 let VIDEO_DESC = "*Videos should be no longer than 90 seconds. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 

@@ -106,6 +106,7 @@
 		F39E1EAE1F270ACF00DAED93 /* FinalQuestionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EAD1F270ACF00DAED93 /* FinalQuestionsVC.swift */; };
 		F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EB11F27840000DAED93 /* Singleton.swift */; };
 		F3A3E5B21F4C4AC900B0865E /* PageTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3E5B11F4C4AC900B0865E /* PageTitles.swift */; };
+		F3A3E5B41F4C640F00B0865E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A3E5B31F4C640F00B0865E /* Images.xcassets */; };
 		F3A907791F32E45A00474F5E /* TraineeHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907781F32E45A00474F5E /* TraineeHomePage.swift */; };
 		F3A9077B1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A9077A1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift */; };
 		F3A907801F32F15D00474F5E /* ChooseGenderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A9077F1F32F15D00474F5E /* ChooseGenderTableCell.swift */; };
@@ -118,6 +119,10 @@
 		F3B52EE11F3AE4CC007910BC /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B52EE01F3AE4CC007910BC /* SocketIOManager.swift */; };
 		F3B52EE31F3AE66D007910BC /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3B52EE21F3AE66D007910BC /* SocketIO.framework */; };
 		F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */; };
+		F3C595591F4EE11100808ACB /* SettingsPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C595581F4EE11100808ACB /* SettingsPageVC.swift */; };
+		F3C5955C1F4EECE100808ACB /* SessionPreferenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5955B1F4EECE100808ACB /* SessionPreferenceCell.swift */; };
+		F3C5955E1F4EED2B00808ACB /* GenderPreferenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5955D1F4EED2B00808ACB /* GenderPreferenceCell.swift */; };
+		F3C595601F4EED9300808ACB /* PreferenceSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5955F1F4EED9300808ACB /* PreferenceSectionHeader.swift */; };
 		F3C685771F3C5D4C00AA8CC7 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C685761F3C5D4C00AA8CC7 /* DictionaryExtension.swift */; };
 		F3C6857A1F3C821A00AA8CC7 /* TrainerReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C685791F3C821A00AA8CC7 /* TrainerReviewPage.swift */; };
 		F3C6857D1F3C857900AA8CC7 /* TrainerReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C6857C1F3C857900AA8CC7 /* TrainerReviewModel.swift */; };
@@ -259,6 +264,7 @@
 		F39E1EAD1F270ACF00DAED93 /* FinalQuestionsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalQuestionsVC.swift; sourceTree = "<group>"; };
 		F39E1EB11F27840000DAED93 /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		F3A3E5B11F4C4AC900B0865E /* PageTitles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTitles.swift; sourceTree = "<group>"; };
+		F3A3E5B31F4C640F00B0865E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F3A907781F32E45A00474F5E /* TraineeHomePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraineeHomePage.swift; sourceTree = "<group>"; };
 		F3A9077A1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseSessionAndGenderVC.swift; sourceTree = "<group>"; };
 		F3A9077F1F32F15D00474F5E /* ChooseGenderTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseGenderTableCell.swift; sourceTree = "<group>"; };
@@ -271,6 +277,10 @@
 		F3B52EE01F3AE4CC007910BC /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		F3B52EE21F3AE66D007910BC /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/Socket.IO-Client-Swift/SocketIO.framework"; sourceTree = "<group>"; };
 		F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVideoUploadVC.swift; sourceTree = "<group>"; };
+		F3C595581F4EE11100808ACB /* SettingsPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPageVC.swift; sourceTree = "<group>"; };
+		F3C5955B1F4EECE100808ACB /* SessionPreferenceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionPreferenceCell.swift; sourceTree = "<group>"; };
+		F3C5955D1F4EED2B00808ACB /* GenderPreferenceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderPreferenceCell.swift; sourceTree = "<group>"; };
+		F3C5955F1F4EED9300808ACB /* PreferenceSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceSectionHeader.swift; sourceTree = "<group>"; };
 		F3C685761F3C5D4C00AA8CC7 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		F3C685791F3C821A00AA8CC7 /* TrainerReviewPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerReviewPage.swift; sourceTree = "<group>"; };
 		F3C6857C1F3C857900AA8CC7 /* TrainerReviewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerReviewModel.swift; sourceTree = "<group>"; };
@@ -490,6 +500,7 @@
 				F37EFFAB1F45E5AA0031F55B /* Main.storyboard */,
 				F322FC4B1F1CE62200381B8C /* Info.plist */,
 				F364A8F61F34826D0001C570 /* ViewControllerPopOver.swift */,
+				F3A3E5B31F4C640F00B0865E /* Images.xcassets */,
 			);
 			path = BuddyApp;
 			sourceTree = "<group>";
@@ -638,6 +649,7 @@
 		F373509A1F207A3800BE9DB6 /* Home Page */ = {
 			isa = PBXGroup;
 			children = (
+				F3C5955A1F4EECA600808ACB /* Settings Page */,
 				F3FD7DDA1F38383800986815 /* Left Menu */,
 				F3FD7DD71F3831E700986815 /* Add Payment Method */,
 				F330A0FF1F2F731D00C69871 /* BlankViewController.swift */,
@@ -729,6 +741,17 @@
 				F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */,
 			);
 			name = "Video Uploading Page";
+			sourceTree = "<group>";
+		};
+		F3C5955A1F4EECA600808ACB /* Settings Page */ = {
+			isa = PBXGroup;
+			children = (
+				F3C595581F4EE11100808ACB /* SettingsPageVC.swift */,
+				F3C5955B1F4EECE100808ACB /* SessionPreferenceCell.swift */,
+				F3C5955D1F4EED2B00808ACB /* GenderPreferenceCell.swift */,
+				F3C5955F1F4EED9300808ACB /* PreferenceSectionHeader.swift */,
+			);
+			name = "Settings Page";
 			sourceTree = "<group>";
 		};
 		F3C685781F3C81F800AA8CC7 /* Review Page */ = {
@@ -914,6 +937,7 @@
 				F322FC4A1F1CE62200381B8C /* LaunchScreen.storyboard in Resources */,
 				F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */,
 				F315E9961F30585700850A44 /* check.png in Resources */,
+				F3A3E5B41F4C640F00B0865E /* Images.xcassets in Resources */,
 				F315E9981F30585700850A44 /* DropDown_Done@2x.png in Resources */,
 				F37EFFAD1F45E5AA0031F55B /* Main.storyboard in Resources */,
 				F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */,
@@ -1122,6 +1146,7 @@
 				F3093F621F2B12D400D33324 /* Reach.swift in Sources */,
 				F322FC3F1F1CE62000381B8C /* ViewController.swift in Sources */,
 				F316E7F61F22361B00994447 /* Question2VC.swift in Sources */,
+				F3C595591F4EE11100808ACB /* SettingsPageVC.swift in Sources */,
 				F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */,
 				F330A1001F2F731D00C69871 /* BlankViewController.swift in Sources */,
 				F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */,
@@ -1133,6 +1158,7 @@
 				F3A907801F32F15D00474F5E /* ChooseGenderTableCell.swift in Sources */,
 				F31542901F38802E0070EEC6 /* TrainerProfileModal.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
+				F3C5955C1F4EECE100808ACB /* SessionPreferenceCell.swift in Sources */,
 				F341B0361F28D80F007C9AF1 /* ColorCodes.swift in Sources */,
 				F316E7EC1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift in Sources */,
 				F38BB5411F26069200824C15 /* ProfileVC.swift in Sources */,
@@ -1174,7 +1200,9 @@
 				F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */,
 				F3FBA7BF1F3C70DB00B882B7 /* MapBottamButtonCell.swift in Sources */,
 				F3990E211F1F77E1000FFF7B /* APIURLs.swift in Sources */,
+				F3C595601F4EED9300808ACB /* PreferenceSectionHeader.swift in Sources */,
 				F35FDADE1F1E517C0091900D /* BookingHistoryTableCell.swift in Sources */,
+				F3C5955E1F4EED2B00808ACB /* GenderPreferenceCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1277,7 +1305,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "9b0de96e-e491-4682-a66f-9ba459291217";
+				PROVISIONING_PROFILE = "96a90820-2405-49ec-acc3-e67fc0351c71";
 				PROVISIONING_PROFILE_SPECIFIER = BuddyAppDevelopment;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1324,7 +1352,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "b014fdc4-b356-4cb2-81bd-b3ed39d3cc78";
 				PROVISIONING_PROFILE_SPECIFIER = BuddyAppAdHoc;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1338,6 +1366,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Info Ti Technologies (74E64HKFV4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Info Ti Technologies (74E64HKFV4)";
@@ -1353,7 +1382,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.titechnologies.BuddyApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9b0de96e-e491-4682-a66f-9ba459291217";
+				PROVISIONING_PROFILE = "96a90820-2405-49ec-acc3-e67fc0351c71";
 				PROVISIONING_PROFILE_SPECIFIER = BuddyAppDevelopment;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1366,6 +1395,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: DEEPU ZACHARIA (7QVT6YDQZ2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
@@ -1394,8 +1424,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Info Ti Technologies (74E64HKFV4)";
+				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
 				INFOPLIST_FILE = BuddyAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppTests;
@@ -1412,8 +1442,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: DEEPU ZACHARIA (7QVT6YDQZ2)";
+				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
 				INFOPLIST_FILE = BuddyAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BuddyAppTests;

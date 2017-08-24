@@ -22,7 +22,7 @@ class CommonMethods: NSObject {
             response in
             switch response.result {
             case .success:
-                print(response)
+//                print(response)
                 if let value = response.value {
                     onCompletion(value as! Dictionary<String, Any>)
                 }
@@ -159,10 +159,14 @@ class CommonMethods: NSObject {
     }
 
     class func showProgress(){
+        print("========== Show Progress bar ============")
+        UIApplication.shared.beginIgnoringInteractionEvents()
         SVProgressHUD.show()
     }
     
     class func hideProgress() {
+        print("========== Hide Progress bar ============")
+        UIApplication.shared.endIgnoringInteractionEvents()
         SVProgressHUD.dismiss()
     }
     
@@ -238,6 +242,14 @@ extension UIViewController {
         navigationController?.pushViewController(controller, animated: true)
 //        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SESSION_EXPIRED, buttonTitle: "Ok")
     }
+    
+    func setBackButton(){
+        
+        let yourBackImage = UIImage(named: "back_button")
+        self.navigationController?.navigationBar.backIndicatorImage = yourBackImage
+        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
+    }
 }
+
 
 

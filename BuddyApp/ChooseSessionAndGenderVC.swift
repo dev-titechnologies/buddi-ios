@@ -24,12 +24,15 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     var locationManager: CLLocationManager!
     var lat = String()
     var long = String()
-    var isFetchedLatAndLong = Bool()
+//    var isFetchedLatAndLong = Bool()
+    var isLocationAccessAllowed = Bool()
+    
+    
+//MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         self.title = PAGE_TITLE.CHOOSE_SESSION_AND_GENDER
         
         sessionChoosed = -1
@@ -46,10 +49,12 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
         getCurrentLocationDetails()
     }
     
+    //MARK: - OTHER FUNCTIONS 
+    
     @IBAction func nextButtonActions(_ sender: Any) {
         moveToShowTrainersOnMapPage()
     }
-    
+        
     func moveToShowTrainersOnMapPage() {
         
         if choosedSessionOfTrainee.isEmpty{
@@ -57,129 +62,35 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
         }else if choosedTrainerGenderOfTrainee.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_PREFERRED_GENDER, buttonTitle: "Ok")
         }else{
-            if !isFetchedLatAndLong{
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: LOCATION_HAS_NOT_FETCH_PLEASE_WAIT, buttonTitle: "OK")
-            }else{
+            if isLocationAccessAllowed{
                 showTrainersList(parameters: getShowTrainersListParameters())
-            }
-        }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-}
-
-
-extension ChooseSessionAndGenderVC: UITableViewDataSource{
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if section == 0{
-            return trainingDurationArray.count
-        }else{
-            return 1
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0{
-            let sessionCell: ChooseSessionTableCell = tableView.dequeueReusableCell(withIdentifier: "chooseSessionCellId") as! ChooseSessionTableCell
-            
-            sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
-            
-            if sessionChoosed == indexPath.row{
-                sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
             }else{
-                sessionCell.backgroundCardView.backgroundColor = .white
+                openDeviceSettingsForLocationAccess()
+            }
+        }
+    }
+    
+    func openDeviceSettingsForLocationAccess() {
+        
+        let alertController = UIAlertController (title: ALERT_TITLE, message: PLEASE_ALLOW_LOCATION_ACCESS, preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                return
             }
             
-            return sessionCell
-        }else{
-            let genderCell: ChooseGenderTableCell = tableView.dequeueReusableCell(withIdentifier: "chooseGenderCellId") as! ChooseGenderTableCell
-            
-            genderCell.selectionStyle = UITableViewCellSelectionStyle.none
-            
-            genderCell.btnMale.addShadowView()
-            genderCell.btnFemale.addShadowView()
-            genderCell.btnNopreferance.addShadowView()
-            
-            genderCell.btnMale.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
-            genderCell.btnFemale.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
-            genderCell.btnNopreferance.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
-
-            return genderCell
-        }
-    }
-    
-    func choosedGender(sender : UIButton){
-        print("Button Tapped 123")
-        
-        isChoosedGender = true
-        if !choosedSessionOfTrainee.isEmpty{
-            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-        }else{
-            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let cell: SectionHeaderCell = tableView.dequeueReusableCell(withIdentifier: "sectionHeaderCellId") as! SectionHeaderCell
-        
-        cell.lblHeaderSectionTitle.text = headerSectionTitles[section]
-        
-        if headerChoosed == -1{
-            print("Init")
-            cell.imgArrow.image = UIImage(named: "rightArrow")
-        }else if collapseArray[headerChoosed]{
-            cell.imgArrow.image = UIImage(named: "downArrow")
-        }else{
-            cell.imgArrow.image = UIImage(named: "rightArrow")
-        }
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapSectionHeader(_:)))
-        cell.contentView.addGestureRecognizer(tapGesture)
-        tapGesture.delegate = self
-        tapGesture.view?.tag = section
-        
-        return cell.contentView
-    }
-    
-    func didTapSectionHeader(_ sender: UITapGestureRecognizer) {
-        print("Please Help!")
-        
-        let indexpath: IndexPath = IndexPath.init(row: 0, section: (sender.view?.tag)!)
-        print("Tapped Index:",indexpath.section)
-        
-        headerChoosed = (sender.view?.tag)!
-        let collapsed = collapseArray[indexpath.section]
-        collapseArray[indexpath.section] = !collapsed
-        self.chooseSessionAndGenderTable.reloadSections(IndexSet(integer: sender.view!.tag), with: .automatic)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if collapseArray[indexPath.section]{
-            if indexPath.section == 0{
-              return 60
-            }else{
-                return 114
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)")
+                })
             }
-        }else{
-            return 0
         }
+        alertController.addAction(settingsAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
-    
     func getCurrentLocationDetails() {
         
         if CLLocationManager.locationServicesEnabled() {
@@ -227,7 +138,133 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
             }
         })
     }
+    
+    func getShowTrainersListParameters() -> Dictionary <String,Any> {
+        
+        let parameters = ["user_id" : appDelegate.UserId,
+                          "gender" : choosedTrainerGenderOfTrainee,
+                          "category" : choosedCategoryOfTrainee.categoryId,
+                          "latitude" : lat,
+                          "longitude" : long
+            ] as [String : Any]
+        
+        return parameters
+    }
 }
+
+//MARK: - TABLEVIEW DATASOURCE
+extension ChooseSessionAndGenderVC: UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if section == 0{
+            return trainingDurationArray.count
+        }else{
+            return 1
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0{
+            let sessionCell: ChooseSessionTableCell = tableView.dequeueReusableCell(withIdentifier: "chooseSessionCellId") as! ChooseSessionTableCell
+            
+            sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
+            
+            if sessionChoosed == indexPath.row{
+                sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+            }else{
+                sessionCell.backgroundCardView.backgroundColor = .white
+            }
+            
+            return sessionCell
+        }else{
+            let genderCell: ChooseGenderTableCell = tableView.dequeueReusableCell(withIdentifier: "chooseGenderCellId") as! ChooseGenderTableCell
+            
+            genderCell.selectionStyle = UITableViewCellSelectionStyle.none
+            
+            genderCell.btnMale.addShadowView()
+            genderCell.btnFemale.addShadowView()
+            genderCell.btnNopreferance.addShadowView()
+            
+            genderCell.btnMale.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
+            genderCell.btnFemale.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
+            genderCell.btnNopreferance.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
+
+            return genderCell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if collapseArray[indexPath.section]{
+            if indexPath.section == 0{
+                return 60
+            }else{
+                return 114
+            }
+        }else{
+            return 0
+        }
+    }
+    
+//MARK: - TABLEVIEW HEADER SECTION VIEW
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let cell: SectionHeaderCell = tableView.dequeueReusableCell(withIdentifier: "sectionHeaderCellId") as! SectionHeaderCell
+        
+        cell.lblHeaderSectionTitle.text = headerSectionTitles[section]
+        
+        if headerChoosed == -1{
+            print("Init")
+            cell.imgArrow.image = UIImage(named: "rightArrow")
+        }else if collapseArray[headerChoosed]{
+            cell.imgArrow.image = UIImage(named: "downArrow")
+        }else{
+            cell.imgArrow.image = UIImage(named: "rightArrow")
+        }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapSectionHeader(_:)))
+        cell.contentView.addGestureRecognizer(tapGesture)
+        tapGesture.delegate = self
+        tapGesture.view?.tag = section
+        
+        return cell.contentView
+    }
+    
+    func choosedGender(sender : UIButton){
+        print("Button Tapped 123")
+        
+        isChoosedGender = true
+        if !choosedSessionOfTrainee.isEmpty{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+        }else{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
+        }
+    }
+
+    func didTapSectionHeader(_ sender: UITapGestureRecognizer) {
+        print("Please Help!")
+        
+        let indexpath: IndexPath = IndexPath.init(row: 0, section: (sender.view?.tag)!)
+        print("Tapped Index:",indexpath.section)
+        
+        headerChoosed = (sender.view?.tag)!
+        let collapsed = collapseArray[indexpath.section]
+        collapseArray[indexpath.section] = !collapsed
+        self.chooseSessionAndGenderTable.reloadSections(IndexSet(integer: sender.view!.tag), with: .automatic)
+    }
+}
+
+//MARK: TABLEVIEW DELEGATE
 
 extension ChooseSessionAndGenderVC: UITableViewDelegate {
     
@@ -254,6 +291,7 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
     }
 }
 
+//MARK: - LOCATION MANAGER DELEGATE
 extension ChooseSessionAndGenderVC: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -271,22 +309,22 @@ extension ChooseSessionAndGenderVC: CLLocationManagerDelegate {
             
             lat = String(location.coordinate.latitude)
             long = String(location.coordinate.longitude)
-            isFetchedLatAndLong = true
+//            isFetchedLatAndLong = true
             self.locationManager.stopUpdatingLocation()
         }
     }
-    
-    func getShowTrainersListParameters() -> Dictionary <String,Any> {
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
-        let parameters = ["user_id" : appDelegate.UserId,
-                          "gender" : choosedTrainerGenderOfTrainee,
-                          "category" : choosedCategoryOfTrainee.categoryId,
-                          "latitude" : lat,
-                          "longitude" : long
-            ] as [String : Any]
-        
-        return parameters
+        print("*** didChangeAuthorization: \(status.rawValue)")
+       
+        if status == .authorizedAlways || status == .authorizedWhenInUse{
+            isLocationAccessAllowed = true
+        }else{
+            isLocationAccessAllowed = false
+        }
     }
+    
 }
 
 
