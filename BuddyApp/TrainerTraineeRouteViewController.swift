@@ -59,6 +59,10 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         print("viewDidLoad")
         
+        appDelegate.TrainerProfileDictionary = nil
+        
+       // self.TrainerProfileDictionary = userDefaults.value(forKey: "test") as! NSDictionary
+        
         self.title = PAGE_TITLE.TRAINING_SESSION
         
         if TIMERCHECK {
@@ -110,6 +114,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
@@ -147,11 +152,39 @@ class TrainerTraineeRouteViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }else if notif.userInfo!["pushData"] as! String == "3"{
             self.timer.invalidate()
+             self.timer_lbl.text = "00" + ":" + "00"
             removeTransactionDetailsFromUserDefault()
-            self.BookingAction(Action_status: "cancel")
+            
+            self.RateViewScreen()
+            userDefaults.removeObject(forKey: "TimerData")
+            TrainerProfileDetail.deleteBookingDetails()
+            
+            if appDelegate.USER_TYPE == "trainer" {
+                self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
+            }else if appDelegate.USER_TYPE == "trainee" {
+                self.performSegue(withIdentifier: "trainingCancelledToTraineeHomeSegue", sender: self)
+            }
+
+            
+           // self.BookingAction(Action_status: "cancel")
         }else if notif.userInfo!["pushData"] as! String == "4"{
             self.timer.invalidate()
-            self.BookingAction(Action_status: "complete")
+            
+            self.timer_lbl.text = "00" + ":" + "00"
+            
+            self.RateViewScreen()
+            userDefaults.removeObject(forKey: "TimerData")
+            TrainerProfileDetail.deleteBookingDetails()
+            
+            
+            if appDelegate.USER_TYPE == "trainer" {
+                self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
+            }else if appDelegate.USER_TYPE == "trainee" {
+                self.performSegue(withIdentifier: "trainingCancelledToTraineeHomeSegue", sender: self)
+            }
+
+
+           // self.BookingAction(Action_status: "complete")
         }
     }
     
@@ -224,6 +257,19 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
     }
     
+    func RateViewScreen()
+    {
+        
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
+                vc.trainerProfileDetails1 = self.trainerProfileDetails
+        
+       // print("good",trainerProfileDetails.firstName)
+                   present(vc, animated: true, completion: nil)
+        
+        
+    }
+    
     //MARK: - API
     func BookingAction(Action_status: String) {
         
@@ -261,8 +307,12 @@ class TrainerTraineeRouteViewController: UIViewController {
                         if dict["status"] as! String == "cancelled" || dict["status"] as! String == "completed" {
                             self.timer.invalidate()
                             self.timer_lbl.text = "00" + ":" + "00"
+                            
+                           self.RateViewScreen()
                             userDefaults.removeObject(forKey: "TimerData")
                             TrainerProfileDetail.deleteBookingDetails()
+                            
+                            
                             
                             //Add Review Screen here
                             

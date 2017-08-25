@@ -2667,7 +2667,7 @@ Good luck!
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3659,16 +3659,32 @@ Good luck!
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Orf-Og-CTy">
-                                                <rect key="frame" x="18" y="176" width="308" height="44"/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Orf-Og-CTy" customClass="SwiftyStarRatingView" customModule="BuddyApp" customModuleProvider="target">
+                                                <rect key="frame" x="73" y="177" width="199" height="44"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" red="0.27058823529999998" green="0.78823529410000004" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="47A-CB-kOY"/>
+                                                    <constraint firstAttribute="height" constant="44" id="9IO-k2-24s"/>
+                                                    <constraint firstAttribute="width" constant="199" id="ryl-6r-n4s"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="l3J-DV-G4C">
                                                 <rect key="frame" x="18" y="228" width="309" height="67"/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="67" id="75Y-7M-HTC"/>
                                                 </constraints>
@@ -3705,6 +3721,7 @@ Good luck!
                                             <constraint firstItem="ZS6-zB-tGi" firstAttribute="top" secondItem="Z3a-uA-LoA" secondAttribute="bottom" constant="8" id="0aK-E1-Zhr"/>
                                             <constraint firstItem="4cy-bS-1bZ" firstAttribute="leading" secondItem="D6r-4p-MVg" secondAttribute="trailing" constant="8" id="0gN-kp-ZBO"/>
                                             <constraint firstItem="HNm-ga-Qje" firstAttribute="leading" secondItem="oEX-Qi-nFn" secondAttribute="leading" id="2b3-ry-nqb"/>
+                                            <constraint firstItem="Orf-Og-CTy" firstAttribute="centerX" secondItem="oEX-Qi-nFn" secondAttribute="centerX" id="2mf-ID-qSR"/>
                                             <constraint firstItem="cvw-XX-Z5M" firstAttribute="leading" secondItem="4cy-bS-1bZ" secondAttribute="trailing" constant="8" id="3Od-3J-JLl"/>
                                             <constraint firstItem="D6r-4p-MVg" firstAttribute="top" secondItem="oEX-Qi-nFn" secondAttribute="top" constant="17" id="3q9-r6-IKg"/>
                                             <constraint firstItem="4cy-bS-1bZ" firstAttribute="top" secondItem="oEX-Qi-nFn" secondAttribute="top" constant="17" id="53H-DO-mQM"/>
@@ -3716,24 +3733,21 @@ Good luck!
                                             <constraint firstItem="oQD-CP-oRE" firstAttribute="top" secondItem="Z3a-uA-LoA" secondAttribute="bottom" constant="8" id="Hq9-La-nHe"/>
                                             <constraint firstAttribute="trailing" secondItem="cvw-XX-Z5M" secondAttribute="trailing" constant="19" id="KFJ-ai-gbY"/>
                                             <constraint firstItem="oQD-CP-oRE" firstAttribute="leading" secondItem="ZS6-zB-tGi" secondAttribute="trailing" constant="11" id="KJL-QL-shp"/>
-                                            <constraint firstItem="Orf-Og-CTy" firstAttribute="top" secondItem="czn-AT-3ak" secondAttribute="bottom" constant="3" id="Kau-1e-il1"/>
                                             <constraint firstAttribute="trailing" secondItem="Z3a-uA-LoA" secondAttribute="trailing" id="KsW-GH-L9R"/>
                                             <constraint firstItem="jqv-he-PVd" firstAttribute="top" secondItem="4cy-bS-1bZ" secondAttribute="bottom" id="OIz-eQ-apd"/>
                                             <constraint firstItem="liI-EP-1Xc" firstAttribute="centerX" secondItem="oEX-Qi-nFn" secondAttribute="centerX" id="PrI-ay-wj9"/>
                                             <constraint firstItem="D6r-4p-MVg" firstAttribute="leading" secondItem="oEX-Qi-nFn" secondAttribute="leading" constant="17" id="Rj7-lq-zNf"/>
                                             <constraint firstItem="liI-EP-1Xc" firstAttribute="top" secondItem="fcJ-lN-a4I" secondAttribute="bottom" constant="8" id="Xay-jR-gWf"/>
                                             <constraint firstItem="fcJ-lN-a4I" firstAttribute="leading" secondItem="oEX-Qi-nFn" secondAttribute="leading" id="ZZF-z7-GBC"/>
+                                            <constraint firstItem="Orf-Og-CTy" firstAttribute="top" secondItem="czn-AT-3ak" secondAttribute="bottom" constant="4" id="Zwv-zO-ojU"/>
                                             <constraint firstAttribute="trailing" secondItem="fcJ-lN-a4I" secondAttribute="trailing" id="d51-HD-8TK"/>
                                             <constraint firstItem="fcJ-lN-a4I" firstAttribute="top" secondItem="jqv-he-PVd" secondAttribute="bottom" constant="13" id="ea5-Zw-VB5"/>
                                             <constraint firstAttribute="trailing" secondItem="HNm-ga-Qje" secondAttribute="trailing" id="fY6-4f-NIi"/>
                                             <constraint firstItem="cvw-XX-Z5M" firstAttribute="top" secondItem="oEX-Qi-nFn" secondAttribute="top" constant="19" id="hHA-7K-woW"/>
-                                            <constraint firstItem="Orf-Og-CTy" firstAttribute="leading" secondItem="oEX-Qi-nFn" secondAttribute="leading" constant="18" id="hX7-RO-iHL"/>
-                                            <constraint firstAttribute="trailing" secondItem="Orf-Og-CTy" secondAttribute="trailing" constant="19" id="jZW-Va-0x1"/>
                                             <constraint firstItem="czn-AT-3ak" firstAttribute="centerX" secondItem="oEX-Qi-nFn" secondAttribute="centerX" id="klG-mJ-EWB"/>
                                             <constraint firstItem="czn-AT-3ak" firstAttribute="top" secondItem="liI-EP-1Xc" secondAttribute="bottom" constant="8" id="l0v-fj-4ZL"/>
                                             <constraint firstAttribute="bottom" secondItem="ZS6-zB-tGi" secondAttribute="bottom" constant="8" id="mF4-nJ-Dbc"/>
                                             <constraint firstItem="jqv-he-PVd" firstAttribute="leading" secondItem="D6r-4p-MVg" secondAttribute="trailing" constant="8" id="tYL-Ch-SLR"/>
-                                            <constraint firstItem="HNm-ga-Qje" firstAttribute="top" secondItem="Orf-Og-CTy" secondAttribute="bottom" constant="4" id="uEa-cL-iKC"/>
                                             <constraint firstItem="l3J-DV-G4C" firstAttribute="leading" secondItem="oEX-Qi-nFn" secondAttribute="leading" constant="18" id="vv6-TP-l80"/>
                                             <constraint firstAttribute="height" constant="345" id="w0W-dl-tp2"/>
                                             <constraint firstItem="Z3a-uA-LoA" firstAttribute="top" secondItem="l3J-DV-G4C" secondAttribute="bottom" constant="3" id="ytg-ub-GYH"/>
@@ -3760,6 +3774,7 @@ Good luck!
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="StarRateView" destination="Orf-Og-CTy" id="kRJ-x3-dzs"/>
                         <outlet property="imgTrainerImage" destination="D6r-4p-MVg" id="dWW-LV-z2R"/>
                         <outlet property="lblTrainerName" destination="4cy-bS-1bZ" id="bSs-OD-Dz4"/>
                         <outlet property="txtReviewDescription" destination="l3J-DV-G4C" id="4ch-8J-xq2"/>
@@ -3987,7 +4002,7 @@ Good luck!
         <scene sceneID="jC1-lN-15y">
             <objects>
                 <navigationController storyboardIdentifier="TESTID" navigationBarHidden="YES" id="LLd-uo-cBv" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CKN-vf-25e">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKN-vf-25e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -7282,18 +7297,18 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="splash_screen" width="540" height="960"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="hJy-Rz-WHD"/>
         <segue reference="pMz-WA-RGb"/>
         <segue reference="21t-ww-Awf"/>
         <segue reference="mVv-vO-aXQ"/>
         <segue reference="OYB-aT-rib"/>
-        <segue reference="j2f-dg-unJ"/>
-        <segue reference="IIP-sz-Dfm"/>
-        <segue reference="hJy-Rz-WHD"/>
-        <segue reference="Jnc-bx-uPX"/>
-        <segue reference="USH-R0-s5v"/>
-        <segue reference="DLY-kk-dWX"/>
-        <segue reference="AU2-8a-F5M"/>
-        <segue reference="L6f-51-y41"/>
+        <segue reference="GI9-TU-hGk"/>
+        <segue reference="adG-ob-O6L"/>
+        <segue reference="yV9-kq-bqp"/>
+        <segue reference="OZa-hZ-FT0"/>
+        <segue reference="4Jl-ac-lxy"/>
         <segue reference="fqg-MV-HkZ"/>
+        <segue reference="Jnc-bx-uPX"/>
+        <segue reference="DLY-kk-dWX"/>
     </inferredMetricsTieBreakers>
 </document>
