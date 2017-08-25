@@ -122,11 +122,19 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerProfilePage.swift"
+<<<<<<< HEAD
             timestampString = "525343456.898712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "333"
             endingLineNumber = "333"
+=======
+            timestampString = "525157871.693691"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "336"
+            endingLineNumber = "336"
+>>>>>>> 9baecdc5282d97b6cf428e263814793244734ea4
             landmarkName = "fillValuesInForm(profile:)"
             landmarkType = "7">
          </BreakpointContent>
