@@ -41,6 +41,8 @@ class LeftViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         print("**** Left view viewDidAppear")
+
+//        SideMenuManager.menuFadeStatusBar = false
     }
     
     func parseNameAndImage() {
