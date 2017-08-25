@@ -41,24 +41,14 @@ class TrainerReviewPage: UIViewController{
     }
     
     func parseTrainerDetails() {
-        
-        
-        if appDelegate.USER_TYPE == "trainer"
-        {
-           User_type.text = "Trainee"
-        
+        if appDelegate.USER_TYPE == "trainer" {
+            User_type.text = "Trainee"
+        }else{
+            User_type.text = "Trainer"
         }
-        else{
-            
-             User_type.text = "Trainer"
-        }
-
-        
-        
         imgTrainerImage.sd_setImage(with: URL(string: trainerProfileDetails1.profileImage), placeholderImage: UIImage(named: "profileDemoImage"))
-        
-       
     }
+    
     func starRatingViewValueChange() {
        print("STAR",StarRateView.value)
     }
@@ -66,6 +56,7 @@ class TrainerReviewPage: UIViewController{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
     @IBAction func StarRateView_action(_ sender: Any) {
         
         starRatingViewValueChange()
@@ -73,18 +64,14 @@ class TrainerReviewPage: UIViewController{
 
     @IBAction func cancelAction(_ sender: Any) {
        // self.navigationController?.popViewController(animated: true)
-        
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func okAction(_ sender: Any) {
-        
        self.ReviewAPI()
     }
     
-    
-    func ReviewAPI()
-    {
+    func ReviewAPI(){
         guard CommonMethods.networkcheck() else {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
             return
@@ -93,20 +80,13 @@ class TrainerReviewPage: UIViewController{
         var user_id = Int()
         var user_type = String()
         
-        if appDelegate.USER_TYPE == "trainer"
-        {
+        if appDelegate.USER_TYPE == "trainer"{
             user_id = Int(trainerProfileDetails1.Trainee_id)!
             user_type = "trainee"
-        }
-        else{
-            
+        }else{
             user_id = Int(trainerProfileDetails1.Trainer_id)!
             user_type = "trainer"
-
-            
         }
-        
-        
         
         let parameters = ["user_type":user_type,
                           "user_id":user_id,
@@ -139,8 +119,8 @@ class TrainerReviewPage: UIViewController{
         })
 
     }
-    
 }
+
 extension TrainerReviewPage: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -149,11 +129,11 @@ extension TrainerReviewPage: UITextViewDelegate {
             textView.textColor = UIColor.black
         }
     }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "Leave a comment.."
             textView.textColor = UIColor.lightGray
         }
     }
-
 }

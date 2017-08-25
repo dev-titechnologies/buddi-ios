@@ -134,6 +134,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     func SessionTimerNotification(notif: NSNotification){
        
+        print("Notification Received:\(notif)")
         if notif.userInfo!["pushData"] as! String == "2"{
         
             let alertController = UIAlertController(title: ALERT_TITLE, message: "Session has started", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
@@ -257,18 +258,14 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
     }
     
-    func RateViewScreen()
-    {
+    func RateViewScreen(){
         
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
-                vc.trainerProfileDetails1 = self.trainerProfileDetails
-        
-       // print("good",trainerProfileDetails.firstName)
-                   present(vc, animated: true, completion: nil)
-        
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
+        vc.trainerProfileDetails1 = self.trainerProfileDetails
+        present(vc, animated: true, completion: nil)
     }
+    
     
     //MARK: - API
     func BookingAction(Action_status: String) {
