@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     var window: UIWindow?
     let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
     let SessionNotification = Notification.Name("SessionNotification")
+    var TrainerProfileDictionary: NSDictionary!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -413,13 +414,14 @@ extension AppDelegate: FIRMessagingDelegate {
         if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "1"{
             let NotificationDict = (response.notification.request.content.userInfo as NSDictionary)["data"] as! String
             print("RECIVED",NotificationDict)
-            // let notificationName = Notification.Name("FCMNotificationIdentifier")
-            // Post notification
             NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
-        }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{
+
+         TrainerProfileDictionary = CommonMethods.convertToDictionary(text: NotificationDict )! as NSDictionary
+            
+                }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{
             print("TYPE 2")
            // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
-           //  NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
+             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
         }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"{
             print("3")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])

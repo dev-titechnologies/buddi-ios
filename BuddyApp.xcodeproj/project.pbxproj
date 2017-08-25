@@ -31,6 +31,7 @@
 		F315E99C1F30585700850A44 /* DropDownViewCellMultiple.xib in Resources */ = {isa = PBXBuildFile; fileRef = F315E9931F30585700850A44 /* DropDownViewCellMultiple.xib */; };
 		F315E99D1F30585700850A44 /* VDropDownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315E9941F30585700850A44 /* VDropDownViewController.swift */; };
 		F315E99E1F30585700850A44 /* VTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315E9951F30585700850A44 /* VTableViewCell.swift */; };
+		F3160F031F4D5E860091ACAB /* SwiftyStarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3160F021F4D5E860091ACAB /* SwiftyStarRatingView.swift */; };
 		F316E7EB1F21BF4E00994447 /* SubCategoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F316E7E91F21BF4E00994447 /* SubCategoryDB.swift */; };
 		F316E7EC1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F316E7EA1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift */; };
 		F316E7EE1F21BF6E00994447 /* SubCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F316E7ED1F21BF6E00994447 /* SubCategoryModel.swift */; };
@@ -185,6 +186,7 @@
 		F315E9931F30585700850A44 /* DropDownViewCellMultiple.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownViewCellMultiple.xib; sourceTree = "<group>"; };
 		F315E9941F30585700850A44 /* VDropDownViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VDropDownViewController.swift; sourceTree = "<group>"; };
 		F315E9951F30585700850A44 /* VTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTableViewCell.swift; sourceTree = "<group>"; };
+		F3160F021F4D5E860091ACAB /* SwiftyStarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyStarRatingView.swift; sourceTree = "<group>"; };
 		F316E7E91F21BF4E00994447 /* SubCategoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoryDB.swift; sourceTree = "<group>"; };
 		F316E7EA1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SubCategoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F316E7ED1F21BF6E00994447 /* SubCategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoryModel.swift; sourceTree = "<group>"; };
@@ -734,6 +736,7 @@
 		F3C685781F3C81F800AA8CC7 /* Review Page */ = {
 			isa = PBXGroup;
 			children = (
+				F3160F021F4D5E860091ACAB /* SwiftyStarRatingView.swift */,
 				F3C685791F3C821A00AA8CC7 /* TrainerReviewPage.swift */,
 			);
 			name = "Review Page";
@@ -1097,6 +1100,7 @@
 				F3A907821F32F30100474F5E /* ChooseSessionTableCell.swift in Sources */,
 				F364A9001F34B3950001C570 /* AssignedTrainerEmailCell.swift in Sources */,
 				F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */,
+				F3160F031F4D5E860091ACAB /* SwiftyStarRatingView.swift in Sources */,
 				F3FF03E31F285F8200D4DD0D /* DataExtension.swift in Sources */,
 				F37350991F207A2D00BE9DB6 /* LeftViewController.swift in Sources */,
 				F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */,

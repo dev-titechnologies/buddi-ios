@@ -61,6 +61,8 @@ class TrainerProfilePage: UIViewController {
         SocketIOManager.sharedInstance.establishConnection()
         StatusSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
         self.UpdateLocationAPI(Status: "online")
+        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
+
         
         imagePicker.delegate = self
         trainerProfileViewTableCaptionsArray = ["Gym Subscriptions", "Training Category", "Certifications"]
@@ -123,7 +125,7 @@ class TrainerProfilePage: UIViewController {
     func switchValueDidChange(sender:UISwitch!) {
         if sender.isOn
         {
-            
+            timer.invalidate()
             print("ON STATUS")
             
             self.UpdateLocationAPI(Status: "online")
@@ -133,6 +135,8 @@ class TrainerProfilePage: UIViewController {
         }
         else{
             print("OFF STATUS")
+            
+            timer.invalidate()
             self.UpdateLocationAPI(Status: "offline")
 
         }
@@ -330,6 +334,7 @@ class TrainerProfilePage: UIViewController {
     }
     
     func fillValuesInForm(profile: NSDictionary) {
+        //print("IMAGEEE",profile["user_image"] as! String)
         
         let userName = (profile["first_name"] as! String) + " " + (profile["last_name"] as! String)
         userDefaults.set(userName, forKey: "userName")

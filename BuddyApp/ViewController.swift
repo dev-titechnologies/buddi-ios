@@ -21,11 +21,12 @@ class ViewController: UIViewController {
         
         let date = Date()
 //        let calendar = Calendar.current
-        
 //        let hour = calendar.component(.hour, from: date)
 //        let minutes = calendar.component(.minute, from: date)
 //        let seconds = calendar.component(.second, from: date)
         print("hours ",date)
+        
+        
 
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
@@ -37,6 +38,15 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: notificationName, object: nil)
 
         
+        
+        if appDelegate.TrainerProfileDictionary != nil{
+            
+            
+            self.TestNotification()
+            
+        }
+        else
+        {
         if userDefaults.value(forKey: "TimerData") != nil {
             
             TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
@@ -56,6 +66,9 @@ class ViewController: UIViewController {
                 self.showTimer(time: numOfDays)
             }else{
                 print("completed")
+                
+                userDefaults.removeObject(forKey: "TimerData")
+                TrainerProfileDetail.deleteBookingDetails()
                 if userDefaults.value(forKey: "devicetoken") != nil {
                     appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
                     print("TOKEN",appDelegate.DeviceToken)
@@ -83,14 +96,11 @@ class ViewController: UIViewController {
                 self.loginCheck()
             }
         }
+        
+    }
     }
     func methodOfReceivedNotification(notif: NSNotification) {
         
-//        
-//        self.navigationController!.pushViewController(self.storyboard!.instantiateViewController(withIdentifier: "TrainerTraineeRouteViewController") as UIViewController, animated: true)
-        
-      //  let notificationName = Notification.Name("FCMNotificationIdentifier")
-       // NotificationCenter.default.removeObserver(self, name: notificationNameFCM, object: nil);
         
         self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text: notif.userInfo!["pushData"] as! String)! as NSDictionary
         
@@ -102,6 +112,20 @@ class ViewController: UIViewController {
         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
        
     }
+    func TestNotification() {
+        
+        
+        self.TrainerProfileDictionary = appDelegate.TrainerProfileDictionary
+        
+        
+        
+        appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
+        appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
+        appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
+        self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+        
+    }
+
    
     func showTimer(time: Int) {
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
