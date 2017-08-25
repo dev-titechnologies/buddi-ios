@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Unknown constraint types" minToolsVersion="5.1"/>
@@ -2667,7 +2667,7 @@ Good luck!
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3780,6 +3780,7 @@ Good luck!
                         <outlet property="User_type" destination="jqv-he-PVd" id="6Zz-ji-Klr"/>
                         <outlet property="imgTrainerImage" destination="D6r-4p-MVg" id="dWW-LV-z2R"/>
                         <outlet property="lblTrainerName" destination="4cy-bS-1bZ" id="bSs-OD-Dz4"/>
+                        <outlet property="rating_lbl" destination="czn-AT-3ak" id="oYv-dS-Bfo"/>
                         <outlet property="txtReviewDescription" destination="l3J-DV-G4C" id="4ch-8J-xq2"/>
                     </connections>
                 </viewController>
@@ -4005,7 +4006,7 @@ Good luck!
         <scene sceneID="jC1-lN-15y">
             <objects>
                 <navigationController storyboardIdentifier="TESTID" navigationBarHidden="YES" id="LLd-uo-cBv" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKN-vf-25e">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CKN-vf-25e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -7300,18 +7301,6 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="splash_screen" width="540" height="960"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="21t-ww-Awf"/>
-        <segue reference="pMz-WA-RGb"/>
-        <segue reference="mVv-vO-aXQ"/>
-        <segue reference="GI9-TU-hGk"/>
-        <segue reference="OYB-aT-rib"/>
-        <segue reference="hJy-Rz-WHD"/>
-        <segue reference="Jnc-bx-uPX"/>
-        <segue reference="fqg-MV-HkZ"/>
-        <segue reference="4Jl-ac-lxy"/>
-        <segue reference="aj8-eb-DfE"/>
-        <segue reference="E5J-En-Bhp"/>
-        <segue reference="OZa-hZ-FT0"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="pMz-WA-RGb"/>
         <segue reference="21t-ww-Awf"/>

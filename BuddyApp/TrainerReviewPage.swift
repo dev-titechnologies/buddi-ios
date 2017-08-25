@@ -15,6 +15,7 @@ class TrainerReviewPage: UIViewController{
     let reviewDict = TrainerReviewModel()
     var trainerProfileDetails1 = TrainerProfileModal()
     
+    @IBOutlet weak var rating_lbl: UILabel!
     @IBOutlet weak var User_type: UILabel!
     @IBOutlet weak var StarRateView: SwiftyStarRatingView!
     @IBOutlet weak var imgTrainerImage: UIImageView!
@@ -43,7 +44,12 @@ class TrainerReviewPage: UIViewController{
     func parseTrainerDetails() {
         if appDelegate.USER_TYPE == "trainer" {
             User_type.text = "Trainee"
+            rating_lbl.text = "Trainee Rating"
+            
+            
         }else{
+            
+            rating_lbl.text = "Trainer Rating"
             User_type.text = "Trainer"
         }
         imgTrainerImage.sd_setImage(with: URL(string: trainerProfileDetails1.profileImage), placeholderImage: UIImage(named: "profileDemoImage"))
