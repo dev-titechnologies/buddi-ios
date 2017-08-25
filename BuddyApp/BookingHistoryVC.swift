@@ -37,6 +37,8 @@ class BookingHistoryVC: UIViewController {
         CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: BOOKING_HISTORY_URL, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
             
+            CommonMethods.hideProgress()
+
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
@@ -54,7 +56,6 @@ class BookingHistoryVC: UIViewController {
                         print(modelObject)
                         BookingHistoryDB.createBookingEntry(bookingModel: modelObject)
                         self.bookingsArray.append(modelObject)
-                        CommonMethods.hideProgress()
                         
                         if self.bookingsArray.count > 0 {
                             self.bookingHistoryTable.isHidden = false
@@ -70,6 +71,8 @@ class BookingHistoryVC: UIViewController {
                     print("Session Expired")
                     self.dismissOnSessionExpire()
                 }
+            }else{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
             }
         })
     }

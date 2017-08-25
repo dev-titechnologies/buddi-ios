@@ -40,10 +40,11 @@ class TraineeHomePage: UIViewController {
     
     func getCategoryList() {
         
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], headers: nil, onCompletion: { (jsondata) in
-            
             print("*** Category Listing Result:",jsondata)
             
+            CommonMethods.hideProgress()
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
@@ -79,7 +80,7 @@ class TraineeHomePage: UIViewController {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_ATLEAST_ONE_CATEGORY, buttonTitle: "OK")
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

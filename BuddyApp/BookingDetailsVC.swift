@@ -24,6 +24,7 @@ class BookingDetailsVC: UIViewController {
         super.viewDidLoad()
 
         print("Received Booking Ref:",bookingModel)
+        self.title = PAGE_TITLE.TRAINING_DETAILS
     }
     
     override func viewWillAppear(_ animated: Bool) {

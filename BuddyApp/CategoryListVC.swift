@@ -54,9 +54,9 @@ class CategoryListVC: UIViewController {
         CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], headers: nil, onCompletion: { (jsondata) in
             
             print("*** Category Listing Result:",jsondata)
-            CommonMethods.hideProgress()
             
             guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.hideProgress()
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
             }
@@ -94,11 +94,14 @@ class CategoryListVC: UIViewController {
                     self.subCategoryModelObj.insertSubCategoriesToDB(subCategories: subcategories)
                     self.reloadCollectionView()
                 }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.hideProgress()
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    CommonMethods.hideProgress()
                     self.dismissOnSessionExpire()
                 }
             }else{
+                CommonMethods.hideProgress()
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "Ok")
             }
         })
@@ -106,6 +109,7 @@ class CategoryListVC: UIViewController {
     
     func reloadCollectionView() {
         
+        CommonMethods.hideProgress()
         if self.categoriesArray.count > 0 {
             self.categoryCollectionView.reloadData()
             btnNext.isHidden = false

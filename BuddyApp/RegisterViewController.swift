@@ -134,11 +134,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         print("GOOGLE DATA ",self.googleUserDictionary)
         
         registerType = "google"
-         self.LoginAPI(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
-        
-        
-//        self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
-//        self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
+        self.LoginAPI(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
     }
     
     @IBAction func male_action(_ sender: Any) {
@@ -299,7 +295,6 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
     
     @IBAction func Facebook_register(_ sender: Any) {
-//        CommonMethods.showProgress()
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
@@ -307,15 +302,12 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 let fbloginresult : FBSDKLoginManagerLoginResult = result!
                 
                 if (result?.isCancelled)! {
-//                    CommonMethods.hideProgress()
                     return
                 }
                 if(fbloginresult.grantedPermissions.contains("email")){
-                    CommonMethods.showProgress()
                     self.getFBUserData()
                 }
             }else{
-//                CommonMethods.hideProgress()
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
                 print("FB ERROR")
             }
@@ -394,8 +386,11 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     }
     
     func getFBUserData(){
+        CommonMethods.showProgress()
         if((FBSDKAccessToken.current()) != nil){
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
+              
+                CommonMethods.hideProgress()
                 if (error == nil){
                     
                     print("RESULT",result!)
@@ -411,9 +406,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                     
                     self.LoginAPI(Email: emailId, Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
                 }else{
-                    CommonMethods.hideProgress()
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
-                    print("ERROR123",error?.localizedDescription)
+                    print("ERROR123",error?.localizedDescription as Any)
                 }
             })
         }

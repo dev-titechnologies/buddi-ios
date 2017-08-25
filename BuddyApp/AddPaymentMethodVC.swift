@@ -35,14 +35,14 @@ class AddPaymentMethodVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        print("**** Add payment Method ViewWillAppear")
         isControlInSamePage = true
-        if isFromBookingPage{
-            print("**** From Booking Page ****")
-        }
-        
-        CommonMethods.showProgress()
         btnAddPayment.addShadowView()
         selectPaymentModeView.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("**** Add payment Method ViewDidAppear")
         getClientToken()
     }
     
@@ -83,14 +83,19 @@ class AddPaymentMethodVC: UIViewController {
     }
 
     @IBAction func addPaymentAction(_ sender: Any) {
-        showDropIn(clientTokenOrTokenizationKey: self.clientToken)
+        
+        if clientToken == "" {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_WAIT_FETCHING_PAYMENT_METHODS, buttonTitle: "OK")
+        }else{
+            showDropIn(clientTokenOrTokenizationKey: self.clientToken)
+        }
     }
     
     func fetchExistingPaymentMethod(clientToken: String) {
         
-        CommonMethods.showProgress()
         print("***** Fetch Existing payment method *****")
         BTDropInResult.fetch(forAuthorization: clientToken, handler: { (result, error) in
+            
             if (error != nil) {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_METHOD_FETCH_ERROR, buttonTitle: "OK")
                 print("ERROR")

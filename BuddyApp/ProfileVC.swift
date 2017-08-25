@@ -60,7 +60,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         if let result = ProfileDB.fetchUser() {
             if result.count == 0{
-                CommonMethods.showProgress()
                 ProfileDataAPI()
             }else{
                 print("from db")
@@ -71,7 +70,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                 }
             }
         }else{
-            CommonMethods.showProgress()
             print("from api")
             ProfileDataAPI()
         }
@@ -263,19 +261,35 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         countrypicker.showPhoneNumbers = true
         countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
         
-        if let imagearray = ProfileImageDB.fetchImage() {
-            self.imageArray = imagearray as! Array<ProfileImageDB>
-            
-            guard self.imageArray.count > 0 else{
-                CommonMethods.hideProgress()
-                return
+        if let image_url = profiledict["user_image"] as? String{
+            profileImage.sd_setImage(with: URL(string:image_url)) { (image, error, cacheType, imageURL) in
+                
+                print("Image completion block")
+                if image != nil {
+                    print("image found")
+                    self.profileImage.image = image
+                }else{
+                    print("image not found")
+                    self.profileImage.image = UIImage(named: "profileDemoImage")
+                }
             }
-            
-            self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
-                           self.profileImage.image = UIImage(data: self.objdata as Data)
-            
+        }else{
+            profileImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "profileDemoImage"))
         }
+
         CommonMethods.hideProgress()
+        
+//        if let imagearray = ProfileImageDB.fetchImage() {
+//            self.imageArray = imagearray as! Array<ProfileImageDB>
+//            
+//            guard self.imageArray.count > 0 else{
+//                CommonMethods.hideProgress()
+//                return
+//            }
+//            
+//            self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
+//            self.profileImage.image = UIImage(data: self.objdata as Data)
+//        }
     }
     
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
@@ -302,9 +316,11 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         print("PARAMS",parameters)
         print("HEADER",headers)
         
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: VIEW_PROFILE, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
             print("PROFILE RESPONSE",jsondata)
             
+            CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     

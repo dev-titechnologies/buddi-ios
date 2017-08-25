@@ -37,7 +37,6 @@ class Question3VC: UIViewController {
 
         print(trainingExperienceYearsArray)
         print(trainingExperienceMonthsArray)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -24,5 +24,8 @@ struct PAGE_TITLE {
     static let OTP_CODE = "OTP code"
     static let HELP = "Help"
     static let LEGAL = "Legal"
+    static let TRAINING_DETAILS = "Training Details"
+    static let SETTINGS = "Settings"
 
+    
 }

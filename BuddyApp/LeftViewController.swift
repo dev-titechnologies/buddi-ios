@@ -35,11 +35,17 @@ class LeftViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
 
+        print("**** Left view viewWillAppear")
         parseNameAndImage()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("**** Left view viewDidAppear")
     }
     
     func parseNameAndImage() {
         
+        print("**** parseNameAndImage ****")
         profileName.text = userDefaults.value(forKey: "userName") as? String
         lblEmailId.text = userDefaults.value(forKey: "userEmailId") as? String
         
@@ -249,7 +255,7 @@ extension LeftViewController : UITableViewDelegate{
             case 1:
                 print("one")
                 print("Settings")
-                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                self.performSegue(withIdentifier: "fromLeftMenuToSettingsPageSegue", sender: self)
                 
             case 2:
                 print("two")

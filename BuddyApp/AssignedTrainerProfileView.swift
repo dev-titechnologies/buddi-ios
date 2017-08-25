@@ -83,14 +83,9 @@ class AssignedTrainerProfileView: UIViewController {
                     
                      self.lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + " " + (self.TrainerprofileDictionary["last_name"] as? String)!
                     
-                    
                            self.lblTrainerAge.text =  CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["age"] as? String)
                             self.lblTrainerHeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["height"] as? String)
                             self.lblTrainerWeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["weight"] as? String)
-                            
-
-                    
-                    
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
