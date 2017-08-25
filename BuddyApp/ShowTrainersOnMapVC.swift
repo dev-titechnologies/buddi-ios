@@ -94,6 +94,9 @@ class ShowTrainersOnMapVC: UIViewController {
     }
     
     @IBAction func Next_action(_ sender: Any) {
+        
+     
+   
 
         if isFromSplashScreen{
             RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromBackup())
