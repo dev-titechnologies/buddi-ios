@@ -18,6 +18,7 @@ import Braintree
 import BraintreeDropIn
 import Firebase
 import FirebaseMessaging
+import GooglePlaces
 //import FirebaseAnalytics
 //import FirebaseInstanceID
 
@@ -59,6 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
 //        }
         
         GMSServices.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
+        
+        //AIzaSyCB1tKcWfC2ZDMcrfW0GakVBFDyuUe6w0Q
+        GMSPlacesClient.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
         GIDSignIn.sharedInstance().clientID = "635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         IQKeyboardManager.sharedManager().enable = true
@@ -387,23 +391,31 @@ extension AppDelegate: FIRMessagingDelegate {
         
       
         if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "1"{
+            
+            //BOOK SESSION
             // Post notification
             NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
         }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{
             print("TYPE 2")
+            
+            //STARTED SESSION
+            
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
             
-           // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
-        }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"{
+                 }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"{
             
-           //  CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
+            //CANCELLED SESSION
+            
             print("3")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
         }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"{
+            
+            
+            //COMPLETED SESSION
+            
             print("4")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
-             //CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
-        }
+            }
     }
     
     //Called to let your app know which action was selected by the user for a given notification.
@@ -418,19 +430,22 @@ extension AppDelegate: FIRMessagingDelegate {
 
          TrainerProfileDictionary = CommonMethods.convertToDictionary(text: NotificationDict )! as NSDictionary
             
-                }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{
+                }
+        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{
             print("TYPE 2")
-           // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Trainee has started the session", buttonTitle: "Ok")
-             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
-        }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"{
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
+        }
+        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"{
             print("3")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
-            //CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Cancelled", buttonTitle: "Ok")
-        }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"{
+          
+        }
+        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"{
             print("4")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
-          //  CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
-        }
+            
+            
+                }
         completionHandler()
     }
 }

@@ -29,4 +29,9 @@ class BlankViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    @IBAction func inviteFriends(_ sender: Any) {
+//        
+//        let appInvite = AppInvite(appLink: URL(string: "https://fb.me/1539184863038815")!, deliveryMethod: .facebook)
+//        showAppInviteDialog(for: appInvite)
+    }
 }

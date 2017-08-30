@@ -53,6 +53,8 @@ class ShowTrainersOnMapVC: UIViewController {
     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
     
     var isFromSplashScreen = Bool()
+    var isFromInstantBooking = Bool()
+    var InstantDict = NSDictionary()
     
     //MARK: - VIEW CYCLES
     
@@ -63,6 +65,14 @@ class ShowTrainersOnMapVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        if isFromInstantBooking
+        {
+             InstantDict = userDefaults.value(forKey: "save_preferance") as! NSDictionary
+        }
+        
+        
+        
         
         getCurrentLocationDetails()
 
@@ -177,6 +187,13 @@ class ShowTrainersOnMapVC: UIViewController {
     
     func getShowTrainersListParameters() -> Dictionary <String,Any> {
         
+        
+        if isFromInstantBooking
+        {
+           lat = InstantDict["lat"] as! String
+            long = InstantDict["long"] as! String
+        }
+        
         let parameters = ["user_id" : appDelegate.UserId,
                           "gender" : choosedTrainerGenderOfTrainee,
                           "category" : choosedCategoryOfTrainee.categoryId,
@@ -204,6 +221,12 @@ class ShowTrainersOnMapVC: UIViewController {
     }
     
     func getRandomSelectAPIParameters() -> Dictionary <String,Any> {
+        
+        if isFromInstantBooking
+        {
+            lat = InstantDict["lat"] as! String
+            long = InstantDict["long"] as! String
+        }
         
         var parameters = ["user_id" : appDelegate.UserId,
                           "gender" : choosedTrainerGenderOfTrainee,

@@ -21,6 +21,7 @@ target 'BuddyApp' do
     pod 'Braintree'
     pod 'BraintreeDropIn'
     pod 'Socket.IO-Client-Swift'
+    pod 'GooglePlacePicker'
     #pod 'Firebase/Core'
     pod 'Firebase/Messaging'
 

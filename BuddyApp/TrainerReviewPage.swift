@@ -37,7 +37,7 @@ class TrainerReviewPage: UIViewController{
         
         view?.backgroundColor = UIColor(white: 1, alpha: 0.5)
          starRatingViewValueChange()
-        StarRateView.allowsHalfStars = false
+        StarRateView.allowsHalfStars = true
         parseTrainerDetails()
     }
     

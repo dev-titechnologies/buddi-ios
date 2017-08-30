@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import GooglePlaces
+import GoogleMaps
+import GooglePlacePicker
 
 class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
 
@@ -15,10 +18,16 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
     var collapseArray = [Bool]()
     var sessionChoosed = Int()
     var headerChoosed = Int()
-
-    
+    var isChoosedGender = Bool()
+    var locationcordinate = CLLocationCoordinate2D()
+    var dict = NSMutableDictionary()
+   
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        //settingtocatagorylist
+        
+    
 
         self.title = PAGE_TITLE.SETTINGS
         
@@ -29,9 +38,64 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
             collapseArray.append(false)
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if choosedCategoryOfTrainee.categoryId != nil
+        {
+            print("selected catogary ID",choosedCategoryOfTrainee.categoryId)
+            
+        }
+        else
+        {
+            
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    @IBAction func Save_action(_ sender: Any) {
+        
+//        let gender = choosedTrainerGenderOfTrainee 
+//        let time = choosedSessionOfTrainee 
+//        let catogary = choosedCategoryOfTrainee.categoryId
+        
+        print("GENDER",choosedTrainerGenderOfTrainee)
+        print("TIME",choosedSessionOfTrainee)
+        print("CATAGORY",choosedCategoryOfTrainee.categoryId)
+        print("location",locationcordinate.latitude)
+        
+       
+        
+        dict.setValue(String(choosedTrainerGenderOfTrainee), forKey: "gender")
+        dict.setValue(String(choosedSessionOfTrainee), forKey: "time")
+        dict.setValue(String(choosedCategoryOfTrainee.categoryId), forKey: "catagoryid")
+        dict.setValue(String(locationcordinate.latitude), forKey: "lat")
+        dict.setValue(String(locationcordinate.longitude), forKey: "long")
+        
+        userDefaults.setValue(dict, forKey: "save_preferance")
+        
+        
+        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Saved successfully", buttonTitle: "Ok")
+        
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "settingtocatagorylist" {
+            let chooseCategoryPage =  segue.destination as! TraineeHomePage
+            chooseCategoryPage.isFromSettings = true
+        }
+    }
+  func GooglePlacePicker()
+  {
+    let config = GMSPlacePickerConfig(viewport: nil)
+    let placePicker = GMSPlacePickerViewController(config: config)
+    placePicker.delegate = self
+    
+    
+    present(placePicker, animated: true, completion: nil)
+    
     }
 }
 
@@ -77,6 +141,9 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             genderCell.btnMale.addShadowView()
             genderCell.btnFemale.addShadowView()
             genderCell.btnNopreferance.addShadowView()
+//            genderCell.btnMale.addTarget(self, action: #selector(SettingsPageVC.choosedGender(sender:)), for: .touchUpInside)
+//            genderCell.btnFemale.addTarget(self, action: #selector(SettingsPageVC.choosedGender(sender:)), for: .touchUpInside)
+//            genderCell.btnNopreferance.addTarget(self, action: #selector(SettingsPageVC.choosedGender(sender:)), for: .touchUpInside)
             
             return genderCell
         }else{
@@ -134,15 +201,24 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         sessionChoosed = indexPath.row
         settingsTableView.reloadSections(IndexSet(integer: 3), with: .automatic)
         
-        if indexPath.section == 3{
+        if indexPath.section == 0
+        {
+            
+            
+        }
+     else if indexPath.section == 3{
             if indexPath.row == 0 {
                 choosedSessionOfTrainee = "40"
             }else{
                 choosedSessionOfTrainee = "60"
             }
         }
+      
         print("Choosed Session:\(choosedSessionOfTrainee)")
-    }
+        //print("Choosed Session:\(choosedSessionOfTrainee)")
+        //userDefaults.set(choosedSessionOfTrainee, forKey: "backupTrainingSessionChoosed")
+        
+          }
     
     func didTapSectionHeader(_ sender: UITapGestureRecognizer) {
         print("Please Help!")
@@ -156,6 +232,34 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             self.collapseArray[indexpath.section] = !collapsed
             self.settingsTableView.reloadSections(IndexSet(integer: sender.view!.tag), with: .automatic)
         }
+        else if indexpath.section == 1
+        {
+           self.performSegue(withIdentifier: "settingtocatagorylist", sender: self)
+        }
+        else
+        {
+            self.GooglePlacePicker()
+        }
+    }
+    
+}
+extension SettingsPageVC: GMSPlacePickerViewControllerDelegate {
+    
+    func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        self.locationcordinate = place.coordinate
+        
+        print("Place name \(place.name)")
+       // print("Place address \(String(describing: place.formattedAddress))")
+       // print("Place attributions \(String(describing: place.attributions))")
+    }
+    
+    func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        print("No place selected")
     }
 }
-

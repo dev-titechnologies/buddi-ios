@@ -49,7 +49,10 @@ class BookingHistoryVC: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS {
                     print("Booking History Response:",jsondata)
                     
-                    let booking_history_array : Array = jsondata["data"] as! NSArray as Array
+                    
+                    
+                  if let booking_history_array = jsondata["data"] as? NSArray 
+                  {
                     for booking_history in booking_history_array{
                         
                         let modelObject = self.bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: booking_history as! Dictionary<String, Any>)
@@ -64,7 +67,14 @@ class BookingHistoryVC: UIViewController {
                             self.bookingHistoryTable.isHidden = true
                         }
                     }
-                }else if status == RESPONSE_STATUS.FAIL{
+
+                    
+                    }
+                    else
+                  {
+                    
+                    }
+                                   }else if status == RESPONSE_STATUS.FAIL{
                       CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
 
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{

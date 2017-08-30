@@ -16,6 +16,7 @@ extension BookingHistoryDB {
         return NSFetchRequest<BookingHistoryDB>(entityName: "BookingHistoryDB")
     }
 
+    @NSManaged public var rating: NSDate?
     @NSManaged public var bookedDate: NSDate?
     @NSManaged public var bookingId: String?
     @NSManaged public var category: String?

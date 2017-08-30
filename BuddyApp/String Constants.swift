@@ -38,6 +38,7 @@ let PLEASE_ALLOW_LOCATION_ACCESS = "Please allow location access to proceed"
 let PLEASE_WAIT_FETCHING_PAYMENT_METHODS = "Please wait... fetching payment methods."
 
 
+
 let VIDEO_DESC = "*Videos should be no longer than 90 seconds. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 
 let SQUAT_MALE_DESC = "Video 1: Record yourself doing 1 rep with 135lb on the bar from 2 different angles.\nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles."

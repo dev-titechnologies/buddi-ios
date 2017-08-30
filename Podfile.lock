@@ -65,6 +65,9 @@ PODS:
   - GoogleMaps/Base (2.3.1)
   - GoogleMaps/Maps (2.3.1):
     - GoogleMaps/Base
+  - GooglePlacePicker (2.3.1):
+    - GoogleMaps (= 2.3.1)
+    - GooglePlaces (= 2.3.1)
   - GooglePlaces (2.3.1):
     - GoogleMaps/Base (= 2.3.1)
   - GoogleSignIn (4.0.2):
@@ -113,6 +116,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Google/SignIn
   - GoogleMaps
+  - GooglePlacePicker
   - GooglePlaces
   - IQKeyboardManagerSwift (= 4.0.10)
   - libPhoneNumber-iOS (~> 0.9)
@@ -135,6 +139,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 753d05a925e9eb8eadd09a0ffc9b808578b72fac
   Google: 98da4b1a60ed0beb80a290387a28333406a1eb90
   GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
+  GooglePlacePicker: fc3564ac7a2ce314e78e42bfc1e16822ad1e5488
   GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
   GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
@@ -150,6 +155,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 4a34e8289890c34ec8e94acd74448478a16c8a1f
+PODFILE CHECKSUM: 6fd49dcd1618def34ea3cfda2b15809b912db807
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

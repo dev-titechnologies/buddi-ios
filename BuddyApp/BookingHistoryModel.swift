@@ -10,6 +10,7 @@ import Foundation
 
 class BookingHistoryModel {
     
+    var rating: String = String()
     var bookingId: String = String()
     var traineeId: String = String()
     var trainerId: String = String()
@@ -55,6 +56,8 @@ class BookingHistoryModel {
         model.trainerId = String(describing: dictionary["trainer_id"]!)
         model.trainedDate = trainedDate
         model.category = categoryName
+        model.rating = CommonMethods.checkStringNull(val: String(describing: dictionary["rating"]!))
+        
         model.paymentStatus = dictionary["payment_status"] as! String
         model.trainingStatus = dictionary["training_status"] as! String
         model.traineeId = String(describing: dictionary["trainee_id"]!)

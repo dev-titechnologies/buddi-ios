@@ -132,6 +132,7 @@ class CommonMethods: NSObject {
          userDefaults.removeObject(forKey: "token")
          userDefaults.removeObject(forKey: "user_id")
          userDefaults.removeObject(forKey: "userType")
+        userDefaults.removeObject(forKey: "save_preferance")
     }
     
     class func networkcheck() ->( Bool)
