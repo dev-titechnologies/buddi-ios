@@ -23,42 +23,37 @@ class SocketIOManager: NSObject {
     //       let socket = SocketIOClient(socketURL: NSURL(string:SERVER_URL)!, options: [SocketIOClientOption.ConnectParams(["__sails_io_sdk_version":"0.11.0"])])
     //
     
-    
-    
-    
-    
     override init() {
         super.init()
     }
+    
     func establishConnection() {
-        
         print("ESTABLISH CONNECTION")
-        
         socket.connect()
     }
-    
     
     func closeConnection() {
         socket.disconnect()
     }
+    
     func EmittSocketParameters(parameters: NSMutableDictionary) {
         self.socket.on("connect") {data, ack in
             print("socket connected1")
             self.connectToServerWithParams(params: parameters)
         }
     }
- func connectToServerWithParams(params:NSMutableDictionary) {
+    
+    func connectToServerWithParams(params:NSMutableDictionary) {
             print("socket params",params)
             socket.emit("get", params)
             // getdata()
-        }
-        func getSocketdata(completionHandler: @escaping (_ messageInfo: NSMutableDictionary) -> Void) {
-            socket.on("message") { (dataArray, socketAck) -> Void in
+    }
+    
+    func getSocketdata(completionHandler: @escaping (_ messageInfo: NSMutableDictionary) -> Void) {
+        socket.on("message") { (dataArray, socketAck) -> Void in
                 var messageDictionary = NSMutableDictionary()
                 messageDictionary = dataArray[0] as! NSMutableDictionary
                 completionHandler(messageDictionary)
-            }
         }
-
-
+    }
 }

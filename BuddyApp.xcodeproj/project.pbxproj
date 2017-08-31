@@ -13,6 +13,7 @@
 		F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */; };
 		F302BBA31F1F8D2000186BCC /* CountryPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F302BBA21F1F8D2000186BCC /* CountryPicker.framework */; };
 		F302BBA51F1FA21900186BCC /* IQKeyboardManagerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */; };
+		F307E8941F56D527000273CF /* InviteFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307E8931F56D527000273CF /* InviteFriendsCell.swift */; };
 		F3093F621F2B12D400D33324 /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3093F611F2B12D400D33324 /* Reach.swift */; };
 		F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60151F1DC82A00374136 /* RegisterViewController.swift */; };
 		F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60171F1DCAB300374136 /* LoginViewController.swift */; };
@@ -20,6 +21,8 @@
 		F30B601F1F1DCEED00374136 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601B1F1DCEED00374136 /* FBSDKCoreKit.framework */; };
 		F30B60201F1DCEED00374136 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */; };
 		F30B60211F1DCEED00374136 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */; };
+		F3150D071F56C01100856555 /* InviteFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3150D061F56C01100856555 /* InviteFriendsVC.swift */; };
+		F3150D091F56C81B00856555 /* AcceptOrDeclineRequestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3150D081F56C81B00856555 /* AcceptOrDeclineRequestPage.swift */; };
 		F315428E1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315428D1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift */; };
 		F31542901F38802E0070EEC6 /* TrainerProfileModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */; };
 		F315E9961F30585700850A44 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = F315E98D1F30585700850A44 /* check.png */; };
@@ -47,6 +50,9 @@
 		F322FC551F1CE62400381B8C /* BuddyAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC541F1CE62400381B8C /* BuddyAppTests.swift */; };
 		F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */; };
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
+		F32E6AB21F53E94A001646E4 /* MessagingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32E6AB11F53E94A001646E4 /* MessagingVC.swift */; };
+		F32E6AB71F53F420001646E4 /* FireBaseMessagingConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32E6AB61F53F420001646E4 /* FireBaseMessagingConstant.swift */; };
+		F32E6AB91F540213001646E4 /* SessionDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32E6AB81F540213001646E4 /* SessionDetailModel.swift */; };
 		F330A1001F2F731D00C69871 /* BlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F330A0FF1F2F731D00C69871 /* BlankViewController.swift */; };
 		F334D6C01F39B12300435BD2 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F334D6BF1F39B12300435BD2 /* TimerViewController.swift */; };
 		F338F3A31F45AAD700B92450 /* TrainerProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F338F3A11F45AAD700B92450 /* TrainerProfileDetail.swift */; };
@@ -74,6 +80,7 @@
 		F364A8FC1F34B3520001C570 /* AssignedTrainerProfileTableCaptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F364A8FB1F34B3520001C570 /* AssignedTrainerProfileTableCaptionsCell.swift */; };
 		F364A8FE1F34B36E0001C570 /* AssignedTrainerSocialMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F364A8FD1F34B36E0001C570 /* AssignedTrainerSocialMediaCell.swift */; };
 		F364A9001F34B3950001C570 /* AssignedTrainerEmailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F364A8FF1F34B3950001C570 /* AssignedTrainerEmailCell.swift */; };
+		F36FD00A1F5554C400AB88E0 /* MessagingSocketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36FD0091F5554C400AB88E0 /* MessagingSocketVC.swift */; };
 		F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350961F207A2D00BE9DB6 /* LeftMenuTableCell.swift */; };
 		F37350991F207A2D00BE9DB6 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350971F207A2D00BE9DB6 /* LeftViewController.swift */; };
 		F373509D1F20911D00BE9DB6 /* CategoryListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373509C1F20911D00BE9DB6 /* CategoryListVC.swift */; };
@@ -172,6 +179,7 @@
 		F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterorloginViewController.swift; sourceTree = "<group>"; };
 		F302BBA21F1F8D2000186BCC /* CountryPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CountryPicker.framework; path = "Pods/../build/Debug-iphoneos/CountryPickerSwift/CountryPicker.framework"; sourceTree = "<group>"; };
 		F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IQKeyboardManagerSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"; sourceTree = "<group>"; };
+		F307E8931F56D527000273CF /* InviteFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsCell.swift; sourceTree = "<group>"; };
 		F3093F611F2B12D400D33324 /* Reach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reach.swift; sourceTree = "<group>"; };
 		F30B60151F1DC82A00374136 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F30B60171F1DCAB300374136 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +187,8 @@
 		F30B601B1F1DCEED00374136 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		F3150D061F56C01100856555 /* InviteFriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsVC.swift; sourceTree = "<group>"; };
+		F3150D081F56C81B00856555 /* AcceptOrDeclineRequestPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptOrDeclineRequestPage.swift; sourceTree = "<group>"; };
 		F315428D1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTraineeRouteViewController.swift; sourceTree = "<group>"; };
 		F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileModal.swift; sourceTree = "<group>"; };
 		F315E98D1F30585700850A44 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
@@ -212,6 +222,10 @@
 		F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyAppUITests.swift; sourceTree = "<group>"; };
 		F322FC611F1CE62500381B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F322FC6F1F1CEF2200381B8C /* Appconstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appconstants.swift; sourceTree = "<group>"; };
+		F32E6AB11F53E94A001646E4 /* MessagingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagingVC.swift; sourceTree = "<group>"; };
+		F32E6AB31F53F2CD001646E4 /* BuddyApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BuddyApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		F32E6AB61F53F420001646E4 /* FireBaseMessagingConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseMessagingConstant.swift; sourceTree = "<group>"; };
+		F32E6AB81F540213001646E4 /* SessionDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDetailModel.swift; sourceTree = "<group>"; };
 		F330A0FF1F2F731D00C69871 /* BlankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlankViewController.swift; sourceTree = "<group>"; };
 		F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BuddyApp.entitlements; sourceTree = "<group>"; };
 		F334D6BF1F39B12300435BD2 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +254,7 @@
 		F364A8FB1F34B3520001C570 /* AssignedTrainerProfileTableCaptionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignedTrainerProfileTableCaptionsCell.swift; sourceTree = "<group>"; };
 		F364A8FD1F34B36E0001C570 /* AssignedTrainerSocialMediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignedTrainerSocialMediaCell.swift; sourceTree = "<group>"; };
 		F364A8FF1F34B3950001C570 /* AssignedTrainerEmailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignedTrainerEmailCell.swift; sourceTree = "<group>"; };
+		F36FD0091F5554C400AB88E0 /* MessagingSocketVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagingSocketVC.swift; sourceTree = "<group>"; };
 		F37350961F207A2D00BE9DB6 /* LeftMenuTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuTableCell.swift; sourceTree = "<group>"; };
 		F37350971F207A2D00BE9DB6 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		F373509C1F20911D00BE9DB6 /* CategoryListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryListVC.swift; sourceTree = "<group>"; };
@@ -387,6 +402,15 @@
 			name = "Login OR Register";
 			sourceTree = "<group>";
 		};
+		F307E8921F56D4E8000273CF /* Invite Friends */ = {
+			isa = PBXGroup;
+			children = (
+				F307E8931F56D527000273CF /* InviteFriendsCell.swift */,
+				F3150D061F56C01100856555 /* InviteFriendsVC.swift */,
+			);
+			name = "Invite Friends";
+			sourceTree = "<group>";
+		};
 		F3093F601F2B12A000D33324 /* NetworkCheck */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,6 +429,7 @@
 				F30B601B1F1DCEED00374136 /* FBSDKCoreKit.framework */,
 				F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */,
 				F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */,
+				F32E6AB31F53F2CD001646E4 /* BuddyApp-Bridging-Header.h */,
 			);
 			name = ExternalFrameworks;
 			sourceTree = "<group>";
@@ -471,6 +496,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F32E6AB01F53E3C1001646E4 /* Messaging */,
 				F3A907771F32E3F600474F5E /* Trainer Pages */,
 				F3A907761F32E3D900474F5E /* Trainee Pages */,
 				F3FC70E91F2F398500B54A79 /* Forgot Password */,
@@ -538,8 +564,18 @@
 				F3F77C7D1F20F8BE00D51277 /* String Constants.swift */,
 				F341B0351F28D80F007C9AF1 /* ColorCodes.swift */,
 				F3A3E5B11F4C4AC900B0865E /* PageTitles.swift */,
+				F32E6AB61F53F420001646E4 /* FireBaseMessagingConstant.swift */,
 			);
 			name = Globals;
+			sourceTree = "<group>";
+		};
+		F32E6AB01F53E3C1001646E4 /* Messaging */ = {
+			isa = PBXGroup;
+			children = (
+				F32E6AB11F53E94A001646E4 /* MessagingVC.swift */,
+				F36FD0091F5554C400AB88E0 /* MessagingSocketVC.swift */,
+			);
+			name = Messaging;
 			sourceTree = "<group>";
 		};
 		F334D6BE1F39B0AB00435BD2 /* TimerViewcontroller */ = {
@@ -610,6 +646,7 @@
 				F3AF9D421F30661000D0CF05 /* GymModel.swift */,
 				F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */,
 				F3C6857C1F3C857900AA8CC7 /* TrainerReviewModel.swift */,
+				F32E6AB81F540213001646E4 /* SessionDetailModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -648,6 +685,7 @@
 		F373509A1F207A3800BE9DB6 /* Home Page */ = {
 			isa = PBXGroup;
 			children = (
+				F307E8921F56D4E8000273CF /* Invite Friends */,
 				F3C5955A1F4EECA600808ACB /* Settings Page */,
 				F3FD7DDA1F38383800986815 /* Left Menu */,
 				F3FD7DD71F3831E700986815 /* Add Payment Method */,
@@ -711,6 +749,7 @@
 			isa = PBXGroup;
 			children = (
 				F373509B1F2090AD00BE9DB6 /* Category Lists */,
+				F3150D081F56C81B00856555 /* AcceptOrDeclineRequestPage.swift */,
 			);
 			name = "Trainer Pages";
 			sourceTree = "<group>";
@@ -883,6 +922,7 @@
 					F322FC381F1CE62000381B8C = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 7QVT6YDQZ2;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -1139,10 +1179,12 @@
 				F316E7EE1F21BF6E00994447 /* SubCategoryModel.swift in Sources */,
 				F316E7F41F220CEC00994447 /* Question1VC.swift in Sources */,
 				F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */,
+				F3150D091F56C81B00856555 /* AcceptOrDeclineRequestPage.swift in Sources */,
 				F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */,
 				F3B52EE11F3AE4CC007910BC /* SocketIOManager.swift in Sources */,
 				F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */,
 				F364A8FC1F34B3520001C570 /* AssignedTrainerProfileTableCaptionsCell.swift in Sources */,
+				F32E6AB91F540213001646E4 /* SessionDetailModel.swift in Sources */,
 				F3093F621F2B12D400D33324 /* Reach.swift in Sources */,
 				F322FC3F1F1CE62000381B8C /* ViewController.swift in Sources */,
 				F316E7F61F22361B00994447 /* Question2VC.swift in Sources */,
@@ -1164,6 +1206,7 @@
 				F38BB5411F26069200824C15 /* ProfileVC.swift in Sources */,
 				F341B0381F28D9FB007C9AF1 /* CardView.swift in Sources */,
 				F3AF9D431F30661000D0CF05 /* GymModel.swift in Sources */,
+				F32E6AB71F53F420001646E4 /* FireBaseMessagingConstant.swift in Sources */,
 				F341B0321F287070007C9AF1 /* VideoURLModel.swift in Sources */,
 				F390DE091F4AB77500C52034 /* LegalPageVC.swift in Sources */,
 				F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */,
@@ -1181,12 +1224,14 @@
 				F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */,
 				F3A9077B1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift in Sources */,
 				F38BB5451F26077B00824C15 /* ProfileDB.swift in Sources */,
+				F3150D071F56C01100856555 /* InviteFriendsVC.swift in Sources */,
 				F3FF03E11F285F6700D4DD0D /* StringExtension.swift in Sources */,
 				F364A8F91F34A50E0001C570 /* AssignedTrainerProfileView.swift in Sources */,
 				F33ABF6D1F29E5C200DEAE48 /* WaitingForApprovalVC.swift in Sources */,
 				F322FC451F1CE62100381B8C /* BuddyApp.xcdatamodeld in Sources */,
 				F3A907791F32E45A00474F5E /* TraineeHomePage.swift in Sources */,
 				F316E7F81F22364F00994447 /* Question3VC.swift in Sources */,
+				F36FD00A1F5554C400AB88E0 /* MessagingSocketVC.swift in Sources */,
 				F364A8FE1F34B36E0001C570 /* AssignedTrainerSocialMediaCell.swift in Sources */,
 				F334D6C01F39B12300435BD2 /* TimerViewController.swift in Sources */,
 				F302BB921F1F2B5A00186BCC /* LoginModel.swift in Sources */,
@@ -1197,6 +1242,8 @@
 				F3C6857A1F3C821A00AA8CC7 /* TrainerReviewPage.swift in Sources */,
 				F35FDADD1F1E517C0091900D /* BookingDetailsVC.swift in Sources */,
 				F315E99E1F30585700850A44 /* VTableViewCell.swift in Sources */,
+				F32E6AB21F53E94A001646E4 /* MessagingVC.swift in Sources */,
+				F307E8941F56D527000273CF /* InviteFriendsCell.swift in Sources */,
 				F35FDAE11F1E518D0091900D /* ReviewHistoryModel.swift in Sources */,
 				F3FBA7BF1F3C70DB00B882B7 /* MapBottamButtonCell.swift in Sources */,
 				F3990E211F1F77E1000FFF7B /* APIURLs.swift in Sources */,
@@ -1359,6 +1406,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Info Ti Technologies (74E64HKFV4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Info Ti Technologies (74E64HKFV4)";
@@ -1376,6 +1424,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "96a90820-2405-49ec-acc3-e67fc0351c71";
 				PROVISIONING_PROFILE_SPECIFIER = BuddyAppDevelopment;
+				SWIFT_OBJC_BRIDGING_HEADER = "BuddyApp/BuddyApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1388,6 +1438,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: DEEPU ZACHARIA (7QVT6YDQZ2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
@@ -1405,6 +1456,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b014fdc4-b356-4cb2-81bd-b3ed39d3cc78";
 				PROVISIONING_PROFILE_SPECIFIER = BuddyAppAdHoc;
+				SWIFT_OBJC_BRIDGING_HEADER = "BuddyApp/BuddyApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

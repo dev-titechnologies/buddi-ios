@@ -21,11 +21,13 @@ target 'BuddyApp' do
     pod 'Braintree'
     pod 'BraintreeDropIn'
     pod 'Socket.IO-Client-Swift'
-    #pod 'Firebase/Core'
+    
+    pod 'Firebase/Core'
     pod 'Firebase/Messaging'
-
-    # pod 'ReachabilitySwift', '~> 2.4'
-    #pod 'Alamofire-SwiftyJSON'
+    pod 'Firebase/Storage'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Database'
+    pod 'JSQMessagesViewController'
 
   # Pods for BuddyApp
 

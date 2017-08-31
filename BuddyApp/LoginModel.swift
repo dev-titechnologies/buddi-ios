@@ -19,12 +19,12 @@ class LoginModel{
     
     init(username: String, password: String, userid: String, usertoken: String){
         
-        
         self.username = username
         self.password = password
         self.userid = userid
         self.usertoken = usertoken
     }
+    
     func getBookingHistoryModelFromDict(dictionary: Dictionary<String, Any>) -> LoginModel {
         
         let model: LoginModel = LoginModel()

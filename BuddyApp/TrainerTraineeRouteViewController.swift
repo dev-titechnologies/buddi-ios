@@ -9,12 +9,16 @@
 import UIKit
 import MapKit
 import GoogleMaps
+import Firebase
+import UserNotifications
 
 class TrainerTraineeRouteViewController: UIViewController {
     
     @IBOutlet weak var timer_lbl: UILabel!
     @IBOutlet weak var mapview: GMSMapView!
     @IBOutlet weak var collectionview: UICollectionView!
+    
+//    var sessionDetailModel: SessionDetailModel = SessionDetailModel()
     
     var TIMERCHECK = Bool()
     var locationManager: CLLocationManager!
@@ -23,10 +27,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     var trainerProfileDetails = TrainerProfileModal()
     var TrainerProfileDictionary: NSDictionary!
     
-    
     var TimerDict = NSDictionary()
     var numOfDays = Int()
-
 
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
@@ -54,6 +56,10 @@ class TrainerTraineeRouteViewController: UIViewController {
     @IBOutlet weak var cancelAlertViewTitle: UILabel!
     @IBOutlet weak var txtCancelReason: UITextView!
 
+    var isInSessionRoutePage = Bool()
+    
+    //MARK: - VIEW CYCLES
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,7 +67,11 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         appDelegate.TrainerProfileDictionary = nil
         
-       // self.TrainerProfileDictionary = userDefaults.value(forKey: "test") as! NSDictionary
+        print("Trainer Profile Details : \(trainerProfileDetails)")
+        print("*****  Received Trainer Profile Dict1:\(TrainerProfileDictionary)")
+        
+        //For Temporary Display
+        printTrainerProfileDetails()
         
         self.title = PAGE_TITLE.TRAINING_SESSION
         
@@ -114,15 +124,20 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        print("*****  Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
+        
+        isInSessionRoutePage = true
+        
+        getSocketConnected()
+        socketListener()
+        
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
         
-        // Define identifier
         let notificationName = Notification.Name("SessionNotification")
         
-        // Register to receive notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.SessionTimerNotification), name: notificationName, object: nil)
         
         print("viewWillAppear")
@@ -132,14 +147,47 @@ class TrainerTraineeRouteViewController: UIViewController {
         getCurrentLocationDetails()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        isInSessionRoutePage = false
+    }
+    
+    func printTrainerProfileDetails() {
+        
+        print("Booking ID: \(trainerProfileDetails.Booking_id)")
+        print("Trainee ID: \(trainerProfileDetails.Trainee_id)")
+        print("Trainer ID: \(trainerProfileDetails.Trainer_id)")
+        print("First Name: \(trainerProfileDetails.firstName)")
+        print("Last Name: \(trainerProfileDetails.lastName)")
+    }
+    
+    func createSessionDetailModel(detailsDict : TrainerProfileModal) -> SessionDetailModel {
+        
+        print("createSessionDetailModel From:\(detailsDict)")
+        
+        let session_detail_model_obj = SessionDetailModel()
+        
+        session_detail_model_obj.bookingId = detailsDict.Booking_id
+        session_detail_model_obj.traineeId = detailsDict.Trainee_id
+        session_detail_model_obj.trainerId = detailsDict.Trainer_id
+        
+        if appDelegate.USER_TYPE == "trainer" {
+            session_detail_model_obj.trainerName = (userDefaults.value(forKey: "userName") as? String)!
+            session_detail_model_obj.traineeName =  detailsDict.firstName + " " + detailsDict.lastName
+        }else if appDelegate.USER_TYPE == "trainee" {
+            session_detail_model_obj.trainerName = detailsDict.firstName + " " + detailsDict.lastName
+            session_detail_model_obj.traineeName = (userDefaults.value(forKey: "userName") as? String)!
+        }
+        
+        return session_detail_model_obj
+    }
+    
     func SessionTimerNotification(notif: NSNotification){
        
         print("Notification Received:\(notif)")
         if notif.userInfo!["pushData"] as! String == "2"{
         
-            let alertController = UIAlertController(title: ALERT_TITLE, message: "Session has started", preferredStyle: UIAlertControllerStyle.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
+            let alertController = UIAlertController(title: ALERT_TITLE, message: "Session has started", preferredStyle: UIAlertControllerStyle.alert)
         
-            // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
                 (result : UIAlertAction) -> Void in
                 print("OK")
@@ -166,7 +214,6 @@ class TrainerTraineeRouteViewController: UIViewController {
                 self.performSegue(withIdentifier: "trainingCancelledToTraineeHomeSegue", sender: self)
             }
 
-            
            // self.BookingAction(Action_status: "cancel")
         }else if notif.userInfo!["pushData"] as! String == "4"{
             self.timer.invalidate()
@@ -183,15 +230,13 @@ class TrainerTraineeRouteViewController: UIViewController {
             }else if appDelegate.USER_TYPE == "trainee" {
                 self.performSegue(withIdentifier: "trainingCancelledToTraineeHomeSegue", sender: self)
             }
-
-
            // self.BookingAction(Action_status: "complete")
         }
     }
     
     func methodOfReceivedNotification(notif: NSNotification) {
         
-      print("ENTRE FORGROUND",notif.name.rawValue)
+      print("ENTER FORGROUND",notif.name.rawValue)
         
         if notif.name.rawValue == "UIApplicationWillEnterForegroundNotification"{
             if userDefaults.value(forKey: "TimerData") != nil {
@@ -309,8 +354,6 @@ class TrainerTraineeRouteViewController: UIViewController {
                             userDefaults.removeObject(forKey: "TimerData")
                             TrainerProfileDetail.deleteBookingDetails()
                             
-                            
-                            
                             //Add Review Screen here
                             
                             if appDelegate.USER_TYPE == "trainer" {
@@ -362,7 +405,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                     if self.isTimerRunning == false {
                         self.runTimer()
                     }
-                                      
+                    
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     
                 }else if status == RESPONSE_STATUS.FAIL{
@@ -428,9 +471,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         print("LAT$LONG",lat)
         
-       
-       
-        
         let origin = "\(OriginLat),\(OriginLong)"
         let destination = "\(DestiLat),\(DestiLong)"
         
@@ -492,6 +532,36 @@ class TrainerTraineeRouteViewController: UIViewController {
     }
     //MARK: - SOCKET CONNECTION
     
+    func getSocketConnected() {
+        
+        parameterdict.setValue("/connectSocket/connectSocket", forKey: "url")
+        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+    }
+    
+    func socketListener() {
+        
+        SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
+                
+                if !self.isInSessionRoutePage{
+                    return
+                }
+                
+                guard messageInfo["type"] as! String == "location" else{
+                    print("**** Socket data received inside session screen without type 'location'")
+                    return
+                }
+                
+                print("Socket Message Info in Session Page",messageInfo)
+                let trainerSocketData = messageInfo["message"] as! NSDictionary
+                
+                self.MarkPoints(latitude: Double(trainerSocketData["latitude"] as! String)!, logitude: Double(trainerSocketData["longitude"] as! String!)!)
+                
+                self.DrowRoute(OriginLat: Float(self.lat), OriginLong: Float(self.long), DestiLat: Float(trainerSocketData["latitude"] as! String)!, DestiLong: Float(trainerSocketData["longitude"] as! String!)!)
+            })
+        }
+    }
+    
     func addHandlers() {
         
         datadict.setValue(appDelegate.UserId, forKey: "user_id")
@@ -505,12 +575,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         print("PARADICT",parameterdict)
         
         SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
-        SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
-            DispatchQueue.main.async(execute: { () -> Void in
-                print("Socket Message Info",messageInfo)
-            })
-        }
     }
+    
     func addHandlersTrainer(){
         
         parameterdict1.setValue("/location/receiveTrainerLocation", forKey: "url")
@@ -521,20 +587,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         print("PARADICT_ReceivedTrainerLocation",parameterdict1)
         // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
-        
-        SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
-            DispatchQueue.main.async(execute: { () -> Void in
-                print("Socket Message Info1",messageInfo)
-                
-                // print(Float(messageInfo["longitude"] as! String)!)
-                
-                
-                 self.MarkPoints(latitude: Double((messageInfo["message"] as! NSDictionary)["latitude"] as! String)!, logitude: Double((messageInfo["message"] as! NSDictionary)["longitude"] as! String!)!)
-                
-                self.DrowRoute(OriginLat: Float(self.lat), OriginLong: Float(self.long), DestiLat: Float((messageInfo["message"] as! NSDictionary)["latitude"] as! String)!, DestiLong: Float((messageInfo["message"] as! NSDictionary)["longitude"] as! String!)!)
-                
-            })
-        }
     }
 
     //MARK: - PREPARE FOR SEGUE
@@ -542,9 +594,15 @@ class TrainerTraineeRouteViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "fromtimertotrainerprofile"{
+            //To Trainer/Trainee Profile
             let TrainerProPage =  segue.destination as! AssignedTrainerProfileView
             TrainerProPage.TrainerId = self.trainerProfileDetails.Trainer_id
+        }else if segue.identifier == "fromSessionPageToMessagingSegue" {
+            //To Messaging Page
+            let messagingPage = segue.destination as! MessagingSocketVC
+            messagingPage.sessionDetailModelObj = createSessionDetailModel(detailsDict: trainerProfileDetails)
         }
+        
         //For REview Segue
         //        performSegue(withIdentifier: "trainerReviewPageSegue", sender: self)
 
@@ -612,7 +670,6 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
         }else{
             if appDelegate.USER_TYPE == "trainer"{
                   self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
-                
                 self.addHandlers()
             }else{
                 self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
@@ -675,7 +732,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         if indexPath.row == 2{
             //Profile
             cell1.menu_btn.setImage(UIImage(named: "man"), for: .normal)
-            cell1.name_lbl.text = "Profile"
+            cell1.name_lbl.text = trainerProfileDetails.firstName
         }
         
         if indexPath.row == 3{
@@ -748,6 +805,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             self.performSegue(withIdentifier: "fromtimertotrainerprofile", sender: self)
         }else if sender.tag == 3{
              print("MESSAGE ACTION")
+            performSegue(withIdentifier: "fromSessionPageToMessagingSegue", sender: self)
         }
     }
     
@@ -785,21 +843,21 @@ extension TrainerTraineeRouteViewController : UICollectionViewDelegate{
         
         switch (indexPath.row) {
             case 0:
-                print("zero")
+                print("**** Cancel Click")
                 
             case 1:
                 
-                print("one")
+                print("**** Start or Stop Click")
                 let index_path = NSIndexPath(index: 0)
                 collectionview.reloadItems(at: [index_path as IndexPath])
             
             case 2:
-                
-                print("two")
+                print("**** Profile Button Click")
+            
             case 3:
-                
-                print("three")
-                
+                print("**** Message Button Click")
+                performSegue(withIdentifier: "fromSessionPageToMessagingSegue", sender: self)
+            
             default:
                 
                 print("Integer out of range")

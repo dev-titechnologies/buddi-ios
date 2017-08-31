@@ -41,8 +41,6 @@ class LeftViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         print("**** Left view viewDidAppear")
-
-//        SideMenuManager.menuFadeStatusBar = false
     }
     
     func parseNameAndImage() {
@@ -280,7 +278,7 @@ extension LeftViewController : UITableViewDelegate{
                 print("four")
                 if isTraineeAlreadyTrainer{
                     print("Invite Friends")
-                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                    self.performSegue(withIdentifier: "fromLeftMenuToInviteFriendsSegue", sender: self)
                 }else{
                     print("Training History")
                     self.performSegue(withIdentifier: "bookingHistorySegue", sender: self)
@@ -293,7 +291,7 @@ extension LeftViewController : UITableViewDelegate{
                     self.performSegue(withIdentifier: "leftMenuToHelpPageSegue", sender: self)
                 }else{
                     print("Invite Friends")
-                    self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                    self.performSegue(withIdentifier: "fromLeftMenuToInviteFriendsSegue", sender: self)
                 }
                 
             case 6:
