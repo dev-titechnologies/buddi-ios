@@ -105,9 +105,6 @@ class ShowTrainersOnMapVC: UIViewController {
     
     @IBAction func Next_action(_ sender: Any) {
         
-     
-   
-
         if isFromSplashScreen{
             RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromBackup())
         }else{
@@ -394,7 +391,7 @@ class ShowTrainersOnMapVC: UIViewController {
         
         SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
-                print("Socket Message Info1",messageInfo)
+                print("Socket Message Info Show Trainers on Map",messageInfo)
                 
                // print(Float(messageInfo["longitude"] as! String)!)
                 

@@ -111,11 +111,6 @@ class TrainerProfilePage: UIViewController {
         print("PARADICT11",parameterdict)
         
         SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
-        SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
-            DispatchQueue.main.async(execute: { () -> Void in
-                print("Socket Message InfoProfile",messageInfo)
-            })
-        }
     }
 
     func switchValueDidChange(sender:UISwitch!) {
@@ -575,10 +570,9 @@ extension TrainerProfilePage: CLLocationManagerDelegate {
             long = Float(location.coordinate.longitude)
             
         }
-//        self.addHandlers()
-               locationManager.stopUpdatingLocation()
-        
+        locationManager.stopUpdatingLocation()
     }
+    
     private func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.authorizedWhenInUse {
           

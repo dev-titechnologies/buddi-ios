@@ -30,7 +30,6 @@ class TrainerReviewPage: UIViewController{
         
        // print(trainerProfileDetails1.firstName)
         lblTrainerName.text = trainerProfileDetails1.firstName
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

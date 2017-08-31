@@ -112,7 +112,7 @@ class Question2VC: UIViewController{
     //MARK:- NEXT/BACK BUTTON ACTIONS
     @IBAction func nextButtonAction(_ sender: Any) {
         
-        if txtCurrentGymSubscriptions.text == "" || !isAnsweredMilitaryInstallations{
+        if !isAnsweredMilitaryInstallations{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ANSWER_ABOVE_QUESTIONS, buttonTitle: "OK")
         }else{
             trainerTestAnswers.gymSubscriptions = gymArraySelected
@@ -160,7 +160,7 @@ extension Question2VC: VDropDown{
             print("LIST",MultipleSelectedItems)
             gymArraySelected.append(gymArray[Index.row])
             
-            if txtCurrentGymSubscriptions.text != "" && isAnsweredMilitaryInstallations {
+            if isAnsweredMilitaryInstallations {
                 btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
             }else{
                 btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
