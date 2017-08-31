@@ -23,6 +23,7 @@ target 'BuddyApp' do
     pod 'Socket.IO-Client-Swift'
     
     pod 'Firebase/Core'
+    pod 'GooglePlacePicker'
     pod 'Firebase/Messaging'
     pod 'Firebase/Storage'
     pod 'Firebase/Auth'

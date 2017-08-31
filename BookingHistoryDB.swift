@@ -25,6 +25,8 @@ public class BookingHistoryDB: NSManagedObject {
             if bookings.count > 0 {
                 print("Booking entry present")
                 let booking = bookings[0] as! NSManagedObject
+                
+                booking.setValue(bookingModel.rating, forKey: "rating")
                 booking.setValue(bookingModel.trainedDate, forKey: "bookedDate")
                 booking.setValue(bookingModel.bookingId, forKey: "bookingId")
                 booking.setValue(bookingModel.category, forKey: "category")

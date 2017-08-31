@@ -20,8 +20,14 @@ class BookingDetailsVC: UIViewController {
     @IBOutlet weak var lblTrainerName: UILabel!
     @IBOutlet weak var imgTrainingPic: UIImageView!
 
+    @IBOutlet weak var ratingview: SwiftyStarRatingView!
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
+        ratingview.isUserInteractionEnabled = false
+       
+        ratingview.allowsHalfStars = true
 
         print("Received Booking Ref:",bookingModel)
         self.title = PAGE_TITLE.TRAINING_DETAILS
@@ -43,6 +49,8 @@ class BookingDetailsVC: UIViewController {
         
         lblTrainerName.text = "You rated " + bookingModel.trainerName
         imgTrainerPic.sd_setImage(with: URL(string: bookingModel.trainerImage), placeholderImage: UIImage(named: "profileDemoImage"))
+        
+        ratingview.value = CGFloat((bookingModel.rating as NSString).floatValue)
     }
 
     override func didReceiveMemoryWarning() {

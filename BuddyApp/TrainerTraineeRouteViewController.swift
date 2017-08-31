@@ -64,7 +64,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         super.viewDidLoad()
         
         print("viewDidLoad")
-        
+       // seconds = 60
         appDelegate.TrainerProfileDictionary = nil
         
         print("Trainer Profile Details : \(trainerProfileDetails)")
@@ -421,7 +421,23 @@ class TrainerTraineeRouteViewController: UIViewController {
     
 //MARK: -TIMER ACTIONS
     
+    func ExtendSessionAlert() {
+        
+        let alert = UIAlertController(title: ALERT_TITLE, message: "You want to extend the session", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { action in
+            
+           
+            //self.dismissOnSessionExpire()
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
+ 
     func runTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(TrainerTraineeRouteViewController.updateTimer)), userInfo: nil, repeats: true)
         isTimerRunning = true
@@ -431,6 +447,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         if seconds < 1 {
             timer.invalidate()
             //Send alert to indicate time's up.
+            
+            //self.ExtendSessionAlert()
             
             self.BookingAction(Action_status: "complete")
             
@@ -667,6 +685,11 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
         }
         
         if TIMERCHECK{
+            
+            self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
+            self.addHandlersTrainer()
+
+            
         }else{
             if appDelegate.USER_TYPE == "trainer"{
                   self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
