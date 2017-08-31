@@ -4206,6 +4206,7 @@ Good luck!
                         <segue destination="HPk-3z-nPy" kind="show" identifier="leftMenuToLegalPageSegue" id="oro-Ql-JTh"/>
                         <segue destination="ZOG-fH-Ngf" kind="show" identifier="leftMenuToHelpPageSegue" id="rk3-Re-H1f"/>
                         <segue destination="F3S-7J-rTV" kind="show" identifier="fromLeftMenuToSettingsPageSegue" id="Zk0-8E-WHE"/>
+                        <segue destination="3tw-Fw-C7S" kind="show" identifier="leftmenutotimerview" id="Fjh-O3-jAU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gun-9H-Bqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -7355,16 +7356,16 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="oJI-IR-BP8"/>
-        <segue reference="XZ2-iP-1Kx"/>
+        <segue reference="L6f-51-y41"/>
         <segue reference="nov-fw-yUQ"/>
         <segue reference="USH-R0-s5v"/>
         <segue reference="AU2-8a-F5M"/>
+        <segue reference="Fjh-O3-jAU"/>
         <segue reference="fqg-MV-HkZ"/>
+        <segue reference="OZa-hZ-FT0"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="pMz-WA-RGb"/>
-        <segue reference="OYB-aT-rib"/>
         <segue reference="21t-ww-Awf"/>
-        <segue reference="OZa-hZ-FT0"/>
         <segue reference="Jnc-bx-uPX"/>
     </inferredMetricsTieBreakers>
 </document>
