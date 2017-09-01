@@ -15,6 +15,12 @@ class InviteFriendsVC: UIViewController {
     @IBOutlet weak var friendsListTable: UITableView!
     
     var contacts = [CNContact]()
+    var contactArray = [ContactDictionaryModel]()
+    
+    //For Search
+    var arrayFiltered = [ContactDictionaryModel]()
+    var isSearching = Bool()
+    var identifierArray = [String]()
     
     //MARK: - VIEW CYCLES
     
@@ -27,15 +33,6 @@ class InviteFriendsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         fetchContactsFromDevice()
-        
-
-//        let status = CNContactStore.authorizationStatus(for: .contacts)
-//        if status == .denied || status == .restricted {
-//            presentSettingsActionSheet()
-//            return
-//        }else{
-//            fetchContactsFromDevice()
-//        }
     }
     
     func fetchContactsFromDevice() {
@@ -49,9 +46,7 @@ class InviteFriendsVC: UIViewController {
                 return
             }
             
-            // get the contacts
-            
-            let keysToFetch = [CNContactGivenNameKey, CNContactPhoneNumbersKey]
+            let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
             let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
             do {
                 try store.enumerateContacts(with: request) { contact, stop in
@@ -62,17 +57,19 @@ class InviteFriendsVC: UIViewController {
             }
             
             print("Contact Count:",self.contacts.count)
+            for contact in self.contacts {
+                
+                let contact_dict_model = ContactDictionaryModel()
+                let contact_model = contact.getDictionaryFromCNContact
+                
+                contact_dict_model.status = "0"
+                contact_dict_model.contact = contact_model
+                
+                self.contactArray.append(contact_dict_model)
+                self.identifierArray.append(contact_model.identifier)
+            }
+            
             self.friendsListTable.reloadData()
-
-            // do something with the contacts array (e.g. print the names)
-            
-//            let formatter = CNContactFormatter()
-//            formatter.style = .fullName
-//            for contact in self.contacts {
-//                let name: String? = CNContactFormatter.string(from: contact, style: .fullName)
-////                print("Contact:\(String(describing: name))")
-//            }
-            
         }
     }
     
@@ -96,18 +93,22 @@ class InviteFriendsVC: UIViewController {
 extension InviteFriendsVC : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
+        
+        let rowCount = (isSearching ? arrayFiltered.count : contactArray.count)
+        return rowCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell: InviteFriendsCell = tableView.dequeueReusableCell(withIdentifier: "inviteFriendsCellId") as! InviteFriendsCell
-
-        let contact = contacts[indexPath.row]
-        print("Contact123:",contact)
-        let MobNumVar = (contact.phoneNumbers[0].value ).value(forKey: "digits") as! String
-        print("Mobile:",MobNumVar)
-        cell.lblContactName.text = CNContactFormatter.string(from: contact, style: .fullName)
+        
+        var contact = ContactDictionaryModel()
+        
+        contact = (isSearching && arrayFiltered.count > 0 ? arrayFiltered[indexPath.row] : contactArray[indexPath.row])
+        
+        let dict = contact.contact
+        cell.lblContactName.text = dict.givenName + " " + dict.familyName
+        cell.imgCheck.image = (contact.status == "0" ?  #imageLiteral(resourceName: "unchecked") : #imageLiteral(resourceName: "checked"))
 
         return cell
     }
@@ -117,4 +118,149 @@ extension InviteFriendsVC : UITableViewDataSource{
 
 extension InviteFriendsVC : UITableViewDelegate{
     
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let contact = (isSearching ? arrayFiltered[indexPath.row] : contactArray[indexPath.row])
+        let temp_contact = ContactDictionaryModel()
+        
+        if contact.status == "0" {
+            temp_contact.status = "1"
+            temp_contact.contact = contact.contact as ContactModel
+        }else{
+            temp_contact.status = "0"
+            temp_contact.contact = contact.contact as ContactModel
+        }
+        
+        if isSearching{
+            arrayFiltered[indexPath.row] = temp_contact
+            
+            let indexOf = self.identifierArray.index(of: arrayFiltered[indexPath.row].contact.identifier)
+            print("Index Found: \(String(describing: indexOf!))")
+            contactArray[indexOf!] = temp_contact
+        }else {
+            contactArray[indexPath.row] = temp_contact
+        }
+        let indexPath1 = IndexPath(row: indexPath.row, section: 0)
+        self.friendsListTable.reloadRows(at: [indexPath1], with: .automatic)
+    }
 }
+
+extension Array {
+    func contains<T>(obj: T) -> Bool where T : Equatable {
+        return self.filter({$0 as? T == obj}).count > 0
+    }
+}
+
+//MARK: - SEARCHBAR DELEGATES
+
+extension InviteFriendsVC: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+       
+        arrayFiltered.removeAll()
+        convertButtonTitle(fromTitle: "Search", toTitle: "Cancel", inView: searchBar)
+        
+        print("*** Search Text:\(searchText)")
+        if(searchText.characters.count != 0){
+            isSearching = true
+            searchTableList()
+        }else{
+            isSearching = false
+        }
+        friendsListTable.reloadData()
+    }
+    
+    func searchTableList() {
+        let searchString = searchBar.text
+       
+        for contact in contactArray{
+            
+            let contact_dict = contact.contact 
+            print("contact_dict:\(contact_dict)")
+            
+            let given_name = contact_dict.givenName
+            let family_name = contact_dict.familyName
+            
+            if given_name.lowercased().range(of: (searchString?.lowercased())!) != nil ||
+                family_name.lowercased().range(of: (searchString?.lowercased())!) != nil {
+                arrayFiltered.append(contact)
+            }
+        }
+        
+        print("Search Resultant Array :\(arrayFiltered)")
+        friendsListTable.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchTableList()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        convertButtonTitle(fromTitle: "Cancel", toTitle: "Search", inView: searchBar)
+        searchBar.resignFirstResponder()
+        if(searchBar.text != ""){
+            searchBar.text = ""
+            isSearching = false
+            friendsListTable.reloadData()
+        }else{
+//            self.performSegueWithIdentifier("unwindsegue", sender: self)
+        }
+    }
+    
+    func convertButtonTitle(fromTitle:String,toTitle:String, inView:UIView) {
+       
+        if inView.isKind(of: UIButton.self){
+            let button = inView as! UIButton
+            if button.title(for: .normal) == fromTitle{
+                button.setTitle(toTitle, for: .normal)
+            }
+        }
+        
+        for subview in inView.subviews {
+            convertButtonTitle(fromTitle: fromTitle, toTitle: toTitle, inView: subview)
+        }
+    }
+}
+
+//MARK: - CNCONTACT EXTENSION
+
+extension CNContact {
+    var getDictionaryFromCNContact : ContactModel {
+        
+        let contact = ContactModel()
+        let phoneNumbers = NSMutableArray()
+        
+        contact.identifier         = self.identifier as String
+        contact.givenName          = self.givenName as String
+        contact.familyName         = self.familyName as String
+        //        contact["imageDataAvailable"] = self.imageDataAvailable as AnyObject
+        
+        //        if (self.imageDataAvailable) {
+        //            let thumbnailImageDataAsBase64String = self.thumbnailImageData!.base64EncodedStringWithOptions([])
+        //            contact["thumbnailImageData"] = thumbnailImageDataAsBase64String
+        //        }
+        
+        if (self.isKeyAvailable(CNContactPhoneNumbersKey)) {
+            for number in self.phoneNumbers {
+                var numbers = [String: AnyObject]()
+                let phoneNumber = (number.value ).value(forKey: "digits") as! String
+                let countryCode = (number.value ).value(forKey: "countryCode") as? String
+                //                let label = CNLabeledValue.localizedString(forLabel: number.label!)
+                numbers["number"] = phoneNumber as AnyObject
+                numbers["countryCode"] = countryCode as AnyObject
+                //                numbers["label"] = label
+                phoneNumbers.add(numbers)
+            }
+            contact.phoneNumbers = phoneNumbers
+        }
+        
+        return contact
+    }
+}
+
