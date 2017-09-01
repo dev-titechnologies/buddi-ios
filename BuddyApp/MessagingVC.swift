@@ -9,6 +9,7 @@
 import UIKit
 import JSQMessagesViewController
 import Firebase
+import FirebaseDatabase
 
 class MessagingVC: JSQMessagesViewController {
     

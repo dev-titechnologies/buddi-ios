@@ -76,6 +76,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         self.title = PAGE_TITLE.TRAINING_SESSION
         
         if TIMERCHECK {
+            
             FetchFromDb()
             self.runTimer()
         }else{
@@ -109,6 +110,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                 
                 TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
             }
+            
             SocketIOManager.sharedInstance.establishConnection()
         }
         
@@ -136,6 +138,10 @@ class TrainerTraineeRouteViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillTerminate, object:nil)
+
+        
+        // Define identifier
         let notificationName = Notification.Name("SessionNotification")
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.SessionTimerNotification), name: notificationName, object: nil)
@@ -145,6 +151,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         btnYesCancelAlert.addShadowView()
             
         getCurrentLocationDetails()
+        
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -233,35 +241,47 @@ class TrainerTraineeRouteViewController: UIViewController {
            // self.BookingAction(Action_status: "complete")
         }
     }
+    func RunningTimeData()
+    {
+        if userDefaults.value(forKey: "TimerData") != nil {
+            
+            TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
+            print("TIMERDICT",TimerDict)
+            
+            let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
+            
+            print("OLD DATE",date)
+            print("CURRENT DATE",Date())
+            
+            if date > Date(){
+                print("ongoing")
+                numOfDays = Date().daysBetweenDate(toDate: date)
+                seconds = numOfDays
+                self.runTimer()
+                print("DIFFERENCE",numOfDays)
+                //self.showTimer(time: numOfDays)
+            }else{
+                print("completed")
+            }
+        }
+
+    }
     
     func methodOfReceivedNotification(notif: NSNotification) {
         
       print("ENTER FORGROUND",notif.name.rawValue)
         
         if notif.name.rawValue == "UIApplicationWillEnterForegroundNotification"{
-            if userDefaults.value(forKey: "TimerData") != nil {
-                
-                TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
-                print("TIMERDICT",TimerDict)
-                
-                let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
-                
-                print("OLD DATE",date)
-                print("CURRENT DATE",Date())
-                
-                if date > Date(){
-                    print("ongoing")
-                    numOfDays = Date().daysBetweenDate(toDate: date)
-                    seconds = numOfDays
-                    self.runTimer()
-                    print("DIFFERENCE",numOfDays)
-                    //self.showTimer(time: numOfDays)
-                }else{
-                    print("completed")
-                }
-            }
+            
+            self.RunningTimeData()
+            
+            
+            
         }else if notif.name.rawValue == "UIApplicationDidEnterBackgroundNotification"{
             self.timer.invalidate()
+        }else if notif.name.rawValue == "applicationWillTerminate"
+        {
+            
         }
     }
 
@@ -349,10 +369,10 @@ class TrainerTraineeRouteViewController: UIViewController {
                         if dict["status"] as! String == "cancelled" || dict["status"] as! String == "completed" {
                             self.timer.invalidate()
                             self.timer_lbl.text = "00" + ":" + "00"
-                            
-                           self.RateViewScreen()
                             userDefaults.removeObject(forKey: "TimerData")
                             TrainerProfileDetail.deleteBookingDetails()
+
+                           self.RateViewScreen()
                             
                             //Add Review Screen here
                             
@@ -456,6 +476,8 @@ class TrainerTraineeRouteViewController: UIViewController {
             seconds -= 1
             //  timerLabel.text = timeString(time: TimeInterval(seconds))
            // print("SECONDS",seconds)
+            
+            appDelegate.timerrunningtime = true
             
             myMutableString = NSMutableAttributedString(string: timeString(time: TimeInterval(seconds)), attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 70.0)])
             myMutableString.addAttribute(NSForegroundColorAttributeName, value: CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR), range: NSRange(location:3,length:2))

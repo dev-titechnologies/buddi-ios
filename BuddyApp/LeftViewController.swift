@@ -16,6 +16,12 @@ class LeftViewController: UIViewController {
     var objdata = NSData()
     var leftMenuArrayTraineeCopy = [String]()
     var isTraineeAlreadyTrainer = Bool()
+    var TimerDict = NSDictionary()
+    var numOfDays = Int()
+
+    
+    
+    
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var lblEmailId: UILabel!
     
@@ -66,7 +72,39 @@ class LeftViewController: UIViewController {
             }
         }
     }
-    
+    func TimerCheck()
+    {
+        if userDefaults.value(forKey: "TimerData") != nil {
+            
+            TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
+            print("TIMERDICT",TimerDict)
+            
+            let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
+            
+            print("OLD DATE",date)
+            print("CURRENT DATE",Date())
+            
+            
+            if date > Date(){
+                print("ongoing")
+                numOfDays = Date().daysBetweenDate(toDate: date)
+                
+                print("DIFFERENCE",numOfDays)
+                
+                self.performSegue(withIdentifier: "leftmenutotimerview", sender: self)
+                
+                
+                
+                
+            }else{
+                print("completed")
+                
+                userDefaults.removeObject(forKey: "TimerData")
+                TrainerProfileDetail.deleteBookingDetails()
+            }
+
+    }
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "blankPageSegue" {
@@ -82,6 +120,14 @@ class LeftViewController: UIViewController {
                     blankPage.blankTextValue = leftMenuTrainee[path.row]
                 }
             }
+        }
+        else if segue.identifier == "leftmenutotimerview"
+        {
+            
+             let timerPage =  segue.destination as! TrainerTraineeRouteViewController
+            timerPage.seconds = numOfDays
+            timerPage.TIMERCHECK = true
+
         }
     }
     
@@ -197,7 +243,24 @@ extension LeftViewController : UITableViewDelegate{
             case 0:
                 print("Zero")
                 print("Home")
-                self.performSegue(withIdentifier: "trainerProfileSegue", sender: self)
+                
+                if appDelegate.timerrunningtime
+                {
+                    
+                    
+                    TimerCheck()
+                    
+                    
+                }
+                else{
+                    
+                    self.performSegue(withIdentifier: "trainerProfileSegue", sender: self)
+                    
+                }
+                
+                
+                //leftmenutotimerview
+                
                 
             case 1:
                 print("One")
@@ -250,7 +313,22 @@ extension LeftViewController : UITableViewDelegate{
             case 0:
                 print("zero")
                 print("Home")
-                self.performSegue(withIdentifier: "leftMenuToTraineeHomeSegue", sender: self)
+                
+                if appDelegate.timerrunningtime
+                {
+                    
+                    TimerCheck()
+                    
+                    
+                }
+                else{
+                
+                   self.performSegue(withIdentifier: "leftMenuToTraineeHomeSegue", sender: self)
+                    
+                }
+
+                
+            
                 
             case 1:
                 print("one")

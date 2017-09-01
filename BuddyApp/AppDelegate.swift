@@ -25,6 +25,7 @@ import GooglePlaces
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNotificationCenterDelegate {
  
+    var timerrunningtime = Bool()
     var Usertoken = String()
     var UserId = Int()
     var USER_TYPE = String()
