@@ -231,13 +231,9 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         if indexpath.section == 2 || indexpath.section == 3 {
             self.collapseArray[indexpath.section] = !collapsed
             self.settingsTableView.reloadSections(IndexSet(integer: sender.view!.tag), with: .automatic)
-        }
-        else if indexpath.section == 1
-        {
+        }else if indexpath.section == 1{
            self.performSegue(withIdentifier: "settingtocatagorylist", sender: self)
-        }
-        else
-        {
+        }else{
             self.GooglePlacePicker()
         }
     }
