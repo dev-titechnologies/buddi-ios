@@ -207,7 +207,7 @@ class ShowTrainersOnMapVC: UIViewController {
         let transactionGenderChoosedBackup = userDefaults.value(forKey: "backupTrainingGenderChoosed") as! String
         
         
-        let parameters = ["trainee_id" : appDelegate.UserId,
+        let parameters = ["user_id" : appDelegate.UserId,
                           "gender" : transactionGenderChoosedBackup,
                           "category" : transactionCategoryChoosedBackup,
                           "latitude" : lat,
@@ -330,10 +330,6 @@ class ShowTrainersOnMapVC: UIViewController {
                         TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
                         self.isPaymentSuccess = false
                         self.performSegue(withIdentifier: "trainerTraineeRouteVCSegue", sender: self)
-                        
-//                        self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_latitude"] as? String)!)!, DestiLong: Float(((self.TrainerProfileDictionary["trainer_details"] as? NSDictionary)?["trainer_longitude"] as? String)!)!)
-                        
-//                        self.addHandlersTrainer()
                     }else{
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     }

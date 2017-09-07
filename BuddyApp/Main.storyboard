@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Unknown constraint types" minToolsVersion="5.1"/>
@@ -760,7 +760,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ENTER ZIPCODE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7JE-dk-DhA">
-                                <rect key="frame" x="16" y="286" width="233" height="21"/>
+                                <rect key="frame" x="16" y="330" width="233" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="233" id="Q65-Sx-VQ8"/>
                                     <constraint firstAttribute="height" constant="21" id="Tt1-n7-CWG"/>
@@ -770,14 +770,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ekW-cz-tKs">
-                                <rect key="frame" x="16" y="347" width="343" height="1"/>
+                                <rect key="frame" x="16" y="391" width="343" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="I0A-pn-Szi"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3lc-5v-huf">
-                                <rect key="frame" x="16" y="315" width="343" height="30"/>
+                                <rect key="frame" x="16" y="359" width="343" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="RCA-Jb-8CN"/>
                                 </constraints>
@@ -786,7 +786,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location-map" translatesAutoresizingMaskIntoConstraints="NO" id="4hq-5v-hME">
-                                <rect key="frame" x="152.5" y="145" width="70" height="70"/>
+                                <rect key="frame" x="152.5" y="189" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="R8o-D3-Rod"/>
                                     <constraint firstAttribute="width" constant="70" id="k8x-Pv-gXe"/>
@@ -1335,7 +1335,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dFg-nq-1C1">
-                                <rect key="frame" x="10" y="76.5" width="355" height="216"/>
+                                <rect key="frame" x="10" y="120.5" width="355" height="216"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="216" id="VUi-Ru-NP7"/>
@@ -1402,7 +1402,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List your 1 rep max for each  movement that applies to the category you wish to coach:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZv-fL-vpa">
-                                <rect key="frame" x="10" y="27" width="355" height="45"/>
+                                <rect key="frame" x="10" y="71" width="355" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="6IL-34-knH"/>
                                 </constraints>
@@ -1411,7 +1411,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pn-FK-OoX" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
-                                <rect key="frame" x="8" y="300.5" width="359" height="125"/>
+                                <rect key="frame" x="8" y="344.5" width="359" height="125"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="in pounds" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SXX-mx-tsz">
                                         <rect key="frame" x="8" y="71" width="339" height="30"/>
@@ -1439,7 +1439,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="glf-6d-Z5C" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
-                                <rect key="frame" x="8" y="433.5" width="359" height="125"/>
+                                <rect key="frame" x="8" y="477.5" width="359" height="125"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How knowledgeable are you about exercise nutrition?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydt-Wt-d4t">
                                         <rect key="frame" x="8" y="8" width="343" height="38.5"/>
@@ -1562,13 +1562,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sweet! Now it's time for you to show us what you've got!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LoO-F9-rpU">
-                                <rect key="frame" x="16" y="35" width="343" height="43"/>
+                                <rect key="frame" x="16" y="79" width="343" height="43"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lj5-JP-97A">
-                                <rect key="frame" x="16" y="147" width="343" height="264"/>
+                                <rect key="frame" x="16" y="191" width="343" height="264"/>
                                 <string key="text">This is the most important part of this process. You will now record or upload (a recent video) of you doing each movement that you listed a 1 rep max for. Be sure to follow the rules for each video (listed on each respective screen). The standards will be uniform for males and uniform for females. These videos will be used to screen you for your qualification to coach others in these movements. 
 Good luck!
 
@@ -1627,7 +1627,7 @@ Good luck!
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Squat" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDG-CM-gSu">
-                                <rect key="frame" x="15" y="28" width="345" height="30"/>
+                                <rect key="frame" x="15" y="72" width="345" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1669,7 +1669,7 @@ Good luck!
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CR-6r-Drx">
-                                <rect key="frame" x="16" y="67" width="343" height="100"/>
+                                <rect key="frame" x="16" y="111" width="343" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="qDP-Zk-xsA"/>
                                 </constraints>
@@ -1678,7 +1678,7 @@ Good luck!
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Males:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvs-U4-OUr">
-                                <rect key="frame" x="16" y="184" width="106" height="21"/>
+                                <rect key="frame" x="16" y="228" width="106" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="106" id="WnJ-Pk-K5c"/>
                                 </constraints>
@@ -1687,7 +1687,7 @@ Good luck!
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVf-R8-bcG">
-                                <rect key="frame" x="16" y="220" width="343" height="112"/>
+                                <rect key="frame" x="16" y="264" width="343" height="112"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="112" id="vPK-1A-XKg"/>
                                 </constraints>
@@ -1696,7 +1696,7 @@ Good luck!
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Females:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdW-N0-UGd">
-                                <rect key="frame" x="16" y="352" width="106" height="21"/>
+                                <rect key="frame" x="16" y="396" width="106" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="106" id="4fM-y8-syV"/>
                                     <constraint firstAttribute="height" constant="21" id="xdC-Bn-wsI"/>
@@ -1706,7 +1706,7 @@ Good luck!
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIv-sA-5nO">
-                                <rect key="frame" x="16" y="388" width="343" height="112"/>
+                                <rect key="frame" x="16" y="432" width="343" height="112"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="112" id="ukU-vB-sdV"/>
                                 </constraints>
@@ -3132,7 +3132,7 @@ Good luck!
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4QL-IN-MSy" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8z-M3-oC6">
@@ -6369,15 +6369,15 @@ Good luck!
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H49-HZ-M1c" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                <rect key="frame" x="87" y="233" width="200" height="200"/>
+                                <rect key="frame" x="106" y="252" width="163" height="163"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="H9J-xl-UGH"/>
-                                    <constraint firstAttribute="height" constant="200" id="nFF-Rj-nQg"/>
+                                    <constraint firstAttribute="width" constant="163" id="H9J-xl-UGH"/>
+                                    <constraint firstAttribute="height" constant="163" id="nFF-Rj-nQg"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for trainer acceptance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUZ-be-dUp">
-                                <rect key="frame" x="62" y="453" width="251" height="21"/>
+                                <rect key="frame" x="62" y="445" width="251" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="1tB-29-T5X"/>
                                     <constraint firstAttribute="width" constant="251" id="Y3j-nE-ACa"/>
@@ -6389,7 +6389,7 @@ Good luck!
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.32000000000000001" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="RUZ-be-dUp" firstAttribute="top" secondItem="H49-HZ-M1c" secondAttribute="bottom" constant="20" id="Adu-lO-AmE"/>
+                            <constraint firstItem="RUZ-be-dUp" firstAttribute="top" secondItem="H49-HZ-M1c" secondAttribute="bottom" constant="30" id="Adu-lO-AmE"/>
                             <constraint firstItem="RUZ-be-dUp" firstAttribute="centerX" secondItem="nKu-YH-2eK" secondAttribute="centerX" id="CIE-T9-pBY"/>
                             <constraint firstItem="H49-HZ-M1c" firstAttribute="centerX" secondItem="nKu-YH-2eK" secondAttribute="centerX" id="QoV-bk-h9H"/>
                             <constraint firstItem="H49-HZ-M1c" firstAttribute="centerY" secondItem="nKu-YH-2eK" secondAttribute="centerY" id="mtG-uC-vDf"/>
@@ -7650,17 +7650,17 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="unchecked" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="USH-R0-s5v"/>
-        <segue reference="Wbk-j8-6Ii"/>
-        <segue reference="L6f-51-y41"/>
-        <segue reference="AU2-8a-F5M"/>
-        <segue reference="Fjh-O3-jAU"/>
-        <segue reference="nov-fw-yUQ"/>
-        <segue reference="OZa-hZ-FT0"/>
-        <segue reference="fqg-MV-HkZ"/>
-        <segue reference="21t-ww-Awf"/>
+        <segue reference="GI9-TU-hGk"/>
+        <segue reference="OYB-aT-rib"/>
         <segue reference="pMz-WA-RGb"/>
+        <segue reference="21t-ww-Awf"/>
+        <segue reference="2Wr-5b-EsE"/>
+        <segue reference="mVv-vO-aXQ"/>
+        <segue reference="adG-ob-O6L"/>
+        <segue reference="aj8-eb-DfE"/>
+        <segue reference="OZa-hZ-FT0"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="Jnc-bx-uPX"/>
+        <segue reference="fqg-MV-HkZ"/>
     </inferredMetricsTieBreakers>
 </document>

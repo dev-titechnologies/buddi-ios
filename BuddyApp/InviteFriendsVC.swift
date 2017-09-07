@@ -63,6 +63,7 @@ class InviteFriendsVC: UIViewController {
             print("Contact Count:",self.contacts.count)
             for contact in self.contacts {
                 
+                print(contact.phoneNumbers)
                 let contact_dict_model = ContactDictionaryModel()
                 let contact_model = contact.getDictionaryFromCNContact
                 
