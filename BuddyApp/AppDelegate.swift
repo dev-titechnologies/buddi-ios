@@ -390,7 +390,6 @@ extension AppDelegate: FIRMessagingDelegate {
         print("willPresent notification",notification.request.content.userInfo)
           let NotificationDict = (notification.request.content.userInfo as NSDictionary)["data"] as! String
         
-      
         if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "1"{
             
             //BOOK SESSION

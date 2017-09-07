@@ -21,114 +21,92 @@ class ViewController: UIViewController {
         
         let date = Date()
         print("hours ",date)
-        
-        
 
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
         
-        // Define identifier
         let notificationName = Notification.Name("FCMNotificationIdentifier")
-        
-        // Register to receive notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: notificationName, object: nil)
 
-        
-        
         if appDelegate.TrainerProfileDictionary != nil{
-            
-            
             self.TestNotification()
+        }else{
             
-        }
-        else
-        {
-        if userDefaults.value(forKey: "TimerData") != nil {
-            
-            TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
-            print("TIMERDICT",TimerDict)
-            
-            let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
-            
-            print("OLD DATE",date)
-            print("CURRENT DATE",Date())
-            
-            
-            if date > Date(){
-                print("ongoing")
-                 numOfDays = Date().daysBetweenDate(toDate: date)
+            if userDefaults.value(forKey: "TimerData") != nil {
+                TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
+                print("TIMERDICT",TimerDict)
                 
-                print("DIFFERENCE",numOfDays)
-                self.showTimer(time: numOfDays)
+                let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
+                
+                print("OLD DATE",date)
+                print("CURRENT DATE",Date())
+                
+                if date > Date(){
+                    print("ongoing")
+                     numOfDays = Date().daysBetweenDate(toDate: date)
+                    
+                    print("DIFFERENCE",numOfDays)
+                    self.showTimer(time: numOfDays)
+                }else{
+                    print("completed")
+                    
+                    userDefaults.removeObject(forKey: "TimerData")
+                    TrainerProfileDetail.deleteBookingDetails()
+                    if userDefaults.value(forKey: "devicetoken") != nil {
+                        appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
+                        print("TOKEN",appDelegate.DeviceToken)
+                    }else{
+                        appDelegate.DeviceToken = "1234567890"
+                    }
+                    
+                    let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        // Your code with delay
+                        self.loginCheck()
+                    }
+                }
             }else{
-                print("completed")
-                
-                userDefaults.removeObject(forKey: "TimerData")
-                TrainerProfileDetail.deleteBookingDetails()
                 if userDefaults.value(forKey: "devicetoken") != nil {
                     appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
                     print("TOKEN",appDelegate.DeviceToken)
+               
                 }else{
                     appDelegate.DeviceToken = "1234567890"
                 }
                 
-                let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+                let when = DispatchTime.now() + 3
                 DispatchQueue.main.asyncAfter(deadline: when) {
-                    // Your code with delay
                     self.loginCheck()
                 }
             }
-        }else{
-            if userDefaults.value(forKey: "devicetoken") != nil {
-                appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
-                print("TOKEN",appDelegate.DeviceToken)
-            }else{
-                appDelegate.DeviceToken = "1234567890"
-            }
-            
-            let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
-            DispatchQueue.main.asyncAfter(deadline: when) {
-                // Your code with delay
-                self.loginCheck()
-            }
         }
-        
     }
-    }
+    
     func methodOfReceivedNotification(notif: NSNotification) {
-        
         
         self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text: notif.userInfo!["pushData"] as! String)! as NSDictionary
         
-       
-        
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
-       
     }
+    
     func TestNotification() {
         
-        
         self.TrainerProfileDictionary = appDelegate.TrainerProfileDictionary
-        
-        
-        
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
-        
     }
-
    
     func showTimer(time: Int) {
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
-   }
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         
