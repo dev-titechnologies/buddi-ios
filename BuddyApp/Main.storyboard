@@ -1335,7 +1335,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dFg-nq-1C1">
-                                <rect key="frame" x="10" y="76.5" width="355" height="216"/>
+                                <rect key="frame" x="10" y="120.5" width="355" height="216"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="216" id="VUi-Ru-NP7"/>
@@ -1402,7 +1402,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List your 1 rep max for each  movement that applies to the category you wish to coach:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZv-fL-vpa">
-                                <rect key="frame" x="10" y="27" width="355" height="45"/>
+                                <rect key="frame" x="10" y="71" width="355" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="6IL-34-knH"/>
                                 </constraints>
@@ -1411,7 +1411,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pn-FK-OoX" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
-                                <rect key="frame" x="8" y="300.5" width="359" height="125"/>
+                                <rect key="frame" x="8" y="344.5" width="359" height="125"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="in pounds" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SXX-mx-tsz">
                                         <rect key="frame" x="8" y="71" width="339" height="30"/>
@@ -1439,7 +1439,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="glf-6d-Z5C" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
-                                <rect key="frame" x="8" y="433.5" width="359" height="125"/>
+                                <rect key="frame" x="8" y="477.5" width="359" height="125"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How knowledgeable are you about exercise nutrition?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydt-Wt-d4t">
                                         <rect key="frame" x="8" y="8" width="343" height="38.5"/>
@@ -3897,6 +3897,7 @@ Good luck!
                         <outlet property="btnAccept" destination="e2i-fO-WNH" id="0P2-sX-dit"/>
                         <outlet property="btnDecline" destination="7vs-ck-8LX" id="R7H-bD-rRw"/>
                         <outlet property="lblRequestDescription" destination="GZq-Bi-Qs8" id="4OQ-Fa-ZCb"/>
+                        <segue destination="3tw-Fw-C7S" kind="show" identifier="fromAcceptToTimer" id="Zg0-ut-5iE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j4U-Tk-cN8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -7654,13 +7655,13 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <segue reference="Wbk-j8-6Ii"/>
         <segue reference="L6f-51-y41"/>
         <segue reference="AU2-8a-F5M"/>
-        <segue reference="Fjh-O3-jAU"/>
         <segue reference="nov-fw-yUQ"/>
-        <segue reference="OZa-hZ-FT0"/>
         <segue reference="fqg-MV-HkZ"/>
         <segue reference="21t-ww-Awf"/>
         <segue reference="pMz-WA-RGb"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="Jnc-bx-uPX"/>
+        <segue reference="Zg0-ut-5iE"/>
+        <segue reference="OZa-hZ-FT0"/>
     </inferredMetricsTieBreakers>
 </document>

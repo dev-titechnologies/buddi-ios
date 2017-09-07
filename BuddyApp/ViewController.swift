@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     var numOfDays = Int()
     var TrainerProfileDictionary = NSDictionary()
     let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
+     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
    
     
     override func viewDidLoad() {
@@ -129,6 +130,14 @@ class ViewController: UIViewController {
         
         if notif.userInfo!["type"] as! String == "1"
         {
+            let trainerProfileModelObj = TrainerProfileModal()
+
+            self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+            
+            TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
+            
+            
+            
             
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
 

@@ -15,6 +15,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
     @IBOutlet weak var btnDecline: UIButton!
     
      var ProfileDictionary: NSMutableDictionary!
+     var TrainerProfileDictionary: NSDictionary!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,20 +90,26 @@ class AcceptOrDeclineRequestPage: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    self.dismiss(animated: true, completion: nil)
+                    //self.dismiss(animated: true, completion: nil)
                     
                     if acceptstatus
                     {
+                        
+                        if (jsondata["data"] as? NSDictionary) != nil {
+                            
+                            self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
+                        }
+
+                        
+                        
+                      // fromAcceptToTimer
+                        self.performSegue(withIdentifier: "fromAcceptToTimer", sender: self)
                         
                     }
                     else
                     {
                         
                     }
-                    
-                    
-                    
-                    
 
                 }else if status == RESPONSE_STATUS.FAIL{
 
@@ -115,6 +122,17 @@ class AcceptOrDeclineRequestPage: UIViewController {
         })
 
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "fromAcceptToTimer" {
+            let timerPage =  segue.destination as! TrainerTraineeRouteViewController
+           
+                timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
+                timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
+                print("SECONDSSSS",timerPage.seconds)
+            
 
+    }
+
+}
 }
