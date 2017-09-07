@@ -14,13 +14,8 @@ class AcceptOrDeclineRequestPage: UIViewController {
     @IBOutlet weak var btnAccept: UIButton!
     @IBOutlet weak var btnDecline: UIButton!
     
-<<<<<<< HEAD
-    var ProfileDictionary: NSMutableDictionary!
-    
-=======
      var ProfileDictionary: NSMutableDictionary!
      var TrainerProfileDictionary: NSDictionary!
->>>>>>> e570ecf205a0784aed3aae2ae69b5828afca0719
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,9 +44,8 @@ class AcceptOrDeclineRequestPage: UIViewController {
     }
     
     func Booking_API(URL: String, acceptstatus: Bool){
-        print(ProfileDictionary)
-       // print(ProfileDictionary["category_Id"]!)
         
+        print(ProfileDictionary)
         var parameters = ["trainer_id":appDelegate.UserId,
                           "trainee_id":ProfileDictionary["trainee_id"]!,
                           "gender":ProfileDictionary["gender"]!,
@@ -61,9 +55,6 @@ class AcceptOrDeclineRequestPage: UIViewController {
                           "longitude": ProfileDictionary["longitude"]!
             ]
             as [String : Any]
-        
-        
-      //  ProfileDictionary.setValue(appDelegate.UserId, forKey: "trainer_id")
         
         let headers = [
             "token": appDelegate.Usertoken
@@ -94,30 +85,16 @@ class AcceptOrDeclineRequestPage: UIViewController {
                     //self.dismiss(animated: true, completion: nil)
                     
                     if acceptstatus{
-                        
-<<<<<<< HEAD
-                    }else{
-                        
-                    }
-                    
-=======
                         if (jsondata["data"] as? NSDictionary) != nil {
                             
                             self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
                         }
-
-                        
-                        
                       // fromAcceptToTimer
                         self.performSegue(withIdentifier: "fromAcceptToTimer", sender: self)
                         
-                    }
-                    else
-                    {
+                    }else{
                         
                     }
-
->>>>>>> e570ecf205a0784aed3aae2ae69b5828afca0719
                 }else if status == RESPONSE_STATUS.FAIL{
 
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -128,8 +105,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
             }
         })
     }
-<<<<<<< HEAD
-=======
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "fromAcceptToTimer" {
@@ -138,10 +114,6 @@ class AcceptOrDeclineRequestPage: UIViewController {
                 timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
                 timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
                 print("SECONDSSSS",timerPage.seconds)
-            
-
+        }
     }
-
-}
->>>>>>> e570ecf205a0784aed3aae2ae69b5828afca0719
 }
