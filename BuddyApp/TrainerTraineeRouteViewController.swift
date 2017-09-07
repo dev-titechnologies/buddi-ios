@@ -581,7 +581,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     func getSocketConnected() {
         
-        parameterdict.setValue("/connectSocket/connectSocket", forKey: "url")
+        parameterdict.setValue("connectSocket/connectSocket", forKey: "url")
         SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
     }
     
@@ -620,7 +620,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         parameterdict.setValue("/location/addLocation", forKey: "url")
         parameterdict.setValue(datadict, forKey: "data")
         print("PARADICT",parameterdict)
-        
+        print("============== addHandlers Call ==============")
         SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
     }
     
@@ -632,6 +632,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         datadict1.setValue(trainerProfileDetails.userid, forKey: "trainer_id")
         parameterdict1.setValue(datadict1, forKey: "data")
         print("PARADICT_ReceivedTrainerLocation",parameterdict1)
+        print("============== addHandlersTrainer Call ==============")
+
         // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
     }

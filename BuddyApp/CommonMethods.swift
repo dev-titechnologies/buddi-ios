@@ -229,6 +229,7 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "token")
         userDefaults.removeObject(forKey: "userName")
         userDefaults.removeObject(forKey: "userEmailId")
+        userDefaults.removeObject(forKey: "userMobileNumber")
         userDefaults.removeObject(forKey: "userType")
         userDefaults.removeObject(forKey: "approvedOrPendingCategoriesIdArray")
         userDefaults.removeObject(forKey: "clientTokenForPayment")

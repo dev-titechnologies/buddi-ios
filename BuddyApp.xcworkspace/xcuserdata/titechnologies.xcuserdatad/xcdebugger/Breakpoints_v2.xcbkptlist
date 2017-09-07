@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/TrainerReviewPage.swift"
-            timestampString = "525352593.927913"
+            filePath = "BuddyApp/MessagingSocketVC.swift"
+            timestampString = "525858416.138345"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "parseTrainerDetails()"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "sendMessageSocket(messageText:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,6 +25,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
             timestampString = "525951815.702395"
             startingColumnNumber = "9223372036854775807"
@@ -416,6 +417,15 @@
             startingLineNumber = "60"
             endingLineNumber = "60"
             landmarkName = "Booking_API(URL:acceptstatus:)"
+=======
+            filePath = "BuddyApp/LoginViewController.swift"
+            timestampString = "526456407.626264"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "LoginAPI(Email:Passwrd:loginType:UserType:FBId:GoogleId:)"
+>>>>>>> 1cb821aa3a90f437695cd95db5813f6f2ef08dff
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

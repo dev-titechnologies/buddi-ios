@@ -102,6 +102,11 @@ extension MessagingSocketVC {
                 
                 let socketDict = messageInfo["message"] as! NSDictionary
                 
+                guard socketDict["from_id"] as! Int != appDelegate.UserId else{
+                    print("Same users message has been received through socket, hence returned")
+                    return
+                }
+                
                 let fromId = String(describing: socketDict["from_id"])
                 let fromDisplayName = socketDict["from_name"] as! String
                 let messageReceived = socketDict["text"] as! String
@@ -130,7 +135,7 @@ extension MessagingSocketVC {
         parameterdict.setValue("/chat/sendMessage", forKey: "url")
         parameterdict.setValue(datadict, forKey: "data")
         print("Send Message Param Dict:",parameterdict)
-        
+//        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
     }
 }
@@ -164,6 +169,8 @@ extension MessagingSocketVC {
     }
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!){
+        
+        getSocketConnected()
         
         if let message = JSQMessage(senderId: senderId, displayName: senderDisplayName, text: text){
             sendMessageSocket(messageText: text)

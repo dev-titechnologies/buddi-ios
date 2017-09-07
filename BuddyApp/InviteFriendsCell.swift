@@ -11,6 +11,7 @@ import UIKit
 class InviteFriendsCell: UITableViewCell {
 
     @IBOutlet weak var lblContactName: UILabel!
+    @IBOutlet weak var imgCheck: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

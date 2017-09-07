@@ -258,7 +258,7 @@ class ShowTrainersOnMapVC: UIViewController {
         let transactionSessionChoosedBackup = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
         let transactionStatusBackup = userDefaults.value(forKey: "backupIsTransactionStatus") as! String
         
-        var parameters = ["user_id" : appDelegate.UserId,
+        var parameters = ["trainee_id" : appDelegate.UserId,
                           "gender" : transactionGenderChoosedBackup,
                           "category" : transactionCategoryChoosedBackup,
                           "latitude" : lat,
@@ -306,7 +306,19 @@ class ShowTrainersOnMapVC: UIViewController {
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    //Show Waiting for Trainer Acceptance Page
+                    if jsondata["message"] as? String == "Training Requested" {
+                        print("Training Requested")
+                        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                        let waitingForAcceptancePage : WaitingForAcceptancePage = mainStoryboard.instantiateViewController(withIdentifier: "WaitingForAcceptanceVCID") as! WaitingForAcceptancePage
+//                        self.navigationController?.pushViewController(paymentMethodPage, animated: true)
+                        userDefaults.set("isWaitingForTrainerAcceptance", forKey: "acceptanceStatus")
+                        self.present(waitingForAcceptancePage, animated: true, completion: nil)
+                    }
+                    
                     let trainerProfileModelObj = TrainerProfileModal()
+                    
                     if (jsondata["data"] as? NSDictionary) != nil {
                         
                         self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary

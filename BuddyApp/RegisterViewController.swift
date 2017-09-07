@@ -452,6 +452,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                     userDefaults.set(self.UserType, forKey: "userType")
                     print(self.jsondict["trainer_type"]!)
                     userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
+                    userDefaults.set(self.jsondict["mobile"]!, forKey: "userMobileNumber")
+                    
                     print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
                     
                     if let url = URL(string:(self.jsondict["user_image"] as? String)!){

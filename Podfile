@@ -29,6 +29,8 @@ target 'BuddyApp' do
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
     pod 'JSQMessagesViewController'
+    
+    pod 'NVActivityIndicatorView'
 
   # Pods for BuddyApp
 

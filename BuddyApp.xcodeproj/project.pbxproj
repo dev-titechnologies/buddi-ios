@@ -13,6 +13,7 @@
 		F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */; };
 		F302BBA31F1F8D2000186BCC /* CountryPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F302BBA21F1F8D2000186BCC /* CountryPicker.framework */; };
 		F302BBA51F1FA21900186BCC /* IQKeyboardManagerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */; };
+		F306074C1F600F9A0007F9AC /* WaitingForAcceptancePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306074B1F600F9A0007F9AC /* WaitingForAcceptancePage.swift */; };
 		F307E8941F56D527000273CF /* InviteFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307E8931F56D527000273CF /* InviteFriendsCell.swift */; };
 		F3093F621F2B12D400D33324 /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3093F611F2B12D400D33324 /* Reach.swift */; };
 		F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60151F1DC82A00374136 /* RegisterViewController.swift */; };
@@ -50,6 +51,7 @@
 		F322FC551F1CE62400381B8C /* BuddyAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC541F1CE62400381B8C /* BuddyAppTests.swift */; };
 		F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */; };
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
+		F32460C71F5983D9002B3D55 /* ContactDictionaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32460C61F5983D9002B3D55 /* ContactDictionaryModel.swift */; };
 		F32E6AB21F53E94A001646E4 /* MessagingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32E6AB11F53E94A001646E4 /* MessagingVC.swift */; };
 		F32E6AB71F53F420001646E4 /* FireBaseMessagingConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32E6AB61F53F420001646E4 /* FireBaseMessagingConstant.swift */; };
 		F32E6AB91F540213001646E4 /* SessionDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32E6AB81F540213001646E4 /* SessionDetailModel.swift */; };
@@ -137,6 +139,7 @@
 		F3D0EF421F289C3C009B60E7 /* ProfileImageDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */; };
 		F3D0EF431F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */; };
 		F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */; };
+		F3F5955D1F59587A00110123 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F5955C1F59587A00110123 /* ContactModel.swift */; };
 		F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */; };
 		F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7D1F20F8BE00D51277 /* String Constants.swift */; };
 		F3FAAE9F1F41A575007DF154 /* TrainerProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FAAE9E1F41A574007DF154 /* TrainerProfilePage.swift */; };
@@ -179,6 +182,7 @@
 		F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterorloginViewController.swift; sourceTree = "<group>"; };
 		F302BBA21F1F8D2000186BCC /* CountryPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CountryPicker.framework; path = "Pods/../build/Debug-iphoneos/CountryPickerSwift/CountryPicker.framework"; sourceTree = "<group>"; };
 		F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IQKeyboardManagerSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"; sourceTree = "<group>"; };
+		F306074B1F600F9A0007F9AC /* WaitingForAcceptancePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForAcceptancePage.swift; sourceTree = "<group>"; };
 		F307E8931F56D527000273CF /* InviteFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsCell.swift; sourceTree = "<group>"; };
 		F3093F611F2B12D400D33324 /* Reach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reach.swift; sourceTree = "<group>"; };
 		F30B60151F1DC82A00374136 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 		F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyAppUITests.swift; sourceTree = "<group>"; };
 		F322FC611F1CE62500381B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F322FC6F1F1CEF2200381B8C /* Appconstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appconstants.swift; sourceTree = "<group>"; };
+		F32460C61F5983D9002B3D55 /* ContactDictionaryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDictionaryModel.swift; sourceTree = "<group>"; };
 		F32E6AB11F53E94A001646E4 /* MessagingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagingVC.swift; sourceTree = "<group>"; };
 		F32E6AB31F53F2CD001646E4 /* BuddyApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BuddyApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		F32E6AB61F53F420001646E4 /* FireBaseMessagingConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseMessagingConstant.swift; sourceTree = "<group>"; };
@@ -303,6 +308,7 @@
 		F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageDB.swift; sourceTree = "<group>"; };
 		F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileImageDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTestAnswersModel.swift; sourceTree = "<group>"; };
+		F3F5955C1F59587A00110123 /* ContactModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 		F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategorySelectionVC.swift; sourceTree = "<group>"; };
 		F3F77C7D1F20F8BE00D51277 /* String Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String Constants.swift"; sourceTree = "<group>"; };
 		F3FAAE9E1F41A574007DF154 /* TrainerProfilePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfilePage.swift; sourceTree = "<group>"; };
@@ -647,6 +653,8 @@
 				F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */,
 				F3C6857C1F3C857900AA8CC7 /* TrainerReviewModel.swift */,
 				F32E6AB81F540213001646E4 /* SessionDetailModel.swift */,
+				F3F5955C1F59587A00110123 /* ContactModel.swift */,
+				F32460C61F5983D9002B3D55 /* ContactDictionaryModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -741,6 +749,7 @@
 				F3A9077C1F32EF9100474F5E /* Choose Session and Gender Page */,
 				F3A907781F32E45A00474F5E /* TraineeHomePage.swift */,
 				F3A907851F3352DC00474F5E /* ShowTrainersOnMapVC.swift */,
+				F306074B1F600F9A0007F9AC /* WaitingForAcceptancePage.swift */,
 			);
 			name = "Trainee Pages";
 			sourceTree = "<group>";
@@ -1165,6 +1174,7 @@
 				F37350991F207A2D00BE9DB6 /* LeftViewController.swift in Sources */,
 				F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */,
 				F316E7F11F2209C000994447 /* SubCategoryTableCell.swift in Sources */,
+				F3F5955D1F59587A00110123 /* ContactModel.swift in Sources */,
 				F338F3A31F45AAD700B92450 /* TrainerProfileDetail.swift in Sources */,
 				F315428E1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift in Sources */,
 				F3990E1C1F1F6553000FFF7B /* ReviewHistoryDB.swift in Sources */,
@@ -1185,6 +1195,7 @@
 				F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */,
 				F364A8FC1F34B3520001C570 /* AssignedTrainerProfileTableCaptionsCell.swift in Sources */,
 				F32E6AB91F540213001646E4 /* SessionDetailModel.swift in Sources */,
+				F306074C1F600F9A0007F9AC /* WaitingForAcceptancePage.swift in Sources */,
 				F3093F621F2B12D400D33324 /* Reach.swift in Sources */,
 				F322FC3F1F1CE62000381B8C /* ViewController.swift in Sources */,
 				F316E7F61F22361B00994447 /* Question2VC.swift in Sources */,
@@ -1203,6 +1214,7 @@
 				F3C5955C1F4EECE100808ACB /* SessionPreferenceCell.swift in Sources */,
 				F341B0361F28D80F007C9AF1 /* ColorCodes.swift in Sources */,
 				F316E7EC1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift in Sources */,
+				F32460C71F5983D9002B3D55 /* ContactDictionaryModel.swift in Sources */,
 				F38BB5411F26069200824C15 /* ProfileVC.swift in Sources */,
 				F341B0381F28D9FB007C9AF1 /* CardView.swift in Sources */,
 				F3AF9D431F30661000D0CF05 /* GymModel.swift in Sources */,
