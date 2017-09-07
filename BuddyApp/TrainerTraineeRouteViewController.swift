@@ -138,8 +138,6 @@ class TrainerTraineeRouteViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillTerminate, object:nil)
-
         
         // Define identifier
         let notificationName = Notification.Name("SessionNotification")
@@ -211,10 +209,11 @@ class TrainerTraineeRouteViewController: UIViewController {
             self.timer.invalidate()
              self.timer_lbl.text = "00" + ":" + "00"
             removeTransactionDetailsFromUserDefault()
-            
-            self.RateViewScreen()
             userDefaults.removeObject(forKey: "TimerData")
+            appDelegate.timerrunningtime = false
             TrainerProfileDetail.deleteBookingDetails()
+
+            self.RateViewScreen()
             
             if appDelegate.USER_TYPE == "trainer" {
                 self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
@@ -227,10 +226,11 @@ class TrainerTraineeRouteViewController: UIViewController {
             self.timer.invalidate()
             
             self.timer_lbl.text = "00" + ":" + "00"
-            
-            self.RateViewScreen()
             userDefaults.removeObject(forKey: "TimerData")
+            appDelegate.timerrunningtime = false
             TrainerProfileDetail.deleteBookingDetails()
+
+            self.RateViewScreen()
             
             
             if appDelegate.USER_TYPE == "trainer" {
@@ -279,9 +279,6 @@ class TrainerTraineeRouteViewController: UIViewController {
             
         }else if notif.name.rawValue == "UIApplicationDidEnterBackgroundNotification"{
             self.timer.invalidate()
-        }else if notif.name.rawValue == "applicationWillTerminate"
-        {
-            
         }
     }
 
@@ -370,8 +367,11 @@ class TrainerTraineeRouteViewController: UIViewController {
                             self.timer.invalidate()
                             self.timer_lbl.text = "00" + ":" + "00"
                             userDefaults.removeObject(forKey: "TimerData")
-                            TrainerProfileDetail.deleteBookingDetails()
+                            userDefaults.set(false, forKey: "sessionBookedNotStarted")
+                            userDefaults.removeObject(forKey: "TrainerProfileDictionary")
 
+                            TrainerProfileDetail.deleteBookingDetails()
+                           appDelegate.timerrunningtime = false
                            self.RateViewScreen()
                             
                             //Add Review Screen here
@@ -422,7 +422,12 @@ class TrainerTraineeRouteViewController: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
+                    userDefaults.set(false, forKey: "sessionBookedNotStarted")
+                     userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+                    
                     if self.isTimerRunning == false {
+                        
+                       
                         self.runTimer()
                     }
                     
@@ -469,6 +474,8 @@ class TrainerTraineeRouteViewController: UIViewController {
             //Send alert to indicate time's up.
             
             //self.ExtendSessionAlert()
+            
+             appDelegate.timerrunningtime = false
             
             self.BookingAction(Action_status: "complete")
             

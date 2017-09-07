@@ -31,19 +31,23 @@ class ViewController: UIViewController {
         let notificationName = Notification.Name("FCMNotificationIdentifier")
         
         // Register to receive notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: notificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.GoTimerPageInActive_Notification), name: notificationName, object: nil)
 
         
         
         if appDelegate.TrainerProfileDictionary != nil{
             
+            //  BOOKED A SESSION
             
-            self.TestNotification()
+            self.GoTimerPageFromKilledState_Notification(dict: appDelegate.TrainerProfileDictionary)
             
         }
         else
         {
         if userDefaults.value(forKey: "TimerData") != nil {
+            
+            //   RUNNING SESSION
+            
             
             TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
             print("TIMERDICT",TimerDict)
@@ -79,39 +83,68 @@ class ViewController: UIViewController {
                 }
             }
         }else{
-            if userDefaults.value(forKey: "devicetoken") != nil {
-                appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
-                print("TOKEN",appDelegate.DeviceToken)
-            }else{
-                appDelegate.DeviceToken = "1234567890"
+            // BOOKED BUT NOT STARTED
+            
+            if userDefaults.bool(forKey: "sessionBookedNotStarted")
+            {
+                print("SESSION BOOKED NOT STARTED")
+                self.GoTimerPageFromKilledState_Notification(dict: userDefaults.object(forKey: "TrainerProfileDictionary") as! NSDictionary)
+            }
+            else{
+                if userDefaults.value(forKey: "devicetoken") != nil {
+                    appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
+                    print("TOKEN",appDelegate.DeviceToken)
+                }else{
+                    appDelegate.DeviceToken = "1234567890"
+                }
+                
+                let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    // Your code with delay
+                    self.loginCheck()
+                }
             }
             
-            let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
-            DispatchQueue.main.asyncAfter(deadline: when) {
-                // Your code with delay
-                self.loginCheck()
-            }
+            
+
         }
         
     }
     }
-    func methodOfReceivedNotification(notif: NSNotification) {
+    func GoTimerPageInActive_Notification(notif: NSNotification) {
         
-        
-        self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text: notif.userInfo!["pushData"] as! String)! as NSDictionary
-        
-       
         
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
-        self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+
+        
+        
+        self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
+         userDefaults.set(self.TrainerProfileDictionary, forKey: "TrainerProfileDictionary")
+        
+        print("TRAINING DATA",self.TrainerProfileDictionary)
+        print("TYPEE",notif.userInfo!["type"]!)
+        
+        
+        if notif.userInfo!["type"] as! String == "1"
+        {
+            
+            self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+
+        }
+        else if notif.userInfo!["type"] as! String == "5"
+        {
+            AcceptOrDeclineScreen()
+        }
+        
        
+        
     }
-    func TestNotification() {
+    func GoTimerPageFromKilledState_Notification(dict: NSDictionary) {
         
         
-        self.TrainerProfileDictionary = appDelegate.TrainerProfileDictionary
+        self.TrainerProfileDictionary = dict
         
         
         
@@ -129,6 +162,17 @@ class ViewController: UIViewController {
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
    }
+    func AcceptOrDeclineScreen()
+    {
+        
+        
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
+       
+        present(vc, animated: true, completion: nil)
+
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         

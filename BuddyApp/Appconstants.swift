@@ -25,7 +25,7 @@ var choosedCategoryOfTrainee = Singleton.sharedInstance.choosedCategory
 var choosedSessionOfTrainee = Singleton.sharedInstance.choosedSession
 var choosedTrainerGenderOfTrainee = Singleton.sharedInstance.choosedTrainerGender
 
-//let SERVER_URL = "http://192.168.1.66:9002/"
+//let SERVER_URL = "http://192.168.1.20:9002/"
 let SERVER_URL = "http://git.titechnologies.in:4001/"
 
 struct RESPONSE_STATUS {
