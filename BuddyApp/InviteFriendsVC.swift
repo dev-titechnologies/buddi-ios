@@ -8,6 +8,7 @@
 
 import UIKit
 import Contacts
+import libPhoneNumber_iOS
 
 class InviteFriendsVC: UIViewController {
 
@@ -21,7 +22,10 @@ class InviteFriendsVC: UIViewController {
     var arrayFiltered = [ContactDictionaryModel]()
     var isSearching = Bool()
     var identifierArray = [String]()
+    var selectedContactsArray = [String]()
     
+    let phoneUtil = NBPhoneNumberUtil()
+
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -73,6 +77,10 @@ class InviteFriendsVC: UIViewController {
         }
     }
     
+    @IBAction func inviteAction(_ sender: Any) {
+        inviteFriendsServerCall()
+    }
+    
     func presentSettingsActionSheet() {
         let alert = UIAlertController(title: "Permission to Contacts", message: "This app needs access to contacts in order to invite friends", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Go to Settings", style: .default) { _ in
@@ -81,6 +89,52 @@ class InviteFriendsVC: UIViewController {
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alert, animated: true)
+    }
+    
+    func getMobileNumberFormatted(mobileNumber: String) -> String{
+        
+        do {
+            let phoneNumber: NBPhoneNumber = try phoneUtil.parse(mobileNumber, defaultRegion: COUNTRY_DEFAULT_REGION_CODE)
+            let formattedString: String = try phoneUtil.format(phoneNumber, numberFormat: .E164)
+            print("Formatted String:\(formattedString)")
+            return formattedString
+        }
+        catch let error as NSError {
+            print(error.localizedDescription)
+            return ""
+        }
+    }
+    
+    func inviteFriendsServerCall() {
+        
+        var userMobile = userDefaults.value(forKey: "userMobileNumber") as! String
+        userMobile = userMobile.replacingOccurrences(of: "-", with: "")
+        
+        let parameters = ["mobile_array":selectedContactsArray,
+                          "invited_mobile":userMobile
+        ] as [String : Any]
+
+        let headers = ["token":appDelegate.Usertoken]
+        
+        print("Params:",parameters)
+        print("Header:",headers)
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: INVITE_FRIENDS, parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+            print("INVITE FRIENDS RESPONSE",jsondata)
+            
+            CommonMethods.hideProgress()
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    let dict = jsondata["data"]  as! NSDictionary
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,18 +172,30 @@ extension InviteFriendsVC : UITableViewDataSource{
 
 extension InviteFriendsVC : UITableViewDelegate{
     
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let contact = (isSearching ? arrayFiltered[indexPath.row] : contactArray[indexPath.row])
         let temp_contact = ContactDictionaryModel()
+       
+        let phoneNumberArray = contact.contact.phoneNumbers[0] as! NSDictionary
+        print(phoneNumberArray["number"] as! String)
+        let formattedMobileNumber = getMobileNumberFormatted(mobileNumber: phoneNumberArray["number"] as! String)
         
         if contact.status == "0" {
             temp_contact.status = "1"
             temp_contact.contact = contact.contact as ContactModel
+            print(contact.contact.phoneNumbers)
+            selectedContactsArray.append(formattedMobileNumber)
+            print("*** Selected Contact:\(selectedContactsArray)")
         }else{
             temp_contact.status = "0"
             temp_contact.contact = contact.contact as ContactModel
+            
+            if selectedContactsArray.contains(obj: formattedMobileNumber){
+                print("Mobile Number found, Hence removed from selected Contacts array")
+                selectedContactsArray = selectedContactsArray.filter { $0 != formattedMobileNumber }
+                print(selectedContactsArray)
+            }
         }
         
         if isSearching{
@@ -248,12 +314,12 @@ extension CNContact {
         
         if (self.isKeyAvailable(CNContactPhoneNumbersKey)) {
             for number in self.phoneNumbers {
-                var numbers = [String: AnyObject]()
+                var numbers = [String: String]()
                 let phoneNumber = (number.value ).value(forKey: "digits") as! String
                 let countryCode = (number.value ).value(forKey: "countryCode") as? String
                 //                let label = CNLabeledValue.localizedString(forLabel: number.label!)
-                numbers["number"] = phoneNumber as AnyObject
-                numbers["countryCode"] = countryCode as AnyObject
+                numbers["number"] = phoneNumber
+                numbers["countryCode"] = countryCode
                 //                numbers["label"] = label
                 phoneNumbers.add(numbers)
             }

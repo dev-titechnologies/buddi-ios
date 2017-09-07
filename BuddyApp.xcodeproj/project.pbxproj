@@ -13,6 +13,7 @@
 		F302BB971F1F614500186BCC /* RegisterorloginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */; };
 		F302BBA31F1F8D2000186BCC /* CountryPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F302BBA21F1F8D2000186BCC /* CountryPicker.framework */; };
 		F302BBA51F1FA21900186BCC /* IQKeyboardManagerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */; };
+		F306074C1F600F9A0007F9AC /* WaitingForAcceptancePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306074B1F600F9A0007F9AC /* WaitingForAcceptancePage.swift */; };
 		F307E8941F56D527000273CF /* InviteFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F307E8931F56D527000273CF /* InviteFriendsCell.swift */; };
 		F3093F621F2B12D400D33324 /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3093F611F2B12D400D33324 /* Reach.swift */; };
 		F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B60151F1DC82A00374136 /* RegisterViewController.swift */; };
@@ -181,6 +182,7 @@
 		F302BB961F1F614400186BCC /* RegisterorloginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterorloginViewController.swift; sourceTree = "<group>"; };
 		F302BBA21F1F8D2000186BCC /* CountryPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CountryPicker.framework; path = "Pods/../build/Debug-iphoneos/CountryPickerSwift/CountryPicker.framework"; sourceTree = "<group>"; };
 		F302BBA41F1FA21900186BCC /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IQKeyboardManagerSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"; sourceTree = "<group>"; };
+		F306074B1F600F9A0007F9AC /* WaitingForAcceptancePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForAcceptancePage.swift; sourceTree = "<group>"; };
 		F307E8931F56D527000273CF /* InviteFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsCell.swift; sourceTree = "<group>"; };
 		F3093F611F2B12D400D33324 /* Reach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reach.swift; sourceTree = "<group>"; };
 		F30B60151F1DC82A00374136 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -747,6 +749,7 @@
 				F3A9077C1F32EF9100474F5E /* Choose Session and Gender Page */,
 				F3A907781F32E45A00474F5E /* TraineeHomePage.swift */,
 				F3A907851F3352DC00474F5E /* ShowTrainersOnMapVC.swift */,
+				F306074B1F600F9A0007F9AC /* WaitingForAcceptancePage.swift */,
 			);
 			name = "Trainee Pages";
 			sourceTree = "<group>";
@@ -1192,6 +1195,7 @@
 				F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */,
 				F364A8FC1F34B3520001C570 /* AssignedTrainerProfileTableCaptionsCell.swift in Sources */,
 				F32E6AB91F540213001646E4 /* SessionDetailModel.swift in Sources */,
+				F306074C1F600F9A0007F9AC /* WaitingForAcceptancePage.swift in Sources */,
 				F3093F621F2B12D400D33324 /* Reach.swift in Sources */,
 				F322FC3F1F1CE62000381B8C /* ViewController.swift in Sources */,
 				F316E7F61F22361B00994447 /* Question2VC.swift in Sources */,

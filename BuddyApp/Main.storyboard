@@ -2688,7 +2688,7 @@ Good luck!
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3821,7 +3821,7 @@ Good luck!
         <!--Accept Or Decline Request Page-->
         <scene sceneID="jV0-1d-UpG">
             <objects>
-                <viewController id="K67-fv-8G0" customClass="AcceptOrDeclineRequestPage" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overFullScreen" id="K67-fv-8G0" customClass="AcceptOrDeclineRequestPage" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Uv-pt-XwG"/>
                         <viewControllerLayoutGuide type="bottom" id="i0h-LP-oh3"/>
@@ -3901,7 +3901,7 @@ Good luck!
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j4U-Tk-cN8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3928.8000000000002" y="-1601.649175412294"/>
+            <point key="canvasLocation" x="3929" y="-1601"/>
         </scene>
         <!--Messaging SocketVC-->
         <scene sceneID="Ds8-UT-dtY">
@@ -4158,7 +4158,7 @@ Good luck!
         <scene sceneID="jC1-lN-15y">
             <objects>
                 <navigationController storyboardIdentifier="TESTID" navigationBarHidden="YES" id="LLd-uo-cBv" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CKN-vf-25e">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKN-vf-25e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -5372,6 +5372,16 @@ Good luck!
                                 </connections>
                             </button>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="OF0-rq-Zqb">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gia-BX-Bf1">
+                                <rect key="frame" x="295" y="-10" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="shareicon"/>
+                                <connections>
+                                    <action selector="inviteAction:" destination="O9I-I4-yDS" eventType="touchUpInside" id="sF1-Qh-d3K"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
@@ -6345,6 +6355,53 @@ Good luck!
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yFT-PE-0qd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5912.8000000000002" y="-4325.0374812593709"/>
+        </scene>
+        <!--Waiting For Acceptance Page-->
+        <scene sceneID="8HU-KX-QCC">
+            <objects>
+                <viewController storyboardIdentifier="WaitingForAcceptanceVCID" modalPresentationStyle="overFullScreen" id="s9X-8c-4Oh" customClass="WaitingForAcceptancePage" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xZ7-ck-Cr2"/>
+                        <viewControllerLayoutGuide type="bottom" id="VZP-jh-vmJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nKu-YH-2eK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H49-HZ-M1c" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="87" y="233" width="200" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="H9J-xl-UGH"/>
+                                    <constraint firstAttribute="height" constant="200" id="nFF-Rj-nQg"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for trainer acceptance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUZ-be-dUp">
+                                <rect key="frame" x="62" y="453" width="251" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="1tB-29-T5X"/>
+                                    <constraint firstAttribute="width" constant="251" id="Y3j-nE-ACa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.32000000000000001" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RUZ-be-dUp" firstAttribute="top" secondItem="H49-HZ-M1c" secondAttribute="bottom" constant="20" id="Adu-lO-AmE"/>
+                            <constraint firstItem="RUZ-be-dUp" firstAttribute="centerX" secondItem="nKu-YH-2eK" secondAttribute="centerX" id="CIE-T9-pBY"/>
+                            <constraint firstItem="H49-HZ-M1c" firstAttribute="centerX" secondItem="nKu-YH-2eK" secondAttribute="centerX" id="QoV-bk-h9H"/>
+                            <constraint firstItem="H49-HZ-M1c" firstAttribute="centerY" secondItem="nKu-YH-2eK" secondAttribute="centerY" id="mtG-uC-vDf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicatorView" destination="H49-HZ-M1c" id="YAs-8x-rWz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sFU-6b-Qrn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4805.6000000000004" y="-1601.649175412294"/>
         </scene>
     </scenes>
     <resources>
@@ -7588,6 +7645,7 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="profileImage" width="139" height="139"/>
         <image name="qustion" width="256" height="256"/>
         <image name="rightArrow" width="64" height="64"/>
+        <image name="shareicon" width="64" height="64"/>
         <image name="splash_screen" width="540" height="960"/>
         <image name="unchecked" width="64" height="64"/>
     </resources>

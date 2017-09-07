@@ -27,6 +27,7 @@ var choosedTrainerGenderOfTrainee = Singleton.sharedInstance.choosedTrainerGende
 
 //let SERVER_URL = "http://192.168.1.66:9002/"
 let SERVER_URL = "http://git.titechnologies.in:4001/"
+let COUNTRY_DEFAULT_REGION_CODE = "IN"
 
 struct RESPONSE_STATUS {
     static let SUCCESS = 1

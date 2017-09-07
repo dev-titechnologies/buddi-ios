@@ -12,8 +12,9 @@ import FBSDKLoginKit
 import GoogleSignIn
 
 class LoginViewController: UIViewController,GIDSignInUIDelegate{
+    
     var fbUserDictionary: NSDictionary!
-   var loginType = String()
+    var loginType = String()
     var UserType = String()
     var googleUserDictionary: NSDictionary!
     var jsondict: NSDictionary!
@@ -221,6 +222,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")
                     userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
+                    userDefaults.set(self.jsondict["mobile"]!, forKey: "userMobileNumber")
 
                     print(self.jsondict["trainer_type"]!)
                     print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
