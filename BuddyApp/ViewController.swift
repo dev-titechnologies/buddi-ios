@@ -22,33 +22,22 @@ class ViewController: UIViewController {
         
         let date = Date()
         print("hours ",date)
-        
-        
 
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
         
-        // Define identifier
         let notificationName = Notification.Name("FCMNotificationIdentifier")
         
         // Register to receive notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.GoTimerPageInActive_Notification), name: notificationName, object: nil)
 
-        
-        
         if appDelegate.TrainerProfileDictionary != nil{
-            
             //  BOOKED A SESSION
-            
             self.GoTimerPageFromKilledState_Notification(dict: appDelegate.TrainerProfileDictionary)
-            
-        }
-        else
-        {
-        if userDefaults.value(forKey: "TimerData") != nil {
+        }else{
+            if userDefaults.value(forKey: "TimerData") != nil {
             
             //   RUNNING SESSION
-            
             
             TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
             print("TIMERDICT",TimerDict)
@@ -63,23 +52,46 @@ class ViewController: UIViewController {
                 print("ongoing")
                  numOfDays = Date().daysBetweenDate(toDate: date)
                 
-                print("DIFFERENCE",numOfDays)
-                self.showTimer(time: numOfDays)
-            }else{
-                print("completed")
+                let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
                 
-                userDefaults.removeObject(forKey: "TimerData")
-                TrainerProfileDetail.deleteBookingDetails()
+                print("OLD DATE",date)
+                print("CURRENT DATE",Date())
+                
+                if date > Date(){
+                    print("ongoing")
+                     numOfDays = Date().daysBetweenDate(toDate: date)
+                    
+                    print("DIFFERENCE",numOfDays)
+                    self.showTimer(time: numOfDays)
+                }else{
+                    print("completed")
+                    
+                    userDefaults.removeObject(forKey: "TimerData")
+                    TrainerProfileDetail.deleteBookingDetails()
+                    if userDefaults.value(forKey: "devicetoken") != nil {
+                        appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
+                        print("TOKEN",appDelegate.DeviceToken)
+                    }else{
+                        appDelegate.DeviceToken = "1234567890"
+                    }
+                    
+                    let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        // Your code with delay
+                        self.loginCheck()
+                    }
+                }
+            }else{
                 if userDefaults.value(forKey: "devicetoken") != nil {
                     appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
                     print("TOKEN",appDelegate.DeviceToken)
+               
                 }else{
                     appDelegate.DeviceToken = "1234567890"
                 }
                 
-                let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+                let when = DispatchTime.now() + 3
                 DispatchQueue.main.asyncAfter(deadline: when) {
-                    // Your code with delay
                     self.loginCheck()
                 }
             }
@@ -105,13 +117,10 @@ class ViewController: UIViewController {
                     self.loginCheck()
                 }
             }
-            
-            
-
         }
-        
     }
     }
+    
     func GoTimerPageInActive_Notification(notif: NSNotification) {
         
         
@@ -146,41 +155,30 @@ class ViewController: UIViewController {
         {
             AcceptOrDeclineScreen()
         }
-        
-       
-        
     }
+        
     func GoTimerPageFromKilledState_Notification(dict: NSDictionary) {
         
-        
         self.TrainerProfileDictionary = dict
-        
-        
-        
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
-        
     }
-
    
     func showTimer(time: Int) {
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
-   }
+    }
+        
     func AcceptOrDeclineScreen()
     {
-        
-        
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
        
         present(vc, animated: true, completion: nil)
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
