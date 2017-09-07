@@ -36,6 +36,17 @@ class TraineeHomePage: UIViewController {
             instentbookingview.isHidden = true
             
          // categoryCollectionView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)  
+            
+            
+            if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil
+            {
+                
+                //selectedCategory.append(indexPath.row)
+            }
+            
+            
+            
+            
         }
         
     }
@@ -121,6 +132,31 @@ class TraineeHomePage: UIViewController {
                     
                     self.categoriesArray = categories
                     self.categoryModelObj.insertCategoriesToDB(categories: categories)
+                    
+                    //FROM SETTINGS PAGE
+                    
+                    if self.isFromSettings
+                    {
+                        self.instentbookingview.isHidden = true
+                        
+                        // categoryCollectionView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+                        
+                        
+                        if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil
+                        {
+                            
+                            
+                            let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
+                            let index = categories.index(where: {$0.categoryId == dict?["catagoryid"] as! String})
+                            
+                             print(index!)
+//                            
+                            self.selectedCategory.append(index!)
+                        }
+ 
+                    }
+
+                    
                     self.categoryCollectionView.reloadData()
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -233,5 +269,7 @@ extension TraineeHomePage : UICollectionViewDelegate{
         }
         let indexpath = NSIndexPath(row: selectedCategory[0], section: 0)
         categoryCollectionView.reloadItems(at: [indexpath as IndexPath])
+        
+        print("Selected Category:\(selectedCategory)")
     }
 }

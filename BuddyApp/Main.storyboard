@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Unknown constraint types" minToolsVersion="5.1"/>
@@ -2688,7 +2688,7 @@ Good luck!
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3821,7 +3821,7 @@ Good luck!
         <!--Accept Or Decline Request Page-->
         <scene sceneID="jV0-1d-UpG">
             <objects>
-                <viewController modalPresentationStyle="overFullScreen" id="K67-fv-8G0" customClass="AcceptOrDeclineRequestPage" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AcceptOrDeclineRequestPage" modalPresentationStyle="overFullScreen" id="K67-fv-8G0" customClass="AcceptOrDeclineRequestPage" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Uv-pt-XwG"/>
                         <viewControllerLayoutGuide type="bottom" id="i0h-LP-oh3"/>
@@ -4158,7 +4158,7 @@ Good luck!
         <scene sceneID="jC1-lN-15y">
             <objects>
                 <navigationController storyboardIdentifier="TESTID" navigationBarHidden="YES" id="LLd-uo-cBv" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKN-vf-25e">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CKN-vf-25e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -7653,14 +7653,14 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <segue reference="USH-R0-s5v"/>
         <segue reference="Wbk-j8-6Ii"/>
         <segue reference="L6f-51-y41"/>
-        <segue reference="Fjh-O3-jAU"/>
         <segue reference="AU2-8a-F5M"/>
+        <segue reference="Fjh-O3-jAU"/>
         <segue reference="nov-fw-yUQ"/>
         <segue reference="OZa-hZ-FT0"/>
         <segue reference="fqg-MV-HkZ"/>
-        <segue reference="hJy-Rz-WHD"/>
-        <segue reference="pMz-WA-RGb"/>
         <segue reference="21t-ww-Awf"/>
+        <segue reference="pMz-WA-RGb"/>
+        <segue reference="hJy-Rz-WHD"/>
         <segue reference="Jnc-bx-uPX"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -207,7 +207,7 @@ class ShowTrainersOnMapVC: UIViewController {
         let transactionGenderChoosedBackup = userDefaults.value(forKey: "backupTrainingGenderChoosed") as! String
         
         
-        let parameters = ["user_id" : appDelegate.UserId,
+        let parameters = ["trainee_id" : appDelegate.UserId,
                           "gender" : transactionGenderChoosedBackup,
                           "category" : transactionCategoryChoosedBackup,
                           "latitude" : lat,

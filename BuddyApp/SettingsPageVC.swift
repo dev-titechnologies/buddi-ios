@@ -15,6 +15,7 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var settingsTableView: UITableView!
     let headerSectionTitles = ["Location Preference" ,"Training Category Preference", "Gender Preference", "Session Length Preference"]
+    let sessionTime = ["40","1"]
     var collapseArray = [Bool]()
     var sessionChoosed = Int()
     var headerChoosed = Int()
@@ -90,7 +91,9 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
   func GooglePlacePicker()
   {
     let config = GMSPlacePickerConfig(viewport: nil)
+
     let placePicker = GMSPlacePickerViewController(config: config)
+
     placePicker.delegate = self
     
     
@@ -110,7 +113,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         if section == 2{
             return 1
         }else if section == 3{
-            return 2
+            return sessionTime.count
         }else{
             return 0
         }
@@ -124,6 +127,19 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             
             sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
             
+            // PREFERANCE SHOWN
+            
+            if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil
+            {
+                
+                
+                let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
+                let index = self.sessionTime.index(of: dict?["time"] as! String)
+                print(index!)
+                //
+               sessionChoosed = index!
+            }
+
             if sessionChoosed == indexPath.row{
                 sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
             }else{
@@ -141,9 +157,37 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             genderCell.btnMale.addShadowView()
             genderCell.btnFemale.addShadowView()
             genderCell.btnNopreferance.addShadowView()
-//            genderCell.btnMale.addTarget(self, action: #selector(SettingsPageVC.choosedGender(sender:)), for: .touchUpInside)
-//            genderCell.btnFemale.addTarget(self, action: #selector(SettingsPageVC.choosedGender(sender:)), for: .touchUpInside)
-//            genderCell.btnNopreferance.addTarget(self, action: #selector(SettingsPageVC.choosedGender(sender:)), for: .touchUpInside)
+            
+            if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil
+            {
+                
+                let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
+                
+                
+                if dict?["gender"] as! String == "male"
+                {
+                    genderCell.btnMale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                    genderCell.btnNopreferance.backgroundColor = .white
+                    genderCell.btnFemale.backgroundColor = .white
+
+                    
+                }else if dict?["gender"] as! String == "female"
+                {
+                    genderCell.btnMale.backgroundColor = .white
+                    genderCell.btnNopreferance.backgroundColor = .white
+                    genderCell.btnFemale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+
+                }
+                else
+                {
+                    genderCell.btnNopreferance.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                    genderCell.btnFemale.backgroundColor = .white
+                    genderCell.btnMale.backgroundColor = .white
+  
+                }
+                
+                
+            }
             
             return genderCell
         }else{
@@ -248,6 +292,19 @@ extension SettingsPageVC: GMSPlacePickerViewControllerDelegate {
         self.locationcordinate = place.coordinate
         
         print("Place name \(place.name)")
+        print("STATUS",place.openNowStatus.rawValue)
+        
+        
+        switch place.openNowStatus {
+        case .yes:
+            print( "This places is open")
+        case .no:
+            print( "This places is closed now")
+        case .unknown:
+            print( "No idea about open status")
+        }
+        
+        
        // print("Place address \(String(describing: place.formattedAddress))")
        // print("Place attributions \(String(describing: place.attributions))")
     }
