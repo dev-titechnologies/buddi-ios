@@ -3897,6 +3897,7 @@ Good luck!
                         <outlet property="btnAccept" destination="e2i-fO-WNH" id="0P2-sX-dit"/>
                         <outlet property="btnDecline" destination="7vs-ck-8LX" id="R7H-bD-rRw"/>
                         <outlet property="lblRequestDescription" destination="GZq-Bi-Qs8" id="4OQ-Fa-ZCb"/>
+                        <segue destination="3tw-Fw-C7S" kind="show" identifier="fromAcceptToTimer" id="Zg0-ut-5iE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j4U-Tk-cN8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -7652,6 +7653,13 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
     <inferredMetricsTieBreakers>
         <segue reference="GI9-TU-hGk"/>
         <segue reference="OYB-aT-rib"/>
+        <segue reference="USH-R0-s5v"/>
+        <segue reference="Wbk-j8-6Ii"/>
+        <segue reference="L6f-51-y41"/>
+        <segue reference="AU2-8a-F5M"/>
+        <segue reference="nov-fw-yUQ"/>
+        <segue reference="fqg-MV-HkZ"/>
+        <segue reference="21t-ww-Awf"/>
         <segue reference="pMz-WA-RGb"/>
         <segue reference="21t-ww-Awf"/>
         <segue reference="2Wr-5b-EsE"/>
@@ -7662,5 +7670,7 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="Jnc-bx-uPX"/>
         <segue reference="fqg-MV-HkZ"/>
+        <segue reference="Zg0-ut-5iE"/>
+        <segue reference="OZa-hZ-FT0"/>
     </inferredMetricsTieBreakers>
 </document>

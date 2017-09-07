@@ -67,7 +67,7 @@ class TrainerTraineeRouteViewController: UIViewController {
        // seconds = 60
         appDelegate.TrainerProfileDictionary = nil
         
-        print("Trainer Profile Details : \(trainerProfileDetails)")
+      //  print("Trainer Profile Details : \(trainerProfileDetails)")
         print("*****  Received Trainer Profile Dict1:\(TrainerProfileDictionary)")
         
         //For Temporary Display
@@ -91,22 +91,25 @@ class TrainerTraineeRouteViewController: UIViewController {
                 timer_lbl.text = sessionTime + ":" + "00"
             }else{
                 timer_lbl.text = String(seconds/60) + ":" + "00"
+                
+                let Trainee_Dict = TrainerProfileDictionary["trainee_details"] as! Dictionary<String, Any>
+                
                 trainerProfileDetails = TrainerProfileModal.init(profileImage: "",
-                                            firstName: TrainerProfileDictionary["trainee_name"] as! String,
-                                            lastName: "",
-                                            mobile: "",
-                                            gender: "",
-                                            userid: String(appDelegate.UserId),
-                                            rating: "",
-                                            age: "",
-                                            height: "",
-                                            weight: "",
-                                            distance: "",
-                                            lattitude: TrainerProfileDictionary["trainee_latitude"] as! String,
-                                            longittude: TrainerProfileDictionary["trainee_longitude"] as! String,
-                                            bookingId: String(TrainerProfileDictionary["book_id"] as! Int) ,
-                                            trainerId: String(appDelegate.UserId),
-                                            traineeId: String(TrainerProfileDictionary["trainee_id"] as! Int))
+                    firstName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_first_name"] as! String),
+                    lastName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_last_name"] as! String),
+                    mobile: "91",
+                    gender: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_gender"] as? String),
+                    userid: String(appDelegate.UserId),
+                    rating: "3",
+                    age: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_age"] as? String),
+                    height: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_height"] as? String),
+                    weight: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_weight"] as? String),
+                    distance: "456",
+                    lattitude: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_latitude"] as? String),
+                    longittude: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_longitude"] as? String),
+                    bookingId: String(TrainerProfileDictionary["book_id"] as! Int) ,
+                    trainerId: String(TrainerProfileDictionary["trainer_id"] as! Int),
+                    traineeId: String(TrainerProfileDictionary["trainee_id"] as! Int))
                 
                 TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
             }

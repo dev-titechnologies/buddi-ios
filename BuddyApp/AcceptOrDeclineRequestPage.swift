@@ -14,8 +14,13 @@ class AcceptOrDeclineRequestPage: UIViewController {
     @IBOutlet weak var btnAccept: UIButton!
     @IBOutlet weak var btnDecline: UIButton!
     
+<<<<<<< HEAD
     var ProfileDictionary: NSMutableDictionary!
     
+=======
+     var ProfileDictionary: NSMutableDictionary!
+     var TrainerProfileDictionary: NSDictionary!
+>>>>>>> e570ecf205a0784aed3aae2ae69b5828afca0719
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,14 +91,33 @@ class AcceptOrDeclineRequestPage: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    self.dismiss(animated: true, completion: nil)
+                    //self.dismiss(animated: true, completion: nil)
                     
                     if acceptstatus{
                         
+<<<<<<< HEAD
                     }else{
                         
                     }
                     
+=======
+                        if (jsondata["data"] as? NSDictionary) != nil {
+                            
+                            self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
+                        }
+
+                        
+                        
+                      // fromAcceptToTimer
+                        self.performSegue(withIdentifier: "fromAcceptToTimer", sender: self)
+                        
+                    }
+                    else
+                    {
+                        
+                    }
+
+>>>>>>> e570ecf205a0784aed3aae2ae69b5828afca0719
                 }else if status == RESPONSE_STATUS.FAIL{
 
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -104,4 +128,20 @@ class AcceptOrDeclineRequestPage: UIViewController {
             }
         })
     }
+<<<<<<< HEAD
+=======
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "fromAcceptToTimer" {
+            let timerPage =  segue.destination as! TrainerTraineeRouteViewController
+           
+                timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
+                timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
+                print("SECONDSSSS",timerPage.seconds)
+            
+
+    }
+
+}
+>>>>>>> e570ecf205a0784aed3aae2ae69b5828afca0719
 }
