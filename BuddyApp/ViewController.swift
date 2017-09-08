@@ -106,23 +106,26 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                     }
                 }
             }else{
+
             // BOOKED BUT NOT STARTED
-                if userDefaults.bool(forKey: "sessionBookedNotStarted"){
-                    print("SESSION BOOKED NOT STARTED")
-                    
-                    if let heroObject = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
-                      let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
-                        self.GoTimerPageFromKilledState_Notification(dict: hero)
-                    }
+            if userDefaults.bool(forKey: "sessionBookedNotStarted"){
+                print("SESSION BOOKED NOT STARTED")
+                
+                if let heroObject = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+                  let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
+                    self.GoTimerPageFromKilledState_Notification(dict: hero)
                 }
-                else{
-                    if userDefaults.value(forKey: "devicetoken") != nil {
-                        appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
-                        print("TOKEN",appDelegate.DeviceToken)
-                    }else{
-                        appDelegate.DeviceToken = "1234567890"
-                    }
-                    let when = DispatchTime.now() + 3
+           
+            }
+            else{
+                if userDefaults.value(forKey: "devicetoken") != nil {
+                    appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
+                    print("TOKEN111",appDelegate.DeviceToken)
+                }else{
+                    print("TOKEN NILL")
+                    appDelegate.DeviceToken = "1234567890"
+                }
+                let when = DispatchTime.now() + 3
                     DispatchQueue.main.asyncAfter(deadline: when) {
                         self.loginCheck()
                     }
@@ -158,9 +161,12 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         
         self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
+        
         print("TRAINING DATA",self.TrainerProfileDictionary)
         print("TYPEE",notif.userInfo!["type"]!)
-                
+        
+        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
+        
         if notif.userInfo!["type"] as! String == "1" {
             //Booking Request Accepted Push received
             
