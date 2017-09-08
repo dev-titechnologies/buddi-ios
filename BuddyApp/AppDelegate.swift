@@ -444,7 +444,9 @@ extension AppDelegate: FIRMessagingDelegate {
             
          TrainerProfileDictionary = CommonMethods.convertToDictionary(text: NotificationDict )! as NSDictionary
             
-            userDefaults.set(TrainerProfileDictionary, forKey: "TrainerProfileDictionary")
+            userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
+            
+          //  userDefaults.set(TrainerProfileDictionary, forKey: "TrainerProfileDictionary")
             
                 }
         else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{

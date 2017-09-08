@@ -48,6 +48,7 @@
                         <segue destination="SHT-lJ-KGh" kind="show" identifier="splashToShowTrainersPageSegue" id="mVv-vO-aXQ"/>
                         <segue destination="WF1-TG-iQf" kind="show" identifier="splashToTrainerHomePageSegue" id="2Wr-5b-EsE"/>
                         <segue destination="3tw-Fw-C7S" kind="show" identifier="splashToTrainerHomePageSegueRunTime" id="OYB-aT-rib"/>
+                        <segue destination="K67-fv-8G0" kind="show" identifier="vcToAccept" id="9yn-1R-YXi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -7652,6 +7653,7 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GI9-TU-hGk"/>
+        <segue reference="adG-ob-O6L"/>
         <segue reference="OYB-aT-rib"/>
         <segue reference="USH-R0-s5v"/>
         <segue reference="Wbk-j8-6Ii"/>
@@ -7660,6 +7662,9 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <segue reference="nov-fw-yUQ"/>
         <segue reference="fqg-MV-HkZ"/>
         <segue reference="21t-ww-Awf"/>
+        <segue reference="2Wr-5b-EsE"/>
+        <segue reference="OYB-aT-rib"/>
+        <segue reference="mVv-vO-aXQ"/>
         <segue reference="pMz-WA-RGb"/>
         <segue reference="21t-ww-Awf"/>
         <segue reference="2Wr-5b-EsE"/>
@@ -7670,6 +7675,7 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="Jnc-bx-uPX"/>
         <segue reference="fqg-MV-HkZ"/>
+        <segue reference="Wbk-j8-6Ii"/>
         <segue reference="Zg0-ut-5iE"/>
         <segue reference="OZa-hZ-FT0"/>
     </inferredMetricsTieBreakers>

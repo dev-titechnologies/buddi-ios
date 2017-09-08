@@ -12,8 +12,9 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
     var TimerDict = NSDictionary()
     var numOfDays = Int()
-    var TrainerProfileDictionary = NSDictionary()
+    var TrainerProfileDictionary: NSDictionary!
     let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
+    let AcceptNotification = Notification.Name("AcceptNotification")
     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
    
     //MARK: - VIEW CYCLES
@@ -32,6 +33,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         Reach().monitorReachabilityChanges()
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.GoTimerPageInActive_Notification), name: notificationNameFCM, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.AcceptRejactScreenNotification), name: AcceptNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -39,10 +42,6 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     }
     
     func initilizeSessionChecks() {
-        
-        print("==================================================================")
-        print("Device Token :\(String(describing: userDefaults.value(forKey: "devicetoken")))")
-        print("==================================================================")
 
         if appDelegate.TrainerProfileDictionary != nil{
             //  BOOKED A SESSION
@@ -107,11 +106,17 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                     }
                 }
             }else{
-                // BOOKED BUT NOT STARTED
+            // BOOKED BUT NOT STARTED
                 if userDefaults.bool(forKey: "sessionBookedNotStarted"){
                     print("SESSION BOOKED NOT STARTED")
-                    self.GoTimerPageFromKilledState_Notification(dict: userDefaults.object(forKey: "TrainerProfileDictionary") as! NSDictionary)
-                }else{
+                    
+                    if let heroObject = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+                      let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
+                        self.GoTimerPageFromKilledState_Notification(dict: hero)
+                    }
+               
+                }
+                else{
                     if userDefaults.value(forKey: "devicetoken") != nil {
                         appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
                         print("TOKEN",appDelegate.DeviceToken)
@@ -134,6 +139,17 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     }
     
     //MARK: - OTHER FUNCTIONS
+    
+    func AcceptRejactScreenNotification(notif: NSNotification) {
+        
+         self.TrainerProfileDictionary = notif.userInfo!["profiledata"] as! NSDictionary
+        
+        userDefaults.set(true, forKey: "sessionBookedNotStarted")
+        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
+        
+         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+        
+    }
     
     func GoTimerPageInActive_Notification(notif: NSNotification) {
         
@@ -177,9 +193,10 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
     }
     
-    func AcceptOrDeclineScreen(){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
+    func AcceptOrDeclineScreen()
+    {
+       let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
         present(vc, animated: true, completion: nil)
     }
     
