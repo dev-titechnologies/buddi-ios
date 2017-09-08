@@ -134,6 +134,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         }
     }
     
+    //MARK: - FCM TOKEN DELEGATE FUNCTION
+    
     func tokenReceived() {
         print("======= Token Received Function Call in ViewController =======")
         initilizeSessionChecks()
@@ -160,14 +162,10 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         
         self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
         
-              
-
-        
         print("TRAINING DATA",self.TrainerProfileDictionary)
         print("TYPEE",notif.userInfo!["type"]!)
         
-          userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
-        
+        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
         
         if notif.userInfo!["type"] as! String == "1" {
             //Booking Request Accepted Push received
@@ -199,8 +197,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
     }
     
-    func AcceptOrDeclineScreen()
-    {
+    func AcceptOrDeclineScreen(){
        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
         present(vc, animated: true, completion: nil)
