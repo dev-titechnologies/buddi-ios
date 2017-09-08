@@ -111,9 +111,10 @@ class AcceptOrDeclineRequestPage: UIViewController {
         if segue.identifier == "fromAcceptToTimer" {
             let timerPage =  segue.destination as! TrainerTraineeRouteViewController
            
-                timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
-                timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
-                print("SECONDSSSS",timerPage.seconds)
+            timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
+            timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
+            print("SECONDSSSS",timerPage.seconds)
+//            timerPage.navigationController?.isNavigationBarHidden = false
         }
     }
 }

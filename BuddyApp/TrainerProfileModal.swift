@@ -59,10 +59,10 @@ class TrainerProfileModal{
         model.firstName =  trainerDetailsDict["trainer_first_name"] as! String
         model.lastName = trainerDetailsDict["trainer_last_name"] as! String
         model.Booking_id = String(dictionary["book_id"] as! Int)
-        model.Trainer_id = String(dictionary["trainer_id"] as! Int)
-        model.Trainee_id = String(dictionary["trainee_id"] as! Int)
+        model.Trainer_id = String(trainerDetailsDict["trainer_id"] as! Int)
+        model.Trainee_id = String(appDelegate.UserId)
         model.gender = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_gender"] as? String)
-        model.userid = String(describing: dictionary["trainer_id"]!)
+        model.userid = String(appDelegate.UserId)
         model.age = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_age"] as? String)
         model.rating = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_rating"] as? String)
         model.Height = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_height"] as? String)

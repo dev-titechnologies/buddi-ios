@@ -70,8 +70,10 @@ class InviteFriendsVC: UIViewController {
                 contact_dict_model.status = "0"
                 contact_dict_model.contact = contact_model
                 
-                self.contactArray.append(contact_dict_model)
-                self.identifierArray.append(contact_model.identifier)
+                if contact.phoneNumbers.count > 0 {
+                    self.contactArray.append(contact_dict_model)
+                    self.identifierArray.append(contact_model.identifier)
+                }
             }
             
             self.friendsListTable.reloadData()
@@ -127,8 +129,7 @@ class InviteFriendsVC: UIViewController {
             CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
-                    
-                    let dict = jsondata["data"]  as! NSDictionary
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{

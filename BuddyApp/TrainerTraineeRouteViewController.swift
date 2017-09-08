@@ -95,8 +95,8 @@ class TrainerTraineeRouteViewController: UIViewController {
                 let Trainee_Dict = TrainerProfileDictionary["trainee_details"] as! Dictionary<String, Any>
                 
                 trainerProfileDetails = TrainerProfileModal.init(profileImage: "",
-                    firstName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_first_name"] as! String),
-                    lastName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_last_name"] as! String),
+                    firstName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_first_name"] as? String),
+                    lastName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_last_name"] as? String),
                     mobile: "91",
                     gender: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_gender"] as? String),
                     userid: String(appDelegate.UserId),
