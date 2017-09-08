@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Unknown constraint types" minToolsVersion="5.1"/>
@@ -3133,7 +3133,7 @@ Good luck!
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4QL-IN-MSy" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8z-M3-oC6">
@@ -6371,15 +6371,15 @@ Good luck!
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H49-HZ-M1c" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                <rect key="frame" x="87" y="233" width="200" height="200"/>
+                                <rect key="frame" x="106" y="252" width="163" height="163"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="H9J-xl-UGH"/>
-                                    <constraint firstAttribute="height" constant="200" id="nFF-Rj-nQg"/>
+                                    <constraint firstAttribute="width" constant="163" id="H9J-xl-UGH"/>
+                                    <constraint firstAttribute="height" constant="163" id="nFF-Rj-nQg"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for trainer acceptance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUZ-be-dUp">
-                                <rect key="frame" x="62" y="453" width="251" height="21"/>
+                                <rect key="frame" x="62" y="445" width="251" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="1tB-29-T5X"/>
                                     <constraint firstAttribute="width" constant="251" id="Y3j-nE-ACa"/>
@@ -6391,7 +6391,7 @@ Good luck!
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.32000000000000001" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="RUZ-be-dUp" firstAttribute="top" secondItem="H49-HZ-M1c" secondAttribute="bottom" constant="20" id="Adu-lO-AmE"/>
+                            <constraint firstItem="RUZ-be-dUp" firstAttribute="top" secondItem="H49-HZ-M1c" secondAttribute="bottom" constant="30" id="Adu-lO-AmE"/>
                             <constraint firstItem="RUZ-be-dUp" firstAttribute="centerX" secondItem="nKu-YH-2eK" secondAttribute="centerX" id="CIE-T9-pBY"/>
                             <constraint firstItem="H49-HZ-M1c" firstAttribute="centerX" secondItem="nKu-YH-2eK" secondAttribute="centerX" id="QoV-bk-h9H"/>
                             <constraint firstItem="H49-HZ-M1c" firstAttribute="centerY" secondItem="nKu-YH-2eK" secondAttribute="centerY" id="mtG-uC-vDf"/>
@@ -7654,15 +7654,29 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
     <inferredMetricsTieBreakers>
         <segue reference="GI9-TU-hGk"/>
         <segue reference="adG-ob-O6L"/>
+        <segue reference="OYB-aT-rib"/>
+        <segue reference="USH-R0-s5v"/>
+        <segue reference="Wbk-j8-6Ii"/>
+        <segue reference="L6f-51-y41"/>
+        <segue reference="AU2-8a-F5M"/>
+        <segue reference="nov-fw-yUQ"/>
+        <segue reference="fqg-MV-HkZ"/>
         <segue reference="21t-ww-Awf"/>
         <segue reference="2Wr-5b-EsE"/>
         <segue reference="OYB-aT-rib"/>
         <segue reference="mVv-vO-aXQ"/>
         <segue reference="pMz-WA-RGb"/>
+        <segue reference="21t-ww-Awf"/>
+        <segue reference="2Wr-5b-EsE"/>
+        <segue reference="mVv-vO-aXQ"/>
+        <segue reference="adG-ob-O6L"/>
+        <segue reference="aj8-eb-DfE"/>
         <segue reference="OZa-hZ-FT0"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="Jnc-bx-uPX"/>
         <segue reference="fqg-MV-HkZ"/>
         <segue reference="Wbk-j8-6Ii"/>
+        <segue reference="Zg0-ut-5iE"/>
+        <segue reference="OZa-hZ-FT0"/>
     </inferredMetricsTieBreakers>
 </document>

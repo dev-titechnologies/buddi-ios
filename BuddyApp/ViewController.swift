@@ -17,7 +17,6 @@ class ViewController: UIViewController {
      let AcceptNotification = Notification.Name("AcceptNotification")
      var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +40,6 @@ class ViewController: UIViewController {
             if userDefaults.value(forKey: "TimerData") != nil {
             
             //   RUNNING SESSION
-            
             TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
             print("TIMERDICT",TimerDict)
             
@@ -49,7 +47,6 @@ class ViewController: UIViewController {
             
             print("OLD DATE",date)
             print("CURRENT DATE",Date())
-            
             
             if date > Date(){
                 print("ongoing")
@@ -100,20 +97,14 @@ class ViewController: UIViewController {
             }
         }else{
             // BOOKED BUT NOT STARTED
-            
-            if userDefaults.bool(forKey: "sessionBookedNotStarted")
-            {
+            if userDefaults.bool(forKey: "sessionBookedNotStarted"){
                 print("SESSION BOOKED NOT STARTED")
                 
                 if let heroObject = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
                   let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
                     self.GoTimerPageFromKilledState_Notification(dict: hero)
                 }
-                
-                
-                
-                
-                
+           
             }
             else{
                 if userDefaults.value(forKey: "devicetoken") != nil {
@@ -123,14 +114,13 @@ class ViewController: UIViewController {
                     appDelegate.DeviceToken = "1234567890"
                 }
                 
-                let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+                let when = DispatchTime.now() + 3
                 DispatchQueue.main.asyncAfter(deadline: when) {
-                    // Your code with delay
                     self.loginCheck()
+                }
                 }
             }
         }
-    }
     }
     
     func AcceptRejactScreenNotification(notif: NSNotification) {
@@ -146,36 +136,26 @@ class ViewController: UIViewController {
     
     func GoTimerPageInActive_Notification(notif: NSNotification) {
         
-        
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
-
-        
         
         self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
-         userDefaults.set(self.TrainerProfileDictionary, forKey: "TrainerProfileDictionary")
-        
         print("TRAINING DATA",self.TrainerProfileDictionary)
         print("TYPEE",notif.userInfo!["type"]!)
         
+        userDefaults
+//        userDefaults.set(self.TrainerProfileDictionary, forKey: "TrainerProfileDictionary")
         
         if notif.userInfo!["type"] as! String == "1"
         {
             let trainerProfileModelObj = TrainerProfileModal()
 
             self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
-            
             TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
-            
-            
-            
-            
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
-
-        }
-        else if notif.userInfo!["type"] as! String == "5"
-        {
+            
+        }else if notif.userInfo!["type"] as! String == "5"{
             AcceptOrDeclineScreen()
         }
     }

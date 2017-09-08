@@ -743,7 +743,6 @@
 			children = (
 				F3C6857B1F3C853900AA8CC7 /* GPX Files */,
 				F3C685781F3C81F800AA8CC7 /* Review Page */,
-				F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */,
 				F334D6BE1F39B0AB00435BD2 /* TimerViewcontroller */,
 				F364A8FA1F34B30B0001C570 /* Assigned Trainer Profile View */,
 				F3A9077C1F32EF9100474F5E /* Choose Session and Gender Page */,
@@ -813,6 +812,7 @@
 		F3C6857B1F3C853900AA8CC7 /* GPX Files */ = {
 			isa = PBXGroup;
 			children = (
+				F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */,
 			);
 			name = "GPX Files";
 			sourceTree = "<group>";
