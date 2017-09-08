@@ -40,26 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         
         configureFirebase(application: application)
         
-//        if #available(iOS 10.0, *) {
-//            let center = UNUserNotificationCenter.current()
-//            center.delegate = self
-//            center.requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(grant, error)  in
-//                if error == nil {
-//                    if grant {
-//                        application.registerForRemoteNotifications()
-//                    } else {
-//                        //User didn't grant permission
-//                    }
-//                } else {
-//                    print(" notification error: ",error!)
-//                }
-//            })
-//        } else {
-//            // Fallback on earlier versions
-//            let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-//            application.registerUserNotificationSettings(notificationSettings)
-//        }
-        
         GMSServices.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
         
         //AIzaSyCB1tKcWfC2ZDMcrfW0GakVBFDyuUe6w0Q
@@ -73,13 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
     }
-    
-//    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-//        if url.scheme?.localizedCaseInsensitiveCompare("com.titechnologies.BuddyApp.payments") == .orderedSame {
-//            return BTAppSwitch.handleOpen(url, options: options)
-//        }
-//        return false
-//    }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
@@ -159,10 +132,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             
             FIRInstanceID.instanceID().setAPNSToken(data, type: .sandbox)
             print("InstanceID token11: \(refreshedToken)")
+            
+            userDefaults.set(refreshedToken, forKey: "devicetoken")
+            
+            appDelegate.DeviceToken = refreshedToken
+            
+
         }
         
-        userDefaults.set(refreshedToken, forKey: "devicetoken")
-
         
         connectToFcm()
     }

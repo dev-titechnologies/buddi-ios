@@ -87,6 +87,9 @@ class ViewController: UIViewController {
                     print("TOKEN",appDelegate.DeviceToken)
                
                 }else{
+                    
+                    
+                    
                     appDelegate.DeviceToken = "1234567890"
                 }
                 
@@ -109,8 +112,9 @@ class ViewController: UIViewController {
             else{
                 if userDefaults.value(forKey: "devicetoken") != nil {
                     appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
-                    print("TOKEN",appDelegate.DeviceToken)
+                    print("TOKEN111",appDelegate.DeviceToken)
                 }else{
+                    print("TOKEN NILL")
                     appDelegate.DeviceToken = "1234567890"
                 }
                 
@@ -141,11 +145,14 @@ class ViewController: UIViewController {
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         
         self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
+        
+              
+
+        
         print("TRAINING DATA",self.TrainerProfileDictionary)
         print("TYPEE",notif.userInfo!["type"]!)
         
-        userDefaults
-//        userDefaults.set(self.TrainerProfileDictionary, forKey: "TrainerProfileDictionary")
+          userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
         
         if notif.userInfo!["type"] as! String == "1"
         {
@@ -182,12 +189,7 @@ class ViewController: UIViewController {
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
         present(vc, animated: true, completion: nil)
         
-       // vcToAccept
-        
-        // self.performSegue(withIdentifier: "vcToAccept", sender: self)
-        
-
-    }
+         }
 
     override func viewWillAppear(_ animated: Bool) {
         
