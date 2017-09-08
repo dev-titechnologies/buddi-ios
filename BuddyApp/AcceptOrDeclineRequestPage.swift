@@ -22,9 +22,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
         
         view?.backgroundColor = UIColor(white: 1, alpha: 0.5)
         
-        
-     ProfileDictionary = userDefaults.object(forKey: "TrainerProfileDictionary") as! NSDictionary as! NSMutableDictionary
-
+        ProfileDictionary = userDefaults.object(forKey: "TrainerProfileDictionary") as! NSDictionary as! NSMutableDictionary
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,12 +93,8 @@ class AcceptOrDeclineRequestPage: UIViewController {
                         NotificationCenter.default.post(name: self.AcceptNotification, object: nil, userInfo: ["profiledata":self.TrainerProfileDictionary])
                 //  self.performSegue(withIdentifier: "fromAcceptToTimer", sender: self)
                         self.dismiss(animated: true, completion: nil)
-             
-                    }
-                    else
-                    {
+                    }else{
                         self.dismiss(animated: true, completion: nil)
-                    
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
 
