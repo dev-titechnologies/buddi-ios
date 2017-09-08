@@ -16,6 +16,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
     
      var ProfileDictionary: NSMutableDictionary!
      var TrainerProfileDictionary: NSDictionary!
+     let AcceptNotification = Notification.Name("AcceptNotification")
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,13 +102,22 @@ class AcceptOrDeclineRequestPage: UIViewController {
                         }
 
                         
+                        NotificationCenter.default.post(name: self.AcceptNotification, object: nil, userInfo: ["profiledata":self.TrainerProfileDictionary])
+
+                        
                         
                       // fromAcceptToTimer
-                        self.performSegue(withIdentifier: "fromAcceptToTimer", sender: self)
+                       //  self.performSegue(withIdentifier: "fromAcceptToTimer", sender: self)
+                        self.dismiss(animated: true, completion: nil)
+                       
+                        
+    
+                        
                         
                     }
                     else
                     {
+                        self.dismiss(animated: true, completion: nil)
                         
                     }
 
@@ -129,6 +139,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
            
                 timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
                 timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
+                timerPage.navigationController?.isNavigationBarHidden = false
                 print("SECONDSSSS",timerPage.seconds)
             
 

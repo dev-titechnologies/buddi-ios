@@ -12,8 +12,9 @@ class ViewController: UIViewController {
     
     var TimerDict = NSDictionary()
     var numOfDays = Int()
-    var TrainerProfileDictionary = NSDictionary()
+    var TrainerProfileDictionary: NSDictionary!
     let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
+     let AcceptNotification = Notification.Name("AcceptNotification")
      var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
    
     
@@ -30,6 +31,8 @@ class ViewController: UIViewController {
         
         // Register to receive notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.GoTimerPageInActive_Notification), name: notificationName, object: nil)
+        //TO TIMER PAGE FROM ACCEPT
+         NotificationCenter.default.addObserver(self, selector: #selector(self.AcceptRejactScreenNotification), name: AcceptNotification, object: nil)
 
         if appDelegate.TrainerProfileDictionary != nil{
             //  BOOKED A SESSION
@@ -101,7 +104,16 @@ class ViewController: UIViewController {
             if userDefaults.bool(forKey: "sessionBookedNotStarted")
             {
                 print("SESSION BOOKED NOT STARTED")
-                self.GoTimerPageFromKilledState_Notification(dict: userDefaults.object(forKey: "TrainerProfileDictionary") as! NSDictionary)
+                
+                if let heroObject = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+                  let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
+                    self.GoTimerPageFromKilledState_Notification(dict: hero)
+                }
+                
+                
+                
+                
+                
             }
             else{
                 if userDefaults.value(forKey: "devicetoken") != nil {
@@ -119,6 +131,17 @@ class ViewController: UIViewController {
             }
         }
     }
+    }
+    
+    func AcceptRejactScreenNotification(notif: NSNotification) {
+        
+         self.TrainerProfileDictionary = notif.userInfo!["profiledata"] as! NSDictionary
+        
+        userDefaults.set(true, forKey: "sessionBookedNotStarted")
+        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
+        
+         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+        
     }
     
     func GoTimerPageInActive_Notification(notif: NSNotification) {
@@ -175,10 +198,15 @@ class ViewController: UIViewController {
         
     func AcceptOrDeclineScreen()
     {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
-       
+       let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
         present(vc, animated: true, completion: nil)
+        
+       // vcToAccept
+        
+        // self.performSegue(withIdentifier: "vcToAccept", sender: self)
+        
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -265,7 +293,17 @@ class ViewController: UIViewController {
                 timerPage.seconds = numOfDays
                 timerPage.TIMERCHECK = true
             }else{
-                timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
+                
+                if appDelegate.USER_TYPE == "trainer"
+                {
+                    timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
+                }
+                else
+                {
+                    timerPage.trainerProfileDetails = selectedTrainerProfileDetails
+                }
+                
+                
                 timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
                 print("SECONDSSSS",timerPage.seconds)
             }

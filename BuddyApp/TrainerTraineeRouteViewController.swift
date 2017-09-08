@@ -129,6 +129,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        
         print("*****  Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
         
         isInSessionRoutePage = true
