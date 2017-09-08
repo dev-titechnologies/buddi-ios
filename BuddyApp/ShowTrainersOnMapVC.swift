@@ -66,21 +66,31 @@ class ShowTrainersOnMapVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        if isFromInstantBooking
-        {
+        if isFromInstantBooking{
              InstantDict = userDefaults.value(forKey: "save_preferance") as! NSDictionary
         }
-        
-        
-        
         
         getCurrentLocationDetails()
 
         if isFromSplashScreen{
+            print("**** ShowTrainersOnMap Page from Splash screen")
             self.navigationItem.hidesBackButton = true
+            
+            if userDefaults.value(forKey: "isWaitingForTrainerAcceptance") as! Bool{
+                print("*** Showing Waiting for acceptance page")
+                showWaitingForAcceptancePage()
+            }
         }else{
             fetchClientTokenFromUserDefault()
         }
+    }
+    
+    func showWaitingForAcceptancePage() {
+
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let waitingForAcceptancePage : WaitingForAcceptancePage = mainStoryboard.instantiateViewController(withIdentifier: "WaitingForAcceptanceVCID") as! WaitingForAcceptancePage
+//           self.navigationController?.pushViewController(paymentMethodPage, animated: true)
+        self.present(waitingForAcceptancePage, animated: true, completion: nil)
     }
     
     func fetchClientTokenFromUserDefault() {
@@ -310,11 +320,8 @@ class ShowTrainersOnMapVC: UIViewController {
                     //Show Waiting for Trainer Acceptance Page
                     if jsondata["message"] as? String == "Training Requested" {
                         print("Training Requested")
-                        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                        let waitingForAcceptancePage : WaitingForAcceptancePage = mainStoryboard.instantiateViewController(withIdentifier: "WaitingForAcceptanceVCID") as! WaitingForAcceptancePage
-//                        self.navigationController?.pushViewController(paymentMethodPage, animated: true)
-                        userDefaults.set("isWaitingForTrainerAcceptance", forKey: "acceptanceStatus")
-                        self.present(waitingForAcceptancePage, animated: true, completion: nil)
+                        userDefaults.set(true, forKey: "isWaitingForTrainerAcceptance")
+                        self.showWaitingForAcceptancePage()
                     }
                     
                     let trainerProfileModelObj = TrainerProfileModal()

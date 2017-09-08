@@ -22,9 +22,15 @@ import GooglePlaces
 //import FirebaseAnalytics
 //import FirebaseInstanceID
 
+protocol FCMTokenReceiveDelegate: class {
+    func tokenReceived()
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNotificationCenterDelegate {
  
+    weak var delegateFCM: FCMTokenReceiveDelegate?
+    
     var timerrunningtime = Bool()
     var Usertoken = String()
     var UserId = Int()
@@ -39,12 +45,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         configureFirebase(application: application)
-        
         GMSServices.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
-        
-        //AIzaSyCB1tKcWfC2ZDMcrfW0GakVBFDyuUe6w0Q
         GMSPlacesClient.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
         GIDSignIn.sharedInstance().clientID = "635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2.apps.googleusercontent.com"
+
         GIDSignIn.sharedInstance().delegate = self
         IQKeyboardManager.sharedManager().enable = true
         
@@ -101,58 +105,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let tokenString = deviceToken.reduce("") { string, byte in
-            string + String(format: "%02X", byte)
-        }
-        print("token: ", tokenString)
     
-        
-
         if let refreshedToken = FIRInstanceID.instanceID().token() {
             
             let data = refreshedToken.data(using: .utf8)!
-            
             FIRInstanceID.instanceID().setAPNSToken(data, type: .sandbox)
-            print("InstanceID token1: \(refreshedToken)")
-            
+            print("========== InstanceID token1 didRegisterForRemoteNotificationsWithDeviceToken: \(refreshedToken)")
             userDefaults.set(refreshedToken, forKey: "devicetoken")
         }
-
-        
     }
     
+    //MARK: - FCM TOKEN RECEIVE
+    
     func tokenRefreshNotification(notification: NSNotification) {
-        // NOTE: It can be nil here
-        let refreshedToken = FIRInstanceID.instanceID().token()
-        print("InstanceID token 12345: \(String(describing: refreshedToken))")
         
-        if let refreshedToken = FIRInstanceID.instanceID().token() {
-            
-            let data = refreshedToken.data(using: .utf8)!
-            
-            FIRInstanceID.instanceID().setAPNSToken(data, type: .sandbox)
-            print("InstanceID token11: \(refreshedToken)")
-            
-            userDefaults.set(refreshedToken, forKey: "devicetoken")
-            
-            appDelegate.DeviceToken = refreshedToken
-            
-
+        guard let refreshedToken = FIRInstanceID.instanceID().token()
+            else {
+                return
         }
-        
-        
+        print("*********** InstanceID token: \(refreshedToken)")
+        let data = refreshedToken.data(using: .utf8)!
+        FIRInstanceID.instanceID().setAPNSToken(data, type: .sandbox)
+        userDefaults.set(refreshedToken, forKey: "devicetoken")
+
+        delegateFCM?.tokenReceived()
         connectToFcm()
     }
     
     func connectToFcm() {
+        // Won't connect since there is no token
+        guard FIRInstanceID.instanceID().token() != nil else {
+            return
+        }
+        
+        // Disconnect previous FCM connection if it exists.
+        FIRMessaging.messaging().disconnect()
         FIRMessaging.messaging().connect { (error) in
-            if (error != nil) {
-                print("Unable to connect with FCM. \(String(describing: error))")
+            if error != nil {
+                print("Unable to connect with FCM. \(error?.localizedDescription ?? "")")
             } else {
                 print("Connected to FCM.")
             }
         }
     }
+    
+    //MARK: - APPLICATION METHODS
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         print(userInfo)
@@ -297,7 +294,7 @@ extension AppDelegate: FIRMessagingDelegate {
         if (remoteMessage.appData as NSDictionary)["type"] as! String == "1"{
             // Post notification
             userDefaults.set(true, forKey: "sessionBookedNotStarted")
-            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
+             NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(remoteMessage.appData as NSDictionary)["type"] as! String])
         }else if (remoteMessage.appData as NSDictionary)["type"] as! String == "2"{
             print("TYPE 2")
             userDefaults.set(false, forKey: "sessionBookedNotStarted")
@@ -317,6 +314,13 @@ extension AppDelegate: FIRMessagingDelegate {
             TrainerProfileDetail.deleteBookingDetails()
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(remoteMessage.appData as NSDictionary)["type"] as! String])
            // CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Session have been Completed", buttonTitle: "Ok")
+        }else if (remoteMessage.appData as NSDictionary)["type"] as! String == "5"{
+            
+            
+            //REQUEST BOOKING
+            
+            print("5")
+            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(remoteMessage.appData as NSDictionary)["type"] as! String])
         }
     }
     
@@ -324,10 +328,12 @@ extension AppDelegate: FIRMessagingDelegate {
     func configureFirebase(application: UIApplication) {
         
         print("configureFirebase")
+        FIRMessaging.messaging().remoteMessageDelegate = self
         FIRApp.configure()
         
-        FIRMessaging.messaging().remoteMessageDelegate = self
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification),
+                                               name: NSNotification.Name.firInstanceIDTokenRefresh, object: nil)
+
         // Register for remote notifications. This shows a permission dialog on first run, to
         // show the dialog at a more appropriate time move this registration accordingly.
         // [START register_for_notifications]
@@ -347,9 +353,6 @@ extension AppDelegate: FIRMessagingDelegate {
         }
         
         application.registerForRemoteNotifications()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification),
-                                                         name: NSNotification.Name.firInstanceIDTokenRefresh, object: nil)
     }
     
     //MARK: FCM Token Refreshed
