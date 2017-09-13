@@ -298,7 +298,7 @@ extension LeftViewController : UITableViewDelegate{
             case 5:
                 print("Five")
                 print("Invite Friends")
-                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                self.performSegue(withIdentifier: "fromLeftMenuToInviteFriendsSegue", sender: self)
                
             case 6:
                 print("Six")

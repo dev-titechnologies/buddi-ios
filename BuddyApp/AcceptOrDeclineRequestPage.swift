@@ -17,8 +17,11 @@ class AcceptOrDeclineRequestPage: UIViewController {
      var ProfileDictionary: NSMutableDictionary!
      var TrainerProfileDictionary: NSDictionary!
      let AcceptNotification = Notification.Name("AcceptNotification")
+    var APSBody = String()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        lblRequestDescription.text = APSBody
         
         view?.backgroundColor = UIColor(white: 1, alpha: 0.5)
         
@@ -71,7 +74,11 @@ class AcceptOrDeclineRequestPage: UIViewController {
                           "training_time": ProfileDictionary["training_time"]!,
                           "category_id": ProfileDictionary["category_id"]!,
                           "latitude": ProfileDictionary["latitude"]! ,
-                          "longitude": ProfileDictionary["longitude"]!
+                          "longitude": ProfileDictionary["longitude"]!,
+                          "pick_latitude": ProfileDictionary["pick_latitude"]! ,
+                          "pick_longitude": ProfileDictionary["pick_longitude"]!,
+                          "pick_location": ProfileDictionary["pick_location"]!
+            
             ]
             as [String : Any]
         
@@ -117,6 +124,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
                         self.dismiss(animated: true, completion: nil)
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
+                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
 
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()

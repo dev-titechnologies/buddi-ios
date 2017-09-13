@@ -320,7 +320,7 @@ extension AppDelegate: FIRMessagingDelegate {
             //REQUEST BOOKING
             
             print("5")
-            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(remoteMessage.appData as NSDictionary)["type"] as! String])
+            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(remoteMessage.appData as NSDictionary)["type"] as! String,"aps":((remoteMessage.appData as NSDictionary)["notification"] as! NSDictionary)["body"] as! String])
         }
     }
     
@@ -414,8 +414,14 @@ extension AppDelegate: FIRMessagingDelegate {
             
             //REQUEST BOOKING
             
+            
+            
+            
+            
+            
+            
             print("5")
-        NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
+        NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(notification.request.content.userInfo as NSDictionary)["type"] as! String, "aps":(((notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
         }
 
     }
@@ -469,7 +475,7 @@ extension AppDelegate: FIRMessagingDelegate {
             //REQUEST BOOKING
             
             print("5")
-            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
+            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String,"aps":(((response.notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
         }
 
         completionHandler()

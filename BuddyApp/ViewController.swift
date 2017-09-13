@@ -16,6 +16,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
     let AcceptNotification = Notification.Name("AcceptNotification")
     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
+    var ApsBody = String()
    
     //MARK: - VIEW CYCLES
     
@@ -158,12 +159,20 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         
+        
+        // self.TrainerProfileDictionary.setValue(notif.userInfo!["aps"]! as! String, forKey: "body")
+        
         self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
         
         print("TRAINING DATA",self.TrainerProfileDictionary)
         print("TYPEE",notif.userInfo!["type"]!)
+        print("TYPEE121",notif.userInfo!["aps"]!)
+        
+       
         
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
+        
+       
         
         if notif.userInfo!["type"] as! String == "1" {
             //Booking Request Accepted Push received
@@ -175,6 +184,9 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
             
         }else if notif.userInfo!["type"] as! String == "5"{
+            
+             ApsBody = notif.userInfo!["aps"]! as! String
+            
             AcceptOrDeclineScreen()
         }
     }
@@ -198,6 +210,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     func AcceptOrDeclineScreen(){
        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
+        
+        vc.APSBody = ApsBody
         present(vc, animated: true, completion: nil)
     }
     
