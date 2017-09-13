@@ -26,11 +26,13 @@ class WaitingForAcceptancePage: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.triggerDismissWhenNotificationReceived), name: notificationName, object: nil)
         
-//        let when = DispatchTime.now() + 30
-//        DispatchQueue.main.asyncAfter(deadline: when) {
-//            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: TRAINING_REQUEST_REVOCKED, buttonTitle: "OK")
-//            self.dismissWaitingForAcceptancePage()
-//        }
+        
+        //For testing purpose. pls delete after use
+        let when = DispatchTime.now() + 30
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: TRAINING_REQUEST_REVOCKED, buttonTitle: "OK")
+            self.dismissWaitingForAcceptancePage()
+        }
     }
     
     func triggerDismissWhenNotificationReceived(notif: NSNotification) {
@@ -53,5 +55,4 @@ class WaitingForAcceptancePage: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 }

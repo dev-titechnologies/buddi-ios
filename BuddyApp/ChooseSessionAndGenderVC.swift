@@ -169,7 +169,6 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
         placePicker.delegate = self
         present(placePicker, animated: true, completion: nil)
     }
-
 }
 
 //MARK: - TABLEVIEW DATASOURCE
