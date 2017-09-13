@@ -16,7 +16,6 @@ import BraintreeDropIn
 
 class ShowTrainersOnMapVC: UIViewController {
 
-
     @IBOutlet weak var mapview: GMSMapView!
     var locationManager: CLLocationManager!
     var lat = String()
@@ -42,7 +41,6 @@ class ShowTrainersOnMapVC: UIViewController {
 
     let imagearray = ["play","close","message","stop"]
     
-    
     //Payment Transaction Variables
     var transactionId = String()
     var transactionStatus = String()
@@ -55,6 +53,8 @@ class ShowTrainersOnMapVC: UIViewController {
     var isFromSplashScreen = Bool()
     var isFromInstantBooking = Bool()
     var InstantDict = NSDictionary()
+    
+    var trainingLocationModelObject = TrainingLocationModel()
     
     //MARK: - VIEW CYCLES
     
@@ -190,6 +190,29 @@ class ShowTrainersOnMapVC: UIViewController {
         }
     }
     
+    func addHandlersTrainer(){
+        
+        parameterdict1.setValue("/location/receiveTrainerLocation", forKey: "url")
+        
+        datadict1.setValue(appDelegate.UserId, forKey: "user_id")
+        datadict1.setValue(self.TrainerProfileDictionary["trainer_id"], forKey: "trainer_id")
+        parameterdict1.setValue(datadict1, forKey: "data")
+        print("PARADICT_ReceivedTrainerLocation",parameterdict1)
+        // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
+        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
+        
+        SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
+                print("Socket Message Info Show Trainers on Map",messageInfo)
+                
+                // print(Float(messageInfo["longitude"] as! String)!)
+                
+                self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float((messageInfo["message"] as! NSDictionary)["latitude"] as! String)!, DestiLong: Float((messageInfo["message"] as! NSDictionary)["longitude"] as! String!)!)
+                
+            })
+        }
+    }
+    
     //MARK: - GET PARAMETERS
     
     func getShowTrainersListParameters() -> Dictionary <String,Any> {
@@ -241,7 +264,10 @@ class ShowTrainersOnMapVC: UIViewController {
                           "latitude" : lat,
                           "longitude" : long,
                           "training_time" : choosedSessionOfTrainee,
-                          ] as [String : Any]
+                          "pick_latitude" : trainingLocationModelObject.locationLatitude,
+                          "pick_longitude" : trainingLocationModelObject.locationLongitude,
+                          "pick_location" : trainingLocationModelObject.locationName
+            ] as [String : Any]
         
         if isPromoCodeExists{
             //With Promo Code
@@ -259,6 +285,17 @@ class ShowTrainersOnMapVC: UIViewController {
         return parameters
     }
     
+    func getTrainingLocationModelObjectFromDictionary(location_dictionary: NSMutableDictionary) -> TrainingLocationModel {
+        
+        let location_model_obj = TrainingLocationModel()
+        
+        location_model_obj.locationName = location_dictionary["trainingLocationName"] as! String
+        location_model_obj.locationLatitude = location_dictionary["trainingLocationLatitude"] as! String
+        location_model_obj.locationLongitude = location_dictionary["trainingLocationLongitude"] as! String
+
+        return location_model_obj
+    }
+    
     func getRandomSelectAPIParametersFromBackup() -> Dictionary <String,Any>{
         
         let transactionIdBackup = userDefaults.value(forKey: "backupPaymentTransactionId") as! String
@@ -268,12 +305,22 @@ class ShowTrainersOnMapVC: UIViewController {
         let transactionSessionChoosedBackup = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
         let transactionStatusBackup = userDefaults.value(forKey: "backupIsTransactionStatus") as! String
         
+        if let unarchivedData = userDefaults.value(forKey: "TrainingLocationModelBackup") as? NSData {
+           
+            let dict = NSKeyedUnarchiver.unarchiveObject(with: unarchivedData as Data) as! NSMutableDictionary
+            trainingLocationModelObject = getTrainingLocationModelObjectFromDictionary(location_dictionary: dict)
+            print("UnArchived Training Location Model:\(trainingLocationModelObject)")
+        }
+        
         var parameters = ["trainee_id" : appDelegate.UserId,
                           "gender" : transactionGenderChoosedBackup,
                           "category" : transactionCategoryChoosedBackup,
                           "latitude" : lat,
                           "longitude" : long,
                           "training_time" : transactionSessionChoosedBackup,
+                          "pick_latitude" : trainingLocationModelObject.locationLatitude,
+                          "pick_longitude" : trainingLocationModelObject.locationLongitude,
+                          "pick_location" : trainingLocationModelObject.locationName
                           ] as [String : Any]
         
         if isPromoCodeExists{
@@ -391,30 +438,6 @@ class ShowTrainersOnMapVC: UIViewController {
     }
     
     //MARK: - BRAINTREE FUNCTIONS
-    
-    
-    func addHandlersTrainer(){
-        
-        parameterdict1.setValue("/location/receiveTrainerLocation", forKey: "url")
-    
-        datadict1.setValue(appDelegate.UserId, forKey: "user_id")
-        datadict1.setValue(self.TrainerProfileDictionary["trainer_id"], forKey: "trainer_id")
-        parameterdict1.setValue(datadict1, forKey: "data")
-        print("PARADICT_ReceivedTrainerLocation",parameterdict1)
-       // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
-        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
-        
-        SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
-            DispatchQueue.main.async(execute: { () -> Void in
-                print("Socket Message Info Show Trainers on Map",messageInfo)
-                
-               // print(Float(messageInfo["longitude"] as! String)!)
-                
-               self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float((messageInfo["message"] as! NSDictionary)["latitude"] as! String)!, DestiLong: Float((messageInfo["message"] as! NSDictionary)["longitude"] as! String!)!)
-                
-            })
-        }
-    }
     
     func fetchExistingPaymentMethod(clientToken: String) {
         

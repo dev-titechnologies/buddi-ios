@@ -12,7 +12,6 @@ import GooglePlaces
 import GoogleMaps
 import GooglePlacePicker
 
-
 class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
 
     @IBOutlet weak var chooseSessionAndGenderTable: UITableView!
@@ -25,7 +24,6 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     var isChoosedGender = Bool()
     
     var locationManager: CLLocationManager!
-    var preferredLocationCoordinate = CLLocationCoordinate2D()
     var lat = String()
     var long = String()
     var isLocationAccessAllowed = Bool()
@@ -34,6 +32,8 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     var choosed_session_duration = String()
     var choosed_trainer_gender = String()
     var choosed_location_name = String()
+    
+    var trainingLocationModelObj = TrainingLocationModel()
     
 //MARK: - VIEW CYCLES
     
@@ -157,10 +157,16 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
             ] as [String : Any]
         
         //Add below two parameters for training preferred location
-        //location name = choosed_location_name
-        //coordinate = preferredLocationCoordinate
         
         return parameters
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "afterChoosingSessionAndGenderSegue" {
+            let showTrainersOnMapObj =  segue.destination as! ShowTrainersOnMapVC
+            showTrainersOnMapObj.trainingLocationModelObject = trainingLocationModelObj
+        }
     }
     
     func GooglePlacePicker(){
@@ -422,11 +428,26 @@ extension ChooseSessionAndGenderVC: GMSPlacePickerViewControllerDelegate {
         
         print("Place name \(place.name)")
         print("STATUS",place.openNowStatus.rawValue)
-        print("Coordinate:\(preferredLocationCoordinate)")
         
-        preferredLocationCoordinate = place.coordinate
+        trainingLocationModelObj.locationName = place.name
+        trainingLocationModelObj.locationLatitude = String(place.coordinate.latitude)
+        trainingLocationModelObj.locationLongitude = String(place.coordinate.longitude)
+        
+        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: getDictionaryFromTrainingLocationModel(training_location_model: trainingLocationModelObj)), forKey: "TrainingLocationModelBackup")
+
         choosed_location_name = place.name
         self.chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 2), with: .automatic)
+    }
+    
+    func getDictionaryFromTrainingLocationModel(training_location_model: TrainingLocationModel) -> NSMutableDictionary {
+        
+        let locationDict = NSMutableDictionary()
+        
+        locationDict.setValue(training_location_model.locationName, forKey: "trainingLocationName")
+        locationDict.setValue(training_location_model.locationLatitude, forKey: "trainingLocationLatitude")
+        locationDict.setValue(training_location_model.locationLongitude, forKey: "trainingLocationLongitude")
+        
+        return locationDict
     }
     
     func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
