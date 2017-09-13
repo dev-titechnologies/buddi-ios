@@ -64,7 +64,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         super.viewDidLoad()
         
         print("viewDidLoad")
-       // seconds = 60
         appDelegate.TrainerProfileDictionary = nil
         
       //  print("Trainer Profile Details : \(trainerProfileDetails)")
@@ -80,44 +79,11 @@ class TrainerTraineeRouteViewController: UIViewController {
             FetchFromDb()
             self.runTimer()
         }else{
-            print("NOT timer Check")
-            if appDelegate.USER_TYPE == "trainee"{
-                var sessionTime = String()
-                if choosedSessionOfTrainee == ""{
-                    sessionTime = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
-                }else{
-                    sessionTime = choosedSessionOfTrainee
-                }
-                seconds = Int(sessionTime)!*60
-                timer_lbl.text = sessionTime + ":" + "00"
-            }else{
-                timer_lbl.text = String(seconds/60) + ":" + "00"
-                
-                let Trainee_Dict = TrainerProfileDictionary["trainee_details"] as! Dictionary<String, Any>
-                
-                trainerProfileDetails = TrainerProfileModal.init(profileImage: "",
-                    firstName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_first_name"] as? String),
-                    lastName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_last_name"] as? String),
-                    mobile: "91",
-                    gender: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_gender"] as? String),
-                    userid: String(appDelegate.UserId),
-                    rating: "3",
-                    age: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_age"] as? String),
-                    height: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_height"] as? String),
-                    weight: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_weight"] as? String),
-                    distance: "456",
-                    lattitude: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_latitude"] as? String),
-                    longittude: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_longitude"] as? String),
-                    bookingId: String(TrainerProfileDictionary["book_id"] as! Int) ,
-                    trainerId: String(TrainerProfileDictionary["trainer_id"] as! Int),
-                    traineeId: String(TrainerProfileDictionary["trainee_id"] as! Int))
-                
-                TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
-            }
-            
-            SocketIOManager.sharedInstance.establishConnection()
+            initializeSession()
         }
         
+        SocketIOManager.sharedInstance.establishConnection()
+
         collectionview.delegate = self
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: 170, height: 70)
@@ -129,7 +95,6 @@ class TrainerTraineeRouteViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         
         print("*****  Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
         
@@ -158,6 +123,48 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         isInSessionRoutePage = false
+    }
+    
+    func initializeSession() {
+        
+        print("NOT timer Check")
+        if appDelegate.USER_TYPE == "trainee"{
+            var sessionTime = String()
+            if choosedSessionOfTrainee == ""{
+                sessionTime = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
+            }else{
+                sessionTime = choosedSessionOfTrainee
+            }
+            seconds = Int(sessionTime)!*60
+            
+            //For testing purpose
+            seconds = 30
+            timer_lbl.text = sessionTime + ":" + "00"
+        }else{
+            timer_lbl.text = String(seconds/60) + ":" + "00"
+            
+            let Trainee_Dict = TrainerProfileDictionary["trainee_details"] as! Dictionary<String, Any>
+            
+            trainerProfileDetails = TrainerProfileModal.init(
+                 profileImage: "",
+                 firstName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_first_name"] as? String),
+                 lastName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_last_name"] as? String),
+                 mobile: "91",
+                 gender: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_gender"] as? String),
+                 userid: String(appDelegate.UserId),
+                 rating: "3",
+                 age: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_age"] as? String),
+                 height: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_height"] as? String),
+                 weight: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_weight"] as? String),
+                 distance: "456",
+                 lattitude: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_latitude"] as? String),
+                 longittude: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_longitude"] as? String),
+                 bookingId: String(TrainerProfileDictionary["book_id"] as! Int) ,
+                 trainerId: String(TrainerProfileDictionary["trainer_id"] as! Int),
+                 traineeId: String(TrainerProfileDictionary["trainee_id"] as! Int))
+            
+            TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
+        }
     }
     
     func printTrainerProfileDetails() {
@@ -380,10 +387,8 @@ class TrainerTraineeRouteViewController: UIViewController {
                             userDefaults.removeObject(forKey: "TrainerProfileDictionary")
 
                             TrainerProfileDetail.deleteBookingDetails()
-                           appDelegate.timerrunningtime = false
-                           self.RateViewScreen()
-                            
-                            //Add Review Screen here
+                            appDelegate.timerrunningtime = false
+                            self.RateViewScreen()
                             
                             if appDelegate.USER_TYPE == "trainer" {
                                 self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
@@ -481,22 +486,24 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     func updateTimer() {
         
-        
         if seconds < 1 {
+            
             timer.invalidate()
-            //Send alert to indicate time's up.
-            
-            //self.ExtendSessionAlert()
-            
-             appDelegate.timerrunningtime = false
+            appDelegate.timerrunningtime = false
             print("*** updateTimer")
-            self.BookingAction(Action_status: "complete")
+            
+            if appDelegate.USER_TYPE == "trainee" {
+                showDoYouWantToExtendAlertPage()
+            }else{
+                
+            }
+//            self.BookingAction(Action_status: "complete")
             
         } else {
+            
             seconds -= 1
             //  timerLabel.text = timeString(time: TimeInterval(seconds))
             print("SECONDS",seconds)
-           
             appDelegate.timerrunningtime = true
             
             myMutableString = NSMutableAttributedString(string: timeString(time: TimeInterval(seconds)), attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 70.0)])
@@ -505,7 +512,6 @@ class TrainerTraineeRouteViewController: UIViewController {
             myMutableString.addAttribute(NSForegroundColorAttributeName, value: CommonMethods.hexStringToUIColor(hex: TIMER_COLOR), range: NSRange(location:0,length:3))
             
             timer_lbl.attributedText = myMutableString
-            
             TimeDict.setValue(seconds, forKey: "TimeRemains")
             TimeDict.setValue(Date(), forKey: "currenttime")
             userDefaults.setValue(TimeDict, forKey: "TimerData")
@@ -654,9 +660,16 @@ class TrainerTraineeRouteViewController: UIViewController {
     func showDoYouWantToExtendAlertPage() {
         
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let waitingForAcceptancePage : ExtendSessionRequestPage = mainStoryboard.instantiateViewController(withIdentifier: "ExtendSessionRequestVCID") as! ExtendSessionRequestPage
+        let extendSessionPage : ExtendSessionRequestPage = mainStoryboard.instantiateViewController(withIdentifier: "ExtendSessionRequestVCID") as! ExtendSessionRequestPage
         //           self.navigationController?.pushViewController(paymentMethodPage, animated: true)
-        self.present(waitingForAcceptancePage, animated: true, completion: nil)
+        
+        extendSessionPage.bookingId = trainerProfileDetails.Booking_id
+        extendSessionPage.trainerId = trainerProfileDetails.Trainer_id
+        extendSessionPage.trainerProfileDetails = self.trainerProfileDetails
+        
+        print("*** Booking ID to send Extend Page: \(trainerProfileDetails.Booking_id)")
+        
+        self.present(extendSessionPage, animated: true, completion: nil)
     }
 
     //MARK: - PREPARE FOR SEGUE
@@ -894,6 +907,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         userDefaults.removeObject(forKey: "backupTrainingGenderChoosed")
         userDefaults.removeObject(forKey: "backupTrainingSessionChoosed")
         userDefaults.removeObject(forKey: "backupIsTransactionStatus")
+        userDefaults.removeObject(forKey: "TrainingLocationModelBackup")
     }
 }
 

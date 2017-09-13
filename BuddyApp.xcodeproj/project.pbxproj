@@ -116,6 +116,7 @@
 		F39E1EAE1F270ACF00DAED93 /* FinalQuestionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EAD1F270ACF00DAED93 /* FinalQuestionsVC.swift */; };
 		F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EB11F27840000DAED93 /* Singleton.swift */; };
 		F39F383C1F68FB3500938674 /* ExtendSessionRequestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F383B1F68FB3500938674 /* ExtendSessionRequestPage.swift */; };
+		F39F383E1F6937C900938674 /* TrainingLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F383D1F6937C900938674 /* TrainingLocationModel.swift */; };
 		F3A3E5B21F4C4AC900B0865E /* PageTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3E5B11F4C4AC900B0865E /* PageTitles.swift */; };
 		F3A907791F32E45A00474F5E /* TraineeHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907781F32E45A00474F5E /* TraineeHomePage.swift */; };
 		F3A9077B1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A9077A1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift */; };
@@ -286,6 +287,7 @@
 		F39E1EAD1F270ACF00DAED93 /* FinalQuestionsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalQuestionsVC.swift; sourceTree = "<group>"; };
 		F39E1EB11F27840000DAED93 /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		F39F383B1F68FB3500938674 /* ExtendSessionRequestPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendSessionRequestPage.swift; sourceTree = "<group>"; };
+		F39F383D1F6937C900938674 /* TrainingLocationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingLocationModel.swift; sourceTree = "<group>"; };
 		F3A3E5B11F4C4AC900B0865E /* PageTitles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTitles.swift; sourceTree = "<group>"; };
 		F3A907781F32E45A00474F5E /* TraineeHomePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraineeHomePage.swift; sourceTree = "<group>"; };
 		F3A9077A1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseSessionAndGenderVC.swift; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 				F32E6AB81F540213001646E4 /* SessionDetailModel.swift */,
 				F3F5955C1F59587A00110123 /* ContactModel.swift */,
 				F32460C61F5983D9002B3D55 /* ContactDictionaryModel.swift */,
+				F39F383D1F6937C900938674 /* TrainingLocationModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1243,6 +1246,7 @@
 				F3A907841F32FD5A00474F5E /* SectionHeaderCell.swift in Sources */,
 				F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */,
 				F3C685771F3C5D4C00AA8CC7 /* DictionaryExtension.swift in Sources */,
+				F39F383E1F6937C900938674 /* TrainingLocationModel.swift in Sources */,
 				F3990E001F1F3E5E000FFF7B /* BookingHistoryDB+CoreDataProperties.swift in Sources */,
 				F37350AC1F20AA3400BE9DB6 /* CategoryDB.swift in Sources */,
 				F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */,

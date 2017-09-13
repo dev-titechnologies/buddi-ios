@@ -26,7 +26,6 @@ class WaitingForAcceptancePage: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.triggerDismissWhenNotificationReceived), name: notificationName, object: nil)
         
-        
         //For testing purpose. pls delete after use
         let when = DispatchTime.now() + 30
         DispatchQueue.main.asyncAfter(deadline: when) {
