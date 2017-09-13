@@ -27,10 +27,7 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //settingtocatagorylist
-        
-       preferanceBool = false
-
+        preferanceBool = false
 
         self.title = PAGE_TITLE.SETTINGS
         
@@ -58,9 +55,7 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
 //        let time = choosedSessionOfTrainee 
 //        let catogary = choosedCategoryOfTrainee.categoryId
         
-        
-        
-         if locationcordinate.latitude == 0.0{
+        if locationcordinate.latitude == 0.0{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please select location", buttonTitle: "Ok")
         }
         else if choosedCategoryOfTrainee.categoryId.isEmpty {
@@ -71,16 +66,11 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
         else if choosedSessionOfTrainee.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose session time", buttonTitle: "Ok")
         }else{
-            
-             preferanceBool = false
-            
-            
+            preferanceBool = false
             print("GENDER",choosedTrainerGenderOfTrainee)
             print("TIME",choosedSessionOfTrainee)
             print("CATAGORY",choosedCategoryOfTrainee.categoryId)
             print("location",locationcordinate.latitude)
-            
-            
             
             dict.setValue(String(choosedTrainerGenderOfTrainee), forKey: "gender")
             dict.setValue(String(choosedSessionOfTrainee), forKey: "time")
@@ -89,13 +79,8 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
             dict.setValue(String(locationcordinate.longitude), forKey: "long")
             
             userDefaults.setValue(dict, forKey: "save_preferance")
-            
-            
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Saved successfully", buttonTitle: "Ok")
-            
-            }
-
-
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

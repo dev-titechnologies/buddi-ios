@@ -441,8 +441,6 @@ class TrainerTraineeRouteViewController: UIViewController {
                         self.runTimer()
                     }
                     
-                   
-                    
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     
                 }else if status == RESPONSE_STATUS.FAIL{
@@ -454,7 +452,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         })
     }
     
-//MARK: -TIMER ACTIONS
+    
+//MARK: - TIMER ACTIONS
     
     func ExtendSessionAlert() {
         
@@ -568,6 +567,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             }
         }).resume()
     }
+    
     func MarkPoints(latitude: Double, logitude: Double ){
         let marker = GMSMarker()
         // I have taken a pin image which is a custom image
@@ -587,6 +587,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         marker.snippet = ""
         marker.map = mapview
     }
+    
     //MARK: - SOCKET CONNECTION
     
     func getSocketConnected() {
@@ -646,6 +647,16 @@ class TrainerTraineeRouteViewController: UIViewController {
 
         // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
+    }
+    
+    //MARK: - EXTEND SESSION 
+    
+    func showDoYouWantToExtendAlertPage() {
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let waitingForAcceptancePage : ExtendSessionRequestPage = mainStoryboard.instantiateViewController(withIdentifier: "ExtendSessionRequestVCID") as! ExtendSessionRequestPage
+        //           self.navigationController?.pushViewController(paymentMethodPage, animated: true)
+        self.present(waitingForAcceptancePage, animated: true, completion: nil)
     }
 
     //MARK: - PREPARE FOR SEGUE
@@ -929,3 +940,5 @@ extension TrainerTraineeRouteViewController : UICollectionViewDelegate{
 
     }
 }
+
+
