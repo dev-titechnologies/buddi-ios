@@ -227,6 +227,23 @@ extension LeftViewController : UITableViewDataSource{
         }
         return cell
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        
+        if appDelegate.USER_TYPE == "trainer" {
+        
+            if indexPath.row == 1{
+                return 0
+            }else{
+                return 50
+            }
+        }
+        else{
+            return 50
+        }
+        
+    }
+
 }
 
 extension LeftViewController : UITableViewDelegate{
