@@ -134,9 +134,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
     func connectToFcm() {
         // Won't connect since there is no token
-        guard FIRInstanceID.instanceID().token() != nil else {
-            return
-        }
+//        guard FIRInstanceID.instanceID().token() != nil else {
+//            return
+//        }
         
         // Disconnect previous FCM connection if it exists.
         FIRMessaging.messaging().disconnect()

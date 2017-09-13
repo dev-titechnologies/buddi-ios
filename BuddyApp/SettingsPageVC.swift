@@ -22,13 +22,14 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
     var isChoosedGender = Bool()
     var locationcordinate = CLLocationCoordinate2D()
     var dict = NSMutableDictionary()
-   
+   var sessionCell = SessionPreferenceCell()
+    var preferanceBool = Bool()
    
     override func viewDidLoad() {
         super.viewDidLoad()
         //settingtocatagorylist
         
-    
+       preferanceBool = false
 
         self.title = PAGE_TITLE.SETTINGS
         
@@ -61,23 +62,49 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
 //        let time = choosedSessionOfTrainee 
 //        let catogary = choosedCategoryOfTrainee.categoryId
         
-        print("GENDER",choosedTrainerGenderOfTrainee)
-        print("TIME",choosedSessionOfTrainee)
-        print("CATAGORY",choosedCategoryOfTrainee.categoryId)
-        print("location",locationcordinate.latitude)
-        
-       
-        
-        dict.setValue(String(choosedTrainerGenderOfTrainee), forKey: "gender")
-        dict.setValue(String(choosedSessionOfTrainee), forKey: "time")
-        dict.setValue(String(choosedCategoryOfTrainee.categoryId), forKey: "catagoryid")
-        dict.setValue(String(locationcordinate.latitude), forKey: "lat")
-        dict.setValue(String(locationcordinate.longitude), forKey: "long")
-        
-        userDefaults.setValue(dict, forKey: "save_preferance")
         
         
-        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Saved successfully", buttonTitle: "Ok")
+         if locationcordinate.latitude == 0.0{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please select location", buttonTitle: "Ok")
+        }
+        else if choosedCategoryOfTrainee.categoryId.isEmpty {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose category", buttonTitle: "Ok")
+        }else if choosedTrainerGenderOfTrainee.isEmpty {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please select gender", buttonTitle: "Ok")
+        }
+        else if choosedSessionOfTrainee.isEmpty{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose session time", buttonTitle: "Ok")
+        }else{
+            
+             preferanceBool = false
+            
+            
+            print("GENDER",choosedTrainerGenderOfTrainee)
+            print("TIME",choosedSessionOfTrainee)
+            print("CATAGORY",choosedCategoryOfTrainee.categoryId)
+            print("location",locationcordinate.latitude)
+            
+            
+            
+            dict.setValue(String(choosedTrainerGenderOfTrainee), forKey: "gender")
+            dict.setValue(String(choosedSessionOfTrainee), forKey: "time")
+            dict.setValue(String(choosedCategoryOfTrainee.categoryId), forKey: "catagoryid")
+            dict.setValue(String(locationcordinate.latitude), forKey: "lat")
+            dict.setValue(String(locationcordinate.longitude), forKey: "long")
+            
+            userDefaults.setValue(dict, forKey: "save_preferance")
+            
+            
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Saved successfully", buttonTitle: "Ok")
+            
+            }
+
+        
+        
+        
+        
+        
+
         
         
     }
@@ -123,7 +150,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         
         if indexPath.section == 3{
             //Preferred Session
-            let sessionCell: SessionPreferenceCell = tableView.dequeueReusableCell(withIdentifier: "chooseSessionCellId") as! SessionPreferenceCell
+             sessionCell = tableView.dequeueReusableCell(withIdentifier: "chooseSessionCellId") as! SessionPreferenceCell
             
             sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
             
@@ -137,7 +164,19 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
                 let index = self.sessionTime.index(of: dict?["time"] as! String)
                 print(index!)
                 //
-               sessionChoosed = index!
+              
+                
+                if  preferanceBool
+                {
+                    
+                }
+                else
+                {
+                     sessionChoosed = index!
+                }
+                
+                
+                
             }
 
             if sessionChoosed == indexPath.row{
@@ -241,7 +280,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+         preferanceBool = true
         sessionChoosed = indexPath.row
         settingsTableView.reloadSections(IndexSet(integer: 3), with: .automatic)
         
@@ -251,6 +290,9 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             
         }
      else if indexPath.section == 3{
+            
+           
+                      
             if indexPath.row == 0 {
                 choosedSessionOfTrainee = "40"
             }else{

@@ -326,6 +326,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     func RateViewScreen(){
         
+        self.isTimerRunning = false
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
         vc.trainerProfileDetails1 = self.trainerProfileDetails
@@ -426,14 +428,18 @@ class TrainerTraineeRouteViewController: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
+                    print("ENTER SUCESSS API")
+                    
                     userDefaults.set(false, forKey: "sessionBookedNotStarted")
                      userDefaults.removeObject(forKey: "TrainerProfileDictionary")
-                    
+                     print("TIMER STATUS",self.isTimerRunning)
                     if self.isTimerRunning == false {
                         
                        
                         self.runTimer()
                     }
+                    
+                   
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     
@@ -468,11 +474,15 @@ class TrainerTraineeRouteViewController: UIViewController {
     
  
     func runTimer() {
+        
+        print("TIMER STARTS RUNNING")
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(TrainerTraineeRouteViewController.updateTimer)), userInfo: nil, repeats: true)
         isTimerRunning = true
     }
     
     func updateTimer() {
+        
+        
         if seconds < 1 {
             timer.invalidate()
             //Send alert to indicate time's up.
@@ -486,8 +496,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         } else {
             seconds -= 1
             //  timerLabel.text = timeString(time: TimeInterval(seconds))
-           // print("SECONDS",seconds)
-            
+            print("SECONDS",seconds)
+           
             appDelegate.timerrunningtime = true
             
             myMutableString = NSMutableAttributedString(string: timeString(time: TimeInterval(seconds)), attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 70.0)])

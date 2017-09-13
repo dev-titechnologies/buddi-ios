@@ -14,7 +14,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
     @IBOutlet weak var btnAccept: UIButton!
     @IBOutlet weak var btnDecline: UIButton!
     
-     var ProfileDictionary: NSMutableDictionary!
+     var ProfileDictionary: NSDictionary!
      var TrainerProfileDictionary: NSDictionary!
      let AcceptNotification = Notification.Name("AcceptNotification")
     override func viewDidLoad() {
@@ -22,7 +22,14 @@ class AcceptOrDeclineRequestPage: UIViewController {
         
         view?.backgroundColor = UIColor(white: 1, alpha: 0.5)
         
-        ProfileDictionary = userDefaults.object(forKey: "TrainerProfileDictionary") as! NSDictionary as! NSMutableDictionary
+        if let heroObject = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+            ProfileDictionary = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
+            
+        }
+        
+        
+        
+       // ProfileDictionary = userDefaults.object(forKey: "TrainerProfileDictionary") as! NSDictionary as! NSMutableDictionary
     }
     
     override func viewWillAppear(_ animated: Bool) {
