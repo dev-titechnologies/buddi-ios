@@ -62,7 +62,7 @@
 	<key>FacebookAppID</key>
 	<string>1934978090076246</string>
 	<key>FacebookDisplayName</key>
-	<string>BuddyApp.com</string>
+	<string>BuddiApp.com</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>comgooglemaps</string>
@@ -82,6 +82,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>This app requires access to the camera.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Fetching contacts to invite </string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Use Location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -98,8 +100,6 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>NSContactsUsageDescription</key>
-	<string>Fetching contacts to invite </string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

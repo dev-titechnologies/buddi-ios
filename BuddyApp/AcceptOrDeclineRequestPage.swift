@@ -22,12 +22,32 @@ class AcceptOrDeclineRequestPage: UIViewController {
         
         view?.backgroundColor = UIColor(white: 1, alpha: 0.5)
         
-        ProfileDictionary = userDefaults.object(forKey: "TrainerProfileDictionary") as! NSDictionary as! NSMutableDictionary
+        ProfileDictionary = NSMutableDictionary()
+        
+        if let unarchivedData = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+            let unarchivedDict = NSKeyedUnarchiver.unarchiveObject(with: unarchivedData as Data) as! NSDictionary
+            print("UnArchivedDict:\(unarchivedDict)")
+            ProfileDictionary.setDictionary(unarchivedDict as! [AnyHashable : Any])
+            print("*** Profile Dict when Booking request Received: \(ProfileDictionary)")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         btnAccept.addShadowView()
         btnDecline.addShadowView()
+        
+        let when = DispatchTime.now() + 30
+        DispatchQueue.main.asyncAfter(deadline: when) {
+//            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: TRAINING_REQUEST_REVOCKED, buttonTitle: "OK")
+            self.dismissAcceptOrDeclinePage()
+        }
+    }
+    
+    func dismissAcceptOrDeclinePage() {
+        let presentingViewController: UIViewController! = self.presentingViewController
+        self.dismiss(animated: false) {
+            presentingViewController.dismiss(animated: false, completion: nil)
+        }
     }
     
     @IBAction func acceptAction(_ sender: Any) {

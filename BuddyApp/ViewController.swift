@@ -85,9 +85,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                             appDelegate.DeviceToken = "1234567890"
                         }
                         
-                        let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+                        let when = DispatchTime.now() + 3 
                         DispatchQueue.main.asyncAfter(deadline: when) {
-                            // Your code with delay
                             self.loginCheck()
                         }
                     }
@@ -115,7 +114,6 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                   let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
                     self.GoTimerPageFromKilledState_Notification(dict: hero)
                 }
-           
             }
             else{
                 if userDefaults.value(forKey: "devicetoken") != nil {

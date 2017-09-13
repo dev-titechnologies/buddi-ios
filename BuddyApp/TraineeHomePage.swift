@@ -12,7 +12,7 @@ import GoogleMaps
 class TraineeHomePage: UIViewController {
 
     @IBOutlet weak var instentbookingview: UIView!
-@IBOutlet weak var categoryCollectionView: UICollectionView!
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
     let categoryModelObj: CategoryModel = CategoryModel()
     var categoriesArray = [CategoryModel]()
     fileprivate let reuseIdentifier = "categoryListCellId"
@@ -22,6 +22,10 @@ class TraineeHomePage: UIViewController {
     fileprivate let itemsPerRow: CGFloat = 2
     @IBOutlet weak var imgInstantBooking: UIImageView!
     
+    //Bar buttons
+    @IBOutlet weak var btnMenu: UIButton!
+    @IBOutlet weak var btnNext: UIButton!
+    
     var isFromSettings = Bool()
 
     override func viewDidLoad() {
@@ -29,84 +33,58 @@ class TraineeHomePage: UIViewController {
 
         self.title = PAGE_TITLE.CHOOSE_CATEGORY
         
-        
-        
-        if isFromSettings
-        {
+        if isFromSettings{
             instentbookingview.isHidden = true
-            
-         // categoryCollectionView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)  
-            
-            
-            if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil
-            {
-                
-                //selectedCategory.append(indexPath.row)
-            }
-            
-            
-            
-            
+         // categoryCollectionView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         }
-        
     }
+    
     override func viewDidLayoutSubviews() {
-        if isFromSettings
-        {
-           
-            
+      
+        if isFromSettings{
             categoryCollectionView.frame = CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height)
-        
         }
-        
-
     }
+    
     @IBAction func instent_booking_action(_ sender: Any) {
         
-        if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil
-        {
-            
-        
-        
-         let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
-        
-        print(dict?["lat"] as! String)
-        
-        
-         choosedTrainerGenderOfTrainee = dict?["gender"] as! String
-         choosedCategoryOfTrainee.categoryId = dict?["catagoryid"] as! String
-         choosedSessionOfTrainee = dict?["time"] as! String
-        
-        
-        performSegue(withIdentifier: "instantbookingsegue", sender: self)
-        //instantbookingsegue
-        }
-        else{
-            
+        if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
+            let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
+            print(dict?["lat"] as! String)
+            choosedTrainerGenderOfTrainee = dict?["gender"] as! String
+            choosedCategoryOfTrainee.categoryId = dict?["catagoryid"] as! String
+            choosedSessionOfTrainee = dict?["time"] as! String
+            performSegue(withIdentifier: "instantbookingsegue", sender: self)
+        }else{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Preferences are not saved", buttonTitle: "Ok")
-            
         }
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         getCategoryList()
         selectedCategory.removeAll()
+        
+        if isFromSettings {
+            btnMenu.isHidden = true
+            btnNext.setTitle("Done", for: .normal)
+        }
     }
     
     func loadInstantBookingImage() {
-        
         imgInstantBooking.layer.cornerRadius = imgInstantBooking.frame.size.width / 2
         imgInstantBooking.sd_setImage(with: URL(string: "http://git.titechnologies.in:4001/images/category/instant-booking.png"), placeholderImage: UIImage(named: ""))
     }
+    
+    @IBAction func backButtonAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     //MARK: - PREPARE FOR SEGUE
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "instantbookingsegue"{
             let TrainerListPage =  segue.destination as! ShowTrainersOnMapVC
-            
             TrainerListPage.isFromInstantBooking = true
-            
         }
     }
 
@@ -169,30 +147,19 @@ class TraineeHomePage: UIViewController {
     
     @IBAction func nextButtonAction(_ sender: Any) {
         
-        
         if selectedCategory.count > 0{
             choosedCategoryOfTrainee = categoriesArray[selectedCategory[0]]
             userDefaults.set(choosedCategoryOfTrainee.categoryId, forKey: "backupTrainingCategoryChoosed")
             print("Choosed Category:\(choosedCategoryOfTrainee.categoryName)")
             
-            if isFromSettings
-            {
+            if isFromSettings{
                 self.navigationController?.popViewController(animated: true)
-            }
-            else
-            {
+            }else{
                 performSegue(withIdentifier: "afterCategorySelectionTraineeSegue", sender: self)
-
             }
-            
-            
-            
-            
-            
         }else{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_ATLEAST_ONE_CATEGORY, buttonTitle: "OK")
         }
-    
     }
     
     override func didReceiveMemoryWarning() {

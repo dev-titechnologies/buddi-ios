@@ -60,6 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
+        print("FB URL:\(url)")
         let googleDidHandle = GIDSignIn.sharedInstance().handle(url as URL!,
                                                                 sourceApplication: sourceApplication,
                                                                 annotation: annotation)
@@ -127,18 +128,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         let data = refreshedToken.data(using: .utf8)!
         FIRInstanceID.instanceID().setAPNSToken(data, type: .sandbox)
         userDefaults.set(refreshedToken, forKey: "devicetoken")
-
-        delegateFCM?.tokenReceived()
+       
         connectToFcm()
+        delegateFCM?.tokenReceived()
     }
     
     func connectToFcm() {
-        // Won't connect since there is no token
-        guard FIRInstanceID.instanceID().token() != nil else {
-            return
-        }
+//        guard FIRInstanceID.instanceID().token() != nil else {
+//            return
+//        }
         
-        // Disconnect previous FCM connection if it exists.
         FIRMessaging.messaging().disconnect()
         FIRMessaging.messaging().connect { (error) in
             if error != nil {

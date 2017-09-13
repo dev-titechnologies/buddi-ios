@@ -64,8 +64,12 @@ class MessagingSocketVC: JSQMessagesViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-//                    self.jsondict = jsondata["data"]  as! NSDictionary
-                    
+                    let messagesArray = jsondata["data"] as! NSArray as Array
+                    for message in messagesArray{
+                        self.messages.append(self.getJSQMessageModelFromDict(dictionary: message as! Dictionary<String, Any>))
+                    }
+                    print("Messages Received:\(self.messages)")
+                    self.finishReceivingMessage()
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
@@ -74,6 +78,15 @@ class MessagingSocketVC: JSQMessagesViewController {
                 }
             }
         })
+    }
+    
+    func getJSQMessageModelFromDict(dictionary: Dictionary<String, Any>) -> JSQMessage {
+        
+        let message = JSQMessage(senderId:String(describing: dictionary["from_id"]!),
+                                 displayName: dictionary["from_name"] as! String,
+                                 text: dictionary["message"] as! String)
+        
+        return message!
     }
 
     override func didReceiveMemoryWarning() {

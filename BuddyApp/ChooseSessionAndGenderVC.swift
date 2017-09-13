@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreLocation
+import GooglePlaces
+import GoogleMaps
+import GooglePlacePicker
 
 
 class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
@@ -15,18 +18,22 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var chooseSessionAndGenderTable: UITableView!
     @IBOutlet weak var btnNext: UIButton!
    
-    let headerSectionTitles = ["Choose Session Duration" ,"Choose Trainer Gender"]
+    let headerSectionTitles = ["Choose Session Duration" ,"Choose Trainer Gender","Choose Location"]
     var collapseArray = [Bool]()
     var sessionChoosed = Int()
     var headerChoosed = Int()
     var isChoosedGender = Bool()
     
     var locationManager: CLLocationManager!
+    var preferredLocationCoordinate = CLLocationCoordinate2D()
     var lat = String()
     var long = String()
-//    var isFetchedLatAndLong = Bool()
     var isLocationAccessAllowed = Bool()
     
+    //Selected Preference Values
+    var choosed_session_duration = String()
+    var choosed_trainer_gender = String()
+    var choosed_location_name = String()
     
 //MARK: - VIEW CYCLES
     
@@ -91,6 +98,7 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
         
         present(alertController, animated: true, completion: nil)
     }
+    
     func getCurrentLocationDetails() {
         
         if CLLocationManager.locationServicesEnabled() {
@@ -148,23 +156,37 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
                           "longitude" : long
             ] as [String : Any]
         
+        //Add below two parameters for training preferred location
+        //location name = choosed_location_name
+        //coordinate = preferredLocationCoordinate
+        
         return parameters
     }
+    
+    func GooglePlacePicker(){
+        let config = GMSPlacePickerConfig(viewport: nil)
+        let placePicker = GMSPlacePickerViewController(config: config)
+        placePicker.delegate = self
+        present(placePicker, animated: true, completion: nil)
+    }
+
 }
 
 //MARK: - TABLEVIEW DATASOURCE
 extension ChooseSessionAndGenderVC: UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return headerSectionTitles.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0{
             return trainingDurationArray.count
-        }else{
+        }else if section == 1{
             return 1
+        }else {
+            return 0
         }
     }
     
@@ -191,9 +213,33 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
             genderCell.btnFemale.addShadowView()
             genderCell.btnNopreferance.addShadowView()
             
+            genderCell.btnMale.tag = 1
+            genderCell.btnFemale.tag = 2
+            genderCell.btnNopreferance.tag = 3
+            
             genderCell.btnMale.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
             genderCell.btnFemale.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
             genderCell.btnNopreferance.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
+            
+            switch choosed_trainer_gender {
+            case "Male":
+                genderCell.btnMale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                genderCell.btnFemale.backgroundColor = .white
+                genderCell.btnNopreferance.backgroundColor = .white
+           
+            case "Female":
+                genderCell.btnMale.backgroundColor = .white
+                genderCell.btnFemale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                genderCell.btnNopreferance.backgroundColor = .white
+
+            case "No Preference":
+                genderCell.btnMale.backgroundColor = .white
+                genderCell.btnFemale.backgroundColor = .white
+                genderCell.btnNopreferance.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+
+            default:
+                print("Default case in gender color")
+            }
 
             return genderCell
         }
@@ -232,6 +278,18 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
             cell.imgArrow.image = UIImage(named: "rightArrow")
         }
         
+        switch section {
+        case 0:
+            cell.lblSelectedValue.text = choosed_session_duration
+        case 1:
+            cell.lblSelectedValue.text = choosed_trainer_gender
+        case 2:
+            cell.lblSelectedValue.text = choosed_location_name
+            
+        default:
+            print("View for sectionheader Default Case catched")
+        }
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapSectionHeader(_:)))
         cell.contentView.addGestureRecognizer(tapGesture)
         tapGesture.delegate = self
@@ -243,12 +301,33 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
     func choosedGender(sender : UIButton){
         print("Button Tapped 123")
         
+        switch sender.tag {
+        case 1:
+            choosed_trainer_gender = "Male"
+            choosedTrainerGenderOfTrainee = "male"
+        case 2:
+            choosed_trainer_gender = "Female"
+            choosedTrainerGenderOfTrainee = "female"
+        case 3:
+            choosed_trainer_gender = "No Preference"
+            choosedTrainerGenderOfTrainee = "nopreference"
+
+        default:
+            print("Gender Default Case catched")
+        }
+        
+        userDefaults.set(choosedTrainerGenderOfTrainee, forKey: "backupTrainingGenderChoosed")
+        
         isChoosedGender = true
         if !choosedSessionOfTrainee.isEmpty{
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }else{
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
         }
+        
+        let indexPath1 = IndexPath(row: 0, section: 1)
+        self.chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 1), with: .automatic)
+        self.chooseSessionAndGenderTable.reloadRows(at: [indexPath1], with: .automatic)
     }
 
     func didTapSectionHeader(_ sender: UITapGestureRecognizer) {
@@ -257,10 +336,16 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
         let indexpath: IndexPath = IndexPath.init(row: 0, section: (sender.view?.tag)!)
         print("Tapped Index:",indexpath.section)
         
-        headerChoosed = (sender.view?.tag)!
-        let collapsed = collapseArray[indexpath.section]
-        collapseArray[indexpath.section] = !collapsed
-        self.chooseSessionAndGenderTable.reloadSections(IndexSet(integer: sender.view!.tag), with: .automatic)
+        if indexpath.section == 0 || indexpath.section == 1 {
+            print("*** Tapped on Section 1 & 2")
+            headerChoosed = (sender.view?.tag)!
+            let collapsed = collapseArray[indexpath.section]
+            collapseArray[indexpath.section] = !collapsed
+            self.chooseSessionAndGenderTable.reloadSections(IndexSet(integer: sender.view!.tag), with: .automatic)
+        }else{
+            print("*** Tapped on Section 3")
+            GooglePlacePicker()
+        }
     }
 }
 
@@ -279,6 +364,7 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
             }else{
                 choosedSessionOfTrainee = "60"
             }
+            choosed_session_duration = trainingDurationArray[indexPath.row]
         }
         print("Choosed Session:\(choosedSessionOfTrainee)")
         userDefaults.set(choosedSessionOfTrainee, forKey: "backupTrainingSessionChoosed")
@@ -288,6 +374,8 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
         }else{
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
         }
+        
+        self.chooseSessionAndGenderTable.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
     }
 }
 
@@ -324,8 +412,32 @@ extension ChooseSessionAndGenderVC: CLLocationManagerDelegate {
             isLocationAccessAllowed = false
         }
     }
-    
 }
+
+extension ChooseSessionAndGenderVC: GMSPlacePickerViewControllerDelegate {
+    
+    func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        
+        print("Place name \(place.name)")
+        print("STATUS",place.openNowStatus.rawValue)
+        print("Coordinate:\(preferredLocationCoordinate)")
+        
+        preferredLocationCoordinate = place.coordinate
+        choosed_location_name = place.name
+        self.chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 2), with: .automatic)
+    }
+    
+    func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        print("No place selected")
+    }
+}
+
 
 
 

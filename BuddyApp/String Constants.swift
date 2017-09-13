@@ -29,6 +29,7 @@ let PAYMENT_COULD_NOT_PROCESSED = "Payment could not be processed, please try ag
 let PAYMENT_SUCCESSFULL = "Payment successfull"
 let PROFILE_UPDATED_SUCCESSFULLY = "Profile updated successfully"
 let ARE_YOU_SURE_WANT_TO_CANCEL_SESSION = "Are you sure you want to Cancel this session?"
+let ARE_YOU_SURE_WANT_TO_STOP_SESSION = "Are you sure you want to Stop this session?"
 let PLEASE_ENTER_CANCEL_REASON = "Please enter cancellation reason"
 let PLEASE_CHOOSE_ATLEAST_ONE_CATEGORY = "Please choose atleast one category"
 let PLEASE_CHOOSE_SESSION_DURATION = "Please choose a session duration"
@@ -36,7 +37,7 @@ let PLEASE_CHOOSE_PREFERRED_GENDER = "Please choose a preferred gender"
 let LOCATION_HAS_NOT_FETCH_PLEASE_WAIT = "Location has not been fetched, please wait"
 let PLEASE_ALLOW_LOCATION_ACCESS = "Please allow location access to proceed"
 let PLEASE_WAIT_FETCHING_PAYMENT_METHODS = "Please wait... fetching payment methods."
-
+let TRAINING_REQUEST_REVOCKED = "Your Request has been revocked by admin"
 
 
 let VIDEO_DESC = "*Videos should be no longer than 90 seconds. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."

@@ -33,7 +33,9 @@ class SubCategorySelectionVC: UIViewController {
     var isTextBoxCurrentWeight = Bool()
     var isTextBoxExerciseNutrition = Bool()
     
+    @IBOutlet weak var subCategoryTableHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pickerViewTitle: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,12 +43,17 @@ class SubCategorySelectionVC: UIViewController {
         print("SubCategories:",subCategories)
         print(currentWeightONEArray)
         print(currentWeightSecondArray)
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
         
-//        btnYesLostOrGainWeight.addShadowView()
-//        btnNoLostOrGainWeight.addShadowView()
+        if subCategories.count > 0 {
+            subCategoryTableHeightConstraint.constant = CGFloat(subCategories.count * 44)
+        }else{
+            subCategoryTableHeightConstraint.constant = CGFloat(150)
+            subCategoryTable.isHidden = true
+        }
     }
     
 //    @IBAction func yesBtnActionLostOrGainWeight(_ sender: Any) {
@@ -75,7 +82,7 @@ class SubCategorySelectionVC: UIViewController {
 
     @IBAction func nextButtonAction(_ sender: Any) {
         
-        if selectedSubCategoriesFromTable.count == 0 {
+        if selectedSubCategoriesFromTable.count == 0 && subCategories.count > 0 {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose atleast a subcategory", buttonTitle: "OK")
         }else if txtCurrentWeight.text == "" || txtExerciseNutrition.text == "" {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ANSWER_ABOVE_QUESTIONS, buttonTitle: "OK")
@@ -96,7 +103,8 @@ class SubCategorySelectionVC: UIViewController {
     
     func changeNextButtonColor() {
         
-        if selectedSubCategoriesFromTable.count > 0 && txtCurrentWeight.text != "" && txtExerciseNutrition.text != ""{
+        if selectedSubCategoriesFromTable.count > 0 && txtCurrentWeight.text != "" && txtExerciseNutrition.text != "" ||
+            subCategories.count == 0 && txtCurrentWeight.text != "" && txtExerciseNutrition.text != ""{
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }else{
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
@@ -223,6 +231,8 @@ extension SubCategorySelectionVC: UITextFieldDelegate {
 //    }
 //}
 
+//MARK: - PICKER VIEW DATASOURE AND DELEGATES
+
 extension SubCategorySelectionVC: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -247,18 +257,18 @@ extension SubCategorySelectionVC: UIPickerViewDataSource, UIPickerViewDelegate {
         }
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-       
-        if isTextBoxCurrentWeight{
-            if component == 0 {
-                return String(currentWeightONEArray[row])
-            }else {
-                return String(currentWeightSecondArray[row])
-            }
-        }else{
-            return exerciseNutritionArray[row]
-        }
-    }
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//       
+//        if isTextBoxCurrentWeight{
+//            if component == 0 {
+//                return String(currentWeightONEArray[row])
+//            }else {
+//                return String(currentWeightSecondArray[row])
+//            }
+//        }else{
+//            return exerciseNutritionArray[row]
+//        }
+//    }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
@@ -267,11 +277,32 @@ extension SubCategorySelectionVC: UIPickerViewDataSource, UIPickerViewDelegate {
             let selectedValueSecondRow = pickerView.selectedRow(inComponent: 1)
             
             txtCurrentWeight.text = String(currentWeightONEArray[selectedValueFirstRow] + currentWeightSecondArray[selectedValueSecondRow]) + " lbs"
-            changeNextButtonColor()
         }else if isTextBoxExerciseNutrition{
             let selectedValueRow = pickerView.selectedRow(inComponent: 0)
             txtExerciseNutrition.text = exerciseNutritionArray[selectedValueRow]
         }
+        changeNextButtonColor()
     }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        let label = (view as? UILabel) ?? UILabel()
+        label.textAlignment = .center
+
+        if isTextBoxCurrentWeight{
+            label.font = UIFont(name: "System", size: 18.0)
+            if component == 0 {
+                label.text = String(currentWeightONEArray[row])
+            }else {
+                label.text = String(currentWeightSecondArray[row])
+            }
+        }else{
+            label.font = UIFont(name: "System", size: 15.0)
+            label.text = exerciseNutritionArray[row]
+        }
+            
+        return label
+    }
+    
 }
 

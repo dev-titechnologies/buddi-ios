@@ -24,19 +24,29 @@ class WaitingForAcceptancePage: UIViewController {
         
         let notificationName = Notification.Name("FCMNotificationIdentifier")
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.dismissWaitingForAcceptanceVC), name: notificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.triggerDismissWhenNotificationReceived), name: notificationName, object: nil)
+        
+//        let when = DispatchTime.now() + 30
+//        DispatchQueue.main.asyncAfter(deadline: when) {
+//            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: TRAINING_REQUEST_REVOCKED, buttonTitle: "OK")
+//            self.dismissWaitingForAcceptancePage()
+//        }
     }
     
-    func dismissWaitingForAcceptanceVC(notif: NSNotification) {
+    func triggerDismissWhenNotificationReceived(notif: NSNotification) {
         
         if notif.userInfo!["type"] as! String == "1" {
-            print("Dismiss Waiting for Acceptance Page while receiving notification")
-            userDefaults.set(false, forKey: "isWaitingForTrainerAcceptance")
-            
-            let presentingViewController: UIViewController! = self.presentingViewController
-            self.dismiss(animated: false) {
-                presentingViewController.dismiss(animated: false, completion: nil)
-            }
+            dismissWaitingForAcceptancePage()
+        }
+    }
+    
+    func dismissWaitingForAcceptancePage(){
+        print("Dismiss Waiting for Acceptance Page while receiving notification")
+        userDefaults.set(false, forKey: "isWaitingForTrainerAcceptance")
+        
+        let presentingViewController: UIViewController! = self.presentingViewController
+        self.dismiss(animated: false) {
+            presentingViewController.dismiss(animated: false, completion: nil)
         }
     }
 
