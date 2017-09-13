@@ -31,6 +31,7 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
         
        preferanceBool = false
 
+
         self.title = PAGE_TITLE.SETTINGS
         
         sessionChoosed = -1
@@ -42,23 +43,18 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if choosedCategoryOfTrainee.categoryId != nil
-        {
-            print("selected catogary ID",choosedCategoryOfTrainee.categoryId)
-            
-        }
-        else
-        {
-            
-        }
+//        if choosedCategoryOfTrainee.categoryId != nil {
+//            print("selected catogary ID",choosedCategoryOfTrainee.categoryId)
+//        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
     @IBAction func Save_action(_ sender: Any) {
         
-//        let gender = choosedTrainerGenderOfTrainee 
+//        let gender = choosedTrainerGenderOfTrainee
 //        let time = choosedSessionOfTrainee 
 //        let catogary = choosedCategoryOfTrainee.categoryId
         
@@ -99,33 +95,21 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
             
             }
 
-        
-        
-        
-        
-        
 
-        
-        
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "settingtocatagorylist" {
             let chooseCategoryPage =  segue.destination as! TraineeHomePage
             chooseCategoryPage.isFromSettings = true
         }
     }
-  func GooglePlacePicker()
-  {
-    let config = GMSPlacePickerConfig(viewport: nil)
-
-    let placePicker = GMSPlacePickerViewController(config: config)
-
-    placePicker.delegate = self
     
-    
-    present(placePicker, animated: true, completion: nil)
-    
+    func GooglePlacePicker(){
+        let config = GMSPlacePickerConfig(viewport: nil)
+        let placePicker = GMSPlacePickerViewController(config: config)
+        placePicker.delegate = self
+        present(placePicker, animated: true, completion: nil)
     }
 }
 
@@ -148,6 +132,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        print("Indexpath:\(indexPath.row)")
         if indexPath.section == 3{
             //Preferred Session
              sessionCell = tableView.dequeueReusableCell(withIdentifier: "chooseSessionCellId") as! SessionPreferenceCell
@@ -156,14 +141,13 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             
             // PREFERANCE SHOWN
             
-            if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil
-            {
-                
+            if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
                 
                 let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
+                print("Preference dict:\(String(describing: dict))")
                 let index = self.sessionTime.index(of: dict?["time"] as! String)
                 print(index!)
-                //
+            
               
                 
                 if  preferanceBool
@@ -174,8 +158,6 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
                 {
                      sessionChoosed = index!
                 }
-                
-                
                 
             }
 
@@ -197,41 +179,26 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             genderCell.btnFemale.addShadowView()
             genderCell.btnNopreferance.addShadowView()
             
-            if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil
-            {
-                
+            if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
                 let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
                 
-                
-                if dict?["gender"] as! String == "male"
-                {
+                if dict?["gender"] as! String == "male"{
                     genderCell.btnMale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
                     genderCell.btnNopreferance.backgroundColor = .white
                     genderCell.btnFemale.backgroundColor = .white
-
-                    
-                }else if dict?["gender"] as! String == "female"
-                {
+                }else if dict?["gender"] as! String == "female"{
                     genderCell.btnMale.backgroundColor = .white
                     genderCell.btnNopreferance.backgroundColor = .white
                     genderCell.btnFemale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-
-                }
-                else
-                {
+                }else{
                     genderCell.btnNopreferance.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
                     genderCell.btnFemale.backgroundColor = .white
                     genderCell.btnMale.backgroundColor = .white
-  
                 }
-                
-                
             }
-            
             return genderCell
         }else{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellid")!
-            
             return cell
         }
     }
@@ -288,11 +255,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         {
             
             
-        }
-     else if indexPath.section == 3{
-            
-           
-                      
+        }else if indexPath.section == 3{
             if indexPath.row == 0 {
                 choosedSessionOfTrainee = "40"
             }else{
@@ -303,8 +266,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         print("Choosed Session:\(choosedSessionOfTrainee)")
         //print("Choosed Session:\(choosedSessionOfTrainee)")
         //userDefaults.set(choosedSessionOfTrainee, forKey: "backupTrainingSessionChoosed")
-        
-          }
+    }
     
     func didTapSectionHeader(_ sender: UITapGestureRecognizer) {
         print("Please Help!")
@@ -325,6 +287,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
     }
     
 }
+
 extension SettingsPageVC: GMSPlacePickerViewControllerDelegate {
     
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {

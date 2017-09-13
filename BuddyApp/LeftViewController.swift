@@ -72,10 +72,9 @@ class LeftViewController: UIViewController {
             }
         }
     }
-    func TimerCheck()
-    {
+    
+    func TimerCheck(){
         if userDefaults.value(forKey: "TimerData") != nil {
-            
             TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
             print("TIMERDICT",TimerDict)
             
@@ -93,18 +92,15 @@ class LeftViewController: UIViewController {
                 
                 self.performSegue(withIdentifier: "leftmenutotimerview", sender: self)
                 
-                
-                
-                
             }else{
                 print("completed")
                 
                 userDefaults.removeObject(forKey: "TimerData")
                 TrainerProfileDetail.deleteBookingDetails()
             }
-
+        }
     }
-    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "blankPageSegue" {
@@ -133,7 +129,6 @@ class LeftViewController: UIViewController {
     
     @IBAction func viewProfileButtonAction(_ sender: Any) {
         
-    
         if appDelegate.USER_TYPE == "trainer"{
             self.performSegue(withIdentifier: "trainerProfileSegue", sender: self)
 
@@ -167,7 +162,8 @@ class LeftViewController: UIViewController {
     }
     
     func LogOutAPI(){
-            let headers = [
+        
+        let headers = [
             "device_id": appDelegate.DeviceToken,
             "device_imei": UIDevice.current.identifierForVendor!.uuidString,
             "device_type": "ios",

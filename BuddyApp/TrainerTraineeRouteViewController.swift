@@ -76,10 +76,11 @@ class TrainerTraineeRouteViewController: UIViewController {
         self.title = PAGE_TITLE.TRAINING_SESSION
         
         if TIMERCHECK {
-            
+            print("Timer Check ******")
             FetchFromDb()
             self.runTimer()
         }else{
+            print("NOT timer Check")
             if appDelegate.USER_TYPE == "trainee"{
                 var sessionTime = String()
                 if choosedSessionOfTrainee == ""{
@@ -153,8 +154,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         btnYesCancelAlert.addShadowView()
             
         getCurrentLocationDetails()
-        
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -303,7 +302,11 @@ class TrainerTraineeRouteViewController: UIViewController {
         if let result = TrainerProfileDetail.fetchBookingDetails() {
             self.profileArray = result as! Array<TrainerProfileDetail>
             
-        let bookingObj = self.profileArray[0]
+            guard self.profileArray.count > 0 else {
+                return
+            }
+       
+            let bookingObj = self.profileArray[0]
             
             trainerProfileDetails = TrainerProfileModal.init(profileImage: bookingObj.value(forKey: "profileimage") as! String,
                 firstName: CommonMethods.checkStringNull(val: bookingObj.value(forKey:"firstname") as? String) ,
@@ -433,9 +436,8 @@ class TrainerTraineeRouteViewController: UIViewController {
                     userDefaults.set(false, forKey: "sessionBookedNotStarted")
                      userDefaults.removeObject(forKey: "TrainerProfileDictionary")
                      print("TIMER STATUS",self.isTimerRunning)
+
                     if self.isTimerRunning == false {
-                        
-                       
                         self.runTimer()
                     }
                     
@@ -451,8 +453,6 @@ class TrainerTraineeRouteViewController: UIViewController {
             }
         })
     }
-  
-    
     
 //MARK: -TIMER ACTIONS
     
@@ -490,7 +490,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             //self.ExtendSessionAlert()
             
              appDelegate.timerrunningtime = false
-            
+            print("*** updateTimer")
             self.BookingAction(Action_status: "complete")
             
         } else {
@@ -507,15 +507,12 @@ class TrainerTraineeRouteViewController: UIViewController {
             
             timer_lbl.attributedText = myMutableString
             
-            
             TimeDict.setValue(seconds, forKey: "TimeRemains")
             TimeDict.setValue(Date(), forKey: "currenttime")
-            
             userDefaults.setValue(TimeDict, forKey: "TimerData")
-            
-            
-            }
+        }
     }
+    
     func timeString(time:TimeInterval) -> String {
        // let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60
@@ -523,11 +520,10 @@ class TrainerTraineeRouteViewController: UIViewController {
         return String(format:"%02i:%02i", minutes, seconds)
     }
 
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
     func DrowRoute(OriginLat: Float, OriginLong: Float, DestiLat: Float, DestiLong: Float){
         
         print("LAT$LONG",lat)
@@ -855,7 +851,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             }else{
                 //STOP
                 print("STOP CLICK")
-                let alert = UIAlertController(title: ALERT_TITLE, message: ARE_YOU_SURE_WANT_TO_CANCEL_SESSION, preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: ALERT_TITLE, message: ARE_YOU_SURE_WANT_TO_STOP_SESSION, preferredStyle: UIAlertControllerStyle.alert)
                 
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
                     self.BoolArray.insert(false, at: 1)
