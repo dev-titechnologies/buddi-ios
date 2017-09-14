@@ -34,7 +34,8 @@ class ExtendSessionRequestPage: UIViewController {
     var transactionStatus = String()
     
     var trainerProfileDetails = TrainerProfileModal()
-    
+    let notificationName = Notification.Name("SessionNotification")
+
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -45,10 +46,20 @@ class ExtendSessionRequestPage: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         addingShadow()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receivedPushNotification), name: notificationName, object: nil)
+
 //        let when = DispatchTime.now() + 30
 //        DispatchQueue.main.asyncAfter(deadline: when) {
 //            self.dismissExtendSessionRequestPage()
 //        }
+    }
+    
+    func receivedPushNotification(notif: NSNotification){
+        
+        print("Notification Received in Waiting for Acceptance Page:\(notif)")
+        if notif.userInfo!["pushData"] as! String == "4"{
+            showReviewScreen()
+        }
     }
     
     func addingShadow() {
@@ -64,7 +75,8 @@ class ExtendSessionRequestPage: UIViewController {
     }
     
     @IBAction func extendNoAction(_ sender: Any) {
-        dismissExtendSessionRequestPage()
+        
+        bookingCompleteAction(action_status: "complete")
     }
     
     @IBAction func session40MinutesAction(_ sender: Any) {
@@ -78,8 +90,10 @@ class ExtendSessionRequestPage: UIViewController {
         btnSession40Minutes.backgroundColor = .white
         btnSession1Hour.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
     }
+    
     @IBAction func extendSessionCancelAction(_ sender: Any) {
-        dismissExtendSessionRequestPage()
+       // dismissExtendSessionRequestPage()
+        showReviewScreen()
     }
     
     @IBAction func nextAction(_ sender: Any) {
@@ -92,6 +106,7 @@ class ExtendSessionRequestPage: UIViewController {
         let presentingViewController: UIViewController! = self.presentingViewController
         self.dismiss(animated: false) {
             presentingViewController.dismiss(animated: false, completion: nil)
+            self.showReviewScreen()
         }
     }
     
@@ -150,7 +165,8 @@ class ExtendSessionRequestPage: UIViewController {
         let headers = [
             "token":appDelegate.Usertoken]
         
-        let parameters =  ["nonce" : paymentMethodNonce
+        let parameters =  ["nonce" : paymentMethodNonce,
+                           "training_time" : extendingSessionDuration
             ] as [String : Any]
         print("PARAMS: \(parameters)")
         
@@ -242,9 +258,9 @@ class ExtendSessionRequestPage: UIViewController {
         let headers = [
             "token":appDelegate.Usertoken]
         
-        let parameters = ["book_id" : bookingId,
-                          "action" : "complete",
-                          "trainer_id" : trainerId
+        let parameters = ["book_id" : trainerProfileDetails.Booking_id,
+                          "action" : action_status,
+                          "trainer_id" : trainerProfileDetails.Trainer_id
             ] as [String : Any]
         
         print("Header:\(headers)")
@@ -271,13 +287,9 @@ class ExtendSessionRequestPage: UIViewController {
                             
                             TrainerProfileDetail.deleteBookingDetails()
                             appDelegate.timerrunningtime = false
-                            self.showRateViewScreen()
                             
-//                            if appDelegate.USER_TYPE == "trainer" {
-//                                self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
-//                            }else if appDelegate.USER_TYPE == "trainee" {
-//                                self.performSegue(withIdentifier: "trainingCancelledToTraineeHomeSegue", sender: self)
-//                            }
+                            self.showReviewScreen()
+//                            self.dismissExtendSessionRequestPage()
                         }
                     }
                     
@@ -292,12 +304,14 @@ class ExtendSessionRequestPage: UIViewController {
         })
     }
     
-    func showRateViewScreen(){
+    func showReviewScreen(){
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
-        vc.trainerProfileDetails1 = self.trainerProfileDetails
-        present(vc, animated: true, completion: nil)
+        print("**** showRateViewScreen *****")
+        let trainerReviewPageObj = storyboardSingleton.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
+        trainerReviewPageObj.trainerProfileDetails1 = self.trainerProfileDetails
+        trainerReviewPageObj.isFromExtendPage = true
+        
+        present(trainerReviewPageObj, animated: true, completion: nil)
     }
 }
 

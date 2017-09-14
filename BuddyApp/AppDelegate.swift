@@ -44,15 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        
-        
-//        if userDefaults.value(forKey: "devicetoken") != nil {
-//        }
-//        else
-//        {
-//
-//        }
-//        
         configureFirebase(application: application)
         GMSServices.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
         GMSPlacesClient.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")

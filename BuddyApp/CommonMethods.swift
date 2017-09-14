@@ -174,6 +174,29 @@ class CommonMethods: NSObject {
     class func hidesBackButton(viewController: UIViewController, isHide: Bool) {
         viewController.navigationItem.setHidesBackButton(isHide, animated: true)
     }
+    
+    class func getDictionaryFromTrainingLocationModel(training_location_model: TrainingLocationModel) -> NSMutableDictionary {
+        
+        let locationDict = NSMutableDictionary()
+        
+        locationDict.setValue(training_location_model.locationName, forKey: "trainingLocationName")
+        locationDict.setValue(training_location_model.locationLatitude, forKey: "trainingLocationLatitude")
+        locationDict.setValue(training_location_model.locationLongitude, forKey: "trainingLocationLongitude")
+        
+        return locationDict
+    }
+
+    class func getTrainingLocationModelObjectFromDictionary(location_dictionary: NSMutableDictionary) -> TrainingLocationModel {
+        
+        let location_model_obj = TrainingLocationModel()
+        
+        location_model_obj.locationName = location_dictionary["trainingLocationName"] as! String
+        location_model_obj.locationLatitude = location_dictionary["trainingLocationLatitude"] as! String
+        location_model_obj.locationLongitude = location_dictionary["trainingLocationLongitude"] as! String
+        
+        return location_model_obj
+    }
+
 }
 
 class ButtonWithShadow: UIButton {

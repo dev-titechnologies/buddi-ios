@@ -15,6 +15,7 @@ class Singleton {
     
     var userDefaults = UserDefaults()
     var appdelegate = AppDelegate()
+    var storyboardSingleton = UIStoryboard()
     var context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     var selectedCategories : [CategoryModel] = [CategoryModel]()
     var selectedSubCategories : [SubCategoryModel] = [SubCategoryModel]()
@@ -39,6 +40,7 @@ class Singleton {
         appdelegate = UIApplication.shared.delegate as! AppDelegate
         context = appdelegate.persistentContainer.viewContext
         selectedSubCategories = [SubCategoryModel]()
+        storyboardSingleton = UIStoryboard(name: "Main", bundle: nil)
     }
     
     let reachabilityManager = Alamofire.NetworkReachabilityManager(host: "www.apple.com")

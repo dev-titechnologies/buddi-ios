@@ -38,7 +38,8 @@ let LOCATION_HAS_NOT_FETCH_PLEASE_WAIT = "Location has not been fetched, please 
 let PLEASE_ALLOW_LOCATION_ACCESS = "Please allow location access to proceed"
 let PLEASE_WAIT_FETCHING_PAYMENT_METHODS = "Please wait... fetching payment methods."
 let TRAINING_REQUEST_REVOCKED = "Your Request has been revocked by admin"
-
+let WAITING_FOR_TRAINER_ACCEPTANCE = "Waiting for trainer acceptance"
+let WAITING_FOR_TRAINEE_EXTEND_REQUEST_ACTION = "Waiting for trainee extend request action"
 
 let VIDEO_DESC = "*Videos should be no longer than 90 seconds. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 

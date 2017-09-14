@@ -80,7 +80,6 @@ class AcceptOrDeclineRequestPage: UIViewController {
                           "pick_latitude": ProfileDictionary["pick_latitude"]! ,
                           "pick_longitude": ProfileDictionary["pick_longitude"]!,
                           "pick_location": ProfileDictionary["pick_location"]!
-            
             ]
             as [String : Any]
         
@@ -114,10 +113,8 @@ class AcceptOrDeclineRequestPage: UIViewController {
                     
                     if acceptstatus{
                         if (jsondata["data"] as? NSDictionary) != nil {
-                            
                             self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
                         }
-
                         
                         NotificationCenter.default.post(name: self.AcceptNotification, object: nil, userInfo: ["profiledata":self.TrainerProfileDictionary])
                 //  self.performSegue(withIdentifier: "fromAcceptToTimer", sender: self)
@@ -126,8 +123,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
                         self.dismiss(animated: true, completion: nil)
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
-                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
-
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
