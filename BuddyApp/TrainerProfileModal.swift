@@ -25,11 +25,14 @@ class TrainerProfileModal{
     var age: String = String()
     var Lattitude: String = String()
     var Longitude: String = String()
+    var PickUpLongitude: String = String()
+    var PickUpLattitude: String = String()
+    var PickUpLocation: String = String()
     
     
     init(){}
     
-    init(profileImage: String, firstName: String, lastName: String, mobile: String, gender: String, userid: String, rating: String, age: String, height: String, weight: String, distance: String, lattitude: String, longittude: String, bookingId: String, trainerId: String,traineeId: String){
+    init(profileImage: String, firstName: String, lastName: String, mobile: String, gender: String, userid: String, rating: String, age: String, height: String, weight: String, distance: String, lattitude: String, longittude: String, bookingId: String, trainerId: String,traineeId: String,pickup_lattitude: String,pickup_longitude: String,pickup_location: String){
         
         self.profileImage = profileImage
         self.Booking_id = bookingId
@@ -47,6 +50,9 @@ class TrainerProfileModal{
         self.distance = distance
         self.Lattitude = lattitude
         self.Longitude = longittude
+        self.PickUpLattitude = pickup_lattitude
+        self.PickUpLongitude = pickup_longitude
+        self.PickUpLocation = pickup_location
     }
     
     func getTrainerProfileModelFromDict(dictionary: Dictionary<String, Any>) -> TrainerProfileModal {
@@ -70,6 +76,10 @@ class TrainerProfileModal{
         model.distance = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_distance"] as? String)
         model.Lattitude = String(describing: trainerDetailsDict["trainer_latitude"]!)
         model.Longitude = String(describing: trainerDetailsDict["trainer_longitude"]!)
+        model.PickUpLattitude = String(dictionary["pick_latitude"] as! String)
+        model.PickUpLongitude = String(dictionary["pick_longitude"] as! String)
+        model.PickUpLocation = String(dictionary["pick_location"] as! String)
+
         
         print("Creating Model for Trainer:\(model)")
 

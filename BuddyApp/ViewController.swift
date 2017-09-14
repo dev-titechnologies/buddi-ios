@@ -16,13 +16,13 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     let notificationNameFCM = Notification.Name("FCMNotificationIdentifier")
     let AcceptNotification = Notification.Name("AcceptNotification")
     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
+    var ApsBody = String()
    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        appDelegate.delegateFCM = self
+           appDelegate.delegateFCM = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +35,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.GoTimerPageInActive_Notification), name: notificationNameFCM, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.AcceptRejactScreenNotification), name: AcceptNotification, object: nil)
+        CommonMethods.alertView(view:self, title: ALERT_TITLE, message: "enter viewWillAppear", buttonTitle: "Ok")
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,8 +47,11 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
 
         if appDelegate.TrainerProfileDictionary != nil{
             //  BOOKED A SESSION
-            self.GoTimerPageFromKilledState_Notification(dict: appDelegate.TrainerProfileDictionary)
+            
+
+            self.GoTimerPageFromKilledState_Notification(dict:appDelegate.TrainerProfileDictionary)
         }else{
+                   
             if userDefaults.value(forKey: "TimerData") != nil {
                 
                 //   RUNNING SESSION
@@ -136,6 +141,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
     func tokenReceived() {
         print("======= Token Received Function Call in ViewController =======")
+       // CommonMethods.alertView(view:self, title: ALERT_TITLE, message: "tokenReceived", buttonTitle: "Ok")
         initilizeSessionChecks()
     }
     
@@ -144,6 +150,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     func AcceptRejactScreenNotification(notif: NSNotification) {
         
          self.TrainerProfileDictionary = notif.userInfo!["profiledata"] as! NSDictionary
+        
+        print("TRAINERPRO DICT",self.TrainerProfileDictionary)
         
         userDefaults.set(true, forKey: "sessionBookedNotStarted")
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
@@ -154,16 +162,27 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
     func GoTimerPageInActive_Notification(notif: NSNotification) {
         
+      
+        
+        
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
+        
+        
+     
         
         self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
         
         print("TRAINING DATA",self.TrainerProfileDictionary)
         print("TYPEE",notif.userInfo!["type"]!)
+        print("TYPEE121",notif.userInfo!["aps"]!)
+        
+       
         
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
+        
+       
         
         if notif.userInfo!["type"] as! String == "1" {
             //Booking Request Accepted Push received
@@ -175,17 +194,40 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
             
         }else if notif.userInfo!["type"] as! String == "5"{
+            
+             ApsBody = notif.userInfo!["aps"]! as! String
+            
             AcceptOrDeclineScreen()
         }
     }
     
     func GoTimerPageFromKilledState_Notification(dict: NSDictionary) {
+        if dict["type"] as? String == "1" {
+
         
         self.TrainerProfileDictionary = dict
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+        }
+        else if dict["type"] as? String == "5"{
+            
+            self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:dict["pushData"]as! String)! as NSDictionary
+          
+            appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
+            appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
+            appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
+
+            
+            userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
+            
+            ApsBody = (dict["aps"]! as! String)
+           
+            AcceptOrDeclineScreen()
+            self.performSegue(withIdentifier: "splashToTrainerHomePageSegue", sender: self)
+            
+        }
     }
     
     func showTimer(time: Int) {
@@ -198,6 +240,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     func AcceptOrDeclineScreen(){
        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
+        
+        vc.APSBody = ApsBody
         present(vc, animated: true, completion: nil)
     }
     

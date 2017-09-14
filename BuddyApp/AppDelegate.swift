@@ -44,6 +44,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        
+        
+//        if userDefaults.value(forKey: "devicetoken") != nil {
+//        }
+//        else
+//        {
+//
+//        }
+//        
         configureFirebase(application: application)
         GMSServices.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
         GMSPlacesClient.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
@@ -143,9 +152,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         FIRMessaging.messaging().connect { (error) in
             if error != nil {
                 print("Unable to connect with FCM. \(error?.localizedDescription ?? "")")
+               
             } else {
                 print("Connected to FCM.")
-            }
+                }
         }
     }
     
@@ -320,7 +330,7 @@ extension AppDelegate: FIRMessagingDelegate {
             //REQUEST BOOKING
             
             print("5")
-            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(remoteMessage.appData as NSDictionary)["type"] as! String])
+            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(remoteMessage.appData as NSDictionary)["type"] as! String,"aps":((remoteMessage.appData as NSDictionary)["notification"] as! NSDictionary)["body"] as! String])
         }
     }
     
@@ -414,8 +424,14 @@ extension AppDelegate: FIRMessagingDelegate {
             
             //REQUEST BOOKING
             
+            
+            
+            
+            
+            
+            
             print("5")
-        NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
+        NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(notification.request.content.userInfo as NSDictionary)["type"] as! String, "aps":(((notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
         }
 
     }
@@ -430,7 +446,7 @@ extension AppDelegate: FIRMessagingDelegate {
 
         
         if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "1"{
-                        NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
+        NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
 
             userDefaults.set(true, forKey: "sessionBookedNotStarted")
             
@@ -438,8 +454,7 @@ extension AppDelegate: FIRMessagingDelegate {
             
             userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
             
-          //  userDefaults.set(TrainerProfileDictionary, forKey: "TrainerProfileDictionary")
-            
+                     
                 }
         else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{
             print("TYPE 2")
@@ -467,9 +482,18 @@ extension AppDelegate: FIRMessagingDelegate {
             
             
             //REQUEST BOOKING
-            
+                      
             print("5")
-            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
+            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String,"aps":(((response.notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
+            
+            
+            
+            
+            
+            
+            TrainerProfileDictionary = ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String,"aps":(((response.notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String] as NSDictionary
+      
+          
         }
 
         completionHandler()

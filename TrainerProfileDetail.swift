@@ -39,6 +39,10 @@ public class TrainerProfileDetail: NSManagedObject {
                 profile.setValue(TrainerProfileModal.Trainer_id, forKey: "trainerId")
                 profile.setValue(TrainerProfileModal.Lattitude, forKey: "lattitude")
                 profile.setValue(TrainerProfileModal.Longitude, forKey: "longitude")
+                
+                profile.setValue(TrainerProfileModal.PickUpLocation, forKey: "pickuplocation")
+                profile.setValue(TrainerProfileModal.PickUpLattitude, forKey: "pickuplattitude")
+                profile.setValue(TrainerProfileModal.PickUpLongitude, forKey: "pickuplongitude")
                
                 //profile.setValue(profileModel.profileImageData, forKey: "profileImageData")
                 
@@ -60,6 +64,11 @@ public class TrainerProfileDetail: NSManagedObject {
                 profile.setValue(TrainerProfileModal.Trainer_id, forKey: "trainerId")
                 profile.setValue(TrainerProfileModal.Lattitude, forKey: "lattitude")
                 profile.setValue(TrainerProfileModal.Longitude, forKey: "longitude")
+                
+                profile.setValue(TrainerProfileModal.PickUpLocation, forKey: "pickuplocation")
+                profile.setValue(TrainerProfileModal.PickUpLattitude, forKey: "pickuplattitude")
+                profile.setValue(TrainerProfileModal.PickUpLongitude, forKey: "pickuplongitude")
+
 
                 appDelegate.saveContext()
             }

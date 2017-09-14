@@ -17,8 +17,11 @@ class AcceptOrDeclineRequestPage: UIViewController {
      var ProfileDictionary: NSMutableDictionary!
      var TrainerProfileDictionary: NSDictionary!
      let AcceptNotification = Notification.Name("AcceptNotification")
+    var APSBody = String()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        lblRequestDescription.text = APSBody
         
         view?.backgroundColor = UIColor(white: 1, alpha: 0.5)
         
@@ -63,6 +66,8 @@ class AcceptOrDeclineRequestPage: UIViewController {
     }
     
     func Booking_API(URL: String, acceptstatus: Bool){
+        
+      //   CommonMethods.alertView(view: self, title: ALERT_TITLE, message: ProfileDictionary["gender"] as? String, buttonTitle: "Ok")
         
         print(ProfileDictionary)
         var parameters = ["trainer_id":appDelegate.UserId,
