@@ -60,6 +60,9 @@
         <attribute name="lattitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickuplattitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickuplocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickuplongitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileimage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="rating" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="traineeId" optional="YES" attributeType="String" syncable="YES"/>
@@ -74,6 +77,6 @@
         <element name="ProfileImageDB" positionX="-45" positionY="108" width="128" height="75"/>
         <element name="ReviewHistoryDB" positionX="-54" positionY="63" width="128" height="180"/>
         <element name="SubCategoryDB" positionX="-45" positionY="90" width="128" height="75"/>
-        <element name="TrainerProfileDetail" positionX="-45" positionY="108" width="128" height="285"/>
+        <element name="TrainerProfileDetail" positionX="-45" positionY="108" width="128" height="330"/>
     </elements>
 </model>

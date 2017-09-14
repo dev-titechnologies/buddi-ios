@@ -161,7 +161,10 @@ class TrainerTraineeRouteViewController: UIViewController {
                  longittude: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_longitude"] as? String),
                  bookingId: String(TrainerProfileDictionary["book_id"] as! Int) ,
                  trainerId: String(TrainerProfileDictionary["trainer_id"] as! Int),
-                 traineeId: String(TrainerProfileDictionary["trainee_id"] as! Int))
+                 traineeId: String(TrainerProfileDictionary["trainee_id"] as! Int),
+                 pickup_lattitude: String(TrainerProfileDictionary["pick_latitude"] as! String),
+                 pickup_longitude: String(TrainerProfileDictionary["pick_longitude"] as! String),
+                 pickup_location: String(TrainerProfileDictionary["pick_location"] as! String))
             
             TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
         }
@@ -330,7 +333,10 @@ class TrainerTraineeRouteViewController: UIViewController {
                 longittude: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"longitude") as? String),
                 bookingId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"bookingId") as? String),
                 trainerId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"trainerId") as? String),
-                traineeId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"traineeId") as? String))
+                traineeId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"traineeId") as? String),
+        pickup_lattitude: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"pickuplattitude") as? String),
+        pickup_longitude:  CommonMethods.checkStringNull(val:bookingObj.value(forKey:"pickuplongitude") as? String),
+        pickup_location:  CommonMethods.checkStringNull(val:bookingObj.value(forKey:"pickuplocation") as? String))
         }
     }
     
@@ -589,7 +595,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         //  marker.icon = markerImage
         marker.iconView = markerView
-        marker.title = trainerProfileDetails.firstName
+        marker.title = trainerProfileDetails.PickUpLocation
         marker.snippet = ""
         marker.map = mapview
     }
@@ -751,16 +757,16 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
         
         if TIMERCHECK{
             
-            self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
+            self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.PickUpLattitude)!, DestiLong: Float(trainerProfileDetails.PickUpLongitude)!)
             self.addHandlersTrainer()
 
             
         }else{
             if appDelegate.USER_TYPE == "trainer"{
-                  self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
+                  self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.PickUpLattitude)!, DestiLong: Float(trainerProfileDetails.PickUpLongitude)!)
                 self.addHandlers()
             }else{
-                self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.Lattitude)!, DestiLong: Float(trainerProfileDetails.Longitude)!)
+                self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.PickUpLattitude)!, DestiLong: Float(trainerProfileDetails.PickUpLongitude)!)
                 self.addHandlersTrainer()
             }
         }

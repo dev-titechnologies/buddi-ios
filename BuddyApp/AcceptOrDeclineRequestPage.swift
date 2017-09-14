@@ -67,6 +67,8 @@ class AcceptOrDeclineRequestPage: UIViewController {
     
     func Booking_API(URL: String, acceptstatus: Bool){
         
+      //   CommonMethods.alertView(view: self, title: ALERT_TITLE, message: ProfileDictionary["gender"] as? String, buttonTitle: "Ok")
+        
         print(ProfileDictionary)
         var parameters = ["trainer_id":appDelegate.UserId,
                           "trainee_id":ProfileDictionary["trainee_id"]!,

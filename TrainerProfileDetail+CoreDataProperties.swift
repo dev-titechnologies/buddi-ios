@@ -32,5 +32,9 @@ extension TrainerProfileDetail {
     @NSManaged public var age: String?
     @NSManaged public var lattitude: String?
     @NSManaged public var longitude: String?
+    @NSManaged public var pickuplocation: String?
+    @NSManaged public var pickuplattitude: String?
+    @NSManaged public var pickuplongitude: String?
+
 
 }
