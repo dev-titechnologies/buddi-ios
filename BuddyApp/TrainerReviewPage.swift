@@ -22,6 +22,9 @@ class TrainerReviewPage: UIViewController{
     @IBOutlet weak var lblTrainerName: UILabel!
     @IBOutlet weak var txtReviewDescription: UITextView!
     
+    var isFromExtendPage = Bool()
+    var isFromWaitingForExtendRequestPage = Bool()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,10 +47,7 @@ class TrainerReviewPage: UIViewController{
         if appDelegate.USER_TYPE == "trainer" {
             User_type.text = "Trainee"
             rating_lbl.text = "Trainee Rating"
-            
-            
         }else{
-            
             rating_lbl.text = "Trainer Rating"
             User_type.text = "Trainer"
         }
@@ -63,20 +63,15 @@ class TrainerReviewPage: UIViewController{
     }
     
     @IBAction func StarRateView_action(_ sender: Any) {
-        
         starRatingViewValueChange()
     }
-
-    @IBAction func cancelAction(_ sender: Any) {
-       // self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
-    }
     
-    @IBAction func okAction(_ sender: Any) {
-       self.ReviewAPI()
+    @IBAction func submitAction(_ sender: Any) {
+        self.ReviewAPI()
     }
     
     func ReviewAPI(){
+        
         guard CommonMethods.networkcheck() else {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
             return
@@ -111,7 +106,13 @@ class TrainerReviewPage: UIViewController{
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    self.dismiss(animated: true, completion: nil)
+                    if self.isFromExtendPage{
+                        self.performSegue(withIdentifier: "reviewVCToTraineeHomeVCSegue", sender: self)
+                    }else if self.isFromWaitingForExtendRequestPage{
+                        self.performSegue(withIdentifier: "reviewVCToTrainerHomeVCSegue", sender: self)
+                    }else{
+                        self.dismiss(animated: true, completion: nil)
+                    }
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                   

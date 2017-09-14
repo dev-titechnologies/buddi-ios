@@ -68,8 +68,10 @@ class ShowTrainersOnMapVC: UIViewController {
         
         if isFromInstantBooking{
              InstantDict = userDefaults.value(forKey: "save_preferance") as! NSDictionary
+            print("Preference Dictionary:\(InstantDict)")
         }
         
+        fetchTrainingLocationModelDatasFromUserDefault()
         getCurrentLocationDetails()
 
         if isFromSplashScreen{
@@ -85,10 +87,21 @@ class ShowTrainersOnMapVC: UIViewController {
         }
     }
     
+    func fetchTrainingLocationModelDatasFromUserDefault() {
+        
+        if let unarchivedData = userDefaults.value(forKey: "TrainingLocationModelBackup") as? NSData {
+            
+            let dict = NSKeyedUnarchiver.unarchiveObject(with: unarchivedData as Data) as! NSMutableDictionary
+            trainingLocationModelObject = CommonMethods.getTrainingLocationModelObjectFromDictionary(location_dictionary: dict)
+            print("UnArchived Training Location Model:\(trainingLocationModelObject)")
+        }
+    }
+    
     func showWaitingForAcceptancePage() {
 
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let waitingForAcceptancePage : WaitingForAcceptancePage = mainStoryboard.instantiateViewController(withIdentifier: "WaitingForAcceptanceVCID") as! WaitingForAcceptancePage
+        let waitingForAcceptancePage : WaitingForAcceptancePage = storyboardSingleton.instantiateViewController(withIdentifier: "WaitingForAcceptanceVCID") as! WaitingForAcceptancePage
+        waitingForAcceptancePage.descriptionText = WAITING_FOR_TRAINER_ACCEPTANCE
+        waitingForAcceptancePage.forUserType = "trainee"
 //           self.navigationController?.pushViewController(paymentMethodPage, animated: true)
         self.present(waitingForAcceptancePage, animated: true, completion: nil)
     }
@@ -218,9 +231,8 @@ class ShowTrainersOnMapVC: UIViewController {
     func getShowTrainersListParameters() -> Dictionary <String,Any> {
         
         
-        if isFromInstantBooking
-        {
-           lat = InstantDict["lat"] as! String
+        if isFromInstantBooking{
+            lat = InstantDict["lat"] as! String
             long = InstantDict["long"] as! String
         }
         
@@ -285,17 +297,6 @@ class ShowTrainersOnMapVC: UIViewController {
         return parameters
     }
     
-    func getTrainingLocationModelObjectFromDictionary(location_dictionary: NSMutableDictionary) -> TrainingLocationModel {
-        
-        let location_model_obj = TrainingLocationModel()
-        
-        location_model_obj.locationName = location_dictionary["trainingLocationName"] as! String
-        location_model_obj.locationLatitude = location_dictionary["trainingLocationLatitude"] as! String
-        location_model_obj.locationLongitude = location_dictionary["trainingLocationLongitude"] as! String
-
-        return location_model_obj
-    }
-    
     func getRandomSelectAPIParametersFromBackup() -> Dictionary <String,Any>{
         
         let transactionIdBackup = userDefaults.value(forKey: "backupPaymentTransactionId") as! String
@@ -304,13 +305,6 @@ class ShowTrainersOnMapVC: UIViewController {
         let transactionGenderChoosedBackup = userDefaults.value(forKey: "backupTrainingGenderChoosed") as! String
         let transactionSessionChoosedBackup = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
         let transactionStatusBackup = userDefaults.value(forKey: "backupIsTransactionStatus") as! String
-        
-        if let unarchivedData = userDefaults.value(forKey: "TrainingLocationModelBackup") as? NSData {
-           
-            let dict = NSKeyedUnarchiver.unarchiveObject(with: unarchivedData as Data) as! NSMutableDictionary
-            trainingLocationModelObject = getTrainingLocationModelObjectFromDictionary(location_dictionary: dict)
-            print("UnArchived Training Location Model:\(trainingLocationModelObject)")
-        }
         
         var parameters = ["trainee_id" : appDelegate.UserId,
                           "gender" : transactionGenderChoosedBackup,
@@ -480,7 +474,8 @@ class ShowTrainersOnMapVC: UIViewController {
         let headers = [
             "token":appDelegate.Usertoken]
         
-        let parameters =  ["nonce" : paymentMethodNonce
+        let parameters =  ["nonce" : paymentMethodNonce,
+                           "training_time" : choosedSessionOfTrainee
             ] as [String : Any]
         print("PARAMS: \(parameters)")
         

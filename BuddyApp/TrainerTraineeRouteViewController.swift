@@ -96,6 +96,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        print("**** viewWillAppear *****")
         print("*****  Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
         
         isInSessionRoutePage = true
@@ -114,11 +115,14 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.SessionTimerNotification), name: notificationName, object: nil)
         
-        print("viewWillAppear")
         btnNoCancelAlert.addShadowView()
         btnYesCancelAlert.addShadowView()
             
         getCurrentLocationDetails()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("**** viewDidAppear ****")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -141,6 +145,8 @@ class TrainerTraineeRouteViewController: UIViewController {
             seconds = 30
             timer_lbl.text = sessionTime + ":" + "00"
         }else{
+            //For testing purpose
+            seconds = 30
             timer_lbl.text = String(seconds/60) + ":" + "00"
             
             let Trainee_Dict = TrainerProfileDictionary["trainee_details"] as! Dictionary<String, Any>
@@ -199,7 +205,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     func SessionTimerNotification(notif: NSNotification){
        
-        print("Notification Received:\(notif)")
+        print("Notification Received in Trainer Trainee Route VC:\(notif)")
         if notif.userInfo!["pushData"] as! String == "2"{
         
             let alertController = UIAlertController(title: ALERT_TITLE, message: "Session has started", preferredStyle: UIAlertControllerStyle.alert)
@@ -274,7 +280,6 @@ class TrainerTraineeRouteViewController: UIViewController {
                 print("completed")
             }
         }
-
     }
     
     func methodOfReceivedNotification(notif: NSNotification) {
@@ -495,7 +500,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             if appDelegate.USER_TYPE == "trainee" {
                 showDoYouWantToExtendAlertPage()
             }else{
-                
+                showWaitingForTraineeExtendRequest()
             }
 //            self.BookingAction(Action_status: "complete")
             
@@ -516,6 +521,19 @@ class TrainerTraineeRouteViewController: UIViewController {
             TimeDict.setValue(Date(), forKey: "currenttime")
             userDefaults.setValue(TimeDict, forKey: "TimerData")
         }
+    }
+    
+    func showWaitingForTraineeExtendRequest() {
+        
+        //Page to show a loader for trainer till the trainee has responded to the Extend session
+        let waitingForExtendRequest : WaitingForAcceptancePage = storyboardSingleton.instantiateViewController(withIdentifier: "WaitingForAcceptanceVCID") as! WaitingForAcceptancePage
+        
+        waitingForExtendRequest.descriptionText = WAITING_FOR_TRAINEE_EXTEND_REQUEST_ACTION
+        waitingForExtendRequest.forUserType = "trainer"
+        waitingForExtendRequest.trainerProfileDetails = self.trainerProfileDetails
+
+        //           self.navigationController?.pushViewController(paymentMethodPage, animated: true)
+        self.present(waitingForExtendRequest, animated: true, completion: nil)
     }
     
     func timeString(time:TimeInterval) -> String {

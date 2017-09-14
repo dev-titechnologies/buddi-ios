@@ -11,6 +11,7 @@ import Foundation
 
 let appDelegate = Singleton.sharedInstance.appdelegate
 let context = Singleton.sharedInstance.context
+let storyboardSingleton = Singleton.sharedInstance.storyboardSingleton
 let userDefaults = Singleton.sharedInstance.userDefaults
 let trainerTestAnswers = Singleton.sharedInstance.trainerTestAnswers
 var selectedCategoriesSingleton = Singleton.sharedInstance.selectedCategories

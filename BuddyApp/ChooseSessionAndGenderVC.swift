@@ -51,8 +51,6 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        choosedSessionOfTrainee = ""
-        choosedTrainerGenderOfTrainee = ""
         getCurrentLocationDetails()
     }
     
@@ -433,23 +431,12 @@ extension ChooseSessionAndGenderVC: GMSPlacePickerViewControllerDelegate {
         trainingLocationModelObj.locationLatitude = String(place.coordinate.latitude)
         trainingLocationModelObj.locationLongitude = String(place.coordinate.longitude)
         
-        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: getDictionaryFromTrainingLocationModel(training_location_model: trainingLocationModelObj)), forKey: "TrainingLocationModelBackup")
+        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: CommonMethods.getDictionaryFromTrainingLocationModel(training_location_model: trainingLocationModelObj)), forKey: "TrainingLocationModelBackup")
 
         choosed_location_name = place.name
         self.chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 2), with: .automatic)
     }
-    
-    func getDictionaryFromTrainingLocationModel(training_location_model: TrainingLocationModel) -> NSMutableDictionary {
         
-        let locationDict = NSMutableDictionary()
-        
-        locationDict.setValue(training_location_model.locationName, forKey: "trainingLocationName")
-        locationDict.setValue(training_location_model.locationLatitude, forKey: "trainingLocationLatitude")
-        locationDict.setValue(training_location_model.locationLongitude, forKey: "trainingLocationLongitude")
-        
-        return locationDict
-    }
-    
     func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)

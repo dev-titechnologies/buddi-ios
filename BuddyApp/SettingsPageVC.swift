@@ -22,9 +22,11 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
     var isChoosedGender = Bool()
     var locationcordinate = CLLocationCoordinate2D()
     var dict = NSMutableDictionary()
-   var sessionCell = SessionPreferenceCell()
+    var sessionCell = SessionPreferenceCell()
     var preferanceBool = Bool()
-   
+    
+    var trainingLocationModelObj = TrainingLocationModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         preferanceBool = false
@@ -294,9 +296,11 @@ extension SettingsPageVC: GMSPlacePickerViewControllerDelegate {
             print( "No idea about open status")
         }
         
+        trainingLocationModelObj.locationName = place.name
+        trainingLocationModelObj.locationLatitude = String(place.coordinate.latitude)
+        trainingLocationModelObj.locationLongitude = String(place.coordinate.longitude)
         
-       // print("Place address \(String(describing: place.formattedAddress))")
-       // print("Place attributions \(String(describing: place.attributions))")
+        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: CommonMethods.getDictionaryFromTrainingLocationModel(training_location_model: trainingLocationModelObj)), forKey: "TrainingLocationModelBackup")
     }
     
     func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
