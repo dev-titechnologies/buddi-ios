@@ -35,8 +35,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.GoTimerPageInActive_Notification), name: notificationNameFCM, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.AcceptRejactScreenNotification), name: AcceptNotification, object: nil)
-        CommonMethods.alertView(view:self, title: ALERT_TITLE, message: "enter viewWillAppear", buttonTitle: "Ok")
-
+    
     }
     
     override func viewWillDisappear(_ animated: Bool) {
