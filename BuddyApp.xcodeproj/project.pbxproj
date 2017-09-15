@@ -43,6 +43,7 @@
 		F316E7F41F220CEC00994447 /* Question1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F316E7F31F220CEC00994447 /* Question1VC.swift */; };
 		F316E7F61F22361B00994447 /* Question2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F316E7F51F22361B00994447 /* Question2VC.swift */; };
 		F316E7F81F22364F00994447 /* Question3VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F316E7F71F22364F00994447 /* Question3VC.swift */; };
+		F31E95041F6AAA190098DF8C /* PreferenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E95031F6AAA180098DF8C /* PreferenceModel.swift */; };
 		F322FC3D1F1CE62000381B8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC3C1F1CE62000381B8C /* AppDelegate.swift */; };
 		F322FC3F1F1CE62000381B8C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC3E1F1CE62000381B8C /* ViewController.swift */; };
 		F322FC451F1CE62100381B8C /* BuddyApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F322FC431F1CE62100381B8C /* BuddyApp.xcdatamodeld */; };
@@ -214,6 +215,7 @@
 		F316E7F31F220CEC00994447 /* Question1VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question1VC.swift; sourceTree = "<group>"; };
 		F316E7F51F22361B00994447 /* Question2VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question2VC.swift; sourceTree = "<group>"; };
 		F316E7F71F22364F00994447 /* Question3VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question3VC.swift; sourceTree = "<group>"; };
+		F31E95031F6AAA180098DF8C /* PreferenceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceModel.swift; sourceTree = "<group>"; };
 		F322FC391F1CE62000381B8C /* BuddyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuddyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F322FC3C1F1CE62000381B8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F322FC3E1F1CE62000381B8C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -660,6 +662,7 @@
 				F3F5955C1F59587A00110123 /* ContactModel.swift */,
 				F32460C61F5983D9002B3D55 /* ContactDictionaryModel.swift */,
 				F39F383D1F6937C900938674 /* TrainingLocationModel.swift */,
+				F31E95031F6AAA180098DF8C /* PreferenceModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1206,6 +1209,7 @@
 				F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */,
 				F3150D091F56C81B00856555 /* AcceptOrDeclineRequestPage.swift in Sources */,
 				F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */,
+				F31E95041F6AAA190098DF8C /* PreferenceModel.swift in Sources */,
 				F3B52EE11F3AE4CC007910BC /* SocketIOManager.swift in Sources */,
 				F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */,
 				F364A8FC1F34B3520001C570 /* AssignedTrainerProfileTableCaptionsCell.swift in Sources */,

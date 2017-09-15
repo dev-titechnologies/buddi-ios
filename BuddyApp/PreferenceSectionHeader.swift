@@ -12,6 +12,7 @@ class PreferenceSectionHeader: UITableViewCell {
 
     @IBOutlet weak var lblHeaderSectionTitle: UILabel!
     @IBOutlet weak var imgArrow: UIImageView!
+    @IBOutlet weak var lblSelectedValue: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

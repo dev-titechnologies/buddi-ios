@@ -257,6 +257,7 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "approvedOrPendingCategoriesIdArray")
         userDefaults.removeObject(forKey: "clientTokenForPayment")
         userDefaults.removeObject(forKey: "paymentNonce")
+        userDefaults.removeObject(forKey: "save_preferance")
 
         ProfileImageDB.deleteImages()
         ProfileDB.deleteProfile()

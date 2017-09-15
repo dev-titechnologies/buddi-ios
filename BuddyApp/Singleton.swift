@@ -33,6 +33,12 @@ class Singleton {
     //For online availability
     var onlineavailabilty = Bool()
     
+    //For Trainee Settings Preference
+    var choosedCategoryPreference: CategoryModel = CategoryModel()
+    var choosedSessionPreference = String()
+    var choosedTrainerGenderPreference = String()
+    var choosedTrainingLocationPreference = String()
+
     static let sharedInstance : Singleton = {
         let instance = Singleton()
         return instance
@@ -48,18 +54,4 @@ class Singleton {
     }
     
     let reachabilityManager = Alamofire.NetworkReachabilityManager(host: "www.apple.com")
-    //    func listenForReachability() {
-    //        self.reachabilityManager?.listener = { status in
-    //            print("Network Status Changed: \(status)")
-    //            switch status {
-    //            case .NotReachable
-    //            //Show error state
-    //            case .Reachable(_), .Unknown: break
-    //                //Hide error state
-    //            }
-    //        }
-    //
-    //        self.reachabilityManager?.startListening()
-    //    }
-    
-}
+   }

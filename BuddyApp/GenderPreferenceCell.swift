@@ -27,7 +27,7 @@ class GenderPreferenceCell: UITableViewCell {
         btnNopreferance.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         btnFemale.backgroundColor = .white
         btnMale.backgroundColor = .white
-        choosedTrainerGenderOfTrainee = "nopreference"
+        choosedTrainerGenderOfTraineePreference = "No Preference"
     }
     
     @IBAction func btnMaleAction(_ sender: Any) {
@@ -35,13 +35,13 @@ class GenderPreferenceCell: UITableViewCell {
         btnMale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         btnNopreferance.backgroundColor = .white
         btnFemale.backgroundColor = .white
-        choosedTrainerGenderOfTrainee = "male"
+        choosedTrainerGenderOfTraineePreference = "Male"
     }
     
     @IBAction func btnFemaleAction(_ sender: Any) {
         btnMale.backgroundColor = .white
         btnNopreferance.backgroundColor = .white
-        choosedTrainerGenderOfTrainee = "female"
+        choosedTrainerGenderOfTraineePreference = "Female"
         btnFemale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
     }
 
