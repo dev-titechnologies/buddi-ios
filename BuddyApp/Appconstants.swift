@@ -26,6 +26,13 @@ var choosedCategoryOfTrainee = Singleton.sharedInstance.choosedCategory
 var choosedSessionOfTrainee = Singleton.sharedInstance.choosedSession
 var choosedTrainerGenderOfTrainee = Singleton.sharedInstance.choosedTrainerGender
 
+//For Trainee Preference Settings
+var choosedCategoryOfTraineePreference = Singleton.sharedInstance.choosedCategoryPreference
+var choosedSessionOfTraineePreference = Singleton.sharedInstance.choosedSessionPreference
+var choosedTrainerGenderOfTraineePreference = Singleton.sharedInstance.choosedTrainerGenderPreference
+var choosedTrainingLocationPreference = Singleton.sharedInstance.choosedTrainingLocationPreference
+
+
 //let SERVER_URL = "http://192.168.1.20:9002/"
 let SERVER_URL = "http://git.titechnologies.in:4001/"
 let COUNTRY_DEFAULT_REGION_CODE = "IN"

@@ -30,6 +30,12 @@ class Singleton {
     var choosedSession = String()
     var choosedTrainerGender = String()
     
+    //For Trainee Settings Preference
+    var choosedCategoryPreference: CategoryModel = CategoryModel()
+    var choosedSessionPreference = String()
+    var choosedTrainerGenderPreference = String()
+    var choosedTrainingLocationPreference = String()
+
     static let sharedInstance : Singleton = {
         let instance = Singleton()
         return instance

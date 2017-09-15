@@ -52,7 +52,7 @@ class TraineeHomePage: UIViewController {
             let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
             print(dict?["lat"] as! String)
             choosedTrainerGenderOfTrainee = dict?["gender"] as! String
-            choosedCategoryOfTrainee.categoryId = dict?["catagoryid"] as! String
+            choosedCategoryOfTrainee.categoryId = dict?["categoryid"] as! String
             choosedSessionOfTrainee = dict?["time"] as! String
             performSegue(withIdentifier: "instantbookingsegue", sender: self)
         }else{
@@ -113,27 +113,17 @@ class TraineeHomePage: UIViewController {
                     
                     //FROM SETTINGS PAGE
                     
-                    if self.isFromSettings
-                    {
+                    if self.isFromSettings{
                         self.instentbookingview.isHidden = true
-                        
                         // categoryCollectionView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
                         
-                        
-                        if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil
-                        {
-                            
-                            
+                        if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
                             let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
-                            let index = categories.index(where: {$0.categoryId == dict?["catagoryid"] as! String})
-                            
-                             print(index!)
-//                            
+                            let index = categories.index(where: {$0.categoryId == dict?["categoryid"] as! String})
+                            print(index!)
                             self.selectedCategory.append(index!)
                         }
- 
                     }
-
                     
                     self.categoryCollectionView.reloadData()
                 }else if status == RESPONSE_STATUS.FAIL{
@@ -153,6 +143,7 @@ class TraineeHomePage: UIViewController {
             print("Choosed Category:\(choosedCategoryOfTrainee.categoryName)")
             
             if isFromSettings{
+                choosedCategoryOfTraineePreference = categoriesArray[selectedCategory[0]]
                 self.navigationController?.popViewController(animated: true)
             }else{
                 performSegue(withIdentifier: "afterCategorySelectionTraineeSegue", sender: self)
