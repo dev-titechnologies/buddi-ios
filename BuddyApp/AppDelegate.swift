@@ -423,6 +423,16 @@ extension AppDelegate: FIRMessagingDelegate {
             
             print("5")
         NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(notification.request.content.userInfo as NSDictionary)["type"] as! String, "aps":(((notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
+            
+            
+            
+            
+        }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "6"{
+            
+            
+             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String,"data":NotificationDict])
+            
+            
         }
 
     }

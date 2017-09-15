@@ -27,7 +27,7 @@ class TrainerReviewPage: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       // self.dismissAcceptOrDeclinePage()
         txtReviewDescription.text = "Leave a comment.."
         txtReviewDescription.textColor = UIColor.lightGray
         
@@ -60,10 +60,14 @@ class TrainerReviewPage: UIViewController{
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
+        
     }
     
     @IBAction func StarRateView_action(_ sender: Any) {
         starRatingViewValueChange()
+        
+        
     }
     
     @IBAction func submitAction(_ sender: Any) {
@@ -106,14 +110,24 @@ class TrainerReviewPage: UIViewController{
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    if self.isFromExtendPage{
-                        self.performSegue(withIdentifier: "reviewVCToTraineeHomeVCSegue", sender: self)
-                    }else if self.isFromWaitingForExtendRequestPage{
-                        self.performSegue(withIdentifier: "reviewVCToTrainerHomeVCSegue", sender: self)
-                    }else{
-                        self.dismiss(animated: true, completion: nil)
-                    }
                     
+                    
+                    if self.isFromExtendPage{
+                        
+                       
+                        self.performSegue(withIdentifier: "reviewVCToTraineeHomeVCSegue", sender: self)
+                        
+                        
+                    }else if self.isFromWaitingForExtendRequestPage{
+                       
+                        self.performSegue(withIdentifier: "reviewVCToTrainerHomeVCSegue", sender: self)
+                        
+                        
+                        
+                    }else{
+                        
+                    }
+                    self.dismiss(animated: true, completion: nil)
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                   
                 }else if status == RESPONSE_STATUS.FAIL{
@@ -125,6 +139,7 @@ class TrainerReviewPage: UIViewController{
         })
 
     }
+   
 }
 
 extension TrainerReviewPage: UITextViewDelegate {

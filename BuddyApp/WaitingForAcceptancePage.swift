@@ -75,11 +75,11 @@ class WaitingForAcceptancePage: UIViewController {
     func triggerDismissWhenNotificationReceived(notif: NSNotification) {
         
 
-        if notif.userInfo!["type"] as! String == "1" {
+        if notif.userInfo!["pushData"] as! String == "1" {
             //Receiving for trainee
             print("***** Notification Type Receiving 1 ****")
             dismissWaitingForAcceptancePage()
-        }else if notif.userInfo!["type"] as! String == "4" {
+        }else if notif.userInfo!["pushData"] as! String == "4" {
             print("***** Notification Type Receiving 4 ****")
             showReviewScreen()
         }
@@ -87,6 +87,7 @@ class WaitingForAcceptancePage: UIViewController {
     
     func showReviewScreen(){
         
+       // self.dismissWaitingForAcceptancePage()
         print("**** showRateViewScreen *****")
         let trainerReviewPageObj = storyboardSingleton.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
         trainerReviewPageObj.trainerProfileDetails1 = self.trainerProfileDetails
