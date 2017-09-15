@@ -66,7 +66,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         print("viewDidLoad")
         appDelegate.TrainerProfileDictionary = nil
         
-      //  print("Trainer Profile Details : \(trainerProfileDetails)")
+        
+        print("Trainer Profile Details : \(trainerProfileDetails)")
         print("*****  Received Trainer Profile Dict1:\(TrainerProfileDictionary)")
         
         //For Temporary Display
@@ -209,6 +210,12 @@ class TrainerTraineeRouteViewController: UIViewController {
     func SessionTimerNotification(notif: NSNotification){
        
         print("Notification Received in Trainer Trainee Route VC:\(notif)")
+        
+        guard self.isInSessionRoutePage else{
+            print("******** Suspended Notification received execution in Trainer Trainee RounteVC ********")
+            return
+        }
+        
         if notif.userInfo!["pushData"] as! String == "2"{
         
             let alertController = UIAlertController(title: ALERT_TITLE, message: "Session has started", preferredStyle: UIAlertControllerStyle.alert)
@@ -260,6 +267,7 @@ class TrainerTraineeRouteViewController: UIViewController {
            // self.BookingAction(Action_status: "complete")
         }
     }
+    
     func RunningTimeData()
     {
         if userDefaults.value(forKey: "TimerData") != nil {
