@@ -26,6 +26,7 @@ var choosedCategoryOfTrainee = Singleton.sharedInstance.choosedCategory
 var choosedSessionOfTrainee = Singleton.sharedInstance.choosedSession
 var choosedTrainerGenderOfTrainee = Singleton.sharedInstance.choosedTrainerGender
 
+var onlineavailabilty = Singleton.sharedInstance.onlineavailabilty
 //For Trainee Preference Settings
 var choosedCategoryOfTraineePreference = Singleton.sharedInstance.choosedCategoryPreference
 var choosedSessionOfTraineePreference = Singleton.sharedInstance.choosedSessionPreference

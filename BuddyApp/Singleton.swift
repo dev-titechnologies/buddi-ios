@@ -30,6 +30,9 @@ class Singleton {
     var choosedSession = String()
     var choosedTrainerGender = String()
     
+    //For online availability
+    var onlineavailabilty = Bool()
+    
     //For Trainee Settings Preference
     var choosedCategoryPreference: CategoryModel = CategoryModel()
     var choosedSessionPreference = String()
@@ -47,21 +50,8 @@ class Singleton {
         context = appdelegate.persistentContainer.viewContext
         selectedSubCategories = [SubCategoryModel]()
         storyboardSingleton = UIStoryboard(name: "Main", bundle: nil)
+        onlineavailabilty = true
     }
     
     let reachabilityManager = Alamofire.NetworkReachabilityManager(host: "www.apple.com")
-    //    func listenForReachability() {
-    //        self.reachabilityManager?.listener = { status in
-    //            print("Network Status Changed: \(status)")
-    //            switch status {
-    //            case .NotReachable
-    //            //Show error state
-    //            case .Reachable(_), .Unknown: break
-    //                //Hide error state
-    //            }
-    //        }
-    //
-    //        self.reachabilityManager?.startListening()
-    //    }
-    
-}
+   }
