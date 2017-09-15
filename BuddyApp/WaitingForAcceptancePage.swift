@@ -99,10 +99,11 @@ class WaitingForAcceptancePage: UIViewController {
         print("Dismiss Waiting for Acceptance Page while receiving notification")
         userDefaults.set(false, forKey: "isWaitingForTrainerAcceptance")
         
-        let presentingViewController: UIViewController! = self.presentingViewController
-        self.dismiss(animated: false) {
-            presentingViewController.dismiss(animated: false, completion: nil)
-        }
+        self.dismiss(animated: true, completion: nil)
+//        let presentingViewController: UIViewController! = self.presentingViewController
+//        self.dismiss(animated: false) {
+//            presentingViewController.dismiss(animated: false, completion: nil)
+//        }
     }
     
     func bookingCompleteAction(action_status: String) {

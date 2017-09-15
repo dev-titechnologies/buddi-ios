@@ -161,15 +161,9 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
     func GoTimerPageInActive_Notification(notif: NSNotification) {
         
-      
-        
-        
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
-        
-        
-     
         
         self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
         
