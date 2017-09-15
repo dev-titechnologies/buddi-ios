@@ -27,7 +27,6 @@ class TrainerReviewPage: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         print("**** Review viewDidLoad")
         txtReviewDescription.text = "Leave a comment.."
         txtReviewDescription.textColor = UIColor.lightGray
@@ -62,10 +61,14 @@ class TrainerReviewPage: UIViewController{
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
+        
     }
     
     @IBAction func StarRateView_action(_ sender: Any) {
         starRatingViewValueChange()
+        
+        
     }
     
     @IBAction func submitAction(_ sender: Any) {
@@ -108,6 +111,7 @@ class TrainerReviewPage: UIViewController{
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
+
                     self.dismiss(animated: true, completion: nil)
 
 //                    if self.isFromExtendPage{
@@ -127,6 +131,7 @@ class TrainerReviewPage: UIViewController{
         })
 
     }
+   
 }
 
 extension TrainerReviewPage: UITextViewDelegate {

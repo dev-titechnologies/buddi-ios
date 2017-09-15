@@ -306,6 +306,7 @@ class ExtendSessionRequestPage: UIViewController {
                             TrainerProfileDetail.deleteBookingDetails()
                             appDelegate.timerrunningtime = false
                             
+
 //                            self.showReviewScreen()
 //                            self.performSegue(withIdentifier: "unwindToRouteVCSegue", sender: self)
                             self.dismissExtendSessionRequestPage()

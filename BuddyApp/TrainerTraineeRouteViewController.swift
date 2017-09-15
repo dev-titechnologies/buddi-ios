@@ -11,6 +11,7 @@ import MapKit
 import GoogleMaps
 import Firebase
 import UserNotifications
+import NVActivityIndicatorView
 
 class TrainerTraineeRouteViewController: UIViewController {
     
@@ -19,6 +20,12 @@ class TrainerTraineeRouteViewController: UIViewController {
     @IBOutlet weak var collectionview: UICollectionView!
     
 //    var sessionDetailModel: SessionDetailModel = SessionDetailModel()
+    let window = UIApplication.shared.keyWindow!
+    var v = UIView()
+    
+    
+    
+  
     
     var TIMERCHECK = Bool()
     var locationManager: CLLocationManager!
@@ -67,6 +74,9 @@ class TrainerTraineeRouteViewController: UIViewController {
         super.viewDidLoad()
         
         print("viewDidLoad")
+        v = UIView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
+        
+        
         appDelegate.TrainerProfileDictionary = nil
         
         
@@ -240,20 +250,29 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
         
         if notif.userInfo!["pushData"] as! String == "2"{
-        
-            let alertController = UIAlertController(title: ALERT_TITLE, message: "Session has started", preferredStyle: UIAlertControllerStyle.alert)
-        
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
-                (result : UIAlertAction) -> Void in
-                print("OK")
-                print("START CLICK")
-                self.SessionStartAPI()
-                self.BoolArray.insert(true, at: 1)
-                self.TIMERCHECK = true
-                self.collectionview.reloadData()
-            }
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
+            
+            
+            print("OK")
+            print("START CLICK")
+            self.SessionStartAPI()
+            self.BoolArray.insert(true, at: 1)
+            self.TIMERCHECK = true
+            self.collectionview.reloadData()
+
+//        
+//            let alertController = UIAlertController(title: ALERT_TITLE, message: "Session has started", preferredStyle: UIAlertControllerStyle.alert)
+//        
+//            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+//                (result : UIAlertAction) -> Void in
+//                print("OK")
+//                print("START CLICK")
+//                self.SessionStartAPI()
+//                self.BoolArray.insert(true, at: 1)
+//                self.TIMERCHECK = true
+//                self.collectionview.reloadData()
+//            }
+//            alertController.addAction(okAction)
+//            self.present(alertController, animated: true, completion: nil)
         }else if notif.userInfo!["pushData"] as! String == "3"{
             self.timer.invalidate()
              self.timer_lbl.text = "00" + ":" + "00"
@@ -261,6 +280,8 @@ class TrainerTraineeRouteViewController: UIViewController {
             userDefaults.removeObject(forKey: "TimerData")
             appDelegate.timerrunningtime = false
             TrainerProfileDetail.deleteBookingDetails()
+            
+            v.removeFromSuperview()
 
             self.RateViewScreen()
             
@@ -281,7 +302,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             userDefaults.removeObject(forKey: "TimerData")
             appDelegate.timerrunningtime = false
             TrainerProfileDetail.deleteBookingDetails()
-
+             v.removeFromSuperview()
             self.RateViewScreen()
             
             
@@ -291,8 +312,43 @@ class TrainerTraineeRouteViewController: UIViewController {
                 self.performSegue(withIdentifier: "trainingCancelledToTraineeHomeSegue", sender: self)
             }
            // self.BookingAction(Action_status: "complete")
+        }else if notif.userInfo!["pushData"] as! String == "6"{
+            
+            
+            userDefaults.removeObject(forKey: "TimerData")
+            userDefaults.set(false, forKey: "sessionBookedNotStarted")
+            
+            TIMERCHECK = false
+            
+            v.removeFromSuperview()
+            let extentedTimeDict = CommonMethods.convertToDictionary(text:notif.userInfo!["data"] as! String)! as NSDictionary
+            
+            print(extentedTimeDict["extend_time"]!)
+            
+            
+            seconds = Int(extentedTimeDict["extend_time"]! as! String)!*60
+            
+            initializeSession()
+            self.runTimer()
+        
+            
         }
     }
+    
+    func NewLoadingView()
+    {
+        
+      //  let v = UIView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
+        
+        let v1 = NVActivityIndicatorView(frame:  CGRect(x: (window.frame.width - 150)/2, y: (window.frame.height - 150)/2, width: 150, height: 150), type:.ballScaleMultiple, color: UIColor.red, padding: NVActivityIndicatorView.DEFAULT_PADDING)
+        
+         v.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        
+        v1.startAnimating()
+        v.addSubview(v1)
+        
+        window.addSubview(v)
+           }
     
     func RunningTimeData()
     {
@@ -490,7 +546,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                         self.runTimer()
                     }
                     
-                  //  CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -523,7 +579,11 @@ class TrainerTraineeRouteViewController: UIViewController {
             if appDelegate.USER_TYPE == "trainee" {
                 showDoYouWantToExtendAlertPage()
             }else{
-                showWaitingForTraineeExtendRequest()
+               // showWaitingForTraineeExtendRequest()
+                
+                self.NewLoadingView()
+                
+                
             }
 //            self.BookingAction(Action_status: "complete")
             
