@@ -50,6 +50,7 @@ class ShowTrainersOnMapVC: UIViewController {
     
     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
     
+    @IBOutlet weak var btnRefresh: UIButton!
     var isFromSplashScreen = Bool()
     var isFromInstantBooking = Bool()
     var InstantDict = NSDictionary()
@@ -62,6 +63,7 @@ class ShowTrainersOnMapVC: UIViewController {
         super.viewDidLoad()
         
         self.title = PAGE_TITLE.TRAINERS_LISTING
+        btnRefresh.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,7 +79,8 @@ class ShowTrainersOnMapVC: UIViewController {
         if isFromSplashScreen{
             print("**** ShowTrainersOnMap Page from Splash screen")
             self.navigationItem.hidesBackButton = true
-            
+            btnRefresh.isHidden = false
+
             if userDefaults.value(forKey: "isWaitingForTrainerAcceptance") as! Bool{
                 print("*** Showing Waiting for acceptance page")
 //                showWaitingForAcceptancePage()
@@ -112,6 +115,11 @@ class ShowTrainersOnMapVC: UIViewController {
             fetchExistingPaymentMethod(clientToken: clientToken)
             isClientTokenPresent = true
         }
+    }
+    
+    @IBAction func refreshAction(_ sender: Any) {
+        print("******* Refresh Action *******")
+        showTrainersList(parameters: getShowTrainersListParametersFromBackup())
     }
     
     func getCurrentLocationDetails() {

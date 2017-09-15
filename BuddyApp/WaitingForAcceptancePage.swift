@@ -17,11 +17,14 @@ class WaitingForAcceptancePage: UIViewController {
     var descriptionText = String()
     var forUserType = String()
     
+    var isInPage = Bool()
+    
     var trainerProfileDetails = TrainerProfileModal()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        isInPage = true
         activityIndicatorView.startAnimating()
         activityIndicatorView.type = .ballScaleMultiple
         lblLoaderDescription.text = descriptionText
@@ -45,15 +48,25 @@ class WaitingForAcceptancePage: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        isInPage = false
+    }
+    
     func triggerDismissPageAfterInterval() {
         let when = DispatchTime.now() + 30
         DispatchQueue.main.asyncAfter(deadline: when) {
-//            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: TRAINING_REQUEST_REVOCKED, buttonTitle: "OK")
+            
+            guard self.isInPage else{
+                print("Timer Execution suspends 'isInPage' is false")
+                return
+            }
             
             //Pls remove user type trainee code. only for testing purpose
             if self.forUserType == "trainee" {
-                self.dismissWaitingForAcceptancePage()
+//                print("dismissWaitingForAcceptancePage call after 30 seconds")
+//                self.dismissWaitingForAcceptancePage()
             }else if self.forUserType == "trainer" {
+                print("Booking Action Complete call after 30 seconds")
                 self.bookingCompleteAction(action_status: "complete")
             }
         }
@@ -61,13 +74,13 @@ class WaitingForAcceptancePage: UIViewController {
     
     func triggerDismissWhenNotificationReceived(notif: NSNotification) {
         
-        print("type receving",notif.userInfo!["pushData"] as! String)
-        
-        if notif.userInfo!["pushData"] as! String == "1" {
+
+        if notif.userInfo!["type"] as! String == "1" {
+            //Receiving for trainee
+            print("***** Notification Type Receiving 1 ****")
             dismissWaitingForAcceptancePage()
-        }else if notif.userInfo!["pushData"] as! String == "4" {
-            
-            print("type receving 4")
+        }else if notif.userInfo!["type"] as! String == "4" {
+            print("***** Notification Type Receiving 4 ****")
             showReviewScreen()
         }
     }

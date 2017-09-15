@@ -175,13 +175,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         
         print("TRAINING DATA",self.TrainerProfileDictionary)
         print("TYPEE",notif.userInfo!["type"]!)
-        print("TYPEE121",notif.userInfo!["aps"]!)
-        
-       
-        
+//        print("TYPEE121",notif.userInfo!["aps"]!)
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
-        
-       
         
         if notif.userInfo!["type"] as! String == "1" {
             //Booking Request Accepted Push received
@@ -194,8 +189,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             
         }else if notif.userInfo!["type"] as! String == "5"{
             
-             ApsBody = notif.userInfo!["aps"]! as! String
-            
+            ApsBody = notif.userInfo!["aps"]! as! String
             AcceptOrDeclineScreen()
         }
     }
