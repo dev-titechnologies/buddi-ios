@@ -242,6 +242,9 @@ class TrainerTraineeRouteViewController: UIViewController {
 
            // self.BookingAction(Action_status: "cancel")
         }else if notif.userInfo!["pushData"] as! String == "4"{
+            
+           // print()
+            
             self.timer.invalidate()
             
             self.timer_lbl.text = "00" + ":" + "00"
@@ -457,7 +460,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                         self.runTimer()
                     }
                     
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
+                  //  CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

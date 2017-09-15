@@ -201,6 +201,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     }
     
     func GoTimerPageFromKilledState_Notification(dict: NSDictionary) {
+        
+        print("defalt dictL:",dict)
         if dict["type"] as? String == "1" {
 
         

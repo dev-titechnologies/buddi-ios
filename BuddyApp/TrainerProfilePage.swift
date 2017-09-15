@@ -114,7 +114,7 @@ class TrainerProfilePage: UIViewController {
         
         parameterdict.setValue("/location/addLocation", forKey: "url")
         parameterdict.setValue(datadict, forKey: "data")
-        print("PARADICT11",parameterdict)
+        //print("PARADICT11",parameterdict)
         
         SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
     }
@@ -136,7 +136,7 @@ class TrainerProfilePage: UIViewController {
     }
     
     func updateLocation(){
-        print("counting..")
+      //  print("counting..")
         addHandlers()
     }
     

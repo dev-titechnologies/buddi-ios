@@ -33,6 +33,10 @@ class WaitingForAcceptancePage: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.triggerDismissWhenNotificationReceived), name: notificationName, object: nil)
         
+        let notificationName1 = Notification.Name("SessionNotification")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.triggerDismissWhenNotificationReceived), name: notificationName1, object: nil)
+        
         if forUserType == "trainer" {
             triggerDismissPageAfterInterval()
         }else if forUserType == "trainee" {
@@ -57,8 +61,14 @@ class WaitingForAcceptancePage: UIViewController {
     
     func triggerDismissWhenNotificationReceived(notif: NSNotification) {
         
-        if notif.userInfo!["type"] as! String == "1" {
+        print("type receving",notif.userInfo!["pushData"] as! String)
+        
+        if notif.userInfo!["pushData"] as! String == "1" {
             dismissWaitingForAcceptancePage()
+        }else if notif.userInfo!["pushData"] as! String == "4" {
+            
+            print("type receving 4")
+            showReviewScreen()
         }
     }
     
