@@ -118,9 +118,9 @@ class AcceptOrDeclineRequestPage: UIViewController {
                         
                         NotificationCenter.default.post(name: self.AcceptNotification, object: nil, userInfo: ["profiledata":self.TrainerProfileDictionary])
                 //  self.performSegue(withIdentifier: "fromAcceptToTimer", sender: self)
-                        self.dismiss(animated: true, completion: nil)
+                       self.dismissAcceptOrDeclinePage()
                     }else{
-                        self.dismiss(animated: true, completion: nil)
+                        self.dismissAcceptOrDeclinePage()
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

@@ -39,7 +39,6 @@ class WaitingForAcceptancePage: UIViewController {
         let notificationName1 = Notification.Name("SessionNotification")
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.triggerDismissWhenNotificationReceived), name: notificationName1, object: nil)
-
         
         if forUserType == "trainer" {
             triggerDismissPageAfterInterval()
@@ -75,6 +74,7 @@ class WaitingForAcceptancePage: UIViewController {
     
     func triggerDismissWhenNotificationReceived(notif: NSNotification) {
         
+
         if notif.userInfo!["type"] as! String == "1" {
             //Receiving for trainee
             print("***** Notification Type Receiving 1 ****")
