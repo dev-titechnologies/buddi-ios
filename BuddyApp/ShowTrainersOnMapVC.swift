@@ -105,7 +105,7 @@ class ShowTrainersOnMapVC: UIViewController {
         let waitingForAcceptancePage : WaitingForAcceptancePage = storyboardSingleton.instantiateViewController(withIdentifier: "WaitingForAcceptanceVCID") as! WaitingForAcceptancePage
         waitingForAcceptancePage.descriptionText = WAITING_FOR_TRAINER_ACCEPTANCE
         waitingForAcceptancePage.forUserType = "trainee"
-//           self.navigationController?.pushViewController(paymentMethodPage, animated: true)
+        //self.navigationController?.pushViewController(waitingForAcceptancePage, animated: true)
         self.present(waitingForAcceptancePage, animated: true, completion: nil)
     }
     
@@ -420,10 +420,15 @@ class ShowTrainersOnMapVC: UIViewController {
                     print(jsondata)
                     self.jsonarray = jsondata["data"]  as! NSArray
                     if self.jsonarray.count == 0{
+                        
                         self.btnNext.isHidden = true
+                        self.btnRefresh.isHidden = false
+                        
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     } else{
                         self.btnNext.isHidden = false
+                        self.btnRefresh.isHidden = true
+
                         for dict in self.jsonarray{
                             let tempDict = dict as! NSDictionary
                             print(Double(tempDict["latitude"] as! String)!)

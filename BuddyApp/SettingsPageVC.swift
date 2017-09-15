@@ -304,10 +304,8 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         }else if indexPath.section == 3{
             print("*** didSelectRowAt: section 3")
             if indexPath.row == 0 {
-                choosedSessionOfTrainee = "40"
                 choosedSessionOfTraineePreference = "40 Minutes"
             }else{
-                choosedSessionOfTrainee = "60"
                 choosedSessionOfTraineePreference = "60 Minutes"
             }
             self.settingsTableView.reloadSections(IndexSet(integer: 3), with: .automatic)
@@ -316,9 +314,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             self.settingsTableView.reloadSections(IndexSet(integer: 2), with: .automatic)
         }
       
-        print("Choosed Session:\(choosedSessionOfTrainee)")
-        //print("Choosed Session:\(choosedSessionOfTrainee)")
-        //userDefaults.set(choosedSessionOfTrainee, forKey: "backupTrainingSessionChoosed")
+        print("Choosed Session:\(choosedSessionOfTraineePreference)")
     }
     
     func didTapSectionHeader(_ sender: UITapGestureRecognizer) {

@@ -76,7 +76,9 @@ class ExtendSessionRequestPage: UIViewController {
     
     @IBAction func extendNoAction(_ sender: Any) {
         
-        bookingCompleteAction(action_status: "complete")
+        isExtending = false
+        self.performSegue(withIdentifier: "unwindToRouteVCSegue", sender: self)
+//        bookingCompleteAction(action_status: "complete")
     }
     
     @IBAction func session40MinutesAction(_ sender: Any) {
@@ -106,7 +108,7 @@ class ExtendSessionRequestPage: UIViewController {
         let presentingViewController: UIViewController! = self.presentingViewController
         self.dismiss(animated: false) {
             presentingViewController.dismiss(animated: false, completion: nil)
-            self.showReviewScreen()
+//            self.showReviewScreen()
         }
     }
     
@@ -239,8 +241,15 @@ class ExtendSessionRequestPage: UIViewController {
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    userDefaults.removeObject(forKey: "TimerData")
+                    userDefaults.set(false, forKey: "sessionBookedNotStarted")
 
-                    self.dismissExtendSessionRequestPage()
+                    self.isExtending = true
+//                    userDefaults.set(self.extendingSessionDuration, forKey: "extendedSessionDuration")
+                    userDefaults.set(self.extendingSessionDuration, forKey: "backupTrainingSessionChoosed")
+                    choosedSessionOfTrainee = self.extendingSessionDuration
+                    self.performSegue(withIdentifier: "unwindToRouteVCSegue", sender: self)
                 
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -249,6 +258,15 @@ class ExtendSessionRequestPage: UIViewController {
                 }
             }
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "unwindToRouteVCSegue" {
+            let routePage =  segue.destination as! TrainerTraineeRouteViewController
+            routePage.isExtendedCheck = isExtending
+            routePage.TIMERCHECK = false
+        }
     }
     
     //MARK: - BOOKING COMPLETE ACTION
@@ -288,10 +306,10 @@ class ExtendSessionRequestPage: UIViewController {
                             TrainerProfileDetail.deleteBookingDetails()
                             appDelegate.timerrunningtime = false
                             
-                            
-                            
-                            self.showReviewScreen()
-//                            self.dismissExtendSessionRequestPage()
+
+//                            self.showReviewScreen()
+//                            self.performSegue(withIdentifier: "unwindToRouteVCSegue", sender: self)
+                            self.dismissExtendSessionRequestPage()
                         }
                     }
                     
@@ -313,7 +331,7 @@ class ExtendSessionRequestPage: UIViewController {
         trainerReviewPageObj.trainerProfileDetails1 = self.trainerProfileDetails
         trainerReviewPageObj.isFromExtendPage = true
         
-        present(trainerReviewPageObj, animated: true, completion: nil)
+        self.present(trainerReviewPageObj, animated: true, completion: nil)
     }
 }
 

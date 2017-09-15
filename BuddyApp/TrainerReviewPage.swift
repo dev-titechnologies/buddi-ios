@@ -27,7 +27,7 @@ class TrainerReviewPage: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // self.dismissAcceptOrDeclinePage()
+        print("**** Review viewDidLoad")
         txtReviewDescription.text = "Leave a comment.."
         txtReviewDescription.textColor = UIColor.lightGray
         
@@ -37,8 +37,9 @@ class TrainerReviewPage: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         
+        print("**** Review viewWillAppear")
         view?.backgroundColor = UIColor(white: 1, alpha: 0.5)
-         starRatingViewValueChange()
+        starRatingViewValueChange()
         StarRateView.allowsHalfStars = true
         parseTrainerDetails()
     }
@@ -55,7 +56,7 @@ class TrainerReviewPage: UIViewController{
     }
     
     func starRatingViewValueChange() {
-       print("STAR",StarRateView.value)
+       print("STAR in Review Page",StarRateView.value)
     }
     
     override func didReceiveMemoryWarning() {
@@ -110,24 +111,15 @@ class TrainerReviewPage: UIViewController{
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    
-                    
-                    if self.isFromExtendPage{
-                        
-                       
-                        self.performSegue(withIdentifier: "reviewVCToTraineeHomeVCSegue", sender: self)
-                        
-                        
-                    }else if self.isFromWaitingForExtendRequestPage{
-                       
-                        self.performSegue(withIdentifier: "reviewVCToTrainerHomeVCSegue", sender: self)
-                        
-                        
-                        
-                    }else{
-                        
-                    }
+
                     self.dismiss(animated: true, completion: nil)
+
+//                    if self.isFromExtendPage{
+//                        self.performSegue(withIdentifier: "reviewVCToTraineeHomeVCSegue", sender: self)
+//                    }else if self.isFromWaitingForExtendRequestPage{
+//                        self.performSegue(withIdentifier: "reviewVCToTrainerHomeVCSegue", sender: self)
+//                    }
+                    
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                   
                 }else if status == RESPONSE_STATUS.FAIL{

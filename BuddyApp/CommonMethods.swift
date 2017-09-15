@@ -196,7 +196,6 @@ class CommonMethods: NSObject {
         
         return location_model_obj
     }
-
 }
 
 class ButtonWithShadow: UIButton {

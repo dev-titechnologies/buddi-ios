@@ -56,6 +56,9 @@ class TrainerTraineeRouteViewController: UIViewController {
     var timer = Timer()
     var isTimerRunning = false
     
+    var isExtendedCheck = Bool()
+    var extendedSessionDuration = String()
+    
     //Cancel Alert View
     @IBOutlet weak var cancelAlertView: CardView!
     @IBOutlet weak var btnNoCancelAlert: UIButton!
@@ -140,6 +143,26 @@ class TrainerTraineeRouteViewController: UIViewController {
         isInSessionRoutePage = false
     }
     
+    //MARK: - UNWIND SEGUE
+    
+    @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
+        print("******************Unwind Segue Catch with Identifier ****************** \(String(describing: segue.identifier))")
+
+        if segue.identifier == "unwindToRouteVCSegue" {
+            if self.isExtendedCheck{
+                print("**** Session Extended Check YES in Unwind segue")
+                extendedSessionDuration = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
+                initializeSession()
+                runTimer()
+            }else{
+                print("**** Session Extended Check NO in Unwind segue")
+                self.BookingAction(Action_status: "complete")
+            }
+        }
+    }
+    
+    //MARK: - INITIALIZE SESSION ACTION
+    
     func initializeSession() {
         
         print("NOT timer Check")
@@ -151,7 +174,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                 sessionTime = choosedSessionOfTrainee
             }
             seconds = Int(sessionTime)!*60
-            
+            print("========== Session Duration Seconds:\(sessionTime) ")
             //For testing purpose
             seconds = 20
             timer_lbl.text = sessionTime + ":" + "00"
@@ -416,8 +439,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         self.isTimerRunning = false
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboardSingleton.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
         vc.trainerProfileDetails1 = self.trainerProfileDetails
         present(vc, animated: true, completion: nil)
     }
@@ -566,6 +589,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         if seconds < 1 {
             
+            print("======= TIMER COMPLETETD ==========")
             timer.invalidate()
             appDelegate.timerrunningtime = false
             print("*** updateTimer")
@@ -609,7 +633,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         waitingForExtendRequest.forUserType = "trainer"
         waitingForExtendRequest.trainerProfileDetails = self.trainerProfileDetails
 
-        //           self.navigationController?.pushViewController(paymentMethodPage, animated: true)
         self.present(waitingForExtendRequest, animated: true, completion: nil)
     }
     
@@ -750,12 +773,21 @@ class TrainerTraineeRouteViewController: UIViewController {
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
     }
     
+    func showReviewScreen(){
+        
+        print("**** showRateViewScreen *****")
+        let trainerReviewPageObj: TrainerReviewPage = storyboardSingleton.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
+        trainerReviewPageObj.trainerProfileDetails1 = self.trainerProfileDetails
+        trainerReviewPageObj.isFromExtendPage = true
+        
+        self.present(trainerReviewPageObj, animated: true, completion: nil)
+    }
+    
     //MARK: - EXTEND SESSION 
     
     func showDoYouWantToExtendAlertPage() {
         
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let extendSessionPage : ExtendSessionRequestPage = mainStoryboard.instantiateViewController(withIdentifier: "ExtendSessionRequestVCID") as! ExtendSessionRequestPage
+        let extendSessionPage : ExtendSessionRequestPage = storyboardSingleton.instantiateViewController(withIdentifier: "ExtendSessionRequestVCID") as! ExtendSessionRequestPage
         //           self.navigationController?.pushViewController(paymentMethodPage, animated: true)
         
         extendSessionPage.bookingId = trainerProfileDetails.Booking_id
@@ -784,11 +816,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         //For REview Segue
         //        performSegue(withIdentifier: "trainerReviewPageSegue", sender: self)
 
-    }
-    
-    @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
-    
-        print("*** Unwind SEgue Identifier:\(String(describing: segue.identifier))")
     }
     
     //MARK: - CANCEL ALERT VIEW ACTIONS
