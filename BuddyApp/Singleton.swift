@@ -30,6 +30,9 @@ class Singleton {
     var choosedSession = String()
     var choosedTrainerGender = String()
     
+    //For online availability
+    var onlineavailabilty = Bool()
+    
     static let sharedInstance : Singleton = {
         let instance = Singleton()
         return instance
@@ -41,6 +44,7 @@ class Singleton {
         context = appdelegate.persistentContainer.viewContext
         selectedSubCategories = [SubCategoryModel]()
         storyboardSingleton = UIStoryboard(name: "Main", bundle: nil)
+        onlineavailabilty = true
     }
     
     let reachabilityManager = Alamofire.NetworkReachabilityManager(host: "www.apple.com")

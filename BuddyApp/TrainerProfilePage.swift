@@ -60,7 +60,7 @@ class TrainerProfilePage: UIViewController {
         SocketIOManager.sharedInstance.establishConnection()
         StatusSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
         self.UpdateLocationAPI(Status: "online")
-        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
+       
 
         
         imagePicker.delegate = self
@@ -72,6 +72,12 @@ class TrainerProfilePage: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
+
         
         print("*** viewWillAppear Trainer")
         if !isUpdatingProfileImage{
@@ -130,7 +136,7 @@ class TrainerProfilePage: UIViewController {
     }
     
     func updateLocation(){
-        NSLog("counting..")
+        print("counting..")
         addHandlers()
     }
     
@@ -205,10 +211,19 @@ class TrainerProfilePage: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    if jsondata["status"] as? String == "online"{
-                        self.addHandlers()
+                   if let onlinedata = jsondata["data"] as? NSDictionary
+                   {
+                    print(onlinedata)
+                    
+                    if onlinedata["availabilityStatus"] as? String == "online"{
+                        //self.addHandlers()
+                        onlineavailabilty = true
+                         self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
+                        
                     }else{
+                        onlineavailabilty = false
                         self.timer.invalidate()
+                    }
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -218,7 +233,37 @@ class TrainerProfilePage: UIViewController {
             }
         })
     }
-    
+    func methodOfReceivedNotification(notif: NSNotification) {
+        
+        //print("ENTER FORGROUND",notif.name.rawValue)
+        
+        if notif.name.rawValue == "UIApplicationWillEnterForegroundNotification"{
+             self.timer.invalidate()
+           
+             print("ENTER FORGROUND",notif.name.rawValue)
+            
+            if onlineavailabilty
+            {
+                 self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
+            }
+            
+            
+            
+        }else if notif.name.rawValue == "UIApplicationDidEnterBackgroundNotification"{
+            print("ENTER BACKGROUND",notif.name.rawValue)
+             self.timer.invalidate()
+            if onlineavailabilty
+            {
+                 self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
+            }
+            
+            
+            
+            
+            
+        }
+    }
+
     func changeTextColorBlack() {
         
         btnEdit.title = "Save"
