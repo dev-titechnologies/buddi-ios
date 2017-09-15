@@ -373,17 +373,16 @@ class TrainerTraineeRouteViewController: UIViewController {
                 bookingId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"bookingId") as? String),
                 trainerId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"trainerId") as? String),
                 traineeId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"traineeId") as? String),
-        pickup_lattitude: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"pickuplattitude") as? String),
-        pickup_longitude:  CommonMethods.checkStringNull(val:bookingObj.value(forKey:"pickuplongitude") as? String),
-        pickup_location:  CommonMethods.checkStringNull(val:bookingObj.value(forKey:"pickuplocation") as? String))
+       
+                pickup_lattitude: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"pickuplattitude") as? String),
+                pickup_longitude:  CommonMethods.checkStringNull(val:bookingObj.value(forKey:"pickuplongitude") as? String),
+                pickup_location:  CommonMethods.checkStringNull(val:bookingObj.value(forKey:"pickuplocation") as? String))
         }
     }
     
     func RateViewScreen(){
         
         self.isTimerRunning = false
-        
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboardSingleton.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
         vc.trainerProfileDetails1 = self.trainerProfileDetails
         present(vc, animated: true, completion: nil)
@@ -484,8 +483,8 @@ class TrainerTraineeRouteViewController: UIViewController {
                     print("ENTER SUCESSS API")
                     
                     userDefaults.set(false, forKey: "sessionBookedNotStarted")
-                     userDefaults.removeObject(forKey: "TrainerProfileDictionary")
-                     print("TIMER STATUS",self.isTimerRunning)
+                    userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+                    print("TIMER STATUS",self.isTimerRunning)
 
                     if self.isTimerRunning == false {
                         self.runTimer()
@@ -505,23 +504,6 @@ class TrainerTraineeRouteViewController: UIViewController {
     
 //MARK: - TIMER ACTIONS
     
-    func ExtendSessionAlert() {
-        
-        let alert = UIAlertController(title: ALERT_TITLE, message: "You want to extend the session", preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { action in
-            
-           
-            //self.dismissOnSessionExpire()
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: { action in
-            
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
-    
- 
     func runTimer() {
         
         print("TIMER STARTS RUNNING")
