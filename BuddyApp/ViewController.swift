@@ -202,10 +202,16 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             AcceptOrDeclineScreen()
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegue", sender: self)
         }else{
+            let trainerProfileModelObj = TrainerProfileModal()
+
             self.TrainerProfileDictionary = dict
+            
             appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
             appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
             appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
+            
+            self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
         }
     }

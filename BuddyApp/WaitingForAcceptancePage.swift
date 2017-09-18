@@ -54,6 +54,10 @@ class WaitingForAcceptancePage: UIViewController {
     
     func triggerDismissPageAfterInterval() {
         
+        if trainersFoundCount == 0{
+            trainersFoundCount = 1
+        }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(trainersFoundCount * 60 * 1000)) {
             guard self.isInPage else{
                 print("Waiting For Acceptance page Timer Execution suspends 'isInPage' is false")

@@ -115,9 +115,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         isInSessionRoutePage = true
         
-      //  getSocketConnected()
-       // socketListener()
-        
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
 
@@ -213,12 +210,13 @@ class TrainerTraineeRouteViewController: UIViewController {
     }
     
     func printTrainerProfileDetails() {
-        
+        print("===========================")
         print("Booking ID: \(trainerProfileDetails.Booking_id)")
         print("Trainee ID: \(trainerProfileDetails.Trainee_id)")
         print("Trainer ID: \(trainerProfileDetails.Trainer_id)")
         print("First Name: \(trainerProfileDetails.firstName)")
         print("Last Name: \(trainerProfileDetails.lastName)")
+        print("===========================")
     }
     
     func createSessionDetailModel(detailsDict : TrainerProfileModal) -> SessionDetailModel {
@@ -866,6 +864,7 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
             
         }
         
+        print("TIMER CHECK in Location Manager:\(TIMERCHECK)")
         if TIMERCHECK{
             
             self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.PickUpLattitude)!, DestiLong: Float(trainerProfileDetails.PickUpLongitude)!)
@@ -877,6 +876,10 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
                   self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.PickUpLattitude)!, DestiLong: Float(trainerProfileDetails.PickUpLongitude)!)
                 self.addHandlers()
             }else{
+                print("Lat:\(lat)")
+                print("long:\(long)")
+                print("trainerProfileDetails.PickUpLongitude:\(trainerProfileDetails.PickUpLongitude)")
+
                 self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.PickUpLattitude)!, DestiLong: Float(trainerProfileDetails.PickUpLongitude)!)
                 self.addHandlersTrainer()
             }
