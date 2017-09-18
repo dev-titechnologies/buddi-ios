@@ -482,6 +482,20 @@ extension AppDelegate: FIRMessagingDelegate {
         }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "5"{
             
             
+            if abs(response.notification.date.timeIntervalSinceNow) > 30
+            {
+                print("TIME EXPAIRED")
+                
+                CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Request time expaired", buttonTitle: "Ok")
+                
+            }
+            else
+            
+                
+            
+            {
+            
+            
             //REQUEST BOOKING
                       
             print("5")
@@ -493,7 +507,7 @@ extension AppDelegate: FIRMessagingDelegate {
             
             
             TrainerProfileDictionary = ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String,"aps":(((response.notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String] as NSDictionary
-      
+            }
           
         }
 
