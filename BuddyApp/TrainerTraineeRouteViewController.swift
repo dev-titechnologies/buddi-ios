@@ -114,8 +114,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         isInSessionRoutePage = true
         
-        getSocketConnected()
-        socketListener()
+      //  getSocketConnected()
+       // socketListener()
         
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
@@ -340,12 +340,25 @@ class TrainerTraineeRouteViewController: UIViewController {
         
       //  let v = UIView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
         
-        let v1 = NVActivityIndicatorView(frame:  CGRect(x: (window.frame.width - 150)/2, y: (window.frame.height - 150)/2, width: 150, height: 150), type:.ballScaleMultiple, color: UIColor.red, padding: NVActivityIndicatorView.DEFAULT_PADDING)
+        let v1 = NVActivityIndicatorView(frame:  CGRect(x: (window.frame.width - 150)/2, y: (window.frame.height - 150)/2, width: 150, height: 150), type:.ballSpinFadeLoader, color: UIColor.white, padding: NVActivityIndicatorView.DEFAULT_PADDING)
         
-         v.backgroundColor = UIColor(white: 1, alpha: 0.5)
+         v.backgroundColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.5)
         
         v1.startAnimating()
+        
+        //TEXT LABEL 
+        
+        let label = UILabel(frame: CGRect(x: 0, y: v1.frame.origin.y + v1.frame.height + 30, width: window.frame.width, height: 21))
+       // label.center = CGPoint(x: 160, y: 285)
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.text = WAITING_FOR_TRAINEE_EXTEND_REQUEST_ACTION
+        
+        
+        
         v.addSubview(v1)
+        v.addSubview(label)
         
         window.addSubview(v)
            }
