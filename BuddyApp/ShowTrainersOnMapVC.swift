@@ -88,7 +88,7 @@ class ShowTrainersOnMapVC: UIViewController {
 
             if userDefaults.value(forKey: "isWaitingForTrainerAcceptance") as! Bool{
                 print("*** Showing Waiting for acceptance page")
-//                showWaitingForAcceptancePage()
+                showWaitingForAcceptancePage()
             }
         }else{
             fetchClientTokenFromUserDefault()

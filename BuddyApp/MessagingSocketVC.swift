@@ -47,6 +47,8 @@ class MessagingSocketVC: JSQMessagesViewController {
             senderId = sessionDetailModelObj.traineeId
             senderDisplayName = sessionDetailModelObj.traineeName
         }
+        
+        print("Own ID: \(senderId) and Name:\(senderDisplayName)")
     }
     
     func getMessagesFromServer() {
@@ -99,11 +101,15 @@ class MessagingSocketVC: JSQMessagesViewController {
 extension MessagingSocketVC {
     
     func getSocketConnected() {
+        print("**** getSocketConnected ******")
         parameterdict.setValue("/connectSocket/connectSocket", forKey: "url")
         SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
     }
     
     func socketListener() {
+        
+        print("**** socketListener ******")
+
         SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
                 print("Initial Socket Connection in Message Page",messageInfo)
@@ -166,6 +172,9 @@ extension MessagingSocketVC {
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource!{
+        
+      //  print("Sender Id:\(senderId)")
+      //  print("messages[indexPath.item].senderId")
         return messages[indexPath.item].senderId == senderId ? outgoingBubble : incomingBubble
     }
     
