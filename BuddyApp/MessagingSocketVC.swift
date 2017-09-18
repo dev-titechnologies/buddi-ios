@@ -42,6 +42,10 @@ class MessagingSocketVC: JSQMessagesViewController {
         
         if appDelegate.USER_TYPE == "trainer" {
             senderId = sessionDetailModelObj.trainerId
+            
+            print("DETAILS",sessionDetailModelObj.trainerId)
+             print("DETAILS1",sessionDetailModelObj.traineeId)
+            
             senderDisplayName = sessionDetailModelObj.trainerName
         }else if appDelegate.USER_TYPE == "trainee"{
             senderId = sessionDetailModelObj.traineeId

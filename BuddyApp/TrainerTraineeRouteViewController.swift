@@ -96,6 +96,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
         
         SocketIOManager.sharedInstance.establishConnection()
+        getSocketConnected()
 
         collectionview.delegate = self
         let flowLayout = UICollectionViewFlowLayout()
@@ -142,7 +143,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         isInSessionRoutePage = false
     }
-    
+   
     //MARK: - UNWIND SEGUE
     
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
