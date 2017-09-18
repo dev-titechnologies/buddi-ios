@@ -191,16 +191,11 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     func GoTimerPageFromKilledState_Notification(dict: NSDictionary) {
         
         print("defalt dictL:",dict)
-        if dict["type"] as? String == "1" {
-
-        
-        self.TrainerProfileDictionary = dict
-        appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
-        appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
-        appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
-        self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
-        }
-        else if dict["type"] as? String == "5"{
+//        if dict["type"] as? String == "1" {
+//
+//        
+//             }
+         if (dict["type"] as? String) != nil {
             
             self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:dict["pushData"]as! String)! as NSDictionary
           
@@ -216,6 +211,15 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             AcceptOrDeclineScreen()
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegue", sender: self)
             
+        }
+        else
+         {
+            self.TrainerProfileDictionary = dict
+            appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
+            appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
+            appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
+            self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+
         }
     }
     
