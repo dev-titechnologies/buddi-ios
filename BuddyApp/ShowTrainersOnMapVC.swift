@@ -33,7 +33,8 @@ class ShowTrainersOnMapVC: UIViewController {
     var datadict = NSMutableDictionary()
     var parameterdict1 = NSMutableDictionary()
     var datadict1 = NSMutableDictionary()
-
+    var trainersCount = Int()
+    
     @IBOutlet weak var btnNext: UIButton!
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 5.0, left: 0, bottom: 0, right: 0)
@@ -57,6 +58,9 @@ class ShowTrainersOnMapVC: UIViewController {
     
     var trainingLocationModelObject = TrainingLocationModel()
     
+    var preferenceModelObj = PreferenceModel()
+
+    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -69,8 +73,9 @@ class ShowTrainersOnMapVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         if isFromInstantBooking{
-             InstantDict = userDefaults.value(forKey: "save_preferance") as! NSDictionary
-            print("Preference Dictionary:\(InstantDict)")
+            let preferenceDict = userDefaults.value(forKey: "save_preferance") as! NSDictionary
+            preferenceModelObj = CommonMethods.getPreferenceObjectFromDictionary(dictionary: preferenceDict)
+            print("Preference Dictionary:\(preferenceDict)")
         }
         
         fetchTrainingLocationModelDatasFromUserDefault()
@@ -105,6 +110,7 @@ class ShowTrainersOnMapVC: UIViewController {
         let waitingForAcceptancePage : WaitingForAcceptancePage = storyboardSingleton.instantiateViewController(withIdentifier: "WaitingForAcceptanceVCID") as! WaitingForAcceptancePage
         waitingForAcceptancePage.descriptionText = WAITING_FOR_TRAINER_ACCEPTANCE
         waitingForAcceptancePage.forUserType = "trainee"
+        waitingForAcceptancePage.trainersFoundCount = trainersCount
         //self.navigationController?.pushViewController(waitingForAcceptancePage, animated: true)
         self.present(waitingForAcceptancePage, animated: true, completion: nil)
     }
@@ -119,7 +125,12 @@ class ShowTrainersOnMapVC: UIViewController {
     
     @IBAction func refreshAction(_ sender: Any) {
         print("******* Refresh Action *******")
-        showTrainersList(parameters: getShowTrainersListParametersFromBackup())
+        
+        if isFromInstantBooking{
+            showTrainersList(parameters: getShowTrainersListParametersFromPreference())
+        }else{
+            showTrainersList(parameters: getShowTrainersListParametersFromBackup())
+        }
     }
     
     func getCurrentLocationDetails() {
@@ -137,7 +148,17 @@ class ShowTrainersOnMapVC: UIViewController {
     @IBAction func Next_action(_ sender: Any) {
         
         if isFromSplashScreen{
+            print("***** isFromSplashScreen *******")
             RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromBackup())
+        }else if isFromInstantBooking{
+            print("***** isFromInstantBooking *******")
+            if isPaymentSuccess{
+                RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromPreference())
+            }else if isNoncePresent {
+                postNonceToServer(paymentMethodNonce: paymentNonce)
+            }else{
+                alertForAddPaymentMethod()
+            }
         }else{
             if isPaymentSuccess{
                 RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
@@ -238,10 +259,13 @@ class ShowTrainersOnMapVC: UIViewController {
     
     func getShowTrainersListParameters() -> Dictionary <String,Any> {
         
-        
+        print("***** getShowTrainersListParameters ********")
+
         if isFromInstantBooking{
-            lat = InstantDict["lat"] as! String
-            long = InstantDict["long"] as! String
+            lat = preferenceModelObj.locationLattitude
+            long = preferenceModelObj.locationLongitude
+            choosedTrainerGenderOfTrainee = preferenceModelObj.gender
+            choosedCategoryOfTrainee.categoryId = preferenceModelObj.categoryId
         }
         
         let parameters = ["user_id" : appDelegate.UserId,
@@ -256,9 +280,9 @@ class ShowTrainersOnMapVC: UIViewController {
     
     func getShowTrainersListParametersFromBackup() -> Dictionary <String,Any> {
         
+        print("***** getShowTrainersListParametersFromBackup ********")
         let transactionCategoryChoosedBackup = userDefaults.value(forKey: "backupTrainingCategoryChoosed") as! String
         let transactionGenderChoosedBackup = userDefaults.value(forKey: "backupTrainingGenderChoosed") as! String
-        
         
         let parameters = ["user_id" : appDelegate.UserId,
                           "gender" : transactionGenderChoosedBackup,
@@ -270,12 +294,29 @@ class ShowTrainersOnMapVC: UIViewController {
         return parameters
     }
     
+    func getShowTrainersListParametersFromPreference() -> Dictionary <String,Any> {
+        
+        print("***** getShowTrainersListParametersFromPreference ********")
+        
+        let parameters = ["user_id" : appDelegate.UserId,
+                          "gender" : preferenceModelObj.gender,
+                          "category" : preferenceModelObj.categoryId,
+                          "latitude" : preferenceModelObj.locationLattitude,
+                          "longitude" : preferenceModelObj.locationLongitude
+            ] as [String : Any]
+        
+        return parameters
+    }
+    
     func getRandomSelectAPIParameters() -> Dictionary <String,Any> {
         
-        if isFromInstantBooking
-        {
-            lat = InstantDict["lat"] as! String
-            long = InstantDict["long"] as! String
+        print("***** getRandomSelectAPIParameters ********")
+
+        if isFromInstantBooking{
+            lat = preferenceModelObj.locationLattitude
+            long = preferenceModelObj.locationLongitude
+            choosedTrainerGenderOfTrainee = preferenceModelObj.gender
+            choosedCategoryOfTrainee.categoryId = preferenceModelObj.categoryId
         }
         
         var parameters = ["trainee_id" : appDelegate.UserId,
@@ -305,8 +346,12 @@ class ShowTrainersOnMapVC: UIViewController {
         return parameters
     }
     
+    
+    
     func getRandomSelectAPIParametersFromBackup() -> Dictionary <String,Any>{
         
+        print("***** getRandomSelectAPIParametersFromBackup ********")
+
         let transactionIdBackup = userDefaults.value(forKey: "backupPaymentTransactionId") as! String
         let transactionAmountBackup = userDefaults.value(forKey: "backupIsTransactionAmount") as! String
         let transactionCategoryChoosedBackup = userDefaults.value(forKey: "backupTrainingCategoryChoosed") as! String
@@ -333,6 +378,42 @@ class ShowTrainersOnMapVC: UIViewController {
             let transactionDict = ["transaction_id" : transactionIdBackup,
                                    "amount" : transactionAmountBackup,
                                    "transaction_status" : transactionStatusBackup
+                ] as [String : Any]
+            
+            parameters = parameters.merged(with: transactionDict)
+        }
+        
+        return parameters
+    }
+    
+    func getRandomSelectAPIParametersFromPreference() -> Dictionary <String,Any> {
+        
+        if isFromInstantBooking{
+            lat = preferenceModelObj.locationLattitude
+            long = preferenceModelObj.locationLongitude
+            choosedTrainerGenderOfTrainee = preferenceModelObj.gender
+            choosedCategoryOfTrainee.categoryId = preferenceModelObj.categoryId
+        }
+        
+        var parameters = ["trainee_id" : appDelegate.UserId,
+                          "gender" : preferenceModelObj.gender,
+                          "category" : preferenceModelObj.categoryId,
+                          "latitude" : lat,
+                          "longitude" : long,
+                          "training_time" : preferenceModelObj.sessionDuration,
+                          "pick_latitude" : preferenceModelObj.locationLattitude,
+                          "pick_longitude" : preferenceModelObj.locationLongitude,
+                          "pick_location" : preferenceModelObj.locationName
+            ] as [String : Any]
+        
+        if isPromoCodeExists{
+            //With Promo Code
+            parameters = parameters.merged(with: ["promocode" : "TEST CODE"])
+        }else{
+            //With Payment Transaction
+            let transactionDict = ["transaction_id" : transactionId,
+                                   "amount" : transactionAmount,
+                                   "transaction_status" : transactionStatus
                 ] as [String : Any]
             
             parameters = parameters.merged(with: transactionDict)
@@ -370,6 +451,7 @@ class ShowTrainersOnMapVC: UIViewController {
                     if jsondata["message"] as? String == "Training Requested" {
                         print("Training Requested")
                         userDefaults.set(true, forKey: "isWaitingForTrainerAcceptance")
+                        self.trainersCount = jsondata["length"] as! Int
                         self.showWaitingForAcceptancePage()
                     }
                     
@@ -524,7 +606,14 @@ class ShowTrainersOnMapVC: UIViewController {
                         let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
                         
                         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
-                            self.RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
+                            
+                            if self.isFromInstantBooking{
+                                print("**** Random Select call - isFromInstantBooking true")
+                                self.RandomSelectTrainer(parameters: self.getRandomSelectAPIParametersFromPreference())
+                            }else{
+                                print("**** Random Select call - Normal Case")
+                                self.RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
+                            }
                         }))
                         self.present(alert, animated: true, completion: nil)
                         

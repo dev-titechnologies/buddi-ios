@@ -196,6 +196,22 @@ class CommonMethods: NSObject {
         
         return location_model_obj
     }
+    
+    class func getPreferenceObjectFromDictionary(dictionary: NSDictionary) -> PreferenceModel {
+        
+        let preference_obj = PreferenceModel()
+        
+        preference_obj.categoryId = dictionary["categoryid"] as! String
+        preference_obj.gender = dictionary["gender"] as! String
+        preference_obj.sessionDuration = dictionary["time"] as! String
+        preference_obj.locationName = dictionary["locationName"] as! String
+        preference_obj.locationLattitude = dictionary["lat"] as! String
+        preference_obj.locationLongitude = dictionary["long"] as! String
+        preference_obj.categoryName = dictionary["categoryName"] as! String
+        
+        return preference_obj
+    }
+
 }
 
 class ButtonWithShadow: UIButton {

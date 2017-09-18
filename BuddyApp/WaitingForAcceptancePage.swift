@@ -16,9 +16,9 @@ class WaitingForAcceptancePage: UIViewController {
     
     var descriptionText = String()
     var forUserType = String()
+    var trainersFoundCount = Int()
     
     var isInPage = Bool()
-    
     var trainerProfileDetails = TrainerProfileModal()
     
     override func viewDidLoad() {
@@ -41,7 +41,7 @@ class WaitingForAcceptancePage: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.triggerDismissWhenNotificationReceived), name: notificationName1, object: nil)
         
         if forUserType == "trainer" {
-            triggerDismissPageAfterInterval()
+            //triggerDismissPageAfterInterval()
         }else if forUserType == "trainee" {
             //For testing purpose, pls delete below stmnt after use
             triggerDismissPageAfterInterval()
@@ -53,36 +53,43 @@ class WaitingForAcceptancePage: UIViewController {
     }
     
     func triggerDismissPageAfterInterval() {
-        let when = DispatchTime.now() + 30
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(trainersFoundCount * 60 * 1000)) {
             guard self.isInPage else{
-                print("Timer Execution suspends 'isInPage' is false")
+                print("Waiting For Acceptance page Timer Execution suspends 'isInPage' is false")
                 return
             }
             
             //Pls remove user type trainee code. only for testing purpose
             if self.forUserType == "trainee" {
-//                print("dismissWaitingForAcceptancePage call after 30 seconds")
-//                self.dismissWaitingForAcceptancePage()
+                print("dismissWaitingForAcceptancePage call after :\(self.trainersFoundCount * 60) seconds")
+                self.dismissWaitingForAcceptancePage()
             }else if self.forUserType == "trainer" {
-                print("Booking Action Complete call after 30 seconds")
-                self.bookingCompleteAction(action_status: "complete")
+                //print("Booking Action Complete call after 30 seconds")
+                //self.bookingCompleteAction(action_status: "complete")
             }
         }
     }
     
     func triggerDismissWhenNotificationReceived(notif: NSNotification) {
         
-
-        if notif.userInfo!["pushData"] as! String == "1" {
+        print("**** Notif:\(notif)")
+        if let type = notif.userInfo?["type"] as? String{
+            if type == "1" {
+                print("***** Notification Type Receiving 1 ****")
+                dismissWaitingForAcceptancePage()
+            }
+        }
+        /*
+        if notif.userInfo!["type"] as! String == "1" {
             //Receiving for trainee
             print("***** Notification Type Receiving 1 ****")
             dismissWaitingForAcceptancePage()
-        }else if notif.userInfo!["pushData"] as! String == "4" {
+        }*/
+        /*else if notif.userInfo!["pushData"] as! String == "4" {
             print("***** Notification Type Receiving 4 ****")
             showReviewScreen()
-        }
+        }*/
     }
     
     func showReviewScreen(){
