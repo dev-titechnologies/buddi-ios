@@ -54,6 +54,11 @@ class TraineeHomePage: UIViewController {
             choosedTrainerGenderOfTrainee = dict?["gender"] as! String
             choosedCategoryOfTrainee.categoryId = dict?["categoryid"] as! String
             choosedSessionOfTrainee = dict?["time"] as! String
+            
+            userDefaults.set(choosedCategoryOfTrainee.categoryId, forKey: "backupTrainingCategoryChoosed")
+            userDefaults.set(choosedTrainerGenderOfTrainee, forKey: "backupTrainingGenderChoosed")
+            userDefaults.set(choosedSessionOfTrainee, forKey: "backupTrainingSessionChoosed")
+
             performSegue(withIdentifier: "instantbookingsegue", sender: self)
         }else{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Preferences are not saved", buttonTitle: "Ok")

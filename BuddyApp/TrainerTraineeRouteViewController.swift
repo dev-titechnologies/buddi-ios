@@ -76,7 +76,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         print("viewDidLoad")
         v = UIView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
         
-        
         appDelegate.TrainerProfileDictionary = nil
         
         
@@ -137,6 +136,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         print("**** viewDidAppear ****")
+        isInSessionRoutePage = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -147,6 +147,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
         print("******************Unwind Segue Catch with Identifier ****************** \(String(describing: segue.identifier))")
+        isInSessionRoutePage = true
 
         if segue.identifier == "unwindToRouteVCSegue" {
             if self.isExtendedCheck{
@@ -250,7 +251,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
         
         if notif.userInfo!["pushData"] as! String == "2"{
-            
             
             print("OK")
             print("START CLICK")
@@ -556,7 +556,6 @@ class TrainerTraineeRouteViewController: UIViewController {
             }
         })
     }
-    
     
 //MARK: - TIMER ACTIONS
     

@@ -148,15 +148,12 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
     func AcceptRejactScreenNotification(notif: NSNotification) {
         
-         self.TrainerProfileDictionary = notif.userInfo!["profiledata"] as! NSDictionary
-        
+        self.TrainerProfileDictionary = notif.userInfo!["profiledata"] as! NSDictionary
         print("TRAINERPRO DICT",self.TrainerProfileDictionary)
         
         userDefaults.set(true, forKey: "sessionBookedNotStarted")
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
-        
          self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
-        
     }
     
     func GoTimerPageInActive_Notification(notif: NSNotification) {
@@ -193,12 +190,11 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         print("defalt dictL:",dict)
         if dict["type"] as? String == "1" {
 
-        
-        self.TrainerProfileDictionary = dict
-        appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
-        appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
-        appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
-        self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+            self.TrainerProfileDictionary = dict
+            appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
+            appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
+            appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
+            self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
         }
         else if dict["type"] as? String == "5"{
             

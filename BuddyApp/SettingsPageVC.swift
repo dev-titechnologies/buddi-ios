@@ -15,7 +15,7 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var settingsTableView: UITableView!
     let headerSectionTitles = ["Location Preference" ,"Training Category Preference", "Gender Preference", "Session Length Preference"]
-    let sessionTime = ["40","1"]
+    let sessionTime = ["40","60"]
     var collapseArray = [Bool]()
     var sessionChoosed = Int()
     var headerChoosed = Int()
@@ -26,6 +26,8 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
     var preferanceBool = Bool()
     var preferenceValuesDict = NSDictionary()
     
+    var choosed_session_duration = String()
+
     var trainingLocationModelObj = TrainingLocationModel()
     var preferenceModelObj = PreferenceModel()
     
@@ -41,13 +43,14 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
         for _ in 0..<headerSectionTitles.count{
             collapseArray.append(false)
         }
+        
+        getPreferenceModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         print("Settings Page ViewWilAppear")
         self.settingsTableView.reloadSections(IndexSet(integer: 1), with: .automatic)
-        getPreferenceModel()
     }
 
     func getPreferenceModel() {
@@ -75,9 +78,12 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
         choosedCategoryOfTraineePreference.categoryId = preference_obj.categoryId
         choosedCategoryOfTraineePreference.categoryName = preference_obj.categoryName
         choosedTrainingLocationPreference = preference_obj.locationName
+        choosed_session_duration = preference_obj.sessionDuration
         
         return preference_obj
     }
+    
+    //MARK: - SAVE ACTION
     
     @IBAction func Save_action(_ sender: Any) {
         
@@ -87,15 +93,14 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose category", buttonTitle: "Ok")
         }else if choosedTrainerGenderOfTraineePreference.isEmpty {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please select gender", buttonTitle: "Ok")
-        }
-        else if choosedSessionOfTraineePreference.isEmpty{
+        }else if choosedSessionOfTraineePreference.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose session time", buttonTitle: "Ok")
         }else{
             preferanceBool = false
             print("GENDER",choosedTrainerGenderOfTraineePreference)
             print("TIME",choosedSessionOfTraineePreference)
             print("CATEGORY",choosedCategoryOfTraineePreference.categoryId)
-            print("location",locationcordinate.latitude)
+            print("location",choosedTrainingLocationPreference)
             
             dict.setValue(choosedTrainerGenderOfTraineePreference, forKey: "gender")
             dict.setValue(choosedSessionOfTraineePreference, forKey: "time")
@@ -136,7 +141,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         if section == 2{
             return 1
         }else if section == 3{
-            return sessionTime.count
+            return trainingDurationArray.count
         }else{
             return 0
         }
@@ -147,17 +152,20 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         print("Indexpath:\(indexPath.row)")
         if indexPath.section == 3{
             //Preferred Session
-             sessionCell = tableView.dequeueReusableCell(withIdentifier: "chooseSessionCellId") as! SessionPreferenceCell
+            sessionCell = tableView.dequeueReusableCell(withIdentifier: "chooseSessionCellId") as! SessionPreferenceCell
             
             sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
             
-            // PREFERANCE SHOWN
+            // PREFERENCE SHOWN
             if preferenceModelObj.sessionDuration != "" {
+                print("preferenceModelObj.sessionDuration:\(preferenceModelObj.sessionDuration)")
                 let session_split = preferenceModelObj.sessionDuration.components(separatedBy: " ") as Array
+                print("session_split:\(session_split)")
                 let session_duration = self.sessionTime.index(of: session_split[0])
+                //let session_duration = session_split[0]
                 print("Session Duration:\(String(describing: session_duration))")
                 if !preferanceBool{
-                    sessionChoosed = session_duration!
+                    sessionChoosed = Int(session_duration!)
                 }
             }
             
@@ -278,7 +286,11 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             cell.lblSelectedValue.text = choosedTrainerGenderOfTraineePreference
         case 3:
             //Session
-            cell.lblSelectedValue.text = choosedSessionOfTraineePreference
+            if choosed_session_duration == "40" {
+                cell.lblSelectedValue.text = "40 Minutes"
+            }else if choosed_session_duration == "60" {
+                cell.lblSelectedValue.text = "1 Hour"
+            }
             
         default:
             print("View for sectionheader Default Case catched")
@@ -304,10 +316,11 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         }else if indexPath.section == 3{
             print("*** didSelectRowAt: section 3")
             if indexPath.row == 0 {
-                choosedSessionOfTraineePreference = "40 Minutes"
+                choosedSessionOfTraineePreference = "40"
             }else{
-                choosedSessionOfTraineePreference = "60 Minutes"
+                choosedSessionOfTraineePreference = "60"
             }
+            choosed_session_duration = choosedSessionOfTraineePreference
             self.settingsTableView.reloadSections(IndexSet(integer: 3), with: .automatic)
         }else if indexPath.section == 2{
             print("*** didSelectRowAt: section 2")
@@ -343,10 +356,14 @@ extension SettingsPageVC: GMSPlacePickerViewControllerDelegate {
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
         
+        guard String(place.coordinate.latitude) != "0.0" else {
+            print("Gurad case as no location has been selected")
+            return
+        }
+        
         self.locationcordinate = place.coordinate
         
         print("Place name \(place.name)")
-        print("STATUS",place.openNowStatus.rawValue)
         
         trainingLocationModelObj.locationName = place.name
         trainingLocationModelObj.locationLatitude = String(place.coordinate.latitude)
