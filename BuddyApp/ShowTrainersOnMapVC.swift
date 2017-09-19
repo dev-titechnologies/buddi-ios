@@ -72,7 +72,8 @@ class ShowTrainersOnMapVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        if isFromInstantBooking{
+        
+        if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
             let preferenceDict = userDefaults.value(forKey: "save_preferance") as! NSDictionary
             preferenceModelObj = CommonMethods.getPreferenceObjectFromDictionary(dictionary: preferenceDict)
             print("Preference Dictionary:\(preferenceDict)")
@@ -325,9 +326,9 @@ class ShowTrainersOnMapVC: UIViewController {
                           "latitude" : lat,
                           "longitude" : long,
                           "training_time" : choosedSessionOfTrainee,
-                          "pick_latitude" : trainingLocationModelObject.locationLatitude,
-                          "pick_longitude" : trainingLocationModelObject.locationLongitude,
-                          "pick_location" : trainingLocationModelObject.locationName
+                          "pick_latitude" : preferenceModelObj.locationLattitude,
+                          "pick_longitude" : preferenceModelObj.locationLongitude,
+                          "pick_location" : preferenceModelObj.locationName
             ] as [String : Any]
         
         if isPromoCodeExists{
@@ -365,9 +366,9 @@ class ShowTrainersOnMapVC: UIViewController {
                           "latitude" : lat,
                           "longitude" : long,
                           "training_time" : transactionSessionChoosedBackup,
-                          "pick_latitude" : trainingLocationModelObject.locationLatitude,
-                          "pick_longitude" : trainingLocationModelObject.locationLongitude,
-                          "pick_location" : trainingLocationModelObject.locationName
+                          "pick_latitude" : preferenceModelObj.locationLattitude,
+                          "pick_longitude" : preferenceModelObj.locationLongitude,
+                          "pick_location" : preferenceModelObj.locationName
                           ] as [String : Any]
         
         if isPromoCodeExists{
