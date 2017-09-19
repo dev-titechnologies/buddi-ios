@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -5994,6 +5994,7 @@ Good luck!
                     <connections>
                         <outlet property="btnAddPayment" destination="iql-kG-d3o" id="BFj-L7-wU6"/>
                         <outlet property="lblCardEndingWith" destination="W2L-NK-xsm" id="iyA-A6-ULR"/>
+                        <outlet property="promocode_txt" destination="sEI-EH-nAx" id="5q6-1i-XDN"/>
                         <outlet property="selectPaymentModeView" destination="aKq-tY-ndA" id="mXZ-Ut-lxr"/>
                         <outlet property="testView" destination="qRa-8d-wfH" id="0jo-Ix-XKE"/>
                     </connections>
@@ -8236,6 +8237,19 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="unchecked" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
+
+        <segue reference="Vrx-3o-h7U"/>
+        <segue reference="nov-fw-yUQ"/>
+        <segue reference="5ep-Qg-p10"/>
+        <segue reference="j2f-dg-unJ"/>
+        <segue reference="ACG-LS-lzF"/>
+        <segue reference="lS4-X5-YwA"/>
+        <segue reference="Jie-k9-AKK"/>
+        <segue reference="hJy-Rz-WHD"/>
+        <segue reference="Jnc-bx-uPX"/>
+        <segue reference="fqg-MV-HkZ"/>
+        <segue reference="USH-R0-s5v"/>
+        <segue reference="51z-rZ-6rD"/>
         <segue reference="DLY-kk-dWX"/>
         <segue reference="USH-R0-s5v"/>
         <segue reference="fqg-MV-HkZ"/>

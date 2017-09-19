@@ -288,7 +288,18 @@ extension LeftViewController : UITableViewDelegate{
             case 3:
                 print("Three")
                 print("Add Category")
+                
+                
+                if appDelegate.timerrunningtime
+                {
+                    TimerCheck()
+                    
+                }
+                else
+                {
+
                 self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
+                }
                 
             case 4:
                 print("Four")

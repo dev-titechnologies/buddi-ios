@@ -351,9 +351,10 @@ class ShowTrainersOnMapVC: UIViewController {
                           "pick_location" : preferenceModelObj.locationName
             ] as [String : Any]
         
-        if isPromoCodeExists{
+        if userDefaults.value(forKey: "promocode") != nil{
             //With Promo Code
-            parameters = parameters.merged(with: ["promocode" : "TEST CODE"])
+            parameters = parameters.merged(with: ["promocode" : userDefaults.value(forKey: "promocode") as! String])
+             userDefaults.removeObject(forKey: "promocode")
         }else{
             //With Payment Transaction
             let transactionDict = ["transaction_id" : transactionId,
@@ -391,9 +392,11 @@ class ShowTrainersOnMapVC: UIViewController {
                           "pick_location" : preferenceModelObj.locationName
                           ] as [String : Any]
         
-        if isPromoCodeExists{
+        if userDefaults.value(forKey: "promocode") != nil{
             //With Promo Code
-            parameters = parameters.merged(with: ["promocode" : "TEST CODE"])
+            parameters = parameters.merged(with: ["promocode" : userDefaults.value(forKey: "promocode") as! String])
+            userDefaults.removeObject(forKey: "promocode")
+            
         }else{
             //With Payment Transaction
             let transactionDict = ["transaction_id" : transactionIdBackup,
@@ -427,9 +430,13 @@ class ShowTrainersOnMapVC: UIViewController {
                           "pick_location" : preferenceModelObj.locationName
             ] as [String : Any]
         
-        if isPromoCodeExists{
+        if userDefaults.value(forKey: "promocode") != nil{
             //With Promo Code
-            parameters = parameters.merged(with: ["promocode" : "TEST CODE"])
+            parameters = parameters.merged(with: ["promocode" : userDefaults.value(forKey: "promocode") as! String])
+            
+            userDefaults.removeObject(forKey: "promocode")
+            
+            
         }else{
             //With Payment Transaction
             let transactionDict = ["transaction_id" : transactionId,
