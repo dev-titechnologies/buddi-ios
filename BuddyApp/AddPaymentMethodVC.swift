@@ -16,6 +16,7 @@ class AddPaymentMethodVC: UIViewController {
     var clientToken = String()
     var isAppliedPromoCode = Bool()
     
+    @IBOutlet weak var promocode_txt: UITextField!
     @IBOutlet weak var lblCardEndingWith: UILabel!
     @IBOutlet weak var imgCardIcon: UIImageView!
     @IBOutlet weak var selectPaymentModeView: UIView!
@@ -178,7 +179,7 @@ class AddPaymentMethodVC: UIViewController {
             "token":appDelegate.Usertoken]
         
         let parameters =  ["user_id": appDelegate.UserId,
-                           "promocode" : ""
+                           "promocode" : promocode_txt.text!
             ] as [String : Any]
         
         CommonMethods.serverCall(APIURL: APPLY_PROMO_CODE, parameters: parameters, headers: headers) { (jsondata) in
@@ -192,6 +193,20 @@ class AddPaymentMethodVC: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     //isAppliedPromoCode
+                    
+                    
+              if let procode = (jsondata["data"]  as! NSDictionary)["code"] as? String
+              {
+                print(procode)
+                
+                userDefaults.set(procode, forKey: "promocode")
+                
+               }
+                
+                    
+                    
+                    
+                    
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

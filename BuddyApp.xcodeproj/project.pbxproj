@@ -1473,7 +1473,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: DEEPU ZACHARIA (7QVT6YDQZ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 7QVT6YDQZ2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1486,8 +1486,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.titechnologies.BuddyApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b014fdc4-b356-4cb2-81bd-b3ed39d3cc78";
-				PROVISIONING_PROFILE_SPECIFIER = BuddyAppAdHoc;
+				PROVISIONING_PROFILE = "9b0de96e-e491-4682-a66f-9ba459291217";
+				PROVISIONING_PROFILE_SPECIFIER = BuddyAppDevelopment;
 				SWIFT_OBJC_BRIDGING_HEADER = "BuddyApp/BuddyApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

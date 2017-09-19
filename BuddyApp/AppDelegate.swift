@@ -430,6 +430,8 @@ extension AppDelegate: FIRMessagingDelegate {
         }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "6"{
             
             
+            // EXTEND BOOKING
+            
              NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String,"data":NotificationDict])
             
             
