@@ -58,6 +58,10 @@ class TraineeHomePage: UIViewController {
             userDefaults.set(choosedCategoryOfTrainee.categoryId, forKey: "backupTrainingCategoryChoosed")
             userDefaults.set(choosedTrainerGenderOfTrainee, forKey: "backupTrainingGenderChoosed")
             userDefaults.set(choosedSessionOfTrainee, forKey: "backupTrainingSessionChoosed")
+            
+            //This userdefault value will be used to check the previous booking from when reopening the app.
+            //1 . Instant Booking, 2. Usual Booking Request
+            userDefaults.set("instantBooking", forKey: "previousBookingRequestVia")
 
             performSegue(withIdentifier: "instantbookingsegue", sender: self)
         }else{

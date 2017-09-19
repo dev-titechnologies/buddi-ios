@@ -26,6 +26,9 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
     var preferanceBool = Bool()
     var preferenceValuesDict = NSDictionary()
     
+    var locationLatitude = String()
+    var locationLongitude = String()
+    
     var choosed_session_duration = String()
 
     var trainingLocationModelObj = TrainingLocationModel()
@@ -80,6 +83,9 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
         choosedTrainingLocationPreference = preference_obj.locationName
         choosed_session_duration = preference_obj.sessionDuration
         
+        locationLatitude = preference_obj.locationLattitude
+        locationLongitude = preference_obj.locationLongitude
+        
         return preference_obj
     }
     
@@ -106,9 +112,11 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
             dict.setValue(choosedSessionOfTraineePreference, forKey: "time")
             dict.setValue(String(choosedCategoryOfTraineePreference.categoryId), forKey: "categoryid")
             dict.setValue(String(choosedCategoryOfTraineePreference.categoryName), forKey: "categoryName")
-            dict.setValue(String(locationcordinate.latitude), forKey: "lat")
-            dict.setValue(String(locationcordinate.longitude), forKey: "long")
+            dict.setValue(locationLatitude, forKey: "lat")
+            dict.setValue(locationLongitude, forKey: "long")
             dict.setValue(choosedTrainingLocationPreference, forKey: "locationName")
+            
+            print("Save preference Settings dict:\(dict)")
 
             userDefaults.setValue(dict, forKey: "save_preferance")
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Saved successfully", buttonTitle: "Ok")
@@ -169,18 +177,6 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
                 }
             }
             
-//            if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
-//                
-//                let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
-//                print("Preference dict:\(String(describing: dict))")
-//                let index = self.sessionTime.index(of: dict?["time"] as! String)
-//                print(index!)
-//            
-//                if !preferanceBool{
-//                    sessionChoosed = index!
-//                }
-//            }
-
             if sessionChoosed == indexPath.row{
                 sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
             }else{
@@ -199,39 +195,34 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             genderCell.btnFemale.addShadowView()
             genderCell.btnNopreferance.addShadowView()
             
-            if preferenceModelObj.gender != "" {
-                if preferenceModelObj.gender == "Male"{
-                    genderCell.btnMale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-                    genderCell.btnNopreferance.backgroundColor = .white
-                    genderCell.btnFemale.backgroundColor = .white
-                }else if preferenceModelObj.gender == "Female"{
-                    genderCell.btnMale.backgroundColor = .white
-                    genderCell.btnNopreferance.backgroundColor = .white
-                    genderCell.btnFemale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-                }else{
-                    genderCell.btnNopreferance.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-                    genderCell.btnFemale.backgroundColor = .white
-                    genderCell.btnMale.backgroundColor = .white
-                }
+            genderCell.btnMale.tag = 1
+            genderCell.btnFemale.tag = 2
+            genderCell.btnNopreferance.tag = 3
+            
+            switch choosedTrainerGenderOfTraineePreference {
+            case "Male":
+                genderCell.btnMale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                genderCell.btnFemale.backgroundColor = .white
+                genderCell.btnNopreferance.backgroundColor = .white
+                
+            case "Female":
+                genderCell.btnMale.backgroundColor = .white
+                genderCell.btnFemale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                genderCell.btnNopreferance.backgroundColor = .white
+                
+            case "No Preference":
+                genderCell.btnMale.backgroundColor = .white
+                genderCell.btnFemale.backgroundColor = .white
+                genderCell.btnNopreferance.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                
+            default:
+                print("Default case in gender color")
             }
             
-//            if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
-//                let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
-//                
-//                if dict?["gender"] as! String == "male"{
-//                    genderCell.btnMale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-//                    genderCell.btnNopreferance.backgroundColor = .white
-//                    genderCell.btnFemale.backgroundColor = .white
-//                }else if dict?["gender"] as! String == "female"{
-//                    genderCell.btnMale.backgroundColor = .white
-//                    genderCell.btnNopreferance.backgroundColor = .white
-//                    genderCell.btnFemale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-//                }else{
-//                    genderCell.btnNopreferance.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-//                    genderCell.btnFemale.backgroundColor = .white
-//                    genderCell.btnMale.backgroundColor = .white
-//                }
-//            }
+            genderCell.btnMale.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
+            genderCell.btnFemale.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
+            genderCell.btnNopreferance.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
+            
             return genderCell
         }else{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellid")!
@@ -240,7 +231,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 70
+        return 85
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -256,6 +247,26 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         }else{
             return 0
         }
+    }
+    
+    func choosedGender(sender : UIButton){
+        print("Choose gender Action")
+        
+        print("Button Tapped 123")
+        
+        switch sender.tag {
+        case 1:
+            choosedTrainerGenderOfTraineePreference = "Male"
+        case 2:
+            choosedTrainerGenderOfTraineePreference = "Female"
+        case 3:
+            choosedTrainerGenderOfTraineePreference = "No Preference"
+            
+        default:
+            print("Gender Default Case catched")
+        }
+
+        self.settingsTableView.reloadSections(IndexSet(integer: 2), with: .automatic)
     }
     
     //MARK: - TABLEVIEW HEADER SECTION VIEW
@@ -277,15 +288,19 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         switch section {
         case 0:
             //Location
+            print("**** choosedTrainingLocationPreference:\(choosedTrainingLocationPreference)")
             cell.lblSelectedValue.text = choosedTrainingLocationPreference
         case 1:
             //Category
+            print("**** choosedCategoryOfTraineePreference categoryName:\(choosedCategoryOfTraineePreference.categoryName)")
             cell.lblSelectedValue.text = choosedCategoryOfTraineePreference.categoryName
         case 2:
             //Gender
+            print("**** choosedTrainerGenderOfTraineePreference:\(choosedTrainerGenderOfTraineePreference)")
             cell.lblSelectedValue.text = choosedTrainerGenderOfTraineePreference
         case 3:
             //Session
+            print("**** choosed_session_duration:\(choosed_session_duration)")
             if choosed_session_duration == "40" {
                 cell.lblSelectedValue.text = "40 Minutes"
             }else if choosed_session_duration == "60" {
@@ -308,11 +323,11 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         
         preferanceBool = true
         sessionChoosed = indexPath.row
-        settingsTableView.reloadSections(IndexSet(integer: 3), with: .automatic)
+//        settingsTableView.reloadSections(IndexSet(integer: 3), with: .automatic)
         
-        if indexPath.section == 0{
-            
-            
+        if indexPath.section == 2{
+            print("*** didSelectRowAt: section 2")
+            self.settingsTableView.reloadSections(IndexSet(integer: 2), with: .automatic)
         }else if indexPath.section == 3{
             print("*** didSelectRowAt: section 3")
             if indexPath.row == 0 {
@@ -322,9 +337,6 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             }
             choosed_session_duration = choosedSessionOfTraineePreference
             self.settingsTableView.reloadSections(IndexSet(integer: 3), with: .automatic)
-        }else if indexPath.section == 2{
-            print("*** didSelectRowAt: section 2")
-            self.settingsTableView.reloadSections(IndexSet(integer: 2), with: .automatic)
         }
       
         print("Choosed Session:\(choosedSessionOfTraineePreference)")
@@ -363,11 +375,17 @@ extension SettingsPageVC: GMSPlacePickerViewControllerDelegate {
         
         self.locationcordinate = place.coordinate
         
+        print("****** Location Details from Preference Settings ******")
         print("Place name \(place.name)")
+        print("coordinate.latitude \(String(place.coordinate.latitude))")
+        print("coordinate.longitude \(String(place.coordinate.longitude))")
+        
+        locationLatitude = String(place.coordinate.latitude)
+        locationLongitude = String(place.coordinate.longitude)
         
         trainingLocationModelObj.locationName = place.name
-        trainingLocationModelObj.locationLatitude = String(place.coordinate.latitude)
-        trainingLocationModelObj.locationLongitude = String(place.coordinate.longitude)
+        trainingLocationModelObj.locationLatitude = locationLatitude
+        trainingLocationModelObj.locationLongitude = locationLongitude
         
         choosedTrainingLocationPreference = place.name
         self.settingsTableView.reloadSections(IndexSet(integer: 0), with: .automatic)

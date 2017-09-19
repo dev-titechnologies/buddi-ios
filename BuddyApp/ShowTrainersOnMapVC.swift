@@ -55,9 +55,9 @@ class ShowTrainersOnMapVC: UIViewController {
     var isFromSplashScreen = Bool()
     var isFromInstantBooking = Bool()
     var InstantDict = NSDictionary()
+    var previousBookingRequestVia = String()
     
     var trainingLocationModelObject = TrainingLocationModel()
-    
     var preferenceModelObj = PreferenceModel()
 
     
@@ -72,14 +72,9 @@ class ShowTrainersOnMapVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        checkForBookingRequestVia()
         
-        if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
-            let preferenceDict = userDefaults.value(forKey: "save_preferance") as! NSDictionary
-            preferenceModelObj = CommonMethods.getPreferenceObjectFromDictionary(dictionary: preferenceDict)
-            print("Preference Dictionary:\(preferenceDict)")
-        }
-        
-        fetchTrainingLocationModelDatasFromUserDefault()
+//        fetchTrainingLocationModelDatasFromUserDefault()
         getCurrentLocationDetails()
 
         if isFromSplashScreen{
@@ -93,6 +88,31 @@ class ShowTrainersOnMapVC: UIViewController {
             }
         }else{
             fetchClientTokenFromUserDefault()
+        }
+    }
+    
+    func checkForBookingRequestVia() {
+        
+        if userDefaults.value(forKey: "previousBookingRequestVia") as? String != nil{
+            
+            previousBookingRequestVia = userDefaults.value(forKey: "previousBookingRequestVia") as! String
+            print("***** PreviousBookingRequestVia : \(previousBookingRequestVia)")
+            //Values would be = instantBooking & usualBooking
+            
+            if previousBookingRequestVia == "instantBooking"{
+                if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
+                    let preferenceDict = userDefaults.value(forKey: "save_preferance") as! NSDictionary
+                    preferenceModelObj = CommonMethods.getPreferenceObjectFromDictionary(dictionary: preferenceDict)
+                    print("Preference Dictionary:\(preferenceDict)")
+                }
+                
+            }else if previousBookingRequestVia == "usualBooking"{
+                
+                fetchTrainingLocationModelDatasFromUserDefault()
+                preferenceModelObj.locationName = trainingLocationModelObject.locationName
+                preferenceModelObj.locationLattitude = trainingLocationModelObject.locationLatitude
+                preferenceModelObj.locationLongitude = trainingLocationModelObject.locationLongitude
+            }
         }
     }
     
@@ -263,8 +283,8 @@ class ShowTrainersOnMapVC: UIViewController {
         print("***** getShowTrainersListParameters ********")
 
         if isFromInstantBooking{
-            lat = preferenceModelObj.locationLattitude
-            long = preferenceModelObj.locationLongitude
+//            lat = preferenceModelObj.locationLattitude
+//            long = preferenceModelObj.locationLongitude
             choosedTrainerGenderOfTrainee = preferenceModelObj.gender
             choosedCategoryOfTrainee.categoryId = preferenceModelObj.categoryId
         }
@@ -302,8 +322,8 @@ class ShowTrainersOnMapVC: UIViewController {
         let parameters = ["user_id" : appDelegate.UserId,
                           "gender" : preferenceModelObj.gender,
                           "category" : preferenceModelObj.categoryId,
-                          "latitude" : preferenceModelObj.locationLattitude,
-                          "longitude" : preferenceModelObj.locationLongitude
+                          "latitude" : lat,
+                          "longitude" : long
             ] as [String : Any]
         
         return parameters
@@ -393,8 +413,8 @@ class ShowTrainersOnMapVC: UIViewController {
     func getRandomSelectAPIParametersFromPreference() -> Dictionary <String,Any> {
         
         if isFromInstantBooking{
-            lat = preferenceModelObj.locationLattitude
-            long = preferenceModelObj.locationLongitude
+//            lat = preferenceModelObj.locationLattitude
+//            long = preferenceModelObj.locationLongitude
             choosedTrainerGenderOfTrainee = preferenceModelObj.gender
             choosedCategoryOfTrainee.categoryId = preferenceModelObj.categoryId
         }

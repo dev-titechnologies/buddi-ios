@@ -813,7 +813,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "164"
             endingLineNumber = "164"
-            landmarkName = "Next_action(_:)"
+            landmarkName = "getCurrentLocationDetails()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -829,7 +829,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "121"
             endingLineNumber = "121"
-            landmarkName = "fetchClientTokenFromUserDefault()"
+            landmarkName = "fetchTrainingLocationModelDatasFromUserDefault()"
             landmarkType = "7">
             <Locations>
                <Location
