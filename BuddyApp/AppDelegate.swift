@@ -71,6 +71,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             sourceApplication: sourceApplication,
             annotation: annotation)
         
+        if url.scheme?.localizedCaseInsensitiveCompare("com.titechnologies.BuddyApp.payments") == .orderedSame {
+            print("Paypal open url in AppDelegate")
+            return BTAppSwitch.handleOpen(url, sourceApplication: sourceApplication)
+        }
+        
         return googleDidHandle || facebookDidHandle
     }
     

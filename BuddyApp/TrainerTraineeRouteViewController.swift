@@ -87,9 +87,10 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         self.title = PAGE_TITLE.TRAINING_SESSION
         
-//        isShowingWaitingForExtendRequest
-                
-        if let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest"){
+        if let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool{
+            if isShowingWaitingForExtendRequest {
+                NewLoadingView()
+            }
         }
         
         if TIMERCHECK {
@@ -285,7 +286,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             appDelegate.timerrunningtime = false
             TrainerProfileDetail.deleteBookingDetails()
             
-            v.removeFromSuperview()
+            hideLoadingView()
 
             self.RateViewScreen()
             
@@ -339,6 +340,9 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
     }
     
+    
+    //MARK: - SHOW/HIDE LOADING VIEW
+    
     func NewLoadingView(){
         
       //  let v = UIView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
@@ -358,13 +362,24 @@ class TrainerTraineeRouteViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.text = WAITING_FOR_TRAINEE_EXTEND_REQUEST_ACTION
         
-        
-        
         v.addSubview(v1)
         v.addSubview(label)
-        
         window.addSubview(v)
+        autoDismissLoadingView()
+    }
+    
+    func autoDismissLoadingView() {
         
+        let when = DispatchTime.now() + 60
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.hideLoadingView()
+        }
+    }
+    
+    func hideLoadingView() {
+        
+        userDefaults.set(false, forKey: "isShowingWaitingForExtendRequest")
+        v.removeFromSuperview()
     }
     
     func RunningTimeData(){
