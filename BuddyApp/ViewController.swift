@@ -210,8 +210,18 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
             appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
             
-            self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+            if appDelegate.USER_TYPE == "trainer"
+            {
+                
+            }
+            else{
+                
+                self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
 
+                
+            }
+            
+           
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
         }
     }
