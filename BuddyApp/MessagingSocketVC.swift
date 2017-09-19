@@ -107,7 +107,9 @@ extension MessagingSocketVC {
     func getSocketConnected() {
         print("**** getSocketConnected ******")
         parameterdict.setValue("/connectSocket/connectSocket", forKey: "url")
-        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+        //SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+        
+        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
     }
     
     func socketListener() {
