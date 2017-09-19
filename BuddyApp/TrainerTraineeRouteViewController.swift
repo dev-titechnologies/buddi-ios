@@ -87,6 +87,11 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         self.title = PAGE_TITLE.TRAINING_SESSION
         
+//        isShowingWaitingForExtendRequest
+                
+        if let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest"){
+        }
+        
         if TIMERCHECK {
             print("Timer Check ******")
             FetchFromDb()
@@ -334,8 +339,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
     }
     
-    func NewLoadingView()
-    {
+    func NewLoadingView(){
         
       //  let v = UIView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
         
@@ -360,10 +364,11 @@ class TrainerTraineeRouteViewController: UIViewController {
         v.addSubview(label)
         
         window.addSubview(v)
-           }
+        
+    }
     
-    func RunningTimeData()
-    {
+    func RunningTimeData(){
+        
         if userDefaults.value(forKey: "TimerData") != nil {
             
             TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
@@ -591,15 +596,11 @@ class TrainerTraineeRouteViewController: UIViewController {
                 showDoYouWantToExtendAlertPage()
             }else{
                // showWaitingForTraineeExtendRequest()
-                
                 self.NewLoadingView()
-                
-                
+                userDefaults.set(true, forKey: "isShowingWaitingForExtendRequest")
             }
 //            self.BookingAction(Action_status: "complete")
-            
         } else {
-            
             seconds -= 1
             //  timerLabel.text = timeString(time: TimeInterval(seconds))
             print("SECONDS",seconds)

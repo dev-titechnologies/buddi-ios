@@ -13,4 +13,6 @@ class TrainingLocationModel {
     var locationName: String = String()
     var locationLatitude: String = String()
     var locationLongitude: String = String()
+    
+    
 }

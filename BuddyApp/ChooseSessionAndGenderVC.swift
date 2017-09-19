@@ -68,6 +68,11 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_PREFERRED_GENDER, buttonTitle: "Ok")
         }else{
             if isLocationAccessAllowed{
+                
+                //This userdefault value will be used to check the previous booking from when reopening the app.
+                //1 . Instant Booking - instantBooking, 2. Usual Booking Request - usualBooking
+                userDefaults.set("usualBooking", forKey: "previousBookingRequestVia")
+
                 showTrainersList(parameters: getShowTrainersListParameters())
             }else{
                 openDeviceSettingsForLocationAccess()
@@ -249,7 +254,7 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        return 85
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

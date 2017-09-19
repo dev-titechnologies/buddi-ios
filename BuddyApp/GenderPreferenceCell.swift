@@ -17,32 +17,38 @@ class GenderPreferenceCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        btnMale.backgroundColor = .white
-        btnFemale.backgroundColor = .white
-        btnNopreferance.backgroundColor = .white
+//        btnMale.backgroundColor = .white
+//        btnFemale.backgroundColor = .white
+//        btnNopreferance.backgroundColor = .white
     }
     
     @IBAction func NoPreferaceAction(_ sender: Any) {
         
-        btnNopreferance.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-        btnFemale.backgroundColor = .white
-        btnMale.backgroundColor = .white
-        choosedTrainerGenderOfTraineePreference = "No Preference"
+//        print("NoPreferaceAction")
+//        btnNopreferance.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+//        btnFemale.backgroundColor = .white
+//        btnMale.backgroundColor = .white
+//        choosedTrainerGenderOfTraineePreference = "No Preference"
     }
     
     @IBAction func btnMaleAction(_ sender: Any) {
         
-        btnMale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-        btnNopreferance.backgroundColor = .white
-        btnFemale.backgroundColor = .white
-        choosedTrainerGenderOfTraineePreference = "Male"
+//        print("btnMaleAction")
+//
+//        btnMale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+//        btnNopreferance.backgroundColor = .white
+//        btnFemale.backgroundColor = .white
+//        choosedTrainerGenderOfTraineePreference = "Male"
     }
     
     @IBAction func btnFemaleAction(_ sender: Any) {
-        btnMale.backgroundColor = .white
-        btnNopreferance.backgroundColor = .white
-        choosedTrainerGenderOfTraineePreference = "Female"
-        btnFemale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+       
+//        print("btnFemaleAction")
+//
+//        btnMale.backgroundColor = .white
+//        btnNopreferance.backgroundColor = .white
+//        choosedTrainerGenderOfTraineePreference = "Female"
+//        btnFemale.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
