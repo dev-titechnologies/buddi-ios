@@ -26,7 +26,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     
   
-    
+    var frompushBool = Bool()
     var TIMERCHECK = Bool()
     var locationManager: CLLocationManager!
     var lat = Float()
@@ -77,7 +77,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         v = UIView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
         
         appDelegate.TrainerProfileDictionary = nil
-        
+        frompushBool = false
         
         print("Trainer Profile Details : \(trainerProfileDetails)")
         print("*****  Received Trainer Profile Dict1:\(TrainerProfileDictionary)")
@@ -134,6 +134,12 @@ class TrainerTraineeRouteViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillResignActive, object:nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidBecomeActive, object:nil)
+
+
         
         
         // Define identifier
@@ -266,6 +272,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         if notif.userInfo!["pushData"] as! String == "2"{
             
+            // START SESSION
+            frompushBool = true
             print("OK")
             print("START CLICK")
             self.SessionStartAPI()
@@ -273,6 +281,9 @@ class TrainerTraineeRouteViewController: UIViewController {
             self.TIMERCHECK = true
             self.collectionview.reloadData()
 
+            
+            
+           //  CommonMethods.alertView(view: self, title: ALERT_TITLE, message: trainerProfileDetails.firstName, buttonTitle: "Ok")
 //        
 //            let alertController = UIAlertController(title: ALERT_TITLE, message: "Session has started", preferredStyle: UIAlertControllerStyle.alert)
 //        
@@ -431,6 +442,10 @@ class TrainerTraineeRouteViewController: UIViewController {
             
         }else if notif.name.rawValue == "UIApplicationDidEnterBackgroundNotification"{
             self.timer.invalidate()
+        }else if notif.name.rawValue == "UIApplicationWillResignActiveNotification"
+        {
+            self.timer.invalidate()
+            
         }
     }
 
@@ -593,7 +608,19 @@ class TrainerTraineeRouteViewController: UIViewController {
                         self.runTimer()
                     }
                     
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
+                    if self.frompushBool
+                    {
+                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: self.trainerProfileDetails.firstName + " " + "started the Session", buttonTitle: "Ok")
+                        
+                        
+                        self.frompushBool = false
+                    }
+                    else
+                    {
+                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
+                    }
+                    
+                   
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -634,7 +661,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         } else {
             seconds -= 1
             //  timerLabel.text = timeString(time: TimeInterval(seconds))
-            print("SECONDS",seconds)
+           // print("SECONDS",seconds)
             appDelegate.timerrunningtime = true
             
             myMutableString = NSMutableAttributedString(string: timeString(time: TimeInterval(seconds)), attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 70.0)])
