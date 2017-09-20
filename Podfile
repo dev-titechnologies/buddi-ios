@@ -32,9 +32,6 @@ target 'BuddyApp' do
     
     pod 'NVActivityIndicatorView'
     
-#    pod 'Fabric'
-#    pod 'Crashlytics'
-
   # Pods for BuddyApp
 
   target 'BuddyAppTests' do

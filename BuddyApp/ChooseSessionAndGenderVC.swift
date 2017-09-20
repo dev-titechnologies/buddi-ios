@@ -21,8 +21,11 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     var collapseArray = [Bool]()
     var sessionChoosed = Int()
     var headerChoosed = Int()
-    var isChoosedGender = Bool()
     
+    var isChoosedSessionDuration = Bool()
+    var isChoosedGender = Bool()
+    var isChoosedLocation = Bool()
+
     var locationManager: CLLocationManager!
     var lat = String()
     var long = String()
@@ -66,6 +69,8 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_SESSION_DURATION, buttonTitle: "Ok")
         }else if choosedTrainerGenderOfTrainee.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_PREFERRED_GENDER, buttonTitle: "Ok")
+        }else if choosed_location_name.isEmpty{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_PREFERRED_LOCATION, buttonTitle: "Ok")
         }else{
             if isLocationAccessAllowed{
                 
@@ -327,7 +332,7 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
         userDefaults.set(choosedTrainerGenderOfTrainee, forKey: "backupTrainingGenderChoosed")
         
         isChoosedGender = true
-        if !choosedSessionOfTrainee.isEmpty{
+        if isChoosedSessionDuration && isChoosedLocation {
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }else{
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
@@ -372,12 +377,14 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
             }else{
                 choosedSessionOfTrainee = "60"
             }
+        
+            isChoosedSessionDuration = true
             choosed_session_duration = trainingDurationArray[indexPath.row]
         }
         print("Choosed Session:\(choosedSessionOfTrainee)")
         userDefaults.set(choosedSessionOfTrainee, forKey: "backupTrainingSessionChoosed")
         
-        if !choosedSessionOfTrainee.isEmpty && isChoosedGender {
+        if isChoosedSessionDuration && isChoosedGender && isChoosedLocation{
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }else{
             btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
@@ -437,6 +444,14 @@ extension ChooseSessionAndGenderVC: GMSPlacePickerViewControllerDelegate {
         trainingLocationModelObj.locationLongitude = String(place.coordinate.longitude)
         
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: CommonMethods.getDictionaryFromTrainingLocationModel(training_location_model: trainingLocationModelObj)), forKey: "TrainingLocationModelBackup")
+
+        isChoosedLocation = true
+        
+        if isChoosedSessionDuration && isChoosedGender {
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+        }else{
+            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
+        }
 
         choosed_location_name = place.name
         self.chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 2), with: .automatic)

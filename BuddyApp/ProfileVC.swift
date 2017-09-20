@@ -39,6 +39,11 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     var isEditingProfile = Bool()
     var isUpdatingProfileImage = Bool()
     
+    var isFromRouteVC = Bool()
+    var userType = String()
+    var userId = String()
+    
+    @IBOutlet weak var btnMenu: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,6 +57,12 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
 
         if !isUpdatingProfileImage{
             changeTextColorGrey()
+            
+            if isFromRouteVC{
+                btnMenu.isHidden = true
+                edit_btn.title = "Done"
+            }
+            
             fetchFromDBAndServer()
         }
     }
@@ -160,6 +171,12 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         guard CommonMethods.networkcheck() else {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
+            return
+        }
+        
+        guard !isFromRouteVC else {
+            print("Poping viewcontroller as isFromRouteVC is true")
+            navigationController?.popViewController(animated: true)
             return
         }
         
@@ -306,9 +323,16 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
             return
         }
-
-        let parameters = ["user_type":appDelegate.USER_TYPE,
+        
+        var parameters = [String : Any]()
+        
+        if isFromRouteVC{
+            parameters = ["user_type": userType,
+                          "user_id": userId] as [String : Any]
+        }else{
+            parameters = ["user_type":appDelegate.USER_TYPE,
                           "user_id":appDelegate.UserId] as [String : Any]
+        }
         
         let headers = [
             "token":appDelegate.Usertoken ]
