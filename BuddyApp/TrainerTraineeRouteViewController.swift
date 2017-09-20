@@ -87,16 +87,25 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         self.title = PAGE_TITLE.TRAINING_SESSION
         
-        if let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool{
-            if isShowingWaitingForExtendRequest {
-                NewLoadingView()
-            }
-        }
         
         if TIMERCHECK {
             print("Timer Check ******")
             FetchFromDb()
-            self.runTimer()
+            
+            if let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool{
+                if isShowingWaitingForExtendRequest {
+                    NewLoadingView()
+                }
+                else
+                {
+                    self.runTimer()
+                }
+            }
+            else
+            {
+                self.runTimer()
+            }
+  
         }else{
             initializeSession()
         }
@@ -320,7 +329,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         }else if notif.userInfo!["pushData"] as! String == "6"{
             
             
-            userDefaults.removeObject(forKey: "TimerData")
+           // userDefaults.removeObject(forKey: "TimerData")
             userDefaults.set(false, forKey: "sessionBookedNotStarted")
             
             TIMERCHECK = false

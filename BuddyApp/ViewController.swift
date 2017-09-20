@@ -94,7 +94,19 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                             self.loginCheck()
                         }
                     }
-                }else{
+                }
+                    else if userDefaults.value(forKey: "isShowingWaitingForExtendRequest") != nil
+                {
+                    
+                    let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool
+                    if isShowingWaitingForExtendRequest!
+                    {
+                        self.showTimer(time: 0)
+                    }
+                        
+                }
+                
+                else{
                     if userDefaults.value(forKey: "devicetoken") != nil {
                         appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
                         print("TOKEN",appDelegate.DeviceToken)
