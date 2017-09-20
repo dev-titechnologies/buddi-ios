@@ -46,8 +46,6 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
 
         if appDelegate.TrainerProfileDictionary != nil{
             //  BOOKED A SESSION
-            
-
             self.GoTimerPageFromKilledState_Notification(dict:appDelegate.TrainerProfileDictionary)
         }else{
                    
@@ -152,7 +150,6 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
     func tokenReceived() {
         print("======= Token Received Function Call in ViewController =======")
-       // CommonMethods.alertView(view:self, title: ALERT_TITLE, message: "tokenReceived", buttonTitle: "Ok")
         initilizeSessionChecks()
     }
     

@@ -48,33 +48,28 @@ class BookingHistoryVC: UIViewController {
                 
                 if status == RESPONSE_STATUS.SUCCESS {
                     print("Booking History Response:",jsondata)
+                  
+                    if let booking_history_array = jsondata["data"] as? NSArray{
                     
-                    
-                    
-                  if let booking_history_array = jsondata["data"] as? NSArray 
-                  {
-                    for booking_history in booking_history_array{
+                        for booking_history in booking_history_array{
                         
-                        let modelObject = self.bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: booking_history as! Dictionary<String, Any>)
-                        print(modelObject)
-                        BookingHistoryDB.createBookingEntry(bookingModel: modelObject)
-                        self.bookingsArray.append(modelObject)
-                        
-                        if self.bookingsArray.count > 0 {
-                            self.bookingHistoryTable.isHidden = false
-                            self.bookingHistoryTable.reloadData()
-                        }else{
-                            self.bookingHistoryTable.isHidden = true
+                            let modelObject = self.bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: booking_history as! Dictionary<String, Any>)
+                            print(modelObject.trainedDate)
+                            print(modelObject.bookingId)
+                            BookingHistoryDB.createBookingEntry(bookingModel: modelObject)
+                            self.bookingsArray.append(modelObject)
+                            
+                            self.bookingsArray.reverse()
+                            
+                            if self.bookingsArray.count > 0 {
+                                self.bookingHistoryTable.isHidden = false
+                                self.bookingHistoryTable.reloadData()
+                            }else{
+                                self.bookingHistoryTable.isHidden = true
+                            }
                         }
                     }
-
-                    
-                    }
-                    else
-                  {
-                    
-                    }
-                                   }else if status == RESPONSE_STATUS.FAIL{
+                }else if status == RESPONSE_STATUS.FAIL{
                       CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
 
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{

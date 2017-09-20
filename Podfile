@@ -31,6 +31,9 @@ target 'BuddyApp' do
     pod 'JSQMessagesViewController'
     
     pod 'NVActivityIndicatorView'
+    
+#    pod 'Fabric'
+#    pod 'Crashlytics'
 
   # Pods for BuddyApp
 
