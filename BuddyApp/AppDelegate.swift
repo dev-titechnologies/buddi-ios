@@ -496,9 +496,9 @@ extension AppDelegate: FIRMessagingDelegate {
             
             if abs(response.notification.date.timeIntervalSinceNow) > 30
             {
-                print("TIME EXPAIRED")
+                print("TIME EXPIRED")
                 
-                CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Request time expaired", buttonTitle: "Ok")
+                CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Request time expired", buttonTitle: "Ok")
                 
             }
             else

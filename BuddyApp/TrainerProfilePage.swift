@@ -56,6 +56,8 @@ class TrainerProfilePage: UIViewController {
         super.viewDidLoad()
         
         self.title = PAGE_TITLE.TRAINER_PROFILE
+        
+      
 
         SocketIOManager.sharedInstance.establishConnection()
         StatusSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
