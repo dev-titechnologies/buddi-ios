@@ -301,7 +301,10 @@ class TrainerTraineeRouteViewController: UIViewController {
         }else if notif.userInfo!["pushData"] as! String == "3"{
             self.timer.invalidate()
              self.timer_lbl.text = "00" + ":" + "00"
-            removeTransactionDetailsFromUserDefault()
+            
+            //Removing userdefault values of transaction details
+            CommonMethods.removeTransactionDetailsFromUserDefault()
+            
             userDefaults.removeObject(forKey: "TimerData")
             appDelegate.timerrunningtime = false
             TrainerProfileDetail.deleteBookingDetails()
@@ -319,7 +322,7 @@ class TrainerTraineeRouteViewController: UIViewController {
            // self.BookingAction(Action_status: "cancel")
         }else if notif.userInfo!["pushData"] as! String == "4"{
             
-           // print()
+           print("***** Session have been Completed ******")
             
             self.timer.invalidate()
             
@@ -541,6 +544,9 @@ class TrainerTraineeRouteViewController: UIViewController {
                             userDefaults.removeObject(forKey: "TimerData")
                             userDefaults.set(false, forKey: "sessionBookedNotStarted")
                             userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+                            
+                            //Clear transaction details from userdefault
+                            CommonMethods.removeTransactionDetailsFromUserDefault()
 
                             TrainerProfileDetail.deleteBookingDetails()
                             appDelegate.timerrunningtime = false
@@ -872,7 +878,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ENTER_CANCEL_REASON, buttonTitle: "OK")
         }else{
-            removeTransactionDetailsFromUserDefault()
+            CommonMethods.removeTransactionDetailsFromUserDefault()
             self.BookingAction(Action_status: "cancel")
         }
     }
@@ -1030,14 +1036,18 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         if sender.tag == 0 && !isTimerRunning{
             
             print("CANCEL ACTION")
-            removeTransactionDetailsFromUserDefault()
+            
+            CommonMethods.removeTransactionDetailsFromUserDefault()
+            
             cancelAlertView.isHidden = false
             cancelAlertViewTitle.text = ARE_YOU_SURE_WANT_TO_CANCEL_SESSION
             
         }else if sender.tag == 1 {
             print("START AND STOP ACTIONS")
             print("Bool Array:\(BoolArray)")
-            removeTransactionDetailsFromUserDefault()
+            
+            CommonMethods.removeTransactionDetailsFromUserDefault()
+            
             if !BoolArray[1]{
                 //START
                 print("START CLICK")
@@ -1070,18 +1080,6 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         }
     }
     
-    func removeTransactionDetailsFromUserDefault() {
-        //Clear the Userdefault values related to the Transaction
-    
-        userDefaults.removeObject(forKey: "backupPaymentTransactionId")
-        userDefaults.removeObject(forKey: "backupIsTransactionAmount")
-        userDefaults.removeObject(forKey: "backupIsTransactionSuccessfull")
-        userDefaults.removeObject(forKey: "backupTrainingCategoryChoosed")
-        userDefaults.removeObject(forKey: "backupTrainingGenderChoosed")
-        userDefaults.removeObject(forKey: "backupTrainingSessionChoosed")
-        userDefaults.removeObject(forKey: "backupIsTransactionStatus")
-        userDefaults.removeObject(forKey: "TrainingLocationModelBackup")
-    }
 }
 
 
