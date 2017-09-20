@@ -11,8 +11,9 @@ class TrainerProfileModal{
     
     var profileImage : String = String()
     var Booking_id: String = String()
+    var categoryId: String = String()
     var Trainer_id: String = String()
-     var Trainee_id: String = String()
+    var Trainee_id: String = String()
     var firstName: String = String()
     var lastName: String = String()
     var mobile: String = String()
@@ -65,6 +66,7 @@ class TrainerProfileModal{
         model.firstName =  trainerDetailsDict["trainer_first_name"] as! String
         model.lastName = trainerDetailsDict["trainer_last_name"] as! String
         model.Booking_id = String(dictionary["book_id"] as! Int)
+        model.categoryId = String(dictionary["cat_id"] as! Int)
         model.Trainer_id = String(trainerDetailsDict["trainer_id"] as! Int)
         model.Trainee_id = String(appDelegate.UserId)
         model.gender = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_gender"] as? String)
