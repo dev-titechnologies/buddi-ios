@@ -80,6 +80,8 @@ class ShowTrainersOnMapVC: UIViewController {
         getCurrentLocationDetails()
 
         if isFromSplashScreen{
+            
+            //This will not called as a latest change. User will be redirected to the Trainee home page and he can book with previous payment details
             print("**** ShowTrainersOnMap Page from Splash screen")
             self.navigationItem.hidesBackButton = true
             btnRefresh.isHidden = false

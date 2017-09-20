@@ -873,6 +873,11 @@ class TrainerTraineeRouteViewController: UIViewController {
             //To Messaging Page
             let messagingPage = segue.destination as! MessagingSocketVC
             messagingPage.sessionDetailModelObj = createSessionDetailModel(detailsDict: trainerProfileDetails)
+        }else if segue.identifier == "fromTimerToTraineeProfileSegue" {
+            let traineeProfile =  segue.destination as! ProfileVC
+            traineeProfile.isFromRouteVC = true
+            traineeProfile.userType = "trainee"
+            traineeProfile.userId = self.trainerProfileDetails.Trainee_id
         }
         
         //For REview Segue
@@ -1083,7 +1088,12 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             }
         }else if sender.tag == 2{
              print("PROFILE ACTION")
-            self.performSegue(withIdentifier: "fromtimertotrainerprofile", sender: self)
+            
+            if appDelegate.USER_TYPE == "trainee"{
+                self.performSegue(withIdentifier: "fromtimertotrainerprofile", sender: self)
+            }else if appDelegate.USER_TYPE == "trainer" {
+                self.performSegue(withIdentifier: "fromTimerToTraineeProfileSegue", sender: self)
+            }
         }else if sender.tag == 3{
              print("MESSAGE ACTION")
             performSegue(withIdentifier: "fromSessionPageToMessagingSegue", sender: self)

@@ -279,8 +279,11 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             print("Payment Status from backup:\(paymentStatus)")
             
             if paymentStatus {
-                print("*** Redirecting to Show trainers page")
-                self.performSegue(withIdentifier: "splashToShowTrainersPageSegue", sender:self)
+//                print("*** Redirecting to Show trainers page")
+//                self.performSegue(withIdentifier: "splashToShowTrainersPageSegue", sender:self)
+                
+                //Latest change. If payment success and killed the app. user will be again launch to home page for next booking with the previous payment details.
+                self.performSegue(withIdentifier: "toTraineeHomeSegue", sender:self)
             }
         }else{
             print("**** TEST Payment Check")
