@@ -181,11 +181,11 @@ class TrainerTraineeRouteViewController: UIViewController {
             seconds = Int(sessionTime)!*60
             print("========== Session Duration Seconds:\(sessionTime) ")
             //For testing purpose
-            seconds = 20
+            seconds = 60
             timer_lbl.text = sessionTime + ":" + "00"
         }else{
             //For testing purpose
-            seconds = 20
+            seconds = 60
             timer_lbl.text = String(seconds/60) + ":" + "00"
             
             let Trainee_Dict = TrainerProfileDictionary["trainee_details"] as! Dictionary<String, Any>
@@ -609,8 +609,9 @@ class TrainerTraineeRouteViewController: UIViewController {
             
             if appDelegate.USER_TYPE == "trainee" {
                 showDoYouWantToExtendAlertPage()
-            }else{
+            }else if appDelegate.USER_TYPE == "trainer"{
                // showWaitingForTraineeExtendRequest()
+                print("***** Show Loading View for Trainer *****")
                 self.NewLoadingView()
                 userDefaults.set(true, forKey: "isShowingWaitingForExtendRequest")
             }

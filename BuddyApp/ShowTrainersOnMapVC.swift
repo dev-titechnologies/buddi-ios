@@ -60,6 +60,7 @@ class ShowTrainersOnMapVC: UIViewController {
     var trainingLocationModelObject = TrainingLocationModel()
     var preferenceModelObj = PreferenceModel()
 
+    @IBOutlet weak var btnHome: UIButton!
     
     //MARK: - VIEW CYCLES
     
@@ -141,16 +142,6 @@ class ShowTrainersOnMapVC: UIViewController {
         if let clientToken = userDefaults.value(forKey: "clientTokenForPayment") as? String{
             fetchExistingPaymentMethod(clientToken: clientToken)
             isClientTokenPresent = true
-        }
-    }
-    
-    @IBAction func refreshAction(_ sender: Any) {
-        print("******* Refresh Action *******")
-        
-        if isFromInstantBooking{
-            showTrainersList(parameters: getShowTrainersListParametersFromPreference())
-        }else{
-            showTrainersList(parameters: getShowTrainersListParametersFromBackup())
         }
     }
     
@@ -273,6 +264,23 @@ class ShowTrainersOnMapVC: UIViewController {
                 self.DrowRoute(OriginLat: Float(self.lat)!, OriginLong: Float(self.long)!, DestiLat: Float((messageInfo["message"] as! NSDictionary)["latitude"] as! String)!, DestiLong: Float((messageInfo["message"] as! NSDictionary)["longitude"] as! String!)!)
                 
             })
+        }
+    }
+    
+    //MARK: - REFRESH/HOME ACTIONS
+    
+    @IBAction func homeAction(_ sender: Any) {
+        print("Home Action")
+        
+    }
+    
+    @IBAction func refreshAction(_ sender: Any) {
+        print("******* Refresh Action *******")
+        
+        if isFromInstantBooking{
+            showTrainersList(parameters: getShowTrainersListParametersFromPreference())
+        }else{
+            showTrainersList(parameters: getShowTrainersListParametersFromBackup())
         }
     }
     
