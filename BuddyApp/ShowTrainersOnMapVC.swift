@@ -88,7 +88,13 @@ class ShowTrainersOnMapVC: UIViewController {
                 showWaitingForAcceptancePage()
             }
         }else{
+            
+             if userDefaults.value(forKey: "promocode") != nil{
+            }
+            else
+             {
             fetchClientTokenFromUserDefault()
+            }
         }
     }
     
@@ -164,21 +170,41 @@ class ShowTrainersOnMapVC: UIViewController {
             RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromBackup())
         }else if isFromInstantBooking{
             print("***** isFromInstantBooking *******")
-            if isPaymentSuccess{
-                RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromPreference())
-            }else if isNoncePresent {
-                postNonceToServer(paymentMethodNonce: paymentNonce)
-            }else{
-                alertForAddPaymentMethod()
+            if userDefaults.value(forKey: "promocode") != nil{
             }
+            else
+            {
+                if isPaymentSuccess{
+                    RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromPreference())
+                }else if isNoncePresent {
+                    postNonceToServer(paymentMethodNonce: paymentNonce)
+                }else{
+                    alertForAddPaymentMethod()
+                }
+            }
+            
+            
+         
         }else{
-            if isPaymentSuccess{
+            
+            if userDefaults.value(forKey: "promocode") != nil{
+                
                 RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
-            }else if isNoncePresent {
-                postNonceToServer(paymentMethodNonce: paymentNonce)
-            }else{
-                alertForAddPaymentMethod()
             }
+            else
+            {
+
+                if isPaymentSuccess{
+                    RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
+                }else if isNoncePresent {
+                    postNonceToServer(paymentMethodNonce: paymentNonce)
+                }else{
+                    alertForAddPaymentMethod()
+                }
+            }
+            
+            
+           
         }
     }
     
