@@ -73,6 +73,7 @@ class ShowTrainersOnMapVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        checkIsPaymentSuccess()
         checkForBookingRequestVia()
         
 //        fetchTrainingLocationModelDatasFromUserDefault()
@@ -88,13 +89,19 @@ class ShowTrainersOnMapVC: UIViewController {
                 showWaitingForAcceptancePage()
             }
         }else{
+            if userDefaults.value(forKey: "promocode") != nil{
             
-             if userDefaults.value(forKey: "promocode") != nil{
+            }else{
+                fetchClientTokenFromUserDefault()
             }
-            else
-             {
-            fetchClientTokenFromUserDefault()
-            }
+        }
+    }
+    
+    func checkIsPaymentSuccess(){
+        print("***** checkIsPaymentSuccess ******")
+        if let paymentStatus = userDefaults.value(forKey: "backupIsTransactionSuccessfull") as? Bool{
+            print("Payment Status from backup:\(paymentStatus)")
+            isPaymentSuccess = paymentStatus
         }
     }
     
@@ -107,6 +114,9 @@ class ShowTrainersOnMapVC: UIViewController {
             //Values would be = instantBooking & usualBooking
             
             if previousBookingRequestVia == "instantBooking"{
+                
+                print("previousBookingRequestVia value is 'instantBooking'")
+
                 if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
                     let preferenceDict = userDefaults.value(forKey: "save_preferance") as! NSDictionary
                     preferenceModelObj = CommonMethods.getPreferenceObjectFromDictionary(dictionary: preferenceDict)
@@ -115,6 +125,7 @@ class ShowTrainersOnMapVC: UIViewController {
                 
             }else if previousBookingRequestVia == "usualBooking"{
                 
+                print("previousBookingRequestVia value is 'usualBooking'")
                 fetchTrainingLocationModelDatasFromUserDefault()
                 preferenceModelObj.locationName = trainingLocationModelObject.locationName
                 preferenceModelObj.locationLattitude = trainingLocationModelObject.locationLatitude
@@ -170,10 +181,10 @@ class ShowTrainersOnMapVC: UIViewController {
             RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromBackup())
         }else if isFromInstantBooking{
             print("***** isFromInstantBooking *******")
+            
             if userDefaults.value(forKey: "promocode") != nil{
-            }
-            else
-            {
+            
+            }else{
                 if isPaymentSuccess{
                     RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromPreference())
                 }else if isNoncePresent {
@@ -182,17 +193,13 @@ class ShowTrainersOnMapVC: UIViewController {
                     alertForAddPaymentMethod()
                 }
             }
-            
-            
-         
         }else{
             
+            print("***** Next Action Else Case *******")
+
             if userDefaults.value(forKey: "promocode") != nil{
-                
                 RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
-            }
-            else
-            {
+            }else{
 
                 if isPaymentSuccess{
                     RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
@@ -202,9 +209,6 @@ class ShowTrainersOnMapVC: UIViewController {
                     alertForAddPaymentMethod()
                 }
             }
-            
-            
-           
         }
     }
     
@@ -391,6 +395,9 @@ class ShowTrainersOnMapVC: UIViewController {
              userDefaults.removeObject(forKey: "promocode")
         }else{
             //With Payment Transaction
+            
+            //if payment has already paid and returned with new booking
+            getTransactionDetailsOncePaymentSuccessFromUserDefault()
             let transactionDict = ["transaction_id" : transactionId,
                                    "amount" : transactionAmount,
                                    "transaction_status" : transactionStatus
@@ -402,7 +409,12 @@ class ShowTrainersOnMapVC: UIViewController {
         return parameters
     }
     
-    
+    func getTransactionDetailsOncePaymentSuccessFromUserDefault() {
+        
+        transactionId = userDefaults.value(forKey: "backupPaymentTransactionId") as! String
+        transactionAmount = userDefaults.value(forKey: "backupIsTransactionAmount") as! String
+        transactionStatus = userDefaults.value(forKey: "backupIsTransactionStatus") as! String
+    }
     
     func getRandomSelectAPIParametersFromBackup() -> Dictionary <String,Any>{
         
@@ -453,6 +465,9 @@ class ShowTrainersOnMapVC: UIViewController {
             choosedCategoryOfTrainee.categoryId = preferenceModelObj.categoryId
         }
         
+        //if payment has already paid and returned with new booking
+        getTransactionDetailsOncePaymentSuccessFromUserDefault()
+        
         var parameters = ["trainee_id" : appDelegate.UserId,
                           "gender" : preferenceModelObj.gender,
                           "category" : preferenceModelObj.categoryId,
@@ -467,10 +482,7 @@ class ShowTrainersOnMapVC: UIViewController {
         if userDefaults.value(forKey: "promocode") != nil{
             //With Promo Code
             parameters = parameters.merged(with: ["promocode" : userDefaults.value(forKey: "promocode") as! String])
-            
             userDefaults.removeObject(forKey: "promocode")
-            
-            
         }else{
             //With Payment Transaction
             let transactionDict = ["transaction_id" : transactionId,

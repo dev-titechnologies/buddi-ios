@@ -126,7 +126,7 @@ extension MessagingSocketVC {
                 
                 let socketDict = messageInfo["message"] as! NSDictionary
                 
-                guard socketDict["from_id"] as! Int != appDelegate.UserId else{
+                guard String(describing: socketDict["from_id"]) != String(appDelegate.UserId) else{
                     print("Same users message has been received through socket, hence returned")
                     return
                 }

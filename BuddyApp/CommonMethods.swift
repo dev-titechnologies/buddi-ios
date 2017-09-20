@@ -212,6 +212,19 @@ class CommonMethods: NSObject {
         return preference_obj
     }
 
+    class func removeTransactionDetailsFromUserDefault() {
+        //Clear the Userdefault values related to the Transaction
+        
+        userDefaults.removeObject(forKey: "backupPaymentTransactionId")
+        userDefaults.removeObject(forKey: "backupIsTransactionAmount")
+        userDefaults.removeObject(forKey: "backupIsTransactionSuccessfull")
+        userDefaults.removeObject(forKey: "backupTrainingCategoryChoosed")
+        userDefaults.removeObject(forKey: "backupTrainingGenderChoosed")
+        userDefaults.removeObject(forKey: "backupTrainingSessionChoosed")
+        userDefaults.removeObject(forKey: "backupIsTransactionStatus")
+        userDefaults.removeObject(forKey: "TrainingLocationModelBackup")
+    }
+
 }
 
 class ButtonWithShadow: UIButton {
@@ -273,6 +286,9 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "clientTokenForPayment")
         userDefaults.removeObject(forKey: "paymentNonce")
         userDefaults.removeObject(forKey: "save_preferance")
+        
+        //Removing userdefault values of transaction details
+        CommonMethods.removeTransactionDetailsFromUserDefault()
 
         ProfileImageDB.deleteImages()
         ProfileDB.deleteProfile()
