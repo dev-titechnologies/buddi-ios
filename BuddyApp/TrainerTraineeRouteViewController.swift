@@ -79,7 +79,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         appDelegate.TrainerProfileDictionary = nil
         frompushBool = false
         
-        print("Trainer Profile Details : \(trainerProfileDetails)")
+        print("Trainer Profile Details : \(trainerProfileDetails.firstName)")
         print("*****  Received Trainer Profile Dict1:\(TrainerProfileDictionary)")
         
         //For Temporary Display
@@ -125,6 +125,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+          UIApplication.shared.isIdleTimerDisabled = true
+        
         print("**** viewWillAppear *****")
         print("*****  Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
         
@@ -159,6 +161,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        
+          UIApplication.shared.isIdleTimerDisabled = false
         isInSessionRoutePage = false
     }
    
