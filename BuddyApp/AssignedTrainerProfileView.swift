@@ -24,6 +24,9 @@ class AssignedTrainerProfileView: UIViewController {
     var TrainerprofileDictionary: NSDictionary!
     var TrainerId = String()
     
+    var trainingLocation = String()
+    var trainingCategory = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,8 +35,7 @@ class AssignedTrainerProfileView: UIViewController {
         assignedTrainerProfileView = ["Gym Subscriptions", "Training Category", "Training History", "Coaching History", "Certifications"]
         
         self.parseTrainerProfileDetails()
-        
-       // print(self.TrainerprofileDictionary)
+        print(self.TrainerprofileDictionary)
         
 // lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + " " + (self.TrainerprofileDictionary["last_name"] as? String)!
         
@@ -44,9 +46,11 @@ class AssignedTrainerProfileView: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
         
-         print("VIEWWILLAPPEAR")
+        self.navigationController?.isNavigationBarHidden = true
+        print("VIEWWILLAPPEAR")
+        
+        lblMeetingDescription.text = "You guys are meeting at \(trainingLocation) to train \(trainingCategory)"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -56,6 +60,7 @@ class AssignedTrainerProfileView: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
     func parseTrainerProfileDetails() {
         
         guard CommonMethods.networkcheck() else {
@@ -83,9 +88,10 @@ class AssignedTrainerProfileView: UIViewController {
                     
                      self.lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + " " + (self.TrainerprofileDictionary["last_name"] as? String)!
                     
-                           self.lblTrainerAge.text =  CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["age"] as? String)
-                            self.lblTrainerHeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["height"] as? String)
-                            self.lblTrainerWeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["weight"] as? String)
+                    self.lblTrainerAge.text =  CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["age"] as? String)
+                    self.lblTrainerHeight.text = CommonMethods.checkStringNull(val:
+                        self.TrainerprofileDictionary["height"] as? String)
+                    self.lblTrainerWeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["weight"] as? String)
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

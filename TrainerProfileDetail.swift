@@ -14,7 +14,7 @@ public class TrainerProfileDetail: NSManagedObject {
     
     class func createProfileBookingEntry(TrainerProfileModal: TrainerProfileModal) {
         
-        print("*** Review ID:",TrainerProfileModal.userid)
+        print("*** createProfileBookingEntry for Trainer with ID:",TrainerProfileModal.userid)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TrainerProfileDetail")
         fetchRequest.predicate = NSPredicate(format: "userId == %@", TrainerProfileModal.userid)
         

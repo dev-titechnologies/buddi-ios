@@ -22,9 +22,6 @@ class TrainerTraineeRouteViewController: UIViewController {
 //    var sessionDetailModel: SessionDetailModel = SessionDetailModel()
     let window = UIApplication.shared.keyWindow!
     var v = UIView()
-    
-    
-    
   
     var frompushBool = Bool()
     var TIMERCHECK = Bool()
@@ -68,6 +65,8 @@ class TrainerTraineeRouteViewController: UIViewController {
 
     var isInSessionRoutePage = Bool()
     
+    var categoryId = String()
+    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -95,17 +94,12 @@ class TrainerTraineeRouteViewController: UIViewController {
             if let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool{
                 if isShowingWaitingForExtendRequest {
                     NewLoadingView()
-                }
-                else
-                {
+                }else{
                     self.runTimer()
                 }
-            }
-            else
-            {
+            }else{
                 self.runTimer()
             }
-  
         }else{
             initializeSession()
         }
@@ -202,7 +196,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             //For testing purpose
             seconds = 60
             timer_lbl.text = sessionTime + ":" + "00"
-        }else{
+        }else if appDelegate.USER_TYPE == "trainer"{
             //For testing purpose
             seconds = 60
             timer_lbl.text = String(seconds/60) + ":" + "00"
@@ -399,6 +393,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         let when = DispatchTime.now() + 60
         DispatchQueue.main.asyncAfter(deadline: when) {
+            print("****** autoDismissLoadingView after timeout 60 Seconds ******")
+            self.BookingAction(Action_status: "complete")
             self.hideLoadingView()
         }
     }
@@ -863,6 +859,10 @@ class TrainerTraineeRouteViewController: UIViewController {
             //To Trainer/Trainee Profile
             let TrainerProPage =  segue.destination as! AssignedTrainerProfileView
             TrainerProPage.TrainerId = self.trainerProfileDetails.Trainer_id
+            TrainerProPage.trainingLocation = self.trainerProfileDetails.PickUpLocation
+            print("CATEG ID received", self.trainerProfileDetails.categoryId)
+            TrainerProPage.trainingCategory = CategoryDB.getCategoryByCategoryID(categoryId: self.trainerProfileDetails.categoryId)
+            
         }else if segue.identifier == "fromSessionPageToMessagingSegue" {
             //To Messaging Page
             let messagingPage = segue.destination as! MessagingSocketVC
