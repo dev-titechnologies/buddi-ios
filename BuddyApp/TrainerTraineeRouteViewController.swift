@@ -354,7 +354,11 @@ class TrainerTraineeRouteViewController: UIViewController {
             
             seconds = Int(extentedTimeDict["extend_time"]! as! String)!*60
             
-            initializeSession()
+            seconds = 60
+            
+              timer_lbl.text = String(seconds/60) + ":" + "00"
+            
+           // initializeSession()
             self.runTimer()
         
             
@@ -861,7 +865,9 @@ class TrainerTraineeRouteViewController: UIViewController {
             TrainerProPage.TrainerId = self.trainerProfileDetails.Trainer_id
             TrainerProPage.trainingLocation = self.trainerProfileDetails.PickUpLocation
             print("CATEG ID received", self.trainerProfileDetails.categoryId)
-            TrainerProPage.trainingCategory = CategoryDB.getCategoryByCategoryID(categoryId: self.trainerProfileDetails.categoryId)
+           // TrainerProPage.trainingCategory = CategoryDB.getCategoryByCategoryID(categoryId: self.trainerProfileDetails.categoryId)
+            
+             TrainerProPage.trainingCategory = "croosfit"
             
         }else if segue.identifier == "fromSessionPageToMessagingSegue" {
             //To Messaging Page
