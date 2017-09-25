@@ -22,12 +22,15 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-           appDelegate.delegateFCM = self
+        print("ViewDidLoad ViewController")
+        
+        appDelegate.delegateFCM = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.isNavigationBarHidden = true
+        CommonMethods.googleAnalyticsScreenTracker(screenName: "ViewController Screen")
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
@@ -36,6 +39,12 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.AcceptRejactScreenNotification), name: AcceptNotification, object: nil)
     
+        print("***** Internet Connectivity:\(CommonMethods.networkcheck())")
+        
+        if !CommonMethods.networkcheck() && userDefaults.value(forKey: "devicetoken") as! String != "" {
+            print("No Network and Device token is empty in userDefaults")
+            initilizeSessionChecks()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

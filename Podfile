@@ -32,6 +32,8 @@ target 'BuddyApp' do
     
     pod 'NVActivityIndicatorView'
     
+    pod 'GoogleAnalytics'
+    
   # Pods for BuddyApp
 
   target 'BuddyAppTests' do

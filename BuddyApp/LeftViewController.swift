@@ -163,6 +163,11 @@ class LeftViewController: UIViewController {
     
     func LogOutAPI(){
         
+        guard CommonMethods.networkcheck() else {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
+            return
+        }
+
         let headers = [
             "device_id": appDelegate.DeviceToken,
             "device_imei": UIDevice.current.identifierForVendor!.uuidString,

@@ -224,6 +224,15 @@ class CommonMethods: NSObject {
         userDefaults.removeObject(forKey: "backupIsTransactionStatus")
         userDefaults.removeObject(forKey: "TrainingLocationModelBackup")
     }
+    
+    class func googleAnalyticsScreenTracker(screenName: String) {
+        
+        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
+        tracker.set(kGAIScreenName, value: screenName)
+        
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker.send(builder.build() as [NSObject : AnyObject])
+    }
 
 }
 
@@ -277,6 +286,7 @@ extension UIViewController {
     func dismissOnSessionExpire() {
         
         userDefaults.removeObject(forKey: "user_id")
+        userDefaults.removeObject(forKey: "devicetoken")
         userDefaults.removeObject(forKey: "token")
         userDefaults.removeObject(forKey: "userName")
         userDefaults.removeObject(forKey: "userEmailId")

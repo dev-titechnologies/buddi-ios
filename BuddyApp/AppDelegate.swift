@@ -19,6 +19,8 @@ import BraintreeDropIn
 import Firebase
 import FirebaseMessaging
 import GooglePlaces
+import Google
+
 //import FirebaseAnalytics
 //import FirebaseInstanceID
 
@@ -52,10 +54,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         GIDSignIn.sharedInstance().delegate = self
         IQKeyboardManager.sharedManager().enable = true
         
+        //For Google Analytics
+        
+        guard let gai = GAI.sharedInstance() else {
+            assert(false, "Google Analytics not configured correctly")
+        }
+        gai.tracker(withTrackingId: "UA-106775368-1")
+        gai.trackUncaughtExceptions = true
+        // Optional: set Logger to VERBOSE for debug information.
+        // Remove before app release.
+        gai.logger.logLevel = .verbose;
+        
         BTAppSwitch.setReturnURLScheme("com.titechnologies.BuddyApp.payments")
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
@@ -148,10 +160,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         FIRMessaging.messaging().connect { (error) in
             if error != nil {
                 print("Unable to connect with FCM. \(error?.localizedDescription ?? "")")
-               
             } else {
                 print("Connected to FCM.")
-                }
+            }
         }
     }
     
