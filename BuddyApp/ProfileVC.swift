@@ -279,6 +279,25 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
         
         if let image_url = profiledict["user_image"] as? String{
+            
+            print("PRO IMAGE",image_url)
+            
+            if let imagearray = ProfileImageDB.fetchImage() {
+                self.imageArray = imagearray as! Array<ProfileImageDB>
+                
+                guard self.imageArray.count > 0 else{
+                    return
+                }
+                self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
+                DispatchQueue.main.async {
+                    print("This is run on the main queue, after the previous code in outer block")
+                    self.profileImage.image = UIImage(data: self.objdata as Data)
+                }
+            }
+            else
+
+            {
+   
             profileImage.sd_setImage(with: URL(string:image_url)) { (image, error, cacheType, imageURL) in
                 
                 print("Image completion block")
@@ -290,6 +309,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                     self.profileImage.image = UIImage(named: "profileDemoImage")
                 }
             }
+        }
         }else{
             profileImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "profileDemoImage"))
         }
@@ -452,6 +472,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                                 //self.EditProfileAPI()
                                 
                                 self.EditProfileAPIforImage()
+                                
+                               
                                 
                                 ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: uploadImageData as Data as Data as NSData)
                             }else if status == RESPONSE_STATUS.FAIL{
