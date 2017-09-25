@@ -62,6 +62,7 @@ class TrainerProfilePage: UIViewController {
         SocketIOManager.sharedInstance.establishConnection()
         StatusSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
         self.UpdateLocationAPI(Status: "online")
+       //  timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
        
 
         
@@ -138,7 +139,7 @@ class TrainerProfilePage: UIViewController {
     }
     
     func updateLocation(){
-      //  print("counting..")
+        print("counting..")
         addHandlers()
     }
     
@@ -219,6 +220,8 @@ class TrainerProfilePage: UIViewController {
                     
                     if onlinedata["availabilityStatus"] as? String == "online"{
                         //self.addHandlers()
+                        
+                        
                         onlineavailabilty = true
                          self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
                         
@@ -254,14 +257,18 @@ class TrainerProfilePage: UIViewController {
         }else if notif.name.rawValue == "UIApplicationDidEnterBackgroundNotification"{
             print("ENTER BACKGROUND",notif.name.rawValue)
              self.timer.invalidate()
+            
+            print("AVAILABITY",onlineavailabilty)
+            
             if onlineavailabilty
             {
-                 self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
+                
+                
+                 timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
             }
             
             
-            
-            
+           
             
         }
     }

@@ -52,7 +52,17 @@ class AddPaymentMethodVC: UIViewController {
     }
     
     @IBAction func applyPromoCodeAction(_ sender: Any) {
-        applyPromoCode()
+        
+        if promocode_txt.text!.isEmpty {
+            
+             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Enter a promo code", buttonTitle: "OK")
+            
+        }else
+        {
+           applyPromoCode()
+        }
+        
+        
     }
     
     func getClientToken() {
@@ -204,7 +214,7 @@ class AddPaymentMethodVC: UIViewController {
                }
                 
                     
-                    
+                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Promo code added", buttonTitle: "Ok")    
                     
                     
                     
