@@ -41,10 +41,10 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
         print("***** Internet Connectivity:\(CommonMethods.networkcheck())")
         
-        if !CommonMethods.networkcheck() && userDefaults.value(forKey: "devicetoken") as! String != "" {
-            print("No Network and Device token is empty in userDefaults")
-            initilizeSessionChecks()
-        }
+//        if !CommonMethods.networkcheck() && userDefaults.value(forKey: "devicetoken") as! String != "" {
+//            print("No Network and Device token is empty in userDefaults")
+//            initilizeSessionChecks()
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

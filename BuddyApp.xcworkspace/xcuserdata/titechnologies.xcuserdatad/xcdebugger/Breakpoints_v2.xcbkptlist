@@ -10,43 +10,123 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "527608125.788624"
+            timestampString = "528182521.974628"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1085"
-            endingLineNumber = "1085"
+            startingLineNumber = "1081"
+            endingLineNumber = "1081"
             landmarkName = "TapedIndex(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
+            timestampString = "528018310.41988"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "405"
+            endingLineNumber = "405"
+            landmarkName = "autoDismissLoadingView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
+            timestampString = "528180612.789748"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "451"
+            endingLineNumber = "451"
+            landmarkName = "getRandomSelectAPIParameters()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
+            timestampString = "528180612.789748"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "491"
+            endingLineNumber = "491"
+            landmarkName = "getRandomSelectAPIParametersFromBackup()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
+            timestampString = "528180612.789748"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "761"
+            endingLineNumber = "761"
+            landmarkName = "postNonceToServer(paymentMethodNonce:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
+            timestampString = "528180612.789748"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "checkIsPaymentSuccess()"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "BuddyApp.TrainerTraineeRouteViewController.TapedIndex (sender : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UIButton&gt;) -&gt; ()"
+                  symbolName = "BuddyApp.ShowTrainersOnMapVC.checkIsPaymentSuccess (sessionDuration : Swift.String) -&gt; ()"
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/TrainerTraineeRouteViewController.swift"
-                  timestampString = "527751934.266179"
+                  urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/ShowTrainersOnMapVC.swift"
+                  timestampString = "528128706.513012"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1085"
-                  endingLineNumber = "1085"
-                  offsetFromSymbolStart = "4212">
+                  startingLineNumber = "110"
+                  endingLineNumber = "110"
+                  offsetFromSymbolStart = "504">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "BuddyApp.TrainerTraineeRouteViewController.(TapedIndex (sender : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UIButton&gt;) -&gt; ()).(closure #2)"
+                  symbolName = "BuddyApp.ShowTrainersOnMapVC.checkIsPaymentSuccess (sessionDuration : Swift.String) -&gt; ()"
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/TrainerTraineeRouteViewController.swift"
-                  timestampString = "527751934.269704"
+                  urlString = "file:///Users/titechnologies/Desktop/Jith%20iOS%20Projects/BuddyApp/buddy-ios/BuddyApp/BuddyApp/ShowTrainersOnMapVC.swift"
+                  timestampString = "528128706.516924"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1085"
-                  endingLineNumber = "1085"
-                  offsetFromSymbolStart = "16">
+                  startingLineNumber = "110"
+                  endingLineNumber = "110"
+                  offsetFromSymbolStart = "1064">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -57,13 +137,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/ChooseSessionAndGenderVC.swift"
-            timestampString = "527603045.809374"
+            filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
+            timestampString = "528180612.789748"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "387"
-            endingLineNumber = "387"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
+            landmarkName = "Next_action(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,13 +153,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/AppDelegate.swift"
-            timestampString = "527751607.958738"
+            filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
+            timestampString = "528180612.789748"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "showAlertRegardingPreviousPayment()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
