@@ -89,8 +89,22 @@ class CommonMethods: NSObject {
         dateFormatter.locale     = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
         
         let date = dateFormatter.date(from: dateString)
+      
         return date!
+    
     }
+    
+    class func convert24hrsTo12hrs(date: Date) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd  h:mm a"
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        
+        let dateString = formatter.string(from: date)
+        print("CURRENT DATE ",dateString)
+        return dateString
+    }
+
     
     class func getStringFromDate(date: Date) -> String{
         let date = NSDate()

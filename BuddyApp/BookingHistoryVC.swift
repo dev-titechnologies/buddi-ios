@@ -101,10 +101,18 @@ extension BookingHistoryVC: UITableViewDataSource{
         let cell: BookingHistoryTableCell = tableView.dequeueReusableCell(withIdentifier: "bookinghistorycellid") as! BookingHistoryTableCell
         
         let booking = bookingsArray[indexPath.row]
-        let stringDate = CommonMethods.getStringFromDate(date: booking.trainedDate)
+      
        
-        cell.date.text = stringDate
-        cell.lblDescription.text = booking.category + " session with " + booking.trainerName
+        cell.date.text = CommonMethods.convert24hrsTo12hrs(date: booking.trainedDate)
+        
+        
+        if appDelegate.USER_TYPE == "trainer"{
+            cell.lblDescription.text = booking.category + " session with " + booking.traineeName
+        }else{
+             cell.lblDescription.text = booking.category + " session with " + booking.trainerName
+        }
+        
+       
         cell.lblAmount.text = "$" + booking.amount
         cell.imgTrainingPic.sd_setImage(with: URL(string: booking.categoryImage), placeholderImage: UIImage(named: ""))
         

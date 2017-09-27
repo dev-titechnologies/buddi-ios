@@ -10,6 +10,7 @@ import Foundation
 
 class BookingHistoryModel {
     
+    var profilePic: String = String()
     var rating: String = String()
     var bookingId: String = String()
     var traineeId: String = String()
@@ -24,6 +25,8 @@ class BookingHistoryModel {
     var trainerImage: String = String()
     var amount : String = String()
     var categoryImage : String = String()
+    var extend_end : Date = Date()
+    var extend_start : Date = Date()
 
     init(){}
     
@@ -45,7 +48,8 @@ class BookingHistoryModel {
         
         let model: BookingHistoryModel = BookingHistoryModel()
         let trainedDate = CommonMethods.getDateFromString(dateString: dictionary["trained_date"] as! String)
-//        let categoryName = CategoryDB.getCategoryByCategoryID(categoryId: String(describing: dictionary["category"]!))
+        
+           
         
         let categArray = dictionary["category"] as! NSArray as Array
         let categoryName = categArray[0]["categoryName"] as! String
@@ -55,9 +59,12 @@ class BookingHistoryModel {
         model.bookingId = String(describing: dictionary["booking_id"]!)
         model.trainerId = String(describing: dictionary["trainer_id"]!)
         model.trainedDate = trainedDate
+        //model.extend_start = extend_start
+       // model.extend_end = extend_end
+        
+        model.profilePic = CommonMethods.checkStringNull(val:dictionary["profile_img"] as! String )
         model.category = categoryName
         model.rating = CommonMethods.checkStringNull(val: String(describing: dictionary["rating"]!))
-        
         model.paymentStatus = dictionary["payment_status"] as! String
         model.trainingStatus = dictionary["training_status"] as! String
         model.traineeId = String(describing: dictionary["trainee_id"]!)

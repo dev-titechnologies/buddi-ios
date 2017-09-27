@@ -207,7 +207,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             let Trainee_Dict = TrainerProfileDictionary["trainee_details"] as! Dictionary<String, Any>
             
             trainerProfileDetails = TrainerProfileModal.init(
-                 profileImage: "",
+                 profileImage: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_user_image"] as? String),
                  firstName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_first_name"] as? String),
                  lastName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_last_name"] as? String),
                  mobile: "91",
@@ -332,7 +332,9 @@ class TrainerTraineeRouteViewController: UIViewController {
             userDefaults.removeObject(forKey: "TimerData")
             appDelegate.timerrunningtime = false
             TrainerProfileDetail.deleteBookingDetails()
-            hideLoadingView()
+           //  v.removeFromSuperview()
+             hideLoadingView()
+
             self.RateViewScreen()
             
             
@@ -1028,7 +1030,13 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         
         if indexPath.row == 2{
             //Profile
-            cell1.menu_btn.setImage(UIImage(named: "man"), for: .normal)
+            
+            // imgTrainingPic.sd_setImage(with: URL(string: trainerProfileDetails.profileImage), placeholderImage: UIImage(named: ""))
+            
+            cell1.menu_btn.sd_setImage(with: URL(string: trainerProfileDetails.profileImage), for: .normal)
+            cell1.menu_btn.layer.cornerRadius = 20.5
+            cell1.menu_btn.clipsToBounds = true
+           // cell1.menu_btn.setImage(UIImage(named: "man"), for: .normal)
             cell1.name_lbl.text = trainerProfileDetails.firstName
         }
         

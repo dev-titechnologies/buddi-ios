@@ -10,6 +10,7 @@ import UIKit
 
 class HelpPageVC: UIViewController {
 
+    @IBOutlet weak var contactemail: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 

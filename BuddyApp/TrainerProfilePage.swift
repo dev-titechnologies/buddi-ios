@@ -35,8 +35,9 @@ class TrainerProfilePage: UIViewController {
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
     var timer = Timer()
-
     
+    var objdata = NSData()
+    var imageArray = Array<ProfileImageDB>()
     var isEditingProfile = Bool()
     var isUpdatingProfileImage = Bool()
     
@@ -397,6 +398,23 @@ class TrainerProfilePage: UIViewController {
         lblGender.text = (profile["gender"] as! String).uppercased()
         
         if let image_url = profile["user_image"] as? String{
+            
+            if let imagearray = ProfileImageDB.fetchImage() {
+                self.imageArray = imagearray as! Array<ProfileImageDB>
+                
+                guard self.imageArray.count > 0 else{
+                    return
+                }
+                self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
+                DispatchQueue.main.async {
+                    print("This is run on the main queue, after the previous code in outer block")
+                    self.profileImage.image = UIImage(data: self.objdata as Data)
+                }
+            }
+            else
+                
+            {
+            
             profileImage.sd_setImage(with: URL(string:image_url)) { (image, error, cacheType, imageURL) in
                 
                 print("Image completion block")
@@ -408,6 +426,7 @@ class TrainerProfilePage: UIViewController {
                     self.profileImage.image = UIImage(named: "profileDemoImage")
                 }
             }
+        }
         }else{
             profileImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "profileDemoImage"))
         }

@@ -63,6 +63,7 @@ class TrainerProfileModal{
         let trainerDetailsDict = dictionary["trainer_details"] as! Dictionary<String, Any>
         print("Trainer Basic Details:\(trainerDetailsDict)")
         
+        model.profileImage = CommonMethods.checkStringNull(val:trainerDetailsDict["trainer_user_image"] as? String)
         model.firstName =  trainerDetailsDict["trainer_first_name"] as! String
         model.lastName = trainerDetailsDict["trainer_last_name"] as! String
         model.Booking_id = String(dictionary["book_id"] as! Int)
