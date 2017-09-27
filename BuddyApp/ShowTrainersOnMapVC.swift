@@ -62,6 +62,10 @@ class ShowTrainersOnMapVC: UIViewController {
 
     @IBOutlet weak var btnHome: UIButton!
     
+    var isPaidAlready40Minutes = Bool()
+    var isPaidAlready60Minutes = Bool()
+
+    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -101,9 +105,17 @@ class ShowTrainersOnMapVC: UIViewController {
     
     func checkIsPaymentSuccess(){
         print("***** checkIsPaymentSuccess ******")
-        if let paymentStatus = userDefaults.value(forKey: "backupIsTransactionSuccessfull") as? Bool{
-            print("Payment Status from backup:\(paymentStatus)")
-            isPaymentSuccess = paymentStatus
+        
+        if let status = userDefaults.value(forKey: "backupIsTransactionSuccessfull_40Minutes") as? Bool{
+            print("Payment Status from backup for backupIsTransactionSuccessfull_40Minutes:\(status)")
+            isPaidAlready40Minutes = true
+            isPaymentSuccess = true
+        }
+
+        if let status = userDefaults.value(forKey: "backupIsTransactionSuccessfull_60Minutes") as? Bool{
+            print("Payment Status from backup for backupIsTransactionSuccessfull_60Minutes:\(status)")
+            isPaidAlready60Minutes = true
+            isPaymentSuccess = true
         }
     }
     
@@ -188,8 +200,10 @@ class ShowTrainersOnMapVC: UIViewController {
             
             }else{
                 if isPaymentSuccess{
-                    RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromPreference())
+                    print("isPaymentSuccess : \(isPaymentSuccess)")
+                    showAlertRegardingPreviousPayment()
                 }else if isNoncePresent {
+                    print("isNoncePresent : \(isNoncePresent)")
                     postNonceToServer(paymentMethodNonce: paymentNonce)
                 }else{
                     alertForAddPaymentMethod()
@@ -202,16 +216,54 @@ class ShowTrainersOnMapVC: UIViewController {
             if userDefaults.value(forKey: "promocode") != nil{
                 RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
             }else{
-
                 if isPaymentSuccess{
-                    RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
+                    print("isPaymentSuccess : \(isPaymentSuccess)")
+                    showAlertRegardingPreviousPayment()
                 }else if isNoncePresent {
+                    print("isNoncePresent : \(isNoncePresent)")
                     postNonceToServer(paymentMethodNonce: paymentNonce)
                 }else{
                     alertForAddPaymentMethod()
                 }
             }
         }
+    }
+    
+    func showAlertRegardingPreviousPayment() {
+
+        var alertMessage = String()
+        
+        print("isPaidAlready40Minutes:\(isPaidAlready40Minutes)")
+        print("isPaidAlready60Minutes:\(isPaidAlready60Minutes)")
+        print("choosedSessionOfTrainee:\(choosedSessionOfTrainee)")
+        
+        if isPaidAlready40Minutes && !isPaidAlready60Minutes && choosedSessionOfTrainee == "60"{
+            
+            alertMessage = MINUTES_40_PAID_ALERT
+        }else if isPaidAlready60Minutes && !isPaidAlready40Minutes && choosedSessionOfTrainee == "40" {
+           
+            alertMessage = MINUTES_60_PAID_ALERT
+        }else if isPaidAlready40Minutes && choosedSessionOfTrainee == "40" || isPaidAlready60Minutes && choosedSessionOfTrainee == "60" {
+            print("****** Random selector API call from previous transaction details ********")
+            RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
+            return
+        }
+
+        let alert = UIAlertController(title: ALERT_TITLE, message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+            
+            if self.isNoncePresent {
+                self.postNonceToServer(paymentMethodNonce: self.paymentNonce)
+            }else{
+                self.alertForAddPaymentMethod()
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     func alertForAddPaymentMethod() {
@@ -413,9 +465,20 @@ class ShowTrainersOnMapVC: UIViewController {
     
     func getTransactionDetailsOncePaymentSuccessFromUserDefault() {
         
-        transactionId = userDefaults.value(forKey: "backupPaymentTransactionId") as! String
-        transactionAmount = userDefaults.value(forKey: "backupIsTransactionAmount") as! String
-        transactionStatus = userDefaults.value(forKey: "backupIsTransactionStatus") as! String
+        if choosedSessionOfTrainee == "40" {
+            transactionId = userDefaults.value(forKey: "backupPaymentTransactionId_40Minutes") as! String
+            transactionAmount = userDefaults.value(forKey: "backupIsTransactionAmount_40Minutes") as! String
+            transactionStatus = userDefaults.value(forKey: "backupIsTransactionStatus_40Minutes") as! String
+        }else if choosedSessionOfTrainee == "60"{
+            transactionId = userDefaults.value(forKey: "backupPaymentTransactionId_60Minutes") as! String
+            transactionAmount = userDefaults.value(forKey: "backupIsTransactionAmount_60Minutes") as! String
+            transactionStatus = userDefaults.value(forKey: "backupIsTransactionStatus_60Minutes") as! String
+        }
+        
+        print("***** getTransactionDetailsOncePaymentSuccessFromUserDefault *******")
+        print("transactionId :\(transactionId)")
+        print("transactionAmount :\(transactionAmount)")
+        print("transactionStatus :\(transactionStatus)")
     }
     
     func getRandomSelectAPIParametersFromBackup() -> Dictionary <String,Any>{
@@ -461,8 +524,6 @@ class ShowTrainersOnMapVC: UIViewController {
     func getRandomSelectAPIParametersFromPreference() -> Dictionary <String,Any> {
         
         if isFromInstantBooking{
-//            lat = preferenceModelObj.locationLattitude
-//            long = preferenceModelObj.locationLongitude
             choosedTrainerGenderOfTrainee = preferenceModelObj.gender
             choosedCategoryOfTrainee.categoryId = preferenceModelObj.categoryId
         }
@@ -669,9 +730,22 @@ class ShowTrainersOnMapVC: UIViewController {
                         
                         self.isPaymentSuccess = true
                         let transactionDict = jsondata["data"]  as! NSDictionary
+                        
                         self.transactionId = transactionDict["transactionId"] as! String
                         self.transactionAmount = transactionDict["amount"] as! String
                         self.transactionStatus = transactionDict["status"] as! String
+                        
+                        if choosedSessionOfTrainee == "40"{
+                            userDefaults.set(self.transactionId, forKey: "backupPaymentTransactionId_40Minutes")
+                            userDefaults.set(self.transactionAmount, forKey: "backupIsTransactionAmount_40Minutes")
+                            userDefaults.set(self.transactionStatus, forKey: "backupIsTransactionStatus_40Minutes")
+                            userDefaults.set(true, forKey: "backupIsTransactionSuccessfull_40Minutes")
+                        }else if choosedSessionOfTrainee == "60"{
+                            userDefaults.set(self.transactionId, forKey: "backupPaymentTransactionId_60Minutes")
+                            userDefaults.set(self.transactionAmount, forKey: "backupIsTransactionAmount_60Minutes")
+                            userDefaults.set(self.transactionStatus, forKey: "backupIsTransactionStatus_60Minutes")
+                            userDefaults.set(true, forKey: "backupIsTransactionSuccessfull_60Minutes")
+                        }
                         
                         //Store Transaction Details and filter criterias to UserDefault for future use if Booking failed
                         userDefaults.set(self.transactionId, forKey: "backupPaymentTransactionId")

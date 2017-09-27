@@ -64,6 +64,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     @IBOutlet weak var txtCancelReason: UITextView!
 
     var isInSessionRoutePage = Bool()
+    var isShowingLoadingView = Bool()
     
     var categoryId = String()
     
@@ -155,8 +156,9 @@ class TrainerTraineeRouteViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        
-          UIApplication.shared.isIdleTimerDisabled = false
+        print("**** viewDidDisappear ****")
+
+        UIApplication.shared.isIdleTimerDisabled = false
         isInSessionRoutePage = false
     }
    
@@ -195,7 +197,8 @@ class TrainerTraineeRouteViewController: UIViewController {
             print("========== Session Duration Seconds:\(sessionTime) ")
             //For testing purpose
             seconds = 120
-            timer_lbl.text = sessionTime + ":" + "00"
+            timer_lbl.text = String(seconds/60) + ":" + "00"
+//            timer_lbl.text = sessionTime + ":" + "00"
         }else if appDelegate.USER_TYPE == "trainer"{
             //For testing purpose
             seconds = 120
@@ -262,6 +265,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     func SessionTimerNotification(notif: NSNotification){
        
         print("Notification Received in Trainer Trainee Route VC:\(notif)")
+        print("isInSessionRoutePage Value : \(self.isInSessionRoutePage)")
         
         guard self.isInSessionRoutePage else{
             print("******** Suspended Notification received execution in Trainer Trainee RounteVC ********")
@@ -298,10 +302,10 @@ class TrainerTraineeRouteViewController: UIViewController {
 //            self.present(alertController, animated: true, completion: nil)
         }else if notif.userInfo!["pushData"] as! String == "3"{
             self.timer.invalidate()
-             self.timer_lbl.text = "00" + ":" + "00"
+            self.timer_lbl.text = "00" + ":" + "00"
             
             //Removing userdefault values of transaction details
-            CommonMethods.removeTransactionDetailsFromUserDefault()
+            CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
             
             userDefaults.removeObject(forKey: "TimerData")
             appDelegate.timerrunningtime = false
@@ -330,6 +334,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             TrainerProfileDetail.deleteBookingDetails()
            //  v.removeFromSuperview()
              hideLoadingView()
+
             self.RateViewScreen()
             
             
@@ -347,9 +352,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             
             TIMERCHECK = false
             
-            //v.removeFromSuperview()
-            
-             hideLoadingView()
+            hideLoadingView()
             let extentedTimeDict = CommonMethods.convertToDictionary(text:notif.userInfo!["data"] as! String)! as NSDictionary
             
             print(extentedTimeDict["extend_time"]!)
@@ -359,7 +362,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             
             seconds = 120
             
-              timer_lbl.text = String(seconds/60) + ":" + "00"
+            timer_lbl.text = String(seconds/60) + ":" + "00"
             
            // initializeSession()
             self.runTimer()
@@ -393,6 +396,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         v.addSubview(v1)
         v.addSubview(label)
         window.addSubview(v)
+        isShowingLoadingView = true
         autoDismissLoadingView()
     }
     
@@ -400,6 +404,13 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         let when = DispatchTime.now() + 60
         DispatchQueue.main.asyncAfter(deadline: when) {
+            
+            print("isShowingLoadingView Value:\(self.isShowingLoadingView)")
+            guard self.isShowingLoadingView else{
+                print("Suspend dismiss loading view call in autoDismissLoadingView")
+                return
+            }
+            
             print("****** autoDismissLoadingView after timeout 60 Seconds ******")
             self.BookingAction(Action_status: "complete")
             self.hideLoadingView()
@@ -407,7 +418,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     }
     
     func hideLoadingView() {
-        
+        isShowingLoadingView = false
         userDefaults.set(false, forKey: "isShowingWaitingForExtendRequest")
         v.removeFromSuperview()
     }
@@ -552,8 +563,10 @@ class TrainerTraineeRouteViewController: UIViewController {
                             userDefaults.set(false, forKey: "sessionBookedNotStarted")
                             userDefaults.removeObject(forKey: "TrainerProfileDictionary")
                             
-                            //Clear transaction details from userdefault
-                            CommonMethods.removeTransactionDetailsFromUserDefault()
+                            if dict["status"] as! String == "completed" {
+                                //Clear transaction details from userdefault
+                                CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
+                            }
 
                             TrainerProfileDetail.deleteBookingDetails()
                             appDelegate.timerrunningtime = false
@@ -657,6 +670,8 @@ class TrainerTraineeRouteViewController: UIViewController {
             print("*** updateTimer")
             
             if appDelegate.USER_TYPE == "trainee" {
+                
+                CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
                 showDoYouWantToExtendAlertPage()
             }else if appDelegate.USER_TYPE == "trainer"{
                // showWaitingForTraineeExtendRequest()
@@ -855,6 +870,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         print("*** Booking ID to send Extend Page: \(trainerProfileDetails.Booking_id)")
         
+        self.isInSessionRoutePage = false
         self.present(extendSessionPage, animated: true, completion: nil)
     }
 
@@ -894,7 +910,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ENTER_CANCEL_REASON, buttonTitle: "OK")
         }else{
-            CommonMethods.removeTransactionDetailsFromUserDefault()
+//            CommonMethods.removeTransactionDetailsFromUserDefault()
             self.BookingAction(Action_status: "cancel")
         }
     }
@@ -1059,7 +1075,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             
             print("CANCEL ACTION")
             
-            CommonMethods.removeTransactionDetailsFromUserDefault()
+//            CommonMethods.removeTransactionDetailsFromUserDefault()
             
             cancelAlertView.isHidden = false
             cancelAlertViewTitle.text = ARE_YOU_SURE_WANT_TO_CANCEL_SESSION
@@ -1068,7 +1084,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             print("START AND STOP ACTIONS")
             print("Bool Array:\(BoolArray)")
             
-            CommonMethods.removeTransactionDetailsFromUserDefault()
+            CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
             
             if !BoolArray[1]{
                 //START

@@ -44,7 +44,7 @@ class WaitingForAcceptancePage: UIViewController {
             //triggerDismissPageAfterInterval()
         }else if forUserType == "trainee" {
             //For testing purpose, pls delete below stmnt after use
-            triggerDismissPageAfterInterval()
+            //triggerDismissPageAfterInterval()
         }
     }
     

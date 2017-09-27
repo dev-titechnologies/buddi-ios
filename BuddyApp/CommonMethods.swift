@@ -226,7 +226,7 @@ class CommonMethods: NSObject {
         return preference_obj
     }
 
-    class func removeTransactionDetailsFromUserDefault() {
+    class func removeTransactionDetailsFromUserDefault(sessionDuration: String) {
         //Clear the Userdefault values related to the Transaction
         
         userDefaults.removeObject(forKey: "backupPaymentTransactionId")
@@ -237,6 +237,34 @@ class CommonMethods: NSObject {
         userDefaults.removeObject(forKey: "backupTrainingSessionChoosed")
         userDefaults.removeObject(forKey: "backupIsTransactionStatus")
         userDefaults.removeObject(forKey: "TrainingLocationModelBackup")
+        
+        if sessionDuration == "40" {
+            print("******** Removing UserDefault values related to 40 Minutes Session ********")
+            userDefaults.removeObject(forKey: "backupPaymentTransactionId_40Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionAmount_40Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionStatus_40Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionSuccessfull_40Minutes")
+
+        }else if sessionDuration == "60" {
+            print("******** Removing UserDefault values related to 60 Minutes Session ********")
+            userDefaults.removeObject(forKey: "backupPaymentTransactionId_60Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionAmount_60Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionStatus_60Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionSuccessfull_60Minutes")
+        }else if sessionDuration == "sessionExpire" {
+            //While Logging Out or Session Expires
+            print("******** While Logging Out or Session Expires ********")
+
+            userDefaults.removeObject(forKey: "backupPaymentTransactionId_40Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionAmount_40Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionStatus_40Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionSuccessfull_40Minutes")
+
+            userDefaults.removeObject(forKey: "backupPaymentTransactionId_60Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionAmount_60Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionStatus_60Minutes")
+            userDefaults.removeObject(forKey: "backupIsTransactionSuccessfull_60Minutes")
+        }
     }
     
     class func googleAnalyticsScreenTracker(screenName: String) {
@@ -312,7 +340,7 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "save_preferance")
         
         //Removing userdefault values of transaction details
-        CommonMethods.removeTransactionDetailsFromUserDefault()
+        CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: "sessionExpire")
 
         ProfileImageDB.deleteImages()
         ProfileDB.deleteProfile()

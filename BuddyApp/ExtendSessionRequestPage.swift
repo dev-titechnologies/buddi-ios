@@ -35,6 +35,9 @@ class ExtendSessionRequestPage: UIViewController {
     
     var trainerProfileDetails = TrainerProfileModal()
     let notificationName = Notification.Name("SessionNotification")
+    
+    var isPaidAlready40Minutes = Bool()
+    var isPaidAlready60Minutes = Bool()
 
     //MARK: - VIEW CYCLES
     
@@ -44,7 +47,9 @@ class ExtendSessionRequestPage: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         addingShadow()
+        checkIsPaymentSuccess()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.receivedPushNotification), name: notificationName, object: nil)
 
@@ -56,9 +61,11 @@ class ExtendSessionRequestPage: UIViewController {
     
     func receivedPushNotification(notif: NSNotification){
         
-        print("Notification Received in Waiting for Acceptance Page:\(notif)")
+        print("Notification Received in Extend Session Page:\(notif)")
         if notif.userInfo!["pushData"] as! String == "4"{
-            showReviewScreen()
+            
+            self.performSegue(withIdentifier: "unwindToRouteVCSegue", sender: self)
+//            showReviewScreen()
         }
     }
     
@@ -101,7 +108,16 @@ class ExtendSessionRequestPage: UIViewController {
     }
     
     @IBAction func nextAction(_ sender: Any) {
-        (isPaymentSuccess ? extendSession() : getClientToken())
+
+//        (isPaymentSuccess ? extendSession() : getClientToken())
+        
+        if isPaymentSuccess{
+            print("isPaymentSuccess : \(isPaymentSuccess)")
+            showAlertRegardingPreviousPayment()
+        }else {
+            getClientToken()
+        }
+
     }
     
     func dismissExtendSessionRequestPage(){
@@ -111,6 +127,22 @@ class ExtendSessionRequestPage: UIViewController {
         self.dismiss(animated: false) {
             presentingViewController.dismiss(animated: false, completion: nil)
 //            self.showReviewScreen()
+        }
+    }
+    
+    func checkIsPaymentSuccess(){
+        print("***** checkIsPaymentSuccess ******")
+        
+        if let status = userDefaults.value(forKey: "backupIsTransactionSuccessfull_40Minutes") as? Bool{
+            print("Payment Status from backup for backupIsTransactionSuccessfull_40Minutes:\(status)")
+            isPaidAlready40Minutes = true
+            isPaymentSuccess = true
+        }
+        
+        if let status = userDefaults.value(forKey: "backupIsTransactionSuccessfull_60Minutes") as? Bool{
+            print("Payment Status from backup for backupIsTransactionSuccessfull_60Minutes:\(status)")
+            isPaidAlready60Minutes = true
+            isPaymentSuccess = true
         }
     }
     
@@ -216,7 +248,59 @@ class ExtendSessionRequestPage: UIViewController {
         }
     }
     
+    func showAlertRegardingPreviousPayment() {
+        
+        var alertMessage = String()
+        
+        print("isPaidAlready40Minutes:\(isPaidAlready40Minutes)")
+        print("isPaidAlready60Minutes:\(isPaidAlready60Minutes)")
+        print("choosedSessionOfTrainee:\(extendingSessionDuration)")
+        
+        if isPaidAlready40Minutes && !isPaidAlready60Minutes && extendingSessionDuration == "60"{
+            
+            alertMessage = MINUTES_40_PAID_ALERT
+        }else if isPaidAlready60Minutes && !isPaidAlready40Minutes && extendingSessionDuration == "40" {
+            
+            alertMessage = MINUTES_60_PAID_ALERT
+        }else if isPaidAlready40Minutes && extendingSessionDuration == "40" || isPaidAlready60Minutes && extendingSessionDuration == "60" {
+            
+            getTransactionDetailsOncePaymentSuccessFromUserDefault()
+            extendSession()
+            return
+        }
+        
+        let alert = UIAlertController(title: ALERT_TITLE, message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+            
+            self.getClientToken()
+        }))
+        alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     //MARK: - EXTEND SESSION SERVER CALL
+    
+    func getTransactionDetailsOncePaymentSuccessFromUserDefault() {
+        
+        if extendingSessionDuration == "40" {
+            transactionId = userDefaults.value(forKey: "backupPaymentTransactionId_40Minutes") as! String
+            transactionAmount = userDefaults.value(forKey: "backupIsTransactionAmount_40Minutes") as! String
+            transactionStatus = userDefaults.value(forKey: "backupIsTransactionStatus_40Minutes") as! String
+        }else if extendingSessionDuration == "60"{
+            transactionId = userDefaults.value(forKey: "backupPaymentTransactionId_60Minutes") as! String
+            transactionAmount = userDefaults.value(forKey: "backupIsTransactionAmount_60Minutes") as! String
+            transactionStatus = userDefaults.value(forKey: "backupIsTransactionStatus_60Minutes") as! String
+        }
+        
+        print("***** getTransactionDetailsOncePaymentSuccessFromUserDefault *******")
+        print("transactionId :\(transactionId)")
+        print("transactionAmount :\(transactionAmount)")
+        print("transactionStatus :\(transactionStatus)")
+    }
     
     func extendSession() {
         
@@ -249,8 +333,16 @@ class ExtendSessionRequestPage: UIViewController {
 
                     self.isExtending = true
 //                    userDefaults.set(self.extendingSessionDuration, forKey: "extendedSessionDuration")
-                    userDefaults.set(self.extendingSessionDuration, forKey: "backupTrainingSessionChoosed")
+                    print("extendingSessionDuration :\(self.extendingSessionDuration)")
                     choosedSessionOfTrainee = self.extendingSessionDuration
+                    
+                    //Removing transaction details from userdefault corresponds to session duration
+                    print("****** removeTransactionDetailsFromUserDefault ******")
+                    print("Current Extended duration :\(choosedSessionOfTrainee)")
+                    CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
+
+                    userDefaults.set(self.extendingSessionDuration, forKey: "backupTrainingSessionChoosed")
+
                     self.performSegue(withIdentifier: "unwindToRouteVCSegue", sender: self)
                 
                 }else if status == RESPONSE_STATUS.FAIL{

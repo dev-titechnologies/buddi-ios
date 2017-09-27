@@ -41,6 +41,9 @@ let PLEASE_WAIT_FETCHING_PAYMENT_METHODS = "Please wait... fetching payment meth
 let TRAINING_REQUEST_REVOCKED = "Your Request has been revocked by admin"
 let WAITING_FOR_TRAINER_ACCEPTANCE = "Waiting for trainer acceptance"
 let WAITING_FOR_TRAINEE_EXTEND_REQUEST_ACTION = "Waiting for trainee extend request action"
+let MINUTES_40_PAID_ALERT = "You've already been paid for a 40 minute session. If you proceed, 1 hour session amount will be deducted. Would you like to continue with 1 hour session ?"
+
+let MINUTES_60_PAID_ALERT = "You've already been paid for a 1 hour session. If you proceed, 40 minute session amount will be deducted. Would you like to continue with 40 minute session ?"
 
 let VIDEO_DESC = "*Videos should be no longer than 90 seconds. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 
