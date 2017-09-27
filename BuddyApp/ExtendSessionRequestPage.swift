@@ -61,7 +61,7 @@ class ExtendSessionRequestPage: UIViewController {
     
     func receivedPushNotification(notif: NSNotification){
         
-        print("Notification Received in Waiting for Acceptance Page:\(notif)")
+        print("Notification Received in Extend Session Page:\(notif)")
         if notif.userInfo!["pushData"] as! String == "4"{
             
             self.performSegue(withIdentifier: "unwindToRouteVCSegue", sender: self)

@@ -156,7 +156,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        
+        print("**** viewDidDisappear ****")
+
         UIApplication.shared.isIdleTimerDisabled = false
         isInSessionRoutePage = false
     }
@@ -264,6 +265,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     func SessionTimerNotification(notif: NSNotification){
        
         print("Notification Received in Trainer Trainee Route VC:\(notif)")
+        print("isInSessionRoutePage Value : \(self.isInSessionRoutePage)")
         
         guard self.isInSessionRoutePage else{
             print("******** Suspended Notification received execution in Trainer Trainee RounteVC ********")
@@ -866,6 +868,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         print("*** Booking ID to send Extend Page: \(trainerProfileDetails.Booking_id)")
         
+        self.isInSessionRoutePage = false
         self.present(extendSessionPage, animated: true, completion: nil)
     }
 
