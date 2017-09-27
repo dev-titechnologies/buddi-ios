@@ -89,8 +89,22 @@ class CommonMethods: NSObject {
         dateFormatter.locale     = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
         
         let date = dateFormatter.date(from: dateString)
+      
         return date!
+    
     }
+    
+    class func convert24hrsTo12hrs(date: Date) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd  h:mm a"
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        
+        let dateString = formatter.string(from: date)
+        print("CURRENT DATE ",dateString)
+        return dateString
+    }
+
     
     class func getStringFromDate(date: Date) -> String{
         let date = NSDate()
@@ -224,6 +238,15 @@ class CommonMethods: NSObject {
         userDefaults.removeObject(forKey: "backupIsTransactionStatus")
         userDefaults.removeObject(forKey: "TrainingLocationModelBackup")
     }
+    
+    class func googleAnalyticsScreenTracker(screenName: String) {
+        
+        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
+        tracker.set(kGAIScreenName, value: screenName)
+        
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker.send(builder.build() as [NSObject : AnyObject])
+    }
 
 }
 
@@ -277,6 +300,7 @@ extension UIViewController {
     func dismissOnSessionExpire() {
         
         userDefaults.removeObject(forKey: "user_id")
+        userDefaults.removeObject(forKey: "devicetoken")
         userDefaults.removeObject(forKey: "token")
         userDefaults.removeObject(forKey: "userName")
         userDefaults.removeObject(forKey: "userEmailId")

@@ -65,7 +65,7 @@ let CLEAN_JERK_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 95lb on 
 
 // 9 Values - For Trainee
 let leftMenuTrainee = ["Home",
-                       "Settings",
+                       "Preference Settings",
                        "Payment Method",
                        "Become a Trainer",
                        "Training History",
@@ -76,7 +76,7 @@ let leftMenuTrainee = ["Home",
 
 // 8 Values - Trainee and Trainer Also
 let leftMenuTraineeAndTrainerAlso = ["Home",
-                                    "Settings",
+                                    "Preference Settings",
                                     "Payment Method",
                                     "Training History",
                                     "Invite Friends",
@@ -86,7 +86,7 @@ let leftMenuTraineeAndTrainerAlso = ["Home",
 
 // 9 Values
 let leftMenuTrainer = ["Home",
-                       "Settings",
+                       "Preference Settings",
                        "Payment Method",
                        "Add Category",
                        "Training History",

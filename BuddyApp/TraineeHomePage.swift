@@ -99,6 +99,11 @@ class TraineeHomePage: UIViewController {
 
     func getCategoryList() {
         
+        guard CommonMethods.networkcheck() else {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
+            return
+        }
+        
         CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], headers: nil, onCompletion: { (jsondata) in
             print("*** Category Listing Result:",jsondata)

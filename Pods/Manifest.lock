@@ -78,6 +78,7 @@ PODS:
   - Google/SignIn (3.1.0):
     - Google/Core
     - GoogleSignIn (~> 4.0)
+  - GoogleAnalytics (3.17.0)
   - GoogleMaps (2.3.1):
     - GoogleMaps/Maps (= 2.3.1)
   - GoogleMaps/Base (2.3.1)
@@ -143,6 +144,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/Storage
   - Google/SignIn
+  - GoogleAnalytics
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
@@ -171,6 +173,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 753d05a925e9eb8eadd09a0ffc9b808578b72fac
   FirebaseStorage: a5c55b23741a49a72af8f30f95b3bb5ddbeda12d
   Google: 98da4b1a60ed0beb80a290387a28333406a1eb90
+  GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
   GooglePlacePicker: fc3564ac7a2ce314e78e42bfc1e16822ad1e5488
   GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
@@ -191,6 +194,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 64913ed4f30c6d8a1b9613b69eb691e4b0a5aaf9
+PODFILE CHECKSUM: dae2db4fd2166fbeba0ee25a0aec56040accf579
 
 COCOAPODS: 1.1.1

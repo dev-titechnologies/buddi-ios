@@ -52,6 +52,8 @@ class TrainerReviewPage: UIViewController{
             rating_lbl.text = "Trainer Rating"
             User_type.text = "Trainer"
         }
+        
+        print("PRO IMAGE",trainerProfileDetails1.profileImage)
         imgTrainerImage.sd_setImage(with: URL(string: trainerProfileDetails1.profileImage), placeholderImage: UIImage(named: "profileDemoImage"))
     }
     

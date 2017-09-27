@@ -95,7 +95,9 @@ class ExtendSessionRequestPage: UIViewController {
     
     @IBAction func extendSessionCancelAction(_ sender: Any) {
        // dismissExtendSessionRequestPage()
-        showReviewScreen()
+//        showReviewScreen()
+        isExtending = false
+        self.performSegue(withIdentifier: "unwindToRouteVCSegue", sender: self)
     }
     
     @IBAction func nextAction(_ sender: Any) {
