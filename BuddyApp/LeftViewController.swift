@@ -172,7 +172,7 @@ class LeftViewController: UIViewController {
             "device_id": appDelegate.DeviceToken,
             "device_imei": UIDevice.current.identifierForVendor!.uuidString,
             "device_type": "ios",
-            "token":appDelegate.DeviceToken
+            "token":appDelegate.Usertoken
             ]
         
         print("Header:",headers)

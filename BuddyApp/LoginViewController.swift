@@ -252,6 +252,10 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     }else if jsondata["status_type"] as? String == "UserNotValid" {
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
                     }
+                    else
+                    {
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
+                    }
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }

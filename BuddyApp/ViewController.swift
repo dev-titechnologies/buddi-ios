@@ -137,6 +137,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                   let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
                     self.GoTimerPageFromKilledState_Notification(dict: hero)
                 }
+                
+                //CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "not enter userdefalts", buttonTitle: "ok")
             }
             else{
                 if userDefaults.value(forKey: "devicetoken") != nil {

@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1084"
             endingLineNumber = "1084"
-            landmarkName = "TapedIndex(sender:)"
+            landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "407"
             endingLineNumber = "407"
-            landmarkName = "autoDismissLoadingView()"
+            landmarkName = "NewLoadingView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

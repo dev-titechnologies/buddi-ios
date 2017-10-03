@@ -13,6 +13,7 @@ import Firebase
 import UserNotifications
 import NVActivityIndicatorView
 
+
 class TrainerTraineeRouteViewController: UIViewController {
     
     @IBOutlet weak var timer_lbl: UILabel!
@@ -22,6 +23,8 @@ class TrainerTraineeRouteViewController: UIViewController {
 //    var sessionDetailModel: SessionDetailModel = SessionDetailModel()
     let window = UIApplication.shared.keyWindow!
     var v = UIView()
+    
+    var TrainerProfilePage: TrainerProfilePage!
   
     var frompushBool = Bool()
     var TIMERCHECK = Bool()
@@ -30,6 +33,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     var long = Float()
     var trainerProfileDetails = TrainerProfileModal()
     var TrainerProfileDictionary: NSDictionary!
+    var DistanceTrainerTrainee : Float!
     
     var TimerDict = NSDictionary()
     var numOfDays = Int()
@@ -78,7 +82,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         appDelegate.TrainerProfileDictionary = nil
         frompushBool = false
-        
+        SocketIOManager.sharedInstance.establishConnection()
+        getSocketConnected()
         print("Trainer Profile Details : \(trainerProfileDetails.firstName)")
         print("*****  Received Trainer Profile Dict1:\(TrainerProfileDictionary)")
         
@@ -105,8 +110,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             initializeSession()
         }
         
-        SocketIOManager.sharedInstance.establishConnection()
-        getSocketConnected()
+       
 
         collectionview.delegate = self
         let flowLayout = UICollectionViewFlowLayout()
@@ -121,6 +125,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
           UIApplication.shared.isIdleTimerDisabled = true
+        
+       // TrainerProfilePage.timer.invalidate()
         
         print("**** viewWillAppear *****")
         print("*****  Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
@@ -146,7 +152,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         btnNoCancelAlert.addShadowView()
         btnYesCancelAlert.addShadowView()
-            
+        
+       // socketListener()
         getCurrentLocationDetails()
     }
     
@@ -798,7 +805,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
-                
+                print("recived location")
                 if !self.isInSessionRoutePage{
                     return
                 }
@@ -811,9 +818,12 @@ class TrainerTraineeRouteViewController: UIViewController {
                 print("Socket Message Info in Session Page",messageInfo)
                 let trainerSocketData = messageInfo["message"] as! NSDictionary
                 
-                self.MarkPoints(latitude: Double(trainerSocketData["latitude"] as! String)!, logitude: Double(trainerSocketData["longitude"] as! String!)!)
+                self.measureDistance(buddiLat: Float(trainerSocketData["latitude"] as! String)!, buddiLong: Float(trainerSocketData["longitude"] as! String!)!)
                 
-                self.DrowRoute(OriginLat: Float(self.lat), OriginLong: Float(self.long), DestiLat: Float(trainerSocketData["latitude"] as! String)!, DestiLong: Float(trainerSocketData["longitude"] as! String!)!)
+                
+               // self.MarkPoints(latitude: Double(trainerSocketData["latitude"] as! String)!, logitude: Double(trainerSocketData["longitude"] as! String!)!)
+                
+               // self.DrowRoute(OriginLat: Float(self.lat), OriginLong: Float(self.long), DestiLat: Float(trainerSocketData["latitude"] as! String)!, DestiLong: Float(trainerSocketData["longitude"] as! String!)!)
             })
         }
     }
@@ -830,7 +840,9 @@ class TrainerTraineeRouteViewController: UIViewController {
         parameterdict.setValue(datadict, forKey: "data")
         print("PARADICT",parameterdict)
         print("============== addHandlers Call ==============")
-        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+        //SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
+        socketListener()
     }
     
     func addHandlersTrainer(){
@@ -838,15 +850,33 @@ class TrainerTraineeRouteViewController: UIViewController {
         parameterdict1.setValue("/location/receiveTrainerLocation", forKey: "url")
         
         datadict1.setValue(appDelegate.UserId, forKey: "user_id")
-        datadict1.setValue(trainerProfileDetails.userid, forKey: "trainer_id")
+        datadict1.setValue(trainerProfileDetails.Trainer_id, forKey: "trainer_id")
         parameterdict1.setValue(datadict1, forKey: "data")
         print("PARADICT_ReceivedTrainerLocation",parameterdict1)
         print("============== addHandlersTrainer Call ==============")
 
         // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
+        socketListener()
+        
     }
+    func measureDistance(buddiLat: Float, buddiLong: Float)
+   {
     
+    //My location
+    let myLocation = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(long))
+    
+    //My buddy's location
+    let myBuddysLocation = CLLocation(latitude: CLLocationDegrees(buddiLat), longitude: CLLocationDegrees(buddiLong))
+    
+    //Measuring my distance to my buddy's (in km)
+    let distance = myLocation.distance(from: myBuddysLocation)
+    
+       DistanceTrainerTrainee = Float(distance)
+    
+    print("DISTENCE IN METERS",DistanceTrainerTrainee)
+    
+    }
     func showReviewScreen(){
         
         print("**** showRateViewScreen *****")
@@ -925,6 +955,8 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
+        print("didUpdateLocations")
+        
         for location in locations {
             
             print("**********************")
@@ -966,6 +998,9 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
             if appDelegate.USER_TYPE == "trainer"{
                   self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.PickUpLattitude)!, DestiLong: Float(trainerProfileDetails.PickUpLongitude)!)
                 self.addHandlers()
+                
+                //socketListener()
+                
             }else{
                 print("Lat:\(lat)")
                 print("long:\(long)")
@@ -975,7 +1010,7 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
                 self.addHandlersTrainer()
             }
         }
-        locationManager.stopUpdatingLocation()
+      //  locationManager.stopUpdatingLocation()
     }
     
     private func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -1033,7 +1068,10 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             
             // imgTrainingPic.sd_setImage(with: URL(string: trainerProfileDetails.profileImage), placeholderImage: UIImage(named: ""))
             
-            cell1.menu_btn.sd_setImage(with: URL(string: trainerProfileDetails.profileImage), for: .normal)
+            
+            cell1.menu_btn.sd_setImage(with: URL(string: trainerProfileDetails.profileImage), for: .normal, placeholderImage: UIImage(named: "man"))
+            
+           // cell1.menu_btn.sd_setImage(with: URL(string: trainerProfileDetails.profileImage), for: .normal)
             cell1.menu_btn.layer.cornerRadius = 20.5
             cell1.menu_btn.clipsToBounds = true
            // cell1.menu_btn.setImage(UIImage(named: "man"), for: .normal)
@@ -1084,15 +1122,40 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             print("START AND STOP ACTIONS")
             print("Bool Array:\(BoolArray)")
             
-            CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
             
             if !BoolArray[1]{
                 //START
-                print("START CLICK")
-                cell1.menu_btn.setImage(UIImage(named: "session_stop"), for: .normal)
-                cell1.name_lbl.text = "Stop"
-                self.SessionStartAPI()
-                BoolArray.insert(true, at: 1)
+                
+                if appDelegate.USER_TYPE == "trainer"
+                {
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please ask the Trainee to start the session.", buttonTitle: "OK")
+                    
+                }else{
+                    
+                    if (DistanceTrainerTrainee) != nil
+                    {
+                        if DistanceTrainerTrainee < 500.0{
+                            
+                            CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
+                            
+                            
+                            print("START CLICK")
+                            cell1.menu_btn.setImage(UIImage(named: "session_stop"), for: .normal)
+                            cell1.name_lbl.text = "Stop"
+                            self.SessionStartAPI()
+                            BoolArray.insert(true, at: 1)
+                            
+                        }else{
+                            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "It seems like trainer has not reached to the location. Please wait until your trainer arrives at the location.", buttonTitle: "OK")
+                        }
+                    }
+                    else
+                    {
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "It seems like trainer has not reached to the location. Please wait until your trainer arrives at the location.", buttonTitle: "OK")
+                    }
+                }
+                
+                
             }else{
                 //STOP
                 print("STOP CLICK")
