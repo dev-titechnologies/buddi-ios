@@ -71,7 +71,7 @@ class BookingHistoryModel {
         model.traineeName = dictionary["trainee_name"] as! String
         model.trainerName = dictionary["trainer_name"] as! String
         model.location = dictionary["location"] as! String
-        model.amount = dictionary["amount"] as! String
+        model.amount = String(describing: dictionary["amount"]!)
         model.categoryImage = categoryImage
         
         return model
