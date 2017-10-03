@@ -20,10 +20,13 @@ class BookingHistoryVC: UIViewController {
         super.viewDidLoad()
 
         self.title = PAGE_TITLE.TRAINING_HISTORY
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        fetchBookingData()
+         fetchBookingData()
+       
     }
 
     func fetchBookingData() {
@@ -50,6 +53,8 @@ class BookingHistoryVC: UIViewController {
                     print("Booking History Response:",jsondata)
                   
                     if let booking_history_array = jsondata["data"] as? NSArray{
+                        
+                        self.bookingsArray.removeAll()
                     
                         for booking_history in booking_history_array{
                         
@@ -62,6 +67,8 @@ class BookingHistoryVC: UIViewController {
                             self.bookingsArray.reverse()
                             
                             if self.bookingsArray.count > 0 {
+                                
+                                print("BOOKING ARRAY COUNT",self.bookingsArray.count)
                                 self.bookingHistoryTable.isHidden = false
                                 self.bookingHistoryTable.reloadData()
                             }else{
