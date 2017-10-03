@@ -494,8 +494,8 @@ extension AppDelegate: FIRMessagingDelegate {
                 }
         else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{
             print("TYPE 2")
-            userDefaults.set(false, forKey: "sessionBookedNotStarted")
-            userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+            userDefaults.set(true, forKey: "sessionBookedNotStarted")
+           // userDefaults.removeObject(forKey: "TrainerProfileDictionary")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
         }
         else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"{

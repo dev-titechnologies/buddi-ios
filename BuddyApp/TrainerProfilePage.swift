@@ -60,12 +60,6 @@ class TrainerProfilePage: UIViewController {
         
       
 
-        SocketIOManager.sharedInstance.establishConnection()
-        StatusSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
-        self.UpdateLocationAPI(Status: "online")
-       //  timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
-       
-
         
         imagePicker.delegate = self
         trainerProfileViewTableCaptionsArray = ["Gym Subscriptions", "Training Category", "Certifications"]
@@ -78,6 +72,12 @@ class TrainerProfilePage: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         
+        SocketIOManager.sharedInstance.establishConnection()
+        StatusSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
+        self.UpdateLocationAPI(Status: "online")
+        //  timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
+        
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
@@ -90,7 +90,9 @@ class TrainerProfilePage: UIViewController {
         }
         getCurrentLocationDetails()
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+       // self.timer.invalidate()
+    }
     func getCurrentLocationDetails() {
         
         if CLLocationManager.locationServicesEnabled() {
@@ -118,7 +120,7 @@ class TrainerProfilePage: UIViewController {
         
         parameterdict.setValue("/location/addLocation", forKey: "url")
         parameterdict.setValue(datadict, forKey: "data")
-        //print("PARADICT11",parameterdict)
+        print("PARADICT11",parameterdict)
         
         SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
     }
