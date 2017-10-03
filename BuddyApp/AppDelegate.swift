@@ -361,7 +361,7 @@ extension AppDelegate: FIRMessagingDelegate {
     // Registering for Firebase notifications
     func configureFirebase(application: UIApplication) {
         
-        print("configureFirebase")
+        print("******* configureFirebase *******")
         FIRMessaging.messaging().remoteMessageDelegate = self
         FIRApp.configure()
         

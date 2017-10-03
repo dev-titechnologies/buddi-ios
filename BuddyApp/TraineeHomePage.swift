@@ -106,7 +106,7 @@ class TraineeHomePage: UIViewController {
         
         CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], headers: nil, onCompletion: { (jsondata) in
-            print("*** Category Listing Result:",jsondata)
+//            print("*** Category Listing Result:",jsondata)
             
             CommonMethods.hideProgress()
             guard (jsondata["status"] as? Int) != nil else {
@@ -119,8 +119,8 @@ class TraineeHomePage: UIViewController {
                     
                     let (categories,subcategories) = self.categoryModelObj.getCategoryModelFromJSONDict(dictionary: jsondata)
                     
-                    print("*** Categories:",categories)
-                    print("*** SubCategories:",subcategories)
+//                    print("*** Categories:",categories)
+//                    print("*** SubCategories:",subcategories)
                     
                     self.categoriesArray = categories
                     self.categoryModelObj.insertCategoriesToDB(categories: categories)

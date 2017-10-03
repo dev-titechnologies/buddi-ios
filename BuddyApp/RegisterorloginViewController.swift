@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseMessaging
 
-class RegisterorloginViewController: UIViewController{
+class RegisterorloginViewController: UIViewController {
     
     @IBOutlet weak var pagecontrole: UIPageControl!
     @IBOutlet weak var scrollview: UIScrollView!
@@ -17,24 +19,10 @@ class RegisterorloginViewController: UIViewController{
     
     let imageNames = ["1","2","3"]
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
-        if userDefaults.value(forKey: "devicetoken") != nil
-        {
-            appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
-            
-            print("TOKEN 1",appDelegate.DeviceToken)
-            
-        }
-        else{
-            appDelegate.DeviceToken = "1234567890"
-        }
-
-       
+        print("**** Register or Login ViewController ViewDidLoad ****")
         
         login_btn.layer.cornerRadius = 5
         login_btn.layer.borderColor = UIColor.darkGray.cgColor
@@ -43,11 +31,8 @@ class RegisterorloginViewController: UIViewController{
         
         registr_btn.layer.cornerRadius = 5
         registr_btn.clipsToBounds = true
-        
-        
-        
-        
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.scrollview.isPagingEnabled = true
@@ -57,12 +42,48 @@ class RegisterorloginViewController: UIViewController{
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        
+//        let instance = FIRInstanceID.instanceID()
+//        _ = FIRInstanceID.delete(instance)
+//        FIRInstanceID.instanceID().delete { (err:Error?) in
+//            if err != nil{
+//                print(err.debugDescription);
+//            } else {
+//                print("Token Deleted");
+//                
+//                if let token = FIRInstanceID.instanceID().token() {
+//                    print("Token \(token) fetched");
+//                } else {
+//                    print("Unable to fetch token");
+//                }
+//                
+//                FIRMessaging.messaging().disconnect()
+//                FIRMessaging.messaging().connect { (error) in
+//                    if (error != nil) {
+//                        print("Error connecting to FCM. \(error.debugDescription)")
+//                    } else {
+//                        print("Connected to FCM.")
+//                    }
+//                }
+//            }
+//        }
+        
+        if userDefaults.value(forKey: "devicetoken") != nil{
+            appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
+            print("TOKEN 1",appDelegate.DeviceToken)
+        }else{
+            print("************ DUMMY DEVICE TOKEN HAS BEEN INSERTED REG OR LOGIN PAGE ************")
+            appDelegate.DeviceToken = "1234567890"
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
+        
     }
+    
     func setupImageViews() {
+        
         var totalWidth: CGFloat = 0
         
         for imageName in imageNames {
@@ -79,14 +100,11 @@ class RegisterorloginViewController: UIViewController{
         self.scrollview.contentSize = CGSize(width: totalWidth,
                                         height: scrollview.bounds.size.height)
     }
-    
-
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     // MARK: - Navigation
 
