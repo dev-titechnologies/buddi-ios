@@ -52,7 +52,7 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        print("Settings Page ViewWilAppear")
+        print("Settings Page ViewWillAppear")
         self.settingsTableView.reloadSections(IndexSet(integer: 1), with: .automatic)
     }
 

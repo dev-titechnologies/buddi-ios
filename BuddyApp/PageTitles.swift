@@ -25,7 +25,7 @@ struct PAGE_TITLE {
     static let HELP = "Help"
     static let LEGAL = "Legal"
     static let TRAINING_DETAILS = "Training Details"
-    static let SETTINGS = "Settings"
+    static let SETTINGS = "Preference Settings"
     static let INVITE_FRIENDS = "Invite friends"
 
     

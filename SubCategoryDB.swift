@@ -28,7 +28,7 @@ public class SubCategoryDB: NSManagedObject {
                 
                 subcategory.setValue(subCategoryModel.subCategoryId, forKey: "subCategoryId")
                 subcategory.setValue(subCategoryModel.subCategoryName, forKey: "subCategoryName")
-                print("Udating Datas to SubCategory Table:", subcategory)
+                print("Updating Datas to SubCategory Table:", subcategory)
                 
                 appDelegate.saveContext()
             }else{

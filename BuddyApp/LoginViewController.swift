@@ -223,7 +223,11 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     userDefaults.set(self.UserType, forKey: "userType")
                     userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
                     userDefaults.set(self.jsondict["mobile"]!, forKey: "userMobileNumber")
-
+                    
+                    if let transaction_details = self.jsondict["transaction_details"] as? NSArray{
+                        self.storeUnusedTransactionsToUserDefaults(transactionDetailsArray: transaction_details)
+                    }
+                    
                     print(self.jsondict["trainer_type"]!)
                     print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
                     
@@ -259,6 +263,28 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
             }
         })
+    }
+    
+    func storeUnusedTransactionsToUserDefaults(transactionDetailsArray: NSArray) {
+        
+        print("****** Transaction Details ******\n\(transactionDetailsArray)")
+
+        for transactiondetail in transactionDetailsArray{
+            print("transactiondetail:\(transactiondetail)")
+            
+            let transactionDict = transactiondetail as? NSDictionary
+            if transactionDict?["session_duration"] as! String == "40"{
+                
+                userDefaults.set(transactionDict?["transaction_id"] as! String, forKey: "backupPaymentTransactionId_40Minutes")
+                userDefaults.set(transactionDict?["transaction_amount"] as! String, forKey: "backupIsTransactionAmount_40Minutes")
+                userDefaults.set(transactionDict?["transaction_status"] as! String, forKey: "backupIsTransactionStatus_40Minutes")
+                
+            }else if transactionDict?["session_duration"] as! String == "60"{
+                userDefaults.set(transactionDict?["transaction_id"] as! String, forKey: "backupPaymentTransactionId_60Minutes")
+                userDefaults.set(transactionDict?["transaction_amount"] as! String, forKey: "backupIsTransactionAmount_60Minutes")
+                userDefaults.set(transactionDict?["transaction_status"] as! String, forKey: "backupIsTransactionStatus_60Minutes")
+            }
+        }
     }
     
     func segueActionsIfTrainer(dictionary: Dictionary<String, Any>!) {
