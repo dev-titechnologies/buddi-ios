@@ -113,6 +113,8 @@ extension BookingHistoryVC: UITableViewDataSource{
         cell.date.text = CommonMethods.convert24hrsTo12hrs(date: booking.trainedDate)
         
         
+        
+        
         if appDelegate.USER_TYPE == "trainer"{
             cell.lblDescription.text = booking.category + " session with " + booking.traineeName
         }else{

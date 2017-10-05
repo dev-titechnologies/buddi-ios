@@ -101,6 +101,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         if TIMERCHECK {
             print("Timer Check ******")
+             locationManager.stopUpdatingLocation()
             FetchFromDb()
             
             if let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool{
@@ -287,6 +288,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             frompushBool = true
             print("OK")
             print("START CLICK")
+             locationManager.stopUpdatingLocation()
             self.SessionStartAPI()
             self.BoolArray.insert(true, at: 1)
             self.TIMERCHECK = true
@@ -1115,6 +1117,8 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                         if DistanceTrainerTrainee < 500.0{
                             
                             CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
+                            
+                            locationManager.stopUpdatingLocation()
                             
                             print("START CLICK")
                             cell1.menu_btn.setImage(UIImage(named: "session_stop"), for: .normal)
