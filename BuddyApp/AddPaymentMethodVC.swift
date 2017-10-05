@@ -24,6 +24,10 @@ class AddPaymentMethodVC: UIViewController {
     @IBOutlet weak var testView: BTUIKPaymentOptionCardView!
     @IBOutlet weak var btnAddPayment: UIButton!
     
+    @IBOutlet weak var lblPromoCodeSuccessfull: UILabel!
+    @IBOutlet weak var imgPromoCodeSuccessTick: UIImageView!
+    @IBOutlet weak var promoCodeSuccessfullView: CardView!
+
     var isFromBookingPage = Bool()
     var isControlInSamePage = Bool()
 
@@ -32,6 +36,7 @@ class AddPaymentMethodVC: UIViewController {
         
         self.title = PAGE_TITLE.ADD_PAYMENT_METHOD
 
+        promoCodeSuccessfullView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,10 +45,11 @@ class AddPaymentMethodVC: UIViewController {
         isControlInSamePage = true
         btnAddPayment.addShadowView()
         selectPaymentModeView.isHidden = true
+        checkIfAnyPromoCodeApplied()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("**** Add payment Method ViewDidAppear")
+        print("**** Add payment Method ViewDidAppear ****")
         getClientToken()
     }
     
@@ -51,18 +57,21 @@ class AddPaymentMethodVC: UIViewController {
         isControlInSamePage = false
     }
     
+    func checkIfAnyPromoCodeApplied() {
+        
+        if userDefaults.value(forKey: "promocode") != nil{
+            promoCodeSuccessfullView.isHidden = false
+            lblPromoCodeSuccessfull.text = "Applied Promocode : \(userDefaults.value(forKey: "promocode") as! String)"
+        }
+    }
+    
     @IBAction func applyPromoCodeAction(_ sender: Any) {
         
         if promocode_txt.text!.isEmpty {
-            
              CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Enter a promo code", buttonTitle: "OK")
-            
-        }else
-        {
+        }else{
            applyPromoCode()
         }
-        
-        
     }
     
     func getClientToken() {
@@ -204,19 +213,15 @@ class AddPaymentMethodVC: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     //isAppliedPromoCode
                     
-                    
-              if let procode = (jsondata["data"]  as! NSDictionary)["code"] as? String
-              {
-                print(procode)
-                
-                userDefaults.set(procode, forKey: "promocode")
-                
-               }
-                
-                    
-                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Promo code added", buttonTitle: "Ok")    
-                    
-                    
+                    if let procode = (jsondata["data"]  as! NSDictionary)["code"] as? String{
+                        print(procode)
+                        userDefaults.set(procode, forKey: "promocode")
+                    }
+                    self.promoCodeSuccessfullView.isHidden = false
+                    self.lblPromoCodeSuccessfull.text = "Applied Promocode : \(self.promocode_txt.text!)"
+                    self.promocode_txt.text = ""
+
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PROMO_CODE_APPLIED_SUCCESSFULL, buttonTitle: "Ok")
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

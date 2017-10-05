@@ -47,9 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         configureFirebase(application: application)
-        GMSServices.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
-        GMSPlacesClient.provideAPIKey("AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g")
-        GIDSignIn.sharedInstance().clientID = "635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2.apps.googleusercontent.com"
+        GMSServices.provideAPIKey(GOOGLE_API_KEY)
+        GMSPlacesClient.provideAPIKey(GOOGLE_API_KEY)
+        GIDSignIn.sharedInstance().clientID = GID_CLIENT_ID
 
         GIDSignIn.sharedInstance().delegate = self
         IQKeyboardManager.sharedManager().enable = true
@@ -58,14 +58,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         
         guard let gai = GAI.sharedInstance() else {
             assert(false, "Google Analytics not configured correctly")
+            return true
         }
-        gai.tracker(withTrackingId: "UA-106775368-1")
+        
+        gai.tracker(withTrackingId: GOOGLE_TRACKER_ID)
         gai.trackUncaughtExceptions = true
         // Optional: set Logger to VERBOSE for debug information.
         // Remove before app release.
         gai.logger.logLevel = .verbose;
         
-        BTAppSwitch.setReturnURLScheme("com.titechnologies.BuddyApp.payments")
+        BTAppSwitch.setReturnURLScheme(PAYPAL_PAYMENT_RETURN_URL)
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
@@ -83,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             sourceApplication: sourceApplication,
             annotation: annotation)
         
-        if url.scheme?.localizedCaseInsensitiveCompare("com.titechnologies.BuddyApp.payments") == .orderedSame {
+        if url.scheme?.localizedCaseInsensitiveCompare(PAYPAL_PAYMENT_RETURN_URL) == .orderedSame {
             print("Paypal open url in AppDelegate")
             return BTAppSwitch.handleOpen(url, sourceApplication: sourceApplication)
         }

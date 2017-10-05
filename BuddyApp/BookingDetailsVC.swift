@@ -13,7 +13,6 @@ class BookingDetailsVC: UIViewController {
     
     var bookingModel = BookingHistoryModel()
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
-    let apikey = "AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g"
     
     @IBOutlet weak var paymentstatus_lbl: UILabel!
     @IBOutlet weak var location_lbl: UILabel!
@@ -128,7 +127,7 @@ class BookingDetailsVC: UIViewController {
         print(latitude)
         print(longitude)
         
-        let url = NSURL(string: "\(baseUrl)latlng=\(latitude),\(longitude)&key=\(apikey)")
+        let url = NSURL(string: "\(baseUrl)latlng=\(latitude),\(longitude)&key=\(GOOGLE_API_KEY)")
         let data = NSData(contentsOf: url! as URL)
         let json = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
         if let result = json["results"] as? NSArray {
