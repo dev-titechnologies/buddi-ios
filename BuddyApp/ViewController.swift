@@ -41,6 +41,10 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
         print("***** Internet Connectivity:\(CommonMethods.networkcheck())")
         
+        if userDefaults.value(forKey: "devicetoken") != nil {
+            initilizeSessionChecks()
+        }
+
 //        if !CommonMethods.networkcheck() && userDefaults.value(forKey: "devicetoken") as! String != "" {
 //            print("No Network and Device token is empty in userDefaults")
 //            initilizeSessionChecks()
@@ -102,9 +106,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                             self.loginCheck()
                         }
                     }
-                }
-                    else if userDefaults.value(forKey: "isShowingWaitingForExtendRequest") != nil
-                {
+                }else if userDefaults.value(forKey: "isShowingWaitingForExtendRequest") != nil{
                     
                     let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool
                     if isShowingWaitingForExtendRequest!
@@ -234,14 +236,9 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             if appDelegate.USER_TYPE == "trainer"
             {
                 
-            }
-            else{
-                
+            }else{
                 self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
-
-                
             }
-            
            
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
         }
@@ -255,9 +252,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     }
     
     func AcceptOrDeclineScreen(){
-       let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let vc = mainStoryboard.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
         
+        let vc = storyboardSingleton.instantiateViewController(withIdentifier: "AcceptOrDeclineRequestPage") as! AcceptOrDeclineRequestPage
         vc.APSBody = ApsBody
         present(vc, animated: true, completion: nil)
     }
@@ -335,7 +331,9 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             let showTrainersOnMapPage =  segue.destination as! ShowTrainersOnMapVC
             showTrainersOnMapPage.isFromSplashScreen = true
         }else if segue.identifier == "splashToTrainerHomePageSegueRunTime" {
+            
             let timerPage =  segue.destination as! TrainerTraineeRouteViewController
+            
             if userDefaults.value(forKey: "TimerData") != nil {
                 timerPage.seconds = numOfDays
                 timerPage.TIMERCHECK = true

@@ -46,7 +46,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        configureFirebase(application: application)
+        if userDefaults.value(forKey: "devicetoken") == nil {
+            configureFirebase(application: application)
+        }
+        
         GMSServices.provideAPIKey(GOOGLE_API_KEY)
         GMSPlacesClient.provideAPIKey(GOOGLE_API_KEY)
         GIDSignIn.sharedInstance().clientID = GID_CLIENT_ID
