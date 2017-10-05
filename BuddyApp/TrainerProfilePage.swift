@@ -412,25 +412,25 @@ class TrainerProfilePage: UIViewController {
                     print("This is run on the main queue, after the previous code in outer block")
                     self.profileImage.image = UIImage(data: self.objdata as Data)
                 }
-            }
-            else
-                
-            {
+            }else{
             
-            profileImage.sd_setImage(with: URL(string:image_url)) { (image, error, cacheType, imageURL) in
-                
-                print("Image completion block")
-                if image != nil {
-                    print("image found")
-                    self.profileImage.image = image
-                }else{
-                    print("image not found")
-                    self.profileImage.image = UIImage(named: "profileDemoImage")
+                profileImage.sd_setImage(with: URL(string:image_url)) { (image, error, cacheType, imageURL) in
+                    print("Image completion block")
+                    if image != nil {
+                        print("image found")
+                        self.profileImage.image = image
+                    }else{
+                        print("image not found")
+                        self.profileImage.image = UIImage(named: "profileDemoImage")
+                    }
+           
                 }
+        
             }
-        }
         }else{
-            profileImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "profileDemoImage"))
+            print("image not found1")
+            self.profileImage.image = UIImage(named: "profileDemoImage")
+//            profileImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "profileDemoImage"))
         }
 
         countrypicker.countryPickerDelegate = self

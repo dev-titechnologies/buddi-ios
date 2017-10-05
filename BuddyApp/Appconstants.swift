@@ -37,6 +37,11 @@ var choosedTrainingLocationPreference = Singleton.sharedInstance.choosedTraining
 //let SERVER_URL = "http://192.168.1.20:9002/"
 let SERVER_URL = "http://git.titechnologies.in:4001/"
 let COUNTRY_DEFAULT_REGION_CODE = "IN"
+let GOOGLE_API_KEY = "AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g"
+//AIzaSyCSZe_BrUnVvqOg4OCQUHY7fFem6bvxOkc
+let GOOGLE_TRACKER_ID = "UA-106775368-1"
+let PAYPAL_PAYMENT_RETURN_URL = "com.titechnologies.BuddyApp.payments"
+let GID_CLIENT_ID = "635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2.apps.googleusercontent.com"
 
 struct RESPONSE_STATUS {
     static let SUCCESS = 1

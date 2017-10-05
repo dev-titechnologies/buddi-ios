@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SideMenu
 
 class LeftViewController: UIViewController {
     @IBOutlet weak var profileimage: UIImageView!
@@ -19,14 +20,13 @@ class LeftViewController: UIViewController {
     var TimerDict = NSDictionary()
     var numOfDays = Int()
 
-    
-    
-    
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var lblEmailId: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        SideMenuManager.menuAnimationBackgroundColor = .clear
         
         if let isTraineeAlreadyTrainerHasValue = userDefaults.value(forKey: "ifAlreadyTrainer") as? Bool {
             isTraineeAlreadyTrainer = isTraineeAlreadyTrainerHasValue
@@ -186,6 +186,7 @@ class LeftViewController: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     
                     self.dismissOnSessionExpire()
+                    
                 }else if status == RESPONSE_STATUS.FAIL{
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
@@ -259,23 +260,12 @@ extension LeftViewController : UITableViewDelegate{
                 print("Zero")
                 print("Home")
                 
-                if appDelegate.timerrunningtime
-                {
-                    
-                    
+                if appDelegate.timerrunningtime{
                     TimerCheck()
-                    
-                    
-                }
-                else{
-                    
+                }else{
                     self.performSegue(withIdentifier: "trainerProfileSegue", sender: self)
-                    
                 }
-                
-                
                 //leftmenutotimerview
-                
                 
             case 1:
                 print("One")
@@ -292,15 +282,10 @@ extension LeftViewController : UITableViewDelegate{
                 print("Add Category")
                 
                 
-                if appDelegate.timerrunningtime
-                {
+                if appDelegate.timerrunningtime{
                     TimerCheck()
-                    
-                }
-                else
-                {
-
-                self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
+                }else{
+                    self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
                 }
                 
             case 4:
@@ -340,21 +325,11 @@ extension LeftViewController : UITableViewDelegate{
                 print("zero")
                 print("Home")
                 
-                if appDelegate.timerrunningtime
-                {
-                    
+                if appDelegate.timerrunningtime {
                     TimerCheck()
-                    
-                    
-                }
-                else{
-                
+                }else{
                    self.performSegue(withIdentifier: "leftMenuToTraineeHomeSegue", sender: self)
-                    
                 }
-
-                
-            
                 
             case 1:
                 print("one")

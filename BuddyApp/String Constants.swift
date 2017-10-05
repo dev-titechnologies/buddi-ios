@@ -42,6 +42,9 @@ let TRAINING_REQUEST_REVOCKED = "Your Request has been revocked by admin"
 let WAITING_FOR_TRAINER_ACCEPTANCE = "Waiting for trainer acceptance"
 let WAITING_FOR_TRAINEE_EXTEND_REQUEST_ACTION = "Waiting for trainee extend request action"
 let MINUTES_40_PAID_ALERT = "You've already been paid for a 40 minute session. If you proceed, 1 hour session amount will be deducted. Would you like to continue with 1 hour session ?"
+let PROMO_CODE_APPLIED_SUCCESSFULL = "Promo code applied successfully"
+let TRAINER_NOT_REACHED_TO_LOCATION = "It seems like trainer has not reached to the location. Please wait until your trainer arrives at the location."
+let PLEASE_ASK_TRAINEE_TO_START_SESSION = "Please ask the Trainee to start the session."
 
 let MINUTES_60_PAID_ALERT = "You've already been paid for a 1 hour session. If you proceed, 40 minute session amount will be deducted. Would you like to continue with 40 minute session ?"
 
