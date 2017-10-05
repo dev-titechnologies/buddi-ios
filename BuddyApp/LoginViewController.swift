@@ -278,11 +278,13 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                 userDefaults.set(transactionDict?["transaction_id"] as! String, forKey: "backupPaymentTransactionId_40Minutes")
                 userDefaults.set(transactionDict?["transaction_amount"] as! String, forKey: "backupIsTransactionAmount_40Minutes")
                 userDefaults.set(transactionDict?["transaction_status"] as! String, forKey: "backupIsTransactionStatus_40Minutes")
+                userDefaults.set(true, forKey: "backupIsTransactionSuccessfull_40Minutes")
                 
             }else if transactionDict?["session_duration"] as! String == "60"{
                 userDefaults.set(transactionDict?["transaction_id"] as! String, forKey: "backupPaymentTransactionId_60Minutes")
-                userDefaults.set(transactionDict?["transaction_amount"] as! String, forKey: "backupIsTransactionAmount_60Minutes")
+                userDefaults.set(transactionDict?["transaction_amount"] as! String, forKey:  "backupIsTransactionAmount_60Minutes")
                 userDefaults.set(transactionDict?["transaction_status"] as! String, forKey: "backupIsTransactionStatus_60Minutes")
+                userDefaults.set(true, forKey: "backupIsTransactionSuccessfull_60Minutes")
             }
         }
     }

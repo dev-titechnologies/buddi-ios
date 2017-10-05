@@ -143,9 +143,9 @@ class CommonMethods: NSObject {
     
     class func clearSession() {
         
-         userDefaults.removeObject(forKey: "token")
-         userDefaults.removeObject(forKey: "user_id")
-         userDefaults.removeObject(forKey: "userType")
+        userDefaults.removeObject(forKey: "token")
+        userDefaults.removeObject(forKey: "user_id")
+        userDefaults.removeObject(forKey: "userType")
         userDefaults.removeObject(forKey: "save_preferance")
     }
     
@@ -328,7 +328,7 @@ extension UIViewController {
     func dismissOnSessionExpire() {
         
         userDefaults.removeObject(forKey: "user_id")
-        userDefaults.removeObject(forKey: "devicetoken")
+        //userDefaults.removeObject(forKey: "devicetoken")
         userDefaults.removeObject(forKey: "token")
         userDefaults.removeObject(forKey: "userName")
         userDefaults.removeObject(forKey: "userEmailId")

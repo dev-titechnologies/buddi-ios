@@ -93,6 +93,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                             appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
                             print("TOKEN",appDelegate.DeviceToken)
                         }else{
+                            print("************ DUMMY DEVICE TOKEN HAS BEEN INSERTED VIEWCONTROLLER PAGE ************")
                             appDelegate.DeviceToken = "1234567890"
                         }
                         
