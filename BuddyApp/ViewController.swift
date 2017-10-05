@@ -24,7 +24,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         super.viewDidLoad()
         print("ViewDidLoad ViewController")
         
-        appDelegate.delegateFCM = self
+      //  appDelegate.delegateFCM = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +50,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
 //            print("No Network and Device token is empty in userDefaults")
 //            initilizeSessionChecks()
 //        }
+        
+      
     }
     
     override func viewWillDisappear(_ animated: Bool) {

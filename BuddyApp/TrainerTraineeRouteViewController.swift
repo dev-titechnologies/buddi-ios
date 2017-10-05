@@ -100,8 +100,9 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         
         if TIMERCHECK {
-            print("****** Timer Check ******")
-            locationManager.stopUpdatingLocation()
+            print("Timer Check ******")
+             //locationManager.stopUpdatingLocation()
+
             FetchFromDb()
             
             if let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool{
@@ -505,6 +506,8 @@ class TrainerTraineeRouteViewController: UIViewController {
             }
        
             let bookingObj = self.profileArray[0]
+            
+            print("FROM DB",bookingObj)
             
             trainerProfileDetails = TrainerProfileModal.init(profileImage: bookingObj.value(forKey: "profileimage") as! String,
                 firstName: CommonMethods.checkStringNull(val: bookingObj.value(forKey:"firstname") as? String) ,
