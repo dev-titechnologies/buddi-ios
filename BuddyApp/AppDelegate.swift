@@ -175,13 +175,168 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         print(userInfo)
+        
+        print(application.backgroundTimeRemaining)
+        
+        let NotificationDict = (userInfo as NSDictionary)["data"] as! String
+        
+        print("RECIVE NOTIFICATION DICT",NotificationDict)
+        
         if application.applicationState == .active {
             //write your code here when app is in foreground
             
             print("ACTIVE")
             
+            if (userInfo as NSDictionary)["type"] as! String == "1"{
+                
+                //BOOK SESSION
+                userDefaults.set(true, forKey: "sessionBookedNotStarted")
+                
+                // Post notification
+                NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(userInfo as NSDictionary)["type"] as! String])
+            }else if (userInfo as NSDictionary)["type"] as! String == "2"{
+                print("TYPE 2")
+                
+                //STARTED SESSION
+                userDefaults.set(false, forKey: "sessionBookedNotStarted")
+                userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+                NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String])
+                
+            }else if (userInfo as NSDictionary)["type"] as! String == "3"{
+                
+                //CANCELLED SESSION
+                userDefaults.set(false, forKey: "sessionBookedNotStarted")
+                userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+                
+                
+                print("3")
+                NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String])
+            }else if (userInfo as NSDictionary)["type"] as! String == "4"{
+                
+                
+                //COMPLETED SESSION
+                userDefaults.set(false, forKey: "sessionBookedNotStarted")
+                userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+                
+                
+                print("4")
+                NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String])
+            }else if (userInfo as NSDictionary)["type"] as! String == "5"{
+                
+                
+                //REQUEST BOOKING
+                
+                  print("5")
+                NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(userInfo as NSDictionary)["type"] as! String, "aps":(((userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
+                
+                
+                
+                
+            }else if (userInfo as NSDictionary)["type"] as! String == "6"{
+                
+                
+                // EXTEND BOOKING
+                
+                NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String,"data":NotificationDict])
+                
+                
+            }
+
+            
+            
+            
+            
+            
+            
+            
         } else {
             //write your code here for other state
+            
+            
+            if (userInfo as NSDictionary)["type"] as! String == "1"{
+                NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
+                
+                userDefaults.set(true, forKey: "sessionBookedNotStarted")
+                
+                TrainerProfileDictionary = CommonMethods.convertToDictionary(text: NotificationDict )! as NSDictionary
+                
+                userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
+                
+                
+            }
+            else if (userInfo as NSDictionary)["type"] as! String == "2"{
+                print("TYPE 2")
+                userDefaults.set(true, forKey: "sessionBookedNotStarted")
+                // userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+                NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String])
+            }
+            else if (userInfo as NSDictionary)["type"] as! String == "3"{
+                print("3")
+                userDefaults.removeObject(forKey: "TimerData")
+                appDelegate.timerrunningtime = false
+                TrainerProfileDetail.deleteBookingDetails()
+                NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String])
+                
+            }
+            else if (userInfo as NSDictionary)["type"] as! String == "4"{
+                print("4")
+                userDefaults.removeObject(forKey: "TimerData")
+                appDelegate.timerrunningtime = false
+                TrainerProfileDetail.deleteBookingDetails()
+                NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String])
+                
+                
+            }else if (userInfo as NSDictionary)["type"] as! String == "5"{
+                
+                
+                if abs(application.backgroundTimeRemaining) > 30
+                {
+                    print("TIME EXPIRED",abs(application.backgroundTimeRemaining))
+                    
+                    CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Request time expired", buttonTitle: "Ok")
+                    
+                }
+                else
+                    
+                    
+                    
+                {
+                    
+                    
+                    //REQUEST BOOKING
+                    
+                    print("5")
+                    NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(userInfo as NSDictionary)["type"] as! String,"aps":(((userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
+                    
+                    
+                    
+                    
+                    
+                    
+                    TrainerProfileDictionary = ["pushData":NotificationDict,"type":(userInfo as NSDictionary)["type"] as! String,"aps":(((userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String] as NSDictionary
+                }
+                
+            }else if (userInfo as NSDictionary)["type"] as! String == "6"
+            {
+                
+//                            print(Date().daysBetweenDate(toDate: response.notification.date))
+//                
+//                              let extentedTimeDict = CommonMethods.convertToDictionary(text:NotificationDict)! as NSDictionary
+//                            
+//                            
+//                        let timeDiff = Date().daysBetweenDate(toDate: response.notification.date)
+//                         let sessionTime =  Int(extentedTimeDict["extend_time"]! as! String)!*60
+//                            let remaintime = 60 - timeDiff
+//                            
+//                            print("REMAING TIME",remaintime)
+                
+                
+            }
+            
+
+            
+            
+            
         }
     }
 

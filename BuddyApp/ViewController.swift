@@ -50,7 +50,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
 //            initilizeSessionChecks()
 //        }
         
-        initilizeSessionChecks()
+      
     }
     
     override func viewWillDisappear(_ animated: Bool) {
