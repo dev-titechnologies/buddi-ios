@@ -102,6 +102,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         if TIMERCHECK {
             print("Timer Check ******")
              //locationManager.stopUpdatingLocation()
+
             FetchFromDb()
             
             if let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool{
@@ -116,8 +117,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         }else{
             initializeSession()
         }
-        
-       
 
         collectionview.delegate = self
         let flowLayout = UICollectionViewFlowLayout()
@@ -206,12 +205,26 @@ class TrainerTraineeRouteViewController: UIViewController {
             seconds = Int(sessionTime)!*60
             print("========== Session Duration Seconds:\(sessionTime) ")
             //For testing purpose
-            //seconds = 120
+            
+            //SECONDS TEMP
+            if sessionTime == "40" {
+                seconds = 120
+            }else{
+                seconds = 240
+            }
+            
             timer_lbl.text = String(seconds/60) + ":" + "00"
 //            timer_lbl.text = sessionTime + ":" + "00"
         }else if appDelegate.USER_TYPE == "trainer"{
             //For testing purpose
-            //seconds = 120
+            
+            
+            //SECONDS TEMP
+            if seconds == 2400 {
+                seconds = 120
+            }else{
+                seconds = 240
+            }
             timer_lbl.text = String(seconds/60) + ":" + "00"
             
             let Trainee_Dict = TrainerProfileDictionary["trainee_details"] as! Dictionary<String, Any>
@@ -368,7 +381,14 @@ class TrainerTraineeRouteViewController: UIViewController {
             
             print(extentedTimeDict["extend_time"]!)
             seconds = Int(extentedTimeDict["extend_time"]! as! String)!*60
-            //seconds = 120
+
+            //SECONDS TEMP
+            if seconds == 2400 {
+                seconds = 120
+            }else{
+                seconds = 240
+            }
+            
             timer_lbl.text = String(seconds/60) + ":" + "00"
            // initializeSession()
             self.runTimer()
@@ -1115,6 +1135,8 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                 if appDelegate.USER_TYPE == "trainer"{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ASK_TRAINEE_TO_START_SESSION, buttonTitle: "OK")
                 }else{
+                    
+                    print("****** DistanceTrainerTrainee ****** :\(DistanceTrainerTrainee)")
                     if (DistanceTrainerTrainee) != nil{
                         if DistanceTrainerTrainee < 500.0{
                             
