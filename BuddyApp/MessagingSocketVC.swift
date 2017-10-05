@@ -131,7 +131,7 @@ extension MessagingSocketVC {
                     return
                 }
                 
-                let fromId = String(describing: socketDict["from_id"])
+                let fromId = String(describing: socketDict["from_id"]!)
                 let fromDisplayName = socketDict["from_name"] as! String
                 let messageReceived = socketDict["text"] as! String
                 
@@ -201,6 +201,7 @@ extension MessagingSocketVC {
         
         if let message = JSQMessage(senderId: senderId, displayName: senderDisplayName, text: text){
             sendMessageSocket(messageText: text)
+            print("Sending Message :\(message)")
             self.messages.append(message)
             self.finishSendingMessage()
         }

@@ -42,6 +42,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         print("***** Internet Connectivity:\(CommonMethods.networkcheck())")
         
         if userDefaults.value(forKey: "devicetoken") != nil {
+            print("***** initilizeSessionChecks Call in ViewController ******")
             initilizeSessionChecks()
         }
 
@@ -106,16 +107,17 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                             self.loginCheck()
                         }
                     }
-                }else if userDefaults.value(forKey: "isShowingWaitingForExtendRequest") != nil{
-                    
-                    let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool
-                    if isShowingWaitingForExtendRequest!
-                    {
-                        self.showTimer(time: 0)
-                    }
-                        
                 }
-                
+//                else if userDefaults.value(forKey: "isShowingWaitingForExtendRequest") != nil{
+//                    
+//                    let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool
+//                    
+//                    print("isShowingWaitingForExtendRequest:\(String(describing: isShowingWaitingForExtendRequest))")
+//                    
+//                    if isShowingWaitingForExtendRequest!{
+//                        self.showTimer(time: 0)
+//                    }
+//                }
                 else{
                     if userDefaults.value(forKey: "devicetoken") != nil {
                         appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String

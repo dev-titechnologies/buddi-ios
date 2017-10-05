@@ -44,7 +44,7 @@ class WaitingForAcceptancePage: UIViewController {
             //triggerDismissPageAfterInterval()
         }else if forUserType == "trainee" {
             //For testing purpose, pls delete below stmnt after use
-            //triggerDismissPageAfterInterval()
+            triggerDismissPageAfterInterval()
         }
     }
     
@@ -54,11 +54,27 @@ class WaitingForAcceptancePage: UIViewController {
     
     func triggerDismissPageAfterInterval() {
         
-        if trainersFoundCount == 0{
-            trainersFoundCount = 1
-        }
+//        if trainersFoundCount == 0{
+//            trainersFoundCount = 1
+//        }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(trainersFoundCount * 60 * 1000)) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(trainersFoundCount * 60 * 1000)) {
+//            guard self.isInPage else{
+//                print("Waiting For Acceptance page Timer Execution suspends 'isInPage' is false")
+//                return
+//            }
+//            
+//            //Pls remove user type trainee code. only for testing purpose
+//            if self.forUserType == "trainee" {
+//                print("dismissWaitingForAcceptancePage call after :\(self.trainersFoundCount * 60) seconds")
+//                self.dismissWaitingForAcceptancePage()
+//            }else if self.forUserType == "trainer" {
+//                //print("Booking Action Complete call after 30 seconds")
+//                //self.bookingCompleteAction(action_status: "complete")
+//            }
+//        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 120) {
             guard self.isInPage else{
                 print("Waiting For Acceptance page Timer Execution suspends 'isInPage' is false")
                 return
@@ -66,7 +82,7 @@ class WaitingForAcceptancePage: UIViewController {
             
             //Pls remove user type trainee code. only for testing purpose
             if self.forUserType == "trainee" {
-                print("dismissWaitingForAcceptancePage call after :\(self.trainersFoundCount * 60) seconds")
+                print("dismissWaitingForAcceptancePage call after : 120 seconds")
                 self.dismissWaitingForAcceptancePage()
             }else if self.forUserType == "trainer" {
                 //print("Booking Action Complete call after 30 seconds")
