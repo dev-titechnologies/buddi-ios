@@ -18,6 +18,7 @@ class BookingDetailsVC: UIViewController {
     @IBOutlet weak var paymentstatus_lbl: UILabel!
     @IBOutlet weak var location_lbl: UILabel!
    
+    @IBOutlet weak var sessionduration_lbl: UILabel!
     @IBOutlet weak var trainingstatus_lbl: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblAmount: UILabel!
@@ -66,6 +67,41 @@ class BookingDetailsVC: UIViewController {
         lblDate.text =  CommonMethods.convert24hrsTo12hrs(date: bookingModel.trainedDate)
         lblAmount.text = "$" + bookingModel.amount
         imgTrainingPic.sd_setImage(with: URL(string: bookingModel.categoryImage), placeholderImage: UIImage(named: ""))
+        
+        
+        
+        
+        if let hours = bookingModel.starttime.daysBetweenDate(toDate: bookingModel.endtime) as? Int
+        {
+            sessionduration_lbl.text = String(hours/60) + " minutes"
+            
+            print("ext time",bookingModel.extend_end)
+            
+        }
+        
+        
+        if bookingModel.extend_end == ""
+        {
+            
+            
+            if let hours = bookingModel.starttime.daysBetweenDate(toDate: bookingModel.endtime) as? Int
+            {
+                sessionduration_lbl.text = String(hours/60) + " minutes"
+                
+            }
+            
+        }
+        else
+        {
+            let hours = bookingModel.starttime.daysBetweenDate(toDate:CommonMethods.getDateFromString(dateString: bookingModel.extend_end)) as? Int
+            sessionduration_lbl.text = String(hours!/60) + " minutes" + "(extented)"
+            
+
+           
+            }
+        
+        
+     
         
         
         imgTrainerPic.sd_setImage(with: URL(string: bookingModel.profilePic), placeholderImage: UIImage(named: "profileDemoImage"))

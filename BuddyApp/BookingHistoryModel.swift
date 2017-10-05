@@ -25,8 +25,9 @@ class BookingHistoryModel {
     var trainerImage: String = String()
     var amount : String = String()
     var categoryImage : String = String()
-    var extend_end : Date = Date()
-    var extend_start : Date = Date()
+    var extend_end : String = String()
+    var endtime : Date = Date()
+    var starttime : Date = Date()
 
     init(){}
     
@@ -48,8 +49,32 @@ class BookingHistoryModel {
         
         let model: BookingHistoryModel = BookingHistoryModel()
         let trainedDate = CommonMethods.getDateFromString(dateString: dictionary["trained_date"] as! String)
+       
         
-           
+        
+       
+        if (dictionary["start_time"] as? String) != nil {
+           let starttime = CommonMethods.getDateFromString(dateString: dictionary["start_time"] as! String)
+            model.starttime = starttime
+        }
+        if (dictionary["end_time"] as? String) != nil {
+             let endtime = CommonMethods.getDateFromString(dateString: dictionary["end_time"] as! String)
+            model.endtime = endtime
+        }
+        if (dictionary["extend_end"] as? String) != nil {
+       // let extendEndDate = CommonMethods.getDateFromString(dateString: dictionary["extend_end"] as! String)
+            model.extend_end = dictionary["extend_end"] as! String
+            
+            print("DATE NOT NULLL")
+        }
+        else
+        {
+            
+            model.extend_end = ""
+            
+            print("DATE NULLL",model.extend_end)
+        }
+       
         
         let categArray = dictionary["category"] as! NSArray as Array
         let categoryName = categArray[0]["categoryName"] as! String
@@ -59,6 +84,7 @@ class BookingHistoryModel {
         model.bookingId = String(describing: dictionary["booking_id"]!)
         model.trainerId = String(describing: dictionary["trainer_id"]!)
         model.trainedDate = trainedDate
+        //model.endtime = endtime
         //model.extend_start = extend_start
        // model.extend_end = extend_end
         
@@ -76,5 +102,7 @@ class BookingHistoryModel {
         
         return model
     }
+    
+  
     
 }
