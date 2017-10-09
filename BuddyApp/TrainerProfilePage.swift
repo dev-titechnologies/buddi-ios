@@ -59,7 +59,7 @@ class TrainerProfilePage: UIViewController {
         self.title = PAGE_TITLE.TRAINER_PROFILE
         
       
-
+//fromprofiletocategorylist
         
         imagePicker.delegate = self
         trainerProfileViewTableCaptionsArray = ["Gym Subscriptions", "Training Category", "Certifications"]
@@ -439,6 +439,19 @@ class TrainerProfilePage: UIViewController {
         countrypicker.showPhoneNumbers = true
         countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).0)
     }
+    
+    //MARK: - PREPARE FOR SEGUAE
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "fromprofiletocategorylist" {
+            let chooseCategoryPage =  segue.destination as! CategoryListVC
+            chooseCategoryPage.FromTrainerProfileBool = true
+        }
+            }
+
+    
+    
 }
 
 extension TrainerProfilePage: CountryPickerDelegate{
@@ -493,7 +506,16 @@ extension TrainerProfilePage: UITableViewDataSource{
 //MARK: - TABLEVIEW DELEGATE FUNCTIONS
 
 extension TrainerProfilePage: UITableViewDelegate{
-    
+   
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == 1
+        {
+            self.performSegue(withIdentifier: "fromprofiletocategorylist", sender: self)
+        }
+        
+    }
+
 }
 
 //MARK: - CHOOSE PROFILE PICTURE

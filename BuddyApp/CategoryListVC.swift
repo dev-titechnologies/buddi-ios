@@ -11,13 +11,14 @@ import SDWebImage
 
 class CategoryListVC: UIViewController {
 
-    @IBOutlet weak var categoryCollectionView: UICollectionView!
+       @IBOutlet weak var categoryCollectionView: UICollectionView!
     let categoryModelObj: CategoryModel = CategoryModel()
     let subCategoryModelObj: SubCategoryModel = SubCategoryModel()
     var selectedSubCategories = [SubCategoryModel]()
 
     ///JOSE
-    var ApprovedcategoryModelArray = [CategoryModel]()
+     var FromTrainerProfileBool = Bool()
+    var ShowCategoryListModelArray = [CategoryModel]()
     var PendingcategoryModelArray = [CategoryModel]()
     
     ////
@@ -30,7 +31,7 @@ class CategoryListVC: UIViewController {
     fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     fileprivate let itemsPerRow: CGFloat = 2
     var approvedCategoriesIdArray = [String]()
-     var approvedCategoriesIdArrayNew = [String]()
+    
     
     @IBOutlet weak var btnNext: UIButton!
     var isBackButtonHidden = Bool()
@@ -38,8 +39,18 @@ class CategoryListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
+       if FromTrainerProfileBool
+       {
+       
+        
+        self.title = PAGE_TITLE.CATEGORY_LIST
+        
+        }else
+       {
         self.title = PAGE_TITLE.CHOOSE_CATEGORY
+        
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,16 +63,76 @@ class CategoryListVC: UIViewController {
 
         self.approvedCategoriesIdArray = userDefaults.stringArray(forKey: "approvedOrPendingCategoriesIdArray") ?? [String]()
         
-        self.approvedCategoriesIdArrayNew = userDefaults.stringArray(forKey: "approvedCategoriesIdArrayNew") ?? [String]()
-
-        
         
         print("ApprovedCategories ID retrieved from userdefaults:\(self.approvedCategoriesIdArray)")
-        print("ApprovedCategories ID NEW retrieved from userdefaults:\(self.approvedCategoriesIdArrayNew)")
-
+       
         listCategoryServerCall()
+        
+       
     }
-    
+    func CategoryApproveServerCall()
+    {
+        guard CommonMethods.networkcheck() else {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
+            return
+        }
+        
+        let parameters = ["user_id" : appDelegate.UserId,"user_type" : appDelegate.USER_TYPE] as [String : Any]
+        let headers = ["token":appDelegate.Usertoken]
+        
+        CommonMethods.serverCall(APIURL: CATEGORY_APPROVED_STATUS, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+            
+            print("*** Category Approval Result:",jsondata)
+            
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    let datadict = jsondata["data"] as! NSDictionary as! [String: Any]
+                    print(datadict)
+                    
+                    let categoriesAproved = datadict["category_approved"] as! NSArray
+                    let categoriesPending = datadict["category_pending"] as! NSArray
+
+                    
+                    for i in 0..<self.ShowCategoryListModelArray.count{
+                        for j in 0..<categoriesAproved.count{
+                    if self.ShowCategoryListModelArray[i].categoryId == String(describing: categoriesAproved[j]){
+                        
+                        self.ShowCategoryListModelArray[i].categoryStatus = "approved"
+                        self.PendingcategoryModelArray.append(self.ShowCategoryListModelArray[i])
+                        
+                                
+                            }
+                        }
+                    }
+
+                    
+                    for i in 0..<self.ShowCategoryListModelArray.count{
+                        for j in 0..<categoriesPending.count{
+                            if self.ShowCategoryListModelArray[i].categoryId == String(describing: categoriesPending[j]){
+                                
+                                self.ShowCategoryListModelArray[i].categoryStatus = "pending"
+                                self.PendingcategoryModelArray.append(self.ShowCategoryListModelArray[i])
+                                
+                                
+                            }
+                        }
+                    }
+                     self.reloadCollectionView()
+                    }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        })
+
+    }
     func listCategoryServerCall() {
         
         guard CommonMethods.networkcheck() else {
@@ -85,6 +156,8 @@ class CategoryListVC: UIViewController {
                     
                     let (categories,subcategories) = self.categoryModelObj.getCategoryModelFromJSONDict(dictionary: jsondata)
                     
+                  self.ShowCategoryListModelArray = categories
+                    
                     print("*** Categories:",categories)
                     print("*** SubCategories:",subcategories)
                     
@@ -95,12 +168,7 @@ class CategoryListVC: UIViewController {
                     for i in 0..<categories.count{
                         for j in 0..<self.approvedCategoriesIdArray.count{
                             if categories[i].categoryId == self.approvedCategoriesIdArray[j]{
-                                
-                                //JOSE
-                              //  categories[i].categoryStatus = "pending"
-                             //  self.PendingcategoryModelArray.append(categories[i])
-                                ///
-                                isCategoryAlreadyApproved = true
+                        isCategoryAlreadyApproved = true
                                 break
                             }
                         }
@@ -111,27 +179,6 @@ class CategoryListVC: UIViewController {
 //                       
                         isCategoryAlreadyApproved = false
                         
-//                        ///JOSE
-//                        
-//                        for j in 0..<self.approvedCategoriesIdArrayNew.count{
-//                            if categories[i].categoryId == self.approvedCategoriesIdArrayNew[j]{
-//                                
-//                                //JOSE
-//                                 categories[i].categoryStatus = "approved"
-//                                self.PendingcategoryModelArray.append(categories[i])
-//                               // self.ApprovedcategoryModelArray.append(categories[i])
-//                                ///
-//                            
-//                                
-//                            }else{
-//                                categories[i].categoryStatus = "pending"
-//                               self.PendingcategoryModelArray.append(categories[i])
-//                            }
-//                            
-//                        }
-//
-//                        ////
-//                        
                         
                     }
 
@@ -142,7 +189,20 @@ class CategoryListVC: UIViewController {
                     
                     self.categoryModelObj.insertCategoriesToDB(categories: categories)
                     self.subCategoryModelObj.insertSubCategoriesToDB(subCategories: subcategories)
-                    self.reloadCollectionView()
+                   
+                    
+                    if self.FromTrainerProfileBool
+                    {
+                        self.CategoryApproveServerCall()
+
+                    }
+                    else{
+                         self.reloadCollectionView()
+                    }
+                    
+                    
+                    
+                    
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.hideProgress()
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -225,34 +285,58 @@ class CategoryListVC: UIViewController {
 extension CategoryListVC : UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categoriesArray.count
         
-
-        
- //       return self.PendingcategoryModelArray.count
-    }
+      if FromTrainerProfileBool{
+        return self.PendingcategoryModelArray.count
+        }else{
+         return categoriesArray.count
+        }
+            }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CategoryListCell
       //  print("CATEG Image URL:",PendingcategoryModelArray[indexPath.row].categoryName)
         
-//        if PendingcategoryModelArray[indexPath.row].categoryStatus == "approved"
-//        {
+        
+        if FromTrainerProfileBool
+        {
+            self.btnNext.isHidden = true
+            
+            if PendingcategoryModelArray[indexPath.row].categoryStatus == "approved"
+            {
+                cell.lblCategoryName.text = PendingcategoryModelArray[indexPath.row].categoryName
+                print("CATEG Image URL:",PendingcategoryModelArray[indexPath.row].categoryImage)
+                cell.categoryImage.sd_setImage(with: URL(string: PendingcategoryModelArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: ""))
+                cell.cellSelectionView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                cell.pendingstatus_lbl.isHidden = true
+                
+                
+            }
+            else
+            {
+                
+                cell.lblCategoryName.numberOfLines = 0;
+                cell.lblCategoryName.text = "\(PendingcategoryModelArray[indexPath.row].categoryName)\n(Pending)"
+
+                print("CATEG Image URL:",PendingcategoryModelArray[indexPath.row].categoryImage)
+                cell.categoryImage.sd_setImage(with: URL(string: PendingcategoryModelArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: ""))
+                
+               // cell.pendingstatus_lbl.isHidden = false
+            }
+            
+        }else{
+            
             cell.lblCategoryName.text = categoriesArray[indexPath.row].categoryName
             print("CATEG Image URL:",categoriesArray[indexPath.row].categoryImage)
             cell.categoryImage.sd_setImage(with: URL(string: categoriesArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: ""))
-            cell.cellSelectionView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+             cell.pendingstatus_lbl.isHidden = true
+            
+        }
 
- //       }
-//        else
-//        {
-//            cell.lblCategoryName.text = PendingcategoryModelArray[indexPath.row].categoryName
-//            print("CATEG Image URL:",PendingcategoryModelArray[indexPath.row].categoryImage)
-//            cell.categoryImage.sd_setImage(with: URL(string: PendingcategoryModelArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: ""))
-//            
-//
-//        }
+        
+        
+      
     
                       return cell
           }
@@ -286,19 +370,30 @@ extension CategoryListVC : UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if selectedCategories.contains(indexPath.row){
-            print("Cell deselected")
-            selectedCategories.remove(at: selectedCategories.index(of: indexPath.row)!)
-        }else{
-            print("Cell Selected")
-            selectedCategories.append(indexPath.row)
+        if FromTrainerProfileBool
+        {
+            
+        }else
+        {
+            
+            if selectedCategories.contains(indexPath.row){
+                print("Cell deselected")
+                selectedCategories.remove(at: selectedCategories.index(of: indexPath.row)!)
+            }else{
+                print("Cell Selected")
+                selectedCategories.append(indexPath.row)
+            }
+            categoryCollectionView.reloadItems(at: [indexPath])
+            
+            if selectedCategories.count > 0 {
+                btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+            }else{
+                btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
+            }
+
         }
-        categoryCollectionView.reloadItems(at: [indexPath])
         
-        if selectedCategories.count > 0 {
-            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-        }else{
-            btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)
-        }
-    }
+        
+        
+         }
 }

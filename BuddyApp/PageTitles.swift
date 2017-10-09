@@ -14,6 +14,7 @@ struct PAGE_TITLE {
     static let LOGIN = "Login"
     static let REGISTER = "Register"
     static let CHOOSE_CATEGORY = "Choose category"
+    static let CATEGORY_LIST = "categories"
     static let CHOOSE_SESSION_AND_GENDER = "Choose your preferences"
     static let TRAINERS_LISTING = "Trainers listing"
     static let ADD_PAYMENT_METHOD = "Add payment method"
