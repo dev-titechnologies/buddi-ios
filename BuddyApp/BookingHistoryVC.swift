@@ -75,6 +75,16 @@ class BookingHistoryVC: UIViewController {
                                 self.bookingHistoryTable.isHidden = true
                             }
                         }
+                        
+//                        for j in 0..<self.bookingsArray.count{
+//                            let cnct = self.bookingsArray[j]
+//                            self.bookingsArray = self.bookingsArray.filter() {$0.category != cnct.category
+//                            
+//                            }
+//                        }
+//                        
+//                        print("BOOKING ARRAY COUNT111",self.bookingsArray.count)
+                        
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
                       CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

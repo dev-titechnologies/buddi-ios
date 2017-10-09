@@ -16,13 +16,21 @@ class CategoryListVC: UIViewController {
     let subCategoryModelObj: SubCategoryModel = SubCategoryModel()
     var selectedSubCategories = [SubCategoryModel]()
 
+    ///JOSE
+    var ApprovedcategoryModelArray = [CategoryModel]()
+    var PendingcategoryModelArray = [CategoryModel]()
+    
+    ////
+    
     var categoriesArray = [CategoryModel]()
+    var pendingcategoriesArray = [CategoryModel]()
     fileprivate var selectedCategories = [Int]()
     
     fileprivate let reuseIdentifier = "categoryListCellId"
     fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     fileprivate let itemsPerRow: CGFloat = 2
     var approvedCategoriesIdArray = [String]()
+     var approvedCategoriesIdArrayNew = [String]()
     
     @IBOutlet weak var btnNext: UIButton!
     var isBackButtonHidden = Bool()
@@ -43,7 +51,13 @@ class CategoryListVC: UIViewController {
         }
 
         self.approvedCategoriesIdArray = userDefaults.stringArray(forKey: "approvedOrPendingCategoriesIdArray") ?? [String]()
+        
+        self.approvedCategoriesIdArrayNew = userDefaults.stringArray(forKey: "approvedCategoriesIdArrayNew") ?? [String]()
+
+        
+        
         print("ApprovedCategories ID retrieved from userdefaults:\(self.approvedCategoriesIdArray)")
+        print("ApprovedCategories ID NEW retrieved from userdefaults:\(self.approvedCategoriesIdArrayNew)")
 
         listCategoryServerCall()
     }
@@ -81,6 +95,11 @@ class CategoryListVC: UIViewController {
                     for i in 0..<categories.count{
                         for j in 0..<self.approvedCategoriesIdArray.count{
                             if categories[i].categoryId == self.approvedCategoriesIdArray[j]{
+                                
+                                //JOSE
+                              //  categories[i].categoryStatus = "pending"
+                             //  self.PendingcategoryModelArray.append(categories[i])
+                                ///
                                 isCategoryAlreadyApproved = true
                                 break
                             }
@@ -89,11 +108,37 @@ class CategoryListVC: UIViewController {
                         if !isCategoryAlreadyApproved{
                             self.categoriesArray.append(categories[i])
                         }
+//                       
                         isCategoryAlreadyApproved = false
+                        
+//                        ///JOSE
+//                        
+//                        for j in 0..<self.approvedCategoriesIdArrayNew.count{
+//                            if categories[i].categoryId == self.approvedCategoriesIdArrayNew[j]{
+//                                
+//                                //JOSE
+//                                 categories[i].categoryStatus = "approved"
+//                                self.PendingcategoryModelArray.append(categories[i])
+//                               // self.ApprovedcategoryModelArray.append(categories[i])
+//                                ///
+//                            
+//                                
+//                            }else{
+//                                categories[i].categoryStatus = "pending"
+//                               self.PendingcategoryModelArray.append(categories[i])
+//                            }
+//                            
+//                        }
+//
+//                        ////
+//                        
+                        
                     }
 
                     print("******* Filtered list of categories *******")
-                    print(self.categoriesArray)
+                    print("REMAINING COUNT",self.categoriesArray.count)
+                   
+                    
                     
                     self.categoryModelObj.insertCategoriesToDB(categories: categories)
                     self.subCategoryModelObj.insertSubCategoriesToDB(subCategories: subcategories)
@@ -181,24 +226,36 @@ extension CategoryListVC : UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categoriesArray.count
+        
+
+        
+ //       return self.PendingcategoryModelArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CategoryListCell
-
-        cell.lblCategoryName.text = categoriesArray[indexPath.row].categoryName
-        print("CATEG Image URL:",categoriesArray[indexPath.row].categoryImage)
-        cell.categoryImage.sd_setImage(with: URL(string: categoriesArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: ""))
+      //  print("CATEG Image URL:",PendingcategoryModelArray[indexPath.row].categoryName)
         
-        if selectedCategories.contains(indexPath.row){
+//        if PendingcategoryModelArray[indexPath.row].categoryStatus == "approved"
+//        {
+            cell.lblCategoryName.text = categoriesArray[indexPath.row].categoryName
+            print("CATEG Image URL:",categoriesArray[indexPath.row].categoryImage)
+            cell.categoryImage.sd_setImage(with: URL(string: categoriesArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: ""))
             cell.cellSelectionView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-        }else{
-            cell.cellSelectionView.backgroundColor = UIColor.white
-        }
-        
-        return cell
-    }
+
+ //       }
+//        else
+//        {
+//            cell.lblCategoryName.text = PendingcategoryModelArray[indexPath.row].categoryName
+//            print("CATEG Image URL:",PendingcategoryModelArray[indexPath.row].categoryImage)
+//            cell.categoryImage.sd_setImage(with: URL(string: PendingcategoryModelArray[indexPath.row].categoryImage), placeholderImage: UIImage(named: ""))
+//            
+//
+//        }
+    
+                      return cell
+          }
 }
 
 extension CategoryListVC : UICollectionViewDelegateFlowLayout {

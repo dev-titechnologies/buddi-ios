@@ -79,6 +79,10 @@ class TrainerTraineeRouteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        txtCancelReason.text = "Type here..."
+        txtCancelReason.textColor = UIColor.lightGray
+        txtCancelReason.delegate = self
+        
         print("viewDidLoad")
         v = UIView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
         
@@ -1206,7 +1210,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDelegate{
 //        cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "MapBottamButtonid", for: indexPath as IndexPath) as! MapBottamButtonCell
 
         if isTimerRunning == false && indexPath.row == 1{
-            self.runTimer()
+           // self.runTimer()
         }
         
         switch (indexPath.row) {
@@ -1231,6 +1235,22 @@ extension TrainerTraineeRouteViewController : UICollectionViewDelegate{
                 print("Integer out of range")
         }
 
+    }
+}
+extension TrainerTraineeRouteViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Type here.."
+            textView.textColor = UIColor.lightGray
+        }
     }
 }
 
