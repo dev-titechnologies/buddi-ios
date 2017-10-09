@@ -16,6 +16,7 @@ class CategoryModel{
     var categoryDescription : String = String()
     var categoryImage: String = String()
     var subCategories : [SubCategoryModel] = [SubCategoryModel]()
+    var categoryStatus : String = String()
     
     init(){}
     

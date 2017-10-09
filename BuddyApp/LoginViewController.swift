@@ -306,6 +306,15 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             approvedCount = category_approvedArray.count
             userDefaults.setValue(approvedCount, forKey: "approvedCategoryCount")
             
+            
+            ////JOSE
+            
+             userDefaults.set(approvedOrPendingCategoriesSingleton, forKey: "approvedCategoriesIdArrayNew")
+            
+            
+            
+            
+            
             if approvedCount > 0 {
                 print("*** Approved Categories Present ****")
                 //Need to redirect to Home Screen

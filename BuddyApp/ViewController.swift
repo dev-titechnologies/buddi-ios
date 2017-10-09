@@ -24,7 +24,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         super.viewDidLoad()
         print("ViewDidLoad ViewController")
         
-      //  appDelegate.delegateFCM = self
+         appDelegate.delegateFCM = self
     }
     
     override func viewWillAppear(_ animated: Bool) {

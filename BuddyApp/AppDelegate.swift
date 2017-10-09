@@ -50,6 +50,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             configureFirebase(application: application)
         }
         
+        
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        application.registerForRemoteNotifications()
+
+        
         GMSServices.provideAPIKey(GOOGLE_API_KEY)
         GMSPlacesClient.provideAPIKey(GOOGLE_API_KEY)
         GIDSignIn.sharedInstance().clientID = GID_CLIENT_ID
@@ -289,9 +307,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             }else if (userInfo as NSDictionary)["type"] as! String == "5"{
                 
                 
+                //REQUEST BOOKING
+                
+                print("5")
+                NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(userInfo as NSDictionary)["type"] as! String,"aps":(((userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
+                
+                
+                
+                
+                
+                
+                TrainerProfileDictionary = ["pushData":NotificationDict,"type":(userInfo as NSDictionary)["type"] as! String,"aps":(((userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String] as NSDictionary
+
+                
+                
+                
+                
+                
+                
+                
                 if abs(application.backgroundTimeRemaining) > 30
                 {
-                    print("TIME EXPIRED",abs(application.backgroundTimeRemaining))
+                    print("TIME EXPIRED")
                     
                     CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Request time expired", buttonTitle: "Ok")
                     

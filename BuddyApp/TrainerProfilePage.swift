@@ -120,7 +120,7 @@ class TrainerProfilePage: UIViewController {
         
         parameterdict.setValue("/location/addLocation", forKey: "url")
         parameterdict.setValue(datadict, forKey: "data")
-        print("PARADICT11",parameterdict)
+      //  print("PARADICT11",parameterdict)
         
         SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
     }
@@ -142,7 +142,7 @@ class TrainerProfilePage: UIViewController {
     }
     
     func updateLocation(){
-        print("counting..")
+       // print("counting..")
         addHandlers()
     }
     
@@ -405,6 +405,8 @@ class TrainerProfilePage: UIViewController {
                 self.imageArray = imagearray as! Array<ProfileImageDB>
                 
                 guard self.imageArray.count > 0 else{
+                    
+                    self.profileImage.image = UIImage(named: "profileDemoImage")
                     return
                 }
                 self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
