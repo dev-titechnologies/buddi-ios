@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         if userDefaults.value(forKey: "devicetoken") == nil {
+            print("***** configureFirebase Call in AppDelegate ******")
             configureFirebase(application: application)
         }
         
@@ -202,9 +203,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         
         if application.applicationState == .active {
             //write your code here when app is in foreground
-            
             print("ACTIVE")
-            
             if (userInfo as NSDictionary)["type"] as! String == "1"{
                 
                 //BOOK SESSION
@@ -260,13 +259,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
                 
             }
 
-            
-            
-            
-            
-            
-            
-            
         } else {
             //write your code here for other state
             

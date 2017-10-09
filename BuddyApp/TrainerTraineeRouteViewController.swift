@@ -360,7 +360,6 @@ class TrainerTraineeRouteViewController: UIViewController {
             userDefaults.removeObject(forKey: "TimerData")
             appDelegate.timerrunningtime = false
             TrainerProfileDetail.deleteBookingDetails()
-           //  v.removeFromSuperview()
              hideLoadingView()
 
             self.RateViewScreen()
