@@ -12,6 +12,7 @@ import Alamofire
 
 class BookingHistoryVC: UIViewController {
 
+    @IBOutlet weak var nohistory_lbl: UILabel!
     @IBOutlet weak var bookingHistoryTable: UITableView!
     var bookingsArray = [BookingHistoryModel]()
     let bookingHistoryModelObj: BookingHistoryModel = BookingHistoryModel()
@@ -20,7 +21,7 @@ class BookingHistoryVC: UIViewController {
         super.viewDidLoad()
 
         self.title = PAGE_TITLE.TRAINING_HISTORY
-        
+         self.nohistory_lbl.isHidden = true
         
     }
     
@@ -70,9 +71,11 @@ class BookingHistoryVC: UIViewController {
                                 
                                 print("BOOKING ARRAY COUNT",self.bookingsArray.count)
                                 self.bookingHistoryTable.isHidden = false
+                                self.nohistory_lbl.isHidden = true
                                 self.bookingHistoryTable.reloadData()
                             }else{
                                 self.bookingHistoryTable.isHidden = true
+                                self.nohistory_lbl.isHidden = false
                             }
                         }
                         
