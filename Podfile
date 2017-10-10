@@ -33,6 +33,8 @@ target 'BuddyApp' do
     pod 'NVActivityIndicatorView'
     
     pod 'GoogleAnalytics'
+    pod 'TTTAttributedLabel'
+
     
   # Pods for BuddyApp
 

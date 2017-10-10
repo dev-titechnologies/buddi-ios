@@ -83,6 +83,7 @@ class WaitingForAcceptancePage: UIViewController {
             //Pls remove user type trainee code. only for testing purpose
             if self.forUserType == "trainee" {
                 print("dismissWaitingForAcceptancePage call after : 120 seconds")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_TRY_AGAIN_AFTER_FEW_MOMENTS, buttonTitle: "OK")
                 self.dismissWaitingForAcceptancePage()
             }else if self.forUserType == "trainer" {
                 //print("Booking Action Complete call after 30 seconds")

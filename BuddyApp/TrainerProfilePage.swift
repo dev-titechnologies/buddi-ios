@@ -384,14 +384,14 @@ class TrainerProfilePage: UIViewController {
         userDefaults.set(userName, forKey: "userName")
         
         if let age = profile["age"] as? String{
-            lblAge.text = "Trainer \(age))"
+            lblAge.text = "Trainer (\(age))"
         }else{
             lblAge.text = "Trainer"
         }
 
         lblTrainerName.text = (profile["first_name"] as! String) + " " + (profile["last_name"] as! String)
-//        lblHeight.text = "\(CommonMethods.checkStringNull(val:profile["height"] as? String)) cm"
-//        lblWeight.text = "\(CommonMethods.checkStringNull(val:profile["weight"] as? String)) lbs"
+        lblHeight.text = "\(CommonMethods.checkStringNull(val: String(describing: profile["height"]!))) cm"
+        lblWeight.text = "\(CommonMethods.checkStringNull(val: String(describing: profile["weight"]!))) lbs"
         txtFirstName.text = profile["first_name"] as? String
         txtLastName.text = profile["last_name"] as? String
         lblEmail.text = profile["email"] as? String
@@ -425,9 +425,7 @@ class TrainerProfilePage: UIViewController {
                         print("image not found")
                         self.profileImage.image = UIImage(named: "profileDemoImage")
                     }
-           
                 }
-        
             }
         }else{
             print("image not found1")

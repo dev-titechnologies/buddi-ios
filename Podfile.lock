@@ -131,6 +131,7 @@ PODS:
   - StarscreamSocketIO (8.0.2)
   - SVProgressHUD (2.1.2)
   - SwiftyJSON (3.1.4)
+  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
@@ -157,6 +158,7 @@ DEPENDENCIES:
   - Socket.IO-Client-Swift
   - SVProgressHUD
   - SwiftyJSON
+  - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
@@ -193,7 +195,8 @@ SPEC CHECKSUMS:
   StarscreamSocketIO: c02ffb2920bd38de6658ce213071fc4ae0e35423
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: dae2db4fd2166fbeba0ee25a0aec56040accf579
+PODFILE CHECKSUM: 57139f95cbfe507c3bc800b8f973b8d4b3163872
 
 COCOAPODS: 1.1.1

@@ -45,6 +45,27 @@ let MINUTES_40_PAID_ALERT = "You've already been paid for a 40 minute session. I
 let PROMO_CODE_APPLIED_SUCCESSFULL = "Promo code applied successfully"
 let TRAINER_NOT_REACHED_TO_LOCATION = "It seems like trainer has not reached to the location. Please wait until your trainer arrives at the location."
 let PLEASE_ASK_TRAINEE_TO_START_SESSION = "Please ask the Trainee to start the session."
+let PLEASE_TRY_AGAIN_AFTER_FEW_MOMENTS = "Please try again after a few moments"
+let PLEASE_ACCEPT_TERMS_OF_USE_LABEL = "Please accept Terms of Use, Privacy Policy & Disclaimer"
+let TERMS_OF_USE_LINK_DISPLAY_TEXT = "Terms of Use"
+let PRIVACY_POLICY_LINK_DISPLAY_TEXT = "Privacy Policy"
+let DISCLAIMER_LINK_DISPLAY_TEXT = "Disclaimer"
+
+//Registration Validation Alerts
+let PLEASE_ENTER_FIRSTNAME = "Please enter your first name"
+let PLEASE_ENTER_LASTNAME = "Please enter last name"
+let PLEASE_ENTER_EMAIL = "Please enter email"
+let PLEASE_ENTER_A_VALID_EMAIL = "Please enter a valid email"
+let PLEASE_SELECT_COUNTRY_CODE = "Please select country code"
+let PLEASE_ENTER_MOBILE_NUMBER = "Please enter your mobile number"
+let PLEASE_SELECT_GENDER = "Please select your gender"
+let PLEASE_ENTER_VALID_MOBILE_NUMBER = "Please enter a valid mobile number"
+let PLEASE_ENTER_PASSWORD = "Please enter Password"
+let PLEASE_ENTER_AGE = "Please enter Age"
+let PLEASE_ENTER_WEIGHT = "Please enter Weight"
+let PLEASE_ENTER_HEIGHT = "Please enter Height"
+
+//Video upload Constants
 
 let MINUTES_60_PAID_ALERT = "You've already been paid for a 1 hour session. If you proceed, 40 minute session amount will be deducted. Would you like to continue with 40 minute session ?"
 

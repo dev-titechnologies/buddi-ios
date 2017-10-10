@@ -701,13 +701,13 @@
 		F373509A1F207A3800BE9DB6 /* Home Page */ = {
 			isa = PBXGroup;
 			children = (
+				F3CE529A1F8B594300CA00F1 /* Help Page */,
+				F3CE52991F8B58D600CA00F1 /* Legal Page */,
 				F307E8921F56D4E8000273CF /* Invite Friends */,
 				F3C5955A1F4EECA600808ACB /* Settings Page */,
 				F3FD7DDA1F38383800986815 /* Left Menu */,
 				F3FD7DD71F3831E700986815 /* Add Payment Method */,
 				F330A0FF1F2F731D00C69871 /* BlankViewController.swift */,
-				F390DE061F4AB71500C52034 /* HelpPageVC.swift */,
-				F390DE081F4AB77500C52034 /* LegalPageVC.swift */,
 			);
 			name = "Home Page";
 			sourceTree = "<group>";
@@ -832,6 +832,22 @@
 				F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */,
 			);
 			name = "GPX Files";
+			sourceTree = "<group>";
+		};
+		F3CE52991F8B58D600CA00F1 /* Legal Page */ = {
+			isa = PBXGroup;
+			children = (
+				F390DE081F4AB77500C52034 /* LegalPageVC.swift */,
+			);
+			name = "Legal Page";
+			sourceTree = "<group>";
+		};
+		F3CE529A1F8B594300CA00F1 /* Help Page */ = {
+			isa = PBXGroup;
+			children = (
+				F390DE061F4AB71500C52034 /* HelpPageVC.swift */,
+			);
+			name = "Help Page";
 			sourceTree = "<group>";
 		};
 		F3FC70E91F2F398500B54A79 /* Forgot Password */ = {

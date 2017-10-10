@@ -14,6 +14,7 @@ import Alamofire
 import CountryPicker
 import SVProgressHUD
 import libPhoneNumber_iOS
+import TTTAttributedLabel
 
 class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPickerDelegate,UITextFieldDelegate {
     @IBOutlet weak var facebook_btn: UIButton!
@@ -43,16 +44,28 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     var mobileNumber = String()
     var jsondict: NSDictionary!
     
+    //Age,Height & Weight Outlets
+    
+    @IBOutlet weak var txtAge: UITextField!
+    @IBOutlet weak var txtWeight: UITextField!
+    @IBOutlet weak var txtHeight: UITextField!
+    
+    
     let myView = UIView()
     
     @IBOutlet weak var countryPickerCardView: CardView!
+    @IBOutlet weak var lblPrivacyPolicy: TTTAttributedLabel!
+    @IBOutlet weak var btnPrivacyCheckBox: UIButton!
+    var isAgreedPrivacyPolicy = Bool()
+    
+    
+    //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 188/255, green: 214/255, blue: 255/255, alpha: 1)
+
         contrycode_txt.isUserInteractionEnabled = false
-    
-        print("qqqqq",UserType)
+        print("***** UserType:",UserType)
         
         self.title = PAGE_TITLE.REGISTER
         
@@ -73,43 +86,17 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
         }
         
-        google_btn.layer.borderColor = UIColor.init(colorLiteralRed: 223/255, green: 74/255, blue: 50/255, alpha: 1.0).cgColor
-        google_btn.layer.borderWidth = 2
-        google_btn.layer.cornerRadius = 5
-        google_btn.clipsToBounds = true
-        
-        facebook_btn.layer.borderColor = UIColor.init(colorLiteralRed: 59/255, green: 74/255, blue: 153/255, alpha: 1.0).cgColor
-
-        facebook_btn.layer.borderWidth = 2
-        facebook_btn.layer.cornerRadius = 5
-        facebook_btn.clipsToBounds = true
-               
-//        removeZerosFromBeginningInMobileNumber(mobile: "000000231234")
-        contrycode_txt.delegate = self
-        firstname_txt.delegate = self
-        lastname_txt.delegate = self
-        mobile_txt.delegate = self
-        password_txt.delegate = self
-        
-        male_btn.layer.cornerRadius = 12
-        male_btn.layer.borderColor = UIColor.darkGray.cgColor
-        male_btn.layer.borderWidth = 2
-        male_btn.clipsToBounds = true
-        
-        female_btn.layer.cornerRadius = 12
-        female_btn.layer.borderColor = UIColor.darkGray.cgColor
-        female_btn.layer.borderWidth = 2
-
-        female_btn.clipsToBounds = true
+        setGoogleButton()
+        setFacebookButton()
+        setDelegates()
+        setMaleButton()
+        setFemaleButton()
   
-        // Do any additional setup after loading the view.
         GIDSignIn.sharedInstance().signOut()
         GIDSignIn.sharedInstance().uiDelegate = self
-        // GIDSignIn.sharedInstance().delegate = self as! GIDSignInDelegate
         
         let locale = Locale.current
         let code = (locale as NSLocale).object(forKey: NSLocale.Key.countryCode) as! String?
-        //init Picker
         picker.countryPickerDelegate = self
         picker.showPhoneNumbers = true
         picker.setCountry(code!)
@@ -122,10 +109,60 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         
         // Register to receive notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: notificationName, object: nil)
-    
+        
+        let str : NSString = PLEASE_ACCEPT_TERMS_OF_USE_LABEL as NSString
+        lblPrivacyPolicy.delegate = self
+        lblPrivacyPolicy.text = str as String
+        let terms_of_use_range : NSRange = str.range(of: TERMS_OF_USE_LINK_DISPLAY_TEXT)
+        let privary_range : NSRange = str.range(of: PRIVACY_POLICY_LINK_DISPLAY_TEXT)
+        let disclaimer_range : NSRange = str.range(of: DISCLAIMER_LINK_DISPLAY_TEXT)
+
+        lblPrivacyPolicy.addLink(to: NSURL(string: TERM_OF_USE_URL)! as URL!, with: terms_of_use_range)
+        lblPrivacyPolicy.addLink(to: NSURL(string: PRIVACY_POLICY_URL)! as URL!, with: privary_range)
+        lblPrivacyPolicy
+            .addLink(to: NSURL(string: DISCLAIMER_URL)! as URL!, with: disclaimer_range)
     }
     
-     func methodOfReceivedNotification(notif: NSNotification) {
+    func setGoogleButton() {
+        
+        google_btn.layer.borderColor = UIColor.init(colorLiteralRed: 223/255, green: 74/255, blue: 50/255, alpha: 1.0).cgColor
+        google_btn.layer.borderWidth = 2
+        google_btn.layer.cornerRadius = 5
+        google_btn.clipsToBounds = true
+    }
+    
+    func setFacebookButton() {
+        
+        facebook_btn.layer.borderColor = UIColor.init(colorLiteralRed: 59/255, green: 74/255, blue: 153/255, alpha: 1.0).cgColor
+        
+        facebook_btn.layer.borderWidth = 2
+        facebook_btn.layer.cornerRadius = 5
+        facebook_btn.clipsToBounds = true
+    }
+    
+    func setDelegates() {
+        contrycode_txt.delegate = self
+        firstname_txt.delegate = self
+        lastname_txt.delegate = self
+        mobile_txt.delegate = self
+        password_txt.delegate = self
+    }
+    
+    func setMaleButton() {
+        male_btn.layer.cornerRadius = 12
+        male_btn.layer.borderColor = UIColor.darkGray.cgColor
+        male_btn.layer.borderWidth = 2
+        male_btn.clipsToBounds = true
+    }
+    
+    func setFemaleButton() {
+        female_btn.layer.cornerRadius = 12
+        female_btn.layer.borderColor = UIColor.darkGray.cgColor
+        female_btn.layer.borderWidth = 2
+        female_btn.clipsToBounds = true
+    }
+    
+    func methodOfReceivedNotification(notif: NSNotification) {
         
         let notificationName = Notification.Name("NotificationIdentifier")
         NotificationCenter.default.removeObserver(self, name: notificationName, object: nil);
@@ -172,27 +209,33 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         mobileNumber = contrycode_txt.text! + "-" + mobile_txt.text!
         
         if firstname_txt.text!.isEmpty {
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter your first name", buttonTitle: "Ok")
+            showAlertView(alertMessage:PLEASE_ENTER_FIRSTNAME)
         }else if lastname_txt.text!.isEmpty {
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter last name", buttonTitle: "Ok")
+            showAlertView(alertMessage:PLEASE_ENTER_LASTNAME)
         }else if email_txt.text!.isEmpty {
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter email", buttonTitle: "Ok")
+            showAlertView(alertMessage: PLEASE_ENTER_EMAIL)
         }else if !self.validate(YourEMailAddress: email_txt.text!) {
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter a valid email", buttonTitle: "Ok")
+            showAlertView(alertMessage:PLEASE_ENTER_A_VALID_EMAIL)
         }else if contrycode_txt.text!.isEmpty{
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please select country code", buttonTitle: "Ok")
+            showAlertView(alertMessage:PLEASE_SELECT_COUNTRY_CODE)
         }else if mobile_txt.text!.isEmpty{
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter your mobile number", buttonTitle: "Ok")
+            showAlertView(alertMessage:PLEASE_ENTER_MOBILE_NUMBER)
         }else if genderString.isEmpty{
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please select your gender", buttonTitle: "Ok")
+            showAlertView(alertMessage:PLEASE_SELECT_GENDER)
         }else if(!mobileNumberValidation(number: mobileNumberCopy)){
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please Enter a valid mobile number", buttonTitle: "Ok")
+            showAlertView(alertMessage:PLEASE_ENTER_VALID_MOBILE_NUMBER)
         }else if password_txt.text!.isEmpty{
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please Enter Password", buttonTitle: "Ok")
+            showAlertView(alertMessage:PLEASE_ENTER_PASSWORD)
+        }else if txtAge.text!.isEmpty{
+            showAlertView(alertMessage:PLEASE_ENTER_AGE)
+        }else if txtWeight.text!.isEmpty{
+            showAlertView(alertMessage:PLEASE_ENTER_WEIGHT)
+        }else if txtHeight.text!.isEmpty{
+            showAlertView(alertMessage:PLEASE_ENTER_HEIGHT)
+        }else if !isAgreedPrivacyPolicy{
+            showAlertView(alertMessage:PLEASE_ACCEPT_TERMS_OF_USE_LABEL)
         }else{
-            
             guard CommonMethods.networkcheck() else {
-                
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
                 return
             }
@@ -226,9 +269,12 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 "user_type": UserType,
                 "facebook_id": FB_id ,
                 "google_id": GOOGLE_id ,
-                "profile_desc":"dd"
-                
+                "profile_desc":"dd",
+                "age" : txtAge.text!,
+                "weight" : txtWeight.text!,
+                "height" : txtHeight.text!
             ]
+            
             HeaderDictionary = [
                 "device_id": appDelegate.DeviceToken,
                 "device_imei": UIDevice.current.identifierForVendor!.uuidString,
@@ -236,6 +282,10 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 
             ]
         }
+    }
+    
+    func showAlertView(alertMessage: String) {
+        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: alertMessage, buttonTitle: "Ok")
     }
     
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
@@ -546,10 +596,27 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             controller.MobileNumber = mobileNumber
             controller.DataDictionary = FullDataDictionary
             controller.HeaderDict = HeaderDictionary
-        }
-        else if segue.identifier == "loginToChooseCategorySegueR" {
+        }else if segue.identifier == "loginToChooseCategorySegueR" {
             let chooseCategoryPage =  segue.destination as! CategoryListVC
             chooseCategoryPage.isBackButtonHidden = true
         }
+    }
+    
+    @IBAction func checkPrivacyPolicyAction(_ sender: Any) {
+        
+        if isAgreedPrivacyPolicy{
+            isAgreedPrivacyPolicy = false
+            btnPrivacyCheckBox.setImage(#imageLiteral(resourceName: "TandCUnchecked"), for: .normal)
+        }else{
+            isAgreedPrivacyPolicy = true
+            btnPrivacyCheckBox.setImage(#imageLiteral(resourceName: "TandCChecked"), for: .normal)
+        }
+    }
+}
+
+extension RegisterViewController: TTTAttributedLabelDelegate {
+    
+    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
+        UIApplication.shared.open(url)
     }
 }
