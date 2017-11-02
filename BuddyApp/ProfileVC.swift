@@ -44,6 +44,9 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     var userId = String()
     
     @IBOutlet weak var btnMenu: UIButton!
+    
+    //MARK: - VIEW CYCLES 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,6 +67,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             }
             
             fetchFromDBAndServer()
+        }else{
+            changeTextColorBlack()
         }
     }
     
@@ -123,12 +128,18 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             
             print("DBBB",self.profileArray[0])
    
-            let profile = ProfileModel(profileImage: self.profileArray[0].value(forKey: "profileImageURL") as! String, firstName: self.profileArray[0].value(forKey: "firstname") as! String,
+            let profile = ProfileModel(profileImage: self.profileArray[0].value(forKey: "profileImageURL") as! String,
+                                       firstName: self.profileArray[0].value(forKey: "firstname") as! String,
                                        lastName: self.profileArray[0].value(forKey: "lastname") as! String,
                                        email: self.profileArray[0].value(forKey: "email") as! String,
                                        mobile: self.profileArray[0].value(forKey: "mobile") as! String,
                                        gender: self.profileArray[0].value(forKey: "gender") as! String,
                                        userid: "")
+            
+            if profile.profileImage != "" {
+                print("Image URL Found :\(profile.profileImage)")
+                self.ProfileImageURL = profile.profileImage
+            }
             
      // profileImage.sd_setImage(with: URL(string: profile.profileImage))
             firstname_txt.text = profile.firstName
@@ -211,13 +222,9 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                           "user_image":self.ProfileImageURL,
                           "profile_desc":"tt" ] as [String : Any]
         
-        let headers = [
-            "token":appDelegate.Usertoken ]
-        
         print("PARAMS",parameters)
-        print("HEADER",headers)
         
-        CommonMethods.serverCall(APIURL: EDIT_PROFILE, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: EDIT_PROFILE, parameters: parameters , onCompletion: { (jsondata) in
             print("EDIT PROFILE RESPONSE",jsondata)
             
             if let status = jsondata["status"] as? Int{
@@ -354,14 +361,10 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                           "user_id":appDelegate.UserId] as [String : Any]
         }
         
-        let headers = [
-            "token":appDelegate.Usertoken ]
-
         print("PARAMS",parameters)
-        print("HEADER",headers)
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: VIEW_PROFILE, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: VIEW_PROFILE, parameters: parameters , onCompletion: { (jsondata) in
             print("PROFILE RESPONSE",jsondata)
             
             CommonMethods.hideProgress()
@@ -372,6 +375,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
 
                     if let url = URL(string:(self.ProfileDict ["user_image"] as? String)!){
                         print("Image URL:", url)
+                        self.ProfileImageURL = (self.ProfileDict ["user_image"] as? String)!
                         let data = NSData.init(contentsOf: url)
                         ProfileImageDB.save(imageURL: (self.ProfileDict["user_image"] as? String)!, imageData: data!)
                     }
@@ -422,7 +426,10 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     func UploadImageAPI(imagedata : NSData) {
         
         let headers = [
-            "token":appDelegate.Usertoken ]
+            "token" : appDelegate.Usertoken,
+            "user_type" : appDelegate.USER_TYPE
+        ]
+        
         let parameters = ["file_type":"img",
                           "upload_type":"profile"]
         
@@ -473,8 +480,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                                 
                                 self.EditProfileAPIforImage()
                                 
-                               
-                                
                                 ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: uploadImageData as Data as Data as NSData)
                             }else if status == RESPONSE_STATUS.FAIL{
                                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsonDic["message"] as? String, buttonTitle: "Ok")
@@ -503,15 +508,11 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                           "user_image":self.ProfileImageURL,
                           "profile_desc":"tt" ] as [String : Any]
         
-        let headers = [
-            "token":appDelegate.Usertoken ]
-        
         print("PARAMS",parameters)
-        print("HEADER",headers)
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: EDIT_PROFILE, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
-            print("EDIT PROFILE RESPONSE",jsondata)
+        CommonMethods.serverCall(APIURL: EDIT_PROFILE, parameters: parameters , onCompletion: { (jsondata) in
+            print("EDIT PROFILE API IMAGE RESPONSE",jsondata)
             
             CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
@@ -519,6 +520,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                     self.ProfileDict = jsondata["data"]  as! NSDictionary
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Profile picture updated", buttonTitle: "Ok")
+                    
+                    self.changeTextColorBlack()
                 }
                 else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()

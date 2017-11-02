@@ -50,14 +50,12 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     @IBOutlet weak var txtWeight: UITextField!
     @IBOutlet weak var txtHeight: UITextField!
     
-    
     let myView = UIView()
     
     @IBOutlet weak var countryPickerCardView: CardView!
     @IBOutlet weak var lblPrivacyPolicy: TTTAttributedLabel!
     @IBOutlet weak var btnPrivacyCheckBox: UIButton!
     var isAgreedPrivacyPolicy = Bool()
-    
     
     //MARK: - VIEW CYCLES
     
@@ -82,7 +80,15 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
         }else if (googleUserDictionary != nil){
             registerType = "google"
-            self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
+            
+            let name = (self.googleUserDictionary["name"] as? String)!
+            let nameArray = name.components(separatedBy: " ")
+            if nameArray.count > 1{
+                self.firstname_txt.text = nameArray[0]
+                self.lastname_txt.text = nameArray[1]
+            }else{
+                self.firstname_txt.text = nameArray[0]
+            }
             self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
         }
         
@@ -94,6 +100,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
   
         GIDSignIn.sharedInstance().signOut()
         GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().shouldFetchBasicProfile = true
         
         let locale = Locale.current
         let code = (locale as NSLocale).object(forKey: NSLocale.Key.countryCode) as! String?
@@ -114,11 +121,11 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         lblPrivacyPolicy.delegate = self
         lblPrivacyPolicy.text = str as String
         let terms_of_use_range : NSRange = str.range(of: TERMS_OF_USE_LINK_DISPLAY_TEXT)
-        let privary_range : NSRange = str.range(of: PRIVACY_POLICY_LINK_DISPLAY_TEXT)
+        let privacy_range : NSRange = str.range(of: PRIVACY_POLICY_LINK_DISPLAY_TEXT)
         let disclaimer_range : NSRange = str.range(of: DISCLAIMER_LINK_DISPLAY_TEXT)
 
-        lblPrivacyPolicy.addLink(to: NSURL(string: TERM_OF_USE_URL)! as URL!, with: terms_of_use_range)
-        lblPrivacyPolicy.addLink(to: NSURL(string: PRIVACY_POLICY_URL)! as URL!, with: privary_range)
+        lblPrivacyPolicy.addLink(to: NSURL(string: TERMS_OF_USE_URL)! as URL!, with: terms_of_use_range)
+        lblPrivacyPolicy.addLink(to: NSURL(string: PRIVACY_POLICY_URL)! as URL!, with: privacy_range)
         lblPrivacyPolicy
             .addLink(to: NSURL(string: DISCLAIMER_URL)! as URL!, with: disclaimer_range)
     }
@@ -161,6 +168,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         female_btn.layer.borderWidth = 2
         female_btn.clipsToBounds = true
     }
+    
+    //MARK: - GOOGLE SIGNUP NOTIFICATION 
     
     func methodOfReceivedNotification(notif: NSNotification) {
         
@@ -246,13 +255,25 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             if registerType == REGISTER_TYPE.FACEBOOK{
                  FB_id = CommonMethods.checkStringNull(val: (self.fbUserDictionary["id"] as! String))
                  GOOGLE_id = ""
+                self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
+                print("PROFILE IMAGE  IN FB Validation fun:",self.profileImageURL)
             }else if registerType == REGISTER_TYPE.GOOGLE{
                  FB_id = ""
                  GOOGLE_id = CommonMethods.checkStringNull(val: (self.googleUserDictionary["userid"] as? String)!)
+                self.profileImageURL = String(describing: self.googleUserDictionary["userimage"]!)
+                print("PROFILE IMAGE  IN GOOGLE Validation fun:",self.profileImageURL)
             }else{
                 registerType = REGISTER_TYPE.NORMAL
                 FB_id = ""
                 GOOGLE_id = ""
+            }
+            
+            print("**** Save image to DB ****")
+            if let url = URL(string:self.profileImageURL){
+                print("Image URL:", url)
+                if let data = NSData.init(contentsOf: url) {
+                    ProfileImageDB.save(imageURL: self.profileImageURL, imageData: data)
+                }
             }
             
             OTPCall()
@@ -279,8 +300,9 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 "device_id": appDelegate.DeviceToken,
                 "device_imei": UIDevice.current.identifierForVendor!.uuidString,
                 "device_type": "ios",
-                
             ]
+            
+            print("Dictionary Params for OTP Call:\(FullDataDictionary)")
         }
     }
     
@@ -293,7 +315,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     func OTPCall(){
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":mobileNumber, "email": self.email_txt.text!], headers: nil, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: "register/sendOTP", parameters: ["mobile":mobileNumber, "email": self.email_txt.text!], onCompletion: { (jsondata) in
             print("1234",jsondata)
             
             CommonMethods.hideProgress()
@@ -404,33 +426,27 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
 //        self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
 //        //self.lastname_txt.text = (self.googleUserDictionary["last_name"] as? String)!
 //        self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
-//
-        
-        
     }
+    
     //completed sign In
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         
-        
-        
         if (error == nil)
         {
-            let userId = user.userID                  // For client-side use only!
-            let idToken = user.authentication.idToken // Safe to send to the server
+            let userId = user.userID
+            let idToken = user.authentication.idToken
             let name = user.profile.name
             let email = user.profile.email
-            //let userImageURL = user.profile.imageURLWithDimension(200)
-            // ...
+            let userImageURL = user.profile.imageURL(withDimension: 200)
             
-            
-            //print(user)
+            print("****** Google SignIn Response ******")
             print(userId!)
             print(idToken!)
             print(name!)
             print(email!)
-        }
-        else
-        {
+            print(userImageURL!)
+
+        }else{
             print("\(error.localizedDescription)")
         }
     }
@@ -482,12 +498,13 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
         print("Header:",headers)
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCallCopy(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
             print("LOGIN RESPONSE",jsondata)
             
             CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
+                    
                     self.jsondict = jsondata["data"]  as! NSDictionary
                     
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
@@ -522,10 +539,10 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SUCCESSFULLY_LOGGED_IN, buttonTitle: "Ok")
                     
-                                 }
-                else if status == RESPONSE_STATUS.FAIL{
+                }else if status == RESPONSE_STATUS.FAIL{
                     if jsondata["status_type"] as? String == "UserNotRegistered" {
                         
+                        print("registerType:\(self.registerType)")
                         if self.registerType == REGISTER_TYPE.FACEBOOK{
                             
                             self.firstname_txt.text = (self.fbUserDictionary["first_name"] as? String)!
@@ -536,11 +553,31 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                             }
                             
                             self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
-                            
-                            print("PROFILE IMAGE ",self.profileImageURL)
+                            print("PROFILE IMAGE  IN FB",self.profileImageURL)
                         }else if self.registerType == REGISTER_TYPE.GOOGLE{
-                            self.firstname_txt.text = (self.googleUserDictionary["name"] as? String)!
+                            
+                            print("googleUserDictionary:\(self.googleUserDictionary)")
+                            
+                            let nameStringFromGoogle = (self.googleUserDictionary["name"] as? String)!
+                            let firstAndLastNamesArray = nameStringFromGoogle.components(separatedBy: " ")
+                            if firstAndLastNamesArray.count > 0 {
+                                self.firstname_txt.text = firstAndLastNamesArray[0]
+                                self.lastname_txt.text = firstAndLastNamesArray[1]
+                            }else{
+                                self.firstname_txt.text = firstAndLastNamesArray[0]
+                            }
+                            
                             self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
+                            self.profileImageURL = String(describing: self.googleUserDictionary["userimage"]!)
+                            print("PROFILE IMAGE  IN GOOGLE:",self.profileImageURL)
+                        }
+
+                        print("**** Save image to DB ****")
+                        if let url = URL(string:self.profileImageURL){
+                            print("Image URL:", url)
+                            if let data = NSData.init(contentsOf: url) {
+                                ProfileImageDB.save(imageURL: self.profileImageURL, imageData: data)
+                            }
                         }
                     }
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{

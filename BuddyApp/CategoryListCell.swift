@@ -9,11 +9,11 @@
 import UIKit
 
 class CategoryListCell: UICollectionViewCell {
-    @IBOutlet weak var pendingstatus_lbl: UILabel!
     
     @IBOutlet weak var categoryImage: UIImageView!
     @IBOutlet weak var lblCategoryName: UILabel!
     @IBOutlet weak var cellSelectionView: UIView!
+    @IBOutlet weak var imgPendingStatus: UIImageView!
     
     override func awakeFromNib() {
         

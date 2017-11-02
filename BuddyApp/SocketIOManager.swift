@@ -18,7 +18,7 @@ class SocketIOManager: NSObject {
     
     //let socket = SocketIOClient(socketURL: NSURL(string: SERVER_URL)!, options: [.Log(true), .ForcePolling(true),SocketIOClientOption.connectParams(["__sails_io_sdk_version":"0.11.0","token":appDelegate.Usertoken] as [String: Any])])
     
-    let socket = SocketIOClient(socketURL: URL(string: SERVER_URL)!, config: [.log(true), .compress, SocketIOClientOption.connectParams(["__sails_io_sdk_version":"0.12.13", "token":appDelegate.Usertoken])])
+    let socket = SocketIOClient(socketURL: URL(string: SERVER_URL)!, config: [.log(true), .compress, SocketIOClientOption.connectParams(["__sails_io_sdk_version":"0.12.13", "token":appDelegate.Usertoken,"user_type":appDelegate.USER_TYPE])])
     
     //       let socket = SocketIOClient(socketURL: NSURL(string:SERVER_URL)!, options: [SocketIOClientOption.ConnectParams(["__sails_io_sdk_version":"0.11.0"])])
     //

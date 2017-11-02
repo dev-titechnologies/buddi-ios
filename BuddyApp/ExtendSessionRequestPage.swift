@@ -115,7 +115,8 @@ class ExtendSessionRequestPage: UIViewController {
             print("isPaymentSuccess : \(isPaymentSuccess)")
             showAlertRegardingPreviousPayment()
         }else {
-            getClientToken()
+            paymentCheckoutStripe()
+//            getClientToken()
         }
 
     }
@@ -248,6 +249,48 @@ class ExtendSessionRequestPage: UIViewController {
         }
     }
     
+    func paymentCheckoutStripe() {
+        
+        let parameters =  ["training_time": choosedSessionOfTrainee,
+                           ] as [String : Any]
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: PAYMENT_CHECKOUT_STRIPE, parameters: parameters) { (jsondata) in
+            print("paymentCheckoutStripe Response: \(jsondata)")
+            
+            CommonMethods.hideProgress()
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    self.navigationItem.hidesBackButton = true
+                    
+                    self.isPaymentSuccess = true
+                    let transactionDict = jsondata["data"]  as! NSDictionary
+                    self.transactionId = transactionDict["id"] as! String
+                    self.transactionAmount = transactionDict["amount"] as! String
+                    self.transactionStatus = transactionDict["status"] as! String
+                    
+                    let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                        self.extendSession()
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
+    }
+    
     func showAlertRegardingPreviousPayment() {
         
         var alertMessage = String()
@@ -304,9 +347,6 @@ class ExtendSessionRequestPage: UIViewController {
     
     func extendSession() {
         
-        let headers = [
-            "token":appDelegate.Usertoken]
-        
         let parameters =  ["book_id" : bookingId,
                            "transaction_id" : transactionId,
                            "extended_time" : extendingSessionDuration
@@ -315,7 +355,7 @@ class ExtendSessionRequestPage: UIViewController {
         print("PARAMS: \(parameters)")
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: EXTEND_SESSION, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: EXTEND_SESSION, parameters: parameters, onCompletion: { (jsondata) in
             
             print("*** Extend Session Result:",jsondata)
             
@@ -367,18 +407,14 @@ class ExtendSessionRequestPage: UIViewController {
     
     func bookingCompleteAction(action_status: String) {
         
-        let headers = [
-            "token":appDelegate.Usertoken]
-        
         let parameters = ["book_id" : trainerProfileDetails.Booking_id,
                           "action" : action_status,
                           "trainer_id" : trainerProfileDetails.Trainer_id
             ] as [String : Any]
         
-        print("Header:\(headers)")
         print("Params:\(parameters)")
         
-        CommonMethods.serverCall(APIURL: BOOKING_ACTION, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: BOOKING_ACTION, parameters: parameters, onCompletion: { (jsondata) in
             
             print("*** Booking Complete Action Result:",jsondata)
             

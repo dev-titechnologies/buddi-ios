@@ -50,7 +50,7 @@ extension LegalPageVC : UITableViewDelegate{
         
         if indexPath.row == 0 {
             //Terms of Use
-            openUrlInWebPage(url: URL(string: TERM_OF_USE_URL)!)
+            openUrlInWebPage(url: URL(string: TERMS_OF_USE_URL)!)
             
         }else if indexPath.row == 1 {
             //Privacy Policy

@@ -38,6 +38,9 @@ class Singleton {
     var choosedSessionPreference = String()
     var choosedTrainerGenderPreference = String()
     var choosedTrainingLocationPreference = String()
+    
+    //Timer for addlocation for the Trainer. which is used in the home page of trainer profile.
+    var addLocationTimer : Timer?
 
     static let sharedInstance : Singleton = {
         let instance = Singleton()
@@ -51,6 +54,7 @@ class Singleton {
         selectedSubCategories = [SubCategoryModel]()
         storyboardSingleton = UIStoryboard(name: "Main", bundle: nil)
         onlineavailabilty = true
+        addLocationTimer = Timer()
     }
     
     let reachabilityManager = Alamofire.NetworkReachabilityManager(host: "www.apple.com")

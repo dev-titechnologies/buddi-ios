@@ -24,6 +24,9 @@
 		F30B60211F1DCEED00374136 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */; };
 		F3150D071F56C01100856555 /* InviteFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3150D061F56C01100856555 /* InviteFriendsVC.swift */; };
 		F3150D091F56C81B00856555 /* AcceptOrDeclineRequestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3150D081F56C81B00856555 /* AcceptOrDeclineRequestPage.swift */; };
+		F31533ED1F9493DD0051FC49 /* CheckoutRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31533EC1F9493DD0051FC49 /* CheckoutRowView.swift */; };
+		F31533F01F9495FF0051FC49 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31533EF1F9495FF0051FC49 /* Buttons.swift */; };
+		F31533F21F9496560051FC49 /* MyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31533F11F9496560051FC49 /* MyAPIClient.swift */; };
 		F315428E1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315428D1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift */; };
 		F31542901F38802E0070EEC6 /* TrainerProfileModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */; };
 		F315E9961F30585700850A44 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = F315E98D1F30585700850A44 /* check.png */; };
@@ -106,6 +109,7 @@
 		F38BB5511F2643E900824C15 /* Alamofire.framework in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5481F2628E300824C15 /* Alamofire.framework */; };
 		F38BB5521F2643F900824C15 /* AlamofireImage.framework in Sources */ = {isa = PBXBuildFile; fileRef = F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */; };
 		F38BB5531F2643FF00824C15 /* Alamofire.framework in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5481F2628E300824C15 /* Alamofire.framework */; };
+		F38E11681FA1C9EA00EA86D1 /* AddStripeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38E11671FA1C9EA00EA86D1 /* AddStripeCard.swift */; };
 		F390DE071F4AB71600C52034 /* HelpPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F390DE061F4AB71500C52034 /* HelpPageVC.swift */; };
 		F390DE091F4AB77500C52034 /* LegalPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F390DE081F4AB77500C52034 /* LegalPageVC.swift */; };
 		F3990DFF1F1F3E5E000FFF7B /* BookingHistoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */; };
@@ -196,6 +200,9 @@
 		F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		F3150D061F56C01100856555 /* InviteFriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsVC.swift; sourceTree = "<group>"; };
 		F3150D081F56C81B00856555 /* AcceptOrDeclineRequestPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptOrDeclineRequestPage.swift; sourceTree = "<group>"; };
+		F31533EC1F9493DD0051FC49 /* CheckoutRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutRowView.swift; sourceTree = "<group>"; };
+		F31533EF1F9495FF0051FC49 /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		F31533F11F9496560051FC49 /* MyAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAPIClient.swift; sourceTree = "<group>"; };
 		F315428D1F3868B00070EEC6 /* TrainerTraineeRouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTraineeRouteViewController.swift; sourceTree = "<group>"; };
 		F315428F1F38802E0070EEC6 /* TrainerProfileModal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileModal.swift; sourceTree = "<group>"; };
 		F315E98D1F30585700850A44 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
@@ -277,6 +284,7 @@
 		F38BB5461F2607D300824C15 /* ProfileDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F38BB5481F2628E300824C15 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		F38BB54A1F262ABB00824C15 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/AlamofireImage/AlamofireImage.framework"; sourceTree = "<group>"; };
+		F38E11671FA1C9EA00EA86D1 /* AddStripeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddStripeCard.swift; sourceTree = "<group>"; };
 		F390DE061F4AB71500C52034 /* HelpPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpPageVC.swift; sourceTree = "<group>"; };
 		F390DE081F4AB77500C52034 /* LegalPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegalPageVC.swift; sourceTree = "<group>"; };
 		F3990DFD1F1F3E5E000FFF7B /* BookingHistoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryDB.swift; sourceTree = "<group>"; };
@@ -443,6 +451,16 @@
 				F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */,
 			);
 			name = ExternalFrameworks;
+			sourceTree = "<group>";
+		};
+		F31533EE1F9493E40051FC49 /* Stripe */ = {
+			isa = PBXGroup;
+			children = (
+				F31533F11F9496560051FC49 /* MyAPIClient.swift */,
+				F31533EF1F9495FF0051FC49 /* Buttons.swift */,
+				F31533EC1F9493DD0051FC49 /* CheckoutRowView.swift */,
+			);
+			name = Stripe;
 			sourceTree = "<group>";
 		};
 		F315E98C1F30585700850A44 /* VDropDownClass */ = {
@@ -861,7 +879,9 @@
 		F3FD7DD71F3831E700986815 /* Add Payment Method */ = {
 			isa = PBXGroup;
 			children = (
+				F31533EE1F9493E40051FC49 /* Stripe */,
 				F3FD7DD81F38321C00986815 /* AddPaymentMethodVC.swift */,
+				F38E11671FA1C9EA00EA86D1 /* AddStripeCard.swift */,
 			);
 			name = "Add Payment Method";
 			sourceTree = "<group>";
@@ -1190,11 +1210,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F38BB5531F2643FF00824C15 /* Alamofire.framework in Sources */,
+				F31533ED1F9493DD0051FC49 /* CheckoutRowView.swift in Sources */,
 				F38BB5521F2643F900824C15 /* AlamofireImage.framework in Sources */,
 				F364A8F71F34826D0001C570 /* ViewControllerPopOver.swift in Sources */,
 				F35FDAE61F1E51B50091900D /* ReviewHistoryVC.swift in Sources */,
 				F39E1EAE1F270ACF00DAED93 /* FinalQuestionsVC.swift in Sources */,
 				F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */,
+				F31533F01F9495FF0051FC49 /* Buttons.swift in Sources */,
 				F3FAAE9F1F41A575007DF154 /* TrainerProfilePage.swift in Sources */,
 				F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */,
 				F390DE071F4AB71600C52034 /* HelpPageVC.swift in Sources */,
@@ -1225,6 +1247,7 @@
 				F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */,
 				F3150D091F56C81B00856555 /* AcceptOrDeclineRequestPage.swift in Sources */,
 				F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */,
+				F31533F21F9496560051FC49 /* MyAPIClient.swift in Sources */,
 				F31E95041F6AAA190098DF8C /* PreferenceModel.swift in Sources */,
 				F3B52EE11F3AE4CC007910BC /* SocketIOManager.swift in Sources */,
 				F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */,
@@ -1248,6 +1271,7 @@
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
 				F3C5955C1F4EECE100808ACB /* SessionPreferenceCell.swift in Sources */,
 				F341B0361F28D80F007C9AF1 /* ColorCodes.swift in Sources */,
+				F38E11681FA1C9EA00EA86D1 /* AddStripeCard.swift in Sources */,
 				F316E7EC1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift in Sources */,
 				F32460C71F5983D9002B3D55 /* ContactDictionaryModel.swift in Sources */,
 				F38BB5411F26069200824C15 /* ProfileVC.swift in Sources */,

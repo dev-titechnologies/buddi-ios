@@ -35,6 +35,7 @@ public class TrainerProfileDetail: NSManagedObject {
                 profile.setValue(TrainerProfileModal.userid, forKey: "userId")
                 profile.setValue(TrainerProfileModal.profileImage, forKey: "profileimage")
                 profile.setValue(TrainerProfileModal.Booking_id, forKey: "bookingId")
+                profile.setValue(TrainerProfileModal.categoryId, forKey: "categoryId")
                 profile.setValue(TrainerProfileModal.Trainee_id, forKey: "traineeId")
                 profile.setValue(TrainerProfileModal.Trainer_id, forKey: "trainerId")
                 profile.setValue(TrainerProfileModal.Lattitude, forKey: "lattitude")
@@ -60,6 +61,7 @@ public class TrainerProfileDetail: NSManagedObject {
                 profile.setValue(TrainerProfileModal.userid, forKey: "userId")
                 profile.setValue(TrainerProfileModal.profileImage, forKey: "profileimage")
                 profile.setValue(TrainerProfileModal.Booking_id, forKey: "bookingId")
+                profile.setValue(TrainerProfileModal.categoryId, forKey: "categoryId")
                 profile.setValue(TrainerProfileModal.Trainee_id, forKey: "traineeId")
                 profile.setValue(TrainerProfileModal.Trainer_id, forKey: "trainerId")
                 profile.setValue(TrainerProfileModal.Lattitude, forKey: "lattitude")
@@ -77,6 +79,7 @@ public class TrainerProfileDetail: NSManagedObject {
             fatalError("Failed to create profile Entry: \(error)")
         }
     }
+    
     class func fetchBookingDetails() -> NSArray? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TrainerProfileDetail")
         var fetchResult = NSArray()
@@ -92,7 +95,10 @@ public class TrainerProfileDetail: NSManagedObject {
         }
         return fetchResult
     }
+    
     class func deleteBookingDetails(){
+        
+        print("** deleteBookingDetails of Trainer profile **")
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TrainerProfileDetail")
         do {

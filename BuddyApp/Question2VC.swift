@@ -49,7 +49,7 @@ class Question2VC: UIViewController{
     
     func getGymDetails() {
         
-        CommonMethods.serverCall(APIURL: "gym/listGyms", parameters: [:], headers: nil) { (jsondata) in
+        CommonMethods.serverCall(APIURL: "gym/listGyms", parameters: [:]) { (jsondata) in
             print("GYM RESP:",jsondata)
             
             guard (jsondata["status"] as? Int) != nil else {

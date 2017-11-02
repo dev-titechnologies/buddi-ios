@@ -16,9 +16,16 @@ class TrainerProfilePage: UIViewController {
     //Trainer Header Outlets
     @IBOutlet weak var StatusSwitch: UISwitch!
     @IBOutlet weak var lblTrainerName: UILabel!
+    
     @IBOutlet weak var lblAge: UILabel!
     @IBOutlet weak var lblHeight: UILabel!
     @IBOutlet weak var lblWeight: UILabel!
+    @IBOutlet weak var imgHeightIcon: UIImageView!
+    @IBOutlet weak var imgWeightIcon: UIImageView!
+    
+    var ageValue = String()
+    var heightValue = String()
+    var weightValue = String()
     
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtLastName: UITextField!
@@ -34,7 +41,7 @@ class TrainerProfilePage: UIViewController {
     //SOCKET
     var parameterdict = NSMutableDictionary()
     var datadict = NSMutableDictionary()
-    var timer = Timer()
+//    var timer : Timer?
     
     var objdata = NSData()
     var imageArray = Array<ProfileImageDB>()
@@ -58,9 +65,6 @@ class TrainerProfilePage: UIViewController {
         
         self.title = PAGE_TITLE.TRAINER_PROFILE
         
-      
-//fromprofiletocategorylist
-        
         imagePicker.delegate = self
         trainerProfileViewTableCaptionsArray = ["Gym Subscriptions", "Training Category", "Certifications"]
     }
@@ -71,17 +75,15 @@ class TrainerProfilePage: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        
+//        getSocketConnected()
         SocketIOManager.sharedInstance.establishConnection()
         StatusSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
-        self.UpdateLocationAPI(Status: "online")
-        //  timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
         
-
+        self.UpdateLocationAPI(Status: "online")
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
-
         
         print("*** viewWillAppear Trainer")
         if !isUpdatingProfileImage{
@@ -90,9 +92,11 @@ class TrainerProfilePage: UIViewController {
         }
         getCurrentLocationDetails()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
        // self.timer.invalidate()
     }
+    
     func getCurrentLocationDetails() {
         
         if CLLocationManager.locationServicesEnabled() {
@@ -110,8 +114,16 @@ class TrainerProfilePage: UIViewController {
     
     //MARK: - SOCKET CONNECTION
     
+    func getSocketConnected() {
+        print("**** getSocketConnected ******")
+        parameterdict.setValue("/connectSocket/connectSocket", forKey: "url")
+        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
+        //        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+    }
+    
     func addHandlers() {
         
+        print("*** Add Handler call for Add Location ***")
         datadict.setValue(appDelegate.UserId, forKey: "user_id")
         datadict.setValue(appDelegate.USER_TYPE, forKey: "user_type")
         datadict.setValue(lat, forKey: "latitude")
@@ -120,29 +132,52 @@ class TrainerProfilePage: UIViewController {
         
         parameterdict.setValue("/location/addLocation", forKey: "url")
         parameterdict.setValue(datadict, forKey: "data")
-      //  print("PARADICT11",parameterdict)
+        print("PARADICT11",parameterdict)
         
-        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+//        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
     }
 
     func switchValueDidChange(sender:UISwitch!) {
-        if sender.isOn
-        {
-            timer.invalidate()
-    
+        
+        if sender.isOn{
             print("ON STATUS")
-            self.UpdateLocationAPI(Status: "online")
-            timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
+            runTimer()
+//            self.UpdateLocationAPI(Status: "online")
         }else{
             print("OFF STATUS")
-            
-            timer.invalidate()
+//            self.UpdateLocationAPI(Status: "offline")
+            stopTimer()
+        }
+    }
+    
+    func runTimer() {
+        
+        print("UPDATE LOCATION TIMER STARTS RUNNING")
+        if addLocationTimerSingleton == nil {
+            print("** Run timer IN FUNCTION **")
+            self.UpdateLocationAPI(Status: "online")
+            addLocationTimerSingleton =  Timer.scheduledTimer(
+                timeInterval: TimeInterval(10),
+                target      : self,
+                selector    : #selector(self.updateLocation),
+                userInfo    : nil,
+                repeats     : true)
+        }
+    }
+    
+    func stopTimer() {
+        print("=== Stop Timer Call Out Trainer Profile Page ===")
+        if addLocationTimerSingleton != nil {
+            print("==== Stopping Timer ====")
+            addLocationTimerSingleton?.invalidate()
+            addLocationTimerSingleton = nil
             self.UpdateLocationAPI(Status: "offline")
         }
     }
     
     func updateLocation(){
-       // print("counting..")
+        print("**** Update Location ****")
         addHandlers()
     }
     
@@ -160,14 +195,10 @@ class TrainerProfilePage: UIViewController {
         let parameters = ["user_type":appDelegate.USER_TYPE,
                           "user_id":appDelegate.UserId] as [String : Any]
         
-        let headers = [
-            "token":appDelegate.Usertoken ]
-        
         print("PARAMS",parameters)
-        print("HEADER",headers)
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: VIEW_PROFILE, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: VIEW_PROFILE, parameters: parameters , onCompletion: { (jsondata) in
             print("PROFILE RESPONSE",jsondata)
             
             CommonMethods.hideProgress()
@@ -191,7 +222,7 @@ class TrainerProfilePage: UIViewController {
         })
     }
     
-    func UpdateLocationAPI(Status: String){
+    func UpdateLocationAPI (Status: String){
         
         guard CommonMethods.networkcheck() else {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
@@ -203,35 +234,29 @@ class TrainerProfilePage: UIViewController {
                           "avail_status":Status
             ] as [String : Any]
         
-        let headers = [
-            "token":appDelegate.Usertoken ]
-        
         print("PARAMS",parameters)
-        print("HEADER",headers)
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: UPDATE_LOCATION_STATUS, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: UPDATE_LOCATION_STATUS, parameters: parameters , onCompletion: { (jsondata) in
             print("**** Availability status response",jsondata)
+            print("*** Update location status API call ***")
             
             CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
+                   
+                    if let onlinedata = jsondata["data"] as? NSDictionary{
                     
-                   if let onlinedata = jsondata["data"] as? NSDictionary
-                   {
-                    print(onlinedata)
-                    
-                    if onlinedata["availabilityStatus"] as? String == "online"{
-                        //self.addHandlers()
+                        print(onlinedata)
                         
-                        
-                        onlineavailabilty = true
-                         self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
-                        
-                    }else{
-                        onlineavailabilty = false
-                        self.timer.invalidate()
-                    }
+                        if onlinedata["availabilityStatus"] as? String == "online"{
+                            //self.addHandlers()
+                            onlineavailabilty = true
+                            self.runTimer()
+                        }else{
+                            onlineavailabilty = false
+                            self.stopTimer()
+                        }
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -241,38 +266,27 @@ class TrainerProfilePage: UIViewController {
             }
         })
     }
+    
     func methodOfReceivedNotification(notif: NSNotification) {
         
         //print("ENTER FORGROUND",notif.name.rawValue)
         
         if notif.name.rawValue == "UIApplicationWillEnterForegroundNotification"{
-             self.timer.invalidate()
-           
-             print("ENTER FORGROUND",notif.name.rawValue)
             
-            if onlineavailabilty
-            {
-                 self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
+            self.stopTimer()
+            print("ENTER FORGROUND",notif.name.rawValue)
+            if onlineavailabilty{
+                self.runTimer()
             }
-            
-            
-            
         }else if notif.name.rawValue == "UIApplicationDidEnterBackgroundNotification"{
             print("ENTER BACKGROUND",notif.name.rawValue)
-             self.timer.invalidate()
-            
+
+            self.stopTimer()
             print("AVAILABITY",onlineavailabilty)
             
-            if onlineavailabilty
-            {
-                
-                
-                 timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateLocation), userInfo: nil, repeats: true)
+            if onlineavailabilty{
+                self.runTimer()
             }
-            
-            
-           
-            
         }
     }
 
@@ -333,16 +347,16 @@ class TrainerProfilePage: UIViewController {
                           "last_name" :txtLastName.text!,
                           "gender" : (lblGender.text!).lowercased(),
                           "user_image": profileImageURL,
-                          "profile_desc":"tt" ] as [String : Any]
-        
-        let headers = [
-            "token":appDelegate.Usertoken]
+                          "profile_desc":"tt",
+                          "age" : ageValue,
+                          "weight" : weightValue,
+                          "height" : heightValue
+            ] as [String : Any]
         
         print("PARAMS",parameters)
-        print("HEADER",headers)
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: EDIT_PROFILE, parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: EDIT_PROFILE, parameters: parameters, onCompletion: { (jsondata) in
             print("EDIT PROFILE RESPONSE",jsondata)
             
             CommonMethods.hideProgress()
@@ -384,14 +398,31 @@ class TrainerProfilePage: UIViewController {
         userDefaults.set(userName, forKey: "userName")
         
         if let age = profile["age"] as? String{
-            lblAge.text = "Trainer (\(age))"
+            ageValue = age
+            lblAge.text = "Trainer (\(ageValue))"
         }else{
             lblAge.text = "Trainer"
         }
+        
+        if let height = profile["height"] as? String{
+            heightValue = height
+            lblHeight.text = "\(heightValue) cm"
+            imgHeightIcon.isHidden = false
+        }else{
+            lblHeight.isHidden = true
+            imgHeightIcon.isHidden = true
+        }
+        
+        if let weight = profile["weight"] as? String{
+            weightValue = weight
+            lblWeight.text = "\(weightValue) lbs"
+            imgWeightIcon.isHidden = false
+        }else{
+            lblWeight.isHidden = true
+            imgWeightIcon.isHidden = true
+        }
 
         lblTrainerName.text = (profile["first_name"] as! String) + " " + (profile["last_name"] as! String)
-        lblHeight.text = "\(CommonMethods.checkStringNull(val: String(describing: profile["height"]!))) cm"
-        lblWeight.text = "\(CommonMethods.checkStringNull(val: String(describing: profile["weight"]!))) lbs"
         txtFirstName.text = profile["first_name"] as? String
         txtLastName.text = profile["last_name"] as? String
         lblEmail.text = profile["email"] as? String
@@ -443,13 +474,11 @@ class TrainerProfilePage: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "fromprofiletocategorylist" {
+            print("**** fromprofiletocategorylist Segue")
             let chooseCategoryPage =  segue.destination as! CategoryListVC
             chooseCategoryPage.FromTrainerProfileBool = true
         }
-            }
-
-    
-    
+    }
 }
 
 extension TrainerProfilePage: CountryPickerDelegate{
@@ -507,13 +536,11 @@ extension TrainerProfilePage: UITableViewDelegate{
    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.row == 1
-        {
+        if indexPath.row == 1{
+            print("**** Did select Training Category ****")
             self.performSegue(withIdentifier: "fromprofiletocategorylist", sender: self)
         }
-        
     }
-
 }
 
 //MARK: - CHOOSE PROFILE PICTURE
@@ -574,10 +601,15 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
     func uploadImageAPI(imagedata : NSData) {
         
         print("**** uploadImageAPI")
+        
         let headers = [
-            "token":appDelegate.Usertoken ]
-        let parameters = ["file_type":"img",
-                          "upload_type":"profile"]
+            "token" : appDelegate.Usertoken,
+            "user_type" : appDelegate.USER_TYPE
+        ]
+        
+        let parameters = ["file_type" : "img",
+                          "upload_type" : "profile"
+        ]
         
         print("PARAMS",parameters)
         print("HEADERS",headers)
@@ -667,6 +699,7 @@ extension TrainerProfilePage: CLLocationManagerDelegate {
             long = Float(location.coordinate.longitude)
             
         }
+        self.UpdateLocationAPI(Status: "online")
         locationManager.stopUpdatingLocation()
     }
     

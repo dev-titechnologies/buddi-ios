@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import Stripe
 
 let appDelegate = Singleton.sharedInstance.appdelegate
 let context = Singleton.sharedInstance.context
@@ -33,14 +34,17 @@ var choosedSessionOfTraineePreference = Singleton.sharedInstance.choosedSessionP
 var choosedTrainerGenderOfTraineePreference = Singleton.sharedInstance.choosedTrainerGenderPreference
 var choosedTrainingLocationPreference = Singleton.sharedInstance.choosedTrainingLocationPreference
 
+//For Trainer - Add Location socket
+var addLocationTimerSingleton = Singleton.sharedInstance.addLocationTimer
 
-//let SERVER_URL = "http://192.168.1.20:9002/"
+//let SERVER_URL = "http://192.168.1.66:9002/"
 let SERVER_URL = "http://git.titechnologies.in:4001/"
 let COUNTRY_DEFAULT_REGION_CODE = "US"
 let GOOGLE_API_KEY = "AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g"
 let GOOGLE_TRACKER_ID = "UA-106775368-1"
 let PAYPAL_PAYMENT_RETURN_URL = "com.titechnologies.BuddyApp.payments"
 let GID_CLIENT_ID = "635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2.apps.googleusercontent.com"
+let STRIPE_PUBLISHER_KEY = "pk_test_66bTUhQFTPY6wY5x2hftqF6l"
 
 struct RESPONSE_STATUS {
     static let SUCCESS = 1
@@ -66,6 +70,12 @@ struct GENDER {
     static let MALE = "male"
     static let FEMALE = "female"
 }
+
+struct USER_TYPE {
+    static let TRAINER = "trainer"
+    static let TRAINEE = "trainee"
+}
+
 
 class Appconstants: NSObject {
     

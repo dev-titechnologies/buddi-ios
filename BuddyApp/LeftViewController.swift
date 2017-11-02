@@ -22,6 +22,7 @@ class LeftViewController: UIViewController {
 
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var lblEmailId: UILabel!
+    var isTimerStarted = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,7 @@ class LeftViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         print("**** Left view viewDidAppear")
     }
-    
+        
     func parseNameAndImage() {
         
         print("**** parseNameAndImage ****")
@@ -74,32 +75,34 @@ class LeftViewController: UIViewController {
     }
     
     func TimerCheck(){
+        
+        print("** TimerCheck function call in LeftViewController **")
         if userDefaults.value(forKey: "TimerData") != nil {
             TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
             print("TIMERDICT",TimerDict)
             
             let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
             
-            print("OLD DATE",date)
-            print("CURRENT DATE",Date())
-            
+            print("Expected time for session completion:",date)
+            print("Current date and time:",Date())
             
             if date > Date(){
-                print("ongoing")
+                print("Session is Ongoing")
                 numOfDays = Date().daysBetweenDate(toDate: date)
                 
-                print("DIFFERENCE",numOfDays)
-                
+                print("Time difference:",numOfDays)
+                isTimerStarted = true
                 self.performSegue(withIdentifier: "leftmenutotimerview", sender: self)
                 
             }else{
-                print("completed")
-                
+                print("Session completed")
                 userDefaults.removeObject(forKey: "TimerData")
                 TrainerProfileDetail.deleteBookingDetails()
             }
         }
     }
+    
+    //MARK: - PREPARE FOR SEGUE
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -116,14 +119,37 @@ class LeftViewController: UIViewController {
                     blankPage.blankTextValue = leftMenuTrainee[path.row]
                 }
             }
-        }
-        else if segue.identifier == "leftmenutotimerview"
-        {
+        }else if segue.identifier == "leftmenutotimerview" {
             
-             let timerPage =  segue.destination as! TrainerTraineeRouteViewController
-            timerPage.seconds = numOfDays
-            timerPage.TIMERCHECK = true
+            let timerPage =  segue.destination as! TrainerTraineeRouteViewController
 
+            if !isTimerStarted{
+                print("**** Timer not started ****")
+                if let trainerProfileDictData = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+                    let trainerProfileDict = NSKeyedUnarchiver.unarchiveObject(with: trainerProfileDictData as Data) as! NSDictionary
+                    print("trainerProfileDict:\(trainerProfileDict)")
+                    
+                    if appDelegate.USER_TYPE == "trainer"{
+                        timerPage.TrainerProfileDictionary = trainerProfileDict
+                    }else{
+                        let trainerProfileModelObj = TrainerProfileModal()
+                        var trainerProfileModel = TrainerProfileModal()
+                        trainerProfileModel = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: trainerProfileDict as! Dictionary<String, Any>)
+
+                        timerPage.trainerProfileDetails = trainerProfileModel
+                    }
+                    timerPage.seconds = Int(trainerProfileDict["training_time"] as! String)!*60
+                    print("SECONDSSSS",timerPage.seconds)
+                }
+            }else{
+                print("**** Timer started ****")
+                print("******** Timer Check Value is setting as True ******")
+                timerPage.seconds = numOfDays
+                timerPage.TIMERCHECK = true
+            }
+        }else if segue.identifier == "fromlefttocatgory" {
+            let addCategory =  segue.destination as! CategoryListVC
+            addCategory.isFromAddCategoryVC = true
         }
     }
     
@@ -131,7 +157,6 @@ class LeftViewController: UIViewController {
         
         if appDelegate.USER_TYPE == "trainer"{
             self.performSegue(withIdentifier: "trainerProfileSegue", sender: self)
-
         }else{
             self.performSegue(withIdentifier: "traineeProfileSegue", sender: self)
         }
@@ -144,12 +169,31 @@ class LeftViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
             
             self.LogOutAPI()
-            //self.dismissOnSessionExpire()
         }))
         alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
             
         }))
 
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func currentlyInSessionAlert() {
+        
+        let alert = UIAlertController(title: ALERT_TITLE, message: YOU_ARE_CURRENTLY_IN_SESSION, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+
+            if appDelegate.timerrunningtime{
+                self.TimerCheck()
+            }else if userDefaults.bool(forKey: "sessionBookedNotStarted") {
+                self.isTimerStarted = false
+                self.performSegue(withIdentifier: "leftmenutotimerview", sender: self)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+            
+        }))
+        
         self.present(alert, animated: true, completion: nil)
     }
 
@@ -167,7 +211,7 @@ class LeftViewController: UIViewController {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHECK_INTERNET, buttonTitle: "Ok")
             return
         }
-
+        
         let headers = [
             "device_id": appDelegate.DeviceToken,
             "device_imei": UIDevice.current.identifierForVendor!.uuidString,
@@ -178,7 +222,7 @@ class LeftViewController: UIViewController {
         print("Header:",headers)
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: "login/logout", parameters: ["":""], headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCallCopy(APIURL: "login/logout", parameters: ["":""], headers: headers , onCompletion: { (jsondata) in
             print("LOGOUT RESPONSE",jsondata)
             
             CommonMethods.hideProgress()
@@ -262,10 +306,12 @@ extension LeftViewController : UITableViewDelegate{
                 
                 if appDelegate.timerrunningtime{
                     TimerCheck()
+                }else if userDefaults.bool(forKey: "sessionBookedNotStarted") {
+                    isTimerStarted = false
+                    self.performSegue(withIdentifier: "leftmenutotimerview", sender: self)
                 }else{
                     self.performSegue(withIdentifier: "trainerProfileSegue", sender: self)
                 }
-                //leftmenutotimerview
                 
             case 1:
                 print("One")
@@ -280,7 +326,6 @@ extension LeftViewController : UITableViewDelegate{
             case 3:
                 print("Three")
                 print("Add Category")
-                
                 
                 if appDelegate.timerrunningtime{
                     TimerCheck()
@@ -310,9 +355,11 @@ extension LeftViewController : UITableViewDelegate{
             case 8:
                 print("Eight")
                 print("Logout")
-                logoutAlert()
-//                dismissOnSessionExpire()
-                
+                if userDefaults.bool(forKey: "isCurrentlyInTrainingSession") {
+                    currentlyInSessionAlert()
+                }else{
+                    logoutAlert()
+                }
             default:
                 print("Integer out of range")
             }
@@ -327,6 +374,9 @@ extension LeftViewController : UITableViewDelegate{
                 
                 if appDelegate.timerrunningtime {
                     TimerCheck()
+                }else if userDefaults.bool(forKey: "sessionBookedNotStarted") {
+                    isTimerStarted = false
+                    self.performSegue(withIdentifier: "leftmenutotimerview", sender: self)
                 }else{
                    self.performSegue(withIdentifier: "leftMenuToTraineeHomeSegue", sender: self)
                 }
@@ -387,7 +437,11 @@ extension LeftViewController : UITableViewDelegate{
                 print("seven")
                 if isTraineeAlreadyTrainer{
                     print("Logout")
-                    logoutAlert()
+                    if userDefaults.bool(forKey: "isCurrentlyInTrainingSession") {
+                        currentlyInSessionAlert()
+                    }else{
+                        logoutAlert()
+                    }
                 }else{
                     print("Legal")
                     self.performSegue(withIdentifier: "leftMenuToLegalPageSegue", sender: self)
@@ -399,7 +453,11 @@ extension LeftViewController : UITableViewDelegate{
                     
                 }else{
                     print("Logout")
-                    logoutAlert()
+                    if userDefaults.bool(forKey: "isCurrentlyInTrainingSession") {
+                        currentlyInSessionAlert()
+                    }else{
+                        logoutAlert()
+                    }
                 }
                 
             default:
@@ -407,6 +465,6 @@ extension LeftViewController : UITableViewDelegate{
             }
         }
     }
-    
-    
 }
+
+

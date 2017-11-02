@@ -24,6 +24,8 @@ class MessagingSocketVC: JSQMessagesViewController {
 
     var sessionDetailModelObj: SessionDetailModel = SessionDetailModel()
 
+    //MARK: - VIEW CYCLES
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,8 +39,9 @@ class MessagingSocketVC: JSQMessagesViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         getMessagesFromServer()
-        getSocketConnected()
+        
         socketListener()
+        getSocketConnected()
         
         if appDelegate.USER_TYPE == "trainer" {
             senderId = sessionDetailModelObj.trainerId
@@ -52,18 +55,21 @@ class MessagingSocketVC: JSQMessagesViewController {
             senderDisplayName = sessionDetailModelObj.traineeName
         }
         
-        print("Own ID: \(senderId) and Name:\(senderDisplayName)")
+        print("Own ID: \(senderId!) and Name:\(senderDisplayName!)")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+//        SocketIOManager.sharedInstance.closeConnection()
     }
     
     func getMessagesFromServer() {
         
         let parameters = ["book_id" : sessionDetailModelObj.bookingId]
-        let headers = [
-            "token":appDelegate.Usertoken ]
 
         print("PARAMS: \(parameters)")
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: CHAT_HISTORY, parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: CHAT_HISTORY, parameters: parameters, onCompletion: { (jsondata) in
             print("Get Messages response:",jsondata)
             
             CommonMethods.hideProgress()
@@ -108,7 +114,7 @@ extension MessagingSocketVC {
         print("**** getSocketConnected ******")
         parameterdict.setValue("/connectSocket/connectSocket", forKey: "url")
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
-        //SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+//        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
     }
     
     func socketListener() {
@@ -126,7 +132,10 @@ extension MessagingSocketVC {
                 
                 let socketDict = messageInfo["message"] as! NSDictionary
                 
-                guard String(describing: socketDict["from_id"]) != String(appDelegate.UserId) else{
+                print("appDelegate.UserId:\(String(appDelegate.UserId))")
+                print("Message received FromId:\(String(describing: socketDict["from_id"]!))")
+                
+                guard String(describing: socketDict["from_id"]!) != String(appDelegate.UserId) else{
                     print("Same users message has been received through socket, hence returned")
                     return
                 }
@@ -184,7 +193,13 @@ extension MessagingSocketVC {
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource!{
-        return nil
+        
+        let placeHolderImage = UIImage(named: "profileImage")
+//        let avatarImage = JSQMessagesAvatarImage(avatarImage: nil, highlightedImage: nil, placeholderImage: placeHolderImage)
+        
+        let test = JSQMessagesAvatarImage(placeholder: placeHolderImage)
+        
+        return test
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString!{

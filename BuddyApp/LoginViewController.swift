@@ -23,7 +23,8 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
     @IBOutlet weak var password_txt: UITextField!
     @IBOutlet weak var email_txt: UITextField!
     @IBOutlet weak var FB_btn: UIButton!
-    
+    var profileImageURL = String()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,12 +42,16 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         FB_btn.clipsToBounds = true
         
         print("User Type in LoginViewController",UserType)
-        GIDSignIn.sharedInstance().signOut()
-        GIDSignIn.sharedInstance().uiDelegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        print("*** viewWillAppear ***")
+        GIDSignIn.sharedInstance().signOut()
+        GIDSignIn.sharedInstance().uiDelegate = self
         // Define identifier
+        
         let notificationName = Notification.Name("NotificationIdentifier")
         
         // Register to receive notification
@@ -59,7 +64,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         NotificationCenter.default.removeObserver(self, name: notificationName, object: nil);
         
         self.googleUserDictionary = notif.userInfo!["googledata"] as! NSDictionary
-        print("GOOGLE DATA ",self.googleUserDictionary)
+        print("GOOGLE DATA in LoginVC",self.googleUserDictionary)
         self.LoginAPI(Email: (self.googleUserDictionary["email"] as? String)!, Passwrd: "", loginType: "google", UserType: self.UserType, FBId: "", GoogleId: (self.googleUserDictionary["userid"] as? String)!)
     }
     
@@ -173,7 +178,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                         emailId = (self.fbUserDictionary["email"] as? String!)!
                         print("*** Email present in FB: \(emailId)")
                     }
-
+                    
                     self.LoginAPI(Email: emailId, Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
                 }else{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
@@ -202,8 +207,8 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         print("Header:",headers)
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
-            print("LOGIN RESPONSE",jsondata)
+        CommonMethods.serverCallCopy(APIURL: "login/login", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+            print("LOGIN RESPONSE in LoginVC",jsondata)
             
             CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
@@ -224,8 +229,11 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     userDefaults.set(self.jsondict["trainer_type"]!, forKey: "ifAlreadyTrainer")
                     userDefaults.set(self.jsondict["mobile"]!, forKey: "userMobileNumber")
                     
+                    //Image Check
+//                    if ([GIDSignIn sharedInstance].currentUser.profile.hasImage)
+                    
                     if let transaction_details = self.jsondict["transaction_details"] as? NSArray{
-                        self.storeUnusedTransactionsToUserDefaults(transactionDetailsArray: transaction_details)
+                        CommonMethods.storeUnusedTransactionsToUserDefaults(transactionDetailsArray: transaction_details)
                     }
                     
                     print(self.jsondict["trainer_type"]!)
@@ -251,9 +259,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                         self.performSegue(withIdentifier: "logintoregister", sender: self)
                     }else if jsondata["status_type"] as? String == "UserNotValid" {
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
-                    }
-                    else
-                    {
+                    }else{
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "OK")
                     }
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -264,31 +270,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             }
         })
     }
-    
-    func storeUnusedTransactionsToUserDefaults(transactionDetailsArray: NSArray) {
         
-        print("****** Transaction Details ******\n\(transactionDetailsArray)")
-
-        for transactiondetail in transactionDetailsArray{
-            print("transactiondetail:\(transactiondetail)")
-            
-            let transactionDict = transactiondetail as? NSDictionary
-            if transactionDict?["session_duration"] as! String == "40"{
-                
-                userDefaults.set(transactionDict?["transaction_id"] as! String, forKey: "backupPaymentTransactionId_40Minutes")
-                userDefaults.set(transactionDict?["transaction_amount"] as! String, forKey: "backupIsTransactionAmount_40Minutes")
-                userDefaults.set(transactionDict?["transaction_status"] as! String, forKey: "backupIsTransactionStatus_40Minutes")
-                userDefaults.set(true, forKey: "backupIsTransactionSuccessfull_40Minutes")
-                
-            }else if transactionDict?["session_duration"] as! String == "60"{
-                userDefaults.set(transactionDict?["transaction_id"] as! String, forKey: "backupPaymentTransactionId_60Minutes")
-                userDefaults.set(transactionDict?["transaction_amount"] as! String, forKey:  "backupIsTransactionAmount_60Minutes")
-                userDefaults.set(transactionDict?["transaction_status"] as! String, forKey: "backupIsTransactionStatus_60Minutes")
-                userDefaults.set(true, forKey: "backupIsTransactionSuccessfull_60Minutes")
-            }
-        }
-    }
-    
     func segueActionsIfTrainer(dictionary: Dictionary<String, Any>!) {
         print(dictionary)
         
@@ -296,6 +278,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         var pendingCount = Int()
         
         approvedOrPendingCategoriesSingleton.removeAll()
+        
         if let category_approvedArray = dictionary["category_approved"] as? NSArray{
             print(category_approvedArray)
             
@@ -305,15 +288,8 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             
             approvedCount = category_approvedArray.count
             userDefaults.setValue(approvedCount, forKey: "approvedCategoryCount")
-            
-            
-            ////JOSE
-            
+                        
              userDefaults.set(approvedOrPendingCategoriesSingleton, forKey: "approvedCategoriesIdArrayNew")
-            
-            
-            
-            
             
             if approvedCount > 0 {
                 print("*** Approved Categories Present ****")
@@ -352,17 +328,12 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         if segue.identifier == "loginToChooseCategorySegue" {
             let chooseCategoryPage =  segue.destination as! CategoryListVC
             chooseCategoryPage.isBackButtonHidden = true
-        }
-        else if segue.identifier == "logintoregister"
-        {
+        }else if segue.identifier == "logintoregister"{
             
             let registerPage =  segue.destination as! RegisterViewController
-            
             registerPage.UserType = self.UserType
             registerPage.fbUserDictionary = self.fbUserDictionary
             registerPage.googleUserDictionary = self.googleUserDictionary
-            
-            
         }
     }
 }

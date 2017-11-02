@@ -49,7 +49,7 @@ class ForgotViewController: UIViewController {
         ]
 
         print("parameters",parameters)
-        CommonMethods.serverCall(APIURL: "login/forgotPassword", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCallCopy(APIURL: "login/forgotPassword", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
             print("FORGOT RESPONSE",jsondata)
             
             CommonMethods.hideProgress()

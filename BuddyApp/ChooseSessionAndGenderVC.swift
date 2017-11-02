@@ -120,13 +120,9 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     
     func showTrainersList(parameters: Dictionary <String,Any>) {
         
-        let headers = [
-            "token":appDelegate.Usertoken]
-        
-        print("Header:\(headers)")
         print("Params:\(parameters)")
         
-        CommonMethods.serverCall(APIURL: SEARCH_TRAINER, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: SEARCH_TRAINER, parameters: parameters, onCompletion: { (jsondata) in
             
             print("*** Search Trainer Listing Result:",jsondata)
             

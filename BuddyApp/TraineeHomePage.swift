@@ -27,6 +27,9 @@ class TraineeHomePage: UIViewController {
     @IBOutlet weak var btnNext: UIButton!
     
     var isFromSettings = Bool()
+    
+    var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
+    var TrainerProfileDictionary: NSDictionary!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +49,27 @@ class TraineeHomePage: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        getCategoryList()
+        selectedCategory.removeAll()
+        
+        if isFromSettings {
+            btnMenu.isHidden = true
+            btnNext.setTitle("Done", for: .normal)
+        }
+        
+        if !userDefaults.bool(forKey: "isCurrentlyInTrainingSession"){
+            checkIfAnySessionAcceptedByTrainer()
+        }
+    }
+    
+    func loadInstantBookingImage() {
+        imgInstantBooking.layer.cornerRadius = imgInstantBooking.frame.size.width / 2
+        imgInstantBooking.sd_setImage(with: URL(string: "http://git.titechnologies.in:4001/images/category/instant-booking.png"), placeholderImage: UIImage(named: ""))
+    }
+    
+    //MARK: - INSTANT BOOKING
+    
     @IBAction func instent_booking_action(_ sender: Any) {
         
         if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
@@ -62,30 +86,57 @@ class TraineeHomePage: UIViewController {
             //This userdefault value will be used to check the previous booking from when reopening the app.
             //1 . Instant Booking, 2. Usual Booking Request
             userDefaults.set("instantBooking", forKey: "previousBookingRequestVia")
-
             performSegue(withIdentifier: "instantbookingsegue", sender: self)
         }else{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Preferences are not saved", buttonTitle: "Ok")
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        getCategoryList()
-        selectedCategory.removeAll()
-        
-        if isFromSettings {
-            btnMenu.isHidden = true
-            btnNext.setTitle("Done", for: .normal)
-        }
-    }
-    
-    func loadInstantBookingImage() {
-        imgInstantBooking.layer.cornerRadius = imgInstantBooking.frame.size.width / 2
-        imgInstantBooking.sd_setImage(with: URL(string: "http://git.titechnologies.in:4001/images/category/instant-booking.png"), placeholderImage: UIImage(named: ""))
-    }
-    
     @IBAction func backButtonAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - CHECK IF ANY PREVIOUS SESSION PRESENT
+    
+    func checkIfAnySessionAcceptedByTrainer() {
+        
+        let parameters =  ["user_id": appDelegate.UserId,
+                           "user_type" : appDelegate.USER_TYPE
+            ] as [String : Any]
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: PENDING_BOOKING_DETAILS, parameters: parameters) { (jsondata) in
+            print("** checkIfAnySessionAcceptedByTrainer Response: \(jsondata)")
+            
+            CommonMethods.hideProgress()
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    if let dataArray = jsondata["data"] as? NSArray {
+                        
+                        guard dataArray.count > 0 else {
+                            return
+                        }
+                        
+                        self.TrainerProfileDictionary = dataArray[0] as! NSDictionary
+                        print("TRAINING DATA Trainee Home",self.TrainerProfileDictionary)
+                        let trainerProfileModelObj = TrainerProfileModal()
+                        self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+                        TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
+                        self.performSegue(withIdentifier: "TraineeHomeToRoutePageSegue", sender: self)
+                    }
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
     }
     
     //MARK: - PREPARE FOR SEGUE
@@ -94,6 +145,12 @@ class TraineeHomePage: UIViewController {
         if segue.identifier == "instantbookingsegue"{
             let TrainerListPage =  segue.destination as! ShowTrainersOnMapVC
             TrainerListPage.isFromInstantBooking = true
+        }else if segue.identifier == "TraineeHomeToRoutePageSegue" {
+            let timerPage =  segue.destination as! TrainerTraineeRouteViewController
+//            timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
+            timerPage.trainerProfileDetails = selectedTrainerProfileDetails
+            timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
+            print("SECONDSSSS",timerPage.seconds)
         }
     }
 
@@ -105,7 +162,7 @@ class TraineeHomePage: UIViewController {
         }
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], headers: nil, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], onCompletion: { (jsondata) in
 //            print("*** Category Listing Result:",jsondata)
             
             CommonMethods.hideProgress()
@@ -119,8 +176,8 @@ class TraineeHomePage: UIViewController {
                     
                     let (categories,subcategories) = self.categoryModelObj.getCategoryModelFromJSONDict(dictionary: jsondata)
                     
-//                    print("*** Categories:",categories)
-//                    print("*** SubCategories:",subcategories)
+                    print("*** Categories Count:",categories.count)
+                    print("*** SubCategories Count:",subcategories.count)
                     
                     self.categoriesArray = categories
                     self.categoryModelObj.insertCategoriesToDB(categories: categories)

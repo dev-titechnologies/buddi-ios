@@ -50,45 +50,35 @@ class BookingHistoryModel {
         let model: BookingHistoryModel = BookingHistoryModel()
         let trainedDate = CommonMethods.getDateFromString(dateString: dictionary["trained_date"] as! String)
        
-        
-        
-       
         if (dictionary["start_time"] as? String) != nil {
            let starttime = CommonMethods.getDateFromString(dateString: dictionary["start_time"] as! String)
             model.starttime = starttime
         }
+        
         if (dictionary["end_time"] as? String) != nil {
              let endtime = CommonMethods.getDateFromString(dateString: dictionary["end_time"] as! String)
             model.endtime = endtime
         }
+        
         if (dictionary["extend_end"] as? String) != nil {
-       // let extendEndDate = CommonMethods.getDateFromString(dateString: dictionary["extend_end"] as! String)
             model.extend_end = dictionary["extend_end"] as! String
-            
             print("DATE NOT NULLL")
-        }
-        else
-        {
-            
+        }else{
             model.extend_end = ""
-            
             print("DATE NULLL",model.extend_end)
         }
        
-        
         let categArray = dictionary["category"] as! NSArray as Array
         let categoryName = categArray[0]["categoryName"] as! String
         let categoryImage = categArray[0]["categoryBookImage"] as! String
-        print(categoryName)
+        
+        print("Booking ID in getBookingHistoryModelFromDict:\(String(describing: dictionary["booking_id"]!))")
         
         model.bookingId = String(describing: dictionary["booking_id"]!)
         model.trainerId = String(describing: dictionary["trainer_id"]!)
         model.trainedDate = trainedDate
-        //model.endtime = endtime
-        //model.extend_start = extend_start
-       // model.extend_end = extend_end
         
-        model.profilePic = CommonMethods.checkStringNull(val:dictionary["profile_img"] as! String )
+        model.profilePic = CommonMethods.checkStringNull(val:String(describing: dictionary["profile_img"]!))
         model.category = categoryName
         model.rating = CommonMethods.checkStringNull(val: String(describing: dictionary["rating"]!))
         model.paymentStatus = dictionary["payment_status"] as! String

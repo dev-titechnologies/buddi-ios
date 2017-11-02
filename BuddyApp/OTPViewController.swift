@@ -42,7 +42,7 @@ class OTPViewController: UIViewController {
     }
     
     func OTPCall(){
-        CommonMethods.serverCall(APIURL: SEND_OTP, parameters: ["mobile":MobileNumber], headers: nil, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: SEND_OTP, parameters: ["mobile":MobileNumber], onCompletion: { (jsondata) in
             print("1234",jsondata)
             
             if let status = jsondata["status"] as? Int{
@@ -74,7 +74,7 @@ class OTPViewController: UIViewController {
                 return
             }
             
-            CommonMethods.serverCall(APIURL: VERIFY_OTP, parameters: ["otp":Otp_txt.text!,"mobile":MobileNumber], headers: nil, onCompletion: { (jsondata) in
+            CommonMethods.serverCall(APIURL: VERIFY_OTP, parameters: ["otp":Otp_txt.text!,"mobile":MobileNumber], onCompletion: { (jsondata) in
                 print("OTP RESPONSE",jsondata)
                 
                 if let status = jsondata["status"] as? Int{
@@ -101,15 +101,22 @@ class OTPViewController: UIViewController {
         CommonMethods.showProgress()
 
         print("Parameters in Registration API:", DataDictionary)
-        CommonMethods.serverCall(APIURL: REGISTER_URL, parameters: DataDictionary as! Dictionary<String, String>, headers: HeaderDict as? HTTPHeaders, onCompletion: { (jsondata) in
+        CommonMethods.serverCallCopy(APIURL: REGISTER_URL, parameters: DataDictionary as! Dictionary<String, String>, headers: HeaderDict as? HTTPHeaders, onCompletion: { (jsondata) in
             print("REGISTER RESPONSE",jsondata)
             
             CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    appDelegate.userName = (self.DataDictionary["first_name"] as? String)! + " " + (self.DataDictionary["last_name"] as? String)!
+                    
                     appDelegate.Usertoken = (jsondata["token"] as? String)!
                     appDelegate.UserId = Int((jsondata["user_id"] as? String)!)!
-                    
+                    userDefaults.set(appDelegate.userName, forKey: "userName")
+                    userDefaults.set(self.DataDictionary["email"]!, forKey: "userEmailId")
+                    userDefaults.set(appDelegate.USER_TYPE, forKey: "userType")
+                    userDefaults.set(self.DataDictionary["mobile"]!, forKey: "userMobileNumber")
+
                     print("User ID", appDelegate.UserId)
 
                     //Check whether user type is Trainer and Trainee

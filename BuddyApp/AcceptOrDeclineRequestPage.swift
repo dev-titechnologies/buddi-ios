@@ -14,9 +14,9 @@ class AcceptOrDeclineRequestPage: UIViewController {
     @IBOutlet weak var btnAccept: UIButton!
     @IBOutlet weak var btnDecline: UIButton!
     
-     var ProfileDictionary: NSMutableDictionary!
-     var TrainerProfileDictionary: NSDictionary!
-     let AcceptNotification = Notification.Name("AcceptNotification")
+    var ProfileDictionary: NSMutableDictionary!
+    var TrainerProfileDictionary: NSDictionary!
+    let AcceptNotification = Notification.Name("AcceptNotification")
     var APSBody = String()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,8 +67,6 @@ class AcceptOrDeclineRequestPage: UIViewController {
     
     func Booking_API(URL: String, acceptstatus: Bool){
         
-      //   CommonMethods.alertView(view: self, title: ALERT_TITLE, message: ProfileDictionary["gender"] as? String, buttonTitle: "Ok")
-        
         print(ProfileDictionary)
         var parameters = ["trainer_id":appDelegate.UserId,
                           "trainee_id":ProfileDictionary["trainee_id"]!,
@@ -83,10 +81,6 @@ class AcceptOrDeclineRequestPage: UIViewController {
             ]
             as [String : Any]
         
-        let headers = [
-            "token": appDelegate.Usertoken
-                ]
-        
         if (ProfileDictionary["transaction_id"] as? String) != nil{
             let transactionDict = ["transaction_id" : ProfileDictionary["transaction_id"]!,
                                    "amount" : ProfileDictionary["amount"]!,
@@ -95,31 +89,32 @@ class AcceptOrDeclineRequestPage: UIViewController {
             
             parameters = parameters.merged(with: transactionDict as! Dictionary<String, String>)
         }else{
-            parameters = parameters.merged(with: ["promocode" : "TEST CODE"])
+            parameters = parameters.merged(with: ["promocode" : userDefaults.value(forKey: "promocode") as! String])
         }
  
         print("Params:",parameters)
-        print("Header:",headers)
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: URL, parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: URL, parameters: parameters, onCompletion: { (jsondata) in
             print("BOOKING RESPONSE",jsondata)
             
             CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    //self.dismiss(animated: true, completion: nil)
-                    
                     if acceptstatus{
+                        //If accepted request
                         if (jsondata["data"] as? NSDictionary) != nil {
                             self.TrainerProfileDictionary = jsondata["data"] as? NSDictionary
                         }
                         
+//                        userDefaults.removeObject(forKey: "TimerData")
+                        userDefaults.set(true, forKey: "isCurrentlyInTrainingSession")
                         NotificationCenter.default.post(name: self.AcceptNotification, object: nil, userInfo: ["profiledata":self.TrainerProfileDictionary])
-                //  self.performSegue(withIdentifier: "fromAcceptToTimer", sender: self)
-                       self.dismissAcceptOrDeclinePage()
+                        
+                        self.dismissAcceptOrDeclinePage()
                     }else{
+                        //If declined request
                         self.dismissAcceptOrDeclinePage()
                     }
                 }else if status == RESPONSE_STATUS.FAIL{

@@ -32,7 +32,9 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     var questionsDict = [String:Any]()
     var subCategoryIDs: [String] = [String]()
     var videoURLs : [Any] = [Any]()
-    var gymIds : [Any] = [Any]()
+    var gymIds : [String] = [String]()
+    
+    var questionsArray = [[String:Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         
         print("Singleton SubCateg count :\(selectedSubCategoriesAmongSingleton.count)")
+        
         btnNext.isHidden = true
         subcategories = selectedSubCategoriesAmongSingleton
         lblMainDescription.text = VIDEO_DESC
@@ -204,6 +207,8 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                          "gym_subscriptions" : toJSONString(from: gymIds)! ,
                          "coached_anybody" : (trainerTestAnswers.isAnybodyCoachedCategory ? "yes" : "no")
         ]
+        
+        questionsArray.append(questionsDict)
     }
     
     func toJSONString(from object: Any) -> String? {
@@ -216,22 +221,19 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
     
     func submitForApprovalAction() {
         
-        let parameters = ["user_type":appDelegate.Usertoken,
+        let parameters = ["user_type":appDelegate.USER_TYPE,
                           "user_id": appDelegate.UserId,
                           "cat_ids": toJSONString(from: categoryIDs)!,
-                          "gym_id":"TestIDGYM",
-                          "military":"TESTMilitary",
-                          "questions": toJSONString(from: questionsDict)!,
+                          "gym_id":"",
+                          "military":"",
+                          "questions": toJSONString(from: questionsArray)!,
                           "video_data" : toJSONString(from: videoURLs)!
             
             ] as [String : Any]
         
         print("PARAMETERS:",parameters)
         
-        let headers = [
-            "token":appDelegate.Usertoken]
-        
-        CommonMethods.serverCall(APIURL: ADD_TRAINER_CATEGORIES_URL, parameters: parameters, headers: headers) { (response) in
+        CommonMethods.serverCall(APIURL: ADD_TRAINER_CATEGORIES_URL, parameters: parameters) { (response) in
             
             print(response)
             if let status = response["status"] as? Int{
@@ -260,7 +262,9 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
         CommonMethods.showProgress()
         
         let headers = [
-            "token":appDelegate.Usertoken]
+            "token" : appDelegate.Usertoken,
+            "user_type" : appDelegate.USER_TYPE
+        ]
         
         let parameters = ["file_type":"vid",
                           "upload_type":"other"]

@@ -84,6 +84,7 @@ class RegisterorloginViewController: UIViewController {
     
     func setupImageViews() {
         
+        print("*** setupImageViews ***")
         var totalWidth: CGFloat = 0
         
         for imageName in imageNames {

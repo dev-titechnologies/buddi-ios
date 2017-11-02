@@ -33,10 +33,11 @@ class TrainerProfileModal{
     
     init(){}
     
-    init(profileImage: String, firstName: String, lastName: String, mobile: String, gender: String, userid: String, rating: String, age: String, height: String, weight: String, distance: String, lattitude: String, longittude: String, bookingId: String, trainerId: String,traineeId: String,pickup_lattitude: String,pickup_longitude: String,pickup_location: String){
+    init(profileImage: String, firstName: String, lastName: String, mobile: String, gender: String, userid: String, rating: String, age: String, height: String, weight: String, distance: String, lattitude: String, longittude: String, bookingId: String,categoryId: String,trainerId: String,traineeId: String,pickup_lattitude: String,pickup_longitude: String,pickup_location: String){
         
         self.profileImage = profileImage
         self.Booking_id = bookingId
+        self.categoryId = categoryId
         self.Trainer_id = trainerId
         self.Trainee_id = traineeId
         self.firstName = firstName

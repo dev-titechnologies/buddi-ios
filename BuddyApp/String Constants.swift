@@ -30,6 +30,7 @@ let PAYMENT_SUCCESSFULL = "Payment successfull"
 let PROFILE_UPDATED_SUCCESSFULLY = "Profile updated successfully"
 let ARE_YOU_SURE_WANT_TO_CANCEL_SESSION = "Are you sure you want to Cancel this session?"
 let ARE_YOU_SURE_WANT_TO_STOP_SESSION = "Are you sure you want to Stop this session?"
+let YOU_ARE_CURRENTLY_IN_SESSION = "You are currently in a session. Please Stop/Cancel session to logout"
 let PLEASE_ENTER_CANCEL_REASON = "Please enter cancellation reason"
 let PLEASE_CHOOSE_ATLEAST_ONE_CATEGORY = "Please choose atleast one category"
 let PLEASE_CHOOSE_SESSION_DURATION = "Please choose a session duration"
@@ -50,6 +51,10 @@ let PLEASE_ACCEPT_TERMS_OF_USE_LABEL = "Please accept Terms of Use, Privacy Poli
 let TERMS_OF_USE_LINK_DISPLAY_TEXT = "Terms of Use"
 let PRIVACY_POLICY_LINK_DISPLAY_TEXT = "Privacy Policy"
 let DISCLAIMER_LINK_DISPLAY_TEXT = "Disclaimer"
+let REQUEST_TIME_EXPIRED = "Request time expired"
+let INSTANT_BOOKING_PREFERENCES_SAVED_SUCCESSFULLY = "Instant booking preferences are saved successfully"
+let PLEASE_CHOOSE_ATLEAST_A_SUBCATEGORY = "Please choose atleast a subcategory"
+
 
 //Registration Validation Alerts
 let PLEASE_ENTER_FIRSTNAME = "Please enter your first name"
@@ -65,26 +70,35 @@ let PLEASE_ENTER_AGE = "Please enter Age"
 let PLEASE_ENTER_WEIGHT = "Please enter Weight"
 let PLEASE_ENTER_HEIGHT = "Please enter Height"
 
+//Stripe account update
+let PLEASE_ENTER_DOB = "Please select Date of birth"
+let PLEASE_ENTER_SSN_NUMBER = "Please enter Last 4 digit of your SSN Number"
+let PLEASE_ENTER_CITY = "Please enter city"
+let PLEASE_ENTER_ADDRESS_LINE1 = "Please enter address line 1"
+let PLEASE_ENTER_ADDRESS_LINE2 = "Please enter address line 2"
+let PLEASE_ENTER_POSTAL_CODE = "Please enter postal code"
+let PLEASE_ENTER_STATE = "Please enter state"
+
 //Video upload Constants
 
 let MINUTES_60_PAID_ALERT = "You've already been paid for a 1 hour session. If you proceed, 40 minute session amount will be deducted. Would you like to continue with 40 minute session ?"
 
 let VIDEO_DESC = "*Videos should be no longer than 90 seconds. Try to keep them as short and to the point as possible.It would be beneficial to have someone record the videos for you."
 
-let SQUAT_MALE_DESC = "Video 1: Record yourself doing 1 rep with 135lb on the bar from 2 different angles.\nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles."
-let SQUAT_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 95lb on the bar from 2 different angles.\nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar form 2 different angles."
+let SQUAT_MALE_DESC = "Video 1: Record yourself doing 1 rep with 135 lb on the bar from 2 different angles.\nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles."
+let SQUAT_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 95 lb on the bar from 2 different angles.\nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar form 2 different angles."
 
-let DEADLIFT_MALE_DESC = "Video 1: Record yourself doing 1 rep with 155lb on the bar from 2 different angles.\nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles."
+let DEADLIFT_MALE_DESC = "Video 1: Record yourself doing 1 rep with 155 lb on the bar from 2 different angles.\nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles."
 
-let DEADLIFT_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 135lb on the bar from 2 different angles. \nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles. "
+let DEADLIFT_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 135 lb on the bar from 2 different angles. \nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles. "
 
-let BENCH_PRESS_MALE_DESC = "Video 1: Record yourself doing 1 rep with 135lb on the bar from 2 different angles. \nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles."
+let BENCH_PRESS_MALE_DESC = "Video 1: Record yourself doing 1 rep with 135 lb on the bar from 2 different angles. \nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles."
 
-let BENCH_PRESS_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 65lb on the bar from 2 different angles. \nVideo 2: Record yourself doing 1 rep with 951b. on the bar from 2 different angles."
+let BENCH_PRESS_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 65 lb on the bar from 2 different angles. \nVideo 2: Record yourself doing 1 rep with 95 lb. on the bar from 2 different angles."
 
-let SNACH_MALE_DESC = "Video 1: Record yourself doing 1 rep with 135lb on the bar from 2 different angles. \nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles."
+let SNACH_MALE_DESC = "Video 1: Record yourself doing 1 rep with 135 lb on the bar from 2 different angles. \nVideo 2: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles."
 
-let SNACH_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 95lb on the bar from 2 different angles. \nVideo 2: Record yourself doing 1 rep with your body weight on the bar from 2 different angles. "
+let SNACH_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 95 lb on the bar from 2 different angles. \nVideo 2: Record yourself doing 1 rep with your body weight on the bar from 2 different angles. "
 
 let CLEAN_JERK_MALE_DESC = "Video 1: Record yourself doing 1 rep with your bodyweight on the bar from 2 different angles. \nVideo 2: Record yourself doing 1 rep with 1.5 your bodyweight on the bar from 2 different angles."
 

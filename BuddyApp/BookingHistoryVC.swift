@@ -36,10 +36,10 @@ class BookingHistoryVC: UIViewController {
                           "user_type":appDelegate.USER_TYPE]
             as [String : Any]
         
-        let headers = ["token":appDelegate.Usertoken]
+        print("parameters:\(parameters)")
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: BOOKING_HISTORY_URL, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: BOOKING_HISTORY_URL, parameters: parameters, onCompletion: { (jsondata) in
             
             CommonMethods.hideProgress()
 
@@ -54,6 +54,13 @@ class BookingHistoryVC: UIViewController {
                     print("Booking History Response:",jsondata)
                   
                     if let booking_history_array = jsondata["data"] as? NSArray{
+                        
+                        guard booking_history_array.count > 0 else{
+                            print("Booking History array is empty")
+                            self.bookingHistoryTable.isHidden = true
+                            self.nohistory_lbl.isHidden = false
+                            return
+                        }
                         
                         self.bookingsArray.removeAll()
                     
@@ -78,16 +85,6 @@ class BookingHistoryVC: UIViewController {
                                 self.nohistory_lbl.isHidden = false
                             }
                         }
-                        
-//                        for j in 0..<self.bookingsArray.count{
-//                            let cnct = self.bookingsArray[j]
-//                            self.bookingsArray = self.bookingsArray.filter() {$0.category != cnct.category
-//                            
-//                            }
-//                        }
-//                        
-//                        print("BOOKING ARRAY COUNT111",self.bookingsArray.count)
-                        
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
                       CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -122,11 +119,7 @@ extension BookingHistoryVC: UITableViewDataSource{
         
         let booking = bookingsArray[indexPath.row]
       
-       
         cell.date.text = CommonMethods.convert24hrsTo12hrs(date: booking.trainedDate)
-        
-        
-        
         
         if appDelegate.USER_TYPE == "trainer"{
             cell.lblDescription.text = booking.category + " session with " + booking.traineeName
@@ -134,7 +127,6 @@ extension BookingHistoryVC: UITableViewDataSource{
              cell.lblDescription.text = booking.category + " session with " + booking.trainerName
         }
         
-       
         cell.lblAmount.text = "$" + booking.amount
         cell.imgTrainingPic.sd_setImage(with: URL(string: booking.categoryImage), placeholderImage: UIImage(named: ""))
         

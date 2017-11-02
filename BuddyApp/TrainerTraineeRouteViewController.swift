@@ -56,7 +56,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     var TimeDict = NSMutableDictionary()
     var myMutableString = NSMutableAttributedString()
     var seconds = Int()
-    var timer = Timer()
+    var timer : Timer?
     var isTimerRunning = false
     
     var isExtendedCheck = Bool()
@@ -73,6 +73,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     var isShowingLoadingView = Bool()
     
     var categoryId = String()
+    var isOpenedFromSessionStoppedNotification = Bool()
     
     //MARK: - VIEW CYCLES
     
@@ -89,11 +90,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         appDelegate.TrainerProfileDictionary = nil
         frompushBool = false
         
-        //Socket Listener and Handlers
-        socketListener()
-        SocketIOManager.sharedInstance.establishConnection()
-        getSocketConnected()
-        
         print("Trainer Profile Details : \(trainerProfileDetails.firstName)")
         print("*****  Received Trainer Profile Dict1:\(TrainerProfileDictionary)")
         
@@ -102,26 +98,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         self.title = PAGE_TITLE.TRAINING_SESSION
         
-        
-        if TIMERCHECK {
-            print("Timer Check ******")
-             //locationManager.stopUpdatingLocation()
-
-            FetchFromDb()
-            
-            if let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool{
-                if isShowingWaitingForExtendRequest {
-                    NewLoadingView()
-                }else{
-                    self.runTimer()
-                }
-            }else{
-                self.runTimer()
-            }
-        }else{
-            initializeSession()
-        }
-
         collectionview.delegate = self
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: 170, height: 70)
@@ -130,18 +106,26 @@ class TrainerTraineeRouteViewController: UIViewController {
         flowLayout.scrollDirection = UICollectionViewScrollDirection.horizontal
         flowLayout.minimumInteritemSpacing = 0.0
         collectionview.collectionViewLayout = flowLayout
+        
+        //Stopping Timer for adding locations for Trainer
+        if appDelegate.USER_TYPE == USER_TYPE.TRAINER {
+            CommonMethods.stopAddLocationTimer(availableStatus: "booked")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        UIApplication.shared.isIdleTimerDisabled = true
-        
-       // TrainerProfilePage.timer.invalidate()
-        
         print("**** viewWillAppear *****")
         print("*****  Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
-        
+
         isInSessionRoutePage = true
+        UIApplication.shared.isIdleTimerDisabled = true
+        
+        initializeSessionCheck()
+        
+        socketListener()
+        SocketIOManager.sharedInstance.establishConnection()
+        getSocketConnected()
         
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
@@ -152,7 +136,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidBecomeActive, object:nil)
         
-        // Define identifier
         let notificationName = Notification.Name("SessionNotification")
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.SessionTimerNotification), name: notificationName, object: nil)
@@ -173,6 +156,7 @@ class TrainerTraineeRouteViewController: UIViewController {
 
         UIApplication.shared.isIdleTimerDisabled = false
         isInSessionRoutePage = false
+        stopTimer()
     }
    
     //MARK: - UNWIND SEGUE
@@ -191,14 +175,52 @@ class TrainerTraineeRouteViewController: UIViewController {
                 print("**** Session Extended Check NO in Unwind segue")
                 self.BookingAction(Action_status: "complete")
             }
+        }else if segue.identifier == "unwindSegueToRoutePageFromTrainerProfile" {
+            print("**** unwindToVC1 when SEGUE : unwindSegueToRoutePageFromTrainerProfile ***")
+        }
+    }
+    
+    //MARK: - FOR TESTING PURPOSE
+    
+    func tempSecondsChange(session_time: String) {
+        if session_time == "40" {
+            seconds = 120
+        }else{
+            seconds = 240
         }
     }
     
     //MARK: - INITIALIZE SESSION ACTION
     
+    func initializeSessionCheck(){
+        
+        print("***** initializeSessionCheck ******")
+
+        if TIMERCHECK {
+            print("***** Timer Check in Route Page initializeSessionCheck ******")
+            //locationManager.stopUpdatingLocation()
+            
+            FetchFromDb()
+            
+            if let isShowingWaitingForExtendRequest = userDefaults.value(forKey: "isShowingWaitingForExtendRequest") as? Bool{
+                if isShowingWaitingForExtendRequest {
+                    NewLoadingView()
+                }else{
+                    print("=== RunTimer 1 ===")
+                    self.runTimer()
+                }
+            }else{
+                print("=== RunTimer 2 ===")
+                self.runTimer()
+            }
+        }else{
+            initializeSession()
+        }
+    }
+    
     func initializeSession() {
         
-        print("NOT timer Check")
+        print("*** TIMER CHECK FALSE ***")
         if appDelegate.USER_TYPE == "trainee"{
             var sessionTime = String()
             if choosedSessionOfTrainee == ""{
@@ -208,29 +230,21 @@ class TrainerTraineeRouteViewController: UIViewController {
             }
             seconds = Int(sessionTime)!*60
             print("========== Session Duration Seconds:\(sessionTime) ")
+            
             //For testing purpose
             
-            //SECONDS TEMP
-            if sessionTime == "40" {
-                seconds = 120
-            }else{
-                seconds = 240
-            }
+            tempSecondsChange(session_time: sessionTime)
             
             timer_lbl.text = String(seconds/60) + ":" + "00"
 //            timer_lbl.text = sessionTime + ":" + "00"
         }else if appDelegate.USER_TYPE == "trainer"{
+           
             //For testing purpose
+            tempSecondsChange(session_time: String(seconds/60))
             
-            
-            //SECONDS TEMP
-            if seconds == 2400 {
-                seconds = 120
-            }else{
-                seconds = 240
-            }
             timer_lbl.text = String(seconds/60) + ":" + "00"
             
+            print("TrainerProfileDictionary 1234: \(TrainerProfileDictionary)")
             let Trainee_Dict = TrainerProfileDictionary["trainee_details"] as! Dictionary<String, Any>
             
             trainerProfileDetails = TrainerProfileModal.init(
@@ -248,19 +262,30 @@ class TrainerTraineeRouteViewController: UIViewController {
                  lattitude: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_latitude"] as? String),
                  longittude: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_longitude"] as? String),
                  bookingId: String(TrainerProfileDictionary["book_id"] as! Int) ,
+                 categoryId: "12342352352358",
                  trainerId: String(TrainerProfileDictionary["trainer_id"] as! Int),
                  traineeId: String(TrainerProfileDictionary["trainee_id"] as! Int),
                  pickup_lattitude: String(TrainerProfileDictionary["pick_latitude"] as! String),
                  pickup_longitude: String(TrainerProfileDictionary["pick_longitude"] as! String),
                  pickup_location: String(TrainerProfileDictionary["pick_location"] as! String))
             
-            TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
+//            TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
+        }
+        
+        TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
+        
+        if isOpenedFromSessionStoppedNotification{
+            print("isOpenedFromSessionStoppedNotification:\(isOpenedFromSessionStoppedNotification)")
+//            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "isOpenedFromSessionStoppedNotification = true", buttonTitle: "OK")
+
+            sessionStoppedNotificationReceived()
         }
     }
     
     func printTrainerProfileDetails() {
         print("===========================")
         print("Booking ID: \(trainerProfileDetails.Booking_id)")
+        print("Category ID: \(trainerProfileDetails.categoryId)")
         print("Trainee ID: \(trainerProfileDetails.Trainee_id)")
         print("Trainer ID: \(trainerProfileDetails.Trainer_id)")
         print("First Name: \(trainerProfileDetails.firstName)")
@@ -301,7 +326,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         if notif.userInfo!["pushData"] as! String == "2"{
             
-            // START SESSION
+            print("*** Notification Type 2 Received : START SESSION *******")
             frompushBool = true
             print("OK")
             print("START CLICK")
@@ -310,8 +335,6 @@ class TrainerTraineeRouteViewController: UIViewController {
             self.BoolArray.insert(true, at: 1)
             self.TIMERCHECK = true
             self.collectionview.reloadData()
-
-            
             
            //  CommonMethods.alertView(view: self, title: ALERT_TITLE, message: trainerProfileDetails.firstName, buttonTitle: "Ok")
 //        
@@ -329,41 +352,32 @@ class TrainerTraineeRouteViewController: UIViewController {
 //            alertController.addAction(okAction)
 //            self.present(alertController, animated: true, completion: nil)
         }else if notif.userInfo!["pushData"] as! String == "3"{
-            self.timer.invalidate()
-            self.timer_lbl.text = "00" + ":" + "00"
+
+            print("*** Notification Type 3 Received : CENCEL SESSION *******")
+            sessionStoppedNotificationReceived()
+           // self.BookingAction(Action_status: "cancel")
+            
+        }else if notif.userInfo!["pushData"] as! String == "4"{
+            
+            print("***** Session have been Completed ******")
+            print("*** Notification Type 4 Received : COMPLETED SESSION *******")
+            self.stopTimer()
             
             //Removing userdefault values of transaction details
+            print("***** removeTransactionDetailsFromUserDefault *******")
             CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
             
+            self.timer_lbl.text = "00" + ":" + "00"
             userDefaults.removeObject(forKey: "TimerData")
+            self.TIMERCHECK = false
+            userDefaults.set(false, forKey: "isCurrentlyInTrainingSession")
+            
             appDelegate.timerrunningtime = false
             TrainerProfileDetail.deleteBookingDetails()
             
             hideLoadingView()
 
             self.RateViewScreen()
-            
-            if appDelegate.USER_TYPE == "trainer" {
-                self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
-            }else if appDelegate.USER_TYPE == "trainee" {
-                self.performSegue(withIdentifier: "trainingCancelledToTraineeHomeSegue", sender: self)
-            }
-
-           // self.BookingAction(Action_status: "cancel")
-        }else if notif.userInfo!["pushData"] as! String == "4"{
-            
-           print("***** Session have been Completed ******")
-            
-            self.timer.invalidate()
-            
-            self.timer_lbl.text = "00" + ":" + "00"
-            userDefaults.removeObject(forKey: "TimerData")
-            appDelegate.timerrunningtime = false
-            TrainerProfileDetail.deleteBookingDetails()
-             hideLoadingView()
-
-            self.RateViewScreen()
-            
             
             if appDelegate.USER_TYPE == "trainer" {
                 self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
@@ -373,11 +387,11 @@ class TrainerTraineeRouteViewController: UIViewController {
            // self.BookingAction(Action_status: "complete")
         }else if notif.userInfo!["pushData"] as! String == "6"{
             
-            
-           // userDefaults.removeObject(forKey: "TimerData")
+            //EXTEND
+            // userDefaults.removeObject(forKey: "TimerData")
             userDefaults.set(false, forKey: "sessionBookedNotStarted")
             
-            TIMERCHECK = false
+            self.TIMERCHECK = false
             
             hideLoadingView()
             let extentedTimeDict = CommonMethods.convertToDictionary(text:notif.userInfo!["data"] as! String)! as NSDictionary
@@ -385,12 +399,8 @@ class TrainerTraineeRouteViewController: UIViewController {
             print(extentedTimeDict["extend_time"]!)
             seconds = Int(extentedTimeDict["extend_time"]! as! String)!*60
 
-            //SECONDS TEMP
-            if seconds == 2400 {
-                seconds = 120
-            }else{
-                seconds = 240
-            }
+            //For Testing purpose
+            tempSecondsChange(session_time: String(seconds/60))
             
             timer_lbl.text = String(seconds/60) + ":" + "00"
            // initializeSession()
@@ -398,6 +408,27 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
     }
     
+    func sessionStoppedNotificationReceived() {
+        
+        self.stopTimer()
+        self.timer_lbl.text = "00" + ":" + "00"
+        self.TIMERCHECK = false
+        userDefaults.removeObject(forKey: "TimerData")
+        userDefaults.set(false, forKey: "isCurrentlyInTrainingSession")
+        
+        appDelegate.timerrunningtime = false
+        TrainerProfileDetail.deleteBookingDetails()
+        
+        hideLoadingView()
+        
+        self.RateViewScreen()
+        
+        if appDelegate.USER_TYPE == "trainer" {
+            self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
+        }else if appDelegate.USER_TYPE == "trainee" {
+            self.performSegue(withIdentifier: "trainingCancelledToTraineeHomeSegue", sender: self)
+        }
+    }
     
     //MARK: - SHOW/HIDE LOADING VIEW
     
@@ -482,9 +513,9 @@ class TrainerTraineeRouteViewController: UIViewController {
         if notif.name.rawValue == "UIApplicationWillEnterForegroundNotification"{
             self.RunningTimeData()
         }else if notif.name.rawValue == "UIApplicationDidEnterBackgroundNotification"{
-            self.timer.invalidate()
+            self.stopTimer()
         }else if notif.name.rawValue == "UIApplicationWillResignActiveNotification"{
-            self.timer.invalidate()
+            self.stopTimer()
         }
     }
 
@@ -500,12 +531,15 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
     }
     
+    //MARK: - FETCHING FROM DB
+    
     func FetchFromDb() {
         
         if let result = TrainerProfileDetail.fetchBookingDetails() {
             self.profileArray = result as! Array<TrainerProfileDetail>
             
             guard self.profileArray.count > 0 else {
+                print("Profile array count is 0, hence returns")
                 return
             }
        
@@ -527,6 +561,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                 lattitude: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"lattitude") as? String),
                 longittude: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"longitude") as? String),
                 bookingId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"bookingId") as? String),
+                categoryId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"categoryId") as? String),
                 trainerId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"trainerId") as? String),
                 traineeId: CommonMethods.checkStringNull(val:bookingObj.value(forKey:"traineeId") as? String),
        
@@ -548,9 +583,6 @@ class TrainerTraineeRouteViewController: UIViewController {
     //MARK: - API
     func BookingAction(Action_status: String) {
         
-        let headers = [
-            "token":appDelegate.Usertoken]
-        
         var parameters = ["book_id" : trainerProfileDetails.Booking_id,
                           "action" : Action_status,
                           "trainer_id" : trainerProfileDetails.Trainer_id
@@ -563,11 +595,12 @@ class TrainerTraineeRouteViewController: UIViewController {
             parameters = parameters.merged(with: tempDict)
         }
         
-        print("Header:\(headers)")
         print("Params:\(parameters)")
         
-        CommonMethods.serverCall(APIURL: BOOKING_ACTION, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: BOOKING_ACTION, parameters: parameters, onCompletion: { (jsondata) in
             
+            CommonMethods.hideProgress()
             print("*** BookingAction Result:",jsondata)
             
             guard (jsondata["status"] as? Int) != nil else {
@@ -579,21 +612,32 @@ class TrainerTraineeRouteViewController: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     
                     if let dict = jsondata["data"]  as? NSDictionary {
-                        if dict["status"] as! String == "cancelled" || dict["status"] as! String == "completed" {
-                            self.timer.invalidate()
+                        if dict["status"] as! String == "cancelled" || dict["status"] as! String == "stopped" || dict["status"] as! String == "completed" {
+                            
+                            print("** Removing Timer Details from UserDefaults ***")
+                            self.stopTimer()
                             self.timer_lbl.text = "00" + ":" + "00"
                             userDefaults.removeObject(forKey: "TimerData")
+                            appDelegate.timerrunningtime = false
                             userDefaults.set(false, forKey: "sessionBookedNotStarted")
+                            userDefaults.set(false, forKey: "isCurrentlyInTrainingSession")
+                            self.TIMERCHECK = false
                             userDefaults.removeObject(forKey: "TrainerProfileDictionary")
                             
-                            if dict["status"] as! String == "completed" {
-                                //Clear transaction details from userdefault
+                            print("**** Disconnecting Socket Connection ****")
+                            SocketIOManager.sharedInstance.closeConnection()
+                            
+                            userDefaults.set(true, forKey: "isTimerStopped")
+                            
+                            if dict["status"] as! String == "stopped" || dict["status"] as! String == "completed"{
                                 CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
                             }
 
                             TrainerProfileDetail.deleteBookingDetails()
-                            appDelegate.timerrunningtime = false
-                            self.RateViewScreen()
+                            
+                            if dict["status"] as! String == "stopped" || dict["status"] as! String == "completed" {
+                                self.RateViewScreen()
+                            }
                             
                             if appDelegate.USER_TYPE == "trainer" {
                                 self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
@@ -616,20 +660,15 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     func SessionStartAPI() {
         
-        let headers = [
-            "token" : appDelegate.Usertoken
-        ]
-        
         let parameters = ["book_id" : trainerProfileDetails.Booking_id,
                           "user_type" : appDelegate.USER_TYPE,
                           "trainer_id" : trainerProfileDetails.Trainer_id,
                           "trainee_id" : trainerProfileDetails.Trainee_id
             ] as [String : Any]
         
-        print("Header:\(headers)")
         print("Params:\(parameters)")
         
-        CommonMethods.serverCall(APIURL: SESSION_START, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: SESSION_START, parameters: parameters, onCompletion: { (jsondata) in
             
             print("*** SessionStart Result:",jsondata)
             
@@ -645,26 +684,22 @@ class TrainerTraineeRouteViewController: UIViewController {
                     
                     userDefaults.set(false, forKey: "sessionBookedNotStarted")
                     userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+                    
+                    userDefaults.set(true, forKey: "isCurrentlyInTrainingSession")
                     print("TIMER STATUS",self.isTimerRunning)
 
                     if self.isTimerRunning == false {
+                        self.TIMERCHECK = true
                         self.runTimer()
                     }
                     
-                    if self.frompushBool
-                    {
+                    if self.frompushBool{
                          CommonMethods.alertView(view: self, title: ALERT_TITLE, message: self.trainerProfileDetails.firstName + " " + "started the Session", buttonTitle: "Ok")
                         
-                        
                         self.frompushBool = false
-                    }
-                    else
-                    {
+                    }else{
                          CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     }
-                    
-                   
-                    
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -679,16 +714,48 @@ class TrainerTraineeRouteViewController: UIViewController {
     func runTimer() {
         
         print("TIMER STARTS RUNNING")
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(TrainerTraineeRouteViewController.updateTimer)), userInfo: nil, repeats: true)
-        isTimerRunning = true
+        
+        if timer == nil {
+            print("** Run timer IN FUNCTION **")
+            timer =  Timer.scheduledTimer(
+                timeInterval: TimeInterval(1),
+                target      : self,
+                selector    : #selector(TrainerTraineeRouteViewController.updateTimer),
+                userInfo    : nil,
+                repeats     : true)
+                isTimerRunning = true
+        }
+    }
+    
+    func stopTimer() {
+        print("=== Stop Timer Call Out Route page ===")
+        
+        if timer != nil {
+            print("==== Stopping Timer ====")
+            timer?.invalidate()
+            timer = nil
+        }else{
+            print("Timer is nil 123")
+            timer?.invalidate()
+            timer = nil
+        }
     }
     
     func updateTimer() {
         
+        print("** updateTimer Call **")
+        print("seconds Value :\(seconds)")
+        
+        guard isInSessionRoutePage else{
+            print("** isInSessionRoutePage is false, hence suspended in Update Timer function **")
+            stopTimer()
+            return
+        }
+        
         if seconds < 1 {
             
             print("======= TIMER COMPLETETD ==========")
-            timer.invalidate()
+            self.stopTimer()
             appDelegate.timerrunningtime = false
             print("*** updateTimer")
             
@@ -717,6 +784,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             timer_lbl.attributedText = myMutableString
             TimeDict.setValue(seconds, forKey: "TimeRemains")
             TimeDict.setValue(Date(), forKey: "currenttime")
+            print("==== Set TimerData in UserDefault ===")
             userDefaults.setValue(TimeDict, forKey: "TimerData")
         }
     }
@@ -820,8 +888,25 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         SocketIOManager.sharedInstance.getSocketdata { (messageInfo) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
-                print("recived location")
-                if !self.isInSessionRoutePage{
+                
+                print("====== Trainer Location socket listen handler ========")
+                
+                print("** isInSessionRoutePage: \(self.isInSessionRoutePage)")
+                print("** isTimerRunning: \(self.isTimerRunning)")
+                print("** TIMERCHECK: \(self.TIMERCHECK)")
+
+                guard self.isInSessionRoutePage else{
+                    print("*** Suspended Socket listener handler as isInSessionRoutePage:\(self.isInSessionRoutePage) ****")
+                    return
+                }
+                
+                guard  !self.TIMERCHECK else{
+                    print("*** Suspended Socket listener handler as TIMERCHECK:\(self.TIMERCHECK) ****")
+                    return
+                }
+                
+                guard !self.isTimerRunning else{
+                    print("*** Suspended Socket listener handler as isTimerRunning:\(self.isTimerRunning) ****")
                     return
                 }
                 
@@ -834,7 +919,6 @@ class TrainerTraineeRouteViewController: UIViewController {
                 let trainerSocketData = messageInfo["message"] as! NSDictionary
                 
                 self.measureDistance(buddiLat: Float(trainerSocketData["latitude"] as! String)!, buddiLong: Float(trainerSocketData["longitude"] as! String!)!)
-                
                 
                // self.MarkPoints(latitude: Double(trainerSocketData["latitude"] as! String)!, logitude: Double(trainerSocketData["longitude"] as! String!)!)
                 
@@ -849,14 +933,16 @@ class TrainerTraineeRouteViewController: UIViewController {
         datadict.setValue(appDelegate.USER_TYPE, forKey: "user_type")
         datadict.setValue(lat, forKey: "latitude")
         datadict.setValue(long, forKey: "longitude")
-        datadict.setValue("online", forKey: "avail_status")
+        datadict.setValue("booked", forKey: "avail_status")
         
         parameterdict.setValue("/location/addLocation", forKey: "url")
         parameterdict.setValue(datadict, forKey: "data")
         print("PARADICT",parameterdict)
-        print("============== addHandlers Call ==============")
+        print("============== Add Trainer Location Call ==============")
         //SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
+        
+        //socketListener()
     }
     
     func addHandlersTrainer(){
@@ -872,6 +958,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
         
+        //socketListener()
     }
     
     func measureDistance(buddiLat: Float, buddiLong: Float){
@@ -925,9 +1012,9 @@ class TrainerTraineeRouteViewController: UIViewController {
             let TrainerProPage =  segue.destination as! AssignedTrainerProfileView
             TrainerProPage.TrainerId = self.trainerProfileDetails.Trainer_id
             TrainerProPage.trainingLocation = self.trainerProfileDetails.PickUpLocation
+            
             print("CATEG ID received", self.trainerProfileDetails.categoryId)
             TrainerProPage.trainingCategory = CategoryDB.getCategoryByCategoryID(categoryId: self.trainerProfileDetails.categoryId)
-            
         }else if segue.identifier == "fromSessionPageToMessagingSegue" {
             //To Messaging Page
             let messagingPage = segue.destination as! MessagingSocketVC
@@ -938,10 +1025,6 @@ class TrainerTraineeRouteViewController: UIViewController {
             traineeProfile.userType = "trainee"
             traineeProfile.userId = self.trainerProfileDetails.Trainee_id
         }
-        
-        //For REview Segue
-        //        performSegue(withIdentifier: "trainerReviewPageSegue", sender: self)
-
     }
     
     //MARK: - CANCEL ALERT VIEW ACTIONS
@@ -949,10 +1032,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     @IBAction func cancelAlertYesAction(_ sender: Any) {
 
         if txtCancelReason.text == "" {
-            
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ENTER_CANCEL_REASON, buttonTitle: "OK")
         }else{
-//            CommonMethods.removeTransactionDetailsFromUserDefault()
             self.BookingAction(Action_status: "cancel")
         }
     }
@@ -974,10 +1055,6 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
             print("**********************")
             print("Long \(location.coordinate.longitude)")
             print("Lati \(location.coordinate.latitude)")
-            print("Alt \(location.altitude)")
-            print("Sped \(location.speed)")
-            print("Accu \(location.horizontalAccuracy)")
-            
             print("**********************")
             
             // I have taken a pin image which is a custom image
@@ -1002,9 +1079,13 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
         print("TIMER CHECK in Location Manager:\(TIMERCHECK)")
         if TIMERCHECK{
             
+            print("Lat:\(lat)")
+            print("long:\(long)")
+            print("PickupLat:\(trainerProfileDetails.PickUpLattitude)")
+            print("PickupLong:\(trainerProfileDetails.PickUpLongitude)")
+
             self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.PickUpLattitude)!, DestiLong: Float(trainerProfileDetails.PickUpLongitude)!)
             self.addHandlersTrainer()
-
             
         }else{
             if appDelegate.USER_TYPE == "trainer"{
@@ -1076,15 +1157,9 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         if indexPath.row == 2{
             //Profile
             
-            // imgTrainingPic.sd_setImage(with: URL(string: trainerProfileDetails.profileImage), placeholderImage: UIImage(named: ""))
-            
-            
             cell1.menu_btn.sd_setImage(with: URL(string: trainerProfileDetails.profileImage), for: .normal, placeholderImage: UIImage(named: "man"))
-            
-           // cell1.menu_btn.sd_setImage(with: URL(string: trainerProfileDetails.profileImage), for: .normal)
             cell1.menu_btn.layer.cornerRadius = 20.5
             cell1.menu_btn.clipsToBounds = true
-           // cell1.menu_btn.setImage(UIImage(named: "man"), for: .normal)
             cell1.name_lbl.text = trainerProfileDetails.firstName
         }
         
@@ -1124,7 +1199,6 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             print("CANCEL ACTION")
             
 //            CommonMethods.removeTransactionDetailsFromUserDefault()
-            
             cancelAlertView.isHidden = false
             cancelAlertViewTitle.text = ARE_YOU_SURE_WANT_TO_CANCEL_SESSION
             
@@ -1139,9 +1213,9 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ASK_TRAINEE_TO_START_SESSION, buttonTitle: "OK")
                 }else{
                     
-                    print("****** DistanceTrainerTrainee ****** :\(DistanceTrainerTrainee)")
                     if (DistanceTrainerTrainee) != nil{
-                        if DistanceTrainerTrainee < 500.0{
+                        print("****** DistanceTrainerTrainee ****** :\(DistanceTrainerTrainee!)")
+                        if DistanceTrainerTrainee! < 500.0{
                             
                             CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
                             
@@ -1154,14 +1228,12 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                             BoolArray.insert(true, at: 1)
                             
                         }else{
-                            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: TRAINER_NOT_REACHED_TO_LOCATION, buttonTitle: "OK")
+                            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "\(TRAINER_NOT_REACHED_TO_LOCATION)", buttonTitle: "OK")
                         }
                     }else{
-                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: TRAINER_NOT_REACHED_TO_LOCATION, buttonTitle: "OK")
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "\(TRAINER_NOT_REACHED_TO_LOCATION)", buttonTitle: "OK")
                     }
                 }
-                
-                
             }else{
                 //STOP
                 print("STOP CLICK")
@@ -1169,9 +1241,16 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                 
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
                     self.BoolArray.insert(false, at: 1)
-                    self.timer.invalidate()
-                     self.timer_lbl.text = "00" + ":" + "00"
-                    self.BookingAction(Action_status: "complete")
+//                    self.stopTimer()
+//                    self.timer_lbl.text = "00" + ":" + "00"
+                    
+                    //Need to check with Vishnu
+//                    userDefaults.removeObject(forKey: "TimerData")
+//                    userDefaults.set(false, forKey: "sessionBookedNotStarted")
+//                    userDefaults.set(false, forKey: "isCurrentlyInTrainingSession")
+//                    self.TIMERCHECK = false
+
+                    self.BookingAction(Action_status: "stop")
                 }))
                 alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
                     
@@ -1187,13 +1266,14 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                 self.performSegue(withIdentifier: "fromTimerToTraineeProfileSegue", sender: self)
             }
         }else if sender.tag == 3{
-             print("MESSAGE ACTION")
-            performSegue(withIdentifier: "fromSessionPageToMessagingSegue", sender: self)
+            
+            if !TIMERCHECK{
+                print("MESSAGE ACTION")
+                performSegue(withIdentifier: "fromSessionPageToMessagingSegue", sender: self)
+            }
         }
     }
-    
 }
-
 
 extension TrainerTraineeRouteViewController : UICollectionViewDelegate{
     
@@ -1202,16 +1282,6 @@ extension TrainerTraineeRouteViewController : UICollectionViewDelegate{
         indexpath1 = indexPath as NSIndexPath
         
         print("INDEXPATH",indexPath.row)
-//        cell = collectionview.cellForItem(at: indexPath) as! MapBottamButtonCell
-//        // cell1.imageview.image = UIImage(named:imagearray[indexPath.row])
-//        cell1.menu_btn.setImage(UIImage(named: imagearray[indexPath.row]), for: .normal)
-//        cell1.bgview.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-        
-//        cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "MapBottamButtonid", for: indexPath as IndexPath) as! MapBottamButtonCell
-
-        if isTimerRunning == false && indexPath.row == 1{
-           // self.runTimer()
-        }
         
         switch (indexPath.row) {
             case 0:
@@ -1220,23 +1290,21 @@ extension TrainerTraineeRouteViewController : UICollectionViewDelegate{
             case 1:
                 
                 print("**** Start or Stop Click")
-//                let index_path = NSIndexPath(index: 0)
-//                collectionview.reloadItems(at: [index_path as IndexPath])
             
             case 2:
                 print("**** Profile Button Click")
             
             case 3:
-                print("**** Message Button Click")
-                performSegue(withIdentifier: "fromSessionPageToMessagingSegue", sender: self)
+                print("**** Message Button Click in DidSelect ****")
+//                performSegue(withIdentifier: "fromSessionPageToMessagingSegue", sender: self)
             
             default:
                 
                 print("Integer out of range")
         }
-
     }
 }
+
 extension TrainerTraineeRouteViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {

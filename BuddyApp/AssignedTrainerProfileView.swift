@@ -27,6 +27,13 @@ class AssignedTrainerProfileView: UIViewController {
     var trainingLocation = String()
     var trainingCategory = String()
     
+    @IBOutlet weak var imgHeightIcon: UIImageView!
+    @IBOutlet weak var imgWeightIcon: UIImageView!
+    
+    var TimerDict = NSDictionary()
+    var numOfDays = Int()
+    var timerCheckValue = Bool()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,16 +75,12 @@ class AssignedTrainerProfileView: UIViewController {
             return
         }
         
-        let parameters = ["user_type":"trainer",
+        let parameters = ["user_type" : "trainer",
                           "user_id":TrainerId] as [String : Any]
         
-        let headers = [
-            "token":appDelegate.Usertoken ]
-        
         print("PARAMS",parameters)
-        print("HEADER",headers)
         
-        CommonMethods.serverCall(APIURL: VIEW_PROFILE, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: VIEW_PROFILE, parameters: parameters , onCompletion: { (jsondata) in
             print("PROFILE RESPONSE",jsondata)
             
             if let status = jsondata["status"] as? Int{
@@ -86,13 +89,31 @@ class AssignedTrainerProfileView: UIViewController {
                     self.TrainerprofileDictionary = jsondata["data"]  as! NSDictionary
                     print(self.TrainerprofileDictionary)
                     
-                     self.lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + " " + (self.TrainerprofileDictionary["last_name"] as? String)!
+                    self.lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + " " + (self.TrainerprofileDictionary["last_name"] as? String)!
                     
-                    self.lblTrainerAge.text =  CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["age"] as? String)
-                    self.lblTrainerHeight.text = CommonMethods.checkStringNull(val:
-                        self.TrainerprofileDictionary["height"] as? String)
-                    self.lblTrainerWeight.text = CommonMethods.checkStringNull(val: self.TrainerprofileDictionary["weight"] as? String)
+                    self.imgProfileImage.sd_setImage(with: URL(string: (self.TrainerprofileDictionary["user_image"] as? String)!), placeholderImage: UIImage(named: "man"))
                     
+                    if let age = self.TrainerprofileDictionary["age"] as? String{
+                        self.lblTrainerAge.text = "Trainer (\(age))"
+                    }else{
+                        self.lblTrainerAge.text = "Trainer"
+                    }
+                    
+                    if let height = self.TrainerprofileDictionary["height"] as? String{
+                        self.lblTrainerHeight.text = "\(height) cm"
+                        self.imgHeightIcon.isHidden = false
+                    }else{
+                        self.lblTrainerHeight.isHidden = true
+                        self.imgHeightIcon.isHidden = true
+                    }
+                    
+                    if let weight = self.TrainerprofileDictionary["weight"] as? String{
+                        self.lblTrainerWeight.text = "\(weight) lbs"
+                        self.imgWeightIcon.isHidden = false
+                    }else{
+                        self.lblTrainerWeight.isHidden = true
+                        self.imgWeightIcon.isHidden = true
+                    }
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -101,8 +122,58 @@ class AssignedTrainerProfileView: UIViewController {
             }
         })
     }
+    
     @IBAction func doneAction(_ sender: Any) {
+        print("** Done Action **")
+        TimerCheck()
     }
+    
+    //MARK: - PREPARE FOR SEGUE
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "unwindSegueToRoutePageFromTrainerProfile" {
+            print("*** Prepare for segue for SEGUE : unwindSegueToRoutePageFromTrainerProfile ***")
+            let timerPage =  segue.destination as! TrainerTraineeRouteViewController
+            timerPage.seconds = numOfDays
+            timerPage.TIMERCHECK = timerCheckValue
+        }else if segue.identifier == "fromAssignedTrainerVCToCategoryVCSegue" {
+            let categoryListVC =  segue.destination as! CategoryListVC
+//            categoryListVC.FromTrainerProfileBool = true
+            categoryListVC.isFromAssignedTrainerVC = true
+            categoryListVC.trainerID = TrainerId
+//            categoryListVC.assignedTrainerprofileDictionary = self.TrainerprofileDictionary
+        }
+    }
+    
+    func TimerCheck(){
+        
+        print("*** Timer Check in Assigned Trainer Profile View ***")
+        if userDefaults.value(forKey: "TimerData") != nil {
+            TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
+            print("TIMERDICT",TimerDict)
+            
+            let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
+            
+            print("OLD DATE",date)
+            print("CURRENT DATE",Date())
+            
+            if date > Date(){
+                print("ongoing")
+                numOfDays = Date().daysBetweenDate(toDate: date)
+                print("DIFFERENCE",numOfDays)
+                timerCheckValue = true
+            }else{
+                print("completed")
+                
+                userDefaults.removeObject(forKey: "TimerData")
+                TrainerProfileDetail.deleteBookingDetails()
+                timerCheckValue = false
+            }
+        }
+        performSegue(withIdentifier: "unwindSegueToRoutePageFromTrainerProfile", sender: self)
+    }
+
 }
 
 extension AssignedTrainerProfileView: UITableViewDataSource{
@@ -148,4 +219,15 @@ extension AssignedTrainerProfileView: UITableViewDataSource{
 
 extension AssignedTrainerProfileView: UITableViewDelegate{
     
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == 1{
+            print("**** Did select Training Category ****")
+            self.performSegue(withIdentifier: "fromAssignedTrainerVCToCategoryVCSegue", sender: self)
+        }
+    }
+
 }
+
+

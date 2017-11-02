@@ -83,7 +83,7 @@ class WaitingForAcceptancePage: UIViewController {
             //Pls remove user type trainee code. only for testing purpose
             if self.forUserType == "trainee" {
                 print("dismissWaitingForAcceptancePage call after : 120 seconds")
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_TRY_AGAIN_AFTER_FEW_MOMENTS, buttonTitle: "OK")
+//                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_TRY_AGAIN_AFTER_FEW_MOMENTS, buttonTitle: "OK")
                 self.dismissWaitingForAcceptancePage()
             }else if self.forUserType == "trainer" {
                 //print("Booking Action Complete call after 30 seconds")
@@ -98,6 +98,7 @@ class WaitingForAcceptancePage: UIViewController {
         if let type = notif.userInfo?["type"] as? String{
             if type == "1" {
                 print("***** Notification Type Receiving 1 ****")
+                userDefaults.set(true, forKey: "isCurrentlyInTrainingSession")
                 dismissWaitingForAcceptancePage()
             }
         }
@@ -137,18 +138,14 @@ class WaitingForAcceptancePage: UIViewController {
     
     func bookingCompleteAction(action_status: String) {
         
-        let headers = [
-            "token":appDelegate.Usertoken]
-        
         let parameters = ["book_id" : trainerProfileDetails.Booking_id,
                           "action" : action_status,
                           "trainer_id" : trainerProfileDetails.Trainer_id
             ] as [String : Any]
         
-        print("Header:\(headers)")
         print("Params:\(parameters)")
         
-        CommonMethods.serverCall(APIURL: BOOKING_ACTION, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: BOOKING_ACTION, parameters: parameters, onCompletion: { (jsondata) in
             
             print("*** Booking Complete Action Result:",jsondata)
             

@@ -116,14 +116,11 @@ class InviteFriendsVC: UIViewController {
         let parameters = ["mobile_array":selectedContactsArray,
                           "invited_mobile":userMobile
         ] as [String : Any]
-
-        let headers = ["token":appDelegate.Usertoken]
         
         print("Params:",parameters)
-        print("Header:",headers)
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: INVITE_FRIENDS, parameters: parameters, headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: INVITE_FRIENDS, parameters: parameters, onCompletion: { (jsondata) in
             print("INVITE FRIENDS RESPONSE",jsondata)
             
             CommonMethods.hideProgress()

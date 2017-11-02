@@ -119,8 +119,20 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
             print("Save preference Settings dict:\(dict)")
 
             userDefaults.setValue(dict, forKey: "save_preferance")
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Saved successfully", buttonTitle: "Ok")
+            savedAlert()
+//            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Saved successfully", buttonTitle: "Ok")
         }
+    }
+    
+    func savedAlert() {
+        
+        let alert = UIAlertController(title: ALERT_TITLE, message: INSTANT_BOOKING_PREFERENCES_SAVED_SUCCESSFULLY, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+            
+            self.navigationController?.popViewController(animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

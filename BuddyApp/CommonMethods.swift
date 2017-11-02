@@ -14,7 +14,11 @@ import SVProgressHUD
 
 class CommonMethods: NSObject {
 
-      class func serverCall(APIURL : String, parameters : Dictionary<String, Any>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
+      class func serverCall(APIURL : String, parameters : Dictionary<String, Any>, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
+        
+        let headers = ["token":appDelegate.Usertoken,
+                       "user_type" : appDelegate.USER_TYPE
+        ] as HTTPHeaders?
         
         let FinalURL = SERVER_URL + APIURL
         print("Final Server URL:",FinalURL)
@@ -23,6 +27,26 @@ class CommonMethods: NSObject {
             switch response.result {
             case .success:
 //                print(response)
+                if let value = response.value {
+                    onCompletion(value as! Dictionary<String, Any>)
+                }
+                break
+            case .failure(let error):
+                print(error)
+                onCompletion([:])
+            }
+        }
+    }
+    
+    class func serverCallCopy(APIURL : String, parameters : Dictionary<String, Any>, headers: HTTPHeaders?, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
+        
+        let FinalURL = SERVER_URL + APIURL
+        print("Final Server URL:",FinalURL)
+        Alamofire.request(FinalURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
+            response in
+            switch response.result {
+            case .success:
+                //                print(response)
                 if let value = response.value {
                     onCompletion(value as! Dictionary<String, Any>)
                 }
@@ -96,7 +120,8 @@ class CommonMethods: NSObject {
     
     class func convert24hrsTo12hrs(date: Date) -> String{
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd  h:mm a"
+//        formatter.dateFormat = "yyyy-MM-dd  h:mm a"
+        formatter.dateFormat = "MM-dd-yyyy  h:mm a"
         formatter.amSymbol = "AM"
         formatter.pmSymbol = "PM"
         
@@ -125,19 +150,10 @@ class CommonMethods: NSObject {
         return nil
     }
 
-    class func phoneNumberSplit(number: String) -> (String, String)
-    {
+    class func phoneNumberSplit(number: String) -> (String, String){
         
         let fullName = number
         let fullNameArr = fullName.characters.split{$0 == "-"}.map(String.init)
-        // or simply:
-        // let fullNameArr = fullName.characters.split{" "}.map(String.init)
-        
-        fullNameArr[0] // First
-        fullNameArr[1] // Last
-        print(fullNameArr[0])
-        print(fullNameArr[1])
-        
         return (fullNameArr[0], fullNameArr[1])
     }
     
@@ -149,15 +165,14 @@ class CommonMethods: NSObject {
         userDefaults.removeObject(forKey: "save_preferance")
     }
     
-    class func networkcheck() ->( Bool)
-    {
+    class func networkcheck() ->( Bool){
+        
         var statusBool = Bool()
         
         let status = Reach().connectionStatus()
         switch status {
         case .unknown, .offline:
             print("Not connected")
-            
             statusBool = false
         case .online(.wwan):
             print("Connected via WWAN")
@@ -165,12 +180,10 @@ class CommonMethods: NSObject {
             statusBool = true
         case .online(.wiFi):
             print("Connected via WiFi")
-            
             statusBool = true
         }
         
         return statusBool
-        
     }
 
     class func showProgress(){
@@ -199,7 +212,7 @@ class CommonMethods: NSObject {
         
         return locationDict
     }
-
+    
     class func getTrainingLocationModelObjectFromDictionary(location_dictionary: NSMutableDictionary) -> TrainingLocationModel {
         
         let location_model_obj = TrainingLocationModel()
@@ -244,7 +257,7 @@ class CommonMethods: NSObject {
             userDefaults.removeObject(forKey: "backupIsTransactionAmount_40Minutes")
             userDefaults.removeObject(forKey: "backupIsTransactionStatus_40Minutes")
             userDefaults.removeObject(forKey: "backupIsTransactionSuccessfull_40Minutes")
-
+            
         }else if sessionDuration == "60" {
             print("******** Removing UserDefault values related to 60 Minutes Session ********")
             userDefaults.removeObject(forKey: "backupPaymentTransactionId_60Minutes")
@@ -275,7 +288,65 @@ class CommonMethods: NSObject {
         guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
         tracker.send(builder.build() as [NSObject : AnyObject])
     }
+    
+    class func storeUnusedTransactionsToUserDefaults(transactionDetailsArray: NSArray) {
+        
+        print("****** Transaction Details ******\n\(transactionDetailsArray)")
+        
+        for transactiondetail in transactionDetailsArray{
+            print("transactiondetail:\(transactiondetail)")
+            
+            let transactionDict = transactiondetail as? NSDictionary
+            if transactionDict?["session_duration"] as! String == "40"{
+                
+                userDefaults.set(transactionDict?["transaction_id"] as! String, forKey: "backupPaymentTransactionId_40Minutes")
+                userDefaults.set(transactionDict?["transaction_amount"] as! String, forKey: "backupIsTransactionAmount_40Minutes")
+                userDefaults.set(transactionDict?["transaction_status"] as! String, forKey: "backupIsTransactionStatus_40Minutes")
+                userDefaults.set(true, forKey: "backupIsTransactionSuccessfull_40Minutes")
+                
+            }else if transactionDict?["session_duration"] as! String == "60"{
+                userDefaults.set(transactionDict?["transaction_id"] as! String, forKey: "backupPaymentTransactionId_60Minutes")
+                userDefaults.set(transactionDict?["transaction_amount"] as! String, forKey:  "backupIsTransactionAmount_60Minutes")
+                userDefaults.set(transactionDict?["transaction_status"] as! String, forKey: "backupIsTransactionStatus_60Minutes")
+                userDefaults.set(true, forKey: "backupIsTransactionSuccessfull_60Minutes")
+            }
+        }
+    }
+    
+    class func stopAddLocationTimer(availableStatus: String) {
+        print("=== stopAddLocationTimer when logging out/STARTS another timer ===")
+        if addLocationTimerSingleton != nil {
+            print("==== Stopping Timer ====")
+            addLocationTimerSingleton?.invalidate()
+            addLocationTimerSingleton = nil
+            updateLocationStatusCommon(onlineStatus: availableStatus)
+        }
+    }
 
+    class func updateLocationStatusCommon(onlineStatus: String){
+        
+        let parameters = ["user_type" : appDelegate.USER_TYPE,
+                          "user_id" : appDelegate.UserId,
+                          "avail_status" : onlineStatus
+            ] as [String : Any]
+        
+        print("PARAMS",parameters)
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: UPDATE_LOCATION_STATUS, parameters: parameters , onCompletion: { (jsondata) in
+            
+            CommonMethods.hideProgress()
+            print("*** updateLocationStatusCommon ***")
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    print("** Online status updated successfully **")
+                }else if status == RESPONSE_STATUS.FAIL{
+                    print("** Online status updation failed **")
+                }
+            }
+        })
+    }
 }
 
 class ButtonWithShadow: UIButton {
@@ -337,11 +408,18 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "approvedOrPendingCategoriesIdArray")
         userDefaults.removeObject(forKey: "clientTokenForPayment")
         userDefaults.removeObject(forKey: "paymentNonce")
+        userDefaults.removeObject(forKey: "isStripeTokenExists")
         userDefaults.removeObject(forKey: "save_preferance")
+        userDefaults.removeObject(forKey: "TimerData")
+        userDefaults.removeObject(forKey: "isShowingWaitingForExtendRequest")
+        
+        SocketIOManager.sharedInstance.closeConnection()
         
         //Removing userdefault values of transaction details
         CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: "sessionExpire")
 
+        CommonMethods.stopAddLocationTimer(availableStatus: "offline")
+        
         ProfileImageDB.deleteImages()
         ProfileDB.deleteProfile()
         

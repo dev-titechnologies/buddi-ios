@@ -35,7 +35,9 @@ target 'BuddyApp' do
     pod 'GoogleAnalytics'
     pod 'TTTAttributedLabel'
 
-    
+    pod 'Stripe'
+    pod 'DatePickerDialog'
+
   # Pods for BuddyApp
 
   target 'BuddyAppTests' do

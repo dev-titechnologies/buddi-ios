@@ -34,9 +34,8 @@ class ReviewHistoryVC: UIViewController {
         }
         
         let parameters = ["user_id":"21","user_type":"trainee"]
-        let headers = ["token":appDelegate.Usertoken]
         
-        CommonMethods.serverCall(APIURL: REVIEW_HISTORY_URL, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: REVIEW_HISTORY_URL, parameters: parameters, onCompletion: { (jsondata) in
             
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")

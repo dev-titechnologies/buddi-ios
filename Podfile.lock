@@ -36,6 +36,7 @@ PODS:
     - BraintreeDropIn/UIKit
   - BraintreeDropIn/UIKit (5.2.2)
   - CountryPickerSwift (1.4.4)
+  - DatePickerDialog (1.1.7)
   - Firebase/Auth (3.17.0):
     - Firebase/Core
     - FirebaseAuth (= 3.1.1)
@@ -129,6 +130,7 @@ PODS:
   - Socket.IO-Client-Swift (11.0.2):
     - StarscreamSocketIO (~> 8.0.2)
   - StarscreamSocketIO (8.0.2)
+  - Stripe (11.2.0)
   - SVProgressHUD (2.1.2)
   - SwiftyJSON (3.1.4)
   - TTTAttributedLabel (2.0.0)
@@ -139,6 +141,7 @@ DEPENDENCIES:
   - Braintree
   - BraintreeDropIn
   - CountryPickerSwift
+  - DatePickerDialog
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -156,6 +159,7 @@ DEPENDENCIES:
   - SDWebImage (~> 3.8)
   - SideMenu
   - Socket.IO-Client-Swift
+  - Stripe
   - SVProgressHUD
   - SwiftyJSON
   - TTTAttributedLabel
@@ -166,6 +170,7 @@ SPEC CHECKSUMS:
   Braintree: 12225834d0e39ffad56888756a3c0d8bda043d53
   BraintreeDropIn: 0ff4879547af66dae814911992e01324975d556d
   CountryPickerSwift: e31e67f2b95eb1fa6ad230e9eb0b49b020526d99
+  DatePickerDialog: bd5e7e92e4da2c6a8966b28d5f5d8f335d6c2c63
   Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseAuth: cc8a1824170adbd351edb7f994490a3fb5c18be6
@@ -193,10 +198,11 @@ SPEC CHECKSUMS:
   SideMenu: 3fa07dd05d4bade2b6f9889fb1877e312e1ba319
   Socket.IO-Client-Swift: 17d4daf85d74125c33481d9bc40cbe678f0d631a
   StarscreamSocketIO: c02ffb2920bd38de6658ce213071fc4ae0e35423
+  Stripe: 898f83a95d72180c6eb4acd65b2ae6158fc6a8bd
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 57139f95cbfe507c3bc800b8f973b8d4b3163872
+PODFILE CHECKSUM: c4272424575db95e2f6606661380412ec6cf04c3
 
 COCOAPODS: 1.1.1

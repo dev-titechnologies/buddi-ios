@@ -64,12 +64,10 @@ class TrainerReviewPage: UIViewController{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
-        
     }
     
     @IBAction func StarRateView_action(_ sender: Any) {
         starRatingViewValueChange()
-        
         
     }
     
@@ -101,19 +99,14 @@ class TrainerReviewPage: UIViewController{
                           "rating_count":StarRateView.value,
                           "rating_comment":txtReviewDescription.text] as [String : Any]
         
-        let headers = [
-            "token":appDelegate.Usertoken ]
-        
         print("PARAMS",parameters)
-        print("HEADER",headers)
         
-        CommonMethods.serverCall(APIURL: ADD_REVIEW, parameters: parameters , headers: headers , onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: ADD_REVIEW, parameters: parameters , onCompletion: { (jsondata) in
             print("REVIEW RESPONSE",jsondata)
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-
                     self.dismiss(animated: true, completion: nil)
 
 //                    if self.isFromExtendPage{
@@ -126,12 +119,14 @@ class TrainerReviewPage: UIViewController{
                   
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
-                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED {
                     self.dismissOnSessionExpire()
+                    self.dismiss(animated: true, completion: nil)
                 }
+            }else{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "Ok")
             }
         })
-
     }
    
 }

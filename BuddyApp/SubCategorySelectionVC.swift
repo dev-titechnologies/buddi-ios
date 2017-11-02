@@ -36,6 +36,12 @@ class SubCategorySelectionVC: UIViewController {
     @IBOutlet weak var subCategoryTableHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pickerViewTitle: UILabel!
     
+    var categoryIDs: [String] = [String]()
+    var questionsDict = [String:Any]()
+    var questionsArray = [[String:Any]]()
+    
+    @IBOutlet weak var lblNoNeedToSelectSubCateg: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,9 +56,11 @@ class SubCategorySelectionVC: UIViewController {
         
         if subCategories.count > 0 {
             subCategoryTableHeightConstraint.constant = CGFloat(subCategories.count * 44)
+            lblNoNeedToSelectSubCateg.isHidden = true
         }else{
             subCategoryTableHeightConstraint.constant = CGFloat(150)
             subCategoryTable.isHidden = true
+            lblNoNeedToSelectSubCateg.isHidden = false
         }
     }
     
@@ -82,10 +90,17 @@ class SubCategorySelectionVC: UIViewController {
 
     @IBAction func nextButtonAction(_ sender: Any) {
         
+        print("selectedSubCategoriesFromTable.count:\(selectedSubCategoriesFromTable.count)")
+        print("subCategories.count:\(subCategories.count)")
+
         if selectedSubCategoriesFromTable.count == 0 && subCategories.count > 0 {
-            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose atleast a subcategory", buttonTitle: "OK")
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_ATLEAST_A_SUBCATEGORY, buttonTitle: "OK")
         }else if txtCurrentWeight.text == "" || txtExerciseNutrition.text == "" {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ANSWER_ABOVE_QUESTIONS, buttonTitle: "OK")
+        }else if selectedSubCategoriesFromTable.count == 0 && subCategories.count == 0 {
+            //For Outdoor category
+            
+            initializaionForAdminApproval()
         }else{
             trainerTestAnswers.currentWeight = txtCurrentWeight.text!
             trainerTestAnswers.exerciseNutrition = txtExerciseNutrition.text!
@@ -115,6 +130,68 @@ class SubCategorySelectionVC: UIViewController {
         pickerView.delegate = nil
         pickerView.dataSource = nil
         pickerCardView.isHidden = true
+    }
+    
+    func loadCategoryIDs() {
+        for category in selectedCategoriesSingleton{
+            categoryIDs.append(category.categoryId)
+        }
+    }
+    
+    func initializaionForAdminApproval() {
+        
+        print("Trainer Test Answers")
+        print("====================")
+
+        print("Current Weight:",trainerTestAnswers.currentWeight)
+        print("Exercise Nutrition:",trainerTestAnswers.exerciseNutrition)
+        
+        loadCategoryIDs()
+        loadQuestionsArray()
+        submitForApprovalAction()
+    }
+    
+    func loadQuestionsArray() {
+        
+        questionsDict = ["weight":trainerTestAnswers.currentWeight,
+                         "pounds" : trainerTestAnswers.exerciseNutrition,
+        ]
+        
+        questionsArray.append(questionsDict)
+    }
+
+    func toJSONString(from object: Any) -> String? {
+        if let objectData = try? JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions(rawValue: 0)) {
+            let objectString = String(data: objectData, encoding: .utf8)
+            return objectString
+        }
+        return nil
+    }
+    
+    func submitForApprovalAction() {
+        
+        let parameters = ["user_type":appDelegate.USER_TYPE,
+                          "user_id": appDelegate.UserId,
+                          "cat_ids": toJSONString(from: categoryIDs)!,
+                          "questions": toJSONString(from: questionsArray)!,
+            
+            ] as [String : Any]
+        
+        print("PARAMETERS:",parameters)
+        
+        CommonMethods.serverCall(APIURL: ADD_TRAINER_CATEGORIES_URL, parameters: parameters) { (response) in
+            
+            print(response)
+            if let status = response["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    self.performSegue(withIdentifier: "skipVideoUploadPageSegue", sender: self)
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: response["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -18,6 +18,7 @@ extension TrainerProfileDetail {
 
     @NSManaged public var profileimage: String?
     @NSManaged public var bookingId: String?
+    @NSManaged public var categoryId: String?
     @NSManaged public var trainerId: String?
     @NSManaged public var traineeId: String?
     @NSManaged public var firstname: String?

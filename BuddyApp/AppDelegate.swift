@@ -20,9 +20,8 @@ import Firebase
 import FirebaseMessaging
 import GooglePlaces
 import Google
+import Stripe
 
-//import FirebaseAnalytics
-//import FirebaseInstanceID
 
 protocol FCMTokenReceiveDelegate: class {
     func tokenReceived()
@@ -46,37 +45,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        if userDefaults.value(forKey: "devicetoken") == nil {
-            print("***** configureFirebase Call in AppDelegate ******")
-            configureFirebase(application: application)
-        }
+//        if userDefaults.value(forKey: "devicetoken") == nil {
+//            print("***** configureFirebase Call in AppDelegate ******")
+//            configureFirebase(application: application)
+//        }
         
+        configureFirebase(application: application)
+
         
-        if #available(iOS 10.0, *) {
-            // For iOS 10 display notification (sent via APNS)
-            UNUserNotificationCenter.current().delegate = self
-            
-            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-            UNUserNotificationCenter.current().requestAuthorization(
-                options: authOptions,
-                completionHandler: {_, _ in })
-        } else {
-            let settings: UIUserNotificationSettings =
-                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-            application.registerUserNotificationSettings(settings)
-        }
+        //For Temp
+//        if #available(iOS 10.0, *) {
+//            // For iOS 10 display notification (sent via APNS)
+//            UNUserNotificationCenter.current().delegate = self
+//            
+//            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+//            UNUserNotificationCenter.current().requestAuthorization(
+//                options: authOptions,
+//                completionHandler: {_, _ in })
+//        } else {
+//            let settings: UIUserNotificationSettings =
+//                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+//            application.registerUserNotificationSettings(settings)
+//        }
         
-        application.registerForRemoteNotifications()
+//        application.registerForRemoteNotifications()
         
         GMSServices.provideAPIKey(GOOGLE_API_KEY)
         GMSPlacesClient.provideAPIKey(GOOGLE_API_KEY)
         GIDSignIn.sharedInstance().clientID = GID_CLIENT_ID
 
         GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().shouldFetchBasicProfile = true
+
         IQKeyboardManager.sharedManager().enable = true
         
         //For Google Analytics
-        
         guard let gai = GAI.sharedInstance() else {
             assert(false, "Google Analytics not configured correctly")
             return true
@@ -89,6 +92,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         gai.logger.logLevel = .verbose;
         
         BTAppSwitch.setReturnURLScheme(PAYPAL_PAYMENT_RETURN_URL)
+        
+        //For Stripe Payment
+        Stripe.setDefaultPublishableKey(STRIPE_PUBLISHER_KEY)
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
@@ -122,19 +128,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         
         if (error == nil)
         {
-            let userId = user.userID                  // For client-side use only!
-            let idToken = user.authentication.idToken // Safe to send to the server
+            print("**** Google Signup Response in AppDelegate ******")
+            let userId = user.userID
+            let idToken = user.authentication.idToken
             let name = user.profile.name
             let email = user.profile.email
-                            print(userId!)
+            
+            print(userId!)
             print(idToken!)
             print(name!)
             print(email!)
+            let userImageURL = user.profile.imageURL(withDimension: 200)
+            print(userImageURL!)
             
-            let googleDict = ["name":name!,
-                              "email":email!,
-                              "userid":userId!,
-                              "idToken":idToken!]
+            let googleDict = ["name" : name!,
+                              "email" : email!,
+                              "userid" : userId!,
+                              "idToken" : idToken!,
+                              "userimage" : userImageURL!] as [String : Any]
             
             let notificationName = Notification.Name("NotificationIdentifier")
             
@@ -147,6 +158,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     
+        print("**** didRegisterForRemoteNotificationsWithDeviceToken *****")
+        
         if let refreshedToken = FIRInstanceID.instanceID().token() {
             
             let data = refreshedToken.data(using: .utf8)!
@@ -224,43 +237,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
                 userDefaults.set(false, forKey: "sessionBookedNotStarted")
                 userDefaults.removeObject(forKey: "TrainerProfileDictionary")
                 
-                
                 print("3")
                 NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String])
             }else if (userInfo as NSDictionary)["type"] as! String == "4"{
-                
                 
                 //COMPLETED SESSION
                 userDefaults.set(false, forKey: "sessionBookedNotStarted")
                 userDefaults.removeObject(forKey: "TrainerProfileDictionary")
                 
-                
                 print("4")
                 NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String])
             }else if (userInfo as NSDictionary)["type"] as! String == "5"{
-                
                 
                 //REQUEST BOOKING
                 
                   print("5")
                 NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(userInfo as NSDictionary)["type"] as! String, "aps":(((userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
                 
-                
-                
-                
             }else if (userInfo as NSDictionary)["type"] as! String == "6"{
-                
-                
                 // EXTEND BOOKING
                 
                 NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String,"data":NotificationDict])
-                
-                
             }
-
         } else {
-            //write your code here for other state
-            
             
             if (userInfo as NSDictionary)["type"] as! String == "1"{
                 NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
@@ -270,101 +269,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
                 TrainerProfileDictionary = CommonMethods.convertToDictionary(text: NotificationDict )! as NSDictionary
                 
                 userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
-                
-                
-            }
-            else if (userInfo as NSDictionary)["type"] as! String == "2"{
+            }else if (userInfo as NSDictionary)["type"] as! String == "2"{
                 print("TYPE 2")
                 userDefaults.set(true, forKey: "sessionBookedNotStarted")
                 // userDefaults.removeObject(forKey: "TrainerProfileDictionary")
                 NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String])
-            }
-            else if (userInfo as NSDictionary)["type"] as! String == "3"{
+            }else if (userInfo as NSDictionary)["type"] as! String == "3"{
                 print("3")
                 userDefaults.removeObject(forKey: "TimerData")
                 appDelegate.timerrunningtime = false
                 TrainerProfileDetail.deleteBookingDetails()
                 NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String])
-                
-            }
-            else if (userInfo as NSDictionary)["type"] as! String == "4"{
+            }else if (userInfo as NSDictionary)["type"] as! String == "4"{
                 print("4")
                 userDefaults.removeObject(forKey: "TimerData")
                 appDelegate.timerrunningtime = false
                 TrainerProfileDetail.deleteBookingDetails()
                 NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(userInfo as NSDictionary)["type"] as! String])
                 
-                
             }else if (userInfo as NSDictionary)["type"] as! String == "5"{
-                
-                
                 //REQUEST BOOKING
                 
                 print("5")
                 NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(userInfo as NSDictionary)["type"] as! String,"aps":(((userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
                 
-                
-                
-                
-                
-                
                 TrainerProfileDictionary = ["pushData":NotificationDict,"type":(userInfo as NSDictionary)["type"] as! String,"aps":(((userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String] as NSDictionary
 
-                
-                
-                
-                
-                
-                
-                
-                if abs(application.backgroundTimeRemaining) > 30
-                {
+                if abs(application.backgroundTimeRemaining) > 30{
                     print("TIME EXPIRED")
-                    
-                    CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Request time expired", buttonTitle: "Ok")
-                    
-                }
-                else
-                    
-                    
-                    
-                {
-                    
-                    
-                    //REQUEST BOOKING
-                    
-                    print("5")
+                    CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: REQUEST_TIME_EXPIRED, buttonTitle: "Ok")
+                }else{
                     NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(userInfo as NSDictionary)["type"] as! String,"aps":(((userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
-                    
-                    
-                    
-                    
-                    
                     
                     TrainerProfileDictionary = ["pushData":NotificationDict,"type":(userInfo as NSDictionary)["type"] as! String,"aps":(((userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String] as NSDictionary
                 }
-                
-            }else if (userInfo as NSDictionary)["type"] as! String == "6"
-            {
-                
+            }else if (userInfo as NSDictionary)["type"] as! String == "6"{
 //                            print(Date().daysBetweenDate(toDate: response.notification.date))
-//                
 //                              let extentedTimeDict = CommonMethods.convertToDictionary(text:NotificationDict)! as NSDictionary
-//                            
-//                            
 //                        let timeDiff = Date().daysBetweenDate(toDate: response.notification.date)
 //                         let sessionTime =  Int(extentedTimeDict["extend_time"]! as! String)!*60
 //                            let remaintime = 60 - timeDiff
 //                            
 //                            print("REMAING TIME",remaintime)
-                
-                
             }
-            
-
-            
-            
-            
         }
     }
 
@@ -617,123 +564,84 @@ extension AppDelegate: FIRMessagingDelegate {
             //CANCELLED SESSION
             userDefaults.set(false, forKey: "sessionBookedNotStarted")
             userDefaults.removeObject(forKey: "TrainerProfileDictionary")
-
             
             print("3")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
         }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"{
             
-            
             //COMPLETED SESSION
             userDefaults.set(false, forKey: "sessionBookedNotStarted")
             userDefaults.removeObject(forKey: "TrainerProfileDictionary")
 
-            
             print("4")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String])
         }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "5"{
             
-            
             //REQUEST BOOKING
-            
-            
-            
-            
-            
-            
-            
             print("5")
-        NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(notification.request.content.userInfo as NSDictionary)["type"] as! String, "aps":(((notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
-            
-            
-            
+            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(notification.request.content.userInfo as NSDictionary)["type"] as! String, "aps":(((notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
             
         }else if (notification.request.content.userInfo as NSDictionary)["type"] as! String == "6"{
-            
-            
             // EXTEND BOOKING
-            
              NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String,"data":NotificationDict])
-            
-            
         }
-
     }
     
     //Called to let your app know which action was selected by the user for a given notification.
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
         print("User Info = \(response.notification.date.timeIntervalSinceNow)")
         
         let NotificationDict = (response.notification.request.content.userInfo as NSDictionary)["data"] as! String
         print("RECIVED",NotificationDict)
 
-        
         if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "1"{
-        NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict])
+            
+            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
 
             userDefaults.set(true, forKey: "sessionBookedNotStarted")
-            
-         TrainerProfileDictionary = CommonMethods.convertToDictionary(text: NotificationDict )! as NSDictionary
+            TrainerProfileDictionary = CommonMethods.convertToDictionary(text: NotificationDict )! as NSDictionary
             
             userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
-            
-                     
-                }
-        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{
-            print("TYPE 2")
+        }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "2"{
+            print("** Notif TYPE 2")
             userDefaults.set(true, forKey: "sessionBookedNotStarted")
            // userDefaults.removeObject(forKey: "TrainerProfileDictionary")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
-        }
-        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"{
-            print("3")
+        }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "3"{
+            print("** Notif TYPE 3")
             userDefaults.removeObject(forKey: "TimerData")
             appDelegate.timerrunningtime = false
             TrainerProfileDetail.deleteBookingDetails()
+            
+            TrainerProfileDictionary = CommonMethods.convertToDictionary(text: NotificationDict )! as NSDictionary
+
+//            CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Notif TYPE 3", buttonTitle: "OK")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
           
-        }
-        else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"{
-            print("4")
+        }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "4"{
+            print("** Notif TYPE 4")
             userDefaults.removeObject(forKey: "TimerData")
             appDelegate.timerrunningtime = false
             TrainerProfileDetail.deleteBookingDetails()
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: ["pushData":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String])
-            
             
         }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "5"{
             
-            
-            if abs(response.notification.date.timeIntervalSinceNow) > 30
-            {
-                print("TIME EXPIRED")
-                
-                CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "Request time expired", buttonTitle: "Ok")
-                
-            }
-            else
-            
-                
-            
-            {
-            
-            
+            print("** Notif TYPE 5")
             //REQUEST BOOKING
-                      
-            print("5")
-            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String,"aps":(((response.notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
-            
-            
-            
-            
-            
-            
-            TrainerProfileDictionary = ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String,"aps":(((response.notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String] as NSDictionary
+
+            if abs(response.notification.date.timeIntervalSinceNow) > 30{
+                print("TIME EXPIRED")
+                CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "\(REQUEST_TIME_EXPIRED),\(abs(response.notification.date.timeIntervalSinceNow))", buttonTitle: "Ok")
+                
+            }else{
+                NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String,"aps":(((response.notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])
+                
+                TrainerProfileDictionary = ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String,"aps":(((response.notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String] as NSDictionary
             }
-          
-        }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "6"
-        {
+        }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "6"{
             
 //            print(Date().daysBetweenDate(toDate: response.notification.date))
 //            
@@ -745,8 +653,6 @@ extension AppDelegate: FIRMessagingDelegate {
 //            let remaintime = 60 - timeDiff
 //            
 //            print("REMAING TIME",remaintime)
-            
-            
         }
 
         completionHandler()

@@ -9,10 +9,13 @@
 import Foundation
 
 extension String {
+    func capitalizingFirstLetter() -> String {
+        let first = String(characters.prefix(1)).capitalized
+        let other = String(characters.dropFirst())
+        return first + other
+    }
     
-//    func toJSON() -> Any? {
-//        guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }
-//        return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-//    }
-    
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
 }

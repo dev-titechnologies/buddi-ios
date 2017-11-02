@@ -77,7 +77,7 @@ class ShowTrainersOnMapVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        checkIsPaymentSuccess()
+        getPendingTransactionDetails()
         checkForBookingRequestVia()
         
 //        fetchTrainingLocationModelDatasFromUserDefault()
@@ -94,13 +94,14 @@ class ShowTrainersOnMapVC: UIViewController {
                 print("*** Showing Waiting for acceptance page")
                 showWaitingForAcceptancePage()
             }
-        }else{
-            if userDefaults.value(forKey: "promocode") != nil{
-            
-            }else{
-                fetchClientTokenFromUserDefault()
-            }
         }
+//        else{
+//            if userDefaults.value(forKey: "promocode") != nil{
+//            
+//            }else{
+//                fetchClientTokenFromUserDefault()
+//            }
+//        }
     }
     
     func checkIsPaymentSuccess(){
@@ -190,6 +191,11 @@ class ShowTrainersOnMapVC: UIViewController {
     
     @IBAction func Next_action(_ sender: Any) {
         
+        guard userDefaults.bool(forKey: "isStripeTokenExists") else{
+            alertForAddPaymentMethod()
+            return
+        }
+        
         if isFromSplashScreen{
             print("***** isFromSplashScreen *******")
             RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromBackup())
@@ -202,11 +208,8 @@ class ShowTrainersOnMapVC: UIViewController {
                 if isPaymentSuccess{
                     print("isPaymentSuccess : \(isPaymentSuccess)")
                     showAlertRegardingPreviousPayment()
-                }else if isNoncePresent {
-                    print("isNoncePresent : \(isNoncePresent)")
-                    postNonceToServer(paymentMethodNonce: paymentNonce)
                 }else{
-                    alertForAddPaymentMethod()
+                    paymentCheckoutStripe()
                 }
             }
         }else{
@@ -219,11 +222,8 @@ class ShowTrainersOnMapVC: UIViewController {
                 if isPaymentSuccess{
                     print("isPaymentSuccess : \(isPaymentSuccess)")
                     showAlertRegardingPreviousPayment()
-                }else if isNoncePresent {
-                    print("isNoncePresent : \(isNoncePresent)")
-                    postNonceToServer(paymentMethodNonce: paymentNonce)
                 }else{
-                    alertForAddPaymentMethod()
+                    paymentCheckoutStripe()
                 }
             }
         }
@@ -252,12 +252,7 @@ class ShowTrainersOnMapVC: UIViewController {
         let alert = UIAlertController(title: ALERT_TITLE, message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
-            
-            if self.isNoncePresent {
-                self.postNonceToServer(paymentMethodNonce: self.paymentNonce)
-            }else{
-                self.alertForAddPaymentMethod()
-            }
+            self.paymentCheckoutStripe()
         }))
         alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
             
@@ -365,6 +360,43 @@ class ShowTrainersOnMapVC: UIViewController {
             showTrainersList(parameters: getShowTrainersListParametersFromPreference())
         }else{
             showTrainersList(parameters: getShowTrainersListParametersFromBackup())
+        }
+    }
+    
+    //MARK: - GET PENDING TRANSACTION DETAILS
+
+    func getPendingTransactionDetails() {
+        
+        let parameters =  ["user_id": appDelegate.UserId,
+                           "user_type" : appDelegate.USER_TYPE
+                           ] as [String : Any]
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: PENDING_TRANSACTION_DETAILS, parameters: parameters) { (jsondata) in
+            print("** getPendingTransactionDetails Response: \(jsondata)")
+            
+            CommonMethods.hideProgress()
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    if let transactionArray = jsondata["data"] as? NSArray{
+                        if transactionArray.count > 0 {
+                            print("Transaction array:\(transactionArray)")
+                            CommonMethods.storeUnusedTransactionsToUserDefaults(transactionDetailsArray: transactionArray)
+                            self.checkIsPaymentSuccess()
+                        }
+                    }
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
         }
     }
     
@@ -562,16 +594,10 @@ class ShowTrainersOnMapVC: UIViewController {
     //MARK: - API CALLS
     func RandomSelectTrainer(parameters : Dictionary <String,Any>){
         
-//        isPromoCodeExists = true
-        
-        let headers = [
-            "token":appDelegate.Usertoken]
-        
-        print("Header:\(headers)")
         print("Parameters:\(parameters)")
         
         CommonMethods.showProgress()
-        CommonMethods.serverCall(APIURL: RANDOM_SELECTOR, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: RANDOM_SELECTOR, parameters: parameters, onCompletion: { (jsondata) in
             
             print("*** Random Trainer Result:",jsondata)
             
@@ -609,7 +635,11 @@ class ShowTrainersOnMapVC: UIViewController {
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    if jsondata["message"] as? String == "No Trainers Found" {
+                        self.getPendingTransactionDetails()
+                    }else{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    }
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
@@ -619,13 +649,9 @@ class ShowTrainersOnMapVC: UIViewController {
     
     func showTrainersList(parameters: Dictionary <String,Any>) {
         
-        let headers = [
-            "token":appDelegate.Usertoken]
-        
-        print("Header:\(headers)")
         print("Params:\(parameters)")
         
-        CommonMethods.serverCall(APIURL: SEARCH_TRAINER, parameters: parameters, headers: headers, onCompletion: { (jsondata) in
+        CommonMethods.serverCall(APIURL: SEARCH_TRAINER, parameters: parameters, onCompletion: { (jsondata) in
             
             print("*** Search Trainer Listing Result:",jsondata)
             
@@ -774,6 +800,77 @@ class ShowTrainersOnMapVC: UIViewController {
                     }
                 }else{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
+                }
+            }
+        }
+    }
+    
+    //MARK: - STRIPE PAYMENT CHECKOUT
+    
+    func paymentCheckoutStripe() {
+        
+        let parameters =  ["training_time": choosedSessionOfTrainee,
+                           ] as [String : Any]
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: PAYMENT_CHECKOUT_STRIPE, parameters: parameters) { (jsondata) in
+            print("paymentCheckoutStripe Response: \(jsondata)")
+            
+            CommonMethods.hideProgress()
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    self.navigationItem.hidesBackButton = true
+                    
+                    self.isPaymentSuccess = true
+                    let transactionDict = jsondata["data"]  as! NSDictionary
+                    
+                    self.transactionId = transactionDict["id"] as! String
+                    self.transactionAmount = String(describing: transactionDict["amount"]!)
+                    self.transactionStatus = transactionDict["status"] as! String
+                    
+                    if choosedSessionOfTrainee == "40"{
+                        userDefaults.set(self.transactionId, forKey: "backupPaymentTransactionId_40Minutes")
+                        userDefaults.set(self.transactionAmount, forKey: "backupIsTransactionAmount_40Minutes")
+                        userDefaults.set(self.transactionStatus, forKey: "backupIsTransactionStatus_40Minutes")
+                        userDefaults.set(true, forKey: "backupIsTransactionSuccessfull_40Minutes")
+                    }else if choosedSessionOfTrainee == "60"{
+                        userDefaults.set(self.transactionId, forKey: "backupPaymentTransactionId_60Minutes")
+                        userDefaults.set(self.transactionAmount, forKey: "backupIsTransactionAmount_60Minutes")
+                        userDefaults.set(self.transactionStatus, forKey: "backupIsTransactionStatus_60Minutes")
+                        userDefaults.set(true, forKey: "backupIsTransactionSuccessfull_60Minutes")
+                    }
+                    
+                    //Store Transaction Details and filter criterias to UserDefault for future use if Booking failed
+                    userDefaults.set(self.transactionId, forKey: "backupPaymentTransactionId")
+                    userDefaults.set(self.transactionAmount, forKey: "backupIsTransactionAmount")
+                    userDefaults.set(true, forKey: "backupIsTransactionSuccessfull")
+                    userDefaults.set(self.transactionStatus, forKey: "backupIsTransactionStatus")
+                    
+                    let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                        
+                        if self.isFromInstantBooking{
+                            print("**** Random Select call - isFromInstantBooking true")
+                            self.RandomSelectTrainer(parameters: self.getRandomSelectAPIParametersFromPreference())
+                        }else{
+                            print("**** Random Select call - Normal Case")
+                            self.RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
+                        }
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
                 }
             }
         }
