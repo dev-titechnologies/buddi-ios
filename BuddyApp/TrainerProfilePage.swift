@@ -60,6 +60,8 @@ class TrainerProfilePage: UIViewController {
 
     var countrypicker = CountryPicker()
     
+    //MARK: - VIEW CYCLES
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -321,6 +323,8 @@ class TrainerProfilePage: UIViewController {
         btnChooseProfileImage.isHidden = true
     }
 
+    //MARK: - EDIT/SAVE PROFILE ACTION
+    
     @IBAction func editAction(_ sender: Any) {
         
         guard CommonMethods.networkcheck() else {
@@ -347,10 +351,10 @@ class TrainerProfilePage: UIViewController {
                           "last_name" :txtLastName.text!,
                           "gender" : (lblGender.text!).lowercased(),
                           "user_image": profileImageURL,
-                          "profile_desc":"tt",
-                          "age" : ageValue,
-                          "weight" : weightValue,
-                          "height" : heightValue
+                          "profile_desc":"tt"
+//                          "age" : ageValue,
+//                          "weight" : weightValue,
+//                          "height" : heightValue
             ] as [String : Any]
         
         print("PARAMS",parameters)
@@ -469,7 +473,7 @@ class TrainerProfilePage: UIViewController {
         countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).0)
     }
     
-    //MARK: - PREPARE FOR SEGUAE
+    //MARK: - PREPARE FOR SEGUE
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -688,11 +692,7 @@ extension TrainerProfilePage: CLLocationManagerDelegate {
             
             print("**********************")
             print("Long \(location.coordinate.longitude)")
-            print("Lati \(location.coordinate.latitude)")
-            print("Alt \(location.altitude)")
-            print("Sped \(location.speed)")
-            print("Accu \(location.horizontalAccuracy)")
-            
+            print("Lati \(location.coordinate.latitude)")            
             print("**********************")
             
             lat = Float(location.coordinate.latitude)

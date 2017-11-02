@@ -117,6 +117,7 @@ class BookingDetailsVC: UIViewController {
             location_lbl.text = (result[0] as! NSDictionary)["formatted_address"]! as? String
         }
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

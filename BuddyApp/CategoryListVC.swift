@@ -114,7 +114,13 @@ class CategoryListVC: UIViewController {
                     self.loadApproveAndPendingCategoriesToUserDefaults(dictionary: approvalStatusArray)
 
                 }else if status == RESPONSE_STATUS.FAIL{
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    //If no categories are appproved. Eg: Initial case
+                    if jsondata["status_type"] as! String == "PendingForApproval"{
+                        self.btnMenu.isHidden = true
+                        self.listCategoryServerCall()
+                    }else{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    }
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
