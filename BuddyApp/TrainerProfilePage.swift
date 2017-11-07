@@ -59,6 +59,12 @@ class TrainerProfilePage: UIViewController {
     var long = Float()
 
     var countrypicker = CountryPicker()
+    var TrainerProfileDictionary: NSDictionary!
+    var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
+    var numOfDays = Int()
+    var TimerDict = NSDictionary()
+
+    var isInTrainerProfilePage = Bool()
     
     //MARK: - VIEW CYCLES
     
@@ -76,6 +82,12 @@ class TrainerProfilePage: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        isInTrainerProfilePage = true
+        
+        //For checking any sessions are ongoing
+//        checkIfAnySessionPresentForTrainer()
+//        timerCheck()
         
 //        getSocketConnected()
         SocketIOManager.sharedInstance.establishConnection()
@@ -96,6 +108,10 @@ class TrainerProfilePage: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        
+        print("** Trainer Profile Page viewWillDisappear **")
+        isInTrainerProfilePage = false
+        
        // self.timer.invalidate()
     }
     
@@ -113,6 +129,84 @@ class TrainerProfilePage: UIViewController {
     @IBAction func StatusSwitch_action(_ sender: Any) {
         
     }
+    
+    //MARK: - CHECK IF ANY SESSION IS ONGOING BY TRAINER
+    func checkIfAnySessionPresentForTrainer () {
+        
+        let parameters =  ["user_id": appDelegate.UserId,
+                           "user_type" : appDelegate.USER_TYPE
+            ] as [String : Any]
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: PENDING_BOOKING_DETAILS, parameters: parameters) { (jsondata) in
+            print("** checkIfAnySessionPresentForTrainer Response: \(jsondata)")
+            
+            CommonMethods.hideProgress()
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    if let dataArray = jsondata["data"] as? NSArray {
+                        
+                        guard dataArray.count > 0 else {
+                            return
+                        }
+                        
+                        self.TrainerProfileDictionary = dataArray[0] as! NSDictionary
+                        print("TRAINING DATA Trainer Profile Page :",self.TrainerProfileDictionary)
+                        let trainerProfileModelObj = TrainerProfileModal()
+                        self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+                        TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
+                        self.performSegue(withIdentifier: "trainerHomePageToRoutePageSegue", sender: self)
+                    }
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
+    }
+    
+    func timerCheck(){
+        
+        print("** TimerCheck function call in LeftViewController **")
+        if userDefaults.value(forKey: "TimerData") != nil {
+            TimerDict = userDefaults.value(forKey: "TimerData") as! NSDictionary
+            print("TIMERDICT",TimerDict)
+            
+            let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))
+            
+            print("Expected time for session completion:",date)
+            print("Current date and time:",Date())
+            
+            if date > Date(){
+                print("Session is Ongoing")
+                numOfDays = Date().daysBetweenDate(toDate: date)
+                
+                print("Time difference:",numOfDays)
+//                isTimerStarted = true
+                self.performSegue(withIdentifier: "trainerHomePageToRoutePageSegue", sender: self)
+            }else{
+                print("Session completed")
+                userDefaults.removeObject(forKey: "TimerData")
+                userDefaults.set(false, forKey: "isCurrentlyInTrainingSession")
+                TrainerProfileDetail.deleteBookingDetails()
+            }
+        }
+    }
+    
+//    else if segue.identifier == "TraineeHomeToRoutePageSegue" {
+//    let timerPage =  segue.destination as! TrainerTraineeRouteViewController
+//    //            timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
+//    timerPage.trainerProfileDetails = selectedTrainerProfileDetails
+//    timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
+//    print("SECONDSSSS",timerPage.seconds)
+//    }
     
     //MARK: - SOCKET CONNECTION
     
@@ -245,6 +339,12 @@ class TrainerProfilePage: UIViewController {
             
             CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
+                
+                guard self.isInTrainerProfilePage else{
+                    print("** isInTrainerProfilePage value is false, hence returned **")
+                    return
+                }
+                
                 if status == RESPONSE_STATUS.SUCCESS{
                    
                     if let onlinedata = jsondata["data"] as? NSDictionary{
@@ -263,6 +363,7 @@ class TrainerProfilePage: UIViewController {
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.isInTrainerProfilePage = false
                     self.dismissOnSessionExpire()
                 }
             }
@@ -351,10 +452,10 @@ class TrainerProfilePage: UIViewController {
                           "last_name" :txtLastName.text!,
                           "gender" : (lblGender.text!).lowercased(),
                           "user_image": profileImageURL,
-                          "profile_desc":"tt"
-//                          "age" : ageValue,
-//                          "weight" : weightValue,
-//                          "height" : heightValue
+                          "profile_desc":"tt",
+                          "age" : ageValue,
+                          "weight" : weightValue,
+                          "height" : heightValue
             ] as [String : Any]
         
         print("PARAMS",parameters)
@@ -481,6 +582,10 @@ class TrainerProfilePage: UIViewController {
             print("**** fromprofiletocategorylist Segue")
             let chooseCategoryPage =  segue.destination as! CategoryListVC
             chooseCategoryPage.FromTrainerProfileBool = true
+        }else if segue.identifier == "trainerHomePageToRoutePageSegue" {
+            let timerPage =  segue.destination as! TrainerTraineeRouteViewController
+            timerPage.seconds = numOfDays
+            timerPage.TIMERCHECK = true
         }
     }
 }

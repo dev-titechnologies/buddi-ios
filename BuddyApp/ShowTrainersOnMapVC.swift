@@ -611,7 +611,7 @@ class ShowTrainersOnMapVC: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     
                     //Show Waiting for Trainer Acceptance Page
-                    if jsondata["message"] as? String == "Training Requested" {
+                    if jsondata["status_type"] as? String == "TrainingRequested" {
                         print("Training Requested")
                         userDefaults.set(true, forKey: "isWaitingForTrainerAcceptance")
                         self.trainersCount = jsondata["length"] as! Int
@@ -635,7 +635,7 @@ class ShowTrainersOnMapVC: UIViewController {
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
-                    if jsondata["message"] as? String == "No Trainers Found" {
+                    if jsondata["status_type"] as? String == "NoTrainersFound" {
                         self.getPendingTransactionDetails()
                     }else{
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

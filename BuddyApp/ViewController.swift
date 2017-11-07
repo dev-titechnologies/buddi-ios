@@ -59,6 +59,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
     func initilizeSessionChecks() {
 
+        print("***** initilizeSessionChecks Call in ViewController ******")
         if appDelegate.TrainerProfileDictionary != nil{
             //  BOOKED A SESSION
             self.GoTimerPageFromKilledState_Notification(dict:appDelegate.TrainerProfileDictionary)

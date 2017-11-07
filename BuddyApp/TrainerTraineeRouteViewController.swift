@@ -183,11 +183,11 @@ class TrainerTraineeRouteViewController: UIViewController {
     //MARK: - FOR TESTING PURPOSE
     
     func tempSecondsChange(session_time: String) {
-        if session_time == "40" {
-            seconds = 120
-        }else{
-            seconds = 240
-        }
+//        if session_time == "40" {
+//            seconds = 120
+//        }else{
+//            seconds = 240
+//        }
     }
     
     //MARK: - INITIALIZE SESSION ACTION

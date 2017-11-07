@@ -47,8 +47,8 @@ extension Question1VC: UITextFieldDelegate {
             guard let text = textField.text else { return true }
             
             let newLength = text.utf16.count + string.utf16.count - range.length
-            
-            if newLength == 5 {
+            print("newLength:\(newLength)")
+            if newLength >= 5 {
                 btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
             }else{
                 btnNext.backgroundColor = CommonMethods.hexStringToUIColor(hex: DARK_GRAY_COLOR)

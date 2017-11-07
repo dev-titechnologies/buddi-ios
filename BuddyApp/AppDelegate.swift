@@ -440,7 +440,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             }
         }
     }
-
 }
 
 extension AppDelegate: FIRMessagingDelegate {
@@ -632,9 +631,9 @@ extension AppDelegate: FIRMessagingDelegate {
             print("** Notif TYPE 5")
             //REQUEST BOOKING
 
-            if abs(response.notification.date.timeIntervalSinceNow) > 30{
+            if abs(response.notification.date.timeIntervalSinceNow)/60 > 30{
                 print("TIME EXPIRED")
-                CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "\(REQUEST_TIME_EXPIRED),\(abs(response.notification.date.timeIntervalSinceNow))", buttonTitle: "Ok")
+                CommonMethods.alertView(view: (self.window?.rootViewController)!, title: ALERT_TITLE, message: "\(REQUEST_TIME_EXPIRED))", buttonTitle: "Ok")
                 
             }else{
                 NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: ["pushData":NotificationDict,"type":(response.notification.request.content.userInfo as NSDictionary)["type"] as! String,"aps":(((response.notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary)["alert"] as! NSDictionary)["body"] as! String])

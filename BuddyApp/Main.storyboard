@@ -125,7 +125,7 @@
                                         <color key="currentPageIndicatorTintColor" red="0.46274509800000002" green="0.83921568629999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </pageControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="“Whatever. Wherever. Whenever.”" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHs-k3-zSM">
-                                        <rect key="frame" x="15" y="98" width="327" height="35"/>
+                                        <rect key="frame" x="0.0" y="98" width="357" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="rOd-eA-gYe"/>
                                         </constraints>
@@ -147,11 +147,11 @@
                                 <constraints>
                                     <constraint firstItem="Acj-aI-84x" firstAttribute="top" secondItem="9Uu-Mo-3JU" secondAttribute="bottom" constant="12" id="6AO-rh-dff"/>
                                     <constraint firstItem="fHs-k3-zSM" firstAttribute="top" secondItem="Acj-aI-84x" secondAttribute="bottom" constant="8" id="7gT-M7-wdh"/>
-                                    <constraint firstAttribute="trailing" secondItem="fHs-k3-zSM" secondAttribute="trailing" constant="15" id="LfN-Az-kbk"/>
+                                    <constraint firstAttribute="trailing" secondItem="fHs-k3-zSM" secondAttribute="trailing" id="LfN-Az-kbk"/>
                                     <constraint firstItem="9Uu-Mo-3JU" firstAttribute="centerX" secondItem="3hg-Rx-8Bx" secondAttribute="centerX" id="V9P-5c-ucI"/>
                                     <constraint firstItem="Acj-aI-84x" firstAttribute="leading" secondItem="3hg-Rx-8Bx" secondAttribute="leading" constant="15" id="fHZ-My-Vsl"/>
                                     <constraint firstAttribute="trailing" secondItem="Acj-aI-84x" secondAttribute="trailing" constant="15" id="iSC-Te-2j6"/>
-                                    <constraint firstItem="fHs-k3-zSM" firstAttribute="leading" secondItem="3hg-Rx-8Bx" secondAttribute="leading" constant="15" id="so8-bY-6YZ"/>
+                                    <constraint firstItem="fHs-k3-zSM" firstAttribute="leading" secondItem="3hg-Rx-8Bx" secondAttribute="leading" id="so8-bY-6YZ"/>
                                     <constraint firstItem="9Uu-Mo-3JU" firstAttribute="top" secondItem="3hg-Rx-8Bx" secondAttribute="top" id="zoF-mP-UzR"/>
                                 </constraints>
                             </view>
@@ -7421,6 +7421,7 @@ Good luck!
                         <outlet property="txtFirstName" destination="3R7-Vl-veB" id="zgE-gs-fXP"/>
                         <outlet property="txtLastName" destination="V3o-la-5Dj" id="gXj-bY-sWx"/>
                         <segue destination="5ym-9f-sIU" kind="show" identifier="fromprofiletocategorylist" id="pSi-vx-pGy"/>
+                        <segue destination="3tw-Fw-C7S" kind="show" identifier="trainerHomePageToRoutePageSegue" id="XZX-2y-uuV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yFT-PE-0qd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -8911,18 +8912,18 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="weight_icon" width="17" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Jnc-bx-uPX"/>
+        <segue reference="hJy-Rz-WHD"/>
         <segue reference="lS4-X5-YwA"/>
         <segue reference="Xhb-RI-jKu"/>
         <segue reference="vEf-4J-msS"/>
         <segue reference="pSi-vx-pGy"/>
         <segue reference="YXh-ne-UYW"/>
+        <segue reference="XZX-2y-uuV"/>
         <segue reference="WhA-uD-pgi"/>
-        <segue reference="Ea7-Dw-joN"/>
-        <segue reference="hJy-Rz-WHD"/>
-        <segue reference="Jnc-bx-uPX"/>
-        <segue reference="4do-Ja-sXf"/>
-        <segue reference="EBs-Uc-FEy"/>
-        <segue reference="nov-fw-yUQ"/>
         <segue reference="OZa-hZ-FT0"/>
+        <segue reference="Ea7-Dw-joN"/>
+        <segue reference="4do-Ja-sXf"/>
+        <segue reference="nov-fw-yUQ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -63,7 +63,11 @@ class WaitingForApprovalVC: UIViewController {
                     }
                     
                 }else if status == RESPONSE_STATUS.FAIL{
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    if jsondata["status_type"] as! String == "PendingForApproval"{
+                        self.performSegue(withIdentifier: "waitingForApprovalToLoginPageSegue", sender: self)
+                    }else{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    }
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
