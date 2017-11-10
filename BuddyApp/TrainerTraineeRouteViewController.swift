@@ -157,6 +157,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         UIApplication.shared.isIdleTimerDisabled = false
         isInSessionRoutePage = false
         stopTimer()
+        locationManager.stopUpdatingLocation()
     }
    
     //MARK: - UNWIND SEGUE
@@ -1048,8 +1049,13 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        print("didUpdateLocations")
+        guard isInSessionRoutePage else{
+            print("*** didUpdateLocations response suspended as call is not handling in Route page ***")
+            return
+        }
         
+        print("didUpdateLocations")
+
         for location in locations {
             
             print("**********************")

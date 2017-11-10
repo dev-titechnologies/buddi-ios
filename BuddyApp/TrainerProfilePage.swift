@@ -443,7 +443,31 @@ class TrainerProfilePage: UIViewController {
         }
     }
     
+    func validateFirstNameAndLastName() -> Bool {
+        
+        var isValidationSuccess = false
+        if txtFirstName.text!.isEmpty {
+            showAlertView(alertMessage:PLEASE_ENTER_FIRSTNAME)
+        }else if txtLastName.text!.isEmpty {
+            showAlertView(alertMessage:PLEASE_ENTER_LASTNAME)
+        }else{
+            isValidationSuccess = true
+        }
+        
+        return isValidationSuccess
+    }
+    
+    func showAlertView(alertMessage: String) {
+        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: alertMessage, buttonTitle: "Ok")
+    }
+    
     func editProfileServerCall() {
+        
+        guard validateFirstNameAndLastName() else {
+            isEditingProfile = true
+            changeTextColorBlack()
+            return
+        }
         
         print("***** Edit profile Server Call *****")
         let parameters = ["user_type" : appDelegate.USER_TYPE,

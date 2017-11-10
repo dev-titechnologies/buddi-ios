@@ -643,15 +643,12 @@ extension AppDelegate: FIRMessagingDelegate {
         }else if (response.notification.request.content.userInfo as NSDictionary)["type"] as! String == "6"{
             
 //            print(Date().daysBetweenDate(toDate: response.notification.date))
-//            
 //              let extentedTimeDict = CommonMethods.convertToDictionary(text:NotificationDict)! as NSDictionary
-//            
-//            
 //        let timeDiff = Date().daysBetweenDate(toDate: response.notification.date)
 //         let sessionTime =  Int(extentedTimeDict["extend_time"]! as! String)!*60
 //            let remaintime = 60 - timeDiff
 //            
-//            print("REMAING TIME",remaintime)
+//            print("REMAINING TIME",remaintime)
         }
 
         completionHandler()

@@ -413,6 +413,10 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "TimerData")
         userDefaults.removeObject(forKey: "isShowingWaitingForExtendRequest")
         
+        choosedTrainingLocationPreference = ""
+        choosedCategoryOfTraineePreference = CategoryModel()
+        choosedTrainerGenderOfTraineePreference = ""
+
         SocketIOManager.sharedInstance.closeConnection()
         
         //Removing userdefault values of transaction details

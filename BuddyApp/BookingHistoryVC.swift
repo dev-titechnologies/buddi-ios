@@ -67,23 +67,26 @@ class BookingHistoryVC: UIViewController {
                         for booking_history in booking_history_array{
                         
                             let modelObject = self.bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: booking_history as! Dictionary<String, Any>)
-                            print(modelObject.trainedDate)
-                            print(modelObject.bookingId)
+                            print("trainedDate",modelObject.trainedDate)
+                            print("bookingId",modelObject.bookingId)
                             BookingHistoryDB.createBookingEntry(bookingModel: modelObject)
                             self.bookingsArray.append(modelObject)
+                        }
+        
+                        if self.bookingsArray.count > 0 {
                             
-                            self.bookingsArray.reverse()
+                            let sortedArray = self.bookingsArray.sorted(by: {$0.trainedDate > $1.trainedDate})
+                            print("sortedArray:\(sortedArray)")
+                            self.bookingsArray.removeAll()
+                            self.bookingsArray = sortedArray
                             
-                            if self.bookingsArray.count > 0 {
-                                
-                                print("BOOKING ARRAY COUNT",self.bookingsArray.count)
-                                self.bookingHistoryTable.isHidden = false
-                                self.nohistory_lbl.isHidden = true
-                                self.bookingHistoryTable.reloadData()
-                            }else{
-                                self.bookingHistoryTable.isHidden = true
-                                self.nohistory_lbl.isHidden = false
-                            }
+                            print("BOOKING ARRAY COUNT",self.bookingsArray.count)
+                            self.bookingHistoryTable.isHidden = false
+                            self.nohistory_lbl.isHidden = true
+                            self.bookingHistoryTable.reloadData()
+                        }else{
+                            self.bookingHistoryTable.isHidden = true
+                            self.nohistory_lbl.isHidden = false
                         }
                     }
                 }else if status == RESPONSE_STATUS.FAIL{

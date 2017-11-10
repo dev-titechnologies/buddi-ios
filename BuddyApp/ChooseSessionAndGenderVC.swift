@@ -408,6 +408,7 @@ extension ChooseSessionAndGenderVC: CLLocationManagerDelegate {
             
             lat = String(location.coordinate.latitude)
             long = String(location.coordinate.longitude)
+            
 //            isFetchedLatAndLong = true
             //self.locationManager.stopUpdatingLocation()
         }
