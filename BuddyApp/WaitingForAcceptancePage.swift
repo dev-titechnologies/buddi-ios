@@ -54,27 +54,16 @@ class WaitingForAcceptancePage: UIViewController {
     
     func triggerDismissPageAfterInterval() {
         
-//        if trainersFoundCount == 0{
-//            trainersFoundCount = 1
-//        }
+        if trainersFoundCount == 0{
+            trainersFoundCount = 1
+        }
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(trainersFoundCount * 60 * 1000)) {
-//            guard self.isInPage else{
-//                print("Waiting For Acceptance page Timer Execution suspends 'isInPage' is false")
-//                return
-//            }
-//            
-//            //Pls remove user type trainee code. only for testing purpose
-//            if self.forUserType == "trainee" {
-//                print("dismissWaitingForAcceptancePage call after :\(self.trainersFoundCount * 60) seconds")
-//                self.dismissWaitingForAcceptancePage()
-//            }else if self.forUserType == "trainer" {
-//                //print("Booking Action Complete call after 30 seconds")
-//                //self.bookingCompleteAction(action_status: "complete")
-//            }
-//        }
+        dismissWaitingForAcceptancePageAfter(dismissAfter: trainersFoundCount)
+    }
+    
+    func dismissWaitingForAcceptancePageAfter(dismissAfter dismissTime: Int) {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 120) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(dismissTime * 60 * 1000)) {
             guard self.isInPage else{
                 print("Waiting For Acceptance page Timer Execution suspends 'isInPage' is false")
                 return
@@ -82,12 +71,8 @@ class WaitingForAcceptancePage: UIViewController {
             
             //Pls remove user type trainee code. only for testing purpose
             if self.forUserType == "trainee" {
-                print("dismissWaitingForAcceptancePage call after : 120 seconds")
-//                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_TRY_AGAIN_AFTER_FEW_MOMENTS, buttonTitle: "OK")
+                print("dismissWaitingForAcceptancePage call after :\(self.trainersFoundCount * 60) seconds")
                 self.dismissWaitingForAcceptancePage()
-            }else if self.forUserType == "trainer" {
-                //print("Booking Action Complete call after 30 seconds")
-                //self.bookingCompleteAction(action_status: "complete")
             }
         }
     }
@@ -116,24 +101,18 @@ class WaitingForAcceptancePage: UIViewController {
     
     func showReviewScreen(){
         
-       // self.dismissWaitingForAcceptancePage()
+    // self.dismissWaitingForAcceptancePage()
         print("**** showRateViewScreen *****")
         let trainerReviewPageObj = storyboardSingleton.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
         trainerReviewPageObj.trainerProfileDetails1 = self.trainerProfileDetails
         trainerReviewPageObj.isFromWaitingForExtendRequestPage = true
-        
         present(trainerReviewPageObj, animated: true, completion: nil)
     }
     
     func dismissWaitingForAcceptancePage(){
         print("Dismiss Waiting for Acceptance Page while receiving notification")
         userDefaults.set(false, forKey: "isWaitingForTrainerAcceptance")
-        
         self.dismiss(animated: true, completion: nil)
-//        let presentingViewController: UIViewController! = self.presentingViewController
-//        self.dismiss(animated: false) {
-//            presentingViewController.dismiss(animated: false, completion: nil)
-//        }
     }
     
     func bookingCompleteAction(action_status: String) {

@@ -119,6 +119,7 @@ PODS:
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - libPhoneNumber-iOS (0.9.10)
+  - NewRelicAgent (5.14.2)
   - NVActivityIndicatorView (3.7.0):
     - NVActivityIndicatorView/Presenter (= 3.7.0)
   - NVActivityIndicatorView/Presenter (3.7.0)
@@ -155,6 +156,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift (= 4.0.10)
   - JSQMessagesViewController
   - libPhoneNumber-iOS (~> 0.9)
+  - NewRelicAgent
   - NVActivityIndicatorView
   - SDWebImage (~> 3.8)
   - SideMenu
@@ -192,6 +194,7 @@ SPEC CHECKSUMS:
   JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   libPhoneNumber-iOS: f721ae4d5854bce60934f9fb9b0b28e8e68913cb
+  NewRelicAgent: 28645401ac7531eeeabde64410c9d5efd49e083f
   NVActivityIndicatorView: d3738df7e2e476aca0ba6bf32a8c9fbcfc33d64b
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
@@ -203,6 +206,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: c4272424575db95e2f6606661380412ec6cf04c3
+PODFILE CHECKSUM: 0f2e4703b043cb2501bd6c161fd42392414546bb
 
 COCOAPODS: 1.1.1

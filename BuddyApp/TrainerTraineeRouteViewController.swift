@@ -13,7 +13,6 @@ import Firebase
 import UserNotifications
 import NVActivityIndicatorView
 
-
 class TrainerTraineeRouteViewController: UIViewController {
     
     @IBOutlet weak var timer_lbl: UILabel!
@@ -75,6 +74,16 @@ class TrainerTraineeRouteViewController: UIViewController {
     var categoryId = String()
     var isOpenedFromSessionStoppedNotification = Bool()
     
+    //Draw Route Objects
+    var polyline = GMSPolyline()
+    var animationPolyline = GMSPolyline()
+    var path = GMSPath()
+    var animationPath = GMSMutablePath()
+    var i: UInt = 0
+    var timerMapDraw: Timer!
+    
+    var isSessionStartedNotificationFromViewController = Bool()
+    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -119,6 +128,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         print("*****  Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
 
         isInSessionRoutePage = true
+        appDelegate.isInSessionRoutePageAppDelegate = true
+        
         UIApplication.shared.isIdleTimerDisabled = true
         
         initializeSessionCheck()
@@ -149,6 +160,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         print("**** viewDidAppear ****")
         isInSessionRoutePage = true
+        appDelegate.isInSessionRoutePageAppDelegate = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -156,7 +168,9 @@ class TrainerTraineeRouteViewController: UIViewController {
 
         UIApplication.shared.isIdleTimerDisabled = false
         isInSessionRoutePage = false
+        appDelegate.isInSessionRoutePageAppDelegate = false
         stopTimer()
+       // self.timerMapDraw.invalidate()
         locationManager.stopUpdatingLocation()
     }
    
@@ -165,6 +179,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
         print("******************Unwind Segue Catch with Identifier ****************** \(String(describing: segue.identifier))")
         isInSessionRoutePage = true
+        appDelegate.isInSessionRoutePageAppDelegate = true
 
         if segue.identifier == "unwindToRouteVCSegue" {
             if self.isExtendedCheck{
@@ -179,16 +194,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         }else if segue.identifier == "unwindSegueToRoutePageFromTrainerProfile" {
             print("**** unwindToVC1 when SEGUE : unwindSegueToRoutePageFromTrainerProfile ***")
         }
-    }
-    
-    //MARK: - FOR TESTING PURPOSE
-    
-    func tempSecondsChange(session_time: String) {
-//        if session_time == "40" {
-//            seconds = 120
-//        }else{
-//            seconds = 240
-//        }
     }
     
     //MARK: - INITIALIZE SESSION ACTION
@@ -208,6 +213,8 @@ class TrainerTraineeRouteViewController: UIViewController {
                     NewLoadingView()
                 }else{
                     print("=== RunTimer 1 ===")
+                    print("Seconds:\(seconds)")
+//                    seconds = CommonMethods.tempSecondsChange(session_time: String(seconds/60))
                     self.runTimer()
                 }
             }else{
@@ -229,20 +236,19 @@ class TrainerTraineeRouteViewController: UIViewController {
             }else{
                 sessionTime = choosedSessionOfTrainee
             }
-            seconds = Int(sessionTime)!*60
-            print("========== Session Duration Seconds:\(sessionTime) ")
+//            seconds = Int(sessionTime)!*60
+            print("========== Session Duration Seconds:\(sessionTime)")
             
             //For testing purpose
-            
-            tempSecondsChange(session_time: sessionTime)
-            
+            seconds = CommonMethods.tempSecondsChange(session_time: sessionTime)
             timer_lbl.text = String(seconds/60) + ":" + "00"
-//            timer_lbl.text = sessionTime + ":" + "00"
         }else if appDelegate.USER_TYPE == "trainer"{
            
             //For testing purpose
-            tempSecondsChange(session_time: String(seconds/60))
             
+            print("Seconds1:\(seconds)")
+            seconds = CommonMethods.tempSecondsChange(session_time: String(seconds/60))
+            print("Seconds2:\(seconds)")
             timer_lbl.text = String(seconds/60) + ":" + "00"
             
             print("TrainerProfileDictionary 1234: \(TrainerProfileDictionary)")
@@ -268,9 +274,9 @@ class TrainerTraineeRouteViewController: UIViewController {
                  traineeId: String(TrainerProfileDictionary["trainee_id"] as! Int),
                  pickup_lattitude: String(TrainerProfileDictionary["pick_latitude"] as! String),
                  pickup_longitude: String(TrainerProfileDictionary["pick_longitude"] as! String),
-                 pickup_location: String(TrainerProfileDictionary["pick_location"] as! String))
+                 pickup_location: String(TrainerProfileDictionary["pick_location"] as! String)
+            )
             
-//            TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
         }
         
         TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
@@ -278,7 +284,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         if isOpenedFromSessionStoppedNotification{
             print("isOpenedFromSessionStoppedNotification:\(isOpenedFromSessionStoppedNotification)")
 //            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "isOpenedFromSessionStoppedNotification = true", buttonTitle: "OK")
-
             sessionStoppedNotificationReceived()
         }
     }
@@ -331,7 +336,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             frompushBool = true
             print("OK")
             print("START CLICK")
-             locationManager.stopUpdatingLocation()
+            locationManager.stopUpdatingLocation()
             self.SessionStartAPI()
             self.BoolArray.insert(true, at: 1)
             self.TIMERCHECK = true
@@ -399,9 +404,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             
             print(extentedTimeDict["extend_time"]!)
             seconds = Int(extentedTimeDict["extend_time"]! as! String)!*60
-
-            //For Testing purpose
-            tempSecondsChange(session_time: String(seconds/60))
+            seconds = CommonMethods.tempSecondsChange(session_time: String(seconds/60))
             
             timer_lbl.text = String(seconds/60) + ":" + "00"
            // initializeSession()
@@ -752,7 +755,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             stopTimer()
             return
         }
-        
+
         if seconds < 1 {
             
             print("======= TIMER COMPLETETD ==========")
@@ -815,7 +818,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     func DrowRoute(OriginLat: Float, OriginLong: Float, DestiLat: Float, DestiLong: Float){
         
-        print("LAT$LONG",lat)
+        print("LAT & LONG",lat)
         
         let origin = "\(OriginLat),\(OriginLong)"
         let destination = "\(DestiLat),\(DestiLong)"
@@ -843,13 +846,36 @@ class TrainerTraineeRouteViewController: UIViewController {
                             polyline.strokeWidth = 3
                             polyline.strokeColor = CommonMethods.hexStringToUIColor(hex: ROUTE_BLUE_COLOR)
                             
-                            let bounds = GMSCoordinateBounds(path: path!)
-                            self.mapview!.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 30.0))
+//                            let bounds = GMSCoordinateBounds(path: path!)
+//                            self.mapview!.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 30.0))
+                            
                             polyline.map = self.mapview
                         }
                         
                          self.MarkPoints(latitude: Double(DestiLat), logitude: Double(DestiLong))
                     })
+                    
+//                    let routesArray = json ["routes"] as! NSArray
+//                    self.mapview.clear()
+//                    if (routesArray.count > 0)
+//                    {
+//                        let routeDict = routesArray[0] as! Dictionary<String, Any>
+//                        let routeOverviewPolyline = routeDict["overview_polyline"] as! Dictionary<String, Any>
+//                        let points = routeOverviewPolyline["points"]
+//                        self.path = GMSPath.init(fromEncodedPath: points as! String)!
+//                        
+//                        self.polyline.path = self.path
+//                        self.polyline.strokeColor = CommonMethods.hexStringToUIColor(hex: ROUTE_BLUE_COLOR)
+//                        self.polyline.strokeWidth = 3.0
+//                        self.polyline.map = self.mapview
+//                        
+//                        self.timerMapDraw = Timer.scheduledTimer(timeInterval: 0.003, target: self, selector: #selector(self.animatePolylinePath), userInfo: nil, repeats: true)
+//                    }
+//                    
+//                    DispatchQueue.main.async {
+//                        self.MarkPoints(latitude: Double(DestiLat), logitude: Double(DestiLong))
+//                    }
+                    
                 }catch let error as NSError{
                     print("error:\(error)")
                 }
@@ -857,20 +883,30 @@ class TrainerTraineeRouteViewController: UIViewController {
         }).resume()
     }
     
+    func animatePolylinePath() {
+        if (self.i < self.path.count()) {
+            self.animationPath.add(self.path.coordinate(at: self.i))
+            self.animationPolyline.path = self.animationPath
+            self.animationPolyline.strokeColor = UIColor.black
+            self.animationPolyline.strokeWidth = 3
+            self.animationPolyline.map = self.mapview
+            self.i += 1
+        }
+        else {
+            self.i = 0
+            self.animationPath = GMSMutablePath()
+            self.animationPolyline.map = nil
+        }
+    }
+    
     func MarkPoints(latitude: Double, logitude: Double ){
         let marker = GMSMarker()
-        // I have taken a pin image which is a custom image
         let markerImage = UIImage(named: "mapsicon")!.withRenderingMode(.alwaysTemplate)
-        
-        //creating a marker view
         let markerView = UIImageView(image: markerImage)
-        
-        //changing the tint color of the image
         markerView.tintColor = UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         
         marker.position = CLLocationCoordinate2D(latitude:CLLocationDegrees(latitude), longitude:CLLocationDegrees(logitude))
         
-        //  marker.icon = markerImage
         marker.iconView = markerView
         marker.title = trainerProfileDetails.PickUpLocation
         marker.snippet = ""
@@ -1001,6 +1037,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         print("*** Booking ID to send Extend Page: \(trainerProfileDetails.Booking_id)")
         
         self.isInSessionRoutePage = false
+        appDelegate.isInSessionRoutePageAppDelegate = false
+        
         self.present(extendSessionPage, animated: true, completion: nil)
     }
 
@@ -1076,10 +1114,8 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude:location.coordinate.latitude, longitude: location.coordinate.longitude)
             
-            
             lat = Float(location.coordinate.latitude)
             long = Float(location.coordinate.longitude)
-            
         }
         
         print("TIMER CHECK in Location Manager:\(TIMERCHECK)")

@@ -143,7 +143,7 @@ class LeftViewController: UIViewController {
                 }
             }else{
                 print("**** Timer started ****")
-                print("******** Timer Check Value is setting as True ******")
+                print("******** Timer Check Value is setting as True\(numOfDays) ******")
                 timerPage.seconds = numOfDays
                 timerPage.TIMERCHECK = true
             }

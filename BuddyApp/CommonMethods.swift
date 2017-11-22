@@ -139,6 +139,7 @@ class CommonMethods: NSObject {
         print(dateString) 
         return dateString
     }
+    
     class func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
             do {
@@ -148,6 +149,31 @@ class CommonMethods: NSObject {
             }
         }
         return nil
+    }
+    
+    //MARK: - FOR TESTING PURPOSE
+    
+    class func tempSecondsChange(session_time: String) -> Int{
+        
+        // For Testing Purpose
+        
+        print("****** TempSecondsChange **********")
+        
+        var secondsUpdatedValue = Int()
+        if session_time == "40" {
+            secondsUpdatedValue = 120
+        }else if session_time == "60" {
+            secondsUpdatedValue = 240
+        }
+        return secondsUpdatedValue
+        
+        //For Live
+//        if session_time == "40" {
+//            secondsUpdatedValue = 2400
+//        }else if session_time == "60" {
+//            secondsUpdatedValue = 3600
+//        }
+//        return secondsUpdatedValue
     }
 
     class func phoneNumberSplit(number: String) -> (String, String){

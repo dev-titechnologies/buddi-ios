@@ -23,6 +23,9 @@ class MessagingSocketVC: JSQMessagesViewController {
     }()
 
     var sessionDetailModelObj: SessionDetailModel = SessionDetailModel()
+    
+    var frompushBool = Bool()
+    var TIMERCHECK = Bool()
 
     //MARK: - VIEW CYCLES
     
@@ -37,6 +40,9 @@ class MessagingSocketVC: JSQMessagesViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        let notificationName = Notification.Name("SessionNotification")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.SessionTimerNotification), name: notificationName, object: nil)
         
         getMessagesFromServer()
         
@@ -61,6 +67,20 @@ class MessagingSocketVC: JSQMessagesViewController {
     override func viewWillDisappear(_ animated: Bool) {
         
 //        SocketIOManager.sharedInstance.closeConnection()
+    }
+    
+    func SessionTimerNotification(notif: NSNotification){
+        
+        print("Notification Received in Message Socket VC:\(notif)")
+        
+//        if notif.userInfo!["pushData"] as! String == "2"{
+//            
+//            print("*** Notification Type 2 Received : START SESSION *******")
+//            frompushBool = true
+//            print("START CLICK")
+//            self.SessionStartAPI()
+//            self.TIMERCHECK = true
+//        }
     }
     
     func getMessagesFromServer() {

@@ -19,6 +19,9 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     var ApsBody = String()
     var notificationType = String()
    
+    var profileArray = Array<TrainerProfileDetail>()
+    var trainerProfileDetails = TrainerProfileModal()
+
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -26,6 +29,9 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         print("ViewDidLoad ViewController")
         
         appDelegate.delegateFCM = self
+        
+        //For crash test
+//        print("ERROR:\(String(describing: UserDefaults.value(forKey: "testsdf")))")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +45,9 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.GoTimerPageInActive_Notification), name: notificationNameFCM, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.AcceptRejactScreenNotification), name: AcceptNotification, object: nil)
+        
+        let notificationName = Notification.Name("SessionNotification")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.GoTimerPageInActive_Notification), name: notificationName, object: nil)
     
         print("***** Internet Connectivity:\(CommonMethods.networkcheck())")
         
@@ -136,25 +145,25 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                 }
             }else{
 
-            // BOOKED BUT NOT STARTED
-            if userDefaults.bool(forKey: "sessionBookedNotStarted"){
-                print("SESSION BOOKED NOT STARTED")
-                
-                if let heroObject = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
-                    let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
-                    self.GoTimerPageFromKilledState_Notification(dict: hero)
-                }
-            }else{
-                if userDefaults.value(forKey: "devicetoken") != nil {
-                    appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
-                    print("TOKEN111",appDelegate.DeviceToken)
+                // BOOKED BUT NOT STARTED
+                if userDefaults.bool(forKey: "sessionBookedNotStarted"){
+                    print("SESSION BOOKED NOT STARTED")
+                    
+                    if let heroObject = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+                        let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
+                        self.GoTimerPageFromKilledState_Notification(dict: hero)
+                    }
                 }else{
-                    print("TOKEN NILL")
-                    appDelegate.DeviceToken = "1234567890"
-                }
-                let when = DispatchTime.now() + 3
-                    DispatchQueue.main.asyncAfter(deadline: when) {
-                        self.loginCheck()
+                    if userDefaults.value(forKey: "devicetoken") != nil {
+                        appDelegate.DeviceToken = userDefaults.value(forKey: "devicetoken") as! String
+                        print("TOKEN111",appDelegate.DeviceToken)
+                    }else{
+                        print("TOKEN NILL")
+                        appDelegate.DeviceToken = "1234567890"
+                    }
+                    let when = DispatchTime.now() + 3
+                        DispatchQueue.main.asyncAfter(deadline: when) {
+                            self.loginCheck()
                     }
                 }
             }
@@ -191,24 +200,43 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
         appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
         
-        self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
-        
-        print("NOTIF :\(notif)")
-        print("TRAINING DATA",self.TrainerProfileDictionary)
-        print("TYPEE",notif.userInfo!["type"]!)
-//        print("TYPEE121",notif.userInfo!["aps"]!)
-        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
-        
-        if notif.userInfo!["type"] as! String == "1" {
+        notificationType = notif.userInfo!["type"] as! String
+                
+        if notificationType == "1" {
             //Booking Request Accepted Push received
+            self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
+            print("TRAINING DATA",self.TrainerProfileDictionary)
+            userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
             
             let trainerProfileModelObj = TrainerProfileModal()
             self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
             TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
             
-        }else if notif.userInfo!["type"] as! String == "5"{
+        }else if notificationType == "2"{
+            print("** Session has started in Viewcontroller **")
             
+            if let trainerProfileDictData = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+                let trainerProfileDict = NSKeyedUnarchiver.unarchiveObject(with: trainerProfileDictData as Data) as! NSDictionary
+                print("trainerProfileDict:\(trainerProfileDict)")
+                self.TrainerProfileDictionary = trainerProfileDict
+                
+                print("appDelegate.isInSessionRoutePageAppDelegate:\(appDelegate.isInSessionRoutePageAppDelegate)")
+                if !appDelegate.isInSessionRoutePageAppDelegate {
+                    print("** Session Start Notification handling from ViewController **")
+                    self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+                }
+            }
+
+//            let trainerProfileModelObj = TrainerProfileModal()
+//            self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+//            TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
+//            self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+            
+        }else if notificationType == "5"{
+            self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
+            print("TRAINING DATA",self.TrainerProfileDictionary)
+            userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
             ApsBody = notif.userInfo!["aps"]! as! String
             AcceptOrDeclineScreen()
         }
@@ -257,6 +285,23 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                 self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
             }
            
+            self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+        }
+    }
+    
+    func FetchFromDb() {
+        
+        if let result = TrainerProfileDetail.fetchBookingDetails() {
+            self.profileArray = result as! Array<TrainerProfileDetail>
+            
+            guard self.profileArray.count > 0 else {
+                print("Profile array count is 0, hence returns")
+                return
+            }
+            
+            let bookingObj = self.profileArray[0]
+            print("FROM DB",bookingObj)
+
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
         }
     }
@@ -364,14 +409,19 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                 }else{
                     timerPage.trainerProfileDetails = selectedTrainerProfileDetails
                 }
-                timerPage.seconds = Int(self.TrainerProfileDictionary["training_time"] as! String)!*60
+                
+                let secondsCopy = Int(self.TrainerProfileDictionary["training_time"] as! String)! * 60
+                print("secondsCopy:\(secondsCopy)")
+                timerPage.seconds = secondsCopy
                 print("SECONDSSSS",timerPage.seconds)
                 
 //                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Timer Data check in ViewController is : False", buttonTitle: "OK")
 
-                if notificationType == "3"{
-//                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "isOpenedFromSessionStoppedNotification = true", buttonTitle: "OK")
-
+                if notificationType == "2" {
+                    timerPage.seconds = CommonMethods.tempSecondsChange(session_time: String(secondsCopy/60))
+                    timerPage.isSessionStartedNotificationFromViewController = true
+                    timerPage.TIMERCHECK = true
+                }else if notificationType == "3"{
                     timerPage.isOpenedFromSessionStoppedNotification = true
                 }
             }

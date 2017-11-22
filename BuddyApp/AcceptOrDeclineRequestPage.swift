@@ -18,6 +18,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
     var TrainerProfileDictionary: NSDictionary!
     let AcceptNotification = Notification.Name("AcceptNotification")
     var APSBody = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -112,6 +113,19 @@ class AcceptOrDeclineRequestPage: UIViewController {
                         userDefaults.set(true, forKey: "isCurrentlyInTrainingSession")
                         NotificationCenter.default.post(name: self.AcceptNotification, object: nil, userInfo: ["profiledata":self.TrainerProfileDictionary])
                         
+                        //======METHOD 1 =====
+//                        let trainerProfileModelObj = TrainerProfileModal()
+//                        let trainerProfileDetails = trainerProfileModelObj.getTraineeProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+//                        TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: trainerProfileDetails)
+                        //==========
+                        
+                        
+                        //======METHOD 2 ======
+//                        TrainerProfileDictionary = CommonMethods.convertToDictionary(text: NotificationDict )! as NSDictionary
+                        print("TrainerProfileDictionary 12345:\(self.TrainerProfileDictionary)")
+                        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
+                        //=====================
+
                         self.dismissAcceptOrDeclinePage()
                     }else{
                         //If declined request

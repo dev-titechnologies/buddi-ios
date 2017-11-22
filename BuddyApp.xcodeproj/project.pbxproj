@@ -919,6 +919,7 @@
 				F322FC371F1CE62000381B8C /* Resources */,
 				B71D729F14B48C78706B2376 /* [CP] Embed Pods Frameworks */,
 				0168EF813F6F2F06C3780DEF /* [CP] Copy Pods Resources */,
+				F3AE72EE1FB5CBF700BF89F2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1186,6 +1187,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BuddyAppUITests/Pods-BuddyAppUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F3AE72EE1FB5CBF700BF89F2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AAf5ff3485caac8e2dcd993dcee920d9ab9ba03519\"\n";
 		};
 		F6BF4AF2C5F7E8C01C147D3D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -39,12 +39,15 @@ var addLocationTimerSingleton = Singleton.sharedInstance.addLocationTimer
 
 //let SERVER_URL = "http://192.168.1.66:9002/"
 let SERVER_URL = "http://git.titechnologies.in:4001/"
+//let SERVER_URL = "http://104.236.235.46:1337"
+
 let COUNTRY_DEFAULT_REGION_CODE = "US"
 let GOOGLE_API_KEY = "AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g"
 let GOOGLE_TRACKER_ID = "UA-106775368-1"
 let PAYPAL_PAYMENT_RETURN_URL = "com.titechnologies.BuddyApp.payments"
 let GID_CLIENT_ID = "635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2.apps.googleusercontent.com"
 let STRIPE_PUBLISHER_KEY = "pk_test_66bTUhQFTPY6wY5x2hftqF6l"
+let NEW_RELIC_KEY = "AAf5ff3485caac8e2dcd993dcee920d9ab9ba03519"
 
 struct RESPONSE_STATUS {
     static let SUCCESS = 1

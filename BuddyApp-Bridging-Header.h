@@ -9,3 +9,6 @@
 #import "GAIDictionaryBuilder.h"
 #import "GAIFields.h"
 #import "GAI.h"
+
+#import "NewRelicAgent/NewRelic.h"
+

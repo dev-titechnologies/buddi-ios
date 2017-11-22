@@ -559,6 +559,10 @@ class TrainerProfilePage: UIViewController {
         lblMobile.text = CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).1
         lblGender.text = (profile["gender"] as! String).uppercased()
         
+        countrypicker.countryPickerDelegate = self
+        countrypicker.showPhoneNumbers = true
+        countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).0)
+        
         if let image_url = profile["user_image"] as? String{
             
             if let imagearray = ProfileImageDB.fetchImage() {
@@ -592,10 +596,6 @@ class TrainerProfilePage: UIViewController {
             self.profileImage.image = UIImage(named: "profileDemoImage")
 //            profileImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "profileDemoImage"))
         }
-
-        countrypicker.countryPickerDelegate = self
-        countrypicker.showPhoneNumbers = true
-        countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).0)
     }
     
     //MARK: - PREPARE FOR SEGUE
@@ -617,6 +617,7 @@ class TrainerProfilePage: UIViewController {
 extension TrainerProfilePage: CountryPickerDelegate{
     
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
+        print("** didSelectCountryWithName:\(flag) **")
         imgFlag.image = flag
     }
 }

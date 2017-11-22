@@ -37,6 +37,9 @@ target 'BuddyApp' do
 
     pod 'Stripe'
     pod 'DatePickerDialog'
+    
+    pod 'NewRelicAgent'
+
 
   # Pods for BuddyApp
 

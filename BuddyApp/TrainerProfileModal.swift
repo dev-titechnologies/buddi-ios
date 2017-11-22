@@ -84,11 +84,42 @@ class TrainerProfileModal{
         model.PickUpLongitude = String(dictionary["pick_longitude"] as! String)
         model.PickUpLocation = String(dictionary["pick_location"] as! String)
 
-        
         print("Creating Model for Trainer:\(model)")
 
         return model
     }
     
+    
+    func getTraineeProfileModelFromDict(dictionary: Dictionary<String, Any>) -> TrainerProfileModal {
+        
+        let model: TrainerProfileModal = TrainerProfileModal()
+        
+        let trainerDetailsDict = dictionary["trainee_details"] as! Dictionary<String, Any>
+        print("Trainee Basic Details:\(trainerDetailsDict)")
+        
+        model.profileImage = CommonMethods.checkStringNull(val:trainerDetailsDict["trainee_user_image"] as? String)
+        model.firstName =  trainerDetailsDict["trainee_first_name"] as! String
+        model.lastName = trainerDetailsDict["trainee_last_name"] as! String
+        model.Booking_id = String(dictionary["book_id"] as! Int)
+        model.categoryId = String(dictionary["cat_id"] as! Int)
+        model.Trainer_id = String(dictionary["trainer_id"] as! Int)
+        model.Trainee_id = String(dictionary["trainee_id"] as! Int)
+        model.gender = CommonMethods.checkStringNull(val: trainerDetailsDict["trainee_gender"] as? String)
+        model.userid = String(appDelegate.UserId)
+        model.age = CommonMethods.checkStringNull(val: trainerDetailsDict["trainee_age"] as? String)
+//        model.rating = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_rating"] as? String)
+        model.Height = CommonMethods.checkStringNull(val: trainerDetailsDict["trainee_height"] as? String)
+        model.Weight = CommonMethods.checkStringNull(val: trainerDetailsDict["trainee_weight"] as? String)
+//        model.distance = CommonMethods.checkStringNull(val: trainerDetailsDict["trainer_distance"] as? String)
+        model.Lattitude = String(describing: trainerDetailsDict["trainee_latitude"]!)
+        model.Longitude = String(describing: trainerDetailsDict["trainee_longitude"]!)
+        model.PickUpLattitude = String(dictionary["pick_latitude"] as! String)
+        model.PickUpLongitude = String(dictionary["pick_longitude"] as! String)
+        model.PickUpLocation = String(dictionary["pick_location"] as! String)
+        
+        print("Creating Model for Trainee:\(model)")
+        
+        return model
+    }
 }
 
