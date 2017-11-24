@@ -126,11 +126,15 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         print("**** viewWillAppear *****")
         print("*****  Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
-
+        
         isInSessionRoutePage = true
         appDelegate.isInSessionRoutePageAppDelegate = true
         
         UIApplication.shared.isIdleTimerDisabled = true
+        
+        if appDelegate.USER_TYPE == USER_TYPE.TRAINER {
+            startSessionFromPushNotificationClick_AppKilledState()
+        }
         
         initializeSessionCheck()
         
@@ -172,6 +176,90 @@ class TrainerTraineeRouteViewController: UIViewController {
         stopTimer()
        // self.timerMapDraw.invalidate()
         locationManager.stopUpdatingLocation()
+    }
+    
+    //MARK: - PUSH NOTIFICATION CLICK ACTIONS
+    
+    func startSessionFromPushNotificationClick_AppKilledState() {
+        
+        if let isSessionStartedFromPush_AppKilledState = userDefaults.value(forKey: "isSessionStartedFromPush_AppKilledState"){
+            
+            print("isSessionStartedFromPush_AppKilledState:\(isSessionStartedFromPush_AppKilledState)")
+            if (isSessionStartedFromPush_AppKilledState as? Bool)!{
+                //This is for testing purpose. Session has been started push click check
+                let ProfileDictionary = NSMutableDictionary()
+                if let unarchivedData = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+                    let unarchivedDict = NSKeyedUnarchiver.unarchiveObject(with: unarchivedData as Data) as! NSDictionary
+                    print("UnArchivedDict:\(unarchivedDict)")
+                    ProfileDictionary.setDictionary(unarchivedDict as! [AnyHashable : Any])
+                    print("*** Profile Dict when Booking request Received: \(ProfileDictionary)")
+//                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Seconds:\(seconds),ProfileDictionary:\(ProfileDictionary)", buttonTitle: "OK")
+                    getTraineeProfileModel(profileDict: ProfileDictionary)
+                    
+                    seconds = Int(ProfileDictionary["training_time"] as! String)!*60
+                    seconds = CommonMethods.tempSecondsChange(session_time: String(seconds/60))
+
+                    let sessionStartedTime = UserDefaults.standard.object(forKey: "sessionStartedPushReceivedTime") as? Date
+                    let expectedTimeOfCompletion = (sessionStartedTime?.addingTimeInterval(TimeInterval(seconds)))
+                    
+                    print("sessionStartedTime",String(describing: sessionStartedTime))
+                    print("expectedTimeOfCompletion",String(describing: expectedTimeOfCompletion))
+                    print("Current Time :\(Date())")
+                    
+                    if expectedTimeOfCompletion! > Date(){
+                        print("Session Ongoing")
+                        numOfDays = Date().daysBetweenDate(toDate: expectedTimeOfCompletion!)
+                        print("Remaining Time in Seconds:\(numOfDays)")
+                        
+//                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "seconds:\(numOfDays),sessionStartedTime:\(String(describing: sessionStartedTime)),expectedTimeOfCompletion:\(String(describing: expectedTimeOfCompletion)),Current Time:\(Date())", buttonTitle: "OK")
+                        
+                        //600 seconds has been added because of the time difference.
+                        seconds = numOfDays + 600
+
+                        self.SessionStartAPI()
+                        self.BoolArray.insert(true, at: 1)
+                        self.TIMERCHECK = true
+                        self.collectionview.reloadData()
+
+                    }else{
+                        print("completed")
+                        self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Session has been completed", buttonTitle: "OK")
+                    }
+                    
+                    userDefaults.removeObject(forKey: "isSessionStartedFromPush_AppKilledState")
+                    userDefaults.removeObject(forKey: "sessionStartedPushReceivedTime")
+                }
+            }
+        }
+    }
+    
+    func getTraineeProfileModel(profileDict: NSMutableDictionary) {
+        
+        let Trainee_Dict = profileDict["trainee_details"] as! Dictionary<String, Any>
+        
+        trainerProfileDetails = TrainerProfileModal.init(
+            profileImage: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_user_image"] as? String),
+            firstName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_first_name"] as? String),
+            lastName: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_last_name"] as? String),
+            mobile: "91456456",
+            gender: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_gender"] as? String),
+            userid: String(appDelegate.UserId),
+            rating: "3",
+            age: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_age"] as? String),
+            height: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_height"] as? String),
+            weight: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_weight"] as? String),
+            distance: "456",
+            lattitude: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_latitude"] as? String),
+            longittude: CommonMethods.checkStringNull(val:Trainee_Dict["trainee_longitude"] as? String),
+            bookingId: String(TrainerProfileDictionary["book_id"] as! Int) ,
+            categoryId: "12342352352358",
+            trainerId: String(TrainerProfileDictionary["trainer_id"] as! Int),
+            traineeId: String(TrainerProfileDictionary["trainee_id"] as! Int),
+            pickup_lattitude: String(TrainerProfileDictionary["pick_latitude"] as! String),
+            pickup_longitude: String(TrainerProfileDictionary["pick_longitude"] as! String),
+            pickup_location: String(TrainerProfileDictionary["pick_location"] as! String)
+        )
     }
    
     //MARK: - UNWIND SEGUE

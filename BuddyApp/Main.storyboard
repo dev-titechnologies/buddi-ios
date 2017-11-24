@@ -16,7 +16,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewControllerVCID" id="BYZ-38-t0r" customClass="ViewController" customModule="BuddyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -2146,7 +2146,7 @@ Good luck!
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0w-wH-F1f">
-                                <rect key="frame" x="0.0" y="20" width="375" height="277"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="233"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T9T-dN-SjF">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="233"/>
@@ -2806,7 +2806,7 @@ Good luck!
                                 </connections>
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No training sessions yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xb7-sR-Nwy">
-                                <rect key="frame" x="16" y="311" width="343" height="44"/>
+                                <rect key="frame" x="16" y="311.5" width="343" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="MO0-6x-mLU"/>
                                 </constraints>
@@ -3356,7 +3356,7 @@ Good luck!
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4538,7 +4538,7 @@ Good luck!
         <scene sceneID="JV1-e2-V2l">
             <objects>
                 <navigationController id="bfa-Jp-2Bb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="tZC-5K-bWZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tZC-5K-bWZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.45264789109999998" green="0.91861756699999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4558,7 +4558,7 @@ Good luck!
         <scene sceneID="wf6-Ge-wPY">
             <objects>
                 <navigationController id="ZIt-ll-KxO" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GnR-cL-Xtf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GnR-cL-Xtf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.45264789109999998" green="0.91861756699999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4916,7 +4916,7 @@ Good luck!
         <scene sceneID="jC1-lN-15y">
             <objects>
                 <navigationController storyboardIdentifier="TESTID" navigationBarHidden="YES" id="LLd-uo-cBv" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CKN-vf-25e">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKN-vf-25e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -8912,18 +8912,18 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="weight_icon" width="17" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Jnc-bx-uPX"/>
-        <segue reference="hJy-Rz-WHD"/>
-        <segue reference="lS4-X5-YwA"/>
-        <segue reference="Xhb-RI-jKu"/>
-        <segue reference="vEf-4J-msS"/>
-        <segue reference="pSi-vx-pGy"/>
-        <segue reference="YXh-ne-UYW"/>
-        <segue reference="XZX-2y-uuV"/>
+        <segue reference="GI9-TU-hGk"/>
+        <segue reference="2Wr-5b-EsE"/>
+        <segue reference="OYB-aT-rib"/>
+        <segue reference="pMz-WA-RGb"/>
+        <segue reference="mVv-vO-aXQ"/>
+        <segue reference="adG-ob-O6L"/>
+        <segue reference="21t-ww-Awf"/>
         <segue reference="WhA-uD-pgi"/>
-        <segue reference="OZa-hZ-FT0"/>
         <segue reference="Ea7-Dw-joN"/>
-        <segue reference="4do-Ja-sXf"/>
-        <segue reference="nov-fw-yUQ"/>
+        <segue reference="OZa-hZ-FT0"/>
+        <segue reference="hJy-Rz-WHD"/>
+        <segue reference="Jnc-bx-uPX"/>
+        <segue reference="vEf-4J-msS"/>
     </inferredMetricsTieBreakers>
 </document>

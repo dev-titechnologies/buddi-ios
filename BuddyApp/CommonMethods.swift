@@ -160,20 +160,20 @@ class CommonMethods: NSObject {
         print("****** TempSecondsChange **********")
         
         var secondsUpdatedValue = Int()
-        if session_time == "40" {
-            secondsUpdatedValue = 120
-        }else if session_time == "60" {
-            secondsUpdatedValue = 240
-        }
-        return secondsUpdatedValue
-        
-        //For Live
 //        if session_time == "40" {
-//            secondsUpdatedValue = 2400
+//            secondsUpdatedValue = 120
 //        }else if session_time == "60" {
-//            secondsUpdatedValue = 3600
+//            secondsUpdatedValue = 240
 //        }
 //        return secondsUpdatedValue
+        
+        //For Live
+        if session_time == "40" {
+            secondsUpdatedValue = 2400
+        }else if session_time == "60" {
+            secondsUpdatedValue = 3600
+        }
+        return secondsUpdatedValue
     }
 
     class func phoneNumberSplit(number: String) -> (String, String){
@@ -438,6 +438,9 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "save_preferance")
         userDefaults.removeObject(forKey: "TimerData")
         userDefaults.removeObject(forKey: "isShowingWaitingForExtendRequest")
+        
+        userDefaults.removeObject(forKey: "isSessionStartedFromPush_AppKilledState")
+        userDefaults.removeObject(forKey: "sessionStartedPushReceivedTime")
         
         choosedTrainingLocationPreference = ""
         choosedCategoryOfTraineePreference = CategoryModel()

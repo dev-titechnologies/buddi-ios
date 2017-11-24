@@ -21,6 +21,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
    
     var profileArray = Array<TrainerProfileDetail>()
     var trainerProfileDetails = TrainerProfileModal()
+    
+    var isFromPushNotificationClick_AppKilledState = Bool()
 
     //MARK: - VIEW CYCLES
     
@@ -30,14 +32,13 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         
         appDelegate.delegateFCM = self
         
-        //For crash test
-//        print("ERROR:\(String(describing: UserDefaults.value(forKey: "testsdf")))")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.isNavigationBarHidden = true
         CommonMethods.googleAnalyticsScreenTracker(screenName: "ViewController Screen")
+        let notificationName = Notification.Name("SessionNotification")
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
@@ -46,10 +47,16 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.AcceptRejactScreenNotification), name: AcceptNotification, object: nil)
         
-        let notificationName = Notification.Name("SessionNotification")
         NotificationCenter.default.addObserver(self, selector: #selector(self.GoTimerPageInActive_Notification), name: notificationName, object: nil)
     
         print("***** Internet Connectivity:\(CommonMethods.networkcheck())")
+        
+//        if isFromPushNotificationClick_AppKilledState {
+//            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "isFromPushNotificationClick_AppKilledState", buttonTitle: "OK")
+//            initilizeSessionChecks()
+//        }
+        
+//        initilizeSessionChecks()
         
 //        if userDefaults.value(forKey: "devicetoken") != nil {
 //            print("***** initilizeSessionChecks Call in ViewController ******")
@@ -69,11 +76,21 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     func initilizeSessionChecks() {
 
         print("***** initilizeSessionChecks Call in ViewController ******")
+        
+//        guard !userDefaults.bool(forKey: "pushClickSessionStopFromKilledState") else{
+//            
+//            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "pushClickSessionStopFromKilledState:\(userDefaults.bool(forKey: "pushClickSessionStopFromKilledState"))", buttonTitle: "OK")
+//
+//            userDefaults.removeObject(forKey: "pushClickSessionStopFromKilledState")
+//            self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+//            return
+//        }
+        
         if appDelegate.TrainerProfileDictionary != nil{
             //  BOOKED A SESSION
             self.GoTimerPageFromKilledState_Notification(dict:appDelegate.TrainerProfileDictionary)
         }else{
-                   
+            
             if userDefaults.value(forKey: "TimerData") != nil {
                 
                 //   RUNNING SESSION
@@ -191,10 +208,14 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
          self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
     }
     
+    //MARK: - NOTIFICATION HANDLERS
+    
     func GoTimerPageInActive_Notification(notif: NSNotification) {
         
         print("*** GoTimerPageInActive_Notification ***")
         print("Notification received : \(notif)")
+        
+//        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "GoTimerPageInActive_Notification", buttonTitle: "OK")
         
         appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
         appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
@@ -249,23 +270,31 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         
 //        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "GoTimerPageFromKilledState_Notification:\(String(describing: dict["type"] as? String))", buttonTitle: "OK")
         
+        appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
+        appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
+        appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
+        
         if (dict["type"] as? String) != nil {
             
             notificationType = (dict["type"] as? String)!
-            if notificationType == "1" {
+            
+            if notificationType == "2"{
+                //Session has been Started
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Notification 2 has been received:\(TrainerProfileDictionary)", buttonTitle: "OK")
+                
+            }else if notificationType == "5" {
+
+                //Accept of reject training request
                 self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:dict["pushData"]as! String)! as NSDictionary
                 
-                appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
-                appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
-                appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
                 userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
                 
                 ApsBody = (dict["aps"]! as! String)
                 
                 AcceptOrDeclineScreen()
                 self.performSegue(withIdentifier: "splashToTrainerHomePageSegue", sender: self)
+
             }else if notificationType == "3" {
-//                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "notificationType = 3", buttonTitle: "OK")
                 self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
             }
         }else{
@@ -273,12 +302,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
 
             self.TrainerProfileDictionary = dict
             
-            appDelegate.UserId = userDefaults.value(forKey: "user_id") as! Int
-            appDelegate.Usertoken = userDefaults.value(forKey: "token") as! String
-            appDelegate.USER_TYPE = userDefaults.value(forKey: "userType") as! String
-            
-            if appDelegate.USER_TYPE == "trainer"
-            {
+            if appDelegate.USER_TYPE == "trainer"{
                 
             }else{
                 //trainee
@@ -422,6 +446,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                     timerPage.isSessionStartedNotificationFromViewController = true
                     timerPage.TIMERCHECK = true
                 }else if notificationType == "3"{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Timer Data check in ViewController is : False", buttonTitle: "OK")
                     timerPage.isOpenedFromSessionStoppedNotification = true
                 }
             }
