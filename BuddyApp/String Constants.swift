@@ -54,6 +54,8 @@ let DISCLAIMER_LINK_DISPLAY_TEXT = "Disclaimer"
 let REQUEST_TIME_EXPIRED = "Request time expired"
 let INSTANT_BOOKING_PREFERENCES_SAVED_SUCCESSFULLY = "Instant booking preferences are saved successfully"
 let PLEASE_CHOOSE_ATLEAST_A_SUBCATEGORY = "Please choose atleast a subcategory"
+let PROFILE_PICTURE_UPDATED = "Profile picture has been updated"
+
 
 
 //Registration Validation Alerts

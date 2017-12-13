@@ -79,11 +79,18 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                 ProfileDataAPI()
             }else{
                 print("from db")
-                FetchFromDb()
                 DispatchQueue.global(qos: .background).async {
-                    print("This is run on the background queue")
-                    self.ProfileDataAPI()
+                    self.FetchFromDb()
+                    DispatchQueue.main.async {
+                        print("This is run on the main queue, after the previous code in outer block")
+                        self.ProfileDataAPI()
+                    }
                 }
+//                FetchFromDb()
+//                DispatchQueue.global(qos: .background).async {
+//                    print("This is run on the background queue")
+//                    self.ProfileDataAPI()
+//                }
             }
         }else{
             print("from api")
@@ -266,7 +273,15 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         print("FINAL DICT",profiledict)
         
-        let profile = ProfileModel(profileImage: (profiledict["user_image"] as? String)!, firstName: (profiledict["first_name"] as? String)!, lastName: (profiledict["last_name"] as? String)!, email: (profiledict["email"] as? String)!, mobile: (profiledict["mobile"] as? String)!, gender: (profiledict["gender"] as? String)!, userid: "" )
+        let profile = ProfileModel(
+            profileImage : (profiledict["user_image"] as? String)!,
+            firstName: (profiledict["first_name"] as? String)!,
+            lastName: (profiledict["last_name"] as? String)!,
+            email: (profiledict["email"] as? String)!,
+            mobile: (profiledict["mobile"] as? String)!,
+            gender: (profiledict["gender"] as? String)!,
+            userid: ""
+        )
         
         ProfileDB.createProfileEntry(profileModel: profile)
         
@@ -286,54 +301,27 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
         
         if let image_url = profiledict["user_image"] as? String{
-            
-            print("PRO IMAGE",image_url)
-            
-            if let imagearray = ProfileImageDB.fetchImage() {
-                self.imageArray = imagearray as! Array<ProfileImageDB>
-                
-                guard self.imageArray.count > 0 else{
-                    return
-                }
-                self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
-                DispatchQueue.main.async {
-                    print("This is run on the main queue, after the previous code in outer block")
-                    self.profileImage.image = UIImage(data: self.objdata as Data)
-                }
+            if image_url != ""{
+                saveAndDisplayProfileImage(image_URL: image_url)
             }
-            else
-
-            {
-   
-            profileImage.sd_setImage(with: URL(string:image_url)) { (image, error, cacheType, imageURL) in
-                
-                print("Image completion block")
-                if image != nil {
-                    print("image found")
-                    self.profileImage.image = image
-                }else{
-                    print("image not found")
-                    self.profileImage.image = UIImage(named: "profileDemoImage")
-                }
-            }
-        }
         }else{
             profileImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "profileDemoImage"))
         }
-
-        CommonMethods.hideProgress()
+    }
+    
+    func saveAndDisplayProfileImage(image_URL: String) {
         
-//        if let imagearray = ProfileImageDB.fetchImage() {
-//            self.imageArray = imagearray as! Array<ProfileImageDB>
-//            
-//            guard self.imageArray.count > 0 else{
-//                CommonMethods.hideProgress()
-//                return
-//            }
-//            
-//            self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
-//            self.profileImage.image = UIImage(data: self.objdata as Data)
-//        }
+        print("saveAndDisplayProfileImage",self.ProfileDict)
+        
+        DispatchQueue.global(qos: .background).async {
+            print("This is run on the background queue")
+//            self.ProfileImageURL = (self.ProfileDict ["user_image"] as? String)!
+            if let image_data = NSData.init(contentsOf: URL(string:image_URL)!){
+                appDelegate.profileImageData = image_data
+                self.profileImage.image = UIImage(data: image_data as Data)
+                ProfileImageDB.save(imageURL: image_URL, imageData: image_data)
+            }
+        }
     }
     
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
@@ -368,19 +356,14 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             print("PROFILE RESPONSE",jsondata)
             
             CommonMethods.hideProgress()
+
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
+                    CommonMethods.hideProgress()
                     self.ProfileDict = jsondata["data"]  as! NSDictionary
-
-                    if let url = URL(string:(self.ProfileDict ["user_image"] as? String)!){
-                        print("Image URL:", url)
-                        self.ProfileImageURL = (self.ProfileDict ["user_image"] as? String)!
-                        let data = NSData.init(contentsOf: url)
-                        ProfileImageDB.save(imageURL: (self.ProfileDict["user_image"] as? String)!, imageData: data!)
-                    }
-                    
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
+
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
@@ -416,6 +399,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         CommonMethods.showProgress()
         var imagePickedData = NSData()
         imagePickedData = UIImageJPEGRepresentation(chosenImage, 1.0)! as NSData
+//        imagePickedData = UIImagePNGRepresentation(chosenImage)! as NSData
         self.UploadImageAPI(imagedata: imagePickedData)
     }
     
@@ -438,6 +422,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         let imageUploadURL = SERVER_URL + UPLOAD_VIDEO_AND_IMAGE
         print("Image Upload URL",imageUploadURL)
+//        print("Image imagedata",imagedata)
 
         var uploadImageData = NSData()
         uploadImageData = imagedata
@@ -452,21 +437,23 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                 multipartFormData.append(value.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: key)
             }
 
-            if let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.6) {
-               // multipartFormData.append(data: imageData, name: "image", fileName: "file.png", mimeType: "image/png")
-                multipartFormData.append(uploadImageData as Data, withName: "file_name", fileName: "image.png", mimeType: "image/png")
-            }else{
-                print("NODATAAA")
-            }
+            multipartFormData.append(uploadImageData as Data, withName: "file_name", fileName: "image.png", mimeType: "image/png")
+
+//            if let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.6) {
+//               // multipartFormData.append(data: imageData, name: "image", fileName: "file.png", mimeType: "image/png")
+//                multipartFormData.append(uploadImageData as Data, withName: "file_name", fileName: "image.png", mimeType: "image/png")
+//            }else{
+//                print("NODATAAA")
+//            }
          }, to: imageUploadURL,
            method:.post,
            headers:headers,
-           
+            
            encodingCompletion: { encodingResult in
             switch encodingResult {
             case .success(let upload, _, _):
                 upload.responseJSON { response in
-                    debugPrint(response)
+                    print("Image upload response:\(response)")
                     if let jsonDic = response.result.value as? NSDictionary{
                         print("DICT ",jsonDic)
                         
@@ -486,14 +473,18 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                             }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                                 self.dismissOnSessionExpire()
                             }
-                        }else{
-                             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please try again", buttonTitle: "Ok")
-                            self.ProfileImageURL = ""
                         }
+                    }else{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please try again", buttonTitle: "Ok")
+                        self.ProfileImageURL = ""
+                        self.changeTextColorBlack()
                     }
                 }
             case .failure(let encodingError):
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please try again", buttonTitle: "Ok")
+                self.ProfileImageURL = ""
                 print(encodingError)
+                self.changeTextColorBlack()
             }
         })
     }
@@ -519,7 +510,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                 if status == RESPONSE_STATUS.SUCCESS{
                     self.ProfileDict = jsondata["data"]  as! NSDictionary
                     self.parseProfileDetails(profiledict: self.ProfileDict as! Dictionary<String, Any>)
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Profile picture updated", buttonTitle: "Ok")
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PROFILE_PICTURE_UPDATED, buttonTitle: "Ok")
                     
                     self.changeTextColorBlack()
                 }

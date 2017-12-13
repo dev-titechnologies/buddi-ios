@@ -26,13 +26,13 @@ class CommonMethods: NSObject {
             response in
             switch response.result {
             case .success:
-//                print(response)
+                print("serverCall Response:\(response)")
                 if let value = response.value {
                     onCompletion(value as! Dictionary<String, Any>)
                 }
                 break
             case .failure(let error):
-                print(error)
+                print("serverCall Error:\(error.localizedDescription)")
                 onCompletion([:])
             }
         }
@@ -438,6 +438,7 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "save_preferance")
         userDefaults.removeObject(forKey: "TimerData")
         userDefaults.removeObject(forKey: "isShowingWaitingForExtendRequest")
+        userDefaults.removeObject(forKey: "facebookId")
         
         userDefaults.removeObject(forKey: "isSessionStartedFromPush_AppKilledState")
         userDefaults.removeObject(forKey: "sessionStartedPushReceivedTime")

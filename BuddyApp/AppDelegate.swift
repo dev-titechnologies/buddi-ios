@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
     var isLaunchFromBackGroundState = Bool()
     var isLaunchFromKilledState = Bool()
+    var profileImageData: NSData = NSData()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -53,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
 //            print("***** configureFirebase Call in AppDelegate ******")
 //            configureFirebase(application: application)
 //        }
+        profileImageData = NSData()
         
         if application.applicationState == .inactive {
             print("***** App From Inactive State *****")
@@ -61,6 +63,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             print("***** App From Background State *****")
             isLaunchFromBackGroundState = true
         }
+        
+        application.applicationIconBadgeNumber = 0
         
         configureFirebase(application: application)
         

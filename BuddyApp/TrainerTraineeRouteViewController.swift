@@ -100,7 +100,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         frompushBool = false
         
         print("Trainer Profile Details : \(trainerProfileDetails.firstName)")
-        print("*****  Received Trainer Profile Dict1:\(TrainerProfileDictionary)")
+        print("***** Received Trainer Profile Dict1:\(TrainerProfileDictionary)")
         
         //For Temporary Display
         printTrainerProfileDetails()
@@ -125,12 +125,13 @@ class TrainerTraineeRouteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         print("**** viewWillAppear *****")
-        print("*****  Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
+        print("***** Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
         
         isInSessionRoutePage = true
         appDelegate.isInSessionRoutePageAppDelegate = true
-        
         UIApplication.shared.isIdleTimerDisabled = true
+        
+        //CommonMethods.showProgress()
         
         if appDelegate.USER_TYPE == USER_TYPE.TRAINER {
             startSessionFromPushNotificationClick_AppKilledState()
@@ -265,18 +266,18 @@ class TrainerTraineeRouteViewController: UIViewController {
     //MARK: - UNWIND SEGUE
     
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
-        print("******************Unwind Segue Catch with Identifier ****************** \(String(describing: segue.identifier))")
+        print("****************** Unwind Segue Catch with Identifier ****************** \(String(describing: segue.identifier))")
         isInSessionRoutePage = true
         appDelegate.isInSessionRoutePageAppDelegate = true
 
         if segue.identifier == "unwindToRouteVCSegue" {
             if self.isExtendedCheck{
-                print("**** Session Extended Check YES in Unwind segue")
+                print("**** Session Extended Check YES in Unwind segue ****")
                 extendedSessionDuration = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
                 initializeSession()
                 runTimer()
             }else{
-                print("**** Session Extended Check NO in Unwind segue")
+                print("**** Session Extended Check NO in Unwind segue ****")
                 self.BookingAction(Action_status: "complete")
             }
         }else if segue.identifier == "unwindSegueToRoutePageFromTrainerProfile" {
@@ -320,9 +321,15 @@ class TrainerTraineeRouteViewController: UIViewController {
         if appDelegate.USER_TYPE == "trainee"{
             var sessionTime = String()
             if choosedSessionOfTrainee == ""{
-                sessionTime = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
-            }else{
+                if let backup_session_choosed = userDefaults.value(forKey: "backupTrainingSessionChoosed") as? String {
+                    sessionTime = backup_session_choosed
+                }else{
+                    sessionTime = String(seconds/60)
+                }
+            }else if choosedSessionOfTrainee != "" {
                 sessionTime = choosedSessionOfTrainee
+            }else{
+                sessionTime = String(seconds/60)
             }
 //            seconds = Int(sessionTime)!*60
             print("========== Session Duration Seconds:\(sessionTime)")
@@ -1043,6 +1050,8 @@ class TrainerTraineeRouteViewController: UIViewController {
                 print("Socket Message Info in Session Page",messageInfo)
                 let trainerSocketData = messageInfo["message"] as! NSDictionary
                 
+               // CommonMethods.hideProgress()
+                
                 self.measureDistance(buddiLat: Float(trainerSocketData["latitude"] as! String)!, buddiLong: Float(trainerSocketData["longitude"] as! String!)!)
                 
                // self.MarkPoints(latitude: Double(trainerSocketData["latitude"] as! String)!, logitude: Double(trainerSocketData["longitude"] as! String!)!)
@@ -1213,9 +1222,14 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
             print("long:\(long)")
             print("PickupLat:\(trainerProfileDetails.PickUpLattitude)")
             print("PickupLong:\(trainerProfileDetails.PickUpLongitude)")
-
-            self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.PickUpLattitude)!, DestiLong: Float(trainerProfileDetails.PickUpLongitude)!)
-            self.addHandlersTrainer()
+            
+            if trainerProfileDetails.PickUpLattitude == "" || trainerProfileDetails.PickUpLongitude == ""{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                userDefaults.removeObject(forKey: "TimerData")
+            }else{
+                self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.PickUpLattitude)!, DestiLong: Float(trainerProfileDetails.PickUpLongitude)!)
+                self.addHandlersTrainer()
+            }
             
         }else{
             if appDelegate.USER_TYPE == "trainer"{
@@ -1409,7 +1423,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        indexpath1 = indexPath as NSIndexPath
+        indexpath1 = indexPath as NSIndexPath                                                                                                                
         
         print("INDEXPATH",indexPath.row)
         
@@ -1451,5 +1465,3 @@ extension TrainerTraineeRouteViewController: UITextViewDelegate {
         }
     }
 }
-
-

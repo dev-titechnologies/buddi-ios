@@ -10,6 +10,13 @@ import UIKit
 
 class AssignedTrainerSocialMediaCell: UITableViewCell {
 
+    @IBOutlet weak var btnFacebook: UIButton!
+    @IBOutlet weak var btnInstagram: UIButton!
+    @IBOutlet weak var btnLinkdIn: UIButton!
+    @IBOutlet weak var btnSnapchat: UIButton!
+    @IBOutlet weak var btnTwitter: UIButton!
+    @IBOutlet weak var btnYoutube: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

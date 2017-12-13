@@ -56,6 +56,11 @@ class LeftViewController: UIViewController {
         profileName.text = userDefaults.value(forKey: "userName") as? String
         lblEmailId.text = userDefaults.value(forKey: "userEmailId") as? String
         
+        //Load profile image from NSData which is stored when login/register time
+        if appDelegate.profileImageData.length != 0 {
+            self.profileimage.image = UIImage(data: appDelegate.profileImageData as Data)
+        }
+        
         DispatchQueue.global(qos: .background).async {
             print("This is run on the background queue")
             
@@ -67,7 +72,7 @@ class LeftViewController: UIViewController {
                 }
                 self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
                 DispatchQueue.main.async {
-                    print("This is run on the main queue, after the previous code in outer block")
+                    print("Left ViewController Image Data to imageview")
                     self.profileimage.image = UIImage(data: self.objdata as Data)
                 }
             }

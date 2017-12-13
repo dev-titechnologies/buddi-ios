@@ -41,9 +41,9 @@ class BookingHistoryVC: UIViewController {
         CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: BOOKING_HISTORY_URL, parameters: parameters, onCompletion: { (jsondata) in
             
-            CommonMethods.hideProgress()
 
             guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.hideProgress()
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
             }
@@ -67,8 +67,8 @@ class BookingHistoryVC: UIViewController {
                         for booking_history in booking_history_array{
                         
                             let modelObject = self.bookingHistoryModelObj.getBookingHistoryModelFromDict(dictionary: booking_history as! Dictionary<String, Any>)
-                            print("trainedDate",modelObject.trainedDate)
-                            print("bookingId",modelObject.bookingId)
+//                            print("trainedDate",modelObject.trainedDate)
+//                            print("bookingId",modelObject.bookingId)
                             BookingHistoryDB.createBookingEntry(bookingModel: modelObject)
                             self.bookingsArray.append(modelObject)
                         }
@@ -76,7 +76,7 @@ class BookingHistoryVC: UIViewController {
                         if self.bookingsArray.count > 0 {
                             
                             let sortedArray = self.bookingsArray.sorted(by: {$0.trainedDate > $1.trainedDate})
-                            print("sortedArray:\(sortedArray)")
+                            //print("sortedArray:\(sortedArray)")
                             self.bookingsArray.removeAll()
                             self.bookingsArray = sortedArray
                             
@@ -88,12 +88,15 @@ class BookingHistoryVC: UIViewController {
                             self.bookingHistoryTable.isHidden = true
                             self.nohistory_lbl.isHidden = false
                         }
+                        CommonMethods.hideProgress()
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.hideProgress()
                       CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
 
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     print("Session Expired")
+                    CommonMethods.hideProgress()
                     self.dismissOnSessionExpire()
                 }
             }else{

@@ -103,7 +103,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                 print("CURRENT DATE",Date())
                 
                 if date > Date(){
-                    print("ongoing")
+                    print("Ongoing")
                     numOfDays = Date().daysBetweenDate(toDate: date)
                     
                     let date = ((TimerDict["currenttime"] as! Date).addingTimeInterval(TimeInterval(TimerDict["TimeRemains"] as! Int)))

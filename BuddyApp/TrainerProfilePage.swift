@@ -10,6 +10,9 @@ import UIKit
 import CountryPicker
 import Alamofire
 import MapKit
+import FBSDKCoreKit
+import FBSDKLoginKit
+
 
 class TrainerProfilePage: UIViewController {
 
@@ -66,6 +69,16 @@ class TrainerProfilePage: UIViewController {
 
     var isInTrainerProfilePage = Bool()
     
+    //social media urls/links
+    var facebookLink = String()
+    var instagramLink = String()
+    var linkdInLink = String()
+    var snapchatLink = String()
+    var twitterLink = String()
+    var youtubeLink = String()
+    
+    var fbUserDictionary: NSDictionary!
+
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -310,7 +323,8 @@ class TrainerProfilePage: UIViewController {
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-                    self.dismissOnSessionExpire()
+                    //Commented due to the page expire issue when before submitting the review after completion of a session
+                    //self.dismissOnSessionExpire()
                 }
             }else{
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
@@ -332,12 +346,12 @@ class TrainerProfilePage: UIViewController {
         
         print("PARAMS",parameters)
         
-        CommonMethods.showProgress()
+        //CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: UPDATE_LOCATION_STATUS, parameters: parameters , onCompletion: { (jsondata) in
             print("**** Availability status response",jsondata)
             print("*** Update location status API call ***")
             
-            CommonMethods.hideProgress()
+            //CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 
                 guard self.isInTrainerProfilePage else{
@@ -363,8 +377,9 @@ class TrainerProfilePage: UIViewController {
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-                    self.isInTrainerProfilePage = false
-                    self.dismissOnSessionExpire()
+                    //Commented due to the page expire issue when before submitting the review after completion of a session
+//                    self.isInTrainerProfilePage = false
+//                    self.dismissOnSessionExpire()
                 }
             }
         })
@@ -640,9 +655,16 @@ extension TrainerProfilePage: UITableViewDataSource{
             return cell
             
         }else if indexPath.row == 3{
-            let cell: AssignedTrainerSocialMediaCell = tableView.dequeueReusableCell(withIdentifier: "socialMediaCellId") as! AssignedTrainerSocialMediaCell
-            return cell
+            let socialMediaCell: AssignedTrainerSocialMediaCell = tableView.dequeueReusableCell(withIdentifier: "socialMediaCellId") as! AssignedTrainerSocialMediaCell
             
+            socialMediaCell.btnFacebook.addTarget(self, action: #selector(TrainerProfilePage.facebookAction(sender:)), for: .touchUpInside)
+            socialMediaCell.btnInstagram.addTarget(self, action: #selector(TrainerProfilePage.instagramAction(sender:)), for: .touchUpInside)
+            socialMediaCell.btnLinkdIn.addTarget(self, action: #selector(TrainerProfilePage.linkdInAction(sender:)), for: .touchUpInside)
+            socialMediaCell.btnSnapchat.addTarget(self, action: #selector(TrainerProfilePage.snapChatAction(sender:)), for: .touchUpInside)
+            socialMediaCell.btnTwitter.addTarget(self, action: #selector(TrainerProfilePage.twitterAction(sender:)), for: .touchUpInside)
+            socialMediaCell.btnYoutube.addTarget(self, action: #selector(TrainerProfilePage.youtubeAction(sender:)), for: .touchUpInside)
+            
+            return socialMediaCell
         }else{
             let cell: AssignedTrainerEmailCell = tableView.dequeueReusableCell(withIdentifier: "emailCellId") as! AssignedTrainerEmailCell
             return cell
@@ -661,6 +683,226 @@ extension TrainerProfilePage: UITableViewDataSource{
             row = 60.0
         }
         return CGFloat(row)
+    }
+}
+
+//MARK: - SOCIAL MEDIA BUTTON ACTIONS
+extension TrainerProfilePage {
+    
+    func facebookAction(sender : UIButton){
+        
+        if let facebook_id = userDefaults.value(forKey: "facebookId") as? String {
+            facebookLink = facebook_id
+        }
+        
+        if !facebookLink.isEmpty{
+            openFBProfile(facebookUserID: facebookLink)
+        }else if facebookLink.isEmpty{
+            loginWithFacebook()
+        }
+    }
+    
+    func instagramAction(sender : UIButton){
+        
+        if isEditingProfile {
+            showAlertWithTextBox(messageString: "Please enter instagram username", withPlaceholder: "Username", socialMediaType: SOCIAL_MEDIA_TYPES.INSTAGRAM)
+        }else if !instagramLink.isEmpty{
+            openInstagramProfile(instagramProfileName: instagramLink)
+        }else if instagramLink.isEmpty{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Instagram profile is not linked", buttonTitle: "OK")
+        }
+    }
+    
+    func linkdInAction(sender : UIButton){
+    }
+    
+    func snapChatAction(sender : UIButton){
+    }
+
+    func twitterAction(sender : UIButton){
+        
+        if isEditingProfile {
+            showAlertWithTextBox(messageString: "Please enter Twitter username", withPlaceholder: "Username", socialMediaType: SOCIAL_MEDIA_TYPES.TWITTER)
+        }else if !twitterLink.isEmpty{
+            openTwitterProfile(twitterUsername: twitterLink)
+        }else if twitterLink.isEmpty{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Twitter profile is not linked", buttonTitle: "OK")
+        }
+    }
+
+    func youtubeAction(sender : UIButton){
+        
+        if isEditingProfile {
+            showAlertWithTextBox(messageString: "Please enter Youtube link", withPlaceholder: "Please paste youtube link here", socialMediaType: SOCIAL_MEDIA_TYPES.YOUTUBE)
+        }else if !youtubeLink.isEmpty{
+            openYoutubeLink(youtubeLink: youtubeLink)
+        }else if youtubeLink.isEmpty{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Youtube link not provided", buttonTitle: "OK")
+        }
+    }
+    
+    func showAlertWithTextBox(messageString: String, withPlaceholder placeholderString: String, socialMediaType socialType: String) {
+        
+        let alertController = UIAlertController(title: ALERT_TITLE, message: messageString, preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in
+            if let field = alertController.textFields![0] as? UITextField {
+                print("entered Field:\(String(describing: field.text!))")
+                
+                guard field.text != "" else{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please enter \(placeholderString)", buttonTitle: "OK")
+                    return
+                }
+                
+                self.saveSocialMediaLinks(enteredValue: field.text!, socialMediaType: socialType)
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = placeholderString
+        }
+        
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func saveSocialMediaLinks(enteredValue: String, socialMediaType: String) {
+        
+        switch socialMediaType {
+        case SOCIAL_MEDIA_TYPES.FACEBOOK:
+            print("FACEBOOK")
+            
+            facebookLink = enteredValue
+            break
+        case SOCIAL_MEDIA_TYPES.TWITTER:
+            print("TWITTER")
+            
+            twitterLink = enteredValue
+            break
+        case SOCIAL_MEDIA_TYPES.INSTAGRAM:
+            print("INSTAGRAM")
+
+            instagramLink = enteredValue
+            break
+        case SOCIAL_MEDIA_TYPES.LINKDIN:
+            print("LINKDIN")
+
+            linkdInLink = enteredValue
+            break
+        case SOCIAL_MEDIA_TYPES.SNAPCHAT:
+            print("SNAPCHAT")
+
+            snapchatLink = enteredValue
+            break
+        case SOCIAL_MEDIA_TYPES.YOUTUBE:
+            print("YOUTUBE")
+
+            youtubeLink = enteredValue
+            break
+
+        default:
+            print("Default case in saveSocialMediaLinks")
+        }
+    }
+    
+    //MARK: - OPEN SOCIAL MEDIA WITH URL's
+    func openTwitterProfile(twitterUsername: String) {
+        
+        let twitterProfileUrl = URL(string: "twitter://user?screen_name=\(twitterUsername)")
+        UIApplication.shared.open(twitterProfileUrl!, options: [:])
+    }
+
+    func openFBProfile(facebookUserID: String) {
+        
+        if UIApplication.shared.canOpenURL(URL(string: "fb://profile/\(facebookUserID)")!) {
+            //            UIApplication.shared.open(URL(string: "fb://profile?app_scoped_user_id=1442756282446578")!, options: [:])
+            UIApplication.shared.open(URL(string: "https://facebook.com/\(facebookUserID)")!, options: [:])
+        } else {
+            UIApplication.shared.open(URL(string: "https://facebook.com/\(facebookUserID)")!, options: [:])
+        }
+    }
+    
+    func openInstagramProfile(instagramProfileName: String) {
+        
+        let instagramHooks = "instagram://user?username=\(instagramProfileName)"
+        let instagramUrl = NSURL(string: instagramHooks)
+        
+        if UIApplication.shared.canOpenURL(instagramUrl! as URL){
+            UIApplication.shared.open(instagramUrl! as URL, options: [:])
+        } else {
+            UIApplication.shared.open(NSURL(string: "http://instagram.com/")! as URL, options: [:])
+        }
+    }
+    
+    func openYoutubeLink(youtubeLink: String){
+        let youtubeId = extractYoutubeIdFromLink(link: youtubeLink)
+        print("Youtube Identifier :\(String(describing: youtubeId!))")
+        UIApplication.shared.open(NSURL(string: "youtube://watch?v=\(youtubeId!)")! as URL, options: [:])
+    }
+    
+    func extractYoutubeIdFromLink(link: String) -> String? {
+        let pattern = "((?<=(v|V)/)|(?<=be/)|(?<=(\\?|\\&)v=)|(?<=embed/))([\\w-]++)"
+        guard let regExp = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
+            return nil
+        }
+        let nsLink = link as NSString
+        let options = NSRegularExpression.MatchingOptions(rawValue: 0)
+        let range = NSRange(location: 0, length: nsLink.length)
+        let matches = regExp.matches(in: link as String, options:options, range:range)
+        if let firstMatch = matches.first {
+            return nsLink.substring(with: firstMatch.range)
+        }
+        return nil
+    }
+    
+    func loginWithFacebook() {
+        
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logOut()
+        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
+            if (error == nil){
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                
+                if (result?.isCancelled)! {
+                    return
+                }
+                
+                if(fbloginresult.grantedPermissions.contains("email")){
+                    self.getFBUserData()
+                }
+            }else{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
+                print("FB ERROR")
+            }
+        }
+    }
+    
+    func getFBUserData(){
+        
+        CommonMethods.showProgress()
+        if((FBSDKAccessToken.current()) != nil){
+            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
+                
+                CommonMethods.hideProgress()
+                if (error == nil){
+                    
+                    print("RESULT Login",result!)
+                    self.fbUserDictionary = result as? NSDictionary
+                    
+                    let facebookId = (self.fbUserDictionary["id"] as? String)!
+                    print("Facebook ID:\(facebookId)")
+                    userDefaults.set(facebookId, forKey: "facebookId")
+                    self.openFBProfile(facebookUserID: facebookId)
+                }else{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
+                    print("ERROR123",error?.localizedDescription as Any)
+                }
+            })
+        }
     }
 }
 
@@ -741,8 +983,9 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
             "user_type" : appDelegate.USER_TYPE
         ]
         
-        let parameters = ["file_type" : "img",
-                          "upload_type" : "profile"
+        let parameters = [
+            "file_type" : "img",
+            "upload_type" : "profile"
         ]
         
         print("PARAMS",parameters)
@@ -759,8 +1002,8 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
             
             for (key, value) in parameters {
                 
-                print("PARAMETER1",value)
-                print("PARAMETER11",key)
+                print("PARAMETER Value:",value)
+                print("PARAMETER Key:",key)
                 
                 multipartFormData.append(value.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, withName: key)
             }
@@ -768,7 +1011,7 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
             if UIImageJPEGRepresentation(self.profileImage.image!, 0.6) != nil {
                 multipartFormData.append(uploadImageData as Data, withName: "file_name", fileName: "image.png", mimeType: "image/png")
             }else{
-                print("NODATAAA")
+                print("** No image data found **")
             }
         }, to: imageUploadURL,
            method:.post,
@@ -780,12 +1023,12 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
                 
             case .success(let upload, _, _):
                 upload.responseJSON { response in
-                    debugPrint(response)
+                    
+                    print("Response:\(response)")
                     if let jsonDic = response.result.value as? NSDictionary{
-                        print("DICT ",jsonDic)
+                        print("JSON DICT:",jsonDic)
                         
                         if let status = jsonDic["status"] as? Int{
-                            
                             if status == RESPONSE_STATUS.SUCCESS{
                                 
                                 CommonMethods.hideProgress()
@@ -797,11 +1040,14 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
                                 
                                 ProfileImageDB.save(imageURL: (jsonDic["Url"] as? String)!, imageData: uploadImageData as Data as Data as NSData)
                             }else if status == RESPONSE_STATUS.FAIL{
+                                CommonMethods.hideProgress()
                                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsonDic["message"] as? String, buttonTitle: "Ok")
                             }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                                CommonMethods.hideProgress()
                                 self.dismissOnSessionExpire()
                             }
                         }else{
+                            CommonMethods.hideProgress()
                             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please try again", buttonTitle: "Ok")
                             self.profileImageURL = ""
                         }
@@ -809,6 +1055,9 @@ extension TrainerProfilePage: UIImagePickerControllerDelegate,UINavigationContro
                 }
             case .failure(let encodingError):
                 print(encodingError)
+                CommonMethods.hideProgress()
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please try again", buttonTitle: "Ok")
+                self.profileImageURL = ""
             }
         })
     }
@@ -823,7 +1072,7 @@ extension TrainerProfilePage: CLLocationManagerDelegate {
             print("**********************")
             print("Long \(location.coordinate.longitude)")
             print("Lati \(location.coordinate.latitude)")            
-            print("**********************")
+            print("**********************")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
             
             lat = Float(location.coordinate.latitude)
             long = Float(location.coordinate.longitude)

@@ -179,7 +179,10 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                         print("*** Email present in FB: \(emailId)")
                     }
                     
-                    self.LoginAPI(Email: emailId, Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: (self.fbUserDictionary["id"] as? String)!, GoogleId: "")
+                    let facebookId = (self.fbUserDictionary["id"] as? String)!
+                    print("Facebook ID:\(facebookId)")
+                    userDefaults.set(facebookId, forKey: "facebookId")
+                    self.LoginAPI(Email: emailId, Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: facebookId, GoogleId: "")
                 }else{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
                     print("ERROR123",error?.localizedDescription as Any)
@@ -239,11 +242,14 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     print(self.jsondict["trainer_type"]!)
                     print("If Already a Trainer Value ####:",userDefaults.value(forKey: "ifAlreadyTrainer") as! Bool)
                     
-                    //Need to do in Background queue
-                    if let url = URL(string:(CommonMethods.checkStringNull(val: self.jsondict["user_image"] as? String))){
-                        print("Image URL:", url)
-                        if let data = NSData.init(contentsOf: url){
-                            ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data)
+                    DispatchQueue.global(qos: .background).async {
+                        print("This is run on the background queue: *** Profile Image Save to DB ***")
+                        if let url = URL(string:(CommonMethods.checkStringNull(val: self.jsondict["user_image"] as? String))){
+                            print("Image URL:", url)
+                            if let data = NSData.init(contentsOf: url){
+                                appDelegate.profileImageData = data
+                                ProfileImageDB.save(imageURL: (self.jsondict["user_image"] as? String)!, imageData: data)
+                            }
                         }
                     }
                     
@@ -289,7 +295,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             approvedCount = category_approvedArray.count
             userDefaults.setValue(approvedCount, forKey: "approvedCategoryCount")
                         
-             userDefaults.set(approvedOrPendingCategoriesSingleton, forKey: "approvedCategoriesIdArrayNew")
+            userDefaults.set(approvedOrPendingCategoriesSingleton, forKey: "approvedCategoriesIdArrayNew")
             
             if approvedCount > 0 {
                 print("*** Approved Categories Present ****")

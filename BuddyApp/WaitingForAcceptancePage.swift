@@ -40,9 +40,9 @@ class WaitingForAcceptancePage: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.triggerDismissWhenNotificationReceived), name: notificationName1, object: nil)
         
-        if forUserType == "trainer" {
+        if forUserType == USER_TYPE.TRAINER {
             //triggerDismissPageAfterInterval()
-        }else if forUserType == "trainee" {
+        }else if forUserType == USER_TYPE.TRAINEE {
             //For testing purpose, pls delete below stmnt after use
             triggerDismissPageAfterInterval()
         }
@@ -150,7 +150,7 @@ class WaitingForAcceptancePage: UIViewController {
                         }
                     }
                     
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

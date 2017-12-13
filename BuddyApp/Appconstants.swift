@@ -39,7 +39,8 @@ var addLocationTimerSingleton = Singleton.sharedInstance.addLocationTimer
 
 //let SERVER_URL = "http://192.168.1.66:9002/"
 //let SERVER_URL = "http://git.titechnologies.in:4001/"
-let SERVER_URL = "http://104.236.235.46:1337/"
+//let SERVER_URL = "http://104.236.235.46:1337/"
+let SERVER_URL = "http://buddiapi.buddiadmin.com/"
 
 let COUNTRY_DEFAULT_REGION_CODE = "US"
 let GOOGLE_API_KEY = "AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g"
@@ -79,6 +80,14 @@ struct USER_TYPE {
     static let TRAINEE = "trainee"
 }
 
+struct SOCIAL_MEDIA_TYPES {
+    static let FACEBOOK = "facebook"
+    static let TWITTER = "twitter"
+    static let SNAPCHAT = "snapchat"
+    static let LINKDIN = "linkdin"
+    static let YOUTUBE = "youtube"
+    static let INSTAGRAM = "instagram"
+}
 
 class Appconstants: NSObject {
     
