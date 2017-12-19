@@ -21,7 +21,8 @@ import FirebaseMessaging
 import GooglePlaces
 import Google
 import Stripe
-
+import TwitterKit
+import TwitterCore
 
 protocol FCMTokenReceiveDelegate: class {
     func tokenReceived()
@@ -113,6 +114,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         //For Stripe Payment
         Stripe.setDefaultPublishableKey(STRIPE_PUBLISHER_KEY)
         
+        Twitter.sharedInstance().start(withConsumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
+        
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
@@ -132,6 +135,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         if url.scheme?.localizedCaseInsensitiveCompare(PAYPAL_PAYMENT_RETURN_URL) == .orderedSame {
             print("Paypal open url in AppDelegate")
             return BTAppSwitch.handleOpen(url, sourceApplication: sourceApplication)
+        }
+        
+        if url.absoluteString.contains("twitterkit"){
+            return Twitter.sharedInstance().application(application, open: url, options: [:])
         }
         
         return googleDidHandle || facebookDidHandle

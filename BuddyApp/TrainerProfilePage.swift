@@ -10,9 +10,7 @@ import UIKit
 import CountryPicker
 import Alamofire
 import MapKit
-import FBSDKCoreKit
-import FBSDKLoginKit
-
+import TwitterKit
 
 class TrainerProfilePage: UIViewController {
 
@@ -77,8 +75,8 @@ class TrainerProfilePage: UIViewController {
     var twitterLink = String()
     var youtubeLink = String()
     
-    var fbUserDictionary: NSDictionary!
-
+    var socialMediaLinksDictionary = Dictionary<String,Any>()
+    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -92,10 +90,11 @@ class TrainerProfilePage: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         print("*** viewDidAppear Trainer")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+
         isInTrainerProfilePage = true
         
         //For checking any sessions are ongoing
@@ -127,6 +126,7 @@ class TrainerProfilePage: UIViewController {
         
        // self.timer.invalidate()
     }
+
     
     func getCurrentLocationDetails() {
         
@@ -494,7 +494,8 @@ class TrainerProfilePage: UIViewController {
                           "profile_desc":"tt",
                           "age" : ageValue,
                           "weight" : weightValue,
-                          "height" : heightValue
+                          "height" : heightValue,
+                          "social_media_links" : toJSONString(from: getSocialMediaParameters())
             ] as [String : Any]
         
         print("PARAMS",parameters)
@@ -526,6 +527,27 @@ class TrainerProfilePage: UIViewController {
                 return
             }
         })
+    }
+    
+    func toJSONString(from object: Any) -> String? {
+        if let objectData = try? JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions(rawValue: 0)) {
+            let objectString = String(data: objectData, encoding: .utf8)
+            return objectString
+        }
+        return nil
+    }
+    
+    func getSocialMediaParameters() -> [String: Any] {
+        
+        let params = ["facebook" : facebookLink,
+                      "instagram" : instagramLink,
+                      "youtube" : youtubeLink,
+                      "twitter" : twitterLink
+            ]
+        
+        socialMediaLinksDictionary = ["social_media_links" : params]
+        print("Social Media Params:\(String(describing: socialMediaLinksDictionary))")
+        return socialMediaLinksDictionary
     }
     
     @IBAction func chooseProfileImageAction(_ sender: Any) {
@@ -696,9 +718,9 @@ extension TrainerProfilePage {
         }
         
         if !facebookLink.isEmpty{
-            openFBProfile(facebookUserID: facebookLink)
+            CommonMethods.openFBProfile(facebookUserID: facebookLink)
         }else if facebookLink.isEmpty{
-            loginWithFacebook()
+           CommonMethods.loginWithFacebook(viewcontroller: self)
         }
     }
     
@@ -707,7 +729,7 @@ extension TrainerProfilePage {
         if isEditingProfile {
             showAlertWithTextBox(messageString: "Please enter instagram username", withPlaceholder: "Username", socialMediaType: SOCIAL_MEDIA_TYPES.INSTAGRAM)
         }else if !instagramLink.isEmpty{
-            openInstagramProfile(instagramProfileName: instagramLink)
+            CommonMethods.openInstagramProfile(instagramProfileName: instagramLink)
         }else if instagramLink.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Instagram profile is not linked", buttonTitle: "OK")
         }
@@ -724,7 +746,7 @@ extension TrainerProfilePage {
         if isEditingProfile {
             showAlertWithTextBox(messageString: "Please enter Twitter username", withPlaceholder: "Username", socialMediaType: SOCIAL_MEDIA_TYPES.TWITTER)
         }else if !twitterLink.isEmpty{
-            openTwitterProfile(twitterUsername: twitterLink)
+            CommonMethods.openTwitterProfile(twitterUsername: twitterLink)
         }else if twitterLink.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Twitter profile is not linked", buttonTitle: "OK")
         }
@@ -735,7 +757,7 @@ extension TrainerProfilePage {
         if isEditingProfile {
             showAlertWithTextBox(messageString: "Please enter Youtube link", withPlaceholder: "Please paste youtube link here", socialMediaType: SOCIAL_MEDIA_TYPES.YOUTUBE)
         }else if !youtubeLink.isEmpty{
-            openYoutubeLink(youtubeLink: youtubeLink)
+            CommonMethods.openYoutubeLink(youtubeLink: youtubeLink)
         }else if youtubeLink.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Youtube link not provided", buttonTitle: "OK")
         }
@@ -806,102 +828,6 @@ extension TrainerProfilePage {
 
         default:
             print("Default case in saveSocialMediaLinks")
-        }
-    }
-    
-    //MARK: - OPEN SOCIAL MEDIA WITH URL's
-    func openTwitterProfile(twitterUsername: String) {
-        
-        let twitterProfileUrl = URL(string: "twitter://user?screen_name=\(twitterUsername)")
-        UIApplication.shared.open(twitterProfileUrl!, options: [:])
-    }
-
-    func openFBProfile(facebookUserID: String) {
-        
-        if UIApplication.shared.canOpenURL(URL(string: "fb://profile/\(facebookUserID)")!) {
-            //            UIApplication.shared.open(URL(string: "fb://profile?app_scoped_user_id=1442756282446578")!, options: [:])
-            UIApplication.shared.open(URL(string: "https://facebook.com/\(facebookUserID)")!, options: [:])
-        } else {
-            UIApplication.shared.open(URL(string: "https://facebook.com/\(facebookUserID)")!, options: [:])
-        }
-    }
-    
-    func openInstagramProfile(instagramProfileName: String) {
-        
-        let instagramHooks = "instagram://user?username=\(instagramProfileName)"
-        let instagramUrl = NSURL(string: instagramHooks)
-        
-        if UIApplication.shared.canOpenURL(instagramUrl! as URL){
-            UIApplication.shared.open(instagramUrl! as URL, options: [:])
-        } else {
-            UIApplication.shared.open(NSURL(string: "http://instagram.com/")! as URL, options: [:])
-        }
-    }
-    
-    func openYoutubeLink(youtubeLink: String){
-        let youtubeId = extractYoutubeIdFromLink(link: youtubeLink)
-        print("Youtube Identifier :\(String(describing: youtubeId!))")
-        UIApplication.shared.open(NSURL(string: "youtube://watch?v=\(youtubeId!)")! as URL, options: [:])
-    }
-    
-    func extractYoutubeIdFromLink(link: String) -> String? {
-        let pattern = "((?<=(v|V)/)|(?<=be/)|(?<=(\\?|\\&)v=)|(?<=embed/))([\\w-]++)"
-        guard let regExp = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
-            return nil
-        }
-        let nsLink = link as NSString
-        let options = NSRegularExpression.MatchingOptions(rawValue: 0)
-        let range = NSRange(location: 0, length: nsLink.length)
-        let matches = regExp.matches(in: link as String, options:options, range:range)
-        if let firstMatch = matches.first {
-            return nsLink.substring(with: firstMatch.range)
-        }
-        return nil
-    }
-    
-    func loginWithFacebook() {
-        
-        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
-        fbLoginManager.logOut()
-        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
-            if (error == nil){
-                let fbloginresult : FBSDKLoginManagerLoginResult = result!
-                
-                if (result?.isCancelled)! {
-                    return
-                }
-                
-                if(fbloginresult.grantedPermissions.contains("email")){
-                    self.getFBUserData()
-                }
-            }else{
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
-                print("FB ERROR")
-            }
-        }
-    }
-    
-    func getFBUserData(){
-        
-        CommonMethods.showProgress()
-        if((FBSDKAccessToken.current()) != nil){
-            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
-                
-                CommonMethods.hideProgress()
-                if (error == nil){
-                    
-                    print("RESULT Login",result!)
-                    self.fbUserDictionary = result as? NSDictionary
-                    
-                    let facebookId = (self.fbUserDictionary["id"] as? String)!
-                    print("Facebook ID:\(facebookId)")
-                    userDefaults.set(facebookId, forKey: "facebookId")
-                    self.openFBProfile(facebookUserID: facebookId)
-                }else{
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
-                    print("ERROR123",error?.localizedDescription as Any)
-                }
-            })
         }
     }
 }

@@ -180,8 +180,15 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
                     }
                     
                     let facebookId = (self.fbUserDictionary["id"] as? String)!
+                    let facebookName = (self.fbUserDictionary["name"] as? String)!
+                    
                     print("Facebook ID:\(facebookId)")
+                    print("Facebook Name:\(facebookName)")
+
                     userDefaults.set(facebookId, forKey: "facebookId")
+                    userDefaults.set(facebookName, forKey: "facebookUserName")
+                    userDefaults.set(true, forKey: "isFacebookAutoShare")
+
                     self.LoginAPI(Email: emailId, Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: facebookId, GoogleId: "")
                 }else{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")

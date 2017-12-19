@@ -13,6 +13,10 @@ import Firebase
 import UserNotifications
 import NVActivityIndicatorView
 
+import FBSDKLoginKit
+import FBSDKShareKit
+import TwitterKit
+
 class TrainerTraineeRouteViewController: UIViewController {
     
     @IBOutlet weak var timer_lbl: UILabel!
@@ -1464,4 +1468,99 @@ extension TrainerTraineeRouteViewController: UITextViewDelegate {
             textView.textColor = UIColor.lightGray
         }
     }
+}
+
+//MARK: - FACEBOOK SHARING FUNCTIONS & DELEGATES
+
+extension TrainerTraineeRouteViewController: FBSDKSharingDelegate {
+    
+    func btnPostMsg() {
+        
+        if FBSDKAccessToken.current().hasGranted("publish_actions") {
+            
+            FBSDKGraphRequest.init(graphPath: "me/feed", parameters: ["message" : "Posted with FBSDK Graph API."], httpMethod: "POST").start(completionHandler: { (connection, result, error) -> Void in
+                if let error = error {
+                    print("Error: \(error)")
+                } else {
+                    //self.alertShow("Message")
+                }
+            })
+        } else {
+            print("require publish_actions permissions")
+        }
+    }
+    
+    func btnPostPhoto(sender: UIButton) {
+        if FBSDKAccessToken.current().hasGranted("publish_actions") {
+            let content = FBSDKSharePhotoContent()
+            content.photos = [FBSDKSharePhoto(image: #imageLiteral(resourceName: "profileImage"), userGenerated: true)]
+            //[FBSDKSharePhoto(imag , userGenerated: true)]
+            FBSDKShareAPI.share(with: content, delegate: self)
+        } else {
+            print("require publish_actions permissions")
+        }
+    }
+    
+    func sharer(_ sharer: FBSDKSharing!, didCompleteWithResults results: [AnyHashable : Any]!) {
+        print("didCompleteWithResults")
+        
+    }
+    
+    func sharer(_ sharer: FBSDKSharing!, didFailWithError error: Error!) {
+        print("didFailWithError")
+    }
+    
+    func sharerDidCancel(_ sharer: FBSDKSharing!) {
+        print("sharerDidCancel")
+    }
+    
+    func post(tweetString: String, tweetImage: Data ,withUserID :String) {
+        
+        let uploadUrl = "https://upload.twitter.com/1.1/media/upload.json"
+        let updateUrl = "https://api.twitter.com/1.1/statuses/update.json"
+//        let imageString = tweetImage.base64EncodedString(options: NSData.Base64EncodingOptions())
+        
+        
+        let client = TWTRAPIClient.init(userID: withUserID)
+        
+//        let requestUploadUrl = client.urlRequest(withMethod: "POST", url: uploadUrl, parameters: ["media": imageString], error: nil)
+//        
+//        client.sendTwitterRequest(requestUploadUrl) { (urlResponse, data, connectionError) -> Void in
+//            if connectionError == nil {
+//                if let mediaDict = self.nsdataToJSON(data: (data! as NSData) as Data as Data as NSData) as? [String : Any] {
+//                    let media_id = mediaDict["media_id_string"] as! String
+//                    let message = ["status": tweetString, "media_ids": media_id]
+//                    
+//                    let requestUpdateUrl = client.urlRequest(withMethod: "POST", url: updateUrl, parameters: message, error: nil)
+//                    
+//                    client.sendTwitterRequest(requestUpdateUrl, completion: { (urlResponse, data, connectionError) -> Void in
+//                        if connectionError == nil {
+//                            if let _ = self.nsdataToJSON(data: (data! as NSData) as Data as Data as NSData) as? [String : Any] {
+//                                print("Upload suceess to Twitter")
+//                            }
+//                        }
+//                        
+//                    })
+//                }
+//            }
+//        }
+        
+        let message = ["status": tweetString]
+        
+        let requestUpdateUrl = client.urlRequest(withMethod: "POST", url: updateUrl, parameters: message, error: nil)
+        
+        client.sendTwitterRequest(requestUpdateUrl, completion: { (urlResponse, data, connectionError) -> Void in
+            if connectionError == nil {
+                
+                print("Upload suceess to Twitter")
+
+//                if let _ = self.nsdataToJSON(data: (data! as NSData) as Data as Data as NSData) as? [String : Any] {
+//                    print("Upload suceess to Twitter")
+//                }
+            }
+            
+        })
+        
+    }
+
 }

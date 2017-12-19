@@ -40,6 +40,8 @@ target 'BuddyApp' do
     
     pod 'NewRelicAgent'
 
+    pod 'TwitterKit'
+
 
   # Pods for BuddyApp
 

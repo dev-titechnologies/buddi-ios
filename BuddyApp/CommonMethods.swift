@@ -11,6 +11,10 @@ import CoreData
 import SwiftyJSON
 import Alamofire
 import SVProgressHUD
+import FBSDKCoreKit
+import FBSDKLoginKit
+import TwitterKit
+import TwitterCore
 
 class CommonMethods: NSObject {
 
@@ -373,6 +377,104 @@ class CommonMethods: NSObject {
             }
         })
     }
+    
+    class func openTwitterProfile(twitterUsername: String) {
+        
+        let twitterProfileUrl = URL(string: "twitter://user?screen_name=\(twitterUsername)")
+        UIApplication.shared.open(twitterProfileUrl!, options: [:])
+    }
+    
+    class func openFBProfile(facebookUserID: String) {
+        
+        if UIApplication.shared.canOpenURL(URL(string: "fb://profile/\(facebookUserID)")!) {
+            //            UIApplication.shared.open(URL(string: "fb://profile?app_scoped_user_id=1442756282446578")!, options: [:])
+            UIApplication.shared.open(URL(string: "https://facebook.com/\(facebookUserID)")!, options: [:])
+        } else {
+            UIApplication.shared.open(URL(string: "https://facebook.com/\(facebookUserID)")!, options: [:])
+        }
+    }
+    
+    class func openInstagramProfile(instagramProfileName: String) {
+        
+        let instagramHooks = "instagram://user?username=\(instagramProfileName)"
+        let instagramUrl = NSURL(string: instagramHooks)
+        
+        if UIApplication.shared.canOpenURL(instagramUrl! as URL){
+            UIApplication.shared.open(instagramUrl! as URL, options: [:])
+        } else {
+            UIApplication.shared.open(NSURL(string: "http://instagram.com/")! as URL, options: [:])
+        }
+    }
+    
+    class func openYoutubeLink(youtubeLink: String){
+        let youtubeId = extractYoutubeIdFromLink(link: youtubeLink)
+        print("Youtube Identifier :\(String(describing: youtubeId!))")
+        UIApplication.shared.open(NSURL(string: "youtube://watch?v=\(youtubeId!)")! as URL, options: [:])
+    }
+    
+    class func extractYoutubeIdFromLink(link: String) -> String? {
+        let pattern = "((?<=(v|V)/)|(?<=be/)|(?<=(\\?|\\&)v=)|(?<=embed/))([\\w-]++)"
+        guard let regExp = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
+            return nil
+        }
+        let nsLink = link as NSString
+        let options = NSRegularExpression.MatchingOptions(rawValue: 0)
+        let range = NSRange(location: 0, length: nsLink.length)
+        let matches = regExp.matches(in: link as String, options:options, range:range)
+        if let firstMatch = matches.first {
+            return nsLink.substring(with: firstMatch.range)
+        }
+        return nil
+    }
+    
+    //MARK: - LOGIN WITH FACEBOOK
+
+    class func loginWithFacebook(viewcontroller: UIViewController) {
+        
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logOut()
+        fbLoginManager.logIn(withReadPermissions: ["email"], from: viewcontroller) { (result, error) -> Void in
+            if (error == nil){
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                
+                if (result?.isCancelled)! {
+                    return
+                }
+                
+                if(fbloginresult.grantedPermissions.contains("email")){
+                    self.getFBUserData()
+                }
+            }else{
+                CommonMethods.alertView(view: viewcontroller, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
+                print("FB ERROR")
+            }
+        }
+    }
+    
+    class func getFBUserData(){
+        
+        CommonMethods.showProgress()
+        if((FBSDKAccessToken.current()) != nil){
+            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
+                
+                CommonMethods.hideProgress()
+                if (error == nil){
+                    
+                    print("RESULT Login",result!)
+                    var fbUserDictionary: NSDictionary!
+                    fbUserDictionary = result as? NSDictionary
+                    
+                    let facebookId = (fbUserDictionary["id"] as? String)!
+                    print("Facebook ID:\(facebookId)")
+                    userDefaults.set(facebookId, forKey: "facebookId")
+                    CommonMethods.openFBProfile(facebookUserID: facebookId)
+                }else{
+//                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
+                    print("ERROR123",error?.localizedDescription as Any)
+                }
+            })
+        }
+    }
 }
 
 class ButtonWithShadow: UIButton {
@@ -418,6 +520,7 @@ extension UIView {
 //        outerView.layer.shadowRadius = 10
 //        outerView.layer.shadowPath = UIBezierPath(roundedRect: outerView.bounds, cornerRadius: 10).cgPath
     }
+    
 }
 
 extension UIViewController {
@@ -439,9 +542,13 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "TimerData")
         userDefaults.removeObject(forKey: "isShowingWaitingForExtendRequest")
         userDefaults.removeObject(forKey: "facebookId")
+        userDefaults.removeObject(forKey: "facebookUserName")
         
         userDefaults.removeObject(forKey: "isSessionStartedFromPush_AppKilledState")
         userDefaults.removeObject(forKey: "sessionStartedPushReceivedTime")
+        
+        userDefaults.removeObject(forKey: "isFacebookAutoShare")
+        userDefaults.removeObject(forKey: "isTwitterAutoShare")
         
         choosedTrainingLocationPreference = ""
         choosedCategoryOfTraineePreference = CategoryModel()
@@ -456,6 +563,12 @@ extension UIViewController {
         
         ProfileImageDB.deleteImages()
         ProfileDB.deleteProfile()
+        
+        let store = Twitter.sharedInstance().sessionStore
+        if let userID = store.session()?.userID {
+            print("Logout success with User ID:\(userID)")
+            store.logOutUserID(userID)
+        }
         
         let controller  = storyboard?.instantiateViewController(withIdentifier: "RegisterorloginViewController") as! RegisterorloginViewController
         //self.presentViewController(controller, animated: true, completion: nil)

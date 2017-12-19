@@ -27,6 +27,12 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>twitterkit-HvxI2RuOw573ofkQm9bzfRWWT</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
 				<string>fb1934978090076246</string>
 			</array>
 		</dict>
@@ -56,6 +62,14 @@
 				<string>com.titechnologies.BuddyApp.payments</string>
 			</array>
 		</dict>
+        
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>twitterkit-HvxI2RuOw573ofkQm9bzfRWWT</string>
+            </array>
+        </dict>
+        
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -72,12 +86,11 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 		<string>com.titechnologies.BuddyApp.payments</string>
-        
-        <string>instagram</string>
-        <string>fb</string>
-        <string>twitter</string>
-        <string>youtube</string>
-
+		<string>instagram</string>
+		<string>fb</string>
+		<string>youtube</string>
+		<string>twitter</string>
+		<string>twitterauth</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -110,6 +123,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-    
 </dict>
 </plist>

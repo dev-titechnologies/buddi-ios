@@ -145,6 +145,7 @@
 		F3CD1E301F3B18C100398705 /* mapstogpx20170809_095410.gpx in Resources */ = {isa = PBXBuildFile; fileRef = F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */; };
 		F3D0EF421F289C3C009B60E7 /* ProfileImageDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */; };
 		F3D0EF431F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */; };
+		F3D395FF1FE79BE800348755 /* SocialAutoShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D395FE1FE79BE800348755 /* SocialAutoShareCell.swift */; };
 		F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */; };
 		F3F5955D1F59587A00110123 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F5955C1F59587A00110123 /* ContactModel.swift */; };
 		F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */; };
@@ -320,6 +321,7 @@
 		F3CD1E2F1F3B18C100398705 /* mapstogpx20170809_095410.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mapstogpx20170809_095410.gpx; sourceTree = "<group>"; };
 		F3D0EF401F289C3C009B60E7 /* ProfileImageDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageDB.swift; sourceTree = "<group>"; };
 		F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileImageDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F3D395FE1FE79BE800348755 /* SocialAutoShareCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAutoShareCell.swift; sourceTree = "<group>"; };
 		F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTestAnswersModel.swift; sourceTree = "<group>"; };
 		F3D640081F73AC5D00F822B3 /* BuddyApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BuddyApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		F3F5955C1F59587A00110123 /* ContactModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
@@ -439,7 +441,7 @@
 			name = NetworkCheck;
 			sourceTree = "<group>";
 		};
-		F30B60191F1DCECD00374136 /* ExternalFrameworks */ = {
+		F30B60191F1DCECD00374136 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				F3B52EDF1F3AE452007910BC /* SocketIO */,
@@ -450,7 +452,7 @@
 				F30B601C1F1DCEED00374136 /* FBSDKLoginKit.framework */,
 				F30B601D1F1DCEED00374136 /* FBSDKShareKit.framework */,
 			);
-			name = ExternalFrameworks;
+			name = "External Frameworks";
 			sourceTree = "<group>";
 		};
 		F31533EE1F9493E40051FC49 /* Stripe */ = {
@@ -544,7 +546,7 @@
 				F302BB901F1F297B00186BCC /* Login Viewcontroller */,
 				F35FDABB1F1DE9000091900D /* Booking/Training History */,
 				F35FDAB61F1DE49B0091900D /* Temp JSON Files */,
-				F30B60191F1DCECD00374136 /* ExternalFrameworks */,
+				F30B60191F1DCECD00374136 /* External Frameworks */,
 				F322FC721F1CF1AE00381B8C /* Globals */,
 				F322FC711F1CF19500381B8C /* DataModal */,
 				F33427441F2A1BD500D3EC46 /* BuddyApp.entitlements */,
@@ -831,6 +833,7 @@
 				F3C5955B1F4EECE100808ACB /* SessionPreferenceCell.swift */,
 				F3C5955D1F4EED2B00808ACB /* GenderPreferenceCell.swift */,
 				F3C5955F1F4EED9300808ACB /* PreferenceSectionHeader.swift */,
+				F3D395FE1FE79BE800348755 /* SocialAutoShareCell.swift */,
 			);
 			name = "Settings Page";
 			sourceTree = "<group>";
@@ -1334,6 +1337,7 @@
 				F3FBA7BF1F3C70DB00B882B7 /* MapBottamButtonCell.swift in Sources */,
 				F3990E211F1F77E1000FFF7B /* APIURLs.swift in Sources */,
 				F3C595601F4EED9300808ACB /* PreferenceSectionHeader.swift in Sources */,
+				F3D395FF1FE79BE800348755 /* SocialAutoShareCell.swift in Sources */,
 				F35FDADE1F1E517C0091900D /* BookingHistoryTableCell.swift in Sources */,
 				F3C5955E1F4EED2B00808ACB /* GenderPreferenceCell.swift in Sources */,
 			);

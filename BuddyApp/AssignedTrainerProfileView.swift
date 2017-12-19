@@ -34,6 +34,16 @@ class AssignedTrainerProfileView: UIViewController {
     var numOfDays = Int()
     var timerCheckValue = Bool()
     
+    //social media urls/links
+    var facebookLink = String()
+    var instagramLink = String()
+    var linkdInLink = String()
+    var snapchatLink = String()
+    var twitterLink = String()
+    var youtubeLink = String()
+
+//MARK: - VIEW CYCLES 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -193,9 +203,16 @@ extension AssignedTrainerProfileView: UITableViewDataSource{
             return cell
 
         }else if indexPath.row == 5{
-            let cell: AssignedTrainerSocialMediaCell = tableView.dequeueReusableCell(withIdentifier: "socialMediaCellId") as! AssignedTrainerSocialMediaCell
-            return cell
-
+            let socialMediaCell: AssignedTrainerSocialMediaCell = tableView.dequeueReusableCell(withIdentifier: "socialMediaCellId") as! AssignedTrainerSocialMediaCell
+            
+            socialMediaCell.btnFacebook.addTarget(self, action: #selector(AssignedTrainerProfileView.facebookAction(sender:)), for: .touchUpInside)
+            socialMediaCell.btnInstagram.addTarget(self, action: #selector(AssignedTrainerProfileView.instagramAction(sender:)), for: .touchUpInside)
+            socialMediaCell.btnLinkdIn.addTarget(self, action: #selector(AssignedTrainerProfileView.linkdInAction(sender:)), for: .touchUpInside)
+            socialMediaCell.btnSnapchat.addTarget(self, action: #selector(AssignedTrainerProfileView.snapChatAction(sender:)), for: .touchUpInside)
+            socialMediaCell.btnTwitter.addTarget(self, action: #selector(AssignedTrainerProfileView.twitterAction(sender:)), for: .touchUpInside)
+            socialMediaCell.btnYoutube.addTarget(self, action: #selector(AssignedTrainerProfileView.youtubeAction(sender:)), for: .touchUpInside)
+            
+            return socialMediaCell
         }else{
             let cell: AssignedTrainerEmailCell = tableView.dequeueReusableCell(withIdentifier: "emailCellId") as! AssignedTrainerEmailCell
             return cell
@@ -214,6 +231,56 @@ extension AssignedTrainerProfileView: UITableViewDataSource{
             row = 60.0
         }
         return CGFloat(row)
+    }
+}
+
+//MARK: - SOCIAL MEDIA ACTIONS
+extension AssignedTrainerProfileView {
+    
+    func facebookAction(sender : UIButton){
+        
+        if let facebook_id = userDefaults.value(forKey: "facebookId") as? String {
+            facebookLink = facebook_id
+        }
+        
+        if !facebookLink.isEmpty{
+            CommonMethods.openFBProfile(facebookUserID: facebookLink)
+        }else if facebookLink.isEmpty{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Facebook profile is not linked with the profile", buttonTitle: "OK")
+        }
+    }
+    
+    func instagramAction(sender : UIButton){
+        
+        if !instagramLink.isEmpty{
+            CommonMethods.openInstagramProfile(instagramProfileName: instagramLink)
+        }else if instagramLink.isEmpty{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Instagram profile is not linked", buttonTitle: "OK")
+        }
+    }
+    
+    func linkdInAction(sender : UIButton){
+    }
+    
+    func snapChatAction(sender : UIButton){
+    }
+    
+    func twitterAction(sender : UIButton){
+        
+        if !twitterLink.isEmpty{
+            CommonMethods.openTwitterProfile(twitterUsername: twitterLink)
+        }else if twitterLink.isEmpty{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Twitter profile is not linked", buttonTitle: "OK")
+        }
+    }
+    
+    func youtubeAction(sender : UIButton){
+        
+        if !youtubeLink.isEmpty{
+            CommonMethods.openYoutubeLink(youtubeLink: youtubeLink)
+        }else if youtubeLink.isEmpty{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Youtube link not provided", buttonTitle: "OK")
+        }
     }
 }
 

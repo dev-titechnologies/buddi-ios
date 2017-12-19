@@ -10,11 +10,15 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 import GooglePlacePicker
+import TwitterKit
+import TwitterCore
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var settingsTableView: UITableView!
-    let headerSectionTitles = ["Location Preference" ,"Training Category Preference", "Gender Preference", "Session Length Preference"]
+    let headerSectionTitles = ["Location Preference" ,"Training Category Preference", "Gender Preference", "Session Length Preference", "Social Media Auto Share"]
     let sessionTime = ["40","60"]
     var collapseArray = [Bool]()
     var sessionChoosed = Int()
@@ -33,6 +37,16 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
 
     var trainingLocationModelObj = TrainingLocationModel()
     var preferenceModelObj = PreferenceModel()
+    
+    var isTwitterAutoShare = Bool()
+    var isFacebookAutoShare = Bool()
+    var twitterUserName = String()
+    var isTwitterSessionPresent = Bool()
+    
+    var facebookUserName = String()
+    var isFacebookSessionPresent = Bool()
+    
+    //MARK: - VIEW CYCLES 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +68,83 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
         
         print("Settings Page ViewWillAppear")
         self.settingsTableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+        fetchSocialAutoShareValuesFromUserDefaults()
+    }
+    
+    func fetchSocialAutoShareValuesFromUserDefaults() {
+        
+        if userDefaults.bool(forKey: "isFacebookAutoShare"){
+            isFacebookAutoShare = true
+            isFacebookSessionPresent = true
+            facebookUserName = userDefaults.value(forKey: "facebookUserName") as! String
+        }else{
+            isFacebookAutoShare = false
+        }
+        
+        if userDefaults.bool(forKey: "isTwitterAutoShare"){
+            isTwitterAutoShare = true
+        }else{
+            isTwitterAutoShare = false
+        }
+        
+        if let session = Twitter.sharedInstance().sessionStore.session() {
+            print("*** Twitter Session present ***")
+            print("Session ID:\(session.userID)")
+            let client = TWTRAPIClient()
+            client.loadUser(withID: session.userID) { (user, error) -> Void in
+                if let user = user {
+                    self.isTwitterSessionPresent = true
+                    self.twitterUserName = user.screenName
+                    print("Session Name:\(user.screenName)")
+                }
+            }
+        }
+        
+//        facebookSessionCheck()
+    }
+    
+    func facebookLogin() {
+        
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logOut()
+        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
+            if (error == nil){
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                
+                if (result?.isCancelled)! {
+                    return
+                }
+                
+                if(fbloginresult.grantedPermissions.contains("email")){
+                    self.getFBUserData()
+                }
+            }else{
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
+                print("FB ERROR")
+            }
+        }
+    }
+    
+    func getFBUserData(){
+        if((FBSDKAccessToken.current()) != nil){
+            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
+                if (error == nil){
+                    print("RESULT Login",result!)
+                    let fbUserDictionary = result as? NSDictionary
+                    print("fbUserDictionary:\(String(describing: fbUserDictionary))")
+                    
+                    let facebookName = (fbUserDictionary?["name"] as? String)!
+
+                    self.facebookUserName = facebookName
+                    userDefaults.set(facebookName, forKey: "facebookUserName")
+                    userDefaults.set(true, forKey: "isFacebookAutoShare")
+                    self.isFacebookSessionPresent = true
+                    self.isFacebookAutoShare = true
+                    let indexpath: IndexPath = IndexPath.init(row: 0, section: 4)
+                    self.settingsTableView.reloadRows(at: [indexpath], with: .automatic)
+                }
+            })
+        }
     }
 
     func getPreferenceModel() {
@@ -162,6 +253,8 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             return 1
         }else if section == 3{
             return trainingDurationArray.count
+        }else if section == 4 {
+            return socialMediaTitles.count
         }else{
             return 0
         }
@@ -236,6 +329,33 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             genderCell.btnNopreferance.addTarget(self, action: #selector(ChooseSessionAndGenderVC.choosedGender(sender:)), for: .touchUpInside)
             
             return genderCell
+        }else if indexPath.section == 4{
+            //Social Media Auto Share
+            
+            let socialShareCell: SocialAutoShareCell = tableView.dequeueReusableCell(withIdentifier: "socialAutoShareCellId") as! SocialAutoShareCell
+            
+            socialShareCell.lblSocialTitle.text = socialMediaTitles[indexPath.row]
+        
+            socialShareCell.btnSwitch.tag = indexPath.row
+            socialShareCell.btnSwitch.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)
+            
+            if indexPath.row == 0 && isFacebookAutoShare {
+                socialShareCell.btnSwitch.isOn = true
+                socialShareCell.lblUserName.text = self.facebookUserName
+                socialShareCell.lblUserName.isHidden = false
+            }else if indexPath.row == 0 && !isFacebookAutoShare {
+                socialShareCell.btnSwitch.isOn = false
+                socialShareCell.lblUserName.isHidden = true
+            }else if indexPath.row == 1 && isTwitterAutoShare {
+                socialShareCell.btnSwitch.isOn = true
+                socialShareCell.lblUserName.text = self.twitterUserName
+                socialShareCell.lblUserName.isHidden = false
+            }else if indexPath.row == 1 && !isTwitterAutoShare {
+                socialShareCell.btnSwitch.isOn = false
+                socialShareCell.lblUserName.isHidden = true
+            }
+            
+            return socialShareCell
         }else{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellid")!
             return cell
@@ -249,7 +369,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if collapseArray[indexPath.section]{
-            if indexPath.section == 3{
+            if indexPath.section == 3 || indexPath.section == 4{
                 return 60
             }else if indexPath.section == 2{
                 return 114
@@ -259,6 +379,66 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         }else{
             return 0
         }
+    }
+    
+    func switchValueDidChange(_ sender: UISwitch) {
+
+        print("Switch button tag:\(sender.tag)")
+        if sender.tag == 0 {
+            //Facebook
+            
+            if isFacebookAutoShare{
+                userDefaults.set(false, forKey: "isFacebookAutoShare")
+                isFacebookAutoShare = false
+                let indexpath: IndexPath = IndexPath.init(row: sender.tag, section: 4)
+                self.settingsTableView.reloadRows(at: [indexpath], with: .automatic)
+            }else{
+                
+                if isFacebookSessionPresent{
+                    userDefaults.set(true, forKey: "isFacebookAutoShare")
+                    isFacebookAutoShare = true
+                    print("User Name1:\(self.facebookUserName)")
+                    let indexpath: IndexPath = IndexPath.init(row: sender.tag, section: 4)
+                    self.settingsTableView.reloadRows(at: [indexpath], with: .automatic)
+                }else{
+                    facebookLogin()
+                }
+            }
+            
+        }else if sender.tag == 1{
+            //Twitter
+            
+            if isTwitterAutoShare{
+                userDefaults.set(false, forKey: "isTwitterAutoShare")
+                isTwitterAutoShare = false
+                let indexpath: IndexPath = IndexPath.init(row: sender.tag, section: 4)
+                self.settingsTableView.reloadRows(at: [indexpath], with: .automatic)
+            }else{
+                
+                print("isTwitterSessionPresent:\(isTwitterSessionPresent)")
+                if isTwitterSessionPresent{
+                    userDefaults.set(true, forKey: "isTwitterAutoShare")
+                    isTwitterAutoShare = true
+                    print("User Name1:\(self.twitterUserName)")
+                    let indexpath: IndexPath = IndexPath.init(row: sender.tag, section: 4)
+                    self.settingsTableView.reloadRows(at: [indexpath], with: .automatic)
+                }else{
+                    Twitter.sharedInstance().logIn { session, error in
+                        print("*** Twitter Login Completion Handler ***")
+                        if (session != nil){
+                            print("User Name:\((session?.userName)!)")
+                            self.twitterUserName = (session?.userName)!
+                            userDefaults.set(true, forKey: "isTwitterAutoShare")
+                            self.isTwitterSessionPresent = true
+                            self.isTwitterAutoShare = true
+                            let indexpath: IndexPath = IndexPath.init(row: sender.tag, section: 4)
+                            self.settingsTableView.reloadRows(at: [indexpath], with: .automatic)
+                        }
+                    }
+                }
+            }
+        }
+        
     }
     
     func choosedGender(sender : UIButton){
@@ -318,7 +498,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             }else if choosed_session_duration == "60" {
                 cell.lblSelectedValue.text = "1 Hour"
             }
-            
+
         default:
             print("View for sectionheader Default Case catched")
         }
@@ -362,7 +542,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         
         headerChoosed = (sender.view?.tag)!
         let collapsed = collapseArray[indexpath.section]
-        if indexpath.section == 2 || indexpath.section == 3 {
+        if indexpath.section == 2 || indexpath.section == 3 || indexpath.section == 4 {
             self.collapseArray[indexpath.section] = !collapsed
             self.settingsTableView.reloadSections(IndexSet(integer: indexpath.section), with: .automatic)
 
