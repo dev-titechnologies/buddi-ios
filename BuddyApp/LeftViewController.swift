@@ -284,17 +284,7 @@ extension LeftViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if appDelegate.USER_TYPE == "trainer" {
-        
-            if indexPath.row == 1{
-                return 0
-            }else{
-                return 50
-            }
-        }else{
-            return 50
-        }
+        return 50
     }
 }
 
@@ -321,7 +311,7 @@ extension LeftViewController : UITableViewDelegate{
             case 1:
                 print("One")
                 print("Settings")
-                self.performSegue(withIdentifier: "blankPageSegue", sender: self)
+                self.performSegue(withIdentifier: "fromLeftMenuToSettingsPageSegue", sender: self)
                 
             case 2:
                 print("Two")

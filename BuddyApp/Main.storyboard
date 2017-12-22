@@ -3356,7 +3356,7 @@ Good luck!
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4141,9 +4141,9 @@ Good luck!
                                                     <rect key="frame" x="0.0" y="50" width="375" height="73"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nli-jg-ZGZ">
-                                                            <rect key="frame" x="32" y="13" width="311" height="46"/>
+                                                            <rect key="frame" x="85" y="13" width="205" height="46"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntu-vA-RYF">
+                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntu-vA-RYF">
                                                                     <rect key="frame" x="1" y="1" width="45" height="45"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="45" id="aOC-xh-hyR"/>
@@ -4151,7 +4151,7 @@ Good luck!
                                                                     </constraints>
                                                                     <state key="normal" image="FACEBOOK"/>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qKH-kQ-cu1">
+                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qKH-kQ-cu1">
                                                                     <rect key="frame" x="54" y="1" width="45" height="45"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="45" id="PZj-0c-sOy"/>
@@ -4159,32 +4159,16 @@ Good luck!
                                                                     </constraints>
                                                                     <state key="normal" image="INSTAGRAM"/>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="If0-vX-tiT">
+                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRv-wX-OSo">
                                                                     <rect key="frame" x="107" y="1" width="45" height="45"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="45" id="N23-ZM-wSH"/>
-                                                                        <constraint firstAttribute="height" constant="45" id="w57-Hf-VB8"/>
-                                                                    </constraints>
-                                                                    <state key="normal" image="LINKEDIN"/>
-                                                                </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4cP-WV-9eK">
-                                                                    <rect key="frame" x="160" y="1" width="45" height="45"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="45" id="MZ7-38-8Bl"/>
-                                                                        <constraint firstAttribute="width" constant="45" id="j0H-1S-3X4"/>
-                                                                    </constraints>
-                                                                    <state key="normal" image="ANAPCHAT"/>
-                                                                </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRv-wX-OSo">
-                                                                    <rect key="frame" x="213" y="1" width="45" height="45"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="45" id="O40-Vg-24b"/>
                                                                         <constraint firstAttribute="height" constant="45" id="wu3-gp-ite"/>
                                                                     </constraints>
                                                                     <state key="normal" image="TWITTER"/>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16r-wX-OdL">
-                                                                    <rect key="frame" x="266" y="1" width="45" height="45"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16r-wX-OdL">
+                                                                    <rect key="frame" x="160" y="1" width="45" height="45"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="45" id="2SL-m4-mGU"/>
                                                                         <constraint firstAttribute="height" constant="45" id="De9-wc-M2O"/>
@@ -4194,27 +4178,17 @@ Good luck!
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="width" constant="205" id="15X-dE-5oF"/>
                                                                 <constraint firstItem="16r-wX-OdL" firstAttribute="leading" secondItem="yRv-wX-OSo" secondAttribute="trailing" constant="8" id="2MD-Ei-GwS"/>
-                                                                <constraint firstItem="If0-vX-tiT" firstAttribute="centerY" secondItem="Nli-jg-ZGZ" secondAttribute="centerY" id="6FM-kU-ZF4"/>
-                                                                <constraint firstItem="qKH-kQ-cu1" firstAttribute="centerY" secondItem="Nli-jg-ZGZ" secondAttribute="centerY" id="POW-Ug-89M"/>
-                                                                <constraint firstItem="4cP-WV-9eK" firstAttribute="leading" secondItem="If0-vX-tiT" secondAttribute="trailing" constant="8" id="RdI-dl-uVw"/>
-                                                                <constraint firstItem="yRv-wX-OSo" firstAttribute="leading" secondItem="4cP-WV-9eK" secondAttribute="trailing" constant="8" id="U3i-Vd-IEa"/>
+                                                                <constraint firstAttribute="height" constant="46" id="7Z0-D9-9gG"/>
                                                                 <constraint firstItem="qKH-kQ-cu1" firstAttribute="leading" secondItem="ntu-vA-RYF" secondAttribute="trailing" constant="8" id="VEG-NG-znb"/>
-                                                                <constraint firstAttribute="width" constant="311" id="Vbs-6a-NvX"/>
-                                                                <constraint firstItem="If0-vX-tiT" firstAttribute="leading" secondItem="qKH-kQ-cu1" secondAttribute="trailing" constant="8" id="e4Y-Dn-NvK"/>
-                                                                <constraint firstItem="ntu-vA-RYF" firstAttribute="leading" secondItem="Nli-jg-ZGZ" secondAttribute="leading" constant="1" id="grs-Zv-cuE"/>
-                                                                <constraint firstItem="4cP-WV-9eK" firstAttribute="centerY" secondItem="Nli-jg-ZGZ" secondAttribute="centerY" id="i1R-3h-a8Q"/>
-                                                                <constraint firstItem="ntu-vA-RYF" firstAttribute="centerY" secondItem="Nli-jg-ZGZ" secondAttribute="centerY" id="jH8-K5-P0g"/>
-                                                                <constraint firstAttribute="height" constant="46" id="tRV-W7-UKC"/>
-                                                                <constraint firstItem="yRv-wX-OSo" firstAttribute="centerY" secondItem="Nli-jg-ZGZ" secondAttribute="centerY" id="yHf-AJ-rBA"/>
-                                                                <constraint firstItem="16r-wX-OdL" firstAttribute="centerY" secondItem="Nli-jg-ZGZ" secondAttribute="centerY" id="yul-Tj-KyC"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="Nli-jg-ZGZ" firstAttribute="centerX" secondItem="oAL-FL-Dlk" secondAttribute="centerX" id="QSE-LX-cv4"/>
-                                                        <constraint firstItem="Nli-jg-ZGZ" firstAttribute="centerY" secondItem="oAL-FL-Dlk" secondAttribute="centerY" id="yGc-mm-9JH"/>
+                                                        <constraint firstItem="Nli-jg-ZGZ" firstAttribute="centerY" secondItem="oAL-FL-Dlk" secondAttribute="centerY" id="Tck-mR-3ZP"/>
+                                                        <constraint firstItem="Nli-jg-ZGZ" firstAttribute="centerX" secondItem="oAL-FL-Dlk" secondAttribute="centerX" id="Z1d-LY-tLj"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ULS-zF-Grl">
@@ -4244,8 +4218,6 @@ Good luck!
                                         <connections>
                                             <outlet property="btnFacebook" destination="ntu-vA-RYF" id="KWF-0b-lqS"/>
                                             <outlet property="btnInstagram" destination="qKH-kQ-cu1" id="TKl-SM-pEk"/>
-                                            <outlet property="btnLinkdIn" destination="If0-vX-tiT" id="LjD-s5-Pek"/>
-                                            <outlet property="btnSnapchat" destination="4cP-WV-9eK" id="kGN-NJ-tk7"/>
                                             <outlet property="btnTwitter" destination="yRv-wX-OSo" id="z0l-a5-TKV"/>
                                             <outlet property="btnYoutube" destination="16r-wX-OdL" id="8t5-QY-aAa"/>
                                         </connections>
@@ -4333,7 +4305,7 @@ Good luck!
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J7u-h3-oPS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="kh1-wL-lTz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4134" y="161"/>
+            <point key="canvasLocation" x="4133.6000000000004" y="160.11994002998503"/>
         </scene>
         <!--Trainer Review Page-->
         <scene sceneID="hG1-se-oID">
@@ -4559,7 +4531,7 @@ Good luck!
         <scene sceneID="JV1-e2-V2l">
             <objects>
                 <navigationController id="bfa-Jp-2Bb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tZC-5K-bWZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="tZC-5K-bWZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.45264789109999998" green="0.91861756699999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4579,7 +4551,7 @@ Good luck!
         <scene sceneID="wf6-Ge-wPY">
             <objects>
                 <navigationController id="ZIt-ll-KxO" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GnR-cL-Xtf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GnR-cL-Xtf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.45264789109999998" green="0.91861756699999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4939,7 +4911,7 @@ Good luck!
         <scene sceneID="jC1-lN-15y">
             <objects>
                 <navigationController storyboardIdentifier="TESTID" navigationBarHidden="YES" id="LLd-uo-cBv" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKN-vf-25e">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CKN-vf-25e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -7279,81 +7251,41 @@ Good luck!
                                                                     <rect key="frame" x="0.0" y="50" width="375" height="72.5"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3xX-AF-v19">
-                                                                            <rect key="frame" x="32" y="14" width="311" height="46"/>
+                                                                            <rect key="frame" x="85" y="14" width="205" height="46"/>
                                                                             <subviews>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vsz-iZ-Si8">
-                                                                                    <rect key="frame" x="1" y="1" width="45" height="45"/>
-                                                                                    <constraints>
-                                                                                        <constraint firstAttribute="width" constant="45" id="Xgk-FN-Wnl"/>
-                                                                                        <constraint firstAttribute="height" constant="45" id="jra-1R-vfK"/>
-                                                                                    </constraints>
+                                                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vsz-iZ-Si8">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                                     <state key="normal" image="FACEBOOK"/>
                                                                                 </button>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3U1-62-dfg">
-                                                                                    <rect key="frame" x="54" y="1" width="45" height="45"/>
-                                                                                    <constraints>
-                                                                                        <constraint firstAttribute="height" constant="45" id="91f-wx-Usa"/>
-                                                                                        <constraint firstAttribute="width" constant="45" id="zkI-ol-zPz"/>
-                                                                                    </constraints>
+                                                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3U1-62-dfg">
+                                                                                    <rect key="frame" x="53" y="0.0" width="45" height="45"/>
+                                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                                     <state key="normal" image="INSTAGRAM"/>
                                                                                 </button>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mWv-Wd-L2K">
-                                                                                    <rect key="frame" x="107" y="1" width="45" height="45"/>
-                                                                                    <constraints>
-                                                                                        <constraint firstAttribute="width" constant="45" id="nHE-Ur-FTP"/>
-                                                                                        <constraint firstAttribute="height" constant="45" id="xan-jK-PG2"/>
-                                                                                    </constraints>
-                                                                                    <state key="normal" image="LINKEDIN"/>
-                                                                                </button>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8xs-qF-xk1">
-                                                                                    <rect key="frame" x="160" y="1" width="45" height="45"/>
-                                                                                    <constraints>
-                                                                                        <constraint firstAttribute="width" constant="45" id="FVS-TR-lPL"/>
-                                                                                        <constraint firstAttribute="height" constant="45" id="kLd-SL-0El"/>
-                                                                                    </constraints>
-                                                                                    <state key="normal" image="ANAPCHAT"/>
-                                                                                </button>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Au-bY-cvp">
-                                                                                    <rect key="frame" x="213" y="1" width="45" height="45"/>
-                                                                                    <constraints>
-                                                                                        <constraint firstAttribute="height" constant="45" id="aY7-hy-CQf"/>
-                                                                                        <constraint firstAttribute="width" constant="45" id="tTX-sJ-djU"/>
-                                                                                    </constraints>
+                                                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Au-bY-cvp">
+                                                                                    <rect key="frame" x="107" y="0.0" width="45" height="45"/>
+                                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                                     <state key="normal" image="TWITTER"/>
                                                                                 </button>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ge-46-CaJ">
-                                                                                    <rect key="frame" x="266" y="1" width="45" height="45"/>
-                                                                                    <constraints>
-                                                                                        <constraint firstAttribute="height" constant="45" id="WU5-xX-j8Q"/>
-                                                                                        <constraint firstAttribute="width" constant="45" id="fvh-Ds-lTr"/>
-                                                                                    </constraints>
+                                                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ge-46-CaJ">
+                                                                                    <rect key="frame" x="160" y="0.0" width="45" height="45"/>
+                                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                                     <state key="normal" image="YOUTUBE"/>
                                                                                 </button>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <constraints>
-                                                                                <constraint firstItem="Vsz-iZ-Si8" firstAttribute="leading" secondItem="3xX-AF-v19" secondAttribute="leading" constant="1" id="2Be-71-6Hn"/>
-                                                                                <constraint firstItem="mWv-Wd-L2K" firstAttribute="leading" secondItem="3U1-62-dfg" secondAttribute="trailing" constant="8" id="5Q0-Yt-w5c"/>
-                                                                                <constraint firstItem="3U1-62-dfg" firstAttribute="leading" secondItem="Vsz-iZ-Si8" secondAttribute="trailing" constant="8" id="AQI-7N-Bhv"/>
-                                                                                <constraint firstItem="7Au-bY-cvp" firstAttribute="leading" secondItem="8xs-qF-xk1" secondAttribute="trailing" constant="8" id="IHl-l7-kZY"/>
-                                                                                <constraint firstAttribute="width" constant="311" id="MXT-Z4-vNI"/>
-                                                                                <constraint firstItem="8xs-qF-xk1" firstAttribute="centerY" secondItem="3xX-AF-v19" secondAttribute="centerY" id="OJQ-Tu-YKT"/>
-                                                                                <constraint firstItem="Vsz-iZ-Si8" firstAttribute="centerY" secondItem="3xX-AF-v19" secondAttribute="centerY" id="P4g-ON-wNc"/>
-                                                                                <constraint firstItem="3U1-62-dfg" firstAttribute="centerY" secondItem="3xX-AF-v19" secondAttribute="centerY" id="TN4-w1-A9H"/>
-                                                                                <constraint firstItem="0Ge-46-CaJ" firstAttribute="centerY" secondItem="3xX-AF-v19" secondAttribute="centerY" id="TTj-rd-jIm"/>
-                                                                                <constraint firstItem="7Au-bY-cvp" firstAttribute="centerY" secondItem="3xX-AF-v19" secondAttribute="centerY" id="bQc-QU-vAg"/>
-                                                                                <constraint firstItem="8xs-qF-xk1" firstAttribute="leading" secondItem="mWv-Wd-L2K" secondAttribute="trailing" constant="8" id="bjJ-WB-dgd"/>
-                                                                                <constraint firstItem="mWv-Wd-L2K" firstAttribute="centerY" secondItem="3xX-AF-v19" secondAttribute="centerY" id="eiV-Ii-Lsb"/>
-                                                                                <constraint firstItem="0Ge-46-CaJ" firstAttribute="leading" secondItem="7Au-bY-cvp" secondAttribute="trailing" constant="8" id="jbE-Ts-CPI"/>
-                                                                                <constraint firstAttribute="height" constant="46" id="oP3-Xk-Oca"/>
+                                                                                <constraint firstAttribute="height" constant="46" id="3QF-wr-dtP"/>
+                                                                                <constraint firstAttribute="width" constant="205" id="PNW-D3-IfR"/>
                                                                             </constraints>
                                                                         </view>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
-                                                                        <constraint firstItem="3xX-AF-v19" firstAttribute="centerX" secondItem="leB-xn-Rhk" secondAttribute="centerX" id="JVC-6b-3fe"/>
-                                                                        <constraint firstItem="3xX-AF-v19" firstAttribute="centerY" secondItem="leB-xn-Rhk" secondAttribute="centerY" id="dBV-aI-zMA"/>
+                                                                        <constraint firstItem="3xX-AF-v19" firstAttribute="centerX" secondItem="leB-xn-Rhk" secondAttribute="centerX" id="lOI-PK-hbM"/>
                                                                         <constraint firstAttribute="height" constant="72.5" id="o01-dh-bES"/>
+                                                                        <constraint firstItem="3xX-AF-v19" firstAttribute="centerY" secondItem="leB-xn-Rhk" secondAttribute="centerY" id="uxB-bF-2jw"/>
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B3Y-Tf-YWY">
@@ -7383,8 +7315,6 @@ Good luck!
                                                         <connections>
                                                             <outlet property="btnFacebook" destination="Vsz-iZ-Si8" id="Fj2-R3-Yzd"/>
                                                             <outlet property="btnInstagram" destination="3U1-62-dfg" id="cJh-D6-Oar"/>
-                                                            <outlet property="btnLinkdIn" destination="mWv-Wd-L2K" id="4zd-Tp-UwV"/>
-                                                            <outlet property="btnSnapchat" destination="8xs-qF-xk1" id="Iva-Ot-2ge"/>
                                                             <outlet property="btnTwitter" destination="7Au-bY-cvp" id="BrL-MT-ByQ"/>
                                                             <outlet property="btnYoutube" destination="0Ge-46-CaJ" id="YiW-t2-WwT"/>
                                                         </connections>
@@ -7754,12 +7684,10 @@ Good luck!
         </scene>
     </scenes>
     <resources>
-        <image name="ANAPCHAT" width="66" height="66"/>
         <image name="FACEBOOK" width="66" height="66"/>
         <image name="Group-1" width="456" height="258"/>
         <image name="INSTAGRAM" width="66" height="66"/>
         <image name="Illustration" width="212" height="226"/>
-        <image name="LINKEDIN" width="65" height="66"/>
         <image name="TWITTER" width="67" height="66"/>
         <image name="TandCUnchecked" width="32" height="32"/>
         <image name="YOUTUBE" width="66" height="66"/>
@@ -9007,18 +8935,18 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="weight_icon" width="17" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pMz-WA-RGb"/>
+        <segue reference="fqg-MV-HkZ"/>
+        <segue reference="g5x-3h-J1d"/>
+        <segue reference="OZa-hZ-FT0"/>
+        <segue reference="XZX-2y-uuV"/>
+        <segue reference="NRb-s0-6B1"/>
         <segue reference="hJy-Rz-WHD"/>
+        <segue reference="pMz-WA-RGb"/>
         <segue reference="Jie-k9-AKK"/>
         <segue reference="Jnc-bx-uPX"/>
-        <segue reference="NRb-s0-6B1"/>
-        <segue reference="XZX-2y-uuV"/>
-        <segue reference="OZa-hZ-FT0"/>
-        <segue reference="g5x-3h-J1d"/>
-        <segue reference="fqg-MV-HkZ"/>
-        <segue reference="DLY-kk-dWX"/>
+        <segue reference="WhA-uD-pgi"/>
+        <segue reference="Ea7-Dw-joN"/>
         <segue reference="XZ2-iP-1Kx"/>
         <segue reference="5Tu-m5-NCD"/>
-        <segue reference="Ea7-Dw-joN"/>
     </inferredMetricsTieBreakers>
 </document>

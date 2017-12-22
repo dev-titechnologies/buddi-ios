@@ -18,4 +18,16 @@ extension String {
     mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
     }
+    
+    var parseJSONString: Any? {
+        
+        let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        do {
+            let json = try JSONSerialization.jsonObject(with: data!, options: []) 
+            return json
+        } catch let error as NSError {
+            print("Failed to load: \(error.localizedDescription)")
+        }
+        return nil
+    }
 }

@@ -52,7 +52,6 @@ let NEW_RELIC_KEY = "AAf5ff3485caac8e2dcd993dcee920d9ab9ba03519"
 let TWITTER_CONSUMER_KEY = "HvxI2RuOw573ofkQm9bzfRWWT"
 let TWITTER_CONSUMER_SECRET = "2ARSgEGIVBW3pdh8ZnLqg7XUAwKSEzpjGwpAT99jt4bbDe3BBX"
 
-
 struct RESPONSE_STATUS {
     static let SUCCESS = 1
     static let FAIL = 2

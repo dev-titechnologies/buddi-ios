@@ -125,6 +125,19 @@ class AcceptOrDeclineRequestPage: UIViewController {
                         print("TrainerProfileDictionary 12345:\(self.TrainerProfileDictionary)")
                         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
                         //=====================
+                        
+                        let sessionDuration = self.TrainerProfileDictionary["training_time"] as! String
+                        let categoryName = CategoryDB.getCategoryByCategoryID(categoryId: String(describing: self.TrainerProfileDictionary["cat_id"]!))
+                        let trainingLocation = self.TrainerProfileDictionary["pick_location"] as! String
+                        
+                        let traineeProfileModelObj = TrainerProfileModal()
+                        let profileDict = traineeProfileModelObj.getTraineeProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+                        
+                        let socialMediaShareMessage = CommonMethods.socialMediaPostTextForTrainer(sessionDuration: sessionDuration, inCategory: categoryName, firstname: profileDict.firstName, lastname: profileDict.lastName, atLocation: trainingLocation)
+                        
+                        if userDefaults.bool(forKey: "isTwitterAutoShare"){
+                            CommonMethods.postTweetAutomatically(tweetMessage: socialMediaShareMessage, userId: userDefaults.value(forKey: "TwitterUserId") as! String)
+                        }
 
                         self.dismissAcceptOrDeclinePage()
                     }else{

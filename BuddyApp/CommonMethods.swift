@@ -155,6 +155,17 @@ class CommonMethods: NSObject {
         return nil
     }
     
+    class func convertToArray(text: String) -> [Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
     //MARK: - FOR TESTING PURPOSE
     
     class func tempSecondsChange(session_time: String) -> Int{
@@ -378,10 +389,13 @@ class CommonMethods: NSObject {
         })
     }
     
-    class func openTwitterProfile(twitterUsername: String) {
+    class func openTwitterProfile(view: UIViewController, twitterUsername: String) {
         
-        let twitterProfileUrl = URL(string: "twitter://user?screen_name=\(twitterUsername)")
-        UIApplication.shared.open(twitterProfileUrl!, options: [:])
+        if let twitterProfileUrl = URL(string: "twitter://user?screen_name=\(twitterUsername)"){
+            UIApplication.shared.open(twitterProfileUrl, options: [:])
+        }else{
+            CommonMethods.alertView(view: view, title: ALERT_TITLE, message: "Twitter URL has not been linked", buttonTitle: "OK")
+        }
     }
     
     class func openFBProfile(facebookUserID: String) {
@@ -394,22 +408,28 @@ class CommonMethods: NSObject {
         }
     }
     
-    class func openInstagramProfile(instagramProfileName: String) {
+    class func openInstagramProfile(view: UIViewController,instagramProfileName: String) {
         
         let instagramHooks = "instagram://user?username=\(instagramProfileName)"
-        let instagramUrl = NSURL(string: instagramHooks)
-        
-        if UIApplication.shared.canOpenURL(instagramUrl! as URL){
-            UIApplication.shared.open(instagramUrl! as URL, options: [:])
-        } else {
-            UIApplication.shared.open(NSURL(string: "http://instagram.com/")! as URL, options: [:])
+       
+        if let instagramUrl = NSURL(string: instagramHooks) as URL?{
+            if UIApplication.shared.canOpenURL(instagramUrl as URL){
+                UIApplication.shared.open(instagramUrl as URL, options: [:])
+            } else {
+                UIApplication.shared.open(NSURL(string: "http://instagram.com/")! as URL, options: [:])
+            }
+        }else{
+            CommonMethods.alertView(view: view, title: ALERT_TITLE, message: "Instagram URL has not been linked", buttonTitle: "OK")
         }
     }
     
-    class func openYoutubeLink(youtubeLink: String){
-        let youtubeId = extractYoutubeIdFromLink(link: youtubeLink)
-        print("Youtube Identifier :\(String(describing: youtubeId!))")
-        UIApplication.shared.open(NSURL(string: "youtube://watch?v=\(youtubeId!)")! as URL, options: [:])
+    class func openYoutubeLink(view: UIViewController, youtubeLink: String){
+        if let youtubeId = extractYoutubeIdFromLink(link: youtubeLink){
+            print("Youtube Identifier :\(String(describing: youtubeId))")
+            UIApplication.shared.open(NSURL(string: "youtube://watch?v=\(youtubeId)")! as URL, options: [:])
+        }else{
+            CommonMethods.alertView(view: view, title: ALERT_TITLE, message: "Youtube URL has not been linked", buttonTitle: "OK")
+        }
     }
     
     class func extractYoutubeIdFromLink(link: String) -> String? {
@@ -425,6 +445,37 @@ class CommonMethods: NSObject {
             return nsLink.substring(with: firstMatch.range)
         }
         return nil
+    }
+    
+    class func postTweetAutomatically (tweetMessage: String, userId: String){
+    
+        if let session = Twitter.sharedInstance().sessionStore.session() {
+            let client = TWTRAPIClient()
+            
+            client.loadUser(withID: session.userID) { (user, error) -> Void in
+                if let user = user {
+                    print("AAA")
+                    print("@\(user.screenName)")
+                    let updateUrl = "https://api.twitter.com/1.1/statuses/update.json"
+                    print("Twitter ID:\(userId)")
+                    
+                    let client = TWTRAPIClient.init(userID: userId)
+                    
+                    let message = ["status": tweetMessage]
+                    
+                    let requestUpdateUrl = client.urlRequest(withMethod: "POST", url: updateUrl, parameters: message, error: nil)
+                    
+                    client.sendTwitterRequest(requestUpdateUrl, completion: { (urlResponse, data, connectionError) -> Void in
+                        if connectionError == nil {
+                            print("Upload suceess to Twitter 111")
+                        }else{
+                            print("Error Twitter:\(String(describing: connectionError?.localizedDescription))")
+                        }
+                        
+                    })
+                }
+            }
+        }
     }
     
     //MARK: - LOGIN WITH FACEBOOK
@@ -475,6 +526,17 @@ class CommonMethods: NSObject {
             })
         }
     }
+    
+    class func socialMediaPostTextForTrainee(sessionDuration: String, inCategory categoryName: String, firstname firstName: String, lastname lastName: String, atLocation trainingLocation: String) -> String{
+        
+        return "I have booked a \(sessionDuration) Minutes \(categoryName) session with \(firstName) \(lastName) at \(trainingLocation)"
+    }
+    
+    class func socialMediaPostTextForTrainer(sessionDuration: String, inCategory categoryName: String, firstname firstName: String, lastname lastName: String, atLocation trainingLocation: String) -> String{
+        
+        return "Going to have \(sessionDuration) Minutes \(categoryName) session with \(firstName) \(lastName) at \(trainingLocation)"
+    }
+
 }
 
 class ButtonWithShadow: UIButton {
@@ -543,7 +605,8 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "isShowingWaitingForExtendRequest")
         userDefaults.removeObject(forKey: "facebookId")
         userDefaults.removeObject(forKey: "facebookUserName")
-        
+        userDefaults.removeObject(forKey: "TwitterUserId")
+
         userDefaults.removeObject(forKey: "isSessionStartedFromPush_AppKilledState")
         userDefaults.removeObject(forKey: "sessionStartedPushReceivedTime")
         

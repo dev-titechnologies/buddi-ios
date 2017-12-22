@@ -315,8 +315,12 @@ class TrainerProfilePage: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     
                     let profileDict = jsondata["data"]  as! NSDictionary
-                    print(profileDict)
+                    print("profileDict:\(profileDict)")
 
+                    if (profileDict["social_media_links"] as? String) != nil{
+                        self.parseSocialMediaLinks(socialMediaLinksArray: (profileDict["social_media_links"] as! String).parseJSONString as! Array<Any>)
+                    }
+                    
 //                    let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict as! Dictionary<String, Any>)
                     self.fillValuesInForm(profile: profileDict)
                     
@@ -495,7 +499,7 @@ class TrainerProfilePage: UIViewController {
                           "age" : ageValue,
                           "weight" : weightValue,
                           "height" : heightValue,
-                          "social_media_links" : toJSONString(from: getSocialMediaParameters())
+                          "social_media_links" : toJSONString(from: [getSocialMediaParameters()]) ?? ""
             ] as [String : Any]
         
         print("PARAMS",parameters)
@@ -535,6 +539,18 @@ class TrainerProfilePage: UIViewController {
             return objectString
         }
         return nil
+    }
+    
+    func parseSocialMediaLinks(socialMediaLinksArray: Array<Any>){
+        
+        print("parseSocialMediaLinks:\(socialMediaLinksArray)")
+        print(socialMediaLinksArray[0])
+        let dict = (socialMediaLinksArray[0] as! NSDictionary)["social_media_links"] as! NSDictionary
+        
+        facebookLink = dict["facebook"] as? String ?? ""
+        instagramLink = dict["instagram"] as? String ?? ""
+        twitterLink = dict["twitter"] as? String ?? ""
+        youtubeLink = dict["youtube"] as? String ?? ""
     }
     
     func getSocialMediaParameters() -> [String: Any] {
@@ -681,8 +697,6 @@ extension TrainerProfilePage: UITableViewDataSource{
             
             socialMediaCell.btnFacebook.addTarget(self, action: #selector(TrainerProfilePage.facebookAction(sender:)), for: .touchUpInside)
             socialMediaCell.btnInstagram.addTarget(self, action: #selector(TrainerProfilePage.instagramAction(sender:)), for: .touchUpInside)
-            socialMediaCell.btnLinkdIn.addTarget(self, action: #selector(TrainerProfilePage.linkdInAction(sender:)), for: .touchUpInside)
-            socialMediaCell.btnSnapchat.addTarget(self, action: #selector(TrainerProfilePage.snapChatAction(sender:)), for: .touchUpInside)
             socialMediaCell.btnTwitter.addTarget(self, action: #selector(TrainerProfilePage.twitterAction(sender:)), for: .touchUpInside)
             socialMediaCell.btnYoutube.addTarget(self, action: #selector(TrainerProfilePage.youtubeAction(sender:)), for: .touchUpInside)
             
@@ -727,26 +741,32 @@ extension TrainerProfilePage {
     func instagramAction(sender : UIButton){
         
         if isEditingProfile {
-            showAlertWithTextBox(messageString: "Please enter instagram username", withPlaceholder: "Username", socialMediaType: SOCIAL_MEDIA_TYPES.INSTAGRAM)
+            var placeholderText = String()
+            if instagramLink.isEmpty{
+                placeholderText = "Please enter instagram username"
+            }else{
+                placeholderText = instagramLink
+            }
+            showAlertWithTextBox(messageString: "Please enter instagram username", withPlaceholder: placeholderText, socialMediaType: SOCIAL_MEDIA_TYPES.INSTAGRAM)
         }else if !instagramLink.isEmpty{
-            CommonMethods.openInstagramProfile(instagramProfileName: instagramLink)
+            CommonMethods.openInstagramProfile(view: self, instagramProfileName: instagramLink)
         }else if instagramLink.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Instagram profile is not linked", buttonTitle: "OK")
         }
-    }
-    
-    func linkdInAction(sender : UIButton){
-    }
-    
-    func snapChatAction(sender : UIButton){
     }
 
     func twitterAction(sender : UIButton){
         
         if isEditingProfile {
-            showAlertWithTextBox(messageString: "Please enter Twitter username", withPlaceholder: "Username", socialMediaType: SOCIAL_MEDIA_TYPES.TWITTER)
+            var placeholderText = String()
+            if twitterLink.isEmpty{
+                placeholderText = "Please enter Twitter username"
+            }else{
+                placeholderText = twitterLink
+            }
+            showAlertWithTextBox(messageString: "Please enter Twitter username", withPlaceholder: placeholderText, socialMediaType: SOCIAL_MEDIA_TYPES.TWITTER)
         }else if !twitterLink.isEmpty{
-            CommonMethods.openTwitterProfile(twitterUsername: twitterLink)
+            CommonMethods.openTwitterProfile(view: self, twitterUsername: twitterLink)
         }else if twitterLink.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Twitter profile is not linked", buttonTitle: "OK")
         }
@@ -755,9 +775,16 @@ extension TrainerProfilePage {
     func youtubeAction(sender : UIButton){
         
         if isEditingProfile {
-            showAlertWithTextBox(messageString: "Please enter Youtube link", withPlaceholder: "Please paste youtube link here", socialMediaType: SOCIAL_MEDIA_TYPES.YOUTUBE)
+            
+            var placeholderText = String()
+            if youtubeLink.isEmpty{
+                placeholderText = "Please enter Youtube link"
+            }else{
+                placeholderText = youtubeLink
+            }
+            showAlertWithTextBox(messageString: "Please enter Youtube link", withPlaceholder: placeholderText, socialMediaType: SOCIAL_MEDIA_TYPES.YOUTUBE)
         }else if !youtubeLink.isEmpty{
-            CommonMethods.openYoutubeLink(youtubeLink: youtubeLink)
+            CommonMethods.openYoutubeLink(view: self, youtubeLink: youtubeLink)
         }else if youtubeLink.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Youtube link not provided", buttonTitle: "OK")
         }

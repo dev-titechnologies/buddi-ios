@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FBSDKShareKit
+
 
 class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
@@ -224,13 +227,32 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         notificationType = notif.userInfo!["type"] as! String
                 
         if notificationType == "1" {
+            
             //Booking Request Accepted Push received
+            
             self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
+            
             print("TRAINING DATA",self.TrainerProfileDictionary)
             userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
             
             let trainerProfileModelObj = TrainerProfileModal()
             self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+            
+            let profileDict = self.selectedTrainerProfileDetails
+            let sessionDuration = self.TrainerProfileDictionary["training_time"] as! String
+            let categoryName = CategoryDB.getCategoryByCategoryID(categoryId: String(describing: self.TrainerProfileDictionary["cat_id"]!))
+            let trainingLocation = self.TrainerProfileDictionary["pick_location"] as! String
+
+            let socialMediaShareMessage = CommonMethods.socialMediaPostTextForTrainee(sessionDuration: sessionDuration, inCategory: categoryName, firstname: profileDict.firstName, lastname: profileDict.lastName, atLocation: trainingLocation)
+            
+            //Post Tweet Automatically to Twitter
+            if userDefaults.bool(forKey: "isTwitterAutoShare"){
+                CommonMethods.postTweetAutomatically(tweetMessage: socialMediaShareMessage, userId: userDefaults.value(forKey: "TwitterUserId") as! String)
+            }
+            
+            //Facebook Post Automatically Test
+            btnPostMsg()
+            
             TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
             
@@ -452,6 +474,22 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             }
         }
     }
+    
+    func btnPostMsg() {
+        
+        if FBSDKAccessToken.current().hasGranted("publish_actions") {
+            
+            FBSDKGraphRequest.init(graphPath: "me/feed", parameters: ["message" : "Posted with FBSDK Graph API."], httpMethod: "POST").start(completionHandler: { (connection, result, error) -> Void in
+                if let error = error {
+                    print("Error: \(error)")
+                } else {
+                    //self.alertShow("Message")
+                }
+            })
+        } else {
+            print("require publish_actions permissions")
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -462,5 +500,35 @@ extension Date {
     func daysBetweenDate(toDate: Date) -> Int {
         let components = Calendar.current.dateComponents([.second], from: self, to: toDate)
         return components.second ?? 0
+    }
+}
+
+//MARK: - FACEBOOK SHARING FUNCTIONS & DELEGATES
+
+extension TrainerTraineeRouteViewController: FBSDKSharingDelegate {
+    
+    
+    func btnPostPhoto(sender: UIButton) {
+        if FBSDKAccessToken.current().hasGranted("publish_actions") {
+            let content = FBSDKSharePhotoContent()
+            content.photos = [FBSDKSharePhoto(image: #imageLiteral(resourceName: "profileImage"), userGenerated: true)]
+            //[FBSDKSharePhoto(imag , userGenerated: true)]
+            FBSDKShareAPI.share(with: content, delegate: self)
+        } else {
+            print("require publish_actions permissions")
+        }
+    }
+    
+    func sharer(_ sharer: FBSDKSharing!, didCompleteWithResults results: [AnyHashable : Any]!) {
+        print("didCompleteWithResults")
+        
+    }
+    
+    func sharer(_ sharer: FBSDKSharing!, didFailWithError error: Error!) {
+        print("didFailWithError")
+    }
+    
+    func sharerDidCancel(_ sharer: FBSDKSharing!) {
+        print("sharerDidCancel")
     }
 }

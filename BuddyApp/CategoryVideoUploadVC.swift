@@ -337,7 +337,7 @@ extension CategoryVideoUploadVC : UIImagePickerControllerDelegate {
         videoURL = info["UIImagePickerControllerMediaURL"] as? NSURL
         print("URLL",videoURL!)
         
-        let asset = AVURLAsset.init(url: videoURL as! URL)
+        let asset = AVURLAsset.init(url: videoURL! as URL)
        
        // let asset = AVURLAsset(URL: NSURL(videoURL), options: nil)
         let audioDuration = asset.duration
