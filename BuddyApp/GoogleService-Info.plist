@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2.apps.googleusercontent.com</string>
+	<string>635834235607-ivdilruclgouot5nlodhcvfkbmgpmjop.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2</string>
+	<string>com.googleusercontent.apps.635834235607-ivdilruclgouot5nlodhcvfkbmgpmjop</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,23 +17,23 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.titechnologies.BuddyApp</string>
+	<string>com.titechnologies.BuddiApp</string>
 	<key>PROJECT_ID</key>
 	<string>buddyapp-7aed0</string>
 	<key>STORAGE_BUCKET</key>
 	<string>buddyapp-7aed0.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:635834235607:ios:81af739126f7c4ab</string>
+	<string>1:635834235607:ios:d85243fb7b950bed</string>
 	<key>DATABASE_URL</key>
 	<string>https://buddyapp-7aed0.firebaseio.com</string>
 </dict>
