@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import Stripe
 
+let commonMethods = Singleton.sharedInstance.commonMethods
 let appDelegate = Singleton.sharedInstance.appdelegate
 let context = Singleton.sharedInstance.context
 let storyboardSingleton = Singleton.sharedInstance.storyboardSingleton
@@ -48,6 +49,7 @@ let GOOGLE_TRACKER_ID = "UA-106775368-1"
 let PAYPAL_PAYMENT_RETURN_URL = "com.titechnologies.BuddyApp.payments"
 let GID_CLIENT_ID = "635834235607-h0j2s9gtins29gliuc5jhu6v0dcrqfg2.apps.googleusercontent.com"
 let STRIPE_PUBLISHER_KEY = "pk_test_66bTUhQFTPY6wY5x2hftqF6l"
+//let STRIPE_PUBLISHER_KEY = "pk_live_kThm0Vk9Vmpb6z58SaMrPXpD"
 let NEW_RELIC_KEY = "AAf5ff3485caac8e2dcd993dcee920d9ab9ba03519"
 let TWITTER_CONSUMER_KEY = "HvxI2RuOw573ofkQm9bzfRWWT"
 let TWITTER_CONSUMER_SECRET = "2ARSgEGIVBW3pdh8ZnLqg7XUAwKSEzpjGwpAT99jt4bbDe3BBX"

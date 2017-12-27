@@ -290,7 +290,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
             switch encodingResult {
             case .success(let upload, _, _):
                 upload.responseJSON { response in
-                    debugPrint(response)
+//                    debugPrint(response)
                     print("Video Upload Response:",response)
                     
                     CommonMethods.hideProgress()
@@ -311,7 +311,7 @@ class CategoryVideoUploadVC: UIViewController,UINavigationControllerDelegate {
                             }
                         }
                     }else{
-                        print("Video Upload Failure")
+                        print("Video Upload Failure:\(String(describing: response.error?.localizedDescription))")
                     }
                 }
             case .failure(let encodingError):

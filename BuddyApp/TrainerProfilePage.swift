@@ -722,6 +722,19 @@ extension TrainerProfilePage: UITableViewDataSource{
     }
 }
 
+//MARK: - FACEBOOK ID RECEIVED DELEGATE
+
+extension TrainerProfilePage: facebookIDReceivedDelegate{
+    
+    func facebookIDReceived(){
+        print("** facebookIDReceivedDelegate **")
+        if let facebook_id = userDefaults.value(forKey: "facebookId") as? String {
+            facebookLink = facebook_id
+        }
+        editProfileServerCall()
+    }
+}
+
 //MARK: - SOCIAL MEDIA BUTTON ACTIONS
 extension TrainerProfilePage {
     
@@ -734,7 +747,8 @@ extension TrainerProfilePage {
         if !facebookLink.isEmpty{
             CommonMethods.openFBProfile(facebookUserID: facebookLink)
         }else if facebookLink.isEmpty{
-           CommonMethods.loginWithFacebook(viewcontroller: self)
+            commonMethods.delegateFacebookID = self
+            commonMethods.loginWithFacebook(viewcontroller: self)
         }
     }
     

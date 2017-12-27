@@ -16,13 +16,19 @@ import FBSDKLoginKit
 import TwitterKit
 import TwitterCore
 
-class CommonMethods: NSObject {
+protocol facebookIDReceivedDelegate: class {
+    func facebookIDReceived()
+}
 
-      class func serverCall(APIURL : String, parameters : Dictionary<String, Any>, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
+class CommonMethods: NSObject {
+    
+    weak var delegateFacebookID: facebookIDReceivedDelegate?
+
+    class func serverCall(APIURL : String, parameters : Dictionary<String, Any>, onCompletion:@escaping ((_ jsonData: Dictionary<String, Any>) -> Void)){
         
         let headers = ["token":appDelegate.Usertoken,
                        "user_type" : appDelegate.USER_TYPE
-        ] as HTTPHeaders?
+            ] as HTTPHeaders?
         
         let FinalURL = SERVER_URL + APIURL
         print("Final Server URL:",FinalURL)
@@ -478,9 +484,25 @@ class CommonMethods: NSObject {
         }
     }
     
+    class func postToFacebook(message: String) {
+        
+        if FBSDKAccessToken.current().hasGranted("publish_actions") {
+            
+            FBSDKGraphRequest.init(graphPath: "me/feed", parameters: ["message" : message], httpMethod: "POST").start(completionHandler: { (connection, result, error) -> Void in
+                if let error = error {
+                    print("Error: \(error)")
+                } else {
+                    print("** Shared Post in Facebook Successfully **")
+                }
+            })
+        } else {
+            print("require publish_actions permissions")
+        }
+    }
+    
     //MARK: - LOGIN WITH FACEBOOK
 
-    class func loginWithFacebook(viewcontroller: UIViewController) {
+    func loginWithFacebook(viewcontroller: UIViewController) {
         
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
@@ -502,7 +524,7 @@ class CommonMethods: NSObject {
         }
     }
     
-    class func getFBUserData(){
+    func getFBUserData(){
         
         CommonMethods.showProgress()
         if((FBSDKAccessToken.current()) != nil){
@@ -518,7 +540,10 @@ class CommonMethods: NSObject {
                     let facebookId = (fbUserDictionary["id"] as? String)!
                     print("Facebook ID:\(facebookId)")
                     userDefaults.set(facebookId, forKey: "facebookId")
-                    CommonMethods.openFBProfile(facebookUserID: facebookId)
+                    
+                    self.delegateFacebookID?.facebookIDReceived()
+                    
+//                    CommonMethods.openFBProfile(facebookUserID: facebookId)
                 }else{
 //                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: error?.localizedDescription, buttonTitle: "OK")
                     print("ERROR123",error?.localizedDescription as Any)

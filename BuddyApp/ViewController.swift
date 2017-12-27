@@ -34,7 +34,6 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         print("ViewDidLoad ViewController")
         
         appDelegate.delegateFCM = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -251,7 +250,9 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             }
             
             //Facebook Post Automatically Test
-            btnPostMsg()
+            if userDefaults.bool(forKey: "isFacebookAutoShare"){
+                CommonMethods.postToFacebook(message: socialMediaShareMessage)
+            }
             
             TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
             self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
@@ -306,7 +307,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                 
             }else if notificationType == "5" {
 
-                //Accept of reject training request
+                //Accept or reject training request
                 self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:dict["pushData"]as! String)! as NSDictionary
                 
                 userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
@@ -475,20 +476,15 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         }
     }
     
-    func btnPostMsg() {
+    func fbShareContentURL() {
         
-        if FBSDKAccessToken.current().hasGranted("publish_actions") {
-            
-            FBSDKGraphRequest.init(graphPath: "me/feed", parameters: ["message" : "Posted with FBSDK Graph API."], httpMethod: "POST").start(completionHandler: { (connection, result, error) -> Void in
-                if let error = error {
-                    print("Error: \(error)")
-                } else {
-                    //self.alertShow("Message")
-                }
-            })
-        } else {
-            print("require publish_actions permissions")
-        }
+        let content = FBSDKShareLinkContent()
+        content.contentTitle = "TEST CONTENT"
+        content.contentDescription = "TEST DESC"
+        content.quote = "CONTENT QUOTE"
+        content.contentURL = URL(string: "https://desktime.com/app/my")
+        
+        FBSDKShareAPI.share(with: content, delegate: nil)
     }
 
     override func didReceiveMemoryWarning() {

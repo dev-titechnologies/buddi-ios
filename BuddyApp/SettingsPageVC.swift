@@ -113,28 +113,92 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    func facebookLogin() {
+    func requestFacebookPublishAction() {
         
-        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
-        fbLoginManager.logOut()
-        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
-            if (error == nil){
+        let fbLoginManager: FBSDKLoginManager = FBSDKLoginManager()
+        
+        fbLoginManager.logIn(withPublishPermissions: ["publish_actions"], from: self) { (result, error) in
+            if (error != nil) {
+                print(error!)
+                self.isFacebookSessionPresent = false
+                self.isFacebookAutoShare = false
+                self.reloadSection(row: 0)
+
+            } else if (result?.isCancelled)! {
+                print("Canceled")
+                self.isFacebookSessionPresent = false
+                self.isFacebookAutoShare = false
+                self.reloadSection(row: 0)
+
+            } else if (result?.grantedPermissions.contains("publish_actions"))! {
+                print("permissions granted")
+                
                 let fbloginresult : FBSDKLoginManagerLoginResult = result!
-                
-                if (result?.isCancelled)! {
-                    return
-                }
-                
-                if(fbloginresult.grantedPermissions.contains("email")){
+                if(fbloginresult.grantedPermissions.contains("publish_actions")){
                     self.getFBUserData()
                 }
-            }else{
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
-                print("FB ERROR")
             }
         }
+
+//        if !(FBSDKAccessToken.current().hasGranted("publish_actions")) {
+//            
+//            print("Request publish_actions permissions")
+//            let login: FBSDKLoginManager = FBSDKLoginManager()
+//            
+//            login.logIn(withPublishPermissions: ["publish_actions"], from: self) { (result, error) in
+//                if (error != nil) {
+//                    print(error!)
+//                } else if (result?.isCancelled)! {
+//                    print("Canceled")
+//                } else if (result?.grantedPermissions.contains("publish_actions"))! {
+//                    print("permissions granted")
+//                    
+//                }
+//            }
+//        }else {
+//            print("TEST Error")
+//        }
     }
     
+//    func btnPostMsg() {
+//        
+//        if FBSDKAccessToken.current().hasGranted("publish_actions") {
+//            
+//            FBSDKGraphRequest.init(graphPath: "me/feed", parameters: ["message" : "Posted with FBSDK Graph API."], httpMethod: "POST").start(completionHandler: { (connection, result, error) -> Void in
+//                if let error = error {
+//                    print("Error: \(error)")
+//                } else {
+//                    //self.alertShow("Message")
+//                    print("** Shared Post in Facebook Successfully **")
+//                }
+//            })
+//        } else {
+//            print("require publish_actions permissions")
+//        }
+//    }
+    
+//    func facebookLogin() {
+//        
+//        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+//        fbLoginManager.logOut()
+//        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
+//            if (error == nil){
+//                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+//                
+//                if (result?.isCancelled)! {
+//                    return
+//                }
+//                
+//                if(fbloginresult.grantedPermissions.contains("email")){
+//                    self.getFBUserData()
+//                }
+//            }else{
+//                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
+//                print("FB ERROR")
+//            }
+//        }
+//    }
+//    
     func getFBUserData(){
         if((FBSDKAccessToken.current()) != nil){
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
@@ -150,6 +214,10 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
                     userDefaults.set(true, forKey: "isFacebookAutoShare")
                     self.isFacebookSessionPresent = true
                     self.isFacebookAutoShare = true
+                    self.reloadSection(row: 0)
+                }else{
+                    self.isFacebookSessionPresent = false
+                    self.isFacebookAutoShare = false
                     self.reloadSection(row: 0)
                 }
             })
@@ -431,7 +499,8 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
                     print("User Name1:\(self.facebookUserName)")
                     reloadSection(row: sender.tag)
                 }else{
-                    facebookLogin()
+//                    facebookLogin()
+                    requestFacebookPublishAction()
                 }
             }
             
@@ -462,6 +531,10 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
 
                             self.isTwitterSessionPresent = true
                             self.isTwitterAutoShare = true
+                            self.reloadSection(row: sender.tag)
+                        }else{
+                            self.isTwitterSessionPresent = false
+                            self.isTwitterAutoShare = false
                             self.reloadSection(row: sender.tag)
                         }
                     }

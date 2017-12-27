@@ -968,8 +968,8 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
         let marker = GMSMarker()
         // I have taken a pin image which is a custom image
         let markerImage = UIImage(named: "mapsicon")!.withRenderingMode(.alwaysTemplate)
-        let latitude1 = Double(47.15178298950195)
-        let logitude1 = Double(-122.41725158691406)
+//        let latitude1 = Double(47.15178298950195)
+//        let logitude1 = Double(-122.41725158691406)
         
         //creating a marker view
         let markerView = UIImageView(image: markerImage)
@@ -977,7 +977,7 @@ extension ShowTrainersOnMapVC: CLLocationManagerDelegate {
         //changing the tint color of the image
         markerView.tintColor = UIColor(red: 118.0/255.0, green: 214.0/255.0, blue: 255.0/255.0, alpha: 1.0)
 
-        marker.position = CLLocationCoordinate2D(latitude:CLLocationDegrees(latitude1), longitude:CLLocationDegrees(logitude1))
+        marker.position = CLLocationCoordinate2D(latitude:CLLocationDegrees(latitude), longitude:CLLocationDegrees(logitude))
         
       //  marker.icon = markerImage
         marker.iconView = markerView

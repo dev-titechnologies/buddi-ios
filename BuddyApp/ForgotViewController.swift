@@ -10,15 +10,15 @@ import UIKit
 
 class ForgotViewController: UIViewController {
     @IBOutlet weak var Password_txt: UITextField!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         self.title = PAGE_TITLE.FORGOT_PASSWORD
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -37,17 +37,17 @@ class ForgotViewController: UIViewController {
         
     }
     
-  func ForgotAPI(){
-    
-    let parameters = [
-    "email": self.Password_txt.text!]
-    
-    let headers = [
-        "device_id": appDelegate.DeviceToken,
-        "device_imei": UIDevice.current.identifierForVendor!.uuidString,
-        "device_type": "ios",
-        ]
-
+    func ForgotAPI(){
+        
+        let parameters = [
+            "email": self.Password_txt.text!]
+        
+        let headers = [
+            "device_id": appDelegate.DeviceToken,
+            "device_imei": UIDevice.current.identifierForVendor!.uuidString,
+            "device_type": "ios",
+            ]
+        
         print("parameters",parameters)
         CommonMethods.serverCallCopy(APIURL: "login/forgotPassword", parameters: parameters, headers: headers , onCompletion: { (jsondata) in
             print("FORGOT RESPONSE",jsondata)
@@ -62,7 +62,7 @@ class ForgotViewController: UIViewController {
                     self.dismissOnSessionExpire()
                 }
             }
-        
+            
         })
     }
 }

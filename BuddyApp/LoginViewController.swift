@@ -143,6 +143,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
         
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
+                
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
             if (error == nil){
                 let fbloginresult : FBSDKLoginManagerLoginResult = result!
@@ -187,7 +188,7 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
 
                     userDefaults.set(facebookId, forKey: "facebookId")
                     userDefaults.set(facebookName, forKey: "facebookUserName")
-                    userDefaults.set(true, forKey: "isFacebookAutoShare")
+                    //userDefaults.set(true, forKey: "isFacebookAutoShare")
 
                     self.LoginAPI(Email: emailId, Passwrd: "", loginType: "facebook", UserType: self.UserType, FBId: facebookId, GoogleId: "")
                 }else{

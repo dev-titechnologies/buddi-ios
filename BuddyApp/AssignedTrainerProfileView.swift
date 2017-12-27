@@ -99,6 +99,10 @@ class AssignedTrainerProfileView: UIViewController {
                     self.TrainerprofileDictionary = jsondata["data"]  as! NSDictionary
                     print(self.TrainerprofileDictionary)
                     
+                    if (self.TrainerprofileDictionary["social_media_links"] as? String) != nil{
+                        self.parseSocialMediaLinks(socialMediaLinksArray: (self.TrainerprofileDictionary["social_media_links"] as! String).parseJSONString as! Array<Any>)
+                    }
+                    
                     self.lblProfileName.text = (self.TrainerprofileDictionary["first_name"] as? String)! + " " + (self.TrainerprofileDictionary["last_name"] as? String)!
                     
                     self.imgProfileImage.sd_setImage(with: URL(string: (self.TrainerprofileDictionary["user_image"] as? String)!), placeholderImage: UIImage(named: "man"))
@@ -131,6 +135,18 @@ class AssignedTrainerProfileView: UIViewController {
                 }
             }
         })
+    }
+    
+    func parseSocialMediaLinks(socialMediaLinksArray: Array<Any>){
+        
+        print("parseSocialMediaLinks:\(socialMediaLinksArray)")
+        print(socialMediaLinksArray[0])
+        let dict = (socialMediaLinksArray[0] as! NSDictionary)["social_media_links"] as! NSDictionary
+        
+        facebookLink = dict["facebook"] as? String ?? ""
+        instagramLink = dict["instagram"] as? String ?? ""
+        twitterLink = dict["twitter"] as? String ?? ""
+        youtubeLink = dict["youtube"] as? String ?? ""
     }
     
     @IBAction func doneAction(_ sender: Any) {
@@ -183,7 +199,6 @@ class AssignedTrainerProfileView: UIViewController {
         }
         performSegue(withIdentifier: "unwindSegueToRoutePageFromTrainerProfile", sender: self)
     }
-
 }
 
 extension AssignedTrainerProfileView: UITableViewDataSource{
@@ -237,9 +252,9 @@ extension AssignedTrainerProfileView {
     
     func facebookAction(sender : UIButton){
         
-        if let facebook_id = userDefaults.value(forKey: "facebookId") as? String {
-            facebookLink = facebook_id
-        }
+//        if let facebook_id = userDefaults.value(forKey: "facebookId") as? String {
+//            facebookLink = facebook_id
+//        }
         
         if !facebookLink.isEmpty{
             CommonMethods.openFBProfile(facebookUserID: facebookLink)
@@ -277,7 +292,6 @@ extension AssignedTrainerProfileView {
 }
 
 extension AssignedTrainerProfileView: UITableViewDelegate{
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

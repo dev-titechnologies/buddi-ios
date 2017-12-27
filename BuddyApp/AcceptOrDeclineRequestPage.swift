@@ -138,6 +138,10 @@ class AcceptOrDeclineRequestPage: UIViewController {
                         if userDefaults.bool(forKey: "isTwitterAutoShare"){
                             CommonMethods.postTweetAutomatically(tweetMessage: socialMediaShareMessage, userId: userDefaults.value(forKey: "TwitterUserId") as! String)
                         }
+                        
+                        if userDefaults.bool(forKey: "isFacebookAutoShare"){
+                            CommonMethods.postToFacebook(message: socialMediaShareMessage)
+                        }
 
                         self.dismissAcceptOrDeclinePage()
                     }else{

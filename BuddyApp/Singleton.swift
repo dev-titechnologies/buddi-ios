@@ -13,6 +13,7 @@ import Alamofire
 
 class Singleton {
     
+    var commonMethods = CommonMethods()
     var userDefaults = UserDefaults()
     var appdelegate = AppDelegate()
     var storyboardSingleton = UIStoryboard()
@@ -48,6 +49,7 @@ class Singleton {
     }()
     
     init() {
+        commonMethods = CommonMethods()
         userDefaults = UserDefaults.standard
         appdelegate = UIApplication.shared.delegate as! AppDelegate
         context = appdelegate.persistentContainer.viewContext
