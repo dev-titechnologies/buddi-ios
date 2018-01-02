@@ -1164,6 +1164,9 @@ class TrainerTraineeRouteViewController: UIViewController {
             traineeProfile.isFromRouteVC = true
             traineeProfile.userType = "trainee"
             traineeProfile.userId = self.trainerProfileDetails.Trainee_id
+        }else if segue.identifier == "trainingCancelledToTrainerHomeSegue"{
+            let trainerProfile =  segue.destination as! TrainerProfilePage
+            trainerProfile.isFromSessionPageAfterCompletion = true
         }
     }
     

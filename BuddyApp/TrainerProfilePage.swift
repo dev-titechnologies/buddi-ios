@@ -76,6 +76,7 @@ class TrainerProfilePage: UIViewController {
     var youtubeLink = String()
     
     var socialMediaLinksDictionary = Dictionary<String,Any>()
+    var isFromSessionPageAfterCompletion = Bool()
     
     //MARK: - VIEW CYCLES
     
@@ -327,8 +328,10 @@ class TrainerProfilePage: UIViewController {
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-                    //Commented due to the page expire issue when before submitting the review after completion of a session
-                    //self.dismissOnSessionExpire()
+                   
+                    if !self.isFromSessionPageAfterCompletion{
+                        self.dismissOnSessionExpire()
+                    }
                 }
             }else{
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
@@ -366,7 +369,6 @@ class TrainerProfilePage: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                    
                     if let onlinedata = jsondata["data"] as? NSDictionary{
-                    
                         print(onlinedata)
                         
                         if onlinedata["availabilityStatus"] as? String == "online"{

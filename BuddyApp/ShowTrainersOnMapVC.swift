@@ -65,6 +65,7 @@ class ShowTrainersOnMapVC: UIViewController {
     var isPaidAlready40Minutes = Bool()
     var isPaidAlready60Minutes = Bool()
 
+    var parentName = String()
     
     //MARK: - VIEW CYCLES
     

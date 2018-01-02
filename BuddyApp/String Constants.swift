@@ -48,9 +48,12 @@ let TRAINER_NOT_REACHED_TO_LOCATION = "It seems your trainer hasn't reached the 
 let PLEASE_ASK_TRAINEE_TO_START_SESSION = "Please ask the Trainee to start the session."
 let PLEASE_TRY_AGAIN_AFTER_FEW_MOMENTS = "Please try again after a few moments"
 let PLEASE_ACCEPT_TERMS_OF_USE_LABEL = "Please accept Terms of Use, Privacy Policy & Disclaimer"
+let PLEASE_ACCEPT_WAIVER_RELEASE_FORM_LABEL = "I HAVE READ THIS RELEASE OF LIABILITY AND ASSUMPTION OF RISK AGREEMENT"
+
 let TERMS_OF_USE_LINK_DISPLAY_TEXT = "Terms of Use"
 let PRIVACY_POLICY_LINK_DISPLAY_TEXT = "Privacy Policy"
 let DISCLAIMER_LINK_DISPLAY_TEXT = "Disclaimer"
+let WAIVER_RELEASE = "AGREEMENT"
 let REQUEST_TIME_EXPIRED = "Request time expired"
 let INSTANT_BOOKING_PREFERENCES_SAVED_SUCCESSFULLY = "Instant booking preferences are saved successfully"
 let PLEASE_CHOOSE_ATLEAST_A_SUBCATEGORY = "Please choose atleast a subcategory"

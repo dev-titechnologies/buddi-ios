@@ -31,6 +31,9 @@ class TraineeHomePage: UIViewController {
     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
     var TrainerProfileDictionary: NSDictionary!
 
+    var parentNameFromWaiverForm = String()
+    var isAcceptedWaiverReleaseForm = Bool()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -71,8 +74,20 @@ class TraineeHomePage: UIViewController {
     //MARK: - INSTANT BOOKING
     
     @IBAction func instent_booking_action(_ sender: Any) {
+    
+        print("isAcceptedWaiverReleaseForm:\(isAcceptedWaiverReleaseForm)")
+        if userDefaults.value(forKey: "save_preferance") as? NSDictionary == nil{
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Preferences are not saved", buttonTitle: "Ok")
+        }else if isAcceptedWaiverReleaseForm {
+            instantBookingSegueActions()
+        }else{
+            showWaiverReleaseViewController()
+        }
+    }
+    
+    func instantBookingSegueActions() {
         
-        if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil{
+        if userDefaults.value(forKey: "save_preferance") as? NSDictionary != nil {
             let dict = userDefaults.value(forKey: "save_preferance") as? NSDictionary
             print(dict?["lat"] as! String)
             choosedTrainerGenderOfTrainee = dict?["gender"] as! String
@@ -90,6 +105,12 @@ class TraineeHomePage: UIViewController {
         }else{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Preferences are not saved", buttonTitle: "Ok")
         }
+    }
+    
+    func showWaiverReleaseViewController() {
+        let waiverRelease : WaiverReleaseFormVC = storyboardSingleton.instantiateViewController(withIdentifier: "WaiverReleaseFormVCID") as! WaiverReleaseFormVC
+        waiverRelease.delegateWRForm = self
+        self.present(waiverRelease, animated: true, completion: nil)
     }
     
     @IBAction func backButtonAction(_ sender: Any) {
@@ -145,6 +166,8 @@ class TraineeHomePage: UIViewController {
         if segue.identifier == "instantbookingsegue"{
             let TrainerListPage =  segue.destination as! ShowTrainersOnMapVC
             TrainerListPage.isFromInstantBooking = true
+            TrainerListPage.parentName = parentNameFromWaiverForm
+            isAcceptedWaiverReleaseForm = false
         }else if segue.identifier == "TraineeHomeToRoutePageSegue" {
             let timerPage =  segue.destination as! TrainerTraineeRouteViewController
 //            timerPage.TrainerProfileDictionary = self.TrainerProfileDictionary
@@ -226,6 +249,19 @@ class TraineeHomePage: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+}
+
+extension TraineeHomePage: WaiverReleaseFormSubmittedDelegate{
+    
+    func waiverReleaseFormSubmitted(parentName: String, isAccepted: Bool) {
+        print("** waiverReleaseFormSubmitted:\(parentName)")
+        parentNameFromWaiverForm = parentName
+        isAcceptedWaiverReleaseForm = isAccepted
+        
+        if isAccepted{
+            instantBookingSegueActions()
+        }
     }
 }
 

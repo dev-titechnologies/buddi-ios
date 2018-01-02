@@ -61,7 +61,11 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
         headerChoosed = -1
         
         if appDelegate.USER_TYPE == USER_TYPE.TRAINEE{
-           headerSectionTitles = ["Location Preference" ,"Training Category Preference", "Gender Preference", "Session Length Preference", "Social Media Auto Share"]
+         //  headerSectionTitles = ["Location Preference" ,"Training Category Preference", "Gender Preference", "Session Length Preference", "Social Media Auto Share"]
+            
+            headerSectionTitles = ["Location Preference" ,"Training Category Preference", "Gender Preference", "Session Length Preference"]
+
+            
         }else{
             headerSectionTitles = ["Social Media Auto Share"]
         }
@@ -117,7 +121,12 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
         
         let fbLoginManager: FBSDKLoginManager = FBSDKLoginManager()
         
+        fbLoginManager.logOut()
         fbLoginManager.logIn(withPublishPermissions: ["publish_actions"], from: self) { (result, error) in
+            
+            print("RESULT logIn(withPublishPermissions:\(String(describing: result))")
+            print("ERROR logIn(withPublishPermissions:\(String(describing: error?.localizedDescription))")
+
             if (error != nil) {
                 print(error!)
                 self.isFacebookSessionPresent = false
@@ -137,9 +146,15 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
                 if(fbloginresult.grantedPermissions.contains("publish_actions")){
                     self.getFBUserData()
                 }
+            }else{
+                print("Error Case")
+                self.isFacebookSessionPresent = false
+                self.isFacebookAutoShare = false
+                self.reloadSection(row: 0)
             }
         }
-
+    }
+    
 //        if !(FBSDKAccessToken.current().hasGranted("publish_actions")) {
 //            
 //            print("Request publish_actions permissions")
@@ -158,7 +173,6 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
 //        }else {
 //            print("TEST Error")
 //        }
-    }
     
 //    func btnPostMsg() {
 //        
@@ -216,6 +230,7 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
                     self.isFacebookAutoShare = true
                     self.reloadSection(row: 0)
                 }else{
+                    print("ERROR logIn(withPublishPermissions:\(String(describing: error?.localizedDescription))")
                     self.isFacebookSessionPresent = false
                     self.isFacebookAutoShare = false
                     self.reloadSection(row: 0)
@@ -332,7 +347,8 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             }else if section == 3{
                 return trainingDurationArray.count
             }else if section == 4 {
-                return socialMediaTitles.count
+             //   return socialMediaTitles.count
+               return 0 
             }else{
                 return 0
             }
@@ -428,6 +444,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         
         let socialShareCell: SocialAutoShareCell = tableView.dequeueReusableCell(withIdentifier: "socialAutoShareCellId") as! SocialAutoShareCell
         
+        socialShareCell.selectionStyle = UITableViewCellSelectionStyle.none
         socialShareCell.lblSocialTitle.text = socialMediaTitles[index_path.row]
         
         socialShareCell.btnSwitch.tag = index_path.row

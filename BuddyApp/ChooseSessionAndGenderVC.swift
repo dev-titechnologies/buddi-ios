@@ -38,6 +38,9 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     
     var trainingLocationModelObj = TrainingLocationModel()
     
+    var parentsName = String()
+    var isAcceptedWaiverReleaseForm = Bool()
+    
 //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -54,6 +57,8 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("** viewWillAppear **")
+        print("name:\(parentsName)")
         getCurrentLocationDetails()
     }
     
@@ -74,15 +79,30 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
         }else{
             if isLocationAccessAllowed{
                 
-                //This userdefault value will be used to check the previous booking from when reopening the app.
-                //1 . Instant Booking - instantBooking, 2. Usual Booking Request - usualBooking
-                userDefaults.set("usualBooking", forKey: "previousBookingRequestVia")
-
-                showTrainersList(parameters: getShowTrainersListParameters())
+                print("isAcceptedWaiverReleaseForm:\(isAcceptedWaiverReleaseForm)")
+                
+                if isAcceptedWaiverReleaseForm {
+                    triggerShowTrainersListFunction()
+                }else{
+                    showWaiverReleaseViewController()
+                }
             }else{
                 openDeviceSettingsForLocationAccess()
             }
         }
+    }
+    
+    func triggerShowTrainersListFunction() {
+        //This userdefault value will be used to check the previous booking from when reopening the app.
+        //1 . Instant Booking - instantBooking, 2. Usual Booking Request - usualBooking
+        userDefaults.set("usualBooking", forKey: "previousBookingRequestVia")
+        showTrainersList(parameters: getShowTrainersListParameters())
+    }
+    
+    func showWaiverReleaseViewController() {
+        let waiverRelease : WaiverReleaseFormVC = storyboardSingleton.instantiateViewController(withIdentifier: "WaiverReleaseFormVCID") as! WaiverReleaseFormVC
+        waiverRelease.delegateWRForm = self
+        self.present(waiverRelease, animated: true, completion: nil)
     }
     
     func openDeviceSettingsForLocationAccess() {
@@ -165,11 +185,15 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
         return parameters
     }
     
+    //MARK: - PREPARE FOR SEGUE
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "afterChoosingSessionAndGenderSegue" {
             let showTrainersOnMapObj =  segue.destination as! ShowTrainersOnMapVC
             showTrainersOnMapObj.trainingLocationModelObject = trainingLocationModelObj
+            showTrainersOnMapObj.parentName = parentsName
+            isAcceptedWaiverReleaseForm = false
         }
     }
     
@@ -178,6 +202,19 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
         let placePicker = GMSPlacePickerViewController(config: config)
         placePicker.delegate = self
         present(placePicker, animated: true, completion: nil)
+    }
+}
+
+extension ChooseSessionAndGenderVC: WaiverReleaseFormSubmittedDelegate {
+  
+    func waiverReleaseFormSubmitted(parentName: String, isAccepted: Bool) {
+        print("** waiverReleaseFormSubmitted:\(parentName) **")
+        parentsName = parentName
+        isAcceptedWaiverReleaseForm = isAccepted
+        
+        if isAccepted{
+            triggerShowTrainersListFunction()
+        }
     }
 }
 

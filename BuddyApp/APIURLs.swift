@@ -45,3 +45,5 @@ let UPDATE_STRIPE_ACCOUNT = "payment/updateStripeAcc"
 let TERMS_OF_USE_URL = "http://buddimedia.com/termsofuse.html"
 let PRIVACY_POLICY_URL = "http://buddimedia.com/privacypolicy.html"
 let DISCLAIMER_URL = "http://buddimedia.com/disclaimer.html"
+let WAIVER_RELEASE_URL = "http://buddimedia.com/disclaimer.html"
+

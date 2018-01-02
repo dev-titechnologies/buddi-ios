@@ -70,6 +70,7 @@
 		F341B0341F28D664007C9AF1 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0331F28D664007C9AF1 /* UIColorExtension.swift */; };
 		F341B0361F28D80F007C9AF1 /* ColorCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0351F28D80F007C9AF1 /* ColorCodes.swift */; };
 		F341B0381F28D9FB007C9AF1 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0371F28D9FB007C9AF1 /* CardView.swift */; };
+		F34D039F1FFB6826001B56EE /* WaiverReleaseFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D039E1FFB6826001B56EE /* WaiverReleaseFormVC.swift */; };
 		F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAB91F1DE60A0091900D /* BookingHistory.json */; };
 		F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */; };
 		F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */; };
@@ -254,6 +255,7 @@
 		F341B0331F28D664007C9AF1 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F341B0351F28D80F007C9AF1 /* ColorCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCodes.swift; sourceTree = "<group>"; };
 		F341B0371F28D9FB007C9AF1 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		F34D039E1FFB6826001B56EE /* WaiverReleaseFormVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaiverReleaseFormVC.swift; sourceTree = "<group>"; };
 		F35FDAB91F1DE60A0091900D /* BookingHistory.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BookingHistory.json; sourceTree = "<group>"; };
 		F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMethods.swift; sourceTree = "<group>"; };
 		F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingHistoryModel.swift; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F34D039D1FFB67F3001B56EE /* Waiver Release Form */,
 				F36A1C9F1FF2188700650706 /* GoogleService-Info.plist */,
 				F32E6AB01F53E3C1001646E4 /* Messaging */,
 				F3A907771F32E3F600474F5E /* Trainer Pages */,
@@ -633,6 +636,14 @@
 				F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */,
 			);
 			name = "Register Viewcontroller";
+			sourceTree = "<group>";
+		};
+		F34D039D1FFB67F3001B56EE /* Waiver Release Form */ = {
+			isa = PBXGroup;
+			children = (
+				F34D039E1FFB6826001B56EE /* WaiverReleaseFormVC.swift */,
+			);
+			name = "Waiver Release Form";
 			sourceTree = "<group>";
 		};
 		F35FDAB61F1DE49B0091900D /* Temp JSON Files */ = {
@@ -1277,6 +1288,7 @@
 				F3C595591F4EE11100808ACB /* SettingsPageVC.swift in Sources */,
 				F30B60161F1DC82A00374136 /* RegisterViewController.swift in Sources */,
 				F330A1001F2F731D00C69871 /* BlankViewController.swift in Sources */,
+				F34D039F1FFB6826001B56EE /* WaiverReleaseFormVC.swift in Sources */,
 				F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */,
 				F38BB5431F2606A400824C15 /* ProfileModel.swift in Sources */,
 				F316E7EB1F21BF4E00994447 /* SubCategoryDB.swift in Sources */,
