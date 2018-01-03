@@ -322,6 +322,10 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     print("OTP Sent Successfully")
+                    
+                    //Save Age to userdefaults in case of trainee
+                    userDefaults.set(self.txtAge.text, forKey: "traineeAge")
+                    
                     self.performSegue(withIdentifier: "otpview", sender: self)
                 }else if status == RESPONSE_STATUS.FAIL{
                     print("OTP Call Failed")

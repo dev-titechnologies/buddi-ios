@@ -31,9 +31,11 @@ class TraineeHomePage: UIViewController {
     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
     var TrainerProfileDictionary: NSDictionary!
 
-    var parentNameFromWaiverForm = String()
+//    var parentNameFromWaiverForm = String()
     var isAcceptedWaiverReleaseForm = Bool()
-    
+    var participantSign = String()
+    var parentSign = String()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -166,7 +168,8 @@ class TraineeHomePage: UIViewController {
         if segue.identifier == "instantbookingsegue"{
             let TrainerListPage =  segue.destination as! ShowTrainersOnMapVC
             TrainerListPage.isFromInstantBooking = true
-            TrainerListPage.parentName = parentNameFromWaiverForm
+            TrainerListPage.clientSign = participantSign
+            TrainerListPage.parentSign = parentSign
             isAcceptedWaiverReleaseForm = false
         }else if segue.identifier == "TraineeHomeToRoutePageSegue" {
             let timerPage =  segue.destination as! TrainerTraineeRouteViewController
@@ -253,16 +256,42 @@ class TraineeHomePage: UIViewController {
 }
 
 extension TraineeHomePage: WaiverReleaseFormSubmittedDelegate{
-    
-    func waiverReleaseFormSubmitted(parentName: String, isAccepted: Bool) {
-        print("** waiverReleaseFormSubmitted:\(parentName)")
-        parentNameFromWaiverForm = parentName
+    func waiverReleaseFormSubmitted(participantSign: String, parentSign: String, isAccepted: Bool) {
+        
+        print("** waiverReleaseFormSubmitted **")
+        
+        userDefaults.set(participantSign, forKey: "backupClientSign")
+        userDefaults.set(parentSign, forKey: "backupParentSign")
+        
+        self.participantSign = participantSign
+        self.parentSign = parentSign
+        
         isAcceptedWaiverReleaseForm = isAccepted
         
         if isAccepted{
             instantBookingSegueActions()
         }
     }
+
+    
+//    func waiverReleaseFormSubmitted(parentName: String, isAccepted: Bool) {
+//        print("** waiverReleaseFormSubmitted:\(parentName)")
+//        
+//        if parentName == ""{
+//            parentNameFromWaiverForm = (userDefaults.value(forKey: "userName") as? String)!
+//        }else{
+//            parentNameFromWaiverForm = parentName
+//        }
+//        
+//        userDefaults.set(parentNameFromWaiverForm, forKey: "backupClientSign")
+//        userDefaults.set(parentNameFromWaiverForm, forKey: "backupParentSign")
+//
+//        isAcceptedWaiverReleaseForm = isAccepted
+//        
+//        if isAccepted{
+//            instantBookingSegueActions()
+//        }
+//    }
 }
 
 extension TraineeHomePage : UICollectionViewDataSource{

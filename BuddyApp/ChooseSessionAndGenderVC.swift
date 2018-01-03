@@ -38,8 +38,9 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     
     var trainingLocationModelObj = TrainingLocationModel()
     
-    var parentsName = String()
     var isAcceptedWaiverReleaseForm = Bool()
+    var participantSign = String()
+    var parentSign = String()
     
 //MARK: - VIEW CYCLES
     
@@ -58,7 +59,6 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         print("** viewWillAppear **")
-        print("name:\(parentsName)")
         getCurrentLocationDetails()
     }
     
@@ -192,7 +192,8 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
         if segue.identifier == "afterChoosingSessionAndGenderSegue" {
             let showTrainersOnMapObj =  segue.destination as! ShowTrainersOnMapVC
             showTrainersOnMapObj.trainingLocationModelObject = trainingLocationModelObj
-            showTrainersOnMapObj.parentName = parentsName
+            showTrainersOnMapObj.clientSign = self.participantSign
+            showTrainersOnMapObj.parentSign = self.parentSign
             isAcceptedWaiverReleaseForm = false
         }
     }
@@ -207,9 +208,17 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
 
 extension ChooseSessionAndGenderVC: WaiverReleaseFormSubmittedDelegate {
   
-    func waiverReleaseFormSubmitted(parentName: String, isAccepted: Bool) {
-        print("** waiverReleaseFormSubmitted:\(parentName) **")
-        parentsName = parentName
+    func waiverReleaseFormSubmitted(participantSign: String,parentSign: String, isAccepted: Bool) {
+        print("** waiverReleaseFormSubmitted **")
+        print("participantSign:\(participantSign)")
+        print("parentSign:\(parentSign)")
+   
+        userDefaults.set(participantSign, forKey: "backupClientSign")
+        userDefaults.set(parentSign, forKey: "backupParentSign")
+        
+        self.participantSign = participantSign
+        self.parentSign = parentSign
+
         isAcceptedWaiverReleaseForm = isAccepted
         
         if isAccepted{

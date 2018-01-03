@@ -296,6 +296,8 @@ class CommonMethods: NSObject {
         userDefaults.removeObject(forKey: "backupTrainingGenderChoosed")
         userDefaults.removeObject(forKey: "backupTrainingSessionChoosed")
         userDefaults.removeObject(forKey: "backupIsTransactionStatus")
+        userDefaults.removeObject(forKey: "backupClientSign")
+        userDefaults.removeObject(forKey: "backupParentSign")
         userDefaults.removeObject(forKey: "TrainingLocationModelBackup")
         
         if sessionDuration == "40" {
@@ -618,6 +620,7 @@ extension UIViewController {
         //userDefaults.removeObject(forKey: "devicetoken")
         userDefaults.removeObject(forKey: "token")
         userDefaults.removeObject(forKey: "userName")
+        userDefaults.removeObject(forKey: "traineeAge")
         userDefaults.removeObject(forKey: "userEmailId")
         userDefaults.removeObject(forKey: "userMobileNumber")
         userDefaults.removeObject(forKey: "userType")

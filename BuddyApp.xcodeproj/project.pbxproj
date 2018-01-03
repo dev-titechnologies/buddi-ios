@@ -135,6 +135,8 @@
 		F3AF9D431F30661000D0CF05 /* GymModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AF9D421F30661000D0CF05 /* GymModel.swift */; };
 		F3B52EE11F3AE4CC007910BC /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B52EE01F3AE4CC007910BC /* SocketIOManager.swift */; };
 		F3B52EE31F3AE66D007910BC /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3B52EE21F3AE66D007910BC /* SocketIO.framework */; };
+		F3C3083B1FFCB78A00317929 /* SecondPart.html in Resources */ = {isa = PBXBuildFile; fileRef = F3C3083A1FFCB78A00317929 /* SecondPart.html */; };
+		F3C3083D1FFCBB2200317929 /* FirstPart.html in Resources */ = {isa = PBXBuildFile; fileRef = F3C3083C1FFCBB2200317929 /* FirstPart.html */; };
 		F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */; };
 		F3C595591F4EE11100808ACB /* SettingsPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C595581F4EE11100808ACB /* SettingsPageVC.swift */; };
 		F3C5955C1F4EECE100808ACB /* SessionPreferenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5955B1F4EECE100808ACB /* SessionPreferenceCell.swift */; };
@@ -312,6 +314,8 @@
 		F3AF9D421F30661000D0CF05 /* GymModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymModel.swift; sourceTree = "<group>"; };
 		F3B52EE01F3AE4CC007910BC /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		F3B52EE21F3AE66D007910BC /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = "../../Library/Developer/Xcode/DerivedData/BuddyApp-augjawwvcsfzcedxhegwvrzgggtg/Build/Products/Debug-iphoneos/Socket.IO-Client-Swift/SocketIO.framework"; sourceTree = "<group>"; };
+		F3C3083A1FFCB78A00317929 /* SecondPart.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SecondPart.html; sourceTree = "<group>"; };
+		F3C3083C1FFCBB2200317929 /* FirstPart.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = FirstPart.html; sourceTree = "<group>"; };
 		F3C3FC7C1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVideoUploadVC.swift; sourceTree = "<group>"; };
 		F3C595581F4EE11100808ACB /* SettingsPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPageVC.swift; sourceTree = "<group>"; };
 		F3C5955B1F4EECE100808ACB /* SessionPreferenceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionPreferenceCell.swift; sourceTree = "<group>"; };
@@ -641,6 +645,8 @@
 		F34D039D1FFB67F3001B56EE /* Waiver Release Form */ = {
 			isa = PBXGroup;
 			children = (
+				F3C3083C1FFCBB2200317929 /* FirstPart.html */,
+				F3C3083A1FFCB78A00317929 /* SecondPart.html */,
 				F34D039E1FFB6826001B56EE /* WaiverReleaseFormVC.swift */,
 			);
 			name = "Waiver Release Form";
@@ -1048,11 +1054,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3C3083D1FFCBB2200317929 /* FirstPart.html in Resources */,
 				F315E9971F30585700850A44 /* DropDown_Checked@2x.png in Resources */,
 				F3CD1E301F3B18C100398705 /* mapstogpx20170809_095410.gpx in Resources */,
 				F322FC4A1F1CE62200381B8C /* LaunchScreen.storyboard in Resources */,
 				F322FC471F1CE62100381B8C /* Assets.xcassets in Resources */,
 				F315E9961F30585700850A44 /* check.png in Resources */,
+				F3C3083B1FFCB78A00317929 /* SecondPart.html in Resources */,
 				F315E9981F30585700850A44 /* DropDown_Done@2x.png in Resources */,
 				F3628B491F501A29000068E8 /* Main.storyboard in Resources */,
 				F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */,

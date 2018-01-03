@@ -392,7 +392,7 @@ class TrainerProfilePage: UIViewController {
     }
     
     func methodOfReceivedNotification(notif: NSNotification) {
-        
+                        
         //print("ENTER FORGROUND",notif.name.rawValue)
         
         if notif.name.rawValue == "UIApplicationWillEnterForegroundNotification"{

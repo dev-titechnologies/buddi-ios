@@ -65,8 +65,9 @@ class ShowTrainersOnMapVC: UIViewController {
     var isPaidAlready40Minutes = Bool()
     var isPaidAlready60Minutes = Bool()
 
-    var parentName = String()
-    
+    var clientSign = String()
+    var parentSign = String()
+
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -473,7 +474,9 @@ class ShowTrainersOnMapVC: UIViewController {
                           "training_time" : choosedSessionOfTrainee,
                           "pick_latitude" : preferenceModelObj.locationLattitude,
                           "pick_longitude" : preferenceModelObj.locationLongitude,
-                          "pick_location" : preferenceModelObj.locationName
+                          "pick_location" : preferenceModelObj.locationName,
+                          "client_sign" : clientSign,
+                          "parent_sign" : parentSign
             ] as [String : Any]
         
         if userDefaults.value(forKey: "promocode") != nil{
@@ -524,7 +527,9 @@ class ShowTrainersOnMapVC: UIViewController {
         let transactionGenderChoosedBackup = userDefaults.value(forKey: "backupTrainingGenderChoosed") as! String
         let transactionSessionChoosedBackup = userDefaults.value(forKey: "backupTrainingSessionChoosed") as! String
         let transactionStatusBackup = userDefaults.value(forKey: "backupIsTransactionStatus") as! String
-        
+        let client_sign = userDefaults.value(forKey: "backupClientSign") as! String
+        let parent_sign = userDefaults.value(forKey: "backupParentSign") as! String
+
         var parameters = ["trainee_id" : appDelegate.UserId,
                           "gender" : transactionGenderChoosedBackup,
                           "category" : transactionCategoryChoosedBackup,
@@ -533,7 +538,9 @@ class ShowTrainersOnMapVC: UIViewController {
                           "training_time" : transactionSessionChoosedBackup,
                           "pick_latitude" : preferenceModelObj.locationLattitude,
                           "pick_longitude" : preferenceModelObj.locationLongitude,
-                          "pick_location" : preferenceModelObj.locationName
+                          "pick_location" : preferenceModelObj.locationName,
+                          "client_sign" : client_sign,
+                          "parent_sign" : parent_sign
                           ] as [String : Any]
         
         if userDefaults.value(forKey: "promocode") != nil{
@@ -572,7 +579,9 @@ class ShowTrainersOnMapVC: UIViewController {
                           "training_time" : preferenceModelObj.sessionDuration,
                           "pick_latitude" : preferenceModelObj.locationLattitude,
                           "pick_longitude" : preferenceModelObj.locationLongitude,
-                          "pick_location" : preferenceModelObj.locationName
+                          "pick_location" : preferenceModelObj.locationName,
+                          "client_sign" : clientSign,
+                          "parent_sign" : parentSign
             ] as [String : Any]
         
         if userDefaults.value(forKey: "promocode") != nil{
