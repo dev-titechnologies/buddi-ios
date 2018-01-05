@@ -1,4 +1,4 @@
-//
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        //
 //  TraineeHomePage.swift
 //  BuddyApp
 //
@@ -83,7 +83,7 @@ class TraineeHomePage: UIViewController {
         }else if isAcceptedWaiverReleaseForm {
             instantBookingSegueActions()
         }else{
-            showWaiverReleaseViewController()
+            showWaiverReleaseViewController()                            
         }
     }
     

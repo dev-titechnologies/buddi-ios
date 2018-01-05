@@ -247,7 +247,6 @@ class LeftViewController: UIViewController {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
             }
         })
-
     }
 }
 
@@ -284,7 +283,12 @@ extension LeftViewController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        
+        if indexPath.row == 1{
+            return 0
+        }else{
+            return 50
+        }
     }
 }
 

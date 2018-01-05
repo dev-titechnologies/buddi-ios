@@ -79,8 +79,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
                           "pick_latitude": ProfileDictionary["pick_latitude"]! ,
                           "pick_longitude": ProfileDictionary["pick_longitude"]!,
                           "pick_location": ProfileDictionary["pick_location"]!,
-                          "client_sign" : ProfileDictionary["client_sign"]!,
-                          "parent_sign" : ProfileDictionary["parent_sign"]!
+                          "signature" : ProfileDictionary["signature"]!
             ]
             as [String : Any]
         

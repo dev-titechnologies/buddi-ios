@@ -118,10 +118,5 @@ class WaiverReleaseFormVC: UIViewController {
     }
 }
 
-//extension WaiverReleaseFormVC: TTTAttributedLabelDelegate {
-//    
-//    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-//        UIApplication.shared.open(url)
-//    }
-//}
+
 

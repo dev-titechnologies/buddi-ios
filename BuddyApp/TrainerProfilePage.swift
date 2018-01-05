@@ -318,7 +318,7 @@ class TrainerProfilePage: UIViewController {
                     let profileDict = jsondata["data"]  as! NSDictionary
                     print("profileDict:\(profileDict)")
 
-                    if (profileDict["social_media_links"] as? String) != nil{
+                    if (profileDict["social_media_links"] as? String) != nil && (profileDict["social_media_links"] as? String) != "" {
                         self.parseSocialMediaLinks(socialMediaLinksArray: (profileDict["social_media_links"] as! String).parseJSONString as! Array<Any>)
                     }
                     
@@ -383,9 +383,9 @@ class TrainerProfilePage: UIViewController {
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
-                    //Commented due to the page expire issue when before submitting the review after completion of a session
-//                    self.isInTrainerProfilePage = false
-//                    self.dismissOnSessionExpire()
+                    if !self.isFromSessionPageAfterCompletion{
+                        self.dismissOnSessionExpire()
+                    }
                 }
             }
         })
@@ -514,9 +514,8 @@ class TrainerProfilePage: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    
-                    let profileDict = jsondata["data"]  as! NSDictionary
-                    print(profileDict)
+                    let profileDict = jsondata["data"] as! NSDictionary
+                    //print(profileDict)
                     
                    // let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict as! Dictionary<String, Any>)
                     self.fillValuesInForm(profile: profileDict)
