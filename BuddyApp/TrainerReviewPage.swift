@@ -20,6 +20,9 @@ class TrainerReviewPage: UIViewController{
     let reviewDict = TrainerReviewModel()
     var trainerProfileDetails1 = TrainerProfileModal()
     
+    @IBOutlet weak var reviewview: CardView!
+    @IBOutlet weak var apology_lbl: UILabel!
+    @IBOutlet weak var apologyview: UIView!
     @IBOutlet weak var rating_lbl: UILabel!
     @IBOutlet weak var User_type: UILabel!
     @IBOutlet weak var StarRateView: SwiftyStarRatingView!
@@ -27,6 +30,7 @@ class TrainerReviewPage: UIViewController{
     @IBOutlet weak var lblTrainerName: UILabel!
     @IBOutlet weak var txtReviewDescription: UITextView!
     
+    var apologyBool = Bool()
     var isFromExtendPage = Bool()
     var isFromWaitingForExtendRequestPage = Bool()
     
@@ -50,12 +54,19 @@ class TrainerReviewPage: UIViewController{
     }
     
     func parseTrainerDetails() {
+        
+        self.reviewview.isHidden = false
         if appDelegate.USER_TYPE == "trainer" {
             User_type.text = "Trainee"
             rating_lbl.text = "Trainee Rating"
+            
+            apology_lbl.text = "We apologize, but it seems that your Trainee is no longer connected to the session! He/she may have been abducted by an alien or just simply lost connection (hopefully the latter), so please try to book your session again!"
+            
         }else{
             rating_lbl.text = "Trainer Rating"
             User_type.text = "Trainer"
+            
+            apology_lbl.text = "We apologize, but it seems that your Trainer is no longer connected to the session! He/she may have been abducted by an alien or just simply lost connection (hopefully the latter), so please try to book your session again!"
         }
         
         print("PRO IMAGE",trainerProfileDetails1.profileImage)
@@ -69,6 +80,10 @@ class TrainerReviewPage: UIViewController{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    @IBAction func ApologyButton_action(_ sender: Any) {
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func StarRateView_action(_ sender: Any) {
@@ -113,16 +128,18 @@ class TrainerReviewPage: UIViewController{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
                     //Delegate call
-                    self.delegateReview?.reviewFormSubmittedDelegate()
-                    self.dismiss(animated: true, completion: nil)
-
-//                    if self.isFromExtendPage{
-//                        self.performSegue(withIdentifier: "reviewVCToTraineeHomeVCSegue", sender: self)
-//                    }else if self.isFromWaitingForExtendRequestPage{
-//                        self.performSegue(withIdentifier: "reviewVCToTrainerHomeVCSegue", sender: self)
-//                    }
-                    
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    if self.apologyBool{
+                        
+                        self.apologyview.isHidden = false
+                        self.reviewview.isHidden = true
+                        
+                    }else{
+                        
+                         self.delegateReview?.reviewFormSubmittedDelegate()
+                        self.dismiss(animated: true, completion: nil)
+                    }
+//                    
+//                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                   
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

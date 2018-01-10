@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -4478,7 +4478,6 @@ Good luck!
                         <outlet property="lblTrainerAge" destination="jdn-Q1-ZlT" id="U8e-5E-Axd"/>
                         <outlet property="lblTrainerHeight" destination="vfR-zC-1YR" id="goa-UT-bXG"/>
                         <outlet property="lblTrainerWeight" destination="Arm-26-Kvk" id="0Ck-ZW-HKT"/>
-                        <outlet property="reviewview" destination="oEX-Qi-nFn" id="sYj-Ek-cdb"/>
                         <outlet property="trainerDescriptionTable" destination="c72-v3-qin" id="Rtb-rz-z4M"/>
                         <segue destination="kh1-wL-lTz" kind="unwind" identifier="unwindSegueToRoutePageFromTrainerProfile" unwindAction="unwindToVC1WithSegue:" id="FwL-ov-Amh"/>
                         <segue destination="5ym-9f-sIU" kind="show" identifier="fromAssignedTrainerVCToCategoryVCSegue" id="g5x-3h-J1d"/>
@@ -4674,11 +4673,57 @@ Good luck!
                                             <constraint firstItem="Z3a-uA-LoA" firstAttribute="top" secondItem="l3J-DV-G4C" secondAttribute="bottom" constant="3" id="ytg-ub-GYH"/>
                                         </constraints>
                                     </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zoD-nB-Ljt" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="161" width="344.5" height="345"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUf-JM-o3j">
+                                                <rect key="frame" x="8" y="43" width="329" height="152"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="152" id="Vqq-aj-2fm"/>
+                                                </constraints>
+                                                <string key="text">We apologize, but it seems that your [Trainer/Trainee] is no longer connected to the session! He/she may have been abducted by an alien or just simply lost connection (hopefully the latter), so please try to book your session again!</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uft-FP-gNX">
+                                                <rect key="frame" x="0.0" y="289" width="345" height="56"/>
+                                                <color key="backgroundColor" red="0.14901960780000001" green="0.80392156859999997" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="56" id="gnm-4J-DWl"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                <state key="normal" title="OK">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="ApologyButton_action:" destination="Aia-cI-dmK" eventType="touchUpInside" id="XKv-Uk-wm5"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="XUf-JM-o3j" firstAttribute="leading" secondItem="zoD-nB-Ljt" secondAttribute="leading" constant="8" id="2SA-1s-SYM"/>
+                                            <constraint firstAttribute="bottom" secondItem="Uft-FP-gNX" secondAttribute="bottom" id="2XH-M1-Es1"/>
+                                            <constraint firstAttribute="height" constant="345" id="Aoh-er-WSQ"/>
+                                            <constraint firstItem="Uft-FP-gNX" firstAttribute="leading" secondItem="zoD-nB-Ljt" secondAttribute="leading" id="G5e-rj-JIy"/>
+                                            <constraint firstItem="XUf-JM-o3j" firstAttribute="top" secondItem="zoD-nB-Ljt" secondAttribute="top" constant="43" id="GTF-za-dqH"/>
+                                            <constraint firstAttribute="width" constant="344.5" id="N2y-yM-rr5"/>
+                                            <constraint firstAttribute="trailing" secondItem="Uft-FP-gNX" secondAttribute="trailing" constant="-0.5" id="pwn-1R-WsP"/>
+                                            <constraint firstAttribute="trailing" secondItem="XUf-JM-o3j" secondAttribute="trailing" constant="7.5" id="w32-dm-KF4"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.31857944542253519" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="zoD-nB-Ljt" firstAttribute="centerY" secondItem="T3Q-zD-Qby" secondAttribute="centerY" id="3Ka-ko-Yzs"/>
                                     <constraint firstItem="oEX-Qi-nFn" firstAttribute="width" secondItem="T3Q-zD-Qby" secondAttribute="width" multiplier="0.92" id="CVY-cf-MiL"/>
+                                    <constraint firstAttribute="bottom" secondItem="zoD-nB-Ljt" secondAttribute="bottom" constant="161" id="N7V-Vh-V7Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="zoD-nB-Ljt" secondAttribute="trailing" constant="14.5" id="NUW-dF-h1z"/>
                                     <constraint firstItem="oEX-Qi-nFn" firstAttribute="centerX" secondItem="T3Q-zD-Qby" secondAttribute="centerX" id="drs-gX-KRs"/>
+                                    <constraint firstItem="zoD-nB-Ljt" firstAttribute="centerX" secondItem="T3Q-zD-Qby" secondAttribute="centerX" id="gUI-h2-En6"/>
+                                    <constraint firstItem="zoD-nB-Ljt" firstAttribute="leading" secondItem="T3Q-zD-Qby" secondAttribute="leading" constant="16" id="laV-92-Fw9"/>
+                                    <constraint firstItem="zoD-nB-Ljt" firstAttribute="top" secondItem="T3Q-zD-Qby" secondAttribute="top" constant="161" id="shZ-yo-Z5F"/>
                                     <constraint firstItem="oEX-Qi-nFn" firstAttribute="centerY" secondItem="T3Q-zD-Qby" secondAttribute="centerY" id="uX7-6b-EAE"/>
                                 </constraints>
                             </view>
@@ -4697,9 +4742,12 @@ Good luck!
                     <connections>
                         <outlet property="StarRateView" destination="Orf-Og-CTy" id="kRJ-x3-dzs"/>
                         <outlet property="User_type" destination="jqv-he-PVd" id="6Zz-ji-Klr"/>
+                        <outlet property="apology_lbl" destination="XUf-JM-o3j" id="A1g-yp-3Ou"/>
+                        <outlet property="apologyview" destination="zoD-nB-Ljt" id="Qfm-tF-OCF"/>
                         <outlet property="imgTrainerImage" destination="D6r-4p-MVg" id="dWW-LV-z2R"/>
                         <outlet property="lblTrainerName" destination="4cy-bS-1bZ" id="bSs-OD-Dz4"/>
                         <outlet property="rating_lbl" destination="czn-AT-3ak" id="oYv-dS-Bfo"/>
+                        <outlet property="reviewview" destination="oEX-Qi-nFn" id="9e6-Y4-KyK"/>
                         <outlet property="txtReviewDescription" destination="l3J-DV-G4C" id="4ch-8J-xq2"/>
                         <segue destination="bfa-Jp-2Bb" kind="show" identifier="reviewVCToTraineeHomeVCSegue" id="0aT-bq-AUd"/>
                         <segue destination="ZIt-ll-KxO" kind="show" identifier="reviewVCToTrainerHomeVCSegue" id="iM4-kM-ENY"/>
