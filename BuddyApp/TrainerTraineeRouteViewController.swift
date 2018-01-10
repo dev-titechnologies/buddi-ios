@@ -482,7 +482,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             
             hideLoadingView()
 
-            self.RateViewScreen()
+            self.RateViewScreen(cancelStatus: false)
             
             if appDelegate.USER_TYPE == "trainer" {
                 self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
@@ -524,7 +524,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         hideLoadingView()
         
-        self.RateViewScreen()
+        self.RateViewScreen(cancelStatus: true)
         
         if appDelegate.USER_TYPE == "trainer" {
             self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
@@ -674,13 +674,16 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
     }
     
-    func RateViewScreen(){
+    func RateViewScreen(cancelStatus: Bool){
         
         self.isTimerRunning = false
         let vc = storyboardSingleton.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
         vc.trainerProfileDetails1 = self.trainerProfileDetails
+        vc.apologyBool = cancelStatus
         present(vc, animated: true, completion: nil)
     }
+    
+
     
     
     //MARK: - API
@@ -739,7 +742,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                             TrainerProfileDetail.deleteBookingDetails()
                             
                             if dict["status"] as! String == "stopped" || dict["status"] as! String == "completed" {
-                                self.RateViewScreen()
+                                self.RateViewScreen(cancelStatus: false)
                             }
                             
                             if appDelegate.USER_TYPE == "trainer" {

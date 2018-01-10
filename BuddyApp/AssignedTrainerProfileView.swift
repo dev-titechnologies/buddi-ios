@@ -19,7 +19,6 @@ class AssignedTrainerProfileView: UIViewController {
     @IBOutlet weak var lblMeetingDescription: UILabel!
     @IBOutlet weak var trainerDescriptionTable: UITableView!
     
-    @IBOutlet weak var reviewview: UIView!
     var assignedTrainerProfileView = [String]()
     var TrainerprofileDictionary: NSDictionary!
     var TrainerId = String()
