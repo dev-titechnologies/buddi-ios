@@ -263,6 +263,8 @@ class ShowTrainersOnMapVC: UIViewController {
 //                
 //            }))
             self.present(alert, animated: true, completion: nil)
+        }else{
+            RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
         }
     }
     

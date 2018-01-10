@@ -48,6 +48,10 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
     var cardEndingWithString = String()
     var cardBrandString = String()
     
+    @IBOutlet weak var cardsTableView: UITableView!
+    var cardsArray = [CardModel]()
+    var defaultCardPOS = Int()
+    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -586,6 +590,9 @@ extension AddPaymentMethodVC {
                             CommonMethods.hideProgress()
                             userDefaults.set(true, forKey: "isStripeTokenExists")
                             
+                            self.cardsArray = self.getCardModel(cardsArray: cardsArray as! Array<Any>)
+                            self.cardsTableView.reloadData()
+                            
                             if self.isFromBookingPage{
                                 print("*** Returning back to booking Page after adding payment method123")
                                 self.navigationController?.popViewController(animated: true)
@@ -605,6 +612,76 @@ extension AddPaymentMethodVC {
                     self.dismissOnSessionExpire()
                 }
             }
+        }
+    }
+    
+    func getCardModel(cardsArray: Array<Any>) -> [CardModel]{
+        
+        var cardModelArray = [CardModel]()
+        
+        for card in cardsArray.enumerated() {
+            let cardModel = CardModel()
+            let cardElement = card.element as? NSDictionary
+            
+            if let card_name = cardElement?["name"] as? String{
+                cardModel.cardName = card_name
+            }else{
+                cardModel.cardName = ""
+            }
+            cardModel.cardId = cardElement?["id"] as! String
+            cardModel.brand = cardElement?["brand"] as! String
+            cardModel.expiryMonth = String(describing: cardElement?["exp_month"])
+            cardModel.expiryYear = String(describing: cardElement?["exp_year"])
+            cardModel.endingWith = cardElement?["last4"] as! String
+            cardModel.country = cardElement?["country"] as! String
+            cardModel.customer = cardElement?["customer"] as! String
+            cardModel.defaultStatus = false
+            
+            defaultCardPOS = 2
+            
+            cardModelArray.append(cardModel)
+        }
+        
+        return cardModelArray
+    }
+}
+
+//MARK: - CARDS TABLEVIEW DELEGATE & DATASOURCE
+
+extension AddPaymentMethodVC: UITableViewDataSource,UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cardsArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: CardsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cardsCellId") as! CardsTableViewCell
+        
+        cell.lblCardName.text = cardsArray[indexPath.row].brand + " ending with " + cardsArray[indexPath.row].endingWith
+        cell.imgCheckBox.image = (cardsArray[indexPath.row].defaultStatus == false ?  #imageLiteral(resourceName: "unchecked") : #imageLiteral(resourceName: "checked"))
+
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let card = cardsArray[indexPath.row]
+        
+        if card.defaultStatus == true{
+            cardsArray[indexPath.row].defaultStatus = false
+        }else{
+            cardsArray[indexPath.row].defaultStatus = true
+        }
+        let indexPath1 = IndexPath(row: defaultCardPOS, section: 0)
+        self.cardsTableView.reloadRows(at: [indexPath1], with: .automatic)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("Deleted")
+            
+            cardsArray.remove(at: indexPath.row)
+            self.cardsTableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
 }
