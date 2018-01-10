@@ -150,6 +150,8 @@
 		F3D0EF431F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0EF411F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift */; };
 		F3D395FF1FE79BE800348755 /* SocialAutoShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D395FE1FE79BE800348755 /* SocialAutoShareCell.swift */; };
 		F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */; };
+		F3D9B5DD20060DFF005C21EF /* CardsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D9B5DC20060DFF005C21EF /* CardsTableViewCell.swift */; };
+		F3D9B5DF2006131D005C21EF /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D9B5DE2006131D005C21EF /* CardModel.swift */; };
 		F3F5955D1F59587A00110123 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F5955C1F59587A00110123 /* ContactModel.swift */; };
 		F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */; };
 		F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F77C7D1F20F8BE00D51277 /* String Constants.swift */; };
@@ -330,6 +332,8 @@
 		F3D395FE1FE79BE800348755 /* SocialAutoShareCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAutoShareCell.swift; sourceTree = "<group>"; };
 		F3D597D91F26430500F82A12 /* TrainerTestAnswersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerTestAnswersModel.swift; sourceTree = "<group>"; };
 		F3D640081F73AC5D00F822B3 /* BuddyApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BuddyApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		F3D9B5DC20060DFF005C21EF /* CardsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsTableViewCell.swift; sourceTree = "<group>"; };
+		F3D9B5DE2006131D005C21EF /* CardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		F3F5955C1F59587A00110123 /* ContactModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 		F3F77C7B1F20F5B600D51277 /* SubCategorySelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategorySelectionVC.swift; sourceTree = "<group>"; };
 		F3F77C7D1F20F8BE00D51277 /* String Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String Constants.swift"; sourceTree = "<group>"; };
@@ -700,6 +704,7 @@
 				F32460C61F5983D9002B3D55 /* ContactDictionaryModel.swift */,
 				F39F383D1F6937C900938674 /* TrainingLocationModel.swift */,
 				F31E95031F6AAA180098DF8C /* PreferenceModel.swift */,
+				F3D9B5DE2006131D005C21EF /* CardModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -902,6 +907,7 @@
 				F31533EE1F9493E40051FC49 /* Stripe */,
 				F3FD7DD81F38321C00986815 /* AddPaymentMethodVC.swift */,
 				F38E11671FA1C9EA00EA86D1 /* AddStripeCard.swift */,
+				F3D9B5DC20060DFF005C21EF /* CardsTableViewCell.swift */,
 			);
 			name = "Add Payment Method";
 			sourceTree = "<group>";
@@ -1249,6 +1255,7 @@
 				F38BB5521F2643F900824C15 /* AlamofireImage.framework in Sources */,
 				F364A8F71F34826D0001C570 /* ViewControllerPopOver.swift in Sources */,
 				F35FDAE61F1E51B50091900D /* ReviewHistoryVC.swift in Sources */,
+				F3D9B5DF2006131D005C21EF /* CardModel.swift in Sources */,
 				F39E1EAE1F270ACF00DAED93 /* FinalQuestionsVC.swift in Sources */,
 				F37350981F207A2D00BE9DB6 /* LeftMenuTableCell.swift in Sources */,
 				F31533F01F9495FF0051FC49 /* Buttons.swift in Sources */,
@@ -1303,6 +1310,7 @@
 				F3A3E5B21F4C4AC900B0865E /* PageTitles.swift in Sources */,
 				F373509F1F20913800BE9DB6 /* CategoryListCell.swift in Sources */,
 				F3A907801F32F15D00474F5E /* ChooseGenderTableCell.swift in Sources */,
+				F3D9B5DD20060DFF005C21EF /* CardsTableViewCell.swift in Sources */,
 				F31542901F38802E0070EEC6 /* TrainerProfileModal.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
 				F3C5955C1F4EECE100808ACB /* SessionPreferenceCell.swift in Sources */,
