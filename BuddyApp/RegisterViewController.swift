@@ -49,6 +49,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     @IBOutlet weak var txtAge: UITextField!
     @IBOutlet weak var txtWeight: UITextField!
     @IBOutlet weak var txtHeight: UITextField!
+    @IBOutlet weak var textheightInch: UITextField!
     
     let myView = UIView()
     
@@ -278,6 +279,13 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             
             OTPCall()
             
+            var HeightInFeet = String()
+            if textheightInch.text!.isEmpty{
+                HeightInFeet = txtHeight.text!
+            }else{
+               HeightInFeet = "\(txtHeight.text!)'\(textheightInch.text!)"
+            }
+            
             FullDataDictionary = [
                 "register_type":registerType,
                 "email":self.email_txt.text!,
@@ -293,7 +301,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                 "profile_desc":"dd",
                 "age" : txtAge.text!,
                 "weight" : txtWeight.text!,
-                "height" : txtHeight.text!
+                "height" : HeightInFeet
             ]
             
             HeaderDictionary = [

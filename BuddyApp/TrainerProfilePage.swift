@@ -607,7 +607,7 @@ class TrainerProfilePage: UIViewController {
         
         if let height = profile["height"] as? String{
             heightValue = height
-            lblHeight.text = "\(heightValue) cm"
+            lblHeight.text = "\(heightValue) feet"
             imgHeightIcon.isHidden = false
         }else{
             lblHeight.isHidden = true
