@@ -9,8 +9,13 @@
 import UIKit
 import Alamofire
 
+protocol reviewSubmittedDelegate: class {
+    func reviewFormSubmittedDelegate()
+}
+
 class TrainerReviewPage: UIViewController{
     
+    weak var delegateReview: reviewSubmittedDelegate?
 
     let reviewDict = TrainerReviewModel()
     var trainerProfileDetails1 = TrainerProfileModal()
@@ -107,6 +112,8 @@ class TrainerReviewPage: UIViewController{
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
+                    //Delegate call
+                    self.delegateReview?.reviewFormSubmittedDelegate()
                     self.dismiss(animated: true, completion: nil)
 
 //                    if self.isFromExtendPage{

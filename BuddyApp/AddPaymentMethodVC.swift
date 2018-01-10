@@ -298,13 +298,20 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
                     if let procode = (jsondata["data"]  as! NSDictionary)["code"] as? String{
                         print(procode)
                         userDefaults.set(procode, forKey: "promocode")
+                        userDefaults.set(true, forKey: "isPromoCodeApplied")
                     }
+                    
                     self.promoCodeSuccessfullView.isHidden = false
                     self.lblPromoCodeSuccessfull.text = "Applied Promocode : \(self.promocode_txt.text!)"
                     self.promocode_txt.text = ""
 
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PROMO_CODE_APPLIED_SUCCESSFULL, buttonTitle: "Ok")
-                    
+                    if self.isFromBookingPage{
+                        print("*** Returning back to booking Page after adding payment method123")
+                        self.navigationController?.popViewController(animated: true)
+                    }else{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PROMO_CODE_APPLIED_SUCCESSFULL, buttonTitle: "Ok")
+                    }
+                
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{

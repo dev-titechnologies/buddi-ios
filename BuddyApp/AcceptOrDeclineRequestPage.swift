@@ -90,8 +90,8 @@ class AcceptOrDeclineRequestPage: UIViewController {
                 ] as [String : Any]
             
             parameters = parameters.merged(with: transactionDict as! Dictionary<String, String>)
-        }else{
-            parameters = parameters.merged(with: ["promocode" : userDefaults.value(forKey: "promocode") as! String])
+        }else if (ProfileDictionary["promocode"] as? String) != nil{
+            parameters = parameters.merged(with: ["promocode" : ProfileDictionary["promocode"]!])
         }
  
         print("Params:",parameters)

@@ -308,6 +308,15 @@ class CategoryListVC: UIViewController {
                     //For filtering pending categories from All Category List
                     self.filterPendingCategoriesFromAllCategories()
                     
+                    print("FromTrainerProfileBool:\(self.FromTrainerProfileBool)")
+                    print("isFromAssignedTrainerVC:\(self.isFromAssignedTrainerVC)")
+
+                    if !self.FromTrainerProfileBool && !self.isFromAssignedTrainerVC {
+                        //Change latest on Jan 10
+                        self.categoriesArray.removeAll()
+                        self.categoriesArray = self.approvedAndPendingFilteredArray
+                    }
+                    
                     print("******* Filtered list of categories *******")
                     print("REMAINING COUNT",self.categoriesArray.count)
                     print("approvedAndPendingFilteredArray:\(self.approvedAndPendingFilteredArray)")

@@ -78,6 +78,8 @@ class TrainerProfilePage: UIViewController {
     var socialMediaLinksDictionary = Dictionary<String,Any>()
     var isFromSessionPageAfterCompletion = Bool()
     
+    var isSessionExpired = Bool()
+    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -91,7 +93,10 @@ class TrainerProfilePage: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         print("*** viewDidAppear Trainer")
-        
+        self.UpdateLocationAPI(Status: "online")
+
+        let reviewPage : TrainerReviewPage = storyboardSingleton.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
+        reviewPage.delegateReview = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -329,7 +334,12 @@ class TrainerProfilePage: UIViewController {
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                    
+                    self.isSessionExpired = true
+                    
+                    print("** self.isFromSessionPageAfterCompletion:\(self.isFromSessionPageAfterCompletion)")
                     if !self.isFromSessionPageAfterCompletion{
+                        self.dismissOnSessionExpire()
+                    }else{
                         self.dismissOnSessionExpire()
                     }
                 }
@@ -361,6 +371,11 @@ class TrainerProfilePage: UIViewController {
             //CommonMethods.hideProgress()
             if let status = jsondata["status"] as? Int{
                 
+                guard !self.isSessionExpired else{
+                    print("** Session has been Expired already **")
+                    return
+                }
+                
                 guard self.isInTrainerProfilePage else{
                     print("** isInTrainerProfilePage value is false, hence returned **")
                     return
@@ -383,6 +398,9 @@ class TrainerProfilePage: UIViewController {
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    
+                    self.isSessionExpired = true
+
                     if !self.isFromSessionPageAfterCompletion{
                         self.dismissOnSessionExpire()
                     }
@@ -665,6 +683,22 @@ class TrainerProfilePage: UIViewController {
             timerPage.seconds = numOfDays
             timerPage.TIMERCHECK = true
         }
+    }
+}
+
+//MARK: - SUSPENDED FROM APP DELEGATE CALL
+
+extension TrainerProfilePage: reviewSubmittedDelegate{
+    
+    func reviewFormSubmittedDelegate(){
+        
+        print("** reviewFormSubmittedDelegate Call **")
+        let alert = UIAlertController(title: ALERT_TITLE, message: YOU_ARE_SUSPENDED_FROM_APP, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+            self.dismissOnSessionExpire()
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

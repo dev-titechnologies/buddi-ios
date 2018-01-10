@@ -59,6 +59,7 @@ class BookingHistoryVC: UIViewController {
                             print("Booking History array is empty")
                             self.bookingHistoryTable.isHidden = true
                             self.nohistory_lbl.isHidden = false
+                            CommonMethods.hideProgress()
                             return
                         }
                         

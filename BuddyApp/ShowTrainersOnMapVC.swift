@@ -193,9 +193,15 @@ class ShowTrainersOnMapVC: UIViewController {
     
     @IBAction func Next_action(_ sender: Any) {
         
-        guard userDefaults.bool(forKey: "isStripeTokenExists") else{
-            alertForAddPaymentMethod()
-            return
+        //isPromoCodeApplied
+        
+        if userDefaults.bool(forKey: "isPromoCodeApplied"){
+            print("Promo code already applied")
+        }else{
+            guard userDefaults.bool(forKey: "isStripeTokenExists") else{
+                alertForAddPaymentMethod()
+                return
+            }
         }
         
         if isFromSplashScreen{
@@ -482,7 +488,6 @@ class ShowTrainersOnMapVC: UIViewController {
         if userDefaults.value(forKey: "promocode") != nil{
             //With Promo Code
             parameters = parameters.merged(with: ["promocode" : userDefaults.value(forKey: "promocode") as! String])
-             userDefaults.removeObject(forKey: "promocode")
         }else{
             //With Payment Transaction
             
@@ -546,7 +551,6 @@ class ShowTrainersOnMapVC: UIViewController {
         if userDefaults.value(forKey: "promocode") != nil{
             //With Promo Code
             parameters = parameters.merged(with: ["promocode" : userDefaults.value(forKey: "promocode") as! String])
-            userDefaults.removeObject(forKey: "promocode")
             
         }else{
             //With Payment Transaction
@@ -587,7 +591,6 @@ class ShowTrainersOnMapVC: UIViewController {
         if userDefaults.value(forKey: "promocode") != nil{
             //With Promo Code
             parameters = parameters.merged(with: ["promocode" : userDefaults.value(forKey: "promocode") as! String])
-            userDefaults.removeObject(forKey: "promocode")
         }else{
             //With Payment Transaction
             let transactionDict = ["transaction_id" : transactionId,
