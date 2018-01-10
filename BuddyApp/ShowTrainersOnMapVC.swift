@@ -192,9 +192,7 @@ class ShowTrainersOnMapVC: UIViewController {
     }
     
     @IBAction func Next_action(_ sender: Any) {
-        
-        //isPromoCodeApplied
-        
+                
         if userDefaults.bool(forKey: "isPromoCodeApplied"){
             print("Promo code already applied")
         }else{
@@ -221,7 +219,6 @@ class ShowTrainersOnMapVC: UIViewController {
                 }
             }
         }else{
-            
             print("***** Next Action Else Case *******")
 
             if userDefaults.value(forKey: "promocode") != nil{
@@ -245,28 +242,28 @@ class ShowTrainersOnMapVC: UIViewController {
         print("isPaidAlready60Minutes:\(isPaidAlready60Minutes)")
         print("choosedSessionOfTrainee:\(choosedSessionOfTrainee)")
         
-        if isPaidAlready40Minutes && !isPaidAlready60Minutes && choosedSessionOfTrainee == "60"{
+//        if isPaidAlready40Minutes && !isPaidAlready60Minutes && choosedSessionOfTrainee == "60"{
+//            alertMessage = MINUTES_40_PAID_ALERT
+//        }else if isPaidAlready60Minutes && !isPaidAlready40Minutes && choosedSessionOfTrainee == "40" {
+//            alertMessage = MINUTES_60_PAID_ALERT
+//        }else if isPaidAlready40Minutes && choosedSessionOfTrainee == "40" || isPaidAlready60Minutes && choosedSessionOfTrainee == "60" {
+//            print("****** Random selector API call from previous transaction details ********")
+//            RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
+//            return
+//        }
+        
+        if choosedSessionOfTrainee == "60" && isPaidAlready40Minutes || choosedSessionOfTrainee == "40" && isPaidAlready60Minutes{
             
-            alertMessage = MINUTES_40_PAID_ALERT
-        }else if isPaidAlready60Minutes && !isPaidAlready40Minutes && choosedSessionOfTrainee == "40" {
-           
-            alertMessage = MINUTES_60_PAID_ALERT
-        }else if isPaidAlready40Minutes && choosedSessionOfTrainee == "40" || isPaidAlready60Minutes && choosedSessionOfTrainee == "60" {
-            print("****** Random selector API call from previous transaction details ********")
-            RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
-            return
+            let alert = UIAlertController(title: ALERT_TITLE, message: REGARDING_PREVIOUS_PAYMENT_ABOUT_SESSION, preferredStyle: UIAlertControllerStyle.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+//                self.paymentCheckoutStripe()
+            }))
+//            alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+//                
+//            }))
+            self.present(alert, animated: true, completion: nil)
         }
-
-        let alert = UIAlertController(title: ALERT_TITLE, message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
-            self.paymentCheckoutStripe()
-        }))
-        alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
-            
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
     }
     
     func alertForAddPaymentMethod() {

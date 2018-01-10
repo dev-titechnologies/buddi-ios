@@ -84,7 +84,7 @@ class WaiverReleaseFormVC: UIViewController {
             }
             
             let contents =  try String(contentsOfFile: filePath, encoding: .utf8)
-            print("CONTENTS:\(contents)")
+            //print("CONTENTS:\(contents)")
             let baseUrl = URL(fileURLWithPath: filePath)
             webView.loadHTMLString(contents as String, baseURL: baseUrl)
         }

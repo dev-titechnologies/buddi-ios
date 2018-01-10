@@ -71,7 +71,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
         isControlInSamePage = true
         btnAddPayment.addShadowView()
 //        selectPaymentModeView.isHidden = true
-//        checkIfAnyPromoCodeApplied()
+        checkIfAnyPromoCodeApplied()
         
         listCardsFromStripe()
     }

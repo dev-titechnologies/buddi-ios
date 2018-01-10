@@ -786,6 +786,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                     print("ENTER SUCESSS API")
                     
                     userDefaults.removeObject(forKey: "promocode")
+                    userDefaults.removeObject(forKey: "isPromoCodeApplied")
 
                     userDefaults.set(false, forKey: "sessionBookedNotStarted")
                     userDefaults.removeObject(forKey: "TrainerProfileDictionary")
