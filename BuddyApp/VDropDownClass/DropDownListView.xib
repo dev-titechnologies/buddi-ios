@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SOURCESANSPRO-REGULAR.OTF">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VDropDownViewController" customModule="VDropDown">
+            <connections>
+                <outlet property="btnDone" destination="1oM-f8-Ngh" id="8MA-VC-Bhf"/>
+                <outlet property="btnTopTitle" destination="qOr-cW-8cs" id="rlY-G7-G58"/>
+                <outlet property="tblView" destination="UUY-Ov-uNb" id="ufD-hD-ZPv"/>
+                <outlet property="view" destination="iN0-l3-epB" id="fQy-ku-R6o"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQf-Ds-xhf">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="44" translatesAutoresizingMaskIntoConstraints="NO" id="qOr-cW-8cs">
+                            <rect key="frame" x="2" y="0.0" width="248" height="0.0"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1oM-f8-Ngh">
+                            <rect key="frame" x="255" y="2" width="60" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="Sqs-nU-ZbM"/>
+                            </constraints>
+                            <state key="normal" image="DropDown_Done.png"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="1oM-f8-Ngh" firstAttribute="leading" secondItem="qOr-cW-8cs" secondAttribute="trailing" constant="5" id="09Y-Ua-hiz"/>
+                        <constraint firstAttribute="trailing" secondItem="1oM-f8-Ngh" secondAttribute="trailing" constant="5" id="254-Sb-L8Z"/>
+                        <constraint firstAttribute="height" id="48u-0E-Qzx"/>
+                        <constraint firstItem="qOr-cW-8cs" firstAttribute="top" secondItem="XQf-Ds-xhf" secondAttribute="top" id="ByP-Po-1Po"/>
+                        <constraint firstItem="1oM-f8-Ngh" firstAttribute="top" secondItem="XQf-Ds-xhf" secondAttribute="top" constant="2" id="F2N-9u-eVF"/>
+                        <constraint firstAttribute="bottom" secondItem="qOr-cW-8cs" secondAttribute="bottom" id="lhG-gy-NKD"/>
+                        <constraint firstItem="qOr-cW-8cs" firstAttribute="leading" secondItem="XQf-Ds-xhf" secondAttribute="leading" constant="2" id="oJc-tr-5iC"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UUY-Ov-uNb">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="OcJ-gJ-bZ9"/>
+                        <outlet property="delegate" destination="-1" id="6Bu-l4-YpD"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="0.89411764705882346" green="0.89411764705882346" blue="0.89411764705882346" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="UUY-Ov-uNb" firstAttribute="top" secondItem="XQf-Ds-xhf" secondAttribute="bottom" id="4ZP-a2-VpF"/>
+                <constraint firstItem="UUY-Ov-uNb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="6qV-FW-grh"/>
+                <constraint firstItem="XQf-Ds-xhf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="PDh-48-lDb"/>
+                <constraint firstAttribute="bottom" secondItem="UUY-Ov-uNb" secondAttribute="bottom" id="Wle-XY-bWs"/>
+                <constraint firstAttribute="trailing" secondItem="XQf-Ds-xhf" secondAttribute="trailing" id="ZC6-1s-y5g"/>
+                <constraint firstAttribute="trailing" secondItem="UUY-Ov-uNb" secondAttribute="trailing" id="hy1-Yk-sah"/>
+                <constraint firstItem="XQf-Ds-xhf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="nzS-GE-4hi"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="DropDown_Done.png" width="60" height="30"/>
+    </resources>
+</document>

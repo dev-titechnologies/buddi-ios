@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16D32" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BookingHistoryDB" representedClassName="BookingHistoryDB" syncable="YES">
+        <attribute name="bookedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="bookingId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="paymentStatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="traineeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="traineeName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trainerId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trainerName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trainingStatus" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CategoryDB" representedClassName="CategoryDB" syncable="YES">
+        <attribute name="categoryDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ProfileDB" representedClassName="ProfileDB" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profile_desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profileImageData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="profileImageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ProfileImageDB" representedClassName="ProfileImageDB" syncable="YES">
+        <attribute name="imageData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ReviewHistoryDB" representedClassName="ReviewHistoryDB" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reviewDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="reviewDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reviewId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="starRatingValue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="traineeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="traineeName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trainerId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trainerName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="SubCategoryDB" representedClassName="SubCategoryDB" syncable="YES">
+        <attribute name="subCategoryId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subCategoryName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TrainerProfileDetail" representedClassName="TrainerProfileDetail" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bookingId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lattitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickuplattitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickuplocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickuplongitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profileimage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="traineeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trainerId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weight" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BookingHistoryDB" positionX="-63" positionY="-18" width="128" height="210"/>
+        <element name="CategoryDB" positionX="-45" positionY="90" width="128" height="105"/>
+        <element name="ProfileDB" positionX="-36" positionY="90" width="128" height="180"/>
+        <element name="ProfileImageDB" positionX="-45" positionY="108" width="128" height="75"/>
+        <element name="ReviewHistoryDB" positionX="-54" positionY="63" width="128" height="180"/>
+        <element name="SubCategoryDB" positionX="-45" positionY="90" width="128" height="75"/>
+        <element name="TrainerProfileDetail" positionX="-45" positionY="108" width="128" height="345"/>
+    </elements>
+</model>
