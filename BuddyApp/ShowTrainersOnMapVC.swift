@@ -196,10 +196,20 @@ class ShowTrainersOnMapVC: UIViewController {
         if userDefaults.bool(forKey: "isPromoCodeApplied"){
             print("Promo code already applied")
         }else{
-            guard userDefaults.bool(forKey: "isStripeTokenExists") else{
+//            guard userDefaults.value(forKey: "defaultStripeCardId") as? String
+//                else {
+//                    alertForAddPaymentMethod()
+//                    return
+//            }
+            print("Default Card:\(userDefaults.value(forKey: "defaultStripeCardId") as? String)")
+            if (userDefaults.value(forKey: "defaultStripeCardId") as? String) == nil{
                 alertForAddPaymentMethod()
-                return
             }
+            
+//            guard userDefaults.bool(forKey: "isStripeTokenExists") else{
+//                alertForAddPaymentMethod()
+//                return
+//            }
         }
         
         if isFromSplashScreen{
@@ -236,7 +246,7 @@ class ShowTrainersOnMapVC: UIViewController {
     
     func showAlertRegardingPreviousPayment() {
 
-        var alertMessage = String()
+        //var alertMessage = String()
         
         print("isPaidAlready40Minutes:\(isPaidAlready40Minutes)")
         print("isPaidAlready60Minutes:\(isPaidAlready60Minutes)")
@@ -258,6 +268,7 @@ class ShowTrainersOnMapVC: UIViewController {
             
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
 //                self.paymentCheckoutStripe()
+                self.navigationController?.popViewController(animated: true)
             }))
 //            alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
 //                
@@ -663,10 +674,12 @@ class ShowTrainersOnMapVC: UIViewController {
         
         print("Params:\(parameters)")
         
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: SEARCH_TRAINER, parameters: parameters, onCompletion: { (jsondata) in
             
             print("*** Search Trainer Listing Result:",jsondata)
             
+            CommonMethods.hideProgress()
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return

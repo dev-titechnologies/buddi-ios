@@ -19,9 +19,6 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
     var isAppliedPromoCode = Bool()
     
     @IBOutlet weak var promocode_txt: UITextField!
-    @IBOutlet weak var lblCardEndingWith: UILabel!
-    @IBOutlet weak var imgCardIcon: UIImageView!
-    @IBOutlet weak var selectPaymentModeView: UIView!
     
     @IBOutlet weak var testView: BTUIKPaymentOptionCardView!
     @IBOutlet weak var btnAddPayment: UIButton!
@@ -50,7 +47,10 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
     
     @IBOutlet weak var cardsTableView: UITableView!
     var cardsArray = [CardModel]()
+    var selectedCardPOSArray = [Int]()
     var defaultCardPOS = Int()
+    
+    var defaultCardId = String()
     
     //MARK: - VIEW CYCLES
     
@@ -65,7 +65,6 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
 //        stripeConfigurationSettings()
         
         promoCodeSuccessfullView.isHidden = true
-        selectPaymentModeView.isHidden = true
 //        getStripeToken()
     }
     
@@ -77,7 +76,8 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
 //        selectPaymentModeView.isHidden = true
         checkIfAnyPromoCodeApplied()
         
-        listCardsFromStripe()
+        findDefaultStripeCardAndListAllCards()
+//        listCardsFromStripe()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -167,7 +167,6 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
 
     @IBAction func addPaymentAction(_ sender: Any) {
         
-
         self.performSegue(withIdentifier: "addPaymentMethodToAddStripeCardSegue", sender: self)
         //This is for Stripe
 //        let addCardViewController: STPAddCardViewController = STPAddCardViewController()
@@ -189,13 +188,9 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
         
         if segue.identifier == "unwindSegueToAddPaymentMethodVC" {
-            self.selectPaymentModeView.isHidden = false
-            self.lblCardEndingWith.text = "\(cardBrandString) ending with \(cardEndingWithString)"
             
-            if self.isFromBookingPage{
-                print("*** Returning back to booking Page after adding payment method123")
-                self.navigationController?.popViewController(animated: true)
-            }
+            findDefaultStripeCardAndListAllCards()
+//            listCardsFromStripe()
         }
     }
     
@@ -229,8 +224,8 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
                     self.navigationController?.popViewController(animated: true)
                 }
                 
-                self.selectPaymentModeView.isHidden = false
-                self.lblCardEndingWith.text = (selectedPaymentMethod?.type)! + " " + selectedPaymentMethodDescription
+//                self.selectPaymentModeView.isHidden = false
+//                self.lblCardEndingWith.text = (selectedPaymentMethod?.type)! + " " + selectedPaymentMethodDescription
                 
                 let paymentMethodType = BTUIKViewUtil.paymentOptionType(forPaymentInfoType: result.paymentMethod?.type)
                 
@@ -266,7 +261,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
                 print("paymentDescription: \(selectedPaymentMethodDescription)")
                 print("paymentIcon: \(selectedPaymentMethodIcon)")
 
-                self.lblCardEndingWith.text = (selectedPaymentMethod?.type)! + " " + selectedPaymentMethodDescription
+//                self.lblCardEndingWith.text = (selectedPaymentMethod?.type)! + " " + selectedPaymentMethodDescription
                 
                 let paymentMethodType = BTUIKViewUtil.paymentOptionType(forPaymentInfoType: result.paymentMethod?.type)
                 self.testView.paymentOptionType = paymentMethodType
@@ -417,12 +412,12 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
         print("11")
 
         if let paymentMethod = paymentContext.selectedPaymentMethod {
-            self.selectPaymentModeView.isHidden = false
-            self.lblCardEndingWith.text = "Card ending with \(paymentMethod.label!)"
+//            self.selectPaymentModeView.isHidden = false
+//            self.lblCardEndingWith.text = "Card ending with \(paymentMethod.label!)"
             self.cardIconImage.image = paymentMethod.image
             print("Card Desc:\(paymentMethod.label)")
         }else {
-            self.selectPaymentModeView.isHidden = true
+//            self.selectPaymentModeView.isHidden = true
         }
     }
     
@@ -494,7 +489,6 @@ extension AddPaymentMethodVC: STPAddCardViewControllerDelegate{
         addCardtoStripe(stripeToken: String(describing: token))
         dismiss(animated: true)
     }
-
 }
 
 
@@ -521,9 +515,6 @@ extension AddPaymentMethodVC {
                     
                     let responseData = jsondata["data"] as? NSDictionary
                     CommonMethods.hideProgress()
-                    self.selectPaymentModeView.isHidden = false
-                    self.lblCardEndingWith.text = "\(responseData?["brand"] as! String) ending with \(responseData?["last4"] as! String)"
-//                    self.cardIconImage.image = paymentMethod.image
                     
                     if self.isFromBookingPage{
                         print("*** Returning back to booking Page after adding payment method123")
@@ -541,14 +532,16 @@ extension AddPaymentMethodVC {
         }
     }
     
-    func removeCardFromStripe(stripeToken: String) {
+    func removeCardFromStripe(cardId: String, cardIndex: Int) {
         
-        let parameters =  ["card_token": stripeToken,
+        let parameters =  ["card_token": cardId,
             ] as [String : Any]
         
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: REMOVE_CARD_FROM_STRIPE, parameters: parameters) { (jsondata) in
             print("removeCardFromStripe Response: \(jsondata)")
             
+            CommonMethods.hideProgress()
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
@@ -556,9 +549,24 @@ extension AddPaymentMethodVC {
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
-                    //isAppliedPromoCode
-                }
-                else if status == RESPONSE_STATUS.FAIL{
+
+                    if let response = jsondata["data"] as? NSDictionary {
+                        let card_id = response["id"] as? String
+                        print("Card ID:\(String(describing: card_id))")
+                        
+                        self.cardsArray.remove(at: cardIndex)
+                        
+                        if self.cardsArray.count == 0 {
+                            print("Removing the last card or Default Card **")
+                            userDefaults.removeObject(forKey: "defaultStripeCardId")
+                        }
+                        
+                        let index_path = IndexPath(row: cardIndex, section: 0)
+                        self.cardsTableView.deleteRows(at: [index_path], with: .automatic)
+                        
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: CARD_REMOVED_SUCCESSFULLY, buttonTitle: "OK")
+                    }
+                }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
@@ -584,9 +592,8 @@ extension AddPaymentMethodVC {
 
                     if let cardsArray = jsondata["data"] as? NSArray {
                         if cardsArray.count > 0 {
-                            self.selectPaymentModeView.isHidden = false
+                            
                             let responseData = cardsArray[0] as? NSDictionary
-                            self.lblCardEndingWith.text = "\(responseData?["brand"] as! String) ending with \(responseData?["last4"] as! String)"
                             CommonMethods.hideProgress()
                             userDefaults.set(true, forKey: "isStripeTokenExists")
                             
@@ -614,6 +621,86 @@ extension AddPaymentMethodVC {
             }
         }
     }
+
+    func updateDefaultCardToStripe(cardId: String) {
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: UPDATE_DEFAULT_CARD, parameters: ["card_id" : cardId]) { (jsondata) in
+            print("updateDefaultCardToStripe Response: \(jsondata)")
+            
+            CommonMethods.hideProgress()
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+    
+                    print("*** Card Updated Successfully ***")
+                    userDefaults.set(cardId, forKey: "defaultStripeCardId")
+                    self.cardsTableView.reloadData()
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: CARD_SET_TO_DEFAULT, buttonTitle: "OK")
+
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
+    }
+    
+    func findDefaultStripeCardAndListAllCards() {
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: FIND_DEFAULT_CARD, parameters: ["" : ""]) { (jsondata) in
+            print("** findDefaultStripeCardAndListAllCards Response: \(jsondata)")
+            
+            CommonMethods.hideProgress()
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    if let jsonDict = jsondata["data"] as? NSDictionary{
+                        
+                        //Setting Default Card ID
+                        if let default_card_id = jsonDict["default_source"] as? String{
+                            self.defaultCardId = default_card_id
+                            userDefaults.set(default_card_id, forKey: "defaultStripeCardId")
+                        }else{
+                            userDefaults.removeObject(forKey: "defaultStripeCardId")
+                            self.defaultCardId = ""
+                        }
+                        
+                        if let card_details_dictionary = jsonDict["sources"] as? NSDictionary{
+                            if let card_details_data_array = card_details_dictionary["data"] as? NSArray{
+                                
+                                self.cardsArray.removeAll()
+                                self.cardsArray = self.getCardModel(cardsArray: card_details_data_array as! Array<Any>)
+                                print("Cards Array:\(self.cardsArray)")
+                                self.cardsTableView.reloadData()
+                            }
+                        }
+                        
+                        if self.cardsArray.count > 0 && self.isFromBookingPage {
+                            print("*** Returning back to booking Page after adding payment method123")
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
+    }
     
     func getCardModel(cardsArray: Array<Any>) -> [CardModel]{
         
@@ -635,9 +722,15 @@ extension AddPaymentMethodVC {
             cardModel.endingWith = cardElement?["last4"] as! String
             cardModel.country = cardElement?["country"] as! String
             cardModel.customer = cardElement?["customer"] as! String
-            cardModel.defaultStatus = false
             
-            defaultCardPOS = 2
+            if cardElement?["id"] as! String == self.defaultCardId {
+                defaultCardPOS = card.offset
+                cardModel.defaultStatus = true
+                print("Default Card ID:\(self.defaultCardId)")
+                print("Default Card Position:\(defaultCardPOS)")
+            }else{
+                cardModel.defaultStatus = false
+            }
             
             cardModelArray.append(cardModel)
         }
@@ -667,21 +760,20 @@ extension AddPaymentMethodVC: UITableViewDataSource,UITableViewDelegate {
         
         let card = cardsArray[indexPath.row]
         
-        if card.defaultStatus == true{
-            cardsArray[indexPath.row].defaultStatus = false
-        }else{
+        if card.defaultStatus == false {
+            cardsArray[defaultCardPOS].defaultStatus = false
             cardsArray[indexPath.row].defaultStatus = true
+            defaultCardPOS = indexPath.row
         }
-        let indexPath1 = IndexPath(row: defaultCardPOS, section: 0)
-        self.cardsTableView.reloadRows(at: [indexPath1], with: .automatic)
+        
+        updateDefaultCardToStripe(cardId: cardsArray[indexPath.row].cardId)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             print("Deleted")
             
-            cardsArray.remove(at: indexPath.row)
-            self.cardsTableView.deleteRows(at: [indexPath], with: .automatic)
+            removeCardFromStripe(cardId: self.cardsArray[indexPath.row].cardId, cardIndex: indexPath.row)
         }
     }
 }

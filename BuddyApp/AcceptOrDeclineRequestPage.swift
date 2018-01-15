@@ -122,28 +122,11 @@ class AcceptOrDeclineRequestPage: UIViewController {
                         //==========
                         
                         
-                        //======METHOD 2 ======
-//                        TrainerProfileDictionary = CommonMethods.convertToDictionary(text: NotificationDict )! as NSDictionary
                         print("TrainerProfileDictionary 12345:\(self.TrainerProfileDictionary)")
                         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
-                        //=====================
                         
-                        let sessionDuration = self.TrainerProfileDictionary["training_time"] as! String
-                        let categoryName = CategoryDB.getCategoryByCategoryID(categoryId: String(describing: self.TrainerProfileDictionary["cat_id"]!))
-                        let trainingLocation = self.TrainerProfileDictionary["pick_location"] as! String
-                        
-                        let traineeProfileModelObj = TrainerProfileModal()
-                        let profileDict = traineeProfileModelObj.getTraineeProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
-                        
-                        let socialMediaShareMessage = CommonMethods.socialMediaPostTextForTrainer(sessionDuration: sessionDuration, inCategory: categoryName, firstname: profileDict.firstName, lastname: profileDict.lastName, atLocation: trainingLocation)
-                        
-                        if userDefaults.bool(forKey: "isTwitterAutoShare"){
-                            CommonMethods.postTweetAutomatically(tweetMessage: socialMediaShareMessage, userId: userDefaults.value(forKey: "TwitterUserId") as! String)
-                        }
-                        
-                        if userDefaults.bool(forKey: "isFacebookAutoShare"){
-                            CommonMethods.postToFacebook(message: socialMediaShareMessage)
-                        }
+                        //Temporarily commented due to social media pending
+                        //self.postMessageToSocialMedia(trainerProfileDictionary: self.TrainerProfileDictionary)
 
                         self.dismissAcceptOrDeclinePage()
                     }else{
@@ -159,6 +142,38 @@ class AcceptOrDeclineRequestPage: UIViewController {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
             }
         })
+    }
+    
+    func postMessageToSocialMedia(trainerProfileDictionary: NSDictionary) {
+        
+        var sessionDuration = ""
+        var categoryName = ""
+        var trainingLocation = ""
+        
+        if let session_duration = trainerProfileDictionary["training_time"] as? String {
+            sessionDuration = session_duration
+        }
+        
+        if let category_name = trainerProfileDictionary["category_name"] as? String{
+            categoryName = category_name
+        }
+        
+        if let training_location = trainerProfileDictionary["pick_location"] as? String {
+            trainingLocation = training_location
+        }
+        
+        let traineeProfileModelObj = TrainerProfileModal()
+        let profileDict = traineeProfileModelObj.getTraineeProfileModelFromDict(dictionary: trainerProfileDictionary as! Dictionary<String, Any>)
+        
+        let socialMediaShareMessage = CommonMethods.socialMediaPostTextForTrainer(sessionDuration: sessionDuration, inCategory: categoryName, firstname: profileDict.firstName, lastname: profileDict.lastName, atLocation: trainingLocation)
+        
+        if userDefaults.bool(forKey: "isTwitterAutoShare"){
+            CommonMethods.postTweetAutomatically(tweetMessage: socialMediaShareMessage, userId: userDefaults.value(forKey: "TwitterUserId") as! String)
+        }
+        
+        if userDefaults.bool(forKey: "isFacebookAutoShare"){
+            CommonMethods.postToFacebook(message: socialMediaShareMessage)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

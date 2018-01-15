@@ -146,6 +146,7 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
             
             print("*** Search Trainer Listing Result:",jsondata)
             
+            CommonMethods.hideProgress()
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
@@ -212,17 +213,22 @@ extension ChooseSessionAndGenderVC: WaiverReleaseFormSubmittedDelegate {
         print("** waiverReleaseFormSubmitted **")
         print("participantSign:\(participantSign)")
         print("parentSign:\(parentSign)")
-   
+        
+        CommonMethods.showProgress()
+        
         userDefaults.set(participantSign, forKey: "backupClientSign")
         userDefaults.set(parentSign, forKey: "backupParentSign")
         
         self.participantSign = participantSign
         self.parentSign = parentSign
-
+        
         isAcceptedWaiverReleaseForm = isAccepted
         
         if isAccepted{
             triggerShowTrainersListFunction()
+        }else{
+            // is Declined
+            CommonMethods.hideProgress()
         }
     }
 }

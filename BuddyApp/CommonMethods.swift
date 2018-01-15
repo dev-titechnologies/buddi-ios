@@ -36,7 +36,7 @@ class CommonMethods: NSObject {
             response in
             switch response.result {
             case .success:
-                print("serverCall Response:\(response)")
+                //print("serverCall Response:\(response)")
                 if let value = response.value {
                     onCompletion(value as! Dictionary<String, Any>)
                 }
@@ -635,6 +635,7 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "facebookUserName")
         userDefaults.removeObject(forKey: "TwitterUserId")
         userDefaults.removeObject(forKey: "isPromoCodeApplied")
+        userDefaults.removeObject(forKey: "defaultStripeCardId")
         
         userDefaults.removeObject(forKey: "isSessionStartedFromPush_AppKilledState")
         userDefaults.removeObject(forKey: "sessionStartedPushReceivedTime")

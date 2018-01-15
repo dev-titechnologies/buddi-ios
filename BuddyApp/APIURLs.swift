@@ -41,6 +41,8 @@ let REMOVE_CARD_FROM_STRIPE = "payment/removeCardtoStripe"
 let LIST_STRIPE_CARDS = "payment/listCardinStripe"
 let PAYMENT_CHECKOUT_STRIPE = "payment/checkoutPay"
 let UPDATE_STRIPE_ACCOUNT = "payment/updateStripeAcc"
+let UPDATE_DEFAULT_CARD = "payment/updateCardtoStripe"
+let FIND_DEFAULT_CARD = "payment/findDefaultCard"
 
 let TERMS_OF_USE_URL = "http://buddimedia.com/termsofuse.html"
 let PRIVACY_POLICY_URL = "http://buddimedia.com/privacypolicy.html"

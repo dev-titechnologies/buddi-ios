@@ -718,7 +718,10 @@ class TrainerTraineeRouteViewController: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     
                     if let dict = jsondata["data"]  as? NSDictionary {
-                        if dict["status"] as! String == "cancelled" || dict["status"] as! String == "stopped" || dict["status"] as! String == "completed" {
+                        
+                        if dict["status"] as! String == "cancelled" ||
+                            dict["status"] as! String == "stopped" ||
+                            dict["status"] as! String == "completed" {
                             
                             print("** Removing Timer Details from UserDefaults ***")
                             self.stopTimer()

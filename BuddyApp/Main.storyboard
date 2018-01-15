@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -124,12 +125,9 @@
                                         <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="currentPageIndicatorTintColor" red="0.46274509800000002" green="0.83921568629999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </pageControl>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="“Whatever. Wherever. Whenever.”" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHs-k3-zSM">
-                                        <rect key="frame" x="0.0" y="66" width="357" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="rOd-eA-gYe"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Train WHATEVER. WHEREVER. WHENEVER" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHs-k3-zSM">
+                                        <rect key="frame" x="0.0" y="66" width="357" height="62.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -147,6 +145,7 @@
                                 <constraints>
                                     <constraint firstItem="Acj-aI-84x" firstAttribute="top" secondItem="9Uu-Mo-3JU" secondAttribute="bottom" constant="5" id="6AO-rh-dff"/>
                                     <constraint firstItem="fHs-k3-zSM" firstAttribute="top" secondItem="Acj-aI-84x" secondAttribute="bottom" constant="-12" id="7gT-M7-wdh"/>
+                                    <constraint firstAttribute="bottom" secondItem="fHs-k3-zSM" secondAttribute="bottom" constant="5" id="IuT-hM-Mci"/>
                                     <constraint firstAttribute="trailing" secondItem="fHs-k3-zSM" secondAttribute="trailing" id="LfN-Az-kbk"/>
                                     <constraint firstItem="9Uu-Mo-3JU" firstAttribute="centerX" secondItem="3hg-Rx-8Bx" secondAttribute="centerX" id="V9P-5c-ucI"/>
                                     <constraint firstItem="Acj-aI-84x" firstAttribute="leading" secondItem="3hg-Rx-8Bx" secondAttribute="leading" constant="15" id="fHZ-My-Vsl"/>
@@ -6825,78 +6824,6 @@ Good luck!
                                     <constraint firstItem="DaQ-0a-TRN" firstAttribute="top" secondItem="Ke4-cv-Myw" secondAttribute="top" constant="8" id="ydP-B1-G3U"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKq-tY-ndA">
-                                <rect key="frame" x="10" y="240" width="355" height="96"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHt-6A-Zua" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="29" width="339" height="47"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2L-NK-xsm">
-                                                <rect key="frame" x="59" y="8" width="241" height="31"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="31" id="coa-lw-C1W"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checked" translatesAutoresizingMaskIntoConstraints="NO" id="UuZ-fo-DD9">
-                                                <rect key="frame" x="308" y="12" width="23" height="23"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="23" id="UpP-cv-0Eh"/>
-                                                    <constraint firstAttribute="width" constant="23" id="yeA-QE-Ofy"/>
-                                                </constraints>
-                                            </imageView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRa-8d-wfH" customClass="BTUIKPaymentOptionCardView">
-                                                <rect key="frame" x="8" y="10" width="43" height="26"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="3S4-bF-Vad"/>
-                                                    <constraint firstAttribute="width" constant="43" id="RPT-PU-Nze"/>
-                                                </constraints>
-                                            </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="credit-card" translatesAutoresizingMaskIntoConstraints="NO" id="ihb-RC-dmy">
-                                                <rect key="frame" x="14" y="8" width="37" height="32"/>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="ihb-RC-dmy" firstAttribute="leading" secondItem="qRa-8d-wfH" secondAttribute="leading" constant="6" id="9ht-kq-w13"/>
-                                            <constraint firstItem="ihb-RC-dmy" firstAttribute="height" secondItem="qRa-8d-wfH" secondAttribute="height" constant="6" id="AyO-yk-LSo"/>
-                                            <constraint firstItem="W2L-NK-xsm" firstAttribute="leading" secondItem="qRa-8d-wfH" secondAttribute="trailing" constant="8" id="B6a-nT-iO9"/>
-                                            <constraint firstItem="qRa-8d-wfH" firstAttribute="centerY" secondItem="dHt-6A-Zua" secondAttribute="centerY" id="F94-fz-wnf"/>
-                                            <constraint firstItem="ihb-RC-dmy" firstAttribute="top" secondItem="qRa-8d-wfH" secondAttribute="top" constant="-2" id="GNZ-pD-r0C"/>
-                                            <constraint firstItem="W2L-NK-xsm" firstAttribute="centerY" secondItem="dHt-6A-Zua" secondAttribute="centerY" id="RTu-oK-lvl"/>
-                                            <constraint firstItem="UuZ-fo-DD9" firstAttribute="leading" secondItem="W2L-NK-xsm" secondAttribute="trailing" constant="8" id="RgQ-qz-Pt7"/>
-                                            <constraint firstItem="UuZ-fo-DD9" firstAttribute="centerY" secondItem="dHt-6A-Zua" secondAttribute="centerY" id="XwN-r1-gL8"/>
-                                            <constraint firstAttribute="height" constant="47" id="bTM-sA-3Ae"/>
-                                            <constraint firstAttribute="trailing" secondItem="UuZ-fo-DD9" secondAttribute="trailing" constant="8" id="flZ-Kw-rXl"/>
-                                            <constraint firstItem="qRa-8d-wfH" firstAttribute="leading" secondItem="dHt-6A-Zua" secondAttribute="leading" constant="8" id="hA5-cR-K4O"/>
-                                            <constraint firstItem="ihb-RC-dmy" firstAttribute="trailing" secondItem="qRa-8d-wfH" secondAttribute="trailing" id="kEK-q1-dEO"/>
-                                            <constraint firstItem="ihb-RC-dmy" firstAttribute="width" secondItem="qRa-8d-wfH" secondAttribute="width" constant="-6" id="v2D-Gr-0xj"/>
-                                        </constraints>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SELECT PAYMENT MODE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drA-gi-6dL">
-                                        <rect key="frame" x="8" y="0.0" width="216" height="27"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="216" id="2y9-xt-Z4B"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="27" id="avL-mt-7mu"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="drA-gi-6dL" firstAttribute="leading" secondItem="aKq-tY-ndA" secondAttribute="leading" constant="8" id="1Bt-Ra-s69"/>
-                                    <constraint firstAttribute="trailing" secondItem="dHt-6A-Zua" secondAttribute="trailing" constant="8" id="21h-Ct-OkR"/>
-                                    <constraint firstItem="dHt-6A-Zua" firstAttribute="leading" secondItem="aKq-tY-ndA" secondAttribute="leading" constant="8" id="3dE-vP-j1e"/>
-                                    <constraint firstItem="drA-gi-6dL" firstAttribute="top" secondItem="aKq-tY-ndA" secondAttribute="top" id="Y49-qo-7sk"/>
-                                    <constraint firstAttribute="height" constant="96" id="h6m-Xf-hQS"/>
-                                    <constraint firstItem="dHt-6A-Zua" firstAttribute="top" secondItem="drA-gi-6dL" secondAttribute="bottom" constant="2" id="wT1-h9-53M"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iql-kG-d3o">
                                 <rect key="frame" x="16" y="604" width="343" height="43"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -6910,15 +6837,15 @@ Good luck!
                                     <action selector="addPaymentAction:" destination="H3l-5a-Phu" eventType="touchUpInside" id="nFo-1A-Rfn"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qfp-Ak-jrO">
-                                <rect key="frame" x="10" y="344" width="355" height="252"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qfp-Ak-jrO">
+                                <rect key="frame" x="10" y="271" width="355" height="325"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cardsCellId" rowHeight="66" id="zGQ-eO-tI5" customClass="CardsTableViewCell" customModule="BuddyApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="355" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zGQ-eO-tI5" id="8Is-xz-yWX">
-                                            <rect key="frame" x="0.0" y="0.0" width="355" height="65.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="355" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zXc-1R-a21" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
@@ -6989,22 +6916,31 @@ Good luck!
                                     <outlet property="delegate" destination="H3l-5a-Phu" id="YdA-9L-41b"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SELECT PAYMENT MODE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drA-gi-6dL">
+                                <rect key="frame" x="18" y="236" width="216" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="216" id="2y9-xt-Z4B"/>
+                                    <constraint firstAttribute="height" constant="27" id="sPf-Dz-7fa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Qfp-Ak-jrO" secondAttribute="trailing" constant="10" id="5b4-9J-3qn"/>
-                            <constraint firstItem="aKq-tY-ndA" firstAttribute="top" secondItem="Ke4-cv-Myw" secondAttribute="bottom" constant="20" id="ArA-bE-cJJ"/>
+                            <constraint firstItem="drA-gi-6dL" firstAttribute="top" secondItem="Ke4-cv-Myw" secondAttribute="bottom" constant="16" id="5hR-OW-4lj"/>
+                            <constraint firstItem="Qfp-Ak-jrO" firstAttribute="top" secondItem="drA-gi-6dL" secondAttribute="bottom" constant="8" id="BQ5-9n-uHR"/>
                             <constraint firstItem="iql-kG-d3o" firstAttribute="leading" secondItem="ggE-ka-3GW" secondAttribute="leading" constant="16" id="DdG-Wa-xNK"/>
+                            <constraint firstItem="drA-gi-6dL" firstAttribute="leading" secondItem="ggE-ka-3GW" secondAttribute="leading" constant="18" id="LtZ-2R-70R"/>
                             <constraint firstItem="Qfp-Ak-jrO" firstAttribute="leading" secondItem="ggE-ka-3GW" secondAttribute="leading" constant="10" id="NdH-Ck-Nvi"/>
                             <constraint firstAttribute="trailing" secondItem="iql-kG-d3o" secondAttribute="trailing" constant="16" id="PFI-ar-r7p"/>
-                            <constraint firstItem="Qfp-Ak-jrO" firstAttribute="top" secondItem="aKq-tY-ndA" secondAttribute="bottom" constant="8" id="VSk-fr-NXG"/>
                             <constraint firstItem="iql-kG-d3o" firstAttribute="top" secondItem="Qfp-Ak-jrO" secondAttribute="bottom" constant="8" id="Xim-Ie-8n7"/>
                             <constraint firstItem="Wph-Sh-5mj" firstAttribute="top" secondItem="iql-kG-d3o" secondAttribute="bottom" constant="20" id="Z0G-nV-EWw"/>
                             <constraint firstItem="Ke4-cv-Myw" firstAttribute="leading" secondItem="ggE-ka-3GW" secondAttribute="leading" constant="10" id="mez-lQ-OmR"/>
                             <constraint firstAttribute="trailing" secondItem="Ke4-cv-Myw" secondAttribute="trailing" constant="10" id="mqY-Tf-UGr"/>
                             <constraint firstItem="Ke4-cv-Myw" firstAttribute="top" secondItem="KvT-eO-V3g" secondAttribute="bottom" constant="20" id="nGS-0f-LzL"/>
-                            <constraint firstItem="aKq-tY-ndA" firstAttribute="leading" secondItem="ggE-ka-3GW" secondAttribute="leading" constant="10" id="tiH-5k-haG"/>
-                            <constraint firstAttribute="trailing" secondItem="aKq-tY-ndA" secondAttribute="trailing" constant="10" id="zSH-dr-9v9"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -7024,15 +6960,11 @@ Good luck!
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="btnAddPayment" destination="iql-kG-d3o" id="BFj-L7-wU6"/>
-                        <outlet property="cardIconImage" destination="ihb-RC-dmy" id="3OR-YD-33x"/>
                         <outlet property="cardsTableView" destination="Qfp-Ak-jrO" id="o48-2D-QAb"/>
                         <outlet property="imgPromoCodeSuccessTick" destination="Bn3-vp-QCg" id="yzo-ma-qtq"/>
-                        <outlet property="lblCardEndingWith" destination="W2L-NK-xsm" id="iyA-A6-ULR"/>
                         <outlet property="lblPromoCodeSuccessfull" destination="nEP-Yx-iuH" id="kpO-Nh-HgW"/>
                         <outlet property="promoCodeSuccessfullView" destination="wDA-Ca-zCb" id="IXf-Co-PXp"/>
                         <outlet property="promocode_txt" destination="sEI-EH-nAx" id="5q6-1i-XDN"/>
-                        <outlet property="selectPaymentModeView" destination="aKq-tY-ndA" id="mXZ-Ut-lxr"/>
-                        <outlet property="testView" destination="qRa-8d-wfH" id="0jo-Ix-XKE"/>
                         <segue destination="y0t-gz-zs8" kind="show" identifier="addPaymentMethodToAddStripeCardSegue" id="ccf-Eb-Bfe"/>
                     </connections>
                 </viewController>

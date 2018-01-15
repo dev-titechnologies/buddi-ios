@@ -71,6 +71,7 @@
 		F341B0361F28D80F007C9AF1 /* ColorCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0351F28D80F007C9AF1 /* ColorCodes.swift */; };
 		F341B0381F28D9FB007C9AF1 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0371F28D9FB007C9AF1 /* CardView.swift */; };
 		F34D039F1FFB6826001B56EE /* WaiverReleaseFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D039E1FFB6826001B56EE /* WaiverReleaseFormVC.swift */; };
+		F3585C3A200CB254006A0477 /* ShowTrainersOnMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907851F3352DC00474F5E /* ShowTrainersOnMapVC.swift */; };
 		F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAB91F1DE60A0091900D /* BookingHistory.json */; };
 		F35FDAC01F1DE9BE0091900D /* CommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */; };
 		F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FDAC41F1DEDCC0091900D /* BookingHistoryModel.swift */; };
@@ -129,7 +130,6 @@
 		F3A907801F32F15D00474F5E /* ChooseGenderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A9077F1F32F15D00474F5E /* ChooseGenderTableCell.swift */; };
 		F3A907821F32F30100474F5E /* ChooseSessionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907811F32F30100474F5E /* ChooseSessionTableCell.swift */; };
 		F3A907841F32FD5A00474F5E /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907831F32FD5A00474F5E /* SectionHeaderCell.swift */; };
-		F3A907861F3352DD00474F5E /* ShowTrainersOnMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907851F3352DC00474F5E /* ShowTrainersOnMapVC.swift */; };
 		F3A907881F33578100474F5E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A907871F33578000474F5E /* CoreLocation.framework */; };
 		F3AA6C831F21C4F500F44DC2 /* libPhoneNumber_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AA6C821F21C4F500F44DC2 /* libPhoneNumber_iOS.framework */; };
 		F3AF9D431F30661000D0CF05 /* GymModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AF9D421F30661000D0CF05 /* GymModel.swift */; };
@@ -1269,6 +1269,7 @@
 				F3160F031F4D5E860091ACAB /* SwiftyStarRatingView.swift in Sources */,
 				F3FF03E31F285F8200D4DD0D /* DataExtension.swift in Sources */,
 				F37350991F207A2D00BE9DB6 /* LeftViewController.swift in Sources */,
+				F3585C3A200CB254006A0477 /* ShowTrainersOnMapVC.swift in Sources */,
 				F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */,
 				F316E7F11F2209C000994447 /* SubCategoryTableCell.swift in Sources */,
 				F3F5955D1F59587A00110123 /* ContactModel.swift in Sources */,
@@ -1306,7 +1307,6 @@
 				F35FDAC51F1DEDCC0091900D /* BookingHistoryModel.swift in Sources */,
 				F38BB5431F2606A400824C15 /* ProfileModel.swift in Sources */,
 				F316E7EB1F21BF4E00994447 /* SubCategoryDB.swift in Sources */,
-				F3A907861F3352DD00474F5E /* ShowTrainersOnMapVC.swift in Sources */,
 				F3A3E5B21F4C4AC900B0865E /* PageTitles.swift in Sources */,
 				F373509F1F20913800BE9DB6 /* CategoryListCell.swift in Sources */,
 				F3A907801F32F15D00474F5E /* ChooseGenderTableCell.swift in Sources */,
