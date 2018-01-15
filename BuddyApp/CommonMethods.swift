@@ -635,6 +635,7 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "facebookUserName")
         userDefaults.removeObject(forKey: "TwitterUserId")
         userDefaults.removeObject(forKey: "isPromoCodeApplied")
+        userDefaults.removeObject(forKey: "defaultStripeCardId")
         
         userDefaults.removeObject(forKey: "isSessionStartedFromPush_AppKilledState")
         userDefaults.removeObject(forKey: "sessionStartedPushReceivedTime")

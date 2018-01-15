@@ -127,15 +127,11 @@ class TrainerReviewPage: UIViewController{
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    //Delegate call
                     if self.apologyBool{
-                        
                         self.apologyview.isHidden = false
                         self.reviewview.isHidden = true
-                        
                     }else{
-                        
-                         self.delegateReview?.reviewFormSubmittedDelegate()
+                        self.delegateReview?.reviewFormSubmittedDelegate()
                         self.dismiss(animated: true, completion: nil)
                     }
 //                    

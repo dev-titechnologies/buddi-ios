@@ -52,6 +52,7 @@ let PLEASE_ACCEPT_WAIVER_RELEASE_FORM_LABEL = "I HAVE READ THIS RELEASE OF LIABI
 let REGARDING_PREVIOUS_PAYMENT_ABOUT_SESSION = "Hey! We know you want to change your session duration, but before you do, please complete the original session you booked. Don’t worry, we’re working on this issue as you’re reading this now, and you’ll soon be able to change session durations at will!"
 
 let YOU_ARE_SUSPENDED_FROM_APP = "You are suspended from using the app temporarily"
+let CARD_REMOVED_SUCCESSFULLY = "Card removed successfully"
 
 let TERMS_OF_USE_LINK_DISPLAY_TEXT = "Terms of Use"
 let PRIVACY_POLICY_LINK_DISPLAY_TEXT = "Privacy Policy"

@@ -236,7 +236,7 @@ class ShowTrainersOnMapVC: UIViewController {
     
     func showAlertRegardingPreviousPayment() {
 
-        var alertMessage = String()
+        //var alertMessage = String()
         
         print("isPaidAlready40Minutes:\(isPaidAlready40Minutes)")
         print("isPaidAlready60Minutes:\(isPaidAlready60Minutes)")
@@ -663,10 +663,12 @@ class ShowTrainersOnMapVC: UIViewController {
         
         print("Params:\(parameters)")
         
+        CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: SEARCH_TRAINER, parameters: parameters, onCompletion: { (jsondata) in
             
             print("*** Search Trainer Listing Result:",jsondata)
             
+            CommonMethods.hideProgress()
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return
