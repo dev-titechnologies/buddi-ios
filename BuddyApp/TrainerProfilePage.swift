@@ -634,12 +634,22 @@ class TrainerProfilePage: UIViewController {
         
         if let image_url = profile["user_image"] as? String{
             
+            //Load profile image from NSData which is stored when login/register time
+            if appDelegate.profileImageData.length != 0 {
+                self.profileImage.image = UIImage(data: appDelegate.profileImageData as Data)
+            }
+
+            
             if let imagearray = ProfileImageDB.fetchImage() {
                 self.imageArray = imagearray as! Array<ProfileImageDB>
                 
                 guard self.imageArray.count > 0 else{
                     
-                    self.profileImage.image = UIImage(named: "profileDemoImage")
+                   // self.profileImage.image = UIImage(named: "profileDemoImage")
+                    
+                    profileImage.sd_setImage(with: URL(string: image_url), placeholderImage: UIImage(named: "profileDemoImage"))
+
+                    
                     return
                 }
                 self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
