@@ -143,9 +143,9 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         initializeSessionCheck()
         
+        socketListener()
         SocketIOManager.sharedInstance.establishConnection()
         getSocketConnected()
-        socketListener()
         
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)

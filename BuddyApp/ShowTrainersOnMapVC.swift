@@ -196,10 +196,20 @@ class ShowTrainersOnMapVC: UIViewController {
         if userDefaults.bool(forKey: "isPromoCodeApplied"){
             print("Promo code already applied")
         }else{
-            guard userDefaults.bool(forKey: "isStripeTokenExists") else{
+//            guard userDefaults.value(forKey: "defaultStripeCardId") as? String
+//                else {
+//                    alertForAddPaymentMethod()
+//                    return
+//            }
+            print("Default Card:\(userDefaults.value(forKey: "defaultStripeCardId") as? String)")
+            if (userDefaults.value(forKey: "defaultStripeCardId") as? String) == nil{
                 alertForAddPaymentMethod()
-                return
             }
+            
+//            guard userDefaults.bool(forKey: "isStripeTokenExists") else{
+//                alertForAddPaymentMethod()
+//                return
+//            }
         }
         
         if isFromSplashScreen{
@@ -258,6 +268,7 @@ class ShowTrainersOnMapVC: UIViewController {
             
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
 //                self.paymentCheckoutStripe()
+                self.navigationController?.popViewController(animated: true)
             }))
 //            alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
 //                

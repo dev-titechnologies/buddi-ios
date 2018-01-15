@@ -146,6 +146,7 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
             
             print("*** Search Trainer Listing Result:",jsondata)
             
+            CommonMethods.hideProgress()
             guard (jsondata["status"] as? Int) != nil else {
                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 return

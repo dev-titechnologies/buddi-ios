@@ -53,6 +53,7 @@ let REGARDING_PREVIOUS_PAYMENT_ABOUT_SESSION = "Hey! We know you want to change 
 
 let YOU_ARE_SUSPENDED_FROM_APP = "You are suspended from using the app temporarily"
 let CARD_REMOVED_SUCCESSFULLY = "Card removed successfully"
+let CARD_SET_TO_DEFAULT = "Card has been set to default"
 
 let TERMS_OF_USE_LINK_DISPLAY_TEXT = "Terms of Use"
 let PRIVACY_POLICY_LINK_DISPLAY_TEXT = "Privacy Policy"

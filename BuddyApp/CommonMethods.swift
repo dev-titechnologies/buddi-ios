@@ -36,7 +36,7 @@ class CommonMethods: NSObject {
             response in
             switch response.result {
             case .success:
-                print("serverCall Response:\(response)")
+                //print("serverCall Response:\(response)")
                 if let value = response.value {
                     onCompletion(value as! Dictionary<String, Any>)
                 }

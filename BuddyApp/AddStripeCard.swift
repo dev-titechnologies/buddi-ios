@@ -98,7 +98,7 @@ class AddStripeCard: UIViewController, STPPaymentCardTextFieldDelegate {
             
             self.stripeToken = String(describing: token!)
             
-            userDefaults.set(true, forKey: "isStripeTokenExists")
+//            userDefaults.set(true, forKey: "isStripeTokenExists")
             self.addCardtoStripe(stripeToken: self.stripeToken)
         }
     }
