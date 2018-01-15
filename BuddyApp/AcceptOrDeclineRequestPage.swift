@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class AcceptOrDeclineRequestPage: UIViewController {
 
@@ -21,7 +22,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         lblRequestDescription.text = APSBody
         
         view?.backgroundColor = UIColor(white: 1, alpha: 0.5)
