@@ -95,8 +95,6 @@ class TrainerProfilePage: UIViewController {
         print("*** viewDidAppear Trainer")
         self.UpdateLocationAPI(Status: "online")
 
-        let reviewPage : TrainerReviewPage = storyboardSingleton.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
-        reviewPage.delegateReview = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -340,6 +338,8 @@ class TrainerProfilePage: UIViewController {
                     if !self.isFromSessionPageAfterCompletion{
                         self.dismissOnSessionExpire()
                     }else{
+//                        let reviewPage : TrainerReviewPage = TrainerReviewPage()
+//                        reviewPage.delegateReview = self
                         self.dismissOnSessionExpire()
                     }
                 }
@@ -400,10 +400,7 @@ class TrainerProfilePage: UIViewController {
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     
                     self.isSessionExpired = true
-
-                    if !self.isFromSessionPageAfterCompletion{
-                        self.dismissOnSessionExpire()
-                    }
+                    self.dismissOnSessionExpire()
                 }
             }
         })

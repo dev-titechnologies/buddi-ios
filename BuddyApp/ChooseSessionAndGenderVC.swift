@@ -212,17 +212,22 @@ extension ChooseSessionAndGenderVC: WaiverReleaseFormSubmittedDelegate {
         print("** waiverReleaseFormSubmitted **")
         print("participantSign:\(participantSign)")
         print("parentSign:\(parentSign)")
-   
+        
+        CommonMethods.showProgress()
+        
         userDefaults.set(participantSign, forKey: "backupClientSign")
         userDefaults.set(parentSign, forKey: "backupParentSign")
         
         self.participantSign = participantSign
         self.parentSign = parentSign
-
+        
         isAcceptedWaiverReleaseForm = isAccepted
         
         if isAccepted{
             triggerShowTrainersListFunction()
+        }else{
+            // is Declined
+            CommonMethods.hideProgress()
         }
     }
 }

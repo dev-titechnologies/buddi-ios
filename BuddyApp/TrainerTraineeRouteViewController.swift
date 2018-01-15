@@ -143,9 +143,9 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         initializeSessionCheck()
         
-        socketListener()
         SocketIOManager.sharedInstance.establishConnection()
         getSocketConnected()
+        socketListener()
         
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
@@ -718,7 +718,10 @@ class TrainerTraineeRouteViewController: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     
                     if let dict = jsondata["data"]  as? NSDictionary {
-                        if dict["status"] as! String == "cancelled" || dict["status"] as! String == "stopped" || dict["status"] as! String == "completed" {
+                        
+                        if dict["status"] as! String == "cancelled" ||
+                            dict["status"] as! String == "stopped" ||
+                            dict["status"] as! String == "completed" {
                             
                             print("** Removing Timer Details from UserDefaults ***")
                             self.stopTimer()
