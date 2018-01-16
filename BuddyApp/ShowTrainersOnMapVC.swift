@@ -196,20 +196,11 @@ class ShowTrainersOnMapVC: UIViewController {
         if userDefaults.bool(forKey: "isPromoCodeApplied"){
             print("Promo code already applied")
         }else{
-//            guard userDefaults.value(forKey: "defaultStripeCardId") as? String
-//                else {
-//                    alertForAddPaymentMethod()
-//                    return
-//            }
-            print("Default Card:\(userDefaults.value(forKey: "defaultStripeCardId") as? String)")
+            print("Default Card:\(String(describing: userDefaults.value(forKey: "defaultStripeCardId") as? String))")
             if (userDefaults.value(forKey: "defaultStripeCardId") as? String) == nil{
                 alertForAddPaymentMethod()
+                return
             }
-            
-//            guard userDefaults.bool(forKey: "isStripeTokenExists") else{
-//                alertForAddPaymentMethod()
-//                return
-//            }
         }
         
         if isFromSplashScreen{

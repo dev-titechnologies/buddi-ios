@@ -22,6 +22,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
          AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         lblRequestDescription.text = APSBody
         

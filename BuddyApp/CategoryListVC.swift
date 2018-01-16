@@ -55,6 +55,8 @@ class CategoryListVC: UIViewController {
 //        self.approvedCategoriesIdArray = userDefaults.stringArray(forKey: "approvedOrPendingCategoriesIdArray") ?? [String]()
 //        print("ApprovedCategories ID retrieved from userdefaults:\(self.approvedCategoriesIdArray)")
 
+        btnNext.isHidden = true
+
         if FromTrainerProfileBool || isFromAssignedTrainerVC {
             btnMenu.isHidden = false
             self.title = PAGE_TITLE.CATEGORY_LIST

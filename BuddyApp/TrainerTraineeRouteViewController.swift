@@ -1105,7 +1105,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
         
-        //socketListener()
+        socketListener()
     }
     
     func measureDistance(buddiLat: Float, buddiLong: Float){
@@ -1240,7 +1240,7 @@ extension TrainerTraineeRouteViewController: CLLocationManagerDelegate {
             print("PickupLong:\(trainerProfileDetails.PickUpLongitude)")
             
             if trainerProfileDetails.PickUpLattitude == "" || trainerProfileDetails.PickUpLongitude == ""{
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+//                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
                 userDefaults.removeObject(forKey: "TimerData")
             }else{
                 self.DrowRoute(OriginLat: lat, OriginLong: long, DestiLat: Float(trainerProfileDetails.PickUpLattitude)!, DestiLong: Float(trainerProfileDetails.PickUpLongitude)!)

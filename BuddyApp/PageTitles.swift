@@ -18,6 +18,8 @@ struct PAGE_TITLE {
     static let CHOOSE_SESSION_AND_GENDER = "Choose your preferences"
     static let TRAINERS_LISTING = "Trainers listing"
     static let ADD_PAYMENT_METHOD = "Add payment method"
+    static let ADD_CARD_DETAILS = "Add card details"
+    static let ADD_DEBIT_CARD = "Add debit card"
     static let TRAINING_SESSION = "Training session"
     static let TRAINEE_PROFILE = "Profile"
     static let TRAINER_PROFILE = "Profile"

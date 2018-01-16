@@ -668,7 +668,7 @@ extension AddPaymentMethodVC {
                     
                     if let jsonDict = jsondata["data"] as? NSDictionary{
                         
-                        //Setting Default Card ID
+                        //Setting Default Card ID - For TRAINEE
                         if let default_card_id = jsonDict["default_source"] as? String{
                             self.defaultCardId = default_card_id
                             userDefaults.set(default_card_id, forKey: "defaultStripeCardId")
@@ -691,6 +691,13 @@ extension AddPaymentMethodVC {
                             print("*** Returning back to booking Page after adding payment method123")
                             self.navigationController?.popViewController(animated: true)
                         }
+                    }
+                    
+                    if let card_details_data_array = jsondata["data"] as? NSArray{
+                        self.cardsArray.removeAll()
+                        self.cardsArray = self.getCardModel(cardsArray: card_details_data_array as! Array<Any>)
+                        print("Cards Array:\(self.cardsArray)")
+                        self.cardsTableView.reloadData()
                     }
                     
                 }else if status == RESPONSE_STATUS.FAIL{
@@ -721,15 +728,36 @@ extension AddPaymentMethodVC {
             cardModel.expiryYear = String(describing: cardElement?["exp_year"])
             cardModel.endingWith = cardElement?["last4"] as! String
             cardModel.country = cardElement?["country"] as! String
-            cardModel.customer = cardElement?["customer"] as! String
             
-            if cardElement?["id"] as! String == self.defaultCardId {
-                defaultCardPOS = card.offset
-                cardModel.defaultStatus = true
-                print("Default Card ID:\(self.defaultCardId)")
-                print("Default Card Position:\(defaultCardPOS)")
+            if let customer = cardElement?["customer"] as? String{
+                cardModel.customer = customer
+            }else if let account = cardElement?["account"] as? String {
+                cardModel.customer = account
             }else{
-                cardModel.defaultStatus = false
+                cardModel.customer = ""
+            }
+
+            if appDelegate.USER_TYPE == USER_TYPE.TRAINEE {
+                if cardElement?["id"] as! String == self.defaultCardId {
+                    defaultCardPOS = card.offset
+                    cardModel.defaultStatus = true
+                    print("Default Card ID:\(self.defaultCardId)")
+                    print("Default Card Position:\(defaultCardPOS)")
+                }else{
+                    cardModel.defaultStatus = false
+                }
+            }else if appDelegate.USER_TYPE == USER_TYPE.TRAINER {
+                if (cardElement?["default_for_currency"] as? Bool)!{
+                    defaultCardPOS = card.offset
+                    cardModel.defaultStatus = true
+                    self.defaultCardId = cardElement?["id"] as! String
+                    
+                    print("Default Card ID:\(self.defaultCardId)")
+                    print("Default Card Position:\(defaultCardPOS)")
+                    userDefaults.set(self.defaultCardId, forKey: "defaultStripeCardId")
+                }else if !((cardElement?["default_for_currency"] as? Bool)!){
+                    cardModel.defaultStatus = false
+                }
             }
             
             cardModelArray.append(cardModel)
