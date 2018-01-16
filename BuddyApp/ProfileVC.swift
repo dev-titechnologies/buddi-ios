@@ -161,13 +161,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             lblMobile.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
             contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
             
-            
-            
-//            contycode_lbl.text = "+1"
-//            lblMobile.text = "2089997207"
-            
-
-
             countrypicker.countryPickerDelegate = self
             countrypicker.showPhoneNumbers = true
            // countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
