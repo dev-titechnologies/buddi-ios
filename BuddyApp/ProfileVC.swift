@@ -161,13 +161,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             lblMobile.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
             contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
             
-            
-            
-//            contycode_lbl.text = "+1"
-//            lblMobile.text = "2089997207"
-            
-
-
             countrypicker.countryPickerDelegate = self
             countrypicker.showPhoneNumbers = true
            // countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
@@ -302,7 +295,13 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
         
         let userName = profile.firstName + " " + profile.lastName as String
-        userDefaults.set(userName, forKey: "userName")
+       
+        if isFromRouteVC{
+        }else{
+             userDefaults.set(userName, forKey: "userName")
+        }
+        
+        
 
         firstname_txt.text = profile.firstName
         lastname_txt.text = profile.lastName
@@ -320,7 +319,12 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         if let image_url = profiledict["user_image"] as? String{
             if image_url != ""{
-                saveAndDisplayProfileImage(image_URL: image_url)
+                 if isFromRouteVC{
+                    
+                    profileImage.sd_setImage(with: URL(string: image_url), placeholderImage: UIImage(named: "profileDemoImage"))
+                 }else{
+                    saveAndDisplayProfileImage(image_URL: image_url)
+                }
             }
         }else{
             profileImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "profileDemoImage"))
