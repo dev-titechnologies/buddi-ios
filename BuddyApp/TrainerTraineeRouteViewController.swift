@@ -1089,7 +1089,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         //SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
         
-        //socketListener()
+        socketListener()
     }
     
     func addHandlersTrainer(){
