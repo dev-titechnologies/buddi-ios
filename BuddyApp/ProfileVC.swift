@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import CountryPicker
+import libPhoneNumber_iOS
 
 class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerDelegate,UINavigationControllerDelegate{
 
@@ -42,6 +43,7 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     var isFromRouteVC = Bool()
     var userType = String()
     var userId = String()
+    var countryAlphaCode = String()
     
     @IBOutlet weak var btnMenu: UIButton!
     
@@ -49,6 +51,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+     
         
         self.title = PAGE_TITLE.TRAINEE_PROFILE
         imagePicker.delegate = self
@@ -156,10 +160,19 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             
             lblMobile.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
             contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
+            
+            
+            
+//            contycode_lbl.text = "+1"
+//            lblMobile.text = "2089997207"
+            
+
 
             countrypicker.countryPickerDelegate = self
             countrypicker.showPhoneNumbers = true
-            countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
+           // countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
+            
+             self.mobileNumberValidation(number: profile.mobile)
             
             DispatchQueue.global(qos: .background).async {
                 print("This is run on the background queue")
@@ -298,7 +311,12 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         
         countrypicker.countryPickerDelegate = self
         countrypicker.showPhoneNumbers = true
-        countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
+       // countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
+       // countrypicker.setCountryByPhoneCode("+1")
+        
+//        self.mobileNumberValidation(number: "+1-4313354415")
+        self.mobileNumberValidation(number: profile.mobile)
+        
         
         if let image_url = profiledict["user_image"] as? String{
             if image_url != ""{
@@ -308,7 +326,20 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             profileImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "profileDemoImage"))
         }
     }
-    
+    func mobileNumberValidation(number : String){
+        
+        let phoneUtil = NBPhoneNumberUtil()
+        do {
+            let phoneNumber: NBPhoneNumber = try phoneUtil.parse(number, defaultRegion: countryAlphaCode)
+            print("Is Valid Phone Number",phoneUtil.isValidNumber(phoneNumber))
+            print("Country code",phoneUtil.getRegionCode(for: phoneNumber))
+            countrypicker.setCountry(phoneUtil.getRegionCode(for: phoneNumber))
+           // return phoneUtil.isValidNumber(phoneNumber)
+        }catch{
+           // return false
+        }
+    }
+
     func saveAndDisplayProfileImage(image_URL: String) {
         
         print("saveAndDisplayProfileImage",self.ProfileDict)
@@ -325,6 +356,8 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     }
     
     public func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
+        
+        print("COUNTRY DETAILS\(name),\(countryCode),\(phoneCode)")
         flage_img.image = flag
     }
 

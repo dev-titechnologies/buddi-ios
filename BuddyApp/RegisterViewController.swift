@@ -359,8 +359,12 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
     func mobileNumberValidation(number : String) -> Bool{
 
         let phoneUtil = NBPhoneNumberUtil()
+        
+
         do {
             let phoneNumber: NBPhoneNumber = try phoneUtil.parse(number, defaultRegion: countryAlphaCode)
+            
+            
             print("Is Valid Phone Number",phoneUtil.isValidNumber(phoneNumber))
             return phoneUtil.isValidNumber(phoneNumber)
         }catch{

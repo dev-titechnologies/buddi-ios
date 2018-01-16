@@ -11,6 +11,7 @@ import CountryPicker
 import Alamofire
 import MapKit
 import TwitterKit
+import libPhoneNumber_iOS
 
 class TrainerProfilePage: UIViewController {
 
@@ -64,7 +65,7 @@ class TrainerProfilePage: UIViewController {
     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
     var numOfDays = Int()
     var TimerDict = NSDictionary()
-
+    var countryAlphaCode = String()
     var isInTrainerProfilePage = Bool()
     
     //social media urls/links
@@ -626,11 +627,17 @@ class TrainerProfilePage: UIViewController {
         lblEmail.text = profile["email"] as? String
         lblCountryCode.text = CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).0
         lblMobile.text = CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).1
+        
+              
         lblGender.text = (profile["gender"] as! String).uppercased()
         
         countrypicker.countryPickerDelegate = self
         countrypicker.showPhoneNumbers = true
-        countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).0)
+       // countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile["mobile"] as! String).0)
+        self.mobileNumberValidation(number: profile["mobile"] as! String)
+       // self.mobileNumberValidation(number: "+1-2089997207")
+        
+        
         
         if let image_url = profile["user_image"] as? String{
             
@@ -676,7 +683,21 @@ class TrainerProfilePage: UIViewController {
 //            profileImage.sd_setImage(with: URL(string: ""), placeholderImage: UIImage(named: "profileDemoImage"))
         }
     }
+    func mobileNumberValidation(number : String){
+        
+        let phoneUtil = NBPhoneNumberUtil()
+        do {
+            let phoneNumber: NBPhoneNumber = try phoneUtil.parse(number, defaultRegion: countryAlphaCode)
+            print("Is Valid Phone Number",phoneUtil.isValidNumber(phoneNumber))
+            print("Country code",phoneUtil.getRegionCode(for: phoneNumber))
+            countrypicker.setCountry(phoneUtil.getRegionCode(for: phoneNumber))
+            // return phoneUtil.isValidNumber(phoneNumber)
+        }catch{
+            // return false
+        }
+    }
     
+
     //MARK: - PREPARE FOR SEGUE
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
