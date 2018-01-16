@@ -167,6 +167,7 @@ class AssignedTrainerProfileView: UIViewController {
 //            categoryListVC.FromTrainerProfileBool = true
             categoryListVC.isFromAssignedTrainerVC = true
             categoryListVC.trainerID = TrainerId
+            categoryListVC.isBackButtonHidden = false
 //            categoryListVC.assignedTrainerprofileDictionary = self.TrainerprofileDictionary
         }
     }
