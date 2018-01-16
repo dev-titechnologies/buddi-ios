@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/AcceptOrDeclineRequestPage.swift"
-            timestampString = "537692153.290071"
+            filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
+            timestampString = "537710653.169729"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "Booking_API(URL:acceptstatus:)"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "showAlertRegardingPreviousPayment()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,29 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/AcceptOrDeclineRequestPage.swift"
-            timestampString = "537692153.290071"
+            filePath = "BuddyApp/AddPaymentMethodVC.swift"
+            timestampString = "537786219.978829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "Booking_API(URL:acceptstatus:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BuddyApp/CategoryListVC.swift"
-            timestampString = "537256917.755185"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
-            landmarkName = "listCategoryServerCall()"
+            startingLineNumber = "740"
+            endingLineNumber = "740"
+            landmarkName = "getCardModel(cardsArray:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

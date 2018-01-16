@@ -39,14 +39,17 @@ class AddStripeCard: UIViewController, STPPaymentCardTextFieldDelegate {
         super.viewDidLoad()
 
         paymentCardView.delegate = self
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         if appDelegate.USER_TYPE == "trainer" {
+            self.title = PAGE_TITLE.ADD_DEBIT_CARD
             updateStripeAccountView.isHidden = false
             updateStripeAccountViewHeightConstraint.constant = 190.0
         }else{
+            self.title = PAGE_TITLE.ADD_CARD_DETAILS
             updateStripeAccountView.isHidden = true
             updateStripeAccountViewHeightConstraint.constant = 0.0
         }
@@ -88,6 +91,7 @@ class AddStripeCard: UIViewController, STPPaymentCardTextFieldDelegate {
         
         CommonMethods.showProgress()
         let cardParams = paymentCardView.cardParams
+        cardParams.currency = "usd"
         STPAPIClient.shared().createToken(withCard: cardParams) { token, error in
             
             guard token != nil else {

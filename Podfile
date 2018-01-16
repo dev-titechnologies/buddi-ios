@@ -42,6 +42,7 @@ target 'BuddyApp' do
 
     pod 'TwitterKit'
 
+#    pod 'ASJCoreDataOperation-Swift'
 
   # Pods for BuddyApp
 
