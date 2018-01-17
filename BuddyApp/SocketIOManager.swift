@@ -26,16 +26,33 @@ class SocketIOManager: NSObject {
     override init() {
         super.init()
     }
-    
+    func ConnectionStatus() {
+        print("CONNECTION STATUS",socket.status)
+     
+      
+    }
     func establishConnection() {
         print("ESTABLISH CONNECTION")
         socket.connect()
+        
     }
     
     func closeConnection() {
         socket.disconnect()
+        
+       
     }
+    //////JOSE
     
+    
+    
+    func OnSocket() {
+        self.socket.on("connect") {data, ack in
+            print("socket connected1")
+            // self.connectToServerWithParams(params: parameters)
+        }
+    }
+    //////////
     func EmittSocketParameters(parameters: NSMutableDictionary) {
         self.socket.on("connect") {data, ack in
             print("socket connected1")
