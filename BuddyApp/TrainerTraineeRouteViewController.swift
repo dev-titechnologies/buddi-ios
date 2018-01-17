@@ -88,6 +88,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     var isSessionStartedNotificationFromViewController = Bool()
     
+    var unreadMessageCount = Int()
+    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -97,7 +99,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         txtCancelReason.textColor = UIColor.lightGray
         txtCancelReason.delegate = self
         
-        print("viewDidLoad")
+        print("**** viewDidLoad ****")
         v = UIView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
         
         appDelegate.TrainerProfileDictionary = nil
@@ -134,8 +136,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         isInSessionRoutePage = true
         appDelegate.isInSessionRoutePageAppDelegate = true
         UIApplication.shared.isIdleTimerDisabled = true
-        
-        //CommonMethods.showProgress()
         
         if appDelegate.USER_TYPE == USER_TYPE.TRAINER {
             startSessionFromPushNotificationClick_AppKilledState()
@@ -287,6 +287,10 @@ class TrainerTraineeRouteViewController: UIViewController {
             }
         }else if segue.identifier == "unwindSegueToRoutePageFromTrainerProfile" {
             print("**** unwindToVC1 when SEGUE : unwindSegueToRoutePageFromTrainerProfile ***")
+        }else if segue.identifier == "unwindSegueToRoutePageFromMessageVC" {
+            print("**** unwindToVC1 when SEGUE : unwindSegueToRoutePageFromMessageVC ***")
+            unreadMessageCount = 0
+            self.collectionview.reloadData()
         }
     }
     
@@ -1307,11 +1311,13 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             cell1.menu_btn.setImage(UIImage(named: "cancel_gray"), for: .normal)
             cell1.leftLine.isHidden = true
             cell1.rightLine.isHidden = false
+            cell1.lblMessageCount.isHidden = true
         }else if indexPath.row == 0 && !isTimerRunning {
             cell1.name_lbl.textColor = .black
             cell1.menu_btn.setImage(UIImage(named: "cancel_gray"), for: .normal)
             cell1.leftLine.isHidden = true
             cell1.rightLine.isHidden = false
+            cell1.lblMessageCount.isHidden = true
         }
         
         if indexPath.row == 1{
@@ -1326,6 +1332,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                 cell1.menu_btn.setImage(UIImage(named: "play_gray"), for: .normal)
                 cell1.name_lbl.text = "Start"
             }
+            cell1.lblMessageCount.isHidden = true
         }
         
         if indexPath.row == 2{
@@ -1335,6 +1342,7 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             cell1.menu_btn.layer.cornerRadius = 20.5
             cell1.menu_btn.clipsToBounds = true
             cell1.name_lbl.text = trainerProfileDetails.firstName
+            cell1.lblMessageCount.isHidden = true
         }
         
         if indexPath.row == 3{
@@ -1343,6 +1351,13 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
             cell1.name_lbl.text = "Message"
             cell1.leftLine.isHidden = false
             cell1.rightLine.isHidden = true
+            cell1.lblMessageCount.text = String(unreadMessageCount)
+            
+            if unreadMessageCount == 0 {
+                cell1.lblMessageCount.isHidden = true
+            }else{
+                cell1.lblMessageCount.isHidden = false
+            }
         }
         
         return cell1

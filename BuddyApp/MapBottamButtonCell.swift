@@ -14,4 +14,5 @@ class MapBottamButtonCell: UICollectionViewCell {
     @IBOutlet weak var name_lbl: UILabel!
     @IBOutlet weak var leftLine: UILabel!
     @IBOutlet weak var rightLine: UILabel!
+    @IBOutlet weak var lblMessageCount: UILabel!
 }

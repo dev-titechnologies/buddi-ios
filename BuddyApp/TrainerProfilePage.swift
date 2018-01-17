@@ -331,7 +331,7 @@ class TrainerProfilePage: UIViewController {
                     }
                     
 //                    let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict as! Dictionary<String, Any>)
-                    self.fillValuesInForm(profile: profileDict)
+                    self.fillValuesInForm(profile: profileDict, isEditing: false)
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -538,7 +538,7 @@ class TrainerProfilePage: UIViewController {
                     //print(profileDict)
                     
                    // let profileObj = self.trainerProfileModel.getTrainerProfileModelFromDict(dictionary: profileDict as! Dictionary<String, Any>)
-                    self.fillValuesInForm(profile: profileDict)
+                    self.fillValuesInForm(profile: profileDict, isEditing: true)
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PROFILE_UPDATED_SUCCESSFULLY, buttonTitle: "Ok")
                     
@@ -593,7 +593,7 @@ class TrainerProfilePage: UIViewController {
         chooseProfilePicture()
     }
     
-    func fillValuesInForm(profile: NSDictionary) {
+    func fillValuesInForm(profile: NSDictionary, isEditing: Bool) {
         //print("IMAGEEE",profile["user_image"] as! String)
         
         print("*** fillValuesInForm :\(profile)")
@@ -603,15 +603,15 @@ class TrainerProfilePage: UIViewController {
         if let age = profile["age"] as? String{
             ageValue = age
             lblAge.text = "Trainer (\(ageValue))"
-        }else{
-            lblAge.text = "Trainer"
+        }else if !isEditing{
+            self.lblAge.text = "Trainer"
         }
         
         if let height = profile["height"] as? String{
             heightValue = height
             lblHeight.text = "\(heightValue)"
             imgHeightIcon.isHidden = false
-        }else{
+        }else if !isEditing{
             lblHeight.isHidden = true
             imgHeightIcon.isHidden = true
         }
@@ -620,7 +620,7 @@ class TrainerProfilePage: UIViewController {
             weightValue = weight
             lblWeight.text = "\(weightValue) lbs"
             imgWeightIcon.isHidden = false
-        }else{
+        }else if !isEditing{
             lblWeight.isHidden = true
             imgWeightIcon.isHidden = true
         }

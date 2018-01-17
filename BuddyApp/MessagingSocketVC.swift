@@ -66,6 +66,8 @@ class MessagingSocketVC: JSQMessagesViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         
+        print("** viewWillDisappear **")
+        performSegue(withIdentifier: "unwindSegueToRoutePageFromMessageVC", sender: self)
 //        SocketIOManager.sharedInstance.closeConnection()
     }
     

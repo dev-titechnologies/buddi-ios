@@ -582,6 +582,7 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                             
                             if (self.fbUserDictionary["email"] as? String) != nil{
                                 self.email_txt.text = (self.fbUserDictionary["email"] as? String)!
+                                self.email_txt.isUserInteractionEnabled = false
                             }
                             
                             self.profileImageURL = (((self.fbUserDictionary["picture"] as? NSDictionary)?["data"] as? NSDictionary)?["url"] as? String)!
@@ -600,6 +601,8 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
                             }
                             
                             self.email_txt.text = (self.googleUserDictionary["email"] as? String)!
+                            self.email_txt.isUserInteractionEnabled = false
+
                             self.profileImageURL = String(describing: self.googleUserDictionary["userimage"]!)
                             print("PROFILE IMAGE  IN GOOGLE:",self.profileImageURL)
                         }
