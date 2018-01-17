@@ -1338,6 +1338,8 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
         if indexPath.row == 2{
             //Profile
             
+            cell1.leftLine.isHidden = false
+            cell1.rightLine.isHidden = false
             cell1.menu_btn.sd_setImage(with: URL(string: trainerProfileDetails.profileImage), for: .normal, placeholderImage: UIImage(named: "man"))
             cell1.menu_btn.layer.cornerRadius = 20.5
             cell1.menu_btn.clipsToBounds = true
