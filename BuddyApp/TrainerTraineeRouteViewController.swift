@@ -1027,14 +1027,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     func getSocketConnected() {
         
         parameterdict.setValue("connectSocket/connectSocket", forKey: "url")
-<<<<<<< HEAD
-        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
-//        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
-
-=======
-       // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+//        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
->>>>>>> e3ab0b1a972d9ab0d89144800244160cf313cae5
     }
     
     func socketListener() {
