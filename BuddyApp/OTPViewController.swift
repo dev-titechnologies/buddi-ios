@@ -112,9 +112,12 @@ class OTPViewController: UIViewController {
                     
                     appDelegate.Usertoken = (jsondata["token"] as? String)!
                     appDelegate.UserId = Int((jsondata["user_id"] as? String)!)!
+                    
                     userDefaults.set(appDelegate.userName, forKey: "userName")
                     userDefaults.set(self.DataDictionary["email"]!, forKey: "userEmailId")
                     userDefaults.set(appDelegate.USER_TYPE, forKey: "userType")
+                    userDefaults.set(Int((jsondata["user_id"] as? String)!)!, forKey: "user_id")
+                    userDefaults.set((jsondata["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.DataDictionary["mobile"]!, forKey: "userMobileNumber")
 
                     print("User ID", appDelegate.UserId)
