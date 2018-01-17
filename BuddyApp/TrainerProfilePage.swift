@@ -108,6 +108,7 @@ class TrainerProfilePage: UIViewController {
         
 //        getSocketConnected()
         SocketIOManager.sharedInstance.establishConnection()
+        
         StatusSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
         
         self.UpdateLocationAPI(Status: "online")
@@ -231,8 +232,8 @@ class TrainerProfilePage: UIViewController {
     func getSocketConnected() {
         print("**** getSocketConnected ******")
         parameterdict.setValue("/connectSocket/connectSocket", forKey: "url")
-        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
-        //        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+//        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
+        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
     }
     
     func addHandlers() {

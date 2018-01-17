@@ -285,7 +285,12 @@ extension LeftViewController : UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if indexPath.row == 1{
-            return 0
+            
+            if appDelegate.USER_TYPE == USER_TYPE.TRAINEE {
+                return 50
+            }else {
+                return 0
+            }
         }else{
             return 50
         }

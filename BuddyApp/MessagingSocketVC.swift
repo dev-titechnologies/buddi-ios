@@ -47,7 +47,7 @@ class MessagingSocketVC: JSQMessagesViewController {
         getMessagesFromServer()
         
         socketListener()
-        getSocketConnected()
+        //getSocketConnected()
         
         if appDelegate.USER_TYPE == "trainer" {
             senderId = sessionDetailModelObj.trainerId
