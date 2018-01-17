@@ -74,9 +74,10 @@ class InviteFriendsVC: UIViewController {
                     self.contactArray.append(contact_dict_model)
                     self.identifierArray.append(contact_model.identifier)
                 }
+                
             }
-            
             self.friendsListTable.reloadData()
+            
         }
     }
     

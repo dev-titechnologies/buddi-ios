@@ -118,7 +118,10 @@ class CategoryListVC: UIViewController {
                 }else if status == RESPONSE_STATUS.FAIL{
                     //If no categories are appproved. Eg: Initial case
                     if jsondata["status_type"] as! String == "PendingForApproval"{
-                        self.btnMenu.isHidden = true
+                        if self.isBackButtonHidden{
+                        }else{
+                            self.btnMenu.isHidden = false
+                        }
                         self.listCategoryServerCall()
                     }else{
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -169,6 +172,12 @@ class CategoryListVC: UIViewController {
         self.approvedCategoriesIdArray = userDefaults.stringArray(forKey: "approvedOrPendingCategoriesIdArray") ?? [String]()
         print("ApprovedCategories ID retrieved from userdefaults:\(self.approvedCategoriesIdArray)")
         (self.approvedCategoriesIdArray.count > 0 ? (btnMenu.isHidden = false) : (btnMenu.isHidden = true))
+        
+        if isBackButtonHidden{
+        }else{
+            btnMenu.isHidden = false
+        }
+
         
         listCategoryServerCall()
     }
