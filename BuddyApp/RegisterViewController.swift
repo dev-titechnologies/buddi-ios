@@ -281,9 +281,9 @@ class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPicker
             
             var HeightInFeet = String()
             if textheightInch.text!.isEmpty{
-                HeightInFeet = txtHeight.text!
+                HeightInFeet = "\(txtHeight.text!)'\("0")\""
             }else{
-               HeightInFeet = "\(txtHeight.text!)'\(textheightInch.text!)"
+               HeightInFeet = "\(txtHeight.text!)'\(textheightInch.text!)\""
             }
             
             FullDataDictionary = [

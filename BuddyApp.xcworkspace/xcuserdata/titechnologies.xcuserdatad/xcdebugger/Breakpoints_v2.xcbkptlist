@@ -25,11 +25,10 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
-            timestampString = "537710653.169729"
+            filePath = "BuddyApp/AcceptOrDeclineRequestPage.swift"
+            timestampString = "537692153.290071"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-<<<<<<< HEAD
             startingLineNumber = "102"
             endingLineNumber = "102"
             landmarkName = "Booking_API(URL:acceptstatus:)"
@@ -161,11 +160,6 @@
             startingLineNumber = "349"
             endingLineNumber = "349"
             landmarkName = "saveAndDisplayProfileImage(image_URL:)"
-=======
-            startingLineNumber = "256"
-            endingLineNumber = "256"
-            landmarkName = "showAlertRegardingPreviousPayment()"
->>>>>>> c2113975a69960ec61a993434d760b9010f7d654
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -175,13 +169,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/AddPaymentMethodVC.swift"
-            timestampString = "537791635.304338"
+            filePath = "BuddyApp/ProfileVC.swift"
+            timestampString = "537789677.6744241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "742"
-            endingLineNumber = "742"
-            landmarkName = "getCardModel(cardsArray:)"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "fetchFromDBAndServer()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

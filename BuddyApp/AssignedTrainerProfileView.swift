@@ -113,7 +113,7 @@ class AssignedTrainerProfileView: UIViewController {
                     }
                     
                     if let height = self.TrainerprofileDictionary["height"] as? String{
-                        self.lblTrainerHeight.text = "\(height) cm"
+                        self.lblTrainerHeight.text = "\(height)"
                         self.imgHeightIcon.isHidden = false
                     }else{
                         self.lblTrainerHeight.isHidden = true
