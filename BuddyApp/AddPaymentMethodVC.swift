@@ -666,6 +666,7 @@ extension AddPaymentMethodVC {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
+                    //for TRAINEE
                     if let jsonDict = jsondata["data"] as? NSDictionary{
                         
                         //Setting Default Card ID - For TRAINEE
@@ -693,6 +694,7 @@ extension AddPaymentMethodVC {
                         }
                     }
                     
+                    //for TRAINER
                     if let card_details_data_array = jsondata["data"] as? NSArray{
                         self.cardsArray.removeAll()
                         self.cardsArray = self.getCardModel(cardsArray: card_details_data_array as! Array<Any>)
