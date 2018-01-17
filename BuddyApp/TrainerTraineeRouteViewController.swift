@@ -514,6 +514,15 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     func sessionStoppedNotificationReceived() {
         
+       if self.TIMERCHECK{
+        
+        self.RateViewScreen(cancelStatus: false)
+            
+        }else{
+            self.RateViewScreen(cancelStatus: true)
+        }
+        
+        
         self.stopTimer()
         self.timer_lbl.text = "00" + ":" + "00"
         self.TIMERCHECK = false
@@ -525,7 +534,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         hideLoadingView()
         
-        self.RateViewScreen(cancelStatus: true)
+        
         
         if appDelegate.USER_TYPE == "trainer" {
             self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
@@ -676,6 +685,9 @@ class TrainerTraineeRouteViewController: UIViewController {
     }
     
     func RateViewScreen(cancelStatus: Bool){
+        
+        
+        print("CANCEL STATUS",cancelStatus)
         
         self.isTimerRunning = false
         let vc = storyboardSingleton.instantiateViewController(withIdentifier: "TrainerReviewPage") as! TrainerReviewPage
