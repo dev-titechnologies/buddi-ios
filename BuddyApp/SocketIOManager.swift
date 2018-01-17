@@ -44,14 +44,13 @@ class SocketIOManager: NSObject {
     }
     //////JOSE
     
-    
-    
     func OnSocket() {
         self.socket.on("connect") {data, ack in
             print("socket connected1")
             // self.connectToServerWithParams(params: parameters)
         }
     }
+    
     //////////
     func EmittSocketParameters(parameters: NSMutableDictionary) {
         self.socket.on("connect") {data, ack in

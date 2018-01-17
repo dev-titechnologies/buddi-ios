@@ -142,30 +142,12 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
        
         SocketIOManager.sharedInstance.OnSocket()
-
         socketListener()
         SocketIOManager.sharedInstance.establishConnection()
         getSocketConnected()
-        
-        
-//          getSocketConnected()
-//          socketListener()
 
-       
         initializeSessionCheck()
-      
-        
-//        print("Socket Status:\(SocketIOManager.sharedInstance.socket.status.rawValue)")
-//        
-//        if SocketIOManager.sharedInstance.socket.reconnects {
-//            
-//            print("RECONNECTINGGGG....")
-//            SocketIOManager.sharedInstance.socket.reconnect()
-//        }else{
-//            print("NOT CONNECTEDDD..")
-//        }
-        
-        
+              
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
 
@@ -360,7 +342,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             //For testing purpose
             seconds = CommonMethods.tempSecondsChange(session_time: sessionTime)
             timer_lbl.text = String(seconds/60) + ":" + "00"
-        }else if appDelegate.USER_TYPE == "trainer"{
+        }else if appDelegate.USER_TYPE == "trainer" {
            
             //For testing purpose
             
@@ -1045,7 +1027,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     func getSocketConnected() {
         
         parameterdict.setValue("connectSocket/connectSocket", forKey: "url")
-       // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+//        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
     }
     

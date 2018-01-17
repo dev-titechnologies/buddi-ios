@@ -40,7 +40,7 @@ public class ProfileImageDB: NSManagedObject {
                 }
             } else{
                 print("No image present")
-                let imagedb = NSEntityDescription.insertNewObject(forEntityName: "ProfileImageDB", into:context) as! ProfileImageDB
+                let imagedb = NSEntityDescription.insertNewObject(forEntityName: "ProfileImageDB", into:privateMoc) as! ProfileImageDB
                 
                 imagedb.imageUrl = imageURL
                 imagedb.imageData = imageData

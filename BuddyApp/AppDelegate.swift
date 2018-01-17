@@ -56,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
 //            configureFirebase(application: application)
 //        }
         
-        
         profileImageData = NSData()
         
         if application.applicationState == .inactive {
