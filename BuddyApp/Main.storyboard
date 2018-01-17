@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -2155,7 +2155,7 @@ Good luck!
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0w-wH-F1f">
-                                <rect key="frame" x="0.0" y="20" width="375" height="277"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="233"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T9T-dN-SjF">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="233"/>
@@ -4170,7 +4170,7 @@ Good luck!
                                             <constraint firstAttribute="width" constant="20" id="SPh-bS-ViI"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileImage" translatesAutoresizingMaskIntoConstraints="NO" id="39k-aX-ypI">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileDemoImage" translatesAutoresizingMaskIntoConstraints="NO" id="39k-aX-ypI">
                                         <rect key="frame" x="19" y="118" width="115" height="115"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="115" id="XEl-qt-AqD"/>
@@ -9191,7 +9191,6 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="mobile-chat" width="1026" height="1101"/>
         <image name="profile-bg" width="539" height="192"/>
         <image name="profileDemoImage" width="112" height="112"/>
-        <image name="profileImage" width="139" height="139"/>
         <image name="qustion" width="256" height="256"/>
         <image name="refresh-icon" width="32" height="32"/>
         <image name="rightArrow" width="64" height="64"/>
@@ -9201,18 +9200,18 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="weight_icon" width="17" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9VY-QH-Amq"/>
+        <segue reference="51z-rZ-6rD"/>
+        <segue reference="L6f-51-y41"/>
+        <segue reference="Fjh-O3-jAU"/>
+        <segue reference="AU2-8a-F5M"/>
+        <segue reference="Ea7-Dw-joN"/>
+        <segue reference="nov-fw-yUQ"/>
+        <segue reference="OZa-hZ-FT0"/>
+        <segue reference="g5x-3h-J1d"/>
+        <segue reference="vEf-4J-msS"/>
         <segue reference="Jnc-bx-uPX"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="lS4-X5-YwA"/>
-        <segue reference="7U2-tn-lWj"/>
-        <segue reference="LcX-CV-PIt"/>
-        <segue reference="XZX-2y-uuV"/>
-        <segue reference="OZa-hZ-FT0"/>
-        <segue reference="Gch-VD-bW5"/>
-        <segue reference="Pft-EC-cRq"/>
-        <segue reference="nov-fw-yUQ"/>
-        <segue reference="vEf-4J-msS"/>
-        <segue reference="51z-rZ-6rD"/>
+        <segue reference="9VY-QH-Amq"/>
     </inferredMetricsTieBreakers>
 </document>

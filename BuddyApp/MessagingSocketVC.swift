@@ -47,6 +47,7 @@ class MessagingSocketVC: JSQMessagesViewController {
         getMessagesFromServer()
         
         socketListener()
+        getSocketConnected()
         
         if appDelegate.USER_TYPE == "trainer" {
             senderId = sessionDetailModelObj.trainerId
@@ -231,7 +232,7 @@ extension MessagingSocketVC {
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!){
         
-        getSocketConnected()
+//        getSocketConnected()
         
         if let message = JSQMessage(senderId: senderId, displayName: senderDisplayName, text: text){
             sendMessageSocket(messageText: text)

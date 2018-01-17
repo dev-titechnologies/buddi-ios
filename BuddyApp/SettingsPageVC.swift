@@ -49,6 +49,8 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
     
     var isFromTrainer = Bool()
     
+    var choosed_trainer_gender_preference = String()
+    
     //MARK: - VIEW CYCLES 
     
     override func viewDidLoad() {
@@ -259,7 +261,7 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
         preference_obj.locationLongitude = dictionary["long"] as! String
         preference_obj.categoryName = dictionary["categoryName"] as! String
         
-        choosedTrainerGenderOfTraineePreference = preference_obj.gender
+        choosed_trainer_gender_preference = preference_obj.gender
         choosedSessionOfTraineePreference = preference_obj.sessionDuration
         choosedCategoryOfTraineePreference.categoryId = preference_obj.categoryId
         choosedCategoryOfTraineePreference.categoryName = preference_obj.categoryName
@@ -286,12 +288,12 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose session time", buttonTitle: "Ok")
         }else{
             preferanceBool = false
-            print("GENDER",choosedTrainerGenderOfTraineePreference)
+            print("GENDER",choosed_trainer_gender_preference)
             print("TIME",choosedSessionOfTraineePreference)
             print("CATEGORY",choosedCategoryOfTraineePreference.categoryId)
             print("location",choosedTrainingLocationPreference)
             
-            dict.setValue(choosedTrainerGenderOfTraineePreference, forKey: "gender")
+            dict.setValue(choosed_trainer_gender_preference, forKey: "gender")
             dict.setValue(choosedSessionOfTraineePreference, forKey: "time")
             dict.setValue(String(choosedCategoryOfTraineePreference.categoryId), forKey: "categoryid")
             dict.setValue(String(choosedCategoryOfTraineePreference.categoryName), forKey: "categoryName")
@@ -579,16 +581,22 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         switch sender.tag {
         case 1:
             choosedTrainerGenderOfTraineePreference = "Male"
+            choosed_trainer_gender_preference = "male"
         case 2:
             choosedTrainerGenderOfTraineePreference = "Female"
+            choosed_trainer_gender_preference = "female"
         case 3:
             choosedTrainerGenderOfTraineePreference = "No Preference"
+            choosed_trainer_gender_preference = "nopreference"
             
         default:
             print("Gender Default Case catched")
         }
 
         self.settingsTableView.reloadSections(IndexSet(integer: 2), with: .automatic)
+        
+//        choosed_trainer_gender = "No Preference"
+//        choosedTrainerGenderOfTrainee = "nopreference"
     }
     
     //MARK: - TABLEVIEW HEADER SECTION VIEW
