@@ -107,7 +107,10 @@ class TrainerProfilePage: UIViewController {
 //        timerCheck()
         
 //        getSocketConnected()
-        SocketIOManager.sharedInstance.establishConnection()
+//        SocketIOManager.sharedInstance.establishConnection()
+        
+      //  getSocketConnected()
+      //  SocketIOManager.sharedInstance.establishConnection()
         
         StatusSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
         
@@ -249,8 +252,8 @@ class TrainerProfilePage: UIViewController {
         parameterdict.setValue(datadict, forKey: "data")
         print("PARADICT11",parameterdict)
         
-//        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
-        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
+      // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+       SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
     }
 
     func switchValueDidChange(sender:UISwitch!) {

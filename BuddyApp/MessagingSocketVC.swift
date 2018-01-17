@@ -47,7 +47,11 @@ class MessagingSocketVC: JSQMessagesViewController {
         getMessagesFromServer()
         
         socketListener()
+<<<<<<< HEAD
         //getSocketConnected()
+=======
+       // getSocketConnected()
+>>>>>>> e3ab0b1a972d9ab0d89144800244160cf313cae5
         
         if appDelegate.USER_TYPE == "trainer" {
             senderId = sessionDetailModelObj.trainerId
@@ -134,7 +138,7 @@ extension MessagingSocketVC {
         print("**** getSocketConnected ******")
         parameterdict.setValue("/connectSocket/connectSocket", forKey: "url")
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
-//        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+      //  SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
     }
     
     func socketListener() {
@@ -188,7 +192,7 @@ extension MessagingSocketVC {
         parameterdict.setValue("/chat/sendMessage", forKey: "url")
         parameterdict.setValue(datadict, forKey: "data")
         print("Send Message Param Dict:",parameterdict)
-//        SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+     //   SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
     }
 }

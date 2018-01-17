@@ -56,8 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
 //            configureFirebase(application: application)
 //        }
         
-//        SocketIOManager.sharedInstance.establishConnection()
-
         profileImageData = NSData()
         
         if application.applicationState == .inactive {

@@ -140,18 +140,14 @@ class TrainerTraineeRouteViewController: UIViewController {
         if appDelegate.USER_TYPE == USER_TYPE.TRAINER {
             startSessionFromPushNotificationClick_AppKilledState()
         }
-        
+       
+        SocketIOManager.sharedInstance.OnSocket()
         socketListener()
+        SocketIOManager.sharedInstance.establishConnection()
         getSocketConnected()
 
         initializeSessionCheck()
-        
-//        print("Socket Status:\(SocketIOManager.sharedInstance.socket.status)")
-//        
-//        if SocketIOManager.sharedInstance.socket.reconnects {
-//            SocketIOManager.sharedInstance.socket.reconnect()
-//        }
-        
+              
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
 
@@ -1031,9 +1027,14 @@ class TrainerTraineeRouteViewController: UIViewController {
     func getSocketConnected() {
         
         parameterdict.setValue("connectSocket/connectSocket", forKey: "url")
+<<<<<<< HEAD
         SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
 //        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
 
+=======
+       // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+        SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
+>>>>>>> e3ab0b1a972d9ab0d89144800244160cf313cae5
     }
     
     func socketListener() {
@@ -1093,10 +1094,10 @@ class TrainerTraineeRouteViewController: UIViewController {
         parameterdict.setValue(datadict, forKey: "data")
         print("PARADICT",parameterdict)
         print("============== Add Trainer Location Call ==============")
-        //SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
+       // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict)
         
-        socketListener()
+       // socketListener()
     }
     
     func addHandlersTrainer(){
@@ -1112,7 +1113,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         // SocketIOManager.sharedInstance.EmittSocketParameters(parameters: parameterdict1)
         SocketIOManager.sharedInstance.connectToServerWithParams(params: parameterdict1)
         
-        socketListener()
+       // socketListener()
     }
     
     func measureDistance(buddiLat: Float, buddiLong: Float){
