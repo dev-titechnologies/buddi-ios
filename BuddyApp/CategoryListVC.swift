@@ -119,6 +119,8 @@ class CategoryListVC: UIViewController {
                     //If no categories are appproved. Eg: Initial case
                     if jsondata["status_type"] as! String == "PendingForApproval"{
                         if self.isBackButtonHidden{
+                            
+                            self.btnMenu.isHidden = true
                         }else{
                             self.btnMenu.isHidden = false
                         }
