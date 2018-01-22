@@ -10,7 +10,7 @@ import UIKit
 import AudioToolbox
 
 class AcceptOrDeclineRequestPage: UIViewController {
-
+    
     @IBOutlet weak var lblRequestDescription: UILabel!
     @IBOutlet weak var btnAccept: UIButton!
     @IBOutlet weak var btnDecline: UIButton!
@@ -23,7 +23,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         lblRequestDescription.text = APSBody
         
         view?.backgroundColor = UIColor(white: 1, alpha: 0.5)
@@ -45,14 +45,19 @@ class AcceptOrDeclineRequestPage: UIViewController {
         let when = DispatchTime.now() + 30
         DispatchQueue.main.asyncAfter(deadline: when) {
 //            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: TRAINING_REQUEST_REVOCKED, buttonTitle: "OK")
-            self.dismissAcceptOrDeclinePage()
+            self.dismissAcceptOrDeclinePage(isFailureDismiss: true)
         }
     }
     
-    func dismissAcceptOrDeclinePage() {
+    func dismissAcceptOrDeclinePage(isFailureDismiss: Bool) {
+        
         let presentingViewController: UIViewController! = self.presentingViewController
         self.dismiss(animated: false) {
             presentingViewController.dismiss(animated: false, completion: nil)
+        }
+        
+        if isFailureDismiss {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AcceptOrDeclineDismissedNotifcation"), object: nil)
         }
     }
     
@@ -122,17 +127,16 @@ class AcceptOrDeclineRequestPage: UIViewController {
 //                        TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: trainerProfileDetails)
                         //==========
                         
-                        
                         print("TrainerProfileDictionary 12345:\(self.TrainerProfileDictionary)")
                         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
                         
                         //Temporarily commented due to social media pending
                         //self.postMessageToSocialMedia(trainerProfileDictionary: self.TrainerProfileDictionary)
 
-                        self.dismissAcceptOrDeclinePage()
+                        self.dismissAcceptOrDeclinePage(isFailureDismiss: false)
                     }else{
                         //If declined request
-                        self.dismissAcceptOrDeclinePage()
+                        self.dismissAcceptOrDeclinePage(isFailureDismiss: true)
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

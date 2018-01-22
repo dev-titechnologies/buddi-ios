@@ -15,6 +15,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import TwitterKit
 import TwitterCore
+import SocketIO
 
 protocol facebookIDReceivedDelegate: class {
     func facebookIDReceived()
@@ -237,6 +238,12 @@ class CommonMethods: NSObject {
         print("========== Show Progress bar ============")
         UIApplication.shared.beginIgnoringInteractionEvents()
         SVProgressHUD.show()
+    }
+    
+    class func showProgressWithStatus(statusMessage: String){
+        print("========== Show Progress bar ============")
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        SVProgressHUD.show(withStatus: statusMessage)
     }
     
     class func hideProgress() {
@@ -646,8 +653,12 @@ extension UIViewController {
         choosedTrainingLocationPreference = ""
         choosedCategoryOfTraineePreference = CategoryModel()
         choosedTrainerGenderOfTraineePreference = ""
-
+        
+//        SocketIOManager.sharedInstance.removeSocketInstances()
         SocketIOManager.sharedInstance.closeConnection()
+        appDelegate.Usertoken = ""
+        appDelegate.USER_TYPE = ""
+//        SocketIOManager.sharedInstance = nil
         
         //Removing userdefault values of transaction details
         CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: "sessionExpire")

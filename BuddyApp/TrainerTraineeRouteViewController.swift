@@ -12,7 +12,6 @@ import GoogleMaps
 import Firebase
 import UserNotifications
 import NVActivityIndicatorView
-
 import FBSDKLoginKit
 import FBSDKShareKit
 import TwitterKit
@@ -153,7 +152,7 @@ class TrainerTraineeRouteViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillResignActive, object:nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillResignActive, object:nil)           
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidBecomeActive, object:nil)
         
@@ -182,6 +181,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         stopTimer()
        // self.timerMapDraw.invalidate()
         locationManager.stopUpdatingLocation()
+        
     }
     
     //MARK: - PUSH NOTIFICATION CLICK ACTIONS
@@ -807,10 +807,15 @@ class TrainerTraineeRouteViewController: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     
                     print("ENTER SUCESSS API")
+                    let indexpath = NSIndexPath(row: 1, section: 0)
+                    let startSessionCell: MapBottamButtonCell = self.collectionview.cellForItem(at: indexpath as IndexPath) as! MapBottamButtonCell
                     
-                    userDefaults.removeObject(forKey: "promocode")
-                    userDefaults.removeObject(forKey: "isPromoCodeApplied")
-
+                    CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
+                    self.locationManager.stopUpdatingLocation()
+                    startSessionCell.menu_btn.setImage(UIImage(named: "session_stop"), for: .normal)
+                    startSessionCell.name_lbl.text = "Stop"
+                    self.BoolArray.insert(true, at: 1)
+                    
                     userDefaults.set(false, forKey: "sessionBookedNotStarted")
                     userDefaults.removeObject(forKey: "TrainerProfileDictionary")
                     
@@ -1381,9 +1386,6 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
     func TapedIndex(sender:UIButton!) {
         
         sender.isSelected = !(sender.isSelected)
-        let indexpath = NSIndexPath(row: sender.tag, section: 0)
-        
-        cell1 = collectionview.cellForItem(at: indexpath as IndexPath) as! MapBottamButtonCell
 
         if sender.tag == 0 && !isTimerRunning{
             
@@ -1407,17 +1409,8 @@ extension TrainerTraineeRouteViewController : UICollectionViewDataSource{
                     if (DistanceTrainerTrainee) != nil{
                         print("****** DistanceTrainerTrainee ****** :\(DistanceTrainerTrainee!)")
                         if DistanceTrainerTrainee! < 500.0{
-                            
-                            CommonMethods.removeTransactionDetailsFromUserDefault(sessionDuration: choosedSessionOfTrainee)
-                            
-                            locationManager.stopUpdatingLocation()
-                            
                             print("START CLICK")
-                            cell1.menu_btn.setImage(UIImage(named: "session_stop"), for: .normal)
-                            cell1.name_lbl.text = "Stop"
                             self.SessionStartAPI()
-                            BoolArray.insert(true, at: 1)
-                            
                         }else{
                             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "\(TRAINER_NOT_REACHED_TO_LOCATION)", buttonTitle: "OK")
                         }

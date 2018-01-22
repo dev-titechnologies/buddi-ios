@@ -13,6 +13,8 @@ import GoogleMaps
 import Alamofire
 import Braintree
 import BraintreeDropIn
+import Toaster
+import Toast_Swift
 
 class ShowTrainersOnMapVC: UIViewController {
 
@@ -195,6 +197,8 @@ class ShowTrainersOnMapVC: UIViewController {
                 
         if userDefaults.bool(forKey: "isPromoCodeApplied"){
             print("Promo code already applied")
+            applyPromoCode()
+            return
         }else{
             print("Default Card:\(String(describing: userDefaults.value(forKey: "defaultStripeCardId") as? String))")
             if (userDefaults.value(forKey: "defaultStripeCardId") as? String) == nil{
@@ -203,6 +207,11 @@ class ShowTrainersOnMapVC: UIViewController {
             }
         }
         
+        paymentCheckForNextButtonAction()
+    }
+    
+    func paymentCheckForNextButtonAction() {
+        
         if isFromSplashScreen{
             print("***** isFromSplashScreen *******")
             RandomSelectTrainer(parameters: getRandomSelectAPIParametersFromBackup())
@@ -210,7 +219,7 @@ class ShowTrainersOnMapVC: UIViewController {
             print("***** isFromInstantBooking *******")
             
             if userDefaults.value(forKey: "promocode") != nil{
-            
+                RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
             }else{
                 if isPaymentSuccess{
                     print("isPaymentSuccess : \(isPaymentSuccess)")
@@ -221,7 +230,7 @@ class ShowTrainersOnMapVC: UIViewController {
             }
         }else{
             print("***** Next Action Else Case *******")
-
+            
             if userDefaults.value(forKey: "promocode") != nil{
                 RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
             }else{
@@ -564,6 +573,56 @@ class ShowTrainersOnMapVC: UIViewController {
         }
         
         return parameters
+    }
+    
+    //MARK: - CHECK PROMO CODE
+    
+    func applyPromoCode(){
+        
+        guard (userDefaults.value(forKey: "promocode") != nil) else {
+            print("** Applied promo code is expired or invalid ***")
+            return
+        }
+        
+        let parameters =  ["user_id": appDelegate.UserId,
+                           "promocode" : userDefaults.value(forKey: "promocode") as! String
+            ] as [String : Any]
+        
+        CommonMethods.serverCall(APIURL: APPLY_PROMO_CODE, parameters: parameters) { (jsondata) in
+            print("Promo Code Response: \(jsondata)")
+            
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    if (jsondata["data"]  as! NSDictionary)["codeStatus"] as? String == "valid" {
+                        
+//                        Toast(text: "Promo Code \(String(describing: (jsondata["data"] as! NSDictionary)["code"] as! String)) applied successfully").show()
+                        
+                        self.view.makeToast("Promo Code \(String(describing: (jsondata["data"] as! NSDictionary)["code"] as! String)) applied successfully", duration: 3.0, position: .bottom)
+                        
+                    }else if(jsondata["data"]  as! NSDictionary)["codeStatus"] as? String == "expired" {
+                        
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Applied promo code \(String(describing: (jsondata["data"]  as! NSDictionary)["code"] as? String)) has been expired and payment with registered card", buttonTitle: "OK")
+
+                        userDefaults.set(false, forKey: "isPromoCodeApplied")
+                        userDefaults.removeObject(forKey: "promocode")
+                    }
+                    
+                    print("*** Payment after checking promo code valid/expired ****")
+                    self.paymentCheckForNextButtonAction()
+
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
     }
     
     func getRandomSelectAPIParametersFromPreference() -> Dictionary <String,Any> {

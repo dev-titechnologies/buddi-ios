@@ -225,16 +225,24 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate{
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    self.jsondict = jsondata["data"]  as! NSDictionary
+                    self.jsondict = jsondata["data"] as! NSDictionary
                     
                     appDelegate.Usertoken = (self.jsondict["token"] as? String)!
                     appDelegate.UserId = (self.jsondict["user_id"] as? Int)!
-                    appDelegate.USER_TYPE =  self.UserType
+                    appDelegate.USER_TYPE = self.UserType
                     appDelegate.userName = (self.jsondict["first_name"] as? String)! + " " + (self.jsondict["last_name"] as? String)!
+                    
+                    //Reinitialize socket singleton object
+                    SocketIOManager.sharedInstance.socketObjectReinit()
                     
                     userDefaults.set((self.jsondict["user_id"] as? Int)!, forKey: "user_id")
                     userDefaults.set(appDelegate.userName, forKey: "userName")
-                    userDefaults.set((self.jsondict["age"] as? String)!, forKey: "traineeAge")
+                    
+                    if let age = self.jsondict["age"] as? String {
+                        userDefaults.set(age, forKey: "traineeAge")
+                    }else{
+                        userDefaults.set("20", forKey: "traineeAge")
+                    }
                     
                     userDefaults.set((self.jsondict["email"] as? String)!, forKey: "userEmailId")
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")

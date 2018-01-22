@@ -26,7 +26,7 @@ class MessagingSocketVC: JSQMessagesViewController {
     
     var frompushBool = Bool()
     var TIMERCHECK = Bool()
-
+    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -52,8 +52,8 @@ class MessagingSocketVC: JSQMessagesViewController {
         if appDelegate.USER_TYPE == "trainer" {
             senderId = sessionDetailModelObj.trainerId
             
-            print("DETAILS",sessionDetailModelObj.trainerId)
-             print("DETAILS1",sessionDetailModelObj.traineeId)
+            print("*** sessionDetailModelObj.trainerId : ",sessionDetailModelObj.trainerId)
+            print("*** sessionDetailModelObj.traineeId : ",sessionDetailModelObj.traineeId)
             
             senderDisplayName = sessionDetailModelObj.trainerName
         }else if appDelegate.USER_TYPE == "trainee"{
@@ -69,8 +69,9 @@ class MessagingSocketVC: JSQMessagesViewController {
         print("** viewWillDisappear **")
         performSegue(withIdentifier: "unwindSegueToRoutePageFromMessageVC", sender: self)
 //        SocketIOManager.sharedInstance.closeConnection()
+        
     }
-    
+        
     func SessionTimerNotification(notif: NSNotification){
         
         print("Notification Received in Message Socket VC:\(notif)")

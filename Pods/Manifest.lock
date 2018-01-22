@@ -134,6 +134,8 @@ PODS:
   - Stripe (11.2.0)
   - SVProgressHUD (2.1.2)
   - SwiftyJSON (3.1.4)
+  - Toast-Swift (3.0.1)
+  - Toaster (2.0.4)
   - TTTAttributedLabel (2.0.0)
   - TwitterCore (3.0.0)
   - TwitterKit (3.1.0):
@@ -167,6 +169,8 @@ DEPENDENCIES:
   - Stripe
   - SVProgressHUD
   - SwiftyJSON
+  - Toast-Swift
+  - Toaster
   - TTTAttributedLabel
   - TwitterKit
 
@@ -208,10 +212,12 @@ SPEC CHECKSUMS:
   Stripe: 898f83a95d72180c6eb4acd65b2ae6158fc6a8bd
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
+  Toaster: f13031c636ef065281bc11857be9a16c7659e04f
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   TwitterCore: 8ce250be1eb34633a0e6acc89520d4165ec52c10
   TwitterKit: 21d0b22d67cb9a568cd8053972d0da7df2e0e9a0
 
-PODFILE CHECKSUM: dc62274d2f0a981144a3497cf10c4defdd4b1f1c
+PODFILE CHECKSUM: e3da301f1a8835d63718dde301747e04c651c841
 
 COCOAPODS: 1.1.1

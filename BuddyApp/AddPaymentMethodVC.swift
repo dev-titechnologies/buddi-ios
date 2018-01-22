@@ -92,8 +92,9 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
     func checkIfAnyPromoCodeApplied() {
         
         if userDefaults.value(forKey: "promocode") != nil{
-            promoCodeSuccessfullView.isHidden = false
-            lblPromoCodeSuccessfull.text = "Applied Promocode : \(userDefaults.value(forKey: "promocode") as! String)"
+            applyPromoCode(promoCode: (userDefaults.value(forKey: "promocode") as? String)!)
+//            promoCodeSuccessfullView.isHidden = false
+//            lblPromoCodeSuccessfull.text = "Applied Promocode : \(userDefaults.value(forKey: "promocode") as! String)"
         }
     }
     
@@ -133,7 +134,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
         if promocode_txt.text!.isEmpty {
              CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Enter a promo code", buttonTitle: "OK")
         }else{
-           applyPromoCode()
+           applyPromoCode(promoCode: promocode_txt.text!)
         }
     }
     
@@ -276,12 +277,13 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
         self.present(dropIn!, animated: true, completion: nil)
     }
     
-    func applyPromoCode(){
+    func applyPromoCode(promoCode: String){
         
         let parameters =  ["user_id": appDelegate.UserId,
-                           "promocode" : promocode_txt.text!
+                           "promocode" : promoCode
             ] as [String : Any]
         
+        print("applyPromoCode parameters:\(parameters)")
         CommonMethods.serverCall(APIURL: APPLY_PROMO_CODE, parameters: parameters) { (jsondata) in
             print("Promo Code Response: \(jsondata)")
             
@@ -292,23 +294,33 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
             
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
-                    //isAppliedPromoCode
                     
-                    if let procode = (jsondata["data"]  as! NSDictionary)["code"] as? String{
-                        print(procode)
-                        userDefaults.set(procode, forKey: "promocode")
-                        userDefaults.set(true, forKey: "isPromoCodeApplied")
+                    if (jsondata["data"]  as! NSDictionary)["codeStatus"] as? String == "valid" {
+                        
+                        if let promoCode = (jsondata["data"]  as! NSDictionary)["code"] as? String{
+                            userDefaults.set(promoCode, forKey: "promocode")
+                            userDefaults.set(true, forKey: "isPromoCodeApplied")
+                            self.lblPromoCodeSuccessfull.text = "Applied Promo Code : \(self.promocode_txt.text!)"
+                            self.imgPromoCodeSuccessTick.image = #imageLiteral(resourceName: "checked")
+                            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PROMO_CODE_APPLIED_SUCCESSFULL, buttonTitle: "Ok")
+                        }
+                    }else if(jsondata["data"]  as! NSDictionary)["codeStatus"] as? String == "expired" {
+                        
+                        if let promoCode = (jsondata["data"]  as! NSDictionary)["code"] as? String{
+                            print("** Expired Promo Code :\(promoCode) **")
+                            userDefaults.set(false, forKey: "isPromoCodeApplied")
+                            userDefaults.removeObject(forKey: "promocode")
+                            self.lblPromoCodeSuccessfull.text = "Promo Code Expired : \(promoCode)"
+                            self.imgPromoCodeSuccessTick.image = #imageLiteral(resourceName: "expired")
+                        }
                     }
-                    
+
                     self.promoCodeSuccessfullView.isHidden = false
-                    self.lblPromoCodeSuccessfull.text = "Applied Promocode : \(self.promocode_txt.text!)"
                     self.promocode_txt.text = ""
 
                     if self.isFromBookingPage{
                         print("*** Returning back to booking Page after adding payment method123")
                         self.navigationController?.popViewController(animated: true)
-                    }else{
-                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PROMO_CODE_APPLIED_SUCCESSFULL, buttonTitle: "Ok")
                     }
                 
                 }else if status == RESPONSE_STATUS.FAIL{

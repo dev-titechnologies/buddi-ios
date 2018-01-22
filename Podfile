@@ -44,6 +44,9 @@ target 'BuddyApp' do
 
 #    pod 'ASJCoreDataOperation-Swift'
 
+    pod 'Toaster'
+    pod 'Toast-Swift'
+
   # Pods for BuddyApp
 
   target 'BuddyAppTests' do

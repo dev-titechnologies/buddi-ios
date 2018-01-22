@@ -282,7 +282,7 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please select location", buttonTitle: "Ok")
         }else if choosedCategoryOfTraineePreference.categoryId.isEmpty {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose category", buttonTitle: "Ok")
-        }else if choosedTrainerGenderOfTraineePreference.isEmpty {
+        }else if choosed_trainer_gender_preference.isEmpty {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please select gender", buttonTitle: "Ok")
         }else if choosedSessionOfTraineePreference.isEmpty{
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Please choose session time", buttonTitle: "Ok")
@@ -628,8 +628,18 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             cell.lblSelectedValue.text = choosedCategoryOfTraineePreference.categoryName
         case 2:
             //Gender
-            print("**** choosedTrainerGenderOfTraineePreference:\(choosedTrainerGenderOfTraineePreference)")
-            cell.lblSelectedValue.text = choosedTrainerGenderOfTraineePreference
+            print("**** choosedTrainerGenderOfTraineePreference:\(choosed_trainer_gender_preference)")
+            
+            if choosed_trainer_gender_preference == "male" {
+                choosedTrainerGenderOfTraineePreference = "Male"
+                cell.lblSelectedValue.text = "Male"
+            }else if choosed_trainer_gender_preference == "female" {
+                choosedTrainerGenderOfTraineePreference = "Female"
+                cell.lblSelectedValue.text = "Female"
+            }else if choosed_trainer_gender_preference == "nopreference" {
+                choosedTrainerGenderOfTraineePreference = "No Preference"
+                cell.lblSelectedValue.text = "No Preference"
+            }
         case 3:
             //Session
             print("**** choosed_session_duration:\(choosed_session_duration)")

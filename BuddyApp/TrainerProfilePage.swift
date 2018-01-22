@@ -13,6 +13,7 @@ import MapKit
 import TwitterKit
 import libPhoneNumber_iOS
 
+
 class TrainerProfilePage: UIViewController {
 
     //Trainer Header Outlets
@@ -25,9 +26,9 @@ class TrainerProfilePage: UIViewController {
     @IBOutlet weak var imgHeightIcon: UIImageView!
     @IBOutlet weak var imgWeightIcon: UIImageView!
     
-    var ageValue = String()
-    var heightValue = String()
-    var weightValue = String()
+//    var ageValue = String()
+//    var heightValue = String()
+//    var weightValue = String()
     
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtLastName: UITextField!
@@ -80,7 +81,7 @@ class TrainerProfilePage: UIViewController {
     var isFromSessionPageAfterCompletion = Bool()
     
     var isSessionExpired = Bool()
-    
+
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -90,6 +91,7 @@ class TrainerProfilePage: UIViewController {
         
         imagePicker.delegate = self
         trainerProfileViewTableCaptionsArray = ["Gym Subscriptions", "Training Category", "Certifications"]
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,6 +122,8 @@ class TrainerProfilePage: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.acceptOrDeclineScreenDismissedNotification), name: NSNotification.Name(rawValue: "AcceptOrDeclineDismissedNotifcation"), object: nil)
+        
         print("*** viewWillAppear Trainer")
         if !isUpdatingProfileImage{
             changeTextColorGrey()
@@ -133,9 +137,17 @@ class TrainerProfilePage: UIViewController {
         print("** Trainer Profile Page viewWillDisappear **")
         isInTrainerProfilePage = false
         
-       // self.timer.invalidate()
+        print("** Removing AcceptOrDeclineDismissedNotifcation Notification Observer **")
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "AcceptOrDeclineDismissedNotifcation"), object: nil);
     }
+    
+    //MARK: - ACCEPT OR REJECT VC DISMISSED NOTIFCATION CALL
 
+    func acceptOrDeclineScreenDismissedNotification() {
+        print("** acceptOrDeclineScreenDismissedNotification **")
+        print("**** Updating to status as ONLINE ****")
+        self.UpdateLocationAPI(Status: "online")
+    }
     
     func getCurrentLocationDetails() {
         
@@ -518,9 +530,9 @@ class TrainerProfilePage: UIViewController {
                           "gender" : (lblGender.text!).lowercased(),
                           "user_image": profileImageURL,
                           "profile_desc":"tt",
-                          "age" : ageValue,
-                          "weight" : weightValue,
-                          "height" : heightValue,
+//                          "age" : ageValue,
+//                          "weight" : weightValue,
+//                          "height" : heightValue,
                           "social_media_links" : toJSONString(from: [getSocialMediaParameters()]) ?? ""
             ] as [String : Any]
         
@@ -601,15 +613,15 @@ class TrainerProfilePage: UIViewController {
         userDefaults.set(userName, forKey: "userName")
         
         if let age = profile["age"] as? String{
-            ageValue = age
-            lblAge.text = "Trainer (\(ageValue))"
+//            ageValue = age
+            lblAge.text = "Trainer (\(age))"
         }else if !isEditing{
             self.lblAge.text = "Trainer"
         }
         
         if let height = profile["height"] as? String{
-            heightValue = height
-            lblHeight.text = "\(heightValue)"
+//            heightValue = height
+            lblHeight.text = "\(height)"
             imgHeightIcon.isHidden = false
         }else if !isEditing{
             lblHeight.isHidden = true
@@ -617,8 +629,8 @@ class TrainerProfilePage: UIViewController {
         }
         
         if let weight = profile["weight"] as? String{
-            weightValue = weight
-            lblWeight.text = "\(weightValue) lbs"
+//            weightValue = weight
+            lblWeight.text = "\(weight) lbs"
             imgWeightIcon.isHidden = false
         }else if !isEditing{
             lblWeight.isHidden = true
