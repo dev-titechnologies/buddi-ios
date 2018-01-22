@@ -30,6 +30,7 @@ public class BookingHistoryDB: NSManagedObject {
                 booking.setValue(bookingModel.trainedDate, forKey: "bookedDate")
                 booking.setValue(bookingModel.bookingId, forKey: "bookingId")
                 booking.setValue(bookingModel.category, forKey: "category")
+                booking.setValue(bookingModel.promoCode, forKey: "promoCode")
                 booking.setValue(bookingModel.location, forKey: "location")
                 booking.setValue(bookingModel.paymentStatus, forKey: "paymentStatus")
                 booking.setValue(bookingModel.traineeId, forKey: "traineeId")
@@ -48,6 +49,7 @@ public class BookingHistoryDB: NSManagedObject {
                 booking.bookingId = bookingModel.bookingId
                 booking.category = bookingModel.category
                 booking.location = bookingModel.location
+                booking.promoCode = bookingModel.promoCode
                 booking.paymentStatus = bookingModel.paymentStatus
                 booking.traineeId = bookingModel.traineeId
                 booking.traineeName = bookingModel.traineeName

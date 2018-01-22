@@ -57,8 +57,6 @@ class BookingDetailsVC: UIViewController {
             lblDescription.text = bookingModel.category + " session with " + bookingModel.trainerName
             lblTrainerName.text = "You rated " + bookingModel.trainerName
         }
-
-        paymentstatus_lbl.text = bookingModel.paymentStatus.capitalizingFirstLetter()
         
         if bookingModel.trainingStatus == "cancelled" {
             trainingstatus_lbl.text = "Cancelled (not started)"
@@ -70,8 +68,15 @@ class BookingDetailsVC: UIViewController {
             trainingstatus_lbl.text = "Ongoing"
         }
         
+        if bookingModel.promoCode != "" {
+            lblAmount.text = "FREE"
+            paymentstatus_lbl.text = PROMOCODE_APPLIED
+        }else{
+            lblAmount.text = "$" + bookingModel.amount
+            paymentstatus_lbl.text = bookingModel.paymentStatus.capitalizingFirstLetter()
+        }
+
         lblDate.text =  CommonMethods.convert24hrsTo12hrs(date: bookingModel.trainedDate)
-        lblAmount.text = "$" + bookingModel.amount
         imgTrainingPic.sd_setImage(with: URL(string: bookingModel.categoryImage), placeholderImage: UIImage(named: ""))
         
         print("Booking Id:\(bookingModel.bookingId)")

@@ -57,7 +57,7 @@ class AcceptOrDeclineRequestPage: UIViewController {
         }
         
         if isFailureDismiss {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AcceptOrDeclineDismissedNotifcation"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AcceptOrDeclineDismissedNotification"), object: nil)
         }
     }
     

@@ -19,6 +19,7 @@ extension BookingHistoryDB {
     @NSManaged public var rating: NSDate?
     @NSManaged public var bookedDate: NSDate?
     @NSManaged public var bookingId: String?
+    @NSManaged public var promoCode: String?
     @NSManaged public var category: String?
     @NSManaged public var location: String?
     @NSManaged public var paymentStatus: String?

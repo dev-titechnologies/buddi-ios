@@ -15,6 +15,7 @@ import NVActivityIndicatorView
 import FBSDKLoginKit
 import FBSDKShareKit
 import TwitterKit
+import Reachability
 
 class TrainerTraineeRouteViewController: UIViewController {
     
@@ -88,6 +89,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     var isSessionStartedNotificationFromViewController = Bool()
     
     var unreadMessageCount = Int()
+    let reachability = Reachability()!
     
     //MARK: - VIEW CYCLES
     
@@ -132,6 +134,8 @@ class TrainerTraineeRouteViewController: UIViewController {
         print("**** viewWillAppear *****")
         print("***** Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
         
+        reachabilityCheck()
+
         isInSessionRoutePage = true
         appDelegate.isInSessionRoutePageAppDelegate = true
         UIApplication.shared.isIdleTimerDisabled = true
@@ -181,9 +185,33 @@ class TrainerTraineeRouteViewController: UIViewController {
         stopTimer()
        // self.timerMapDraw.invalidate()
         locationManager.stopUpdatingLocation()
-        
+        reachability.stopNotifier()
     }
     
+    //MARK: - REACHABILITY NOTIFIER
+    func reachabilityCheck(){
+        reachability.whenReachable = { reachability in
+            
+            CommonMethods.hideProgress()
+            self.RunningTimeData()
+            if reachability.connection == .wifi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        }
+        reachability.whenUnreachable = { _ in
+            CommonMethods.showProgressWithStatus(statusMessage: NETWORK_CONNECTION_HAS_BEEN_LOST)
+            print("Not reachable")
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+    }
+
     //MARK: - PUSH NOTIFICATION CLICK ACTIONS
     
     func startSessionFromPushNotificationClick_AppKilledState() {
@@ -518,9 +546,9 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     func sessionStoppedNotificationReceived() {
         
-       if self.TIMERCHECK{
-        
-        self.RateViewScreen(cancelStatus: false)
+        if self.TIMERCHECK{
+            
+            self.RateViewScreen(cancelStatus: false)
             
         }else{
             self.RateViewScreen(cancelStatus: true)

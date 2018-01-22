@@ -134,7 +134,11 @@ extension BookingHistoryVC: UITableViewDataSource{
              cell.lblDescription.text = booking.category + " session with " + booking.trainerName
         }
         
-        cell.lblAmount.text = "$" + booking.amount
+        if booking.promoCode != "" {
+            cell.lblAmount.text = "FREE"
+        }else{
+            cell.lblAmount.text = "$" + booking.amount
+        }
         cell.imgTrainingPic.sd_setImage(with: URL(string: booking.categoryImage), placeholderImage: UIImage(named: ""))
         
         return cell

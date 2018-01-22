@@ -13,7 +13,6 @@ import MapKit
 import TwitterKit
 import libPhoneNumber_iOS
 
-
 class TrainerProfilePage: UIViewController {
 
     //Trainer Header Outlets
@@ -102,6 +101,7 @@ class TrainerProfilePage: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
 
+        
         isInTrainerProfilePage = true
         
         //For checking any sessions are ongoing
@@ -122,7 +122,7 @@ class TrainerProfilePage: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationWillEnterForeground, object:nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.acceptOrDeclineScreenDismissedNotification), name: NSNotification.Name(rawValue: "AcceptOrDeclineDismissedNotifcation"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.acceptOrDeclineScreenDismissedNotification), name: NSNotification.Name(rawValue: "AcceptOrDeclineDismissedNotification"), object: nil)
         
         print("*** viewWillAppear Trainer")
         if !isUpdatingProfileImage{
@@ -137,10 +137,10 @@ class TrainerProfilePage: UIViewController {
         print("** Trainer Profile Page viewWillDisappear **")
         isInTrainerProfilePage = false
         
-        print("** Removing AcceptOrDeclineDismissedNotifcation Notification Observer **")
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "AcceptOrDeclineDismissedNotifcation"), object: nil);
+        print("** Removing AcceptOrDeclineDismissedNotification Notification Observer **")
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "AcceptOrDeclineDismissedNotification"), object: nil);
     }
-    
+        
     //MARK: - ACCEPT OR REJECT VC DISMISSED NOTIFCATION CALL
 
     func acceptOrDeclineScreenDismissedNotification() {

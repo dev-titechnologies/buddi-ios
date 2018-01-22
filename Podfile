@@ -46,6 +46,7 @@ target 'BuddyApp' do
 
     pod 'Toaster'
     pod 'Toast-Swift'
+    pod 'ReachabilitySwift'
 
   # Pods for BuddyApp
 

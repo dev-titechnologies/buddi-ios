@@ -26,6 +26,7 @@ class BookingHistoryModel {
     var amount : String = String()
     var categoryImage : String = String()
     var extend_end : String = String()
+    var promoCode : String = String()
     var endtime : Date = Date()
     var starttime : Date = Date()
 
@@ -81,6 +82,7 @@ class BookingHistoryModel {
         model.profilePic = CommonMethods.checkStringNull(val:String(describing: dictionary["profile_img"]!))
         model.category = categoryName
         model.rating = CommonMethods.checkStringNull(val: String(describing: dictionary["rating"]!))
+        model.promoCode = CommonMethods.checkStringNull(val: String(describing: dictionary["promocode"]!))
         model.paymentStatus = dictionary["payment_status"] as! String
         model.trainingStatus = dictionary["training_status"] as! String
         model.traineeId = String(describing: dictionary["trainee_id"]!)

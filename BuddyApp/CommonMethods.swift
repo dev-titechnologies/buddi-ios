@@ -16,6 +16,7 @@ import FBSDKLoginKit
 import TwitterKit
 import TwitterCore
 import SocketIO
+import Toaster
 
 protocol facebookIDReceivedDelegate: class {
     func facebookIDReceived()
@@ -44,6 +45,7 @@ class CommonMethods: NSObject {
                 break
             case .failure(let error):
                 print("serverCall Error:\(error.localizedDescription)")
+                Toast(text: SERVER_NOT_RESPONDING).show()
                 onCompletion([:])
             }
         }
@@ -63,7 +65,8 @@ class CommonMethods: NSObject {
                 }
                 break
             case .failure(let error):
-                print(error)
+                print("serverCall Error:\(error.localizedDescription)")
+                Toast(text: SERVER_NOT_RESPONDING).show()
                 onCompletion([:])
             }
         }

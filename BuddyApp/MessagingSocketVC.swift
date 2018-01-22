@@ -8,6 +8,7 @@
 
 import UIKit
 import JSQMessagesViewController
+import Reachability
 
 class MessagingSocketVC: JSQMessagesViewController {
     
@@ -26,7 +27,8 @@ class MessagingSocketVC: JSQMessagesViewController {
     
     var frompushBool = Bool()
     var TIMERCHECK = Bool()
-    
+    let reachability = Reachability()!
+
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -41,6 +43,8 @@ class MessagingSocketVC: JSQMessagesViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        reachabilityCheck()
+
         let notificationName = Notification.Name("SessionNotification")
         NotificationCenter.default.addObserver(self, selector: #selector(self.SessionTimerNotification), name: notificationName, object: nil)
         
@@ -69,9 +73,32 @@ class MessagingSocketVC: JSQMessagesViewController {
         print("** viewWillDisappear **")
         performSegue(withIdentifier: "unwindSegueToRoutePageFromMessageVC", sender: self)
 //        SocketIOManager.sharedInstance.closeConnection()
-        
+        reachability.stopNotifier()
     }
+    
+    //MARK: - REACHABILITY NOTIFIER
+    func reachabilityCheck(){
+        reachability.whenReachable = { reachability in
+            
+            CommonMethods.hideProgress()
+            if reachability.connection == .wifi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        }
+        reachability.whenUnreachable = { _ in
+            CommonMethods.showProgressWithStatus(statusMessage: NETWORK_CONNECTION_HAS_BEEN_LOST)
+            print("Not reachable")
+        }
         
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+    }
+
     func SessionTimerNotification(notif: NSNotification){
         
         print("Notification Received in Message Socket VC:\(notif)")

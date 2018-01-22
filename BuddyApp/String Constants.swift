@@ -50,6 +50,7 @@ let PLEASE_TRY_AGAIN_AFTER_FEW_MOMENTS = "Please try again after a few moments"
 let PLEASE_ACCEPT_TERMS_OF_USE_LABEL = "Please accept Terms of Use, Privacy Policy & Disclaimer"
 let PLEASE_ACCEPT_WAIVER_RELEASE_FORM_LABEL = "I HAVE READ THIS RELEASE OF LIABILITY AND ASSUMPTION OF RISK AGREEMENT"
 let REGARDING_PREVIOUS_PAYMENT_ABOUT_SESSION = "Hey! We know you want to change your session duration, but before you do, please complete the original session you booked. Don’t worry, we’re working on this issue as you’re reading this now, and you’ll soon be able to change session durations at will!"
+let NETWORK_CONNECTION_HAS_BEEN_LOST = "Network connection has been lost"
 
 let YOU_ARE_SUSPENDED_FROM_APP = "You are suspended from using the app temporarily"
 let CARD_REMOVED_SUCCESSFULLY = "Card removed successfully"
@@ -63,7 +64,7 @@ let REQUEST_TIME_EXPIRED = "Request time expired"
 let INSTANT_BOOKING_PREFERENCES_SAVED_SUCCESSFULLY = "Instant booking preferences are saved successfully"
 let PLEASE_CHOOSE_ATLEAST_A_SUBCATEGORY = "Please choose atleast a subcategory"
 let PROFILE_PICTURE_UPDATED = "Profile picture has been updated"
-
+let PROMOCODE_APPLIED = "Promocode applied"
 
 
 //Registration Validation Alerts
