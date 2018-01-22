@@ -41,6 +41,7 @@ target 'BuddyApp' do
     pod 'NewRelicAgent'
 
     pod 'TwitterKit'
+    pod 'RNNotificationView'
 
 #    pod 'ASJCoreDataOperation-Swift'
 

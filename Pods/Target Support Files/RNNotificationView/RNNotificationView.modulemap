@@ -1,0 +1,6 @@
+framework module RNNotificationView {
+  umbrella header "RNNotificationView-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import Stripe
 
+let rnnotification = Singleton.sharedInstance.RNNotification
 let commonMethods = Singleton.sharedInstance.commonMethods
 let appDelegate = Singleton.sharedInstance.appdelegate
 let context = Singleton.sharedInstance.context
