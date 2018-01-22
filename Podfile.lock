@@ -125,6 +125,7 @@ PODS:
   - NVActivityIndicatorView/Presenter (3.7.0)
   - Protobuf (3.3.0)
   - ReachabilitySwift (4.1.0)
+  - RNNotificationView (3.0.0)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
@@ -165,6 +166,7 @@ DEPENDENCIES:
   - NewRelicAgent
   - NVActivityIndicatorView
   - ReachabilitySwift
+  - RNNotificationView
   - SDWebImage (~> 3.8)
   - SideMenu
   - Socket.IO-Client-Swift
@@ -208,6 +210,7 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: d3738df7e2e476aca0ba6bf32a8c9fbcfc33d64b
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
   ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
+  RNNotificationView: c1fd881d47d1f2af126d01a1a117f8d498f39637
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SideMenu: 3fa07dd05d4bade2b6f9889fb1877e312e1ba319
   Socket.IO-Client-Swift: 17d4daf85d74125c33481d9bc40cbe678f0d631a
@@ -221,6 +224,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8ce250be1eb34633a0e6acc89520d4165ec52c10
   TwitterKit: 21d0b22d67cb9a568cd8053972d0da7df2e0e9a0
 
-PODFILE CHECKSUM: 5eea3e41b61a14dd100517b21f206f1a93f3cfae
+PODFILE CHECKSUM: 782b0a5a39ae9585284f4ec0d591bff44f282d4c
 
 COCOAPODS: 1.1.1

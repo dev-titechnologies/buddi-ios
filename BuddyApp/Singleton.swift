@@ -10,9 +10,11 @@ import Foundation
 import CoreData
 import SwiftyJSON
 import Alamofire
+import RNNotificationView
 
 class Singleton {
     
+    var RNNotification = RNNotificationView()
     var commonMethods = CommonMethods()
     var userDefaults = UserDefaults()
     var appdelegate = AppDelegate()
@@ -49,6 +51,7 @@ class Singleton {
     }()
     
     init() {
+        RNNotification = RNNotificationView()
         commonMethods = CommonMethods()
         userDefaults = UserDefaults.standard
         appdelegate = UIApplication.shared.delegate as! AppDelegate

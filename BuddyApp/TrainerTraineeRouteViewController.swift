@@ -77,6 +77,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     var categoryId = String()
     var isOpenedFromSessionStoppedNotification = Bool()
+    var FromPushChatBool = Bool()
     
     //Draw Route Objects
     var polyline = GMSPolyline()
@@ -150,6 +151,18 @@ class TrainerTraineeRouteViewController: UIViewController {
         getSocketConnected()
 
         initializeSessionCheck()
+        
+        print("PushChatBool",FromPushChatBool)
+        
+        if FromPushChatBool{
+            FromPushChatBool = false
+            
+            performSegue(withIdentifier: "fromSessionPageToMessagingSegue", sender: self)
+            
+        }else{
+            
+        }
+
               
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)

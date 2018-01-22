@@ -21,6 +21,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     var selectedTrainerProfileDetails : TrainerProfileModal = TrainerProfileModal()
     var ApsBody = String()
     var notificationType = String()
+    var PushChatBool = Bool()
    
     var profileArray = Array<TrainerProfileDetail>()
     var trainerProfileDetails = TrainerProfileModal()
@@ -207,6 +208,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         userDefaults.set(true, forKey: "sessionBookedNotStarted")
 
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
+         self.PushChatBool = false
          self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
     }
     
@@ -283,7 +285,40 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
             userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
             ApsBody = notif.userInfo!["aps"]! as! String
             AcceptOrDeclineScreen()
+        }else if notificationType == "8"{
+            
+            if appDelegate.chatpushnotificationBool{
+                
+            }else{
+                
+                
+                // Customizations
+                rnnotification.titleFont = UIFont(name: "AvenirNext-Bold", size: 10)!
+                rnnotification.titleTextColor = UIColor.blue
+                rnnotification.iconSize = CGSize(width: 46, height: 46) // Optional setup
+                
+                rnnotification.show(withImage: nil,
+                                    title: "Buddi",
+                                    message: "New message received!",
+                                    onTap: {
+                                        print("Did tap notification")
+                                        
+                                        if userDefaults.bool(forKey: "sessionBookedNotStarted"){
+                                            print("SESSION BOOKED NOT STARTED")
+                                            
+                                            if let heroObject = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+                                                let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
+                                                
+                                                self.PushChatBool = true
+                                                self.GoTimerPageFromKilledState_Notification(dict: hero)
+                                            }
+                                        }
+                })
+                
+                
+            }
         }
+
     }
     
     func GoTimerPageFromKilledState_Notification(dict: NSDictionary) {
@@ -461,6 +496,10 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                 print("secondsCopy:\(secondsCopy)")
                 timerPage.seconds = secondsCopy
                 print("SECONDSSSS",timerPage.seconds)
+                print("PUSHCHAT BOOL VIEWCONTROLLER",self.PushChatBool)
+                
+                timerPage.FromPushChatBool = self.PushChatBool
+
                 
 //                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Timer Data check in ViewController is : False", buttonTitle: "OK")
 

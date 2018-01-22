@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     let SessionNotification = Notification.Name("SessionNotification")
     var TrainerProfileDictionary: NSDictionary!
     
+    var chatpushnotificationBool = Bool()
     var isLaunchFromBackGroundState = Bool()
     var isLaunchFromKilledState = Bool()
     var profileImageData: NSData = NSData()
@@ -717,6 +718,15 @@ extension AppDelegate: FIRMessagingDelegate {
                 "pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String,
                 "type":notificationType,
                 "data":NotificationDict
+                ])
+        }else if notificationType == "8"{
+            
+            
+            //CHAT MESSAGES
+            
+            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: [
+                "pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String,
+                "type":notificationType
                 ])
         }
     }

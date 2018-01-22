@@ -45,6 +45,8 @@ class MessagingSocketVC: JSQMessagesViewController {
         
         reachabilityCheck()
 
+        appDelegate.chatpushnotificationBool = true
+        
         let notificationName = Notification.Name("SessionNotification")
         NotificationCenter.default.addObserver(self, selector: #selector(self.SessionTimerNotification), name: notificationName, object: nil)
         
@@ -70,6 +72,7 @@ class MessagingSocketVC: JSQMessagesViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         
+        appDelegate.chatpushnotificationBool = false
         print("** viewWillDisappear **")
         performSegue(withIdentifier: "unwindSegueToRoutePageFromMessageVC", sender: self)
 //        SocketIOManager.sharedInstance.closeConnection()
