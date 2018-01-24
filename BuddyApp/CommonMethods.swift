@@ -467,7 +467,7 @@ class CommonMethods: NSObject {
     
     class func postTweetAutomatically (tweetMessage: String, userId: String){
     
-        if let session = Twitter.sharedInstance().sessionStore.session() {
+        if let session = TWTRTwitter.sharedInstance().sessionStore.session() {
             let client = TWTRAPIClient()
             
             client.loadUser(withID: session.userID) { (user, error) -> Void in
@@ -481,7 +481,7 @@ class CommonMethods: NSObject {
                     
                     let message = ["status": tweetMessage]
                     
-                    let requestUpdateUrl = client.urlRequest(withMethod: "POST", url: updateUrl, parameters: message, error: nil)
+                    let requestUpdateUrl = client.urlRequest(withMethod: "POST", urlString: updateUrl, parameters: message, error: nil)
                     
                     client.sendTwitterRequest(requestUpdateUrl, completion: { (urlResponse, data, connectionError) -> Void in
                         if connectionError == nil {
@@ -671,7 +671,7 @@ extension UIViewController {
         ProfileImageDB.deleteImages()
         ProfileDB.deleteProfile()
         
-        let store = Twitter.sharedInstance().sessionStore
+        let store = TWTRTwitter.sharedInstance().sessionStore
         if let userID = store.session()?.userID {
             print("Logout success with User ID:\(userID)")
             store.logOutUserID(userID)

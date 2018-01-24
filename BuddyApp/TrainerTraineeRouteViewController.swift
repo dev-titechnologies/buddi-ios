@@ -135,7 +135,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         print("**** viewWillAppear *****")
         print("***** Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
         
-        reachabilityCheck()
+//        reachabilityCheck()
 
         isInSessionRoutePage = true
         appDelegate.isInSessionRoutePageAppDelegate = true
@@ -207,6 +207,12 @@ class TrainerTraineeRouteViewController: UIViewController {
             
             CommonMethods.hideProgress()
             self.RunningTimeData()
+            
+            SocketIOManager.sharedInstance.OnSocket()
+            self.socketListener()
+            SocketIOManager.sharedInstance.establishConnection()
+            self.getSocketConnected()
+            
             if reachability.connection == .wifi {
                 print("Reachable via WiFi")
             } else {

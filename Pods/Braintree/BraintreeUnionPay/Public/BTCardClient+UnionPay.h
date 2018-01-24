@@ -1,5 +1,3 @@
-#pragma message "⚠️ Braintree's UnionPay API for iOS is currently in beta and may change."
-
 #if __has_include("BraintreeCard.h")
 #import "BraintreeCard.h"
 #else
@@ -12,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BTCardClient (UnionPay)
 
-/*!
+/**
  @brief Fetches the capabilities of a card number.
 
  @discussion This should be used to look up a card PAN to see whether it is UnionPay, and if so, what is required to tokenize it.
@@ -23,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchCapabilities:(NSString *)cardNumber
                completion:(void (^)(BTCardCapabilities * _Nullable cardCapabilities, NSError * _Nullable error))completion;
 
-/*!
+/**
  @brief Enrolls a UnionPay card and returns an enrollment ID. The `enrollmentID` property of `BTCardRequest` must be set to this IDbefore the card can be tokenized.
 
  @discussion Attempting to enroll cards that do not require enrollment -- including non-UnionPay cards -- will cause an error. This

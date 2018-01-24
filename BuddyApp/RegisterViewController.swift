@@ -16,7 +16,7 @@ import SVProgressHUD
 import libPhoneNumber_iOS
 import TTTAttributedLabel
 
-class RegisterViewController: UIViewController,GIDSignInUIDelegate,CountryPickerDelegate,UITextFieldDelegate {
+class RegisterViewController: UIViewController, GIDSignInUIDelegate, CountryPickerDelegate,UITextFieldDelegate {
     @IBOutlet weak var facebook_btn: UIButton!
 
     @IBOutlet weak var google_btn: UIButton!

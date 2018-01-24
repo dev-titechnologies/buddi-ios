@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 import FBSDKCoreKit
 import FBSDKLoginKit
-import GoogleSignIn
 import IQKeyboardManagerSwift
 import UserNotifications
 import GoogleMaps
@@ -19,10 +18,11 @@ import BraintreeDropIn
 import Firebase
 import FirebaseMessaging
 import GooglePlaces
-import Google
+//import Google
 import Stripe
 import TwitterKit
 import TwitterCore
+import GoogleSignIn
 
 protocol FCMTokenReceiveDelegate: class {
     func tokenReceived()
@@ -116,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         //For Stripe Payment
         Stripe.setDefaultPublishableKey(STRIPE_PUBLISHER_KEY)
         
-        Twitter.sharedInstance().start(withConsumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
+        TWTRTwitter.sharedInstance().start(withConsumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
@@ -140,7 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         }
         
         if url.absoluteString.contains("twitterkit"){
-            return Twitter.sharedInstance().application(application, open: url, options: [:])
+            return TWTRTwitter.sharedInstance().application(application, open: url, options: [:])
         }
         
         return googleDidHandle || facebookDidHandle
@@ -186,30 +186,69 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
         print("**** didRegisterForRemoteNotificationsWithDeviceToken *****")
         
-        if let refreshedToken = FIRInstanceID.instanceID().token() {
-            
-            let data = refreshedToken.data(using: .utf8)!
-            FIRInstanceID.instanceID().setAPNSToken(data, type: .sandbox)
-            print("========== InstanceID token1 didRegisterForRemoteNotificationsWithDeviceToken: \(refreshedToken)")
-            userDefaults.set(refreshedToken, forKey: "devicetoken")
-        }
+//        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+//        print(deviceTokenString)
+//        print("**** DEVICE TOKEN : \(deviceTokenString)")
+        
+//        let token = String(format: "%@", deviceToken as CVarArg)
+//        debugPrint("*** deviceToken: \(token)")
+//        //        #if RELEASE_VERSION
+//        //            InstanceID.instanceID().setAPNSToken(deviceToken as Data, type:FIRInstanceIDAPNSTokenType.prod)
+//        //        #else
+//        //            InstanceID.instanceID().setAPNSToken(deviceToken as Data, type:InstanceIDAPNSTokenType.sandbox)
+//        //        #endif
+        Messaging.messaging().apnsToken = deviceToken as Data
+        InstanceID.instanceID().setAPNSToken(deviceToken as Data, type: .sandbox)
+        
+
+        //        let firebaseToken = InstanceID.instanceID().token()!
+//        debugPrint("Firebase Token:",InstanceID.instanceID().token() as Any)
+//        userDefaults.set(firebaseToken, forKey: "devicetoken")
+//        print("========== InstanceID token1 didRegisterForRemoteNotificationsWithDeviceToken: \(firebaseToken)")
+
+//        if let refreshedToken = InstanceID.instanceID().token() {
+//            
+//            let data = refreshedToken.data(using: .utf8)!
+//            InstanceID.instanceID().setAPNSToken(data, type: .sandbox)
+//            print("========== InstanceID token1 didRegisterForRemoteNotificationsWithDeviceToken: \(refreshedToken)")
+//            userDefaults.set(refreshedToken, forKey: "devicetoken")
+//        }
     }
     
     //MARK: - FCM TOKEN RECEIVE
     
     func tokenRefreshNotification(notification: NSNotification) {
         
-        guard let refreshedToken = FIRInstanceID.instanceID().token()
+        guard let refreshedToken = InstanceID.instanceID().token()
             else {
                 return
         }
+        
         print("*********** InstanceID token: \(refreshedToken)")
         let data = refreshedToken.data(using: .utf8)!
-        FIRInstanceID.instanceID().setAPNSToken(data, type: .sandbox)
+        
+        Messaging.messaging().apnsToken = data as Data
+        InstanceID.instanceID().setAPNSToken(data, type: .sandbox)
         userDefaults.set(refreshedToken, forKey: "devicetoken")
-       
+               
         connectToFcm()
         delegateFCM?.tokenReceived()
+        
+        //-----
+        
+//        let token = String(format: "%@", deviceToken as CVarArg)
+//        debugPrint("*** deviceToken: \(token)")
+//        //        #if RELEASE_VERSION
+//        //            InstanceID.instanceID().setAPNSToken(deviceToken as Data, type:FIRInstanceIDAPNSTokenType.prod)
+//        //        #else
+//        //            InstanceID.instanceID().setAPNSToken(deviceToken as Data, type:InstanceIDAPNSTokenType.sandbox)
+//        //        #endif
+//        Messaging.messaging().apnsToken = deviceToken as Data
+//        let firebaseToken = InstanceID.instanceID().token()!
+//        debugPrint("Firebase Token:",InstanceID.instanceID().token() as Any)
+//        userDefaults.set(firebaseToken, forKey: "devicetoken")
+//        print("========== InstanceID token1 didRegisterForRemoteNotificationsWithDeviceToken: \(firebaseToken)")
+
     }
     
     func connectToFcm() {
@@ -218,14 +257,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
 //            return
 //        }
         
-        FIRMessaging.messaging().disconnect()
-        FIRMessaging.messaging().connect { (error) in
-            if error != nil {
-                print("Unable to connect with FCM. \(error?.localizedDescription ?? "")")
-            } else {
-                print("Connected to FCM.")
-            }
-        }
+        Messaging.messaging().shouldEstablishDirectChannel = true
+//        Messaging.messaging().disconnect()
+//        Messaging.messaging().connect { (error) in
+//            if error != nil {
+//                print("Unable to connect with FCM. \(error?.localizedDescription ?? "")")
+//            } else {
+//                print("Connected to FCM")
+//            }
+//        }
     }
     
     //MARK: - APPLICATION METHODS
@@ -526,10 +566,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     }
 }
 
-extension AppDelegate: FIRMessagingDelegate {
+extension AppDelegate: MessagingDelegate {
     
     /// The callback to handle data message received via FCM for devices running iOS 10 or above.
-    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+    func application(received remoteMessage: MessagingRemoteMessage) {
         print("applicationReceivedRemoteMessage",remoteMessage.appData)
         
         let NotificationDict = (remoteMessage.appData as NSDictionary)["data"] as! String
@@ -610,11 +650,11 @@ extension AppDelegate: FIRMessagingDelegate {
     func configureFirebase(application: UIApplication) {
         
         print("******* configureFirebase *******")
-        FIRMessaging.messaging().remoteMessageDelegate = self
-        FIRApp.configure()
+        Messaging.messaging().delegate = self
+        FirebaseApp.configure()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification),
-                                               name: NSNotification.Name.firInstanceIDTokenRefresh, object: nil)
+                                               name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
 
         // Register for remote notifications. This shows a permission dialog on first run, to
         // show the dialog at a more appropriate time move this registration accordingly.
@@ -638,13 +678,13 @@ extension AppDelegate: FIRMessagingDelegate {
     }
     
     //MARK: FCM Token Refreshed
-    func messaging(_ messaging: FIRMessaging, didRefreshRegistrationToken fcmToken: String) {
+    internal func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
         // FCM token updated, update it on Backend Server
-        print("didRefreshRegistrationToken")
+        print("didRefreshRegistrationToken:\(fcmToken)")
     }
     
     
-    func messaging(_ messaging: FIRMessaging, didReceive remoteMessage: FIRMessagingRemoteMessage) {
+    internal func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
         print("remoteMessage: \(remoteMessage)")
     }
     
@@ -724,7 +764,7 @@ extension AppDelegate: FIRMessagingDelegate {
             
             //CHAT MESSAGES
             
-            NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: [
+            NotificationCenter.default.post(name: notificationNameFCM, object: nil, userInfo: [
                 "pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String,
                 "type":notificationType
                 ])

@@ -8,13 +8,13 @@
 
 import Foundation
 import Firebase
-import FirebaseDatabase
+//import FirebaseDatabase
 
-struct Constants
-{
-    struct refs
-    {
-        static let databaseRoot = FIRDatabase.database().reference()
-//        static let databaseChats = databaseRoot.child("100")
-    }
-}
+//struct Constants
+//{
+//    struct refs
+//    {
+//        static let databaseRoot = FIRDatabase.database().reference()
+////        static let databaseChats = databaseRoot.child("100")
+//    }
+//}

@@ -9,11 +9,11 @@
 import UIKit
 import JSQMessagesViewController
 import Firebase
-import FirebaseDatabase
+//import FirebaseDatabase
 
 class MessagingVC: JSQMessagesViewController {
     
-    var databaseChats: FIRDatabaseReference = FIRDatabaseReference()
+//    var databaseChats: FIRDatabaseReference = FIRDatabaseReference()
     var sessionDetailModelObj: SessionDetailModel = SessionDetailModel()
     
     var messages = [JSQMessage]()
@@ -42,24 +42,24 @@ class MessagingVC: JSQMessagesViewController {
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         
-        databaseChats = Constants.refs.databaseRoot.child("bookingID_\(sessionDetailModelObj.bookingId)")
-        
-        let query = databaseChats.queryLimited(toLast: 10)
-        
-        _ = query.observe(.childAdded, with: { [weak self] snapshot in
-            
-            if  let data        = snapshot.value as? [String: String],
-                let id          = data["sender_id"],
-                let name        = data["name"],
-                let text        = data["text"],
-              
-                !text.isEmpty{
-                if let message = JSQMessage(senderId: id, displayName: name, text: text){
-                    self?.messages.append(message)
-                    self?.finishReceivingMessage()
-                }
-            }
-        })
+//        databaseChats = Constants.refs.databaseRoot.child("bookingID_\(sessionDetailModelObj.bookingId)")
+//        
+//        let query = databaseChats.queryLimited(toLast: 10)
+//        
+//        _ = query.observe(.childAdded, with: { [weak self] snapshot in
+//            
+//            if  let data        = snapshot.value as? [String: String],
+//                let id          = data["sender_id"],
+//                let name        = data["name"],
+//                let text        = data["text"],
+//              
+//                !text.isEmpty{
+//                if let message = JSQMessage(senderId: id, displayName: name, text: text){
+//                    self?.messages.append(message)
+//                    self?.finishReceivingMessage()
+//                }
+//            }
+//        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,9 +115,9 @@ extension MessagingVC {
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!){
         
-        let ref = databaseChats.childByAutoId()
-        let message = ["sender_id": senderId, "name": senderDisplayName, "text": text]
-        ref.setValue(message)
+//        let ref = databaseChats.childByAutoId()
+//        let message = ["sender_id": senderId, "name": senderDisplayName, "text": text]
+//        ref.setValue(message)
         finishSendingMessage()
     }
 }

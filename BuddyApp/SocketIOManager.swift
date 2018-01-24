@@ -68,6 +68,10 @@ class SocketIOManager: NSObject {
         
     }
     
+    func reconnectSocket() {
+        socket.reconnect()
+    }
+    
     func closeConnection() {
         socket.disconnect()
         

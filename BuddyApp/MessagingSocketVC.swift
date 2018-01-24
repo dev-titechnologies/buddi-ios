@@ -28,6 +28,7 @@ class MessagingSocketVC: JSQMessagesViewController {
     var frompushBool = Bool()
     var TIMERCHECK = Bool()
     let reachability = Reachability()!
+    var isNetworkReconnected = Bool()
 
     //MARK: - VIEW CYCLES
     
@@ -52,8 +53,8 @@ class MessagingSocketVC: JSQMessagesViewController {
         
         getMessagesFromServer()
         
-        socketListener()
-        getSocketConnected()
+//        socketListener()
+//        getSocketConnected()
         
         if appDelegate.USER_TYPE == "trainer" {
             senderId = sessionDetailModelObj.trainerId
@@ -84,13 +85,29 @@ class MessagingSocketVC: JSQMessagesViewController {
         reachability.whenReachable = { reachability in
             
             CommonMethods.hideProgress()
+            
+            if self.isNetworkReconnected {
+                SocketIOManager.sharedInstance.socketObjectReinit()
+                SocketIOManager.sharedInstance.OnSocket()
+            }
+            self.socketListener()
+
+            if self.isNetworkReconnected {
+//                SocketIOManager.sharedInstance.reconnectSocket()
+                SocketIOManager.sharedInstance.establishConnection()
+            }
+            self.getSocketConnected()
+            
             if reachability.connection == .wifi {
                 print("Reachable via WiFi")
             } else {
                 print("Reachable via Cellular")
             }
+            
+            self.isNetworkReconnected = false
         }
         reachability.whenUnreachable = { _ in
+            self.isNetworkReconnected = true
             CommonMethods.showProgressWithStatus(statusMessage: NETWORK_CONNECTION_HAS_BEEN_LOST)
             print("Not reachable")
         }

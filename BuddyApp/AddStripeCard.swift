@@ -113,7 +113,7 @@ class AddStripeCard: UIViewController, STPPaymentCardTextFieldDelegate {
     
     @IBAction func dobAction(_ sender: Any) {
         
-        DatePickerDialog().show(title: "Date of birth", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .date) {
+        DatePickerDialog().show("Date of birth", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .date) {
             (date) -> Void in
             if let dt = date {
                 let formatter = DateFormatter()

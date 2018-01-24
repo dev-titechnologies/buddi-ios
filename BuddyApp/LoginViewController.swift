@@ -11,7 +11,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
 
-class LoginViewController: UIViewController,GIDSignInUIDelegate{
+class LoginViewController: UIViewController, GIDSignInUIDelegate {
     
     var fbUserDictionary: NSDictionary!
     var loginType = String()

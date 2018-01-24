@@ -3,7 +3,7 @@
 //
 
 
-#import <Google/Analytics-Module.h>
+//#import <Google/Analytics-Module.h>
 //#import <GoogleAnalytics/GAI.h>
 
 #import "GAIDictionaryBuilder.h"
@@ -11,4 +11,6 @@
 #import "GAI.h"
 
 #import "NewRelicAgent/NewRelic.h"
-
+//#import <Google/SignIn.h>
+//#import <GoogleSignIn/GoogleSignIn.h>
+//#import <GoogleSignIn/GIDSignIn.h>

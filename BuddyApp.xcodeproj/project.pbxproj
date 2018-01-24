@@ -56,6 +56,7 @@
 		F322FC601F1CE62500381B8C /* BuddyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC5F1F1CE62500381B8C /* BuddyAppUITests.swift */; };
 		F322FC701F1CEF2200381B8C /* Appconstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F322FC6F1F1CEF2200381B8C /* Appconstants.swift */; };
 		F32460C71F5983D9002B3D55 /* ContactDictionaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32460C61F5983D9002B3D55 /* ContactDictionaryModel.swift */; };
+		F325FED22016FD8D00450D47 /* WalletVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F325FED12016FD8D00450D47 /* WalletVC.swift */; };
 		F32E6AB21F53E94A001646E4 /* MessagingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32E6AB11F53E94A001646E4 /* MessagingVC.swift */; };
 		F32E6AB71F53F420001646E4 /* FireBaseMessagingConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32E6AB61F53F420001646E4 /* FireBaseMessagingConstant.swift */; };
 		F32E6AB91F540213001646E4 /* SessionDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32E6AB81F540213001646E4 /* SessionDetailModel.swift */; };
@@ -247,6 +248,7 @@
 		F322FC611F1CE62500381B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F322FC6F1F1CEF2200381B8C /* Appconstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appconstants.swift; sourceTree = "<group>"; };
 		F32460C61F5983D9002B3D55 /* ContactDictionaryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDictionaryModel.swift; sourceTree = "<group>"; };
+		F325FED12016FD8D00450D47 /* WalletVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletVC.swift; sourceTree = "<group>"; };
 		F32E6AB11F53E94A001646E4 /* MessagingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagingVC.swift; sourceTree = "<group>"; };
 		F32E6AB61F53F420001646E4 /* FireBaseMessagingConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseMessagingConstant.swift; sourceTree = "<group>"; };
 		F32E6AB81F540213001646E4 /* SessionDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDetailModel.swift; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F325FED02016F96A00450D47 /* Wallet System */,
 				F34D039D1FFB67F3001B56EE /* Waiver Release Form */,
 				F36A1C9F1FF2188700650706 /* GoogleService-Info.plist */,
 				F32E6AB01F53E3C1001646E4 /* Messaging */,
@@ -616,6 +619,14 @@
 				F32E6AB61F53F420001646E4 /* FireBaseMessagingConstant.swift */,
 			);
 			name = Globals;
+			sourceTree = "<group>";
+		};
+		F325FED02016F96A00450D47 /* Wallet System */ = {
+			isa = PBXGroup;
+			children = (
+				F325FED12016FD8D00450D47 /* WalletVC.swift */,
+			);
+			name = "Wallet System";
 			sourceTree = "<group>";
 		};
 		F32E6AB01F53E3C1001646E4 /* Messaging */ = {
@@ -1021,7 +1032,7 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 9FV77YFBU8;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -1291,6 +1302,7 @@
 				F3990E1C1F1F6553000FFF7B /* ReviewHistoryDB.swift in Sources */,
 				F37350AD1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift in Sources */,
 				F35FDADF1F1E517C0091900D /* BookingHistoryVC.swift in Sources */,
+				F325FED22016FD8D00450D47 /* WalletVC.swift in Sources */,
 				F338F3A41F45AAD700B92450 /* TrainerProfileDetail+CoreDataProperties.swift in Sources */,
 				F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */,
 				F3D0EF421F289C3C009B60E7 /* ProfileImageDB.swift in Sources */,
@@ -1539,20 +1551,21 @@
 				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Cortez (DQW2ZES22Q)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9FV77YFBU8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BuddyApp",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/CountryPickerSwift",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/libPhoneNumber-iOS",
+					"$(SRCROOT)/**",
 				);
 				INFOPLIST_FILE = BuddyApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.titechnologies.BuddiApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3d917ae2-43a3-4e9f-92c8-71902bfce17f";
+				PROVISIONING_PROFILE_SPECIFIER = BuddiDevProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "BuddyApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1570,21 +1583,22 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BuddyApp/BuddyApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Buddi Inc. (9FV77YFBU8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Buddi Inc. (9FV77YFBU8)";
+				DEVELOPMENT_TEAM = 9FV77YFBU8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BuddyApp",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/CountryPickerSwift",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/libPhoneNumber-iOS",
+					"$(SRCROOT)/**",
 				);
 				INFOPLIST_FILE = BuddyApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.titechnologies.BuddiApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "a092aa43-e17a-4cf2-99a8-07659f1f412c";
+				PROVISIONING_PROFILE_SPECIFIER = BuddiDistributionProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "BuddyApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

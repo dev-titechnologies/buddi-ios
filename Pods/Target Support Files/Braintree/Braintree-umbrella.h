@@ -10,6 +10,7 @@
 #import "BraintreeCore.h"
 #import "BTAPIClient.h"
 #import "BTAppSwitch.h"
+#import "BTBinData.h"
 #import "BTClientMetadata.h"
 #import "BTClientToken.h"
 #import "BTConfiguration.h"

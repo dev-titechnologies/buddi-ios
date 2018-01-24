@@ -89,13 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/TraineeHomePage.swift"
-            timestampString = "538300743.906628"
+            filePath = "BuddyApp/AppDelegate.swift"
+            timestampString = "538465483.299422"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
-            landmarkName = "checkIfAnySessionAcceptedByTrainer()"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "tokenRefreshNotification(notification:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

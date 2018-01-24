@@ -105,7 +105,7 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
             isTwitterAutoShare = false
         }
         
-        if let session = Twitter.sharedInstance().sessionStore.session() {
+        if let session = TWTRTwitter.sharedInstance().sessionStore.session() {
             print("*** Twitter Session present ***")
             print("Session ID:\(session.userID)")
             let client = TWTRAPIClient()
@@ -539,7 +539,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
                     print("User Name1:\(self.twitterUserName)")
                     reloadSection(row: sender.tag)
                 }else{
-                    Twitter.sharedInstance().logIn { session, error in
+                    TWTRTwitter.sharedInstance().logIn { session, error in
                         print("*** Twitter Login Completion Handler ***")
                         if (session != nil){
                             print("User Name:\((session?.userName)!)")

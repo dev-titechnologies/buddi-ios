@@ -14,7 +14,7 @@ import Alamofire
 import Braintree
 import BraintreeDropIn
 import Toaster
-import Toast_Swift
+//import Toast_Swift
 
 class ShowTrainersOnMapVC: UIViewController {
 
@@ -603,7 +603,7 @@ class ShowTrainersOnMapVC: UIViewController {
                         
 //                        Toast(text: "Promo Code \(String(describing: (jsondata["data"] as! NSDictionary)["code"] as! String)) applied successfully").show()
                         
-                        self.view.makeToast("Promo Code \(String(describing: (jsondata["data"] as! NSDictionary)["code"] as! String)) applied successfully", duration: 3.0, position: .bottom)
+//                        self.view.makeToast("Promo Code \(String(describing: (jsondata["data"] as! NSDictionary)["code"] as! String)) applied successfully", duration: 3.0, position: .bottom)
                         
                     }else if(jsondata["data"]  as! NSDictionary)["codeStatus"] as? String == "expired" {
                         

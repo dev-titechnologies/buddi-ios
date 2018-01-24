@@ -5,14 +5,15 @@ target 'BuddyApp' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-    pod 'Google/SignIn'
+#    pod 'Google/SignIn'
+    pod 'GoogleSignIn'
     pod 'SwiftyJSON'
     pod 'Alamofire', '~> 4.4'
     pod 'AlamofireImage', '~> 3.1'
     pod 'CountryPickerSwift'
     pod 'CountryPickerSwift'
     pod 'IQKeyboardManagerSwift', '4.0.10'
-    pod 'SideMenu'
+    pod 'SideMenu', '= 2.3.2'
     pod 'SDWebImage', '~>3.8'
     pod 'SVProgressHUD'
     pod 'libPhoneNumber-iOS', '~> 0.9'
@@ -20,14 +21,15 @@ target 'BuddyApp' do
     pod 'GooglePlaces'
     pod 'Braintree'
     pod 'BraintreeDropIn'
-    pod 'Socket.IO-Client-Swift'
-    
-    pod 'Firebase/Core'
+    pod 'Socket.IO-Client-Swift', '= 11.0.2'
     pod 'GooglePlacePicker'
+#
+#    pod 'Firebase/Core'
     pod 'Firebase/Messaging'
-    pod 'Firebase/Storage'
-    pod 'Firebase/Auth'
-    pod 'Firebase/Database'
+#    pod 'Firebase/Storage'
+#    pod 'Firebase/Auth'
+#    pod 'Firebase/Database'
+
     pod 'JSQMessagesViewController'
     
     pod 'NVActivityIndicatorView'
@@ -35,18 +37,17 @@ target 'BuddyApp' do
     pod 'GoogleAnalytics'
     pod 'TTTAttributedLabel'
 
-    pod 'Stripe'
+    pod 'Stripe', '= 11.2.0'
     pod 'DatePickerDialog'
     
-    pod 'NewRelicAgent'
+    pod 'NewRelicAgent', '= 5.12.2'
 
     pod 'TwitterKit'
     pod 'RNNotificationView'
 
-#    pod 'ASJCoreDataOperation-Swift'
 
-    pod 'Toaster'
-    pod 'Toast-Swift'
+    pod 'Toaster', '= 2.0.4'
+#    pod 'Toast-Swift'
     pod 'ReachabilitySwift'
 
   # Pods for BuddyApp

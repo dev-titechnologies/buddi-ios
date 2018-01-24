@@ -1,129 +1,113 @@
 PODS:
-  - Alamofire (4.5.0)
-  - AlamofireImage (3.2.0):
-    - Alamofire (~> 4.1)
-  - Braintree (4.8.5):
-    - Braintree/Card (= 4.8.5)
-    - Braintree/Core (= 4.8.5)
-    - Braintree/PayPal (= 4.8.5)
-    - Braintree/UI (= 4.8.5)
-  - Braintree/Card (4.8.5):
+  - Alamofire (4.6.0)
+  - AlamofireImage (3.3.0):
+    - Alamofire (~> 4.5)
+  - Braintree (4.10.0):
+    - Braintree/Card (= 4.10.0)
+    - Braintree/Core (= 4.10.0)
+    - Braintree/PayPal (= 4.10.0)
+    - Braintree/UI (= 4.10.0)
+  - Braintree/Card (4.10.0):
     - Braintree/Core
-  - Braintree/Core (4.8.5)
-  - Braintree/PayPal (4.8.5):
+  - Braintree/Core (4.10.0)
+  - Braintree/PayPal (4.10.0):
     - Braintree/Core
     - Braintree/PayPalOneTouch
-  - Braintree/PayPalDataCollector (4.8.5):
+  - Braintree/PayPalDataCollector (4.10.0):
     - Braintree/Core
     - Braintree/PayPalUtils
-  - Braintree/PayPalOneTouch (4.8.5):
+  - Braintree/PayPalOneTouch (4.10.0):
     - Braintree/Core
     - Braintree/PayPalDataCollector
     - Braintree/PayPalUtils
-  - Braintree/PayPalUtils (4.8.5)
-  - Braintree/UI (4.8.5):
+  - Braintree/PayPalUtils (4.10.0)
+  - Braintree/UI (4.10.0):
     - Braintree/Card
     - Braintree/Core
-  - Braintree/UnionPay (4.8.5):
+  - Braintree/UnionPay (4.10.0):
     - Braintree/Card
     - Braintree/Core
-  - BraintreeDropIn (5.2.2):
-    - BraintreeDropIn/DropIn (= 5.2.2)
-  - BraintreeDropIn/DropIn (5.2.2):
+  - BraintreeDropIn (5.3.0):
+    - BraintreeDropIn/DropIn (= 5.3.0)
+  - BraintreeDropIn/DropIn (5.3.0):
     - Braintree/Card (~> 4.0)
     - Braintree/Core (~> 4.0)
     - Braintree/UnionPay (~> 4.0)
     - BraintreeDropIn/UIKit
-  - BraintreeDropIn/UIKit (5.2.2)
-  - CountryPickerSwift (1.4.4)
-  - DatePickerDialog (1.1.7)
-  - Firebase/Auth (3.17.0):
+  - BraintreeDropIn/UIKit (5.3.0)
+  - CountryPickerSwift (1.4.5)
+  - DatePickerDialog (2.0)
+  - Firebase/Core (4.8.1):
+    - FirebaseAnalytics (= 4.0.7)
+    - FirebaseCore (= 4.0.14)
+  - Firebase/Messaging (4.8.1):
     - Firebase/Core
-    - FirebaseAuth (= 3.1.1)
-  - Firebase/Core (3.17.0):
-    - FirebaseAnalytics (= 3.9.0)
-    - FirebaseCore (= 3.6.0)
-  - Firebase/Database (3.17.0):
-    - Firebase/Core
-    - FirebaseDatabase (= 3.1.2)
-  - Firebase/Messaging (3.17.0):
-    - Firebase/Core
-    - FirebaseMessaging (= 1.2.3)
-  - Firebase/Storage (3.17.0):
-    - Firebase/Core
-    - FirebaseStorage (= 1.1.0)
-  - FirebaseAnalytics (3.9.0):
-    - FirebaseCore (~> 3.6)
-    - FirebaseInstanceID (~> 1.0)
+    - FirebaseMessaging (= 2.0.8)
+  - FirebaseAnalytics (4.0.7):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseAuth (3.1.1):
-    - FirebaseAnalytics (~> 3.7)
-    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (3.6.0):
+    - nanopb (~> 0.3)
+  - FirebaseCore (4.0.14):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseDatabase (3.1.2):
-    - FirebaseAnalytics (~> 3.7)
-  - FirebaseInstanceID (1.0.10):
-    - FirebaseCore (~> 3.6)
-  - FirebaseMessaging (1.2.3):
-    - FirebaseAnalytics (~> 3.8)
-    - FirebaseInstanceID (~> 1.0)
+  - FirebaseInstanceID (2.0.8):
+    - FirebaseCore (~> 4.0)
+  - FirebaseMessaging (2.0.8):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
     - Protobuf (~> 3.1)
-  - FirebaseStorage (1.1.0):
-    - FirebaseAnalytics (~> 3.7)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - Google/Core (3.1.0):
-    - FirebaseAnalytics (~> 3.2)
-  - Google/SignIn (3.1.0):
-    - Google/Core
-    - GoogleSignIn (~> 4.0)
   - GoogleAnalytics (3.17.0)
-  - GoogleMaps (2.3.1):
-    - GoogleMaps/Maps (= 2.3.1)
-  - GoogleMaps/Base (2.3.1)
-  - GoogleMaps/Maps (2.3.1):
+  - GoogleMaps (2.5.0):
+    - GoogleMaps/Maps (= 2.5.0)
+  - GoogleMaps/Base (2.5.0)
+  - GoogleMaps/Maps (2.5.0):
     - GoogleMaps/Base
-  - GooglePlacePicker (2.3.1):
-    - GoogleMaps (= 2.3.1)
-    - GooglePlaces (= 2.3.1)
-  - GooglePlaces (2.3.1):
-    - GoogleMaps/Base (= 2.3.1)
-  - GoogleSignIn (4.0.2):
+  - GooglePlacePicker (2.5.0):
+    - GoogleMaps (= 2.5.0)
+    - GooglePlaces (= 2.5.0)
+  - GooglePlaces (2.5.0):
+    - GoogleMaps/Base (= 2.5.0)
+  - GoogleSignIn (4.1.1):
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
     - GTMOAuth2 (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleToolboxForMac/DebugUtils (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-  - GoogleToolboxForMac/Defines (2.1.1)
-  - GoogleToolboxForMac/Logger (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-  - GoogleToolboxForMac/NSData+zlib (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.1):
-    - GoogleToolboxForMac/DebugUtils (= 2.1.1)
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
-  - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
-  - GTMOAuth2 (1.1.4):
+  - GoogleToolboxForMac/DebugUtils (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/Defines (2.1.3)
+  - GoogleToolboxForMac/Logger (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
+  - GTMOAuth2 (1.1.6):
     - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.1.10):
-    - GTMSessionFetcher/Full (= 1.1.10)
-  - GTMSessionFetcher/Core (1.1.10)
-  - GTMSessionFetcher/Full (1.1.10):
-    - GTMSessionFetcher/Core (= 1.1.10)
+  - GTMSessionFetcher (1.1.12):
+    - GTMSessionFetcher/Full (= 1.1.12)
+  - GTMSessionFetcher/Core (1.1.12)
+  - GTMSessionFetcher/Full (1.1.12):
+    - GTMSessionFetcher/Core (= 1.1.12)
   - IQKeyboardManagerSwift (4.0.10)
   - JSQMessagesViewController (7.3.5):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
-  - libPhoneNumber-iOS (0.9.10)
-  - NewRelicAgent (5.14.2)
-  - NVActivityIndicatorView (3.7.0):
-    - NVActivityIndicatorView/Presenter (= 3.7.0)
-  - NVActivityIndicatorView/Presenter (3.7.0)
-  - Protobuf (3.3.0)
+  - libPhoneNumber-iOS (0.9.13)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
+  - NewRelicAgent (5.12.2)
+  - NVActivityIndicatorView (4.1.1):
+    - NVActivityIndicatorView/Presenter (= 4.1.1)
+  - NVActivityIndicatorView/Presenter (4.1.1)
+  - Protobuf (3.5.0)
   - ReachabilitySwift (4.1.0)
   - RNNotificationView (3.0.0)
   - SDWebImage (3.8.2):
@@ -132,16 +116,15 @@ PODS:
   - SideMenu (2.3.2)
   - Socket.IO-Client-Swift (11.0.2):
     - StarscreamSocketIO (~> 8.0.2)
-  - StarscreamSocketIO (8.0.2)
+  - StarscreamSocketIO (8.0.7)
   - Stripe (11.2.0)
-  - SVProgressHUD (2.1.2)
-  - SwiftyJSON (3.1.4)
-  - Toast-Swift (3.0.1)
+  - SVProgressHUD (2.2.2)
+  - SwiftyJSON (4.0.0)
   - Toaster (2.0.4)
   - TTTAttributedLabel (2.0.0)
-  - TwitterCore (3.0.0)
-  - TwitterKit (3.1.0):
-    - TwitterCore (>= 3.0.0)
+  - TwitterCore (3.1.0)
+  - TwitterKit (3.3.0):
+    - TwitterCore (>= 3.1.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
@@ -150,80 +133,71 @@ DEPENDENCIES:
   - BraintreeDropIn
   - CountryPickerSwift
   - DatePickerDialog
-  - Firebase/Auth
-  - Firebase/Core
-  - Firebase/Database
   - Firebase/Messaging
-  - Firebase/Storage
-  - Google/SignIn
   - GoogleAnalytics
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
+  - GoogleSignIn
   - IQKeyboardManagerSwift (= 4.0.10)
   - JSQMessagesViewController
   - libPhoneNumber-iOS (~> 0.9)
-  - NewRelicAgent
+  - NewRelicAgent (= 5.12.2)
   - NVActivityIndicatorView
   - ReachabilitySwift
   - RNNotificationView
   - SDWebImage (~> 3.8)
-  - SideMenu
-  - Socket.IO-Client-Swift
-  - Stripe
+  - SideMenu (= 2.3.2)
+  - Socket.IO-Client-Swift (= 11.0.2)
+  - Stripe (= 11.2.0)
   - SVProgressHUD
   - SwiftyJSON
-  - Toast-Swift
-  - Toaster
+  - Toaster (= 2.0.4)
   - TTTAttributedLabel
   - TwitterKit
 
 SPEC CHECKSUMS:
-  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
-  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
-  Braintree: 12225834d0e39ffad56888756a3c0d8bda043d53
-  BraintreeDropIn: 0ff4879547af66dae814911992e01324975d556d
-  CountryPickerSwift: e31e67f2b95eb1fa6ad230e9eb0b49b020526d99
-  DatePickerDialog: bd5e7e92e4da2c6a8966b28d5f5d8f335d6c2c63
-  Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
-  FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
-  FirebaseAuth: cc8a1824170adbd351edb7f994490a3fb5c18be6
-  FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
-  FirebaseDatabase: 05c96d7b43a7368dc91c07791adb49683e1738d1
-  FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
-  FirebaseMessaging: 753d05a925e9eb8eadd09a0ffc9b808578b72fac
-  FirebaseStorage: a5c55b23741a49a72af8f30f95b3bb5ddbeda12d
-  Google: 98da4b1a60ed0beb80a290387a28333406a1eb90
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
+  Braintree: 424a8b0bf1d31fe1110035cfde438701e1425c1a
+  BraintreeDropIn: 5882cca8dc3c4a5b8f11faa44fca52323253c857
+  CountryPickerSwift: be2cf0dc41887d8b16ea65ae263a70adb0cc953a
+  DatePickerDialog: 5e1c24d9fe6506cd45dbc573eed7b0a251b1c09d
+  Firebase: 2721056b8885eef90233b03f37be64358d35d262
+  FirebaseAnalytics: 617afa8c26b57a0c3f11361b248bc9e17bfd8dfd
+  FirebaseCore: 2e0b98fb2d64ca8140136beff15772bdd14d2dd7
+  FirebaseInstanceID: 81df5805a08001e69138664bdd02c6719a9ac80f
+  FirebaseMessaging: dfdcd307c2382290a1e297a81d0f18370f5b1bcd
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
-  GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
-  GooglePlacePicker: fc3564ac7a2ce314e78e42bfc1e16822ad1e5488
-  GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
-  GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
-  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
-  GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
-  GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
+  GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
+  GooglePlacePicker: 1573e644ab54564d95c2643edc0f29091609e966
+  GooglePlaces: dd70d9d71ea1c7944846afe67de3712c99b30a77
+  GoogleSignIn: 3fdaa34a2ba04dbd7a25d7db39aecb0da98d5bdc
+  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
+  GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
+  GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   IQKeyboardManagerSwift: 75ba21a23794a1e6b6fe6d9a267ea17f80e06771
   JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
-  libPhoneNumber-iOS: f721ae4d5854bce60934f9fb9b0b28e8e68913cb
-  NewRelicAgent: 28645401ac7531eeeabde64410c9d5efd49e083f
-  NVActivityIndicatorView: d3738df7e2e476aca0ba6bf32a8c9fbcfc33d64b
-  Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
+  libPhoneNumber-iOS: e444379ac18bbfbdefad571da735b2cd7e096caa
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  NewRelicAgent: 1d41d2f6fe7c4219c13819ef12a0fc0f8d6ecaa6
+  NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
+  Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
   RNNotificationView: c1fd881d47d1f2af126d01a1a117f8d498f39637
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SideMenu: 3fa07dd05d4bade2b6f9889fb1877e312e1ba319
   Socket.IO-Client-Swift: 17d4daf85d74125c33481d9bc40cbe678f0d631a
-  StarscreamSocketIO: c02ffb2920bd38de6658ce213071fc4ae0e35423
+  StarscreamSocketIO: 00b54e4208481ca5cef089545353aaf126bae16d
   Stripe: 898f83a95d72180c6eb4acd65b2ae6158fc6a8bd
-  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
-  Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
+  SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   Toaster: f13031c636ef065281bc11857be9a16c7659e04f
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
-  TwitterCore: 8ce250be1eb34633a0e6acc89520d4165ec52c10
-  TwitterKit: 21d0b22d67cb9a568cd8053972d0da7df2e0e9a0
+  TwitterCore: 644d59e75abccb26cf0a9050d2c4dea0e5412241
+  TwitterKit: a2e60ddcedbf54091eac6f27685ca7a87681e1d7
 
-PODFILE CHECKSUM: 782b0a5a39ae9585284f4ec0d591bff44f282d4c
+PODFILE CHECKSUM: 959fa71ff5fb8b87c6679045961e688519893a9a
 
 COCOAPODS: 1.1.1
