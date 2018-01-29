@@ -81,7 +81,7 @@ class ShowTrainersOnMapVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        getPendingTransactionDetails()
+//        getPendingTransactionDetails()
         checkForBookingRequestVia()
         
 //        fetchTrainingLocationModelDatasFromUserDefault()
@@ -225,7 +225,8 @@ class ShowTrainersOnMapVC: UIViewController {
                     print("isPaymentSuccess : \(isPaymentSuccess)")
                     showAlertRegardingPreviousPayment()
                 }else{
-                    paymentCheckoutStripe()
+                    paymentCheckoutWithWallet()
+//                    paymentCheckoutStripe()
                 }
             }
         }else{
@@ -238,7 +239,8 @@ class ShowTrainersOnMapVC: UIViewController {
                     print("isPaymentSuccess : \(isPaymentSuccess)")
                     showAlertRegardingPreviousPayment()
                 }else{
-                    paymentCheckoutStripe()
+                    paymentCheckoutWithWallet()
+//                    paymentCheckoutStripe()
                 }
             }
         }
@@ -502,12 +504,17 @@ class ShowTrainersOnMapVC: UIViewController {
             //With Payment Transaction
             
             //if payment has already paid and returned with new booking
-            getTransactionDetailsOncePaymentSuccessFromUserDefault()
-            let transactionDict = ["transaction_id" : transactionId,
-                                   "amount" : transactionAmount,
-                                   "transaction_status" : transactionStatus
-                ] as [String : Any]
+//            getTransactionDetailsOncePaymentSuccessFromUserDefault()
+//            let transactionDict = ["transaction_id" : transactionId,
+//                                   "amount" : transactionAmount,
+//                                   "transaction_status" : transactionStatus
+//                ] as [String : Any]
+//
+//            parameters = parameters.merged(with: transactionDict)
             
+            let transactionDict = [
+                "amount" : transactionAmount
+                ] as [String : Any]
             parameters = parameters.merged(with: transactionDict)
         }
         
@@ -607,7 +614,7 @@ class ShowTrainersOnMapVC: UIViewController {
                         
                     }else if(jsondata["data"]  as! NSDictionary)["codeStatus"] as? String == "expired" {
                         
-                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Applied promo code \(String(describing: (jsondata["data"]  as! NSDictionary)["code"] as? String)) has been expired and payment with registered card", buttonTitle: "OK")
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Applied promo code \(String(describing: (jsondata["data"]  as! NSDictionary)["code"] as! String)) has been expired and payment with registered card", buttonTitle: "OK")
 
                         userDefaults.set(false, forKey: "isPromoCodeApplied")
                         userDefaults.removeObject(forKey: "promocode")
@@ -633,7 +640,7 @@ class ShowTrainersOnMapVC: UIViewController {
         }
         
         //if payment has already paid and returned with new booking
-        getTransactionDetailsOncePaymentSuccessFromUserDefault()
+//        getTransactionDetailsOncePaymentSuccessFromUserDefault()
         
         var parameters = ["trainee_id" : appDelegate.UserId,
                           "gender" : preferenceModelObj.gender,
@@ -653,9 +660,15 @@ class ShowTrainersOnMapVC: UIViewController {
             parameters = parameters.merged(with: ["promocode" : userDefaults.value(forKey: "promocode") as! String])
         }else{
             //With Payment Transaction
-            let transactionDict = ["transaction_id" : transactionId,
-                                   "amount" : transactionAmount,
-                                   "transaction_status" : transactionStatus
+//            let transactionDict = ["transaction_id" : transactionId,
+//                                   "amount" : transactionAmount,
+//                                   "transaction_status" : transactionStatus
+//                ] as [String : Any]
+//            
+//            parameters = parameters.merged(with: transactionDict)
+            
+            let transactionDict = [
+                "amount" : transactionAmount
                 ] as [String : Any]
             
             parameters = parameters.merged(with: transactionDict)
@@ -943,6 +956,133 @@ class ShowTrainersOnMapVC: UIViewController {
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
+    }
+    
+    //MARK: - WALLET CHECKOUT
+    
+    func paymentCheckoutWithWallet() {
+        
+        let parameters =  ["training_time": choosedSessionOfTrainee,
+                           ] as [String : Any]
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: WALLET_CHECKOUT, parameters: parameters) { (jsondata) in
+            print("paymentCheckoutWithWallet Response: \(jsondata)")
+            
+            CommonMethods.hideProgress()
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    self.navigationItem.hidesBackButton = true
+                    
+                    self.isPaymentSuccess = true
+                    
+                    if let statusType = jsondata["status_type"]  as? String{
+                        
+                        if statusType == "InsufficientBalance" {
+                            
+                            let alert = UIAlertController(title: ALERT_TITLE, message: INSUFFICIENT_BALANCE, preferredStyle: UIAlertControllerStyle.alert)
+                            
+                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                                
+                                if let walletDict = jsondata["data"] as? NSDictionary {
+                                    
+                                    if let amountRequested = walletDict["amountRequest"] as? Int{
+                                        self.transactionAmount = String(amountRequested)
+                                    }
+
+                                    if let amountRequired = walletDict["amountRequired"] as? Int{
+                                        self.addMoneyToWallet(amount: String(amountRequired))
+                                    }
+                                }
+                            }))
+                            alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+                            }))
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        }else if statusType == "Success" {
+                            let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
+                            
+                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                                
+                                if let walletDict = jsondata["data"] as? NSDictionary {
+                                    
+                                    if let amountRequested = walletDict["amountDeducted"] as? Int{
+                                        self.transactionAmount = String(amountRequested)
+                                    }
+                                    
+                                    if let walletBalance = walletDict["walletBalance"] as? Int{
+                                        userDefaults.set(walletBalance, forKey: "walletBalance")
+                                    }
+                                }
+                                
+                                self.triggerRandomSelectAPIBasedOnChoice()
+                            }))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                   
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
+    }
+    
+    func triggerRandomSelectAPIBasedOnChoice() {
+        
+        if self.isFromInstantBooking{
+            print("**** Random Select call - isFromInstantBooking true")
+            self.RandomSelectTrainer(parameters: self.getRandomSelectAPIParametersFromPreference())
+        }else{
+            print("**** Random Select call - Normal Case")
+            self.RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
+        }
+    }
+    
+    //MARK: - ADD MONEY TO WALLET
+    func addMoneyToWallet(amount: String) {
+        
+        let parameters =  ["amount" : amount
+                           ] as [String : Any]
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: ADD_MONEY_TO_WALLET, parameters: parameters) { (jsondata) in
+            print("** addMoneyToWallet Response: \(jsondata)")
+            
+            CommonMethods.hideProgress()
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    if let walletDict = jsondata["data"] as? NSDictionary {
+                        
+                        if let amountRequested = walletDict["amount"] as? Int{
+                            self.transactionAmount = String(amountRequested)
+                        }
+                        self.paymentCheckoutWithWallet()
+                    }
+
+                }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()

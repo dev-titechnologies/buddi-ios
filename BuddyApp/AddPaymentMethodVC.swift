@@ -31,6 +31,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
     var isControlInSamePage = Bool()
     
     @IBOutlet weak var cardIconImage: UIImageView!
+    @IBOutlet weak var lblUsesLeft: UILabel!
     
     //MARK: - CHECKOUT CONTROLLER
     let stripePublishableKey = "pk_test_heTToPOR6gOdO1wHxNnawxZq"
@@ -60,6 +61,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
         print("**** Add payment Method viewDidLoad")
         
         self.title = PAGE_TITLE.ADD_PAYMENT_METHOD
+        lblUsesLeft.isHidden = true
         
         //Stripe Conf Settings
 //        stripeConfigurationSettings()
@@ -93,8 +95,6 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
         
         if userDefaults.value(forKey: "promocode") != nil{
             applyPromoCode(promoCode: (userDefaults.value(forKey: "promocode") as? String)!)
-//            promoCodeSuccessfullView.isHidden = false
-//            lblPromoCodeSuccessfull.text = "Applied Promocode : \(userDefaults.value(forKey: "promocode") as! String)"
         }
     }
     
@@ -295,16 +295,30 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    if (jsondata["data"]  as! NSDictionary)["codeStatus"] as? String == "valid" {
+                    let jsonDataDict = jsondata["data"]  as! NSDictionary
+                    
+                    if jsonDataDict["codeStatus"] as? String == "valid" {
                         
                         if let promoCode = (jsondata["data"]  as! NSDictionary)["code"] as? String{
                             userDefaults.set(promoCode, forKey: "promocode")
                             userDefaults.set(true, forKey: "isPromoCodeApplied")
-                            self.lblPromoCodeSuccessfull.text = "Applied Promo Code : \(self.promocode_txt.text!)"
+                            self.lblPromoCodeSuccessfull.text = "Applied Promo Code : \(String(describing: jsonDataDict["code"] as! String))"
                             self.imgPromoCodeSuccessTick.image = #imageLiteral(resourceName: "checked")
+                            
+                            let remainingUseOfPromoCode = Int(jsonDataDict["limitPerUser"] as! String)! - Int(jsonDataDict["limitOfUse"] as! String)! - 1
+                            print("remainingUseOfPromoCode:\(remainingUseOfPromoCode)")
+                            
+                            if remainingUseOfPromoCode > 0 && remainingUseOfPromoCode < 2 { 
+                                self.lblUsesLeft.text = "* You have \(remainingUseOfPromoCode) use left"
+                                self.lblUsesLeft.isHidden = false
+                            }else if remainingUseOfPromoCode > 1 {
+                                self.lblUsesLeft.text = "* You have \(remainingUseOfPromoCode) uses left"
+                                self.lblUsesLeft.isHidden = false
+                            }
+                            
                             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PROMO_CODE_APPLIED_SUCCESSFULL, buttonTitle: "Ok")
                         }
-                    }else if(jsondata["data"]  as! NSDictionary)["codeStatus"] as? String == "expired" {
+                    }else if jsonDataDict["codeStatus"] as? String == "expired" {
                         
                         if let promoCode = (jsondata["data"]  as! NSDictionary)["code"] as? String{
                             print("** Expired Promo Code :\(promoCode) **")
@@ -312,6 +326,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
                             userDefaults.removeObject(forKey: "promocode")
                             self.lblPromoCodeSuccessfull.text = "Promo Code Expired : \(promoCode)"
                             self.imgPromoCodeSuccessTick.image = #imageLiteral(resourceName: "expired")
+                            self.lblUsesLeft.isHidden = true
                         }
                     }
 
