@@ -90,10 +90,9 @@ class AcceptOrDeclineRequestPage: UIViewController {
             ]
             as [String : Any]
         
-        if (ProfileDictionary["transaction_id"] as? String) != nil{
-            let transactionDict = ["transaction_id" : ProfileDictionary["transaction_id"]!,
-                                   "amount" : ProfileDictionary["amount"]!,
-                                   "transaction_status" : ProfileDictionary["transaction_status"]!
+        if (ProfileDictionary["promocode"] as? String) == nil{
+            let transactionDict = [
+                "amount" : ProfileDictionary["amount"]!
                 ] as [String : Any]
             
             parameters = parameters.merged(with: transactionDict as! Dictionary<String, String>)

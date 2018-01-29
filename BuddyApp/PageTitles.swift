@@ -30,6 +30,7 @@ struct PAGE_TITLE {
     static let TRAINING_DETAILS = "Training Details"
     static let SETTINGS = "Preference Settings"
     static let INVITE_FRIENDS = "Invite friends"
+    static let WALLET = "Wallet"
 
     
 }

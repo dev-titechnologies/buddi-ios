@@ -55,6 +55,8 @@ let NETWORK_CONNECTION_HAS_BEEN_LOST = "Network connection has been lost"
 let YOU_ARE_SUSPENDED_FROM_APP = "You are suspended from using the app temporarily"
 let CARD_REMOVED_SUCCESSFULLY = "Card removed successfully"
 let CARD_SET_TO_DEFAULT = "Card has been set to default"
+let INSUFFICIENT_BALANCE = "Insufficient balance in your wallet. Do you want to add balance from your linked card?"
+let MONEY_HAS_BEEN_ADDED_SUCCESSFULLY = "Money has been successfully added to Wallet"
 
 let TERMS_OF_USE_LINK_DISPLAY_TEXT = "Terms of Use"
 let PRIVACY_POLICY_LINK_DISPLAY_TEXT = "Privacy Policy"
@@ -66,6 +68,7 @@ let PLEASE_CHOOSE_ATLEAST_A_SUBCATEGORY = "Please choose atleast a subcategory"
 let PROFILE_PICTURE_UPDATED = "Profile picture has been updated"
 let PROMOCODE_APPLIED = "Promocode applied"
 
+let PLEASE_ENTER_MONEY_TO_ADD = "Please enter money to add"
 
 //Registration Validation Alerts
 let PLEASE_ENTER_FIRSTNAME = "Please enter your first name"
@@ -119,6 +122,7 @@ let CLEAN_JERK_FEMALE_DESC = "Video 1: Record yourself doing 1 rep with 95lb on 
 let leftMenuTrainee = ["Home",
                        "Preference Settings",
                        "Payment Method",
+                       "Wallet",
                        "Become a Trainer",
                        "Training History",
                        "Invite Friends",
@@ -130,6 +134,7 @@ let leftMenuTrainee = ["Home",
 let leftMenuTraineeAndTrainerAlso = ["Home",
                                     "Preference Settings",
                                     "Payment Method",
+                                    "Wallet",
                                     "Training History",
                                     "Invite Friends",
                                     "Help",
@@ -140,6 +145,7 @@ let leftMenuTraineeAndTrainerAlso = ["Home",
 let leftMenuTrainer = ["Home",
                        "Preference Settings",
                        "Payment Method",
+                       "Wallet",
                        "Add Category",
                        "Training History",
                        "Invite Friends",
@@ -151,6 +157,7 @@ let leftMenuTrainer = ["Home",
 let ImageArrayTrainer = ["ic_home",
                          "ic_settings",
                          "ic_payment",
+                         "wallet",
                          "ic_check_circle",
                          "ic_history",
                          "ic_people",
@@ -162,6 +169,7 @@ let ImageArrayTrainer = ["ic_home",
 let ImageArrayTrainee = ["ic_home",
                          "ic_settings",
                          "ic_payment",
+                         "wallet",
                          "ic_check_circle",
                          "ic_history",
                          "ic_people",
@@ -173,6 +181,7 @@ let ImageArrayTrainee = ["ic_home",
 let ImageArrayTraineeAndTrainerAlso = ["ic_home",
                          "ic_settings",
                          "ic_payment",
+                         "wallet",
                          "ic_history",
                          "ic_people",
                          "ic_help",
