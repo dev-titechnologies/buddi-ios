@@ -10,6 +10,11 @@ import UIKit
 
 class TraineeIncomeCell: UITableViewCell {
 
+    @IBOutlet weak var lblSessionNameOrTransId: UILabel!
+    @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var lblTrainerName: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

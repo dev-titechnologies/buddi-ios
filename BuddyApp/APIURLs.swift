@@ -39,6 +39,7 @@ let PENDING_BOOKING_DETAILS = "booking/pendingBooking"
 let ADD_MONEY_TO_WALLET = "wallet/addtoWallet"
 let WALLET_BALANCE = "wallet/walletBalance"
 let WALLET_CHECKOUT = "wallet/checkoutWallet"
+let WALLET_HISTORY = "wallet/walletHistory"
 
 let ADD_CARD_TO_STRIPE = "payment/addCardtoStripe"
 let REMOVE_CARD_FROM_STRIPE = "payment/removeCardtoStripe"

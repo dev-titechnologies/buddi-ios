@@ -17,5 +17,5 @@ class TraineeWalletHistoryModel {
     var sessionName : String = String()
     var trainerName : String = String()
     var sessionDuration : String = String()
-    var incomeType : String = String()
+    var type : String = String()
 }

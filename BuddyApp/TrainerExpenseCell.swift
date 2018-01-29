@@ -10,6 +10,11 @@ import UIKit
 
 class TrainerExpenseCell: UITableViewCell {
 
+    @IBOutlet weak var lblTransactionId: UILabel!
+    @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var lblWithdrawalStatus: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

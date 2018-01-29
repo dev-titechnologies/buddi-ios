@@ -31,6 +31,6 @@ struct PAGE_TITLE {
     static let SETTINGS = "Preference Settings"
     static let INVITE_FRIENDS = "Invite friends"
     static let WALLET = "Wallet"
-
+    static let WALLET_HISTORY = "Wallet History"  
     
 }

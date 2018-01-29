@@ -24,7 +24,7 @@ class WalletVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         btnProceed.addShadowView()
-        btnAllTransactions.addShadowView()
+        //btnAllTransactions.addShadowView()
         
         fetchWalletBalance()
     }
