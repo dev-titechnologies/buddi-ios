@@ -98,6 +98,8 @@
 		F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350A01F20A7F900BE9DB6 /* CategoryModel.swift */; };
 		F37350AC1F20AA3400BE9DB6 /* CategoryDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350AA1F20AA3400BE9DB6 /* CategoryDB.swift */; };
 		F37350AD1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37350AB1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift */; };
+		F38195CD2019E42E004D9C64 /* WalletHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38195CC2019E42E004D9C64 /* WalletHistory.swift */; };
+		F38195D02019FA9C004D9C64 /* TrainerIncomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38195CF2019FA9C004D9C64 /* TrainerIncomeCell.swift */; };
 		F38BB5411F26069200824C15 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5401F26069200824C15 /* ProfileVC.swift */; };
 		F38BB5431F2606A400824C15 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5421F2606A400824C15 /* ProfileModel.swift */; };
 		F38BB5451F26077B00824C15 /* ProfileDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38BB5441F26077B00824C15 /* ProfileDB.swift */; };
@@ -125,6 +127,11 @@
 		F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39E1EB11F27840000DAED93 /* Singleton.swift */; };
 		F39F383C1F68FB3500938674 /* ExtendSessionRequestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F383B1F68FB3500938674 /* ExtendSessionRequestPage.swift */; };
 		F39F383E1F6937C900938674 /* TrainingLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F383D1F6937C900938674 /* TrainingLocationModel.swift */; };
+		F3A38092201A0ADD00E30E2B /* TrainerExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38091201A0ADD00E30E2B /* TrainerExpenseCell.swift */; };
+		F3A38094201A0B1400E30E2B /* TraineeIncomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38093201A0B1400E30E2B /* TraineeIncomeCell.swift */; };
+		F3A38096201A0B2800E30E2B /* TraineeExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38095201A0B2800E30E2B /* TraineeExpenseCell.swift */; };
+		F3A38099201A150100E30E2B /* TrainerWalletHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38098201A150000E30E2B /* TrainerWalletHistoryModel.swift */; };
+		F3A3809B201A151000E30E2B /* TraineeWalletHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3809A201A151000E30E2B /* TraineeWalletHistoryModel.swift */; };
 		F3A3E5B21F4C4AC900B0865E /* PageTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3E5B11F4C4AC900B0865E /* PageTitles.swift */; };
 		F3A907791F32E45A00474F5E /* TraineeHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907781F32E45A00474F5E /* TraineeHomePage.swift */; };
 		F3A9077B1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A9077A1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift */; };
@@ -290,6 +297,8 @@
 		F37350A01F20A7F900BE9DB6 /* CategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		F37350AA1F20AA3400BE9DB6 /* CategoryDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDB.swift; sourceTree = "<group>"; };
 		F37350AB1F20AA3400BE9DB6 /* CategoryDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CategoryDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F38195CC2019E42E004D9C64 /* WalletHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletHistory.swift; sourceTree = "<group>"; };
+		F38195CF2019FA9C004D9C64 /* TrainerIncomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerIncomeCell.swift; sourceTree = "<group>"; };
 		F38BB5401F26069200824C15 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		F38BB5421F2606A400824C15 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		F38BB5441F26077B00824C15 /* ProfileDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDB.swift; sourceTree = "<group>"; };
@@ -309,6 +318,11 @@
 		F39E1EB11F27840000DAED93 /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		F39F383B1F68FB3500938674 /* ExtendSessionRequestPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendSessionRequestPage.swift; sourceTree = "<group>"; };
 		F39F383D1F6937C900938674 /* TrainingLocationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingLocationModel.swift; sourceTree = "<group>"; };
+		F3A38091201A0ADD00E30E2B /* TrainerExpenseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerExpenseCell.swift; sourceTree = "<group>"; };
+		F3A38093201A0B1400E30E2B /* TraineeIncomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraineeIncomeCell.swift; sourceTree = "<group>"; };
+		F3A38095201A0B2800E30E2B /* TraineeExpenseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraineeExpenseCell.swift; sourceTree = "<group>"; };
+		F3A38098201A150000E30E2B /* TrainerWalletHistoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerWalletHistoryModel.swift; sourceTree = "<group>"; };
+		F3A3809A201A151000E30E2B /* TraineeWalletHistoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraineeWalletHistoryModel.swift; sourceTree = "<group>"; };
 		F3A3E5B11F4C4AC900B0865E /* PageTitles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTitles.swift; sourceTree = "<group>"; };
 		F3A907781F32E45A00474F5E /* TraineeHomePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraineeHomePage.swift; sourceTree = "<group>"; };
 		F3A9077A1F32EC0F00474F5E /* ChooseSessionAndGenderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseSessionAndGenderVC.swift; sourceTree = "<group>"; };
@@ -546,6 +560,7 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
+				F38195CE2019FA38004D9C64 /* Wallet History */,
 				F325FED02016F96A00450D47 /* Wallet System */,
 				F34D039D1FFB67F3001B56EE /* Waiver Release Form */,
 				F36A1C9F1FF2188700650706 /* GoogleService-Info.plist */,
@@ -723,6 +738,8 @@
 				F31E95031F6AAA180098DF8C /* PreferenceModel.swift */,
 				F3D9B5DE2006131D005C21EF /* CardModel.swift */,
 				F3CCEDCF20109B9700046BEF /* PromoCodeModel.swift */,
+				F3A38098201A150000E30E2B /* TrainerWalletHistoryModel.swift */,
+				F3A3809A201A151000E30E2B /* TraineeWalletHistoryModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -784,6 +801,15 @@
 			name = "Category Lists";
 			sourceTree = "<group>";
 		};
+		F38195CE2019FA38004D9C64 /* Wallet History */ = {
+			isa = PBXGroup;
+			children = (
+				F38195CC2019E42E004D9C64 /* WalletHistory.swift */,
+				F3A38097201A0B2E00E30E2B /* Wallet Table Cell */,
+			);
+			name = "Wallet History";
+			sourceTree = "<group>";
+		};
 		F3990DF81F1F3D78000FFF7B /* Data Structure */ = {
 			isa = PBXGroup;
 			children = (
@@ -814,6 +840,17 @@
 				F39F383B1F68FB3500938674 /* ExtendSessionRequestPage.swift */,
 			);
 			name = "Extend Session Page";
+			sourceTree = "<group>";
+		};
+		F3A38097201A0B2E00E30E2B /* Wallet Table Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F38195CF2019FA9C004D9C64 /* TrainerIncomeCell.swift */,
+				F3A38091201A0ADD00E30E2B /* TrainerExpenseCell.swift */,
+				F3A38093201A0B1400E30E2B /* TraineeIncomeCell.swift */,
+				F3A38095201A0B2800E30E2B /* TraineeExpenseCell.swift */,
+			);
+			name = "Wallet Table Cell";
 			sourceTree = "<group>";
 		};
 		F3A907761F32E3D900474F5E /* Trainee Pages */ = {
@@ -1284,16 +1321,19 @@
 				F39E1EB21F27840100DAED93 /* Singleton.swift in Sources */,
 				F390DE071F4AB71600C52034 /* HelpPageVC.swift in Sources */,
 				F3C6857D1F3C857900AA8CC7 /* TrainerReviewModel.swift in Sources */,
+				F3A3809B201A151000E30E2B /* TraineeWalletHistoryModel.swift in Sources */,
 				F3A907821F32F30100474F5E /* ChooseSessionTableCell.swift in Sources */,
 				F364A9001F34B3950001C570 /* AssignedTrainerEmailCell.swift in Sources */,
 				F3990E1D1F1F6553000FFF7B /* ReviewHistoryDB+CoreDataProperties.swift in Sources */,
 				F3160F031F4D5E860091ACAB /* SwiftyStarRatingView.swift in Sources */,
 				F3FF03E31F285F8200D4DD0D /* DataExtension.swift in Sources */,
 				F37350991F207A2D00BE9DB6 /* LeftViewController.swift in Sources */,
+				F3A38094201A0B1400E30E2B /* TraineeIncomeCell.swift in Sources */,
 				F3585C3A200CB254006A0477 /* ShowTrainersOnMapVC.swift in Sources */,
 				F30B60181F1DCAB300374136 /* LoginViewController.swift in Sources */,
 				F316E7F11F2209C000994447 /* SubCategoryTableCell.swift in Sources */,
 				F3CCEDD020109B9700046BEF /* PromoCodeModel.swift in Sources */,
+				F3A38092201A0ADD00E30E2B /* TrainerExpenseCell.swift in Sources */,
 				F3CCEDD420109BEA00046BEF /* PromoCodeDB+CoreDataProperties.swift in Sources */,
 				F3F5955D1F59587A00110123 /* ContactModel.swift in Sources */,
 				F338F3A31F45AAD700B92450 /* TrainerProfileDetail.swift in Sources */,
@@ -1306,6 +1346,7 @@
 				F338F3A41F45AAD700B92450 /* TrainerProfileDetail+CoreDataProperties.swift in Sources */,
 				F3C3FC7D1F25BCF100AEDB5F /* CategoryVideoUploadVC.swift in Sources */,
 				F3D0EF421F289C3C009B60E7 /* ProfileImageDB.swift in Sources */,
+				F38195D02019FA9C004D9C64 /* TrainerIncomeCell.swift in Sources */,
 				F3FD7DD91F38321C00986815 /* AddPaymentMethodVC.swift in Sources */,
 				F3D0EF431F289C3C009B60E7 /* ProfileImageDB+CoreDataProperties.swift in Sources */,
 				F3F77C7C1F20F5B600D51277 /* SubCategorySelectionVC.swift in Sources */,
@@ -1335,12 +1376,15 @@
 				F373509F1F20913800BE9DB6 /* CategoryListCell.swift in Sources */,
 				F3A907801F32F15D00474F5E /* ChooseGenderTableCell.swift in Sources */,
 				F3D9B5DD20060DFF005C21EF /* CardsTableViewCell.swift in Sources */,
+				F3A38099201A150100E30E2B /* TrainerWalletHistoryModel.swift in Sources */,
 				F31542901F38802E0070EEC6 /* TrainerProfileModal.swift in Sources */,
 				F35FDAE51F1E51B50091900D /* ReviewHistoryTableCell.swift in Sources */,
+				F38195CD2019E42E004D9C64 /* WalletHistory.swift in Sources */,
 				F3C5955C1F4EECE100808ACB /* SessionPreferenceCell.swift in Sources */,
 				F341B0361F28D80F007C9AF1 /* ColorCodes.swift in Sources */,
 				F38E11681FA1C9EA00EA86D1 /* AddStripeCard.swift in Sources */,
 				F316E7EC1F21BF4E00994447 /* SubCategoryDB+CoreDataProperties.swift in Sources */,
+				F3A38096201A0B2800E30E2B /* TraineeExpenseCell.swift in Sources */,
 				F32460C71F5983D9002B3D55 /* ContactDictionaryModel.swift in Sources */,
 				F38BB5411F26069200824C15 /* ProfileVC.swift in Sources */,
 				F341B0381F28D9FB007C9AF1 /* CardView.swift in Sources */,

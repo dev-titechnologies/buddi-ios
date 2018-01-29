@@ -24,6 +24,7 @@ class LeftViewController: UIViewController {
     @IBOutlet weak var lblEmailId: UILabel!
     var isTimerStarted = Bool()
     
+    @IBOutlet weak var lblWalletAmount: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,6 +45,10 @@ class LeftViewController: UIViewController {
 
         print("**** Left view viewWillAppear")
         parseNameAndImage()
+        
+        if let walletBalance = userDefaults.value(forKey: "walletBalance"){
+            lblWalletAmount.text = "$ \(String(describing: walletBalance))"
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -326,9 +331,14 @@ extension LeftViewController : UITableViewDelegate{
                 print("Two")
                 print("Payment Method")
                 self.performSegue(withIdentifier: "addPaymentMethodSegue", sender: self)
-
+                
             case 3:
                 print("Three")
+                print("Wallet System")
+                self.performSegue(withIdentifier: "walletSystemSegue", sender: self)
+                
+            case 4:
+                print("Four")
                 print("Add Category")
                 
                 if appDelegate.timerrunningtime{
@@ -337,27 +347,28 @@ extension LeftViewController : UITableViewDelegate{
                     self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
                 }
                 
-            case 4:
-                print("Four")
+            case 5:
+                print("Five")
                 print("Training History")
                 self.performSegue(withIdentifier: "bookingHistorySegue", sender: self)
                 
-            case 5:
-                print("Five")
+            case 6:
+                print("Six")
                 print("Invite Friends")
                 self.performSegue(withIdentifier: "fromLeftMenuToInviteFriendsSegue", sender: self)
                
-            case 6:
-                print("Six")
-                print("Help")
-                self.performSegue(withIdentifier: "leftMenuToHelpPageSegue", sender: self)
             case 7:
                 print("Seven")
-                print("Legal")
-                self.performSegue(withIdentifier: "leftMenuToLegalPageSegue", sender: self)
+                print("Help")
+                self.performSegue(withIdentifier: "leftMenuToHelpPageSegue", sender: self)
                 
             case 8:
                 print("Eight")
+                print("Legal")
+                self.performSegue(withIdentifier: "leftMenuToLegalPageSegue", sender: self)
+                
+            case 9:
+                print("Nine")
                 print("Logout")
                 if userDefaults.bool(forKey: "isCurrentlyInTrainingSession") {
                     currentlyInSessionAlert()
@@ -397,6 +408,11 @@ extension LeftViewController : UITableViewDelegate{
                 
             case 3:
                 print("three")
+                print("Wallet System")
+                self.performSegue(withIdentifier: "walletSystemSegue", sender: self)
+                
+            case 4:
+                print("four")
                 
                 if isTraineeAlreadyTrainer{
                     //Already a Trainer
@@ -407,8 +423,8 @@ extension LeftViewController : UITableViewDelegate{
                     self.performSegue(withIdentifier: "fromlefttocatgory", sender: self)
                 }
                 
-            case 4:
-                print("four")
+            case 5:
+                print("five")
                 if isTraineeAlreadyTrainer{
                     print("Invite Friends")
                     self.performSegue(withIdentifier: "fromLeftMenuToInviteFriendsSegue", sender: self)
@@ -417,8 +433,8 @@ extension LeftViewController : UITableViewDelegate{
                     self.performSegue(withIdentifier: "bookingHistorySegue", sender: self)
                 }
                 
-            case 5:
-                print("five")
+            case 6:
+                print("six")
                 if isTraineeAlreadyTrainer{
                     print("Help")
                     self.performSegue(withIdentifier: "leftMenuToHelpPageSegue", sender: self)
@@ -427,8 +443,8 @@ extension LeftViewController : UITableViewDelegate{
                     self.performSegue(withIdentifier: "fromLeftMenuToInviteFriendsSegue", sender: self)
                 }
                 
-            case 6:
-                print("six")
+            case 7:
+                print("seven")
                 if isTraineeAlreadyTrainer{
                     print("Legal")
                     self.performSegue(withIdentifier: "leftMenuToLegalPageSegue", sender: self)
@@ -437,8 +453,8 @@ extension LeftViewController : UITableViewDelegate{
                     self.performSegue(withIdentifier: "leftMenuToHelpPageSegue", sender: self)
                 }
 
-            case 7:
-                print("seven")
+            case 8:
+                print("eight")
                 if isTraineeAlreadyTrainer{
                     print("Logout")
                     if userDefaults.bool(forKey: "isCurrentlyInTrainingSession") {
@@ -451,8 +467,8 @@ extension LeftViewController : UITableViewDelegate{
                     self.performSegue(withIdentifier: "leftMenuToLegalPageSegue", sender: self)
                 }
                 
-            case 8:
-                print("eight")
+            case 9:
+                print("nine")
                 if isTraineeAlreadyTrainer{
                     
                 }else{
