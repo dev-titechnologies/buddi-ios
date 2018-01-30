@@ -57,6 +57,8 @@ let CARD_REMOVED_SUCCESSFULLY = "Card removed successfully"
 let CARD_SET_TO_DEFAULT = "Card has been set to default"
 let INSUFFICIENT_BALANCE = "Insufficient balance in your wallet. Do you want to add balance from your linked card?"
 let MONEY_HAS_BEEN_ADDED_SUCCESSFULLY = "Money has been successfully added to Wallet"
+let NO_TRANSACTION_HISTORIES_FOUND = "No transaction histories found"
+let WITHDRAWAL_HAS_BEEN_SUCCESS = "Successfully Withdrawn money to your bank account"
 
 let TERMS_OF_USE_LINK_DISPLAY_TEXT = "Terms of Use"
 let PRIVACY_POLICY_LINK_DISPLAY_TEXT = "Privacy Policy"

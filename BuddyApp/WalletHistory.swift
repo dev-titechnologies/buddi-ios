@@ -37,6 +37,8 @@ class WalletHistory: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         fetchWalletHistory()
+        
+        
     }
     
     func fetchWalletHistory() {
@@ -57,12 +59,16 @@ class WalletHistory: UIViewController {
                     if let resultData = jsondata["data"] as? NSArray {
                         print("** resultData: \(resultData)")
                         if appDelegate.USER_TYPE == USER_TYPE.TRAINEE{
+                            self.traineeWalletHistoryArray.removeAll()
                             self.traineeWalletHistoryArray = self.getTraineeHistoryModelArray(historyArray: resultData)
                             self.walletHistoryTable.reloadData()
                         }else if appDelegate.USER_TYPE == USER_TYPE.TRAINER{
+                            self.trainerWalletHistoryArray.removeAll()
                             self.trainerWalletHistoryArray = self.getTrainerHistoryModelArray(historyArray: resultData)
                             self.walletHistoryTable.reloadData()
                         }
+                    }else{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: NO_TRANSACTION_HISTORIES_FOUND, buttonTitle: "Ok")
                     }
                     
                 }else if status == RESPONSE_STATUS.FAIL{
@@ -133,6 +139,12 @@ class WalletHistory: UIViewController {
             traineeHistoryModel.transactionType = ""
         }
         
+        if let session_icon = historyDictionary["session_image"] as? String {
+            traineeHistoryModel.sessionIcon = session_icon
+        }else{
+            traineeHistoryModel.sessionIcon = ""
+        }
+        
         if let session_name = historyDictionary["session_name"] as? String {
             traineeHistoryModel.sessionName = session_name
         }else{
@@ -181,6 +193,12 @@ class WalletHistory: UIViewController {
             trainerHistoryModel.date = date
         }else{
             trainerHistoryModel.date = ""
+        }
+        
+        if let session_icon = historyDictionary["session_image"] as? String {
+            trainerHistoryModel.sessionIcon = session_icon
+        }else{
+            trainerHistoryModel.sessionIcon = ""
         }
         
         if let session_name = historyDictionary["session_name"] as? String {
@@ -259,18 +277,18 @@ extension WalletHistory: UITableViewDataSource{
         if appDelegate.USER_TYPE == USER_TYPE.TRAINEE{
             if traineeWalletHistoryArray[indexPath.row].transactionType == transactionTypeExpenseForTrainee {
                 //EXPENSE
-                rowHeight = 110.0
+                rowHeight = 87.0
             }else if traineeWalletHistoryArray[indexPath.row].transactionType == transactionTypeIncomeForTrainee{
                 //INCOME
-                rowHeight = 81.0
+                rowHeight = 87.0
             }
         }else if appDelegate.USER_TYPE == USER_TYPE.TRAINER{
             if trainerWalletHistoryArray[indexPath.row].transactionType == transactionTypeExpenseForTrainer {
                 //EXPENSE
-                rowHeight = 81.0
+                rowHeight = 87.0
             }else if trainerWalletHistoryArray[indexPath.row].transactionType == transactionTypeIncomeForTrainer{
                 //INCOME
-                rowHeight = 103.0
+                rowHeight = 87.0
             }
         }
         return CGFloat(rowHeight)
@@ -285,10 +303,9 @@ extension WalletHistory: UITableViewDataSource{
         
         let historyModelObj = trainerWalletHistoryArray[index_path.row]
 
-        trainerIncomeCell.lblSessionName.text = historyModelObj.sessionName
-        trainerIncomeCell.lblTraineeName.text = historyModelObj.traineeName
-        trainerIncomeCell.lblSessionDuration.text = historyModelObj.sessionDuration
-        trainerIncomeCell.lblAmount.text = "$ \(historyModelObj.amount)"
+        trainerIncomeCell.imgImageView.sd_setImage(with: URL(string: historyModelObj.sessionIcon), placeholderImage: UIImage(named: ""))
+        trainerIncomeCell.lblAmount.text = "+ $ \(historyModelObj.amount)"
+        trainerIncomeCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: INCOME_GREEN_COLOR)
         trainerIncomeCell.lblDate.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
 
         return trainerIncomeCell
@@ -300,9 +317,8 @@ extension WalletHistory: UITableViewDataSource{
         
         let historyModelObj = trainerWalletHistoryArray[index_path.row]
 
-        trainerExpenseCell.lblTransactionId.text = historyModelObj.transactionId
-        trainerExpenseCell.lblWithdrawalStatus.text = historyModelObj.transactionStatus
-        trainerExpenseCell.lblAmount.text = "$ \(historyModelObj.amount)"
+        trainerExpenseCell.lblAmount.text = "- $ \(historyModelObj.amount)"
+        trainerExpenseCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: EXPENSE_RED_COLOR)
         trainerExpenseCell.lblDate.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
 
         return trainerExpenseCell
@@ -315,13 +331,14 @@ extension WalletHistory: UITableViewDataSource{
         let historyModelObj = traineeWalletHistoryArray[index_path.row]
         
         if historyModelObj.type == "stripe" {
-            traineeIncomeCell.lblSessionNameOrTransId.text = historyModelObj.transactionId
-            traineeIncomeCell.lblTrainerName.isHidden = true
+            traineeIncomeCell.lblSessionNameOrTransId.text = "Wallet Recharge"
+            traineeIncomeCell.imgImageView.image = #imageLiteral(resourceName: "wallet")
         }else if historyModelObj.type == "refund"{
             traineeIncomeCell.lblSessionNameOrTransId.text = historyModelObj.sessionName
-            traineeIncomeCell.lblTrainerName.text = historyModelObj.trainerName
+            traineeIncomeCell.imgImageView.image = #imageLiteral(resourceName: "buddi_icon")
         }
-        traineeIncomeCell.lblAmount.text = "$ \(historyModelObj.amount)"
+        traineeIncomeCell.lblAmount.text = "+ $ \(historyModelObj.amount)"
+        traineeIncomeCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: INCOME_GREEN_COLOR)
         traineeIncomeCell.lblDate.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
         
         return traineeIncomeCell
@@ -333,10 +350,10 @@ extension WalletHistory: UITableViewDataSource{
 
         let historyModelObj = traineeWalletHistoryArray[index_path.row]
 
+        traineeExpenseCell.imgImageView.sd_setImage(with: URL(string: historyModelObj.sessionIcon), placeholderImage: UIImage(named: ""))
         traineeExpenseCell.lblSessionName.text = historyModelObj.sessionName
-        traineeExpenseCell.lblTrainerName.text = historyModelObj.trainerName
-        traineeExpenseCell.lblSessionDuration.text = historyModelObj.sessionDuration
-        traineeExpenseCell.lblAmount.text = "$ \(historyModelObj.amount)"
+        traineeExpenseCell.lblAmount.text = "- $ \(historyModelObj.amount)"
+        traineeExpenseCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: EXPENSE_RED_COLOR)
         traineeExpenseCell.lblDate.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
 
         return traineeExpenseCell
@@ -345,4 +362,24 @@ extension WalletHistory: UITableViewDataSource{
 
 extension WalletHistory: UITableViewDelegate{
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "walletHistoryDetailSegue", sender: self)
+    }
+    
+    //MARK: - PREPARE FOR SEGUE ACTIONS
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "walletHistoryDetailSegue"{
+            
+            let walletHistoryDetailPageObj = segue.destination as! WalletHistoryDetailVC
+
+            if appDelegate.USER_TYPE == USER_TYPE.TRAINEE{
+                walletHistoryDetailPageObj.traineeWalletHistoryModelObj = traineeWalletHistoryArray[(walletHistoryTable.indexPathForSelectedRow?.row)!]
+                
+            }else if appDelegate.USER_TYPE == USER_TYPE.TRAINER{
+                walletHistoryDetailPageObj.trainerWalletHistoryModelObj = trainerWalletHistoryArray[(walletHistoryTable.indexPathForSelectedRow?.row)!]
+            }
+        }
+    }
 }

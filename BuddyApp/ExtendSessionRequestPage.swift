@@ -80,6 +80,8 @@ class ExtendSessionRequestPage: UIViewController {
     @IBAction func extendYesAction(_ sender: Any) {
 //        sessionAlertView.isHidden = false
 //        extendAlertView.isHidden = true
+        
+        paymentCheckoutWithWallet()
     }
     
     @IBAction func extendNoAction(_ sender: Any) {

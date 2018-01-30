@@ -13,7 +13,7 @@ class TraineeIncomeCell: UITableViewCell {
     @IBOutlet weak var lblSessionNameOrTransId: UILabel!
     @IBOutlet weak var lblAmount: UILabel!
     @IBOutlet weak var lblDate: UILabel!
-    @IBOutlet weak var lblTrainerName: UILabel!
+    @IBOutlet weak var imgImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

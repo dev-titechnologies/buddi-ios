@@ -1,0 +1,226 @@
+//
+//  WalletHistoryDetailVC.swift
+//  BuddyApp
+//
+//  Created by Jithesh Xavier on 30/01/18.
+//  Copyright © 2018 Ti Technologies. All rights reserved.
+//
+
+import UIKit
+
+class WalletHistoryDetailVC: UIViewController {
+    
+    @IBOutlet weak var imgFromIcon: UIImageView!
+    @IBOutlet weak var imgToIcon: UIImageView!
+    @IBOutlet weak var lblTransactionDescription: UILabel!
+    @IBOutlet weak var lblAmount: UILabel!
+    
+    @IBOutlet weak var lblLabel1: UILabel!
+    @IBOutlet weak var lblLabel11: UILabel!
+    
+    @IBOutlet weak var lblLabel2: UILabel!
+    @IBOutlet weak var lblLabel22: UILabel!
+    
+    @IBOutlet weak var lblLabel3: UILabel!
+    @IBOutlet weak var lblLabel33: UILabel!
+    
+    @IBOutlet weak var lblLabel4: UILabel!
+    @IBOutlet weak var lblLabel44: UILabel!
+    
+    @IBOutlet weak var lblLabel5: UILabel!
+    @IBOutlet weak var lblLabel55: UILabel!
+    
+    @IBOutlet weak var lblLabel6: UILabel!
+    @IBOutlet weak var lblLabel66: UILabel!
+    
+    @IBOutlet weak var lblLabel7: UILabel!
+    @IBOutlet weak var lblLabel77: UILabel!
+    
+    let transactionTypeIncomeForTrainee = "Income"
+    let transactionTypeExpenseForTrainee = "Expense"
+    
+    let transactionTypeIncomeForTrainer = "Income"
+    let transactionTypeExpenseForTrainer = "Withdraw"
+    
+    var traineeWalletHistoryModelObj = TraineeWalletHistoryModel()
+    var trainerWalletHistoryModelObj = TrainerWalletHistoryModel()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        print("** viewWillAppear **")
+        
+        if appDelegate.USER_TYPE == USER_TYPE.TRAINEE{
+            parseDetailsForTrainee()
+        }else if appDelegate.USER_TYPE == USER_TYPE.TRAINER{
+            parseDetailsForTrainer()
+        }
+    }
+    
+    func parseDetailsForTrainee() {
+        print("** parseDetailsForTrainee **")
+        
+        if traineeWalletHistoryModelObj.transactionType == transactionTypeIncomeForTrainee{
+            //INCOME
+            
+            if traineeWalletHistoryModelObj.type == "stripe" {
+                
+                imgFromIcon.image = #imageLiteral(resourceName: "bank-building")
+                imgToIcon.image = #imageLiteral(resourceName: "wallet")
+                lblTransactionDescription.text = "Added money to Wallet"
+                lblAmount.text = "$ \(traineeWalletHistoryModelObj.amount)"
+                
+                lblLabel1.text = "Status"
+                lblLabel11.text = "Success"
+                
+                lblLabel2.text = "Transaction ID"
+                lblLabel22.text = traineeWalletHistoryModelObj.transactionId
+                
+                lblLabel3.text = "Date"
+                lblLabel33.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date))
+                
+                lblLabel4.isHidden = true
+                lblLabel44.isHidden = true
+                
+                lblLabel5.isHidden = true
+                lblLabel55.isHidden = true
+
+                lblLabel6.isHidden = true
+                lblLabel66.isHidden = true
+
+                lblLabel7.isHidden = true
+                lblLabel77.isHidden = true
+                
+            }else if traineeWalletHistoryModelObj.type == "refund"{
+                
+                imgFromIcon.image = #imageLiteral(resourceName: "buddi_icon")
+                imgToIcon.image = #imageLiteral(resourceName: "wallet")
+                lblTransactionDescription.text = "Refunded money to Wallet"
+                lblAmount.text = "$ \(traineeWalletHistoryModelObj.amount)"
+
+                lblLabel1.text = "Status"
+                lblLabel11.text = "Success"
+                
+                lblLabel2.text = "Session"
+                lblLabel22.text = traineeWalletHistoryModelObj.sessionName
+                
+                lblLabel3.text = "Duration"
+                lblLabel33.text = "\(traineeWalletHistoryModelObj.sessionDuration) Minutes"
+                
+                lblLabel4.text = "Trainer"
+                lblLabel44.text = traineeWalletHistoryModelObj.trainerName
+
+                lblLabel5.text = "Date"
+                lblLabel55.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date))
+                
+                lblLabel6.isHidden = true
+                lblLabel66.isHidden = true
+                
+                lblLabel7.isHidden = true
+                lblLabel77.isHidden = true
+            }
+        }else{
+            //EXPENSE
+            
+            imgFromIcon.image = #imageLiteral(resourceName: "wallet")
+            imgToIcon.image = #imageLiteral(resourceName: "buddi_icon")
+            lblTransactionDescription.text = "Paid to \(traineeWalletHistoryModelObj.trainerName)"
+            lblAmount.text = "$ \(traineeWalletHistoryModelObj.amount)"
+
+            lblLabel1.text = "Status"
+            lblLabel11.text = "Success"
+            
+            lblLabel2.text = "Session"
+            lblLabel22.text = traineeWalletHistoryModelObj.sessionName
+            
+            lblLabel3.text = "Duration"
+            lblLabel33.text = "\(traineeWalletHistoryModelObj.sessionDuration) Minutes"
+            
+            lblLabel4.text = "Trainer"
+            lblLabel44.text = traineeWalletHistoryModelObj.trainerName
+            
+            lblLabel5.text = "Date"
+            lblLabel55.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date))
+            
+            lblLabel6.isHidden = true
+            lblLabel66.isHidden = true
+            
+            lblLabel7.isHidden = true
+            lblLabel77.isHidden = true
+        }
+    }
+    
+    func parseDetailsForTrainer() {
+        print("** parseDetailsForTrainer **")
+        
+        if trainerWalletHistoryModelObj.transactionType == transactionTypeIncomeForTrainer{
+            //INCOME
+            
+            imgFromIcon.image = #imageLiteral(resourceName: "buddi_icon")
+            imgToIcon.image = #imageLiteral(resourceName: "wallet")
+            lblTransactionDescription.text = "Buddi paid to Wallet"
+            lblAmount.text = "$ \(trainerWalletHistoryModelObj.amount)"
+
+            lblLabel1.text = "Status"
+            lblLabel11.text = "Success"
+            
+            lblLabel2.text = "Session"
+            lblLabel22.text = trainerWalletHistoryModelObj.sessionName
+            
+            lblLabel3.text = "Duration"
+            lblLabel33.text = "\(trainerWalletHistoryModelObj.sessionDuration) Minutes"
+            
+            lblLabel4.text = "Trainee"
+            lblLabel44.text = trainerWalletHistoryModelObj.traineeName
+            
+            lblLabel5.text = "Date"
+            lblLabel55.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: trainerWalletHistoryModelObj.date))
+            
+            lblLabel6.isHidden = true
+            lblLabel66.isHidden = true
+            
+            lblLabel7.isHidden = true
+            lblLabel77.isHidden = true
+        }else{
+            //WITHDRAW
+            
+            imgFromIcon.image = #imageLiteral(resourceName: "wallet")
+            imgToIcon.image = #imageLiteral(resourceName: "bank-building")
+            lblTransactionDescription.text = "Withdrawn to Bank Account"
+            lblAmount.text = "$ \(trainerWalletHistoryModelObj.amount)"
+
+            lblLabel1.text = "Status"
+            lblLabel11.text = "Success"
+            
+            lblLabel2.text = "Transaction ID"
+            lblLabel22.text = trainerWalletHistoryModelObj.transactionId
+            
+            lblLabel3.text = "Date"
+            lblLabel33.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: trainerWalletHistoryModelObj.date))
+            
+            lblLabel4.isHidden = true
+            lblLabel44.isHidden = true
+           
+            lblLabel5.isHidden = true
+            lblLabel55.isHidden = true
+
+            lblLabel6.isHidden = true
+            lblLabel66.isHidden = true
+            
+            lblLabel7.isHidden = true
+            lblLabel77.isHidden = true
+        }
+    }
+}
+
+
+
+
+
+
+
+

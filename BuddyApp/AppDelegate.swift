@@ -200,6 +200,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         Messaging.messaging().apnsToken = deviceToken as Data
         InstanceID.instanceID().setAPNSToken(deviceToken as Data, type: .sandbox)
         
+        if let deviceTokenFromUserDefault = userDefaults.value(forKey: "devicetoken") as? String{
+            print("*** deviceTokenFromUserDefault ** :\(deviceTokenFromUserDefault)")
+            print("================ Firebase Delegate Call =============")
+            connectToFcm()
+            delegateFCM?.tokenReceived()
+        }
+        
 
         //        let firebaseToken = InstanceID.instanceID().token()!
 //        debugPrint("Firebase Token:",InstanceID.instanceID().token() as Any)
@@ -252,6 +259,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     }
     
     func connectToFcm() {
+        print("**** Connect To FCM ****")
         // Won't connect since there is no token
 //        guard FIRInstanceID.instanceID().token() != nil else {
 //            return
