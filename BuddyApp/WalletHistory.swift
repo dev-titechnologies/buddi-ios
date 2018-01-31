@@ -61,11 +61,22 @@ class WalletHistory: UIViewController {
                         if appDelegate.USER_TYPE == USER_TYPE.TRAINEE{
                             self.traineeWalletHistoryArray.removeAll()
                             self.traineeWalletHistoryArray = self.getTraineeHistoryModelArray(historyArray: resultData)
-                            self.walletHistoryTable.reloadData()
+                            
+                            if self.traineeWalletHistoryArray.count > 0{
+                                self.walletHistoryTable.isHidden = false
+                                self.walletHistoryTable.reloadData()
+                            }else{
+                                self.walletHistoryTable.isHidden = true
+                            }
                         }else if appDelegate.USER_TYPE == USER_TYPE.TRAINER{
                             self.trainerWalletHistoryArray.removeAll()
                             self.trainerWalletHistoryArray = self.getTrainerHistoryModelArray(historyArray: resultData)
-                            self.walletHistoryTable.reloadData()
+                            if self.trainerWalletHistoryArray.count > 0{
+                                self.walletHistoryTable.isHidden = false
+                                self.walletHistoryTable.reloadData()
+                            }else{
+                                self.walletHistoryTable.isHidden = true
+                            }
                         }
                     }else{
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: NO_TRANSACTION_HISTORIES_FOUND, buttonTitle: "Ok")
@@ -306,7 +317,8 @@ extension WalletHistory: UITableViewDataSource{
         trainerIncomeCell.imgImageView.sd_setImage(with: URL(string: historyModelObj.sessionIcon), placeholderImage: UIImage(named: ""))
         trainerIncomeCell.lblAmount.text = "+ $ \(historyModelObj.amount)"
         trainerIncomeCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: INCOME_GREEN_COLOR)
-        trainerIncomeCell.lblDate.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
+        trainerIncomeCell.lblDate.text = CommonMethods.dateFormatterTest4(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
+        //CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
 
         return trainerIncomeCell
     }
@@ -319,7 +331,9 @@ extension WalletHistory: UITableViewDataSource{
 
         trainerExpenseCell.lblAmount.text = "- $ \(historyModelObj.amount)"
         trainerExpenseCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: EXPENSE_RED_COLOR)
-        trainerExpenseCell.lblDate.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
+        trainerExpenseCell.lblDate.text = CommonMethods.dateFormatterTest4(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
+            
+//            CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
 
         return trainerExpenseCell
     }
@@ -339,7 +353,8 @@ extension WalletHistory: UITableViewDataSource{
         }
         traineeIncomeCell.lblAmount.text = "+ $ \(historyModelObj.amount)"
         traineeIncomeCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: INCOME_GREEN_COLOR)
-        traineeIncomeCell.lblDate.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
+        traineeIncomeCell.lblDate.text = CommonMethods.dateFormatterTest4(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
+//            CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
         
         return traineeIncomeCell
     }
@@ -354,7 +369,8 @@ extension WalletHistory: UITableViewDataSource{
         traineeExpenseCell.lblSessionName.text = historyModelObj.sessionName
         traineeExpenseCell.lblAmount.text = "- $ \(historyModelObj.amount)"
         traineeExpenseCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: EXPENSE_RED_COLOR)
-        traineeExpenseCell.lblDate.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
+        traineeExpenseCell.lblDate.text = CommonMethods.dateFormatterTest4(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
+//            CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
 
         return traineeExpenseCell
     }

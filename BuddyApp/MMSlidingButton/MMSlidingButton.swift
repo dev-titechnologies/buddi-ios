@@ -23,7 +23,7 @@ protocol SlideButtonDelegate{
         }
     }
     
-    @IBInspectable var dragPointColor: UIColor = UIColor.darkGray {
+    @IBInspectable var dragPointColor: UIColor = UIColor.lightGray {
         didSet{
             setStyle()
         }
@@ -35,7 +35,7 @@ protocol SlideButtonDelegate{
         }
     }
     
-    @IBInspectable var buttonText: String = "WITHDRAW" {
+    @IBInspectable var buttonText: String = "" {
         didSet{
             setStyle()
         }
@@ -71,8 +71,8 @@ protocol SlideButtonDelegate{
         }
     }
     
-    @IBInspectable var buttonUnlockedText: String   = "TRANSFERRED"
-    @IBInspectable var buttonUnlockedColor: UIColor = UIColor.black
+    @IBInspectable var buttonUnlockedText: String   = ""
+    @IBInspectable var buttonUnlockedColor: UIColor = UIColor.white
     var buttonFont                                  = UIFont.boldSystemFont(ofSize: 17)
     
     

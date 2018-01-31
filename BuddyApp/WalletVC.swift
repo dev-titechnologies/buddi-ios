@@ -30,7 +30,13 @@ class WalletVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        
+        if appDelegate.USER_TYPE == USER_TYPE.TRAINEE{
+            topupView.isHidden = false
+            withdrawView.isHidden = true
+        }else if appDelegate.USER_TYPE == USER_TYPE.TRAINER{
+            topupView.isHidden = true
+            withdrawView.isHidden = false
+        }
         
         btnProceed.addShadowView()
         fetchWalletBalance()
@@ -112,6 +118,7 @@ class WalletVC: UIViewController {
     }
 }
 
+//MARK: - WITHDRAW ACTION USING SLIDER
 
 extension WalletVC: SlideButtonDelegate{
     
@@ -141,16 +148,19 @@ extension WalletVC: SlideButtonDelegate{
                     if let statusType = jsondata["status_type"]  as? String{
                         
                         if statusType == "InsufficientBalance" {
-                            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: INSUFFICIENT_BALANCE, buttonTitle: "OK")
+                            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: INSUFFICIENT_BALANCE_TO_WITHDRAW, buttonTitle: "OK")
                         }else if statusType == "Success" {
-                            if let amountRevised = ((jsondata["data"] as? NSDictionary)? ["stripeResponse"] as? NSDictionary)? ["amount_reversed"] as? String{
-                                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: MONEY_HAS_BEEN_ADDED_SUCCESSFULLY, buttonTitle: "OK")
+                            
+                            
+                            if let amountRevised = ((jsondata["data"] as? NSDictionary)? ["stripeResponse"] as? NSDictionary)? ["amount_reversed"] as? Int{
+                                
+                                print("Amount Revised:\(amountRevised)")
+                                
+                                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: WITHDRAWAL_HAS_BEEN_SUCCESS, buttonTitle: "OK")
+
                                 self.lblWalletAmount.text = "$ \(amountRevised)"
                                 userDefaults.set(amountRevised, forKey: "walletBalance")
-                                self.txtAddMoney.text = ""
                             }
-                            
-                            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: WITHDRAWAL_HAS_BEEN_SUCCESS, buttonTitle: "OK")
                         }
                     }
                 }else if status == RESPONSE_STATUS.FAIL{

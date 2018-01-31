@@ -256,9 +256,10 @@ class ExtendSessionRequestPage: UIViewController {
     
     func paymentCheckoutWithWallet() {
         
-        let parameters =  ["training_time": choosedSessionOfTrainee,
+        let parameters =  ["training_time": extendingSessionDuration
                            ] as [String : Any]
         
+        print("Params:\(parameters)")
         CommonMethods.showProgress()
         CommonMethods.serverCall(APIURL: WALLET_CHECKOUT, parameters: parameters) { (jsondata) in
             print("paymentCheckoutWithWallet Response: \(jsondata)")

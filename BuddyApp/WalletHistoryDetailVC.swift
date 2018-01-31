@@ -75,7 +75,7 @@ class WalletHistoryDetailVC: UIViewController {
                 lblAmount.text = "$ \(traineeWalletHistoryModelObj.amount)"
                 
                 lblLabel1.text = "Status"
-                lblLabel11.text = "Success"
+                lblLabel11.text = PAYMENT_SUCCESSFULL
                 
                 lblLabel2.text = "Transaction ID"
                 lblLabel22.text = traineeWalletHistoryModelObj.transactionId
@@ -99,11 +99,11 @@ class WalletHistoryDetailVC: UIViewController {
                 
                 imgFromIcon.image = #imageLiteral(resourceName: "buddi_icon")
                 imgToIcon.image = #imageLiteral(resourceName: "wallet")
-                lblTransactionDescription.text = "Refunded money to Wallet"
+                lblTransactionDescription.text = "Refunded amount to Wallet"
                 lblAmount.text = "$ \(traineeWalletHistoryModelObj.amount)"
 
                 lblLabel1.text = "Status"
-                lblLabel11.text = "Success"
+                lblLabel11.text = PAYMENT_SUCCESSFULL
                 
                 lblLabel2.text = "Session"
                 lblLabel22.text = traineeWalletHistoryModelObj.sessionName
@@ -128,11 +128,11 @@ class WalletHistoryDetailVC: UIViewController {
             
             imgFromIcon.image = #imageLiteral(resourceName: "wallet")
             imgToIcon.image = #imageLiteral(resourceName: "buddi_icon")
-            lblTransactionDescription.text = "Paid to \(traineeWalletHistoryModelObj.trainerName)"
+            lblTransactionDescription.text = "You paid to Buddi"
             lblAmount.text = "$ \(traineeWalletHistoryModelObj.amount)"
 
             lblLabel1.text = "Status"
-            lblLabel11.text = "Success"
+            lblLabel11.text = PAYMENT_SUCCESSFULL
             
             lblLabel2.text = "Session"
             lblLabel22.text = traineeWalletHistoryModelObj.sessionName
@@ -162,11 +162,11 @@ class WalletHistoryDetailVC: UIViewController {
             
             imgFromIcon.image = #imageLiteral(resourceName: "buddi_icon")
             imgToIcon.image = #imageLiteral(resourceName: "wallet")
-            lblTransactionDescription.text = "Buddi paid to Wallet"
+            lblTransactionDescription.text = "Buddi paid to you"
             lblAmount.text = "$ \(trainerWalletHistoryModelObj.amount)"
 
             lblLabel1.text = "Status"
-            lblLabel11.text = "Success"
+            lblLabel11.text = PAYMENT_SUCCESSFULL
             
             lblLabel2.text = "Session"
             lblLabel22.text = trainerWalletHistoryModelObj.sessionName
@@ -190,11 +190,11 @@ class WalletHistoryDetailVC: UIViewController {
             
             imgFromIcon.image = #imageLiteral(resourceName: "wallet")
             imgToIcon.image = #imageLiteral(resourceName: "bank-building")
-            lblTransactionDescription.text = "Withdrawn to Bank Account"
+            lblTransactionDescription.text = "Withdrawn to bank account"
             lblAmount.text = "$ \(trainerWalletHistoryModelObj.amount)"
 
             lblLabel1.text = "Status"
-            lblLabel11.text = "Success"
+            lblLabel11.text = PAYMENT_SUCCESSFULL
             
             lblLabel2.text = "Transaction ID"
             lblLabel22.text = trainerWalletHistoryModelObj.transactionId
