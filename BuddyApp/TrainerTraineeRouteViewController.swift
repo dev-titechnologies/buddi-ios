@@ -151,6 +151,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         getSocketConnected()
 
         initializeSessionCheck()
+        self.RunningTimeData()
         
         print("PushChatBool",FromPushChatBool)
         
