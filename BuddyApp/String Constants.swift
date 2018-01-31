@@ -56,7 +56,10 @@ let YOU_ARE_SUSPENDED_FROM_APP = "You are suspended from using the app temporari
 let CARD_REMOVED_SUCCESSFULLY = "Card removed successfully"
 let CARD_SET_TO_DEFAULT = "Card has been set to default"
 let INSUFFICIENT_BALANCE = "Insufficient balance in your wallet. Do you want to add balance from your linked card?"
+let INSUFFICIENT_BALANCE_TO_WITHDRAW = "No wallet balance to withdraw!"
 let MONEY_HAS_BEEN_ADDED_SUCCESSFULLY = "Money has been successfully added to Wallet"
+let NO_TRANSACTION_HISTORIES_FOUND = "No transaction histories found"
+let WITHDRAWAL_HAS_BEEN_SUCCESS = "Successfully Withdrawn money to your bank account"
 
 let TERMS_OF_USE_LINK_DISPLAY_TEXT = "Terms of Use"
 let PRIVACY_POLICY_LINK_DISPLAY_TEXT = "Privacy Policy"
@@ -68,7 +71,7 @@ let PLEASE_CHOOSE_ATLEAST_A_SUBCATEGORY = "Please choose atleast a subcategory"
 let PROFILE_PICTURE_UPDATED = "Profile picture has been updated"
 let PROMOCODE_APPLIED = "Promocode applied"
 
-let PLEASE_ENTER_MONEY_TO_ADD = "Please enter money to add"
+let PLEASE_ENTER_MONEY_TO_ADD = "Please enter an amount"
 
 //Registration Validation Alerts
 let PLEASE_ENTER_FIRSTNAME = "Please enter your first name"

@@ -71,6 +71,8 @@
 		F341B0341F28D664007C9AF1 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0331F28D664007C9AF1 /* UIColorExtension.swift */; };
 		F341B0361F28D80F007C9AF1 /* ColorCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0351F28D80F007C9AF1 /* ColorCodes.swift */; };
 		F341B0381F28D9FB007C9AF1 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0371F28D9FB007C9AF1 /* CardView.swift */; };
+		F348641220205A0800AB0C65 /* WalletHistoryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348641120205A0800AB0C65 /* WalletHistoryDetailVC.swift */; };
+		F34864152020ACA100AB0C65 /* MMSlidingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34864142020ACA000AB0C65 /* MMSlidingButton.swift */; };
 		F34D039F1FFB6826001B56EE /* WaiverReleaseFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D039E1FFB6826001B56EE /* WaiverReleaseFormVC.swift */; };
 		F3585C3A200CB254006A0477 /* ShowTrainersOnMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A907851F3352DC00474F5E /* ShowTrainersOnMapVC.swift */; };
 		F35FDABA1F1DE60A0091900D /* BookingHistory.json in Resources */ = {isa = PBXBuildFile; fileRef = F35FDAB91F1DE60A0091900D /* BookingHistory.json */; };
@@ -271,6 +273,8 @@
 		F341B0331F28D664007C9AF1 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F341B0351F28D80F007C9AF1 /* ColorCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCodes.swift; sourceTree = "<group>"; };
 		F341B0371F28D9FB007C9AF1 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		F348641120205A0800AB0C65 /* WalletHistoryDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletHistoryDetailVC.swift; sourceTree = "<group>"; };
+		F34864142020ACA000AB0C65 /* MMSlidingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSlidingButton.swift; sourceTree = "<group>"; };
 		F34D039E1FFB6826001B56EE /* WaiverReleaseFormVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaiverReleaseFormVC.swift; sourceTree = "<group>"; };
 		F35FDAB91F1DE60A0091900D /* BookingHistory.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BookingHistory.json; sourceTree = "<group>"; };
 		F35FDABF1F1DE9BE0091900D /* CommonMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMethods.swift; sourceTree = "<group>"; };
@@ -476,6 +480,7 @@
 		F30B60191F1DCECD00374136 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F34864132020ACA000AB0C65 /* MMSlidingButton */,
 				F3B52EDF1F3AE452007910BC /* SocketIO */,
 				F315E98C1F30585700850A44 /* VDropDownClass */,
 				F341B0371F28D9FB007C9AF1 /* CardView.swift */,
@@ -560,7 +565,6 @@
 		F322FC3B1F1CE62000381B8C /* BuddyApp */ = {
 			isa = PBXGroup;
 			children = (
-				F38195CE2019FA38004D9C64 /* Wallet History */,
 				F325FED02016F96A00450D47 /* Wallet System */,
 				F34D039D1FFB67F3001B56EE /* Waiver Release Form */,
 				F36A1C9F1FF2188700650706 /* GoogleService-Info.plist */,
@@ -639,6 +643,7 @@
 		F325FED02016F96A00450D47 /* Wallet System */ = {
 			isa = PBXGroup;
 			children = (
+				F38195CE2019FA38004D9C64 /* Wallet History */,
 				F325FED12016FD8D00450D47 /* WalletVC.swift */,
 			);
 			name = "Wallet System";
@@ -676,6 +681,14 @@
 				F33AE4E11F20DADC00B82E0C /* RegisterChoiceViewController.swift */,
 			);
 			name = "Register Viewcontroller";
+			sourceTree = "<group>";
+		};
+		F34864132020ACA000AB0C65 /* MMSlidingButton */ = {
+			isa = PBXGroup;
+			children = (
+				F34864142020ACA000AB0C65 /* MMSlidingButton.swift */,
+			);
+			path = MMSlidingButton;
 			sourceTree = "<group>";
 		};
 		F34D039D1FFB67F3001B56EE /* Waiver Release Form */ = {
@@ -806,6 +819,7 @@
 			children = (
 				F38195CC2019E42E004D9C64 /* WalletHistory.swift */,
 				F3A38097201A0B2E00E30E2B /* Wallet Table Cell */,
+				F348641120205A0800AB0C65 /* WalletHistoryDetailVC.swift */,
 			);
 			name = "Wallet History";
 			sourceTree = "<group>";
@@ -1353,6 +1367,7 @@
 				F316E7EE1F21BF6E00994447 /* SubCategoryModel.swift in Sources */,
 				F316E7F41F220CEC00994447 /* Question1VC.swift in Sources */,
 				F33AE4E21F20DADC00B82E0C /* RegisterChoiceViewController.swift in Sources */,
+				F348641220205A0800AB0C65 /* WalletHistoryDetailVC.swift in Sources */,
 				F3150D091F56C81B00856555 /* AcceptOrDeclineRequestPage.swift in Sources */,
 				F3D597DA1F26430600F82A12 /* TrainerTestAnswersModel.swift in Sources */,
 				F31533F21F9496560051FC49 /* MyAPIClient.swift in Sources */,
@@ -1390,6 +1405,7 @@
 				F341B0381F28D9FB007C9AF1 /* CardView.swift in Sources */,
 				F3AF9D431F30661000D0CF05 /* GymModel.swift in Sources */,
 				F32E6AB71F53F420001646E4 /* FireBaseMessagingConstant.swift in Sources */,
+				F34864152020ACA100AB0C65 /* MMSlidingButton.swift in Sources */,
 				F341B0321F287070007C9AF1 /* VideoURLModel.swift in Sources */,
 				F390DE091F4AB77500C52034 /* LegalPageVC.swift in Sources */,
 				F3F77C7E1F20F8BE00D51277 /* String Constants.swift in Sources */,

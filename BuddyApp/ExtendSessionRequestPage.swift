@@ -44,6 +44,7 @@ class ExtendSessionRequestPage: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        extendingSessionDuration = "15"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,8 +78,10 @@ class ExtendSessionRequestPage: UIViewController {
     }
 
     @IBAction func extendYesAction(_ sender: Any) {
-        sessionAlertView.isHidden = false
-        extendAlertView.isHidden = true
+//        sessionAlertView.isHidden = false
+//        extendAlertView.isHidden = true
+        
+        paymentCheckoutWithWallet()
     }
     
     @IBAction func extendNoAction(_ sender: Any) {
@@ -111,13 +114,13 @@ class ExtendSessionRequestPage: UIViewController {
 
 //        (isPaymentSuccess ? extendSession() : getClientToken())
         
-        if isPaymentSuccess{
-            print("isPaymentSuccess : \(isPaymentSuccess)")
-            showAlertRegardingPreviousPayment()
-        }else {
-            paymentCheckoutStripe()
-//            getClientToken()
-        }
+//        if isPaymentSuccess{
+//            print("isPaymentSuccess : \(isPaymentSuccess)")
+//            showAlertRegardingPreviousPayment()
+//        }else {
+//            paymentCheckoutStripe()
+////            getClientToken()
+//        }
 
     }
     
@@ -249,6 +252,104 @@ class ExtendSessionRequestPage: UIViewController {
         }
     }
     
+    //MARK: - PAYMENT CHECKOUT FUNCTIONS
+    
+    func paymentCheckoutWithWallet() {
+        
+        let parameters =  ["training_time": extendingSessionDuration
+                           ] as [String : Any]
+        
+        print("Params:\(parameters)")
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: WALLET_CHECKOUT, parameters: parameters) { (jsondata) in
+            print("paymentCheckoutWithWallet Response: \(jsondata)")
+            
+            CommonMethods.hideProgress()
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    self.navigationItem.hidesBackButton = true
+                    
+                    self.isPaymentSuccess = true
+                    
+                    if let statusType = jsondata["status_type"]  as? String{
+                        
+                        if statusType == "InsufficientBalance" {
+                            
+                            let alert = UIAlertController(title: ALERT_TITLE, message: INSUFFICIENT_BALANCE, preferredStyle: UIAlertControllerStyle.alert)
+                            
+                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                                
+                                if let walletDict = jsondata["data"] as? NSDictionary {
+                                    
+                                    if let amountRequested = walletDict["amountRequest"] as? Int{
+                                        self.transactionAmount = String(amountRequested)
+                                    }
+                                    
+                                    if let amountRequired = walletDict["amountRequired"] as? Int{
+                                        self.addMoneyToWallet(amount: String(amountRequired))
+                                    }
+                                }
+                            }))
+                            alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+                            }))
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        }else if statusType == "Success" {
+                            
+                            
+                            let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
+                            
+                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                                
+                                if let walletDict = jsondata["data"] as? NSDictionary {
+                                    
+                                    if let walletBalance = walletDict["walletBalance"] as? Int{
+                                        userDefaults.set(walletBalance, forKey: "walletBalance")
+                                    }
+                                }
+
+                                self.extendSession()
+                            }))
+                            self.present(alert, animated: true, completion: nil)
+
+//                            let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
+//                            
+//                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+//                                
+//                                if let walletDict = jsondata["data"] as? NSDictionary {
+//                                    
+//                                    if let amountRequested = walletDict["amountDeducted"] as? Int{
+//                                        self.transactionAmount = String(amountRequested)
+//                                    }
+//                                    
+//                                    if let walletBalance = walletDict["walletBalance"] as? Int{
+//                                        userDefaults.set(walletBalance, forKey: "walletBalance")
+//                                    }
+//                                }
+//                                
+//                                self.triggerRandomSelectAPIBasedOnChoice()
+//                            }))
+//                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                    
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
+    }
+    
     func paymentCheckoutStripe() {
         
         let parameters =  ["training_time": choosedSessionOfTrainee,
@@ -281,6 +382,42 @@ class ExtendSessionRequestPage: UIViewController {
                         self.extendSession()
                     }))
                     self.present(alert, animated: true, completion: nil)
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
+    }
+    
+    //MARK: - ADD MONEY TO WALLET
+    func addMoneyToWallet(amount: String) {
+        
+        let parameters =  ["amount" : amount
+            ] as [String : Any]
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: ADD_MONEY_TO_WALLET, parameters: parameters) { (jsondata) in
+            print("** addMoneyToWallet Response: \(jsondata)")
+            
+            CommonMethods.hideProgress()
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    if let walletDict = jsondata["data"] as? NSDictionary {
+                        
+                        if let amountRequested = walletDict["amount"] as? Int{
+                            self.transactionAmount = String(amountRequested)
+                        }
+                        self.paymentCheckoutWithWallet()
+                    }
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")

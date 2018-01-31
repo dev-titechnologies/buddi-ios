@@ -10,6 +10,13 @@ import UIKit
 
 class TrainerIncomeCell: UITableViewCell {
 
+    @IBOutlet weak var lblSessionName: UILabel!
+    @IBOutlet weak var lblTraineeName: UILabel!
+    @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var lblSessionDuration: UILabel!
+    @IBOutlet weak var imgImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

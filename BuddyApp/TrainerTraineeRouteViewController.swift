@@ -162,8 +162,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         }else{
             
         }
-
-              
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
 
@@ -554,6 +552,7 @@ class TrainerTraineeRouteViewController: UIViewController {
             let extentedTimeDict = CommonMethods.convertToDictionary(text:notif.userInfo!["data"] as! String)! as NSDictionary
             
             print(extentedTimeDict["extend_time"]!)
+            
             seconds = Int(extentedTimeDict["extend_time"]! as! String)!*60
             seconds = CommonMethods.tempSecondsChange(session_time: String(seconds/60))
             

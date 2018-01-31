@@ -11,6 +11,7 @@ import Foundation
 class TrainerWalletHistoryModel {
 
     var traineeName : String = String()
+    var sessionIcon : String = String()
     var sessionName : String = String()
     var sessionDuration : String = String()
     var amount : String = String()

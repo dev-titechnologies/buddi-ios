@@ -10,6 +10,11 @@ import UIKit
 
 class TraineeExpenseCell: UITableViewCell {
 
+    @IBOutlet weak var lblSessionName: UILabel!
+    @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var imgImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
