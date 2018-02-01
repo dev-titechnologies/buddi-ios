@@ -280,7 +280,7 @@ extension LeftViewController : UITableViewDataSource{
             cell.walletamount_lbl.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
            // cell.walletamount_lbl.text = "$ 450000"
             if let walletBalance = userDefaults.value(forKey: "walletBalance"){
-                cell.walletamount_lbl.text = " $ \(String(describing: walletBalance))  "
+                cell.walletamount_lbl.text = "\(CommonMethods.showWalletAmountInFloat(amount: String(describing: walletBalance)))  "
             }
             cell.walletamount_lbl.sizeToFit()
         }else{
