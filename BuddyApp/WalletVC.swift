@@ -71,7 +71,7 @@ class WalletVC: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     
                     if let dataDict = jsondata["data"] as? NSDictionary {
-                        self.lblWalletAmount.text = CommonMethods.showWalletAmountInFloat(amount: dataDict["walletBalance"]! as! String)
+                        self.lblWalletAmount.text = CommonMethods.showWalletAmountInFloat(amount: String(describing: dataDict["walletBalance"]!))
 //                        self.lblWalletAmount.text = "$ \(String(describing: dataDict["walletBalance"]!))"
                         userDefaults.set(dataDict["walletBalance"]!, forKey: "walletBalance")
                     }

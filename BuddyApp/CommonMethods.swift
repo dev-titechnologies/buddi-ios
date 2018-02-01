@@ -215,7 +215,7 @@ class CommonMethods: NSObject {
         }
         return secondsUpdatedValue
         
-//        //For Live
+        //For Live
 //        if session_time == "40" {
 //            secondsUpdatedValue = 2400
 //        }else if session_time == "60" {
