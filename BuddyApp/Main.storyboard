@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -3365,7 +3365,7 @@ Good luck!
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7KT-yJ-UqG" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dnR-hG-zZh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dnR-hG-zZh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4766,7 +4766,7 @@ Good luck!
         <scene sceneID="JV1-e2-V2l">
             <objects>
                 <navigationController id="bfa-Jp-2Bb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tZC-5K-bWZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="tZC-5K-bWZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.45264789109999998" green="0.91861756699999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4786,7 +4786,7 @@ Good luck!
         <scene sceneID="wf6-Ge-wPY">
             <objects>
                 <navigationController id="ZIt-ll-KxO" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GnR-cL-Xtf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GnR-cL-Xtf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.45264789109999998" green="0.91861756699999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -5166,7 +5166,7 @@ Good luck!
         <scene sceneID="jC1-lN-15y">
             <objects>
                 <navigationController storyboardIdentifier="TESTID" navigationBarHidden="YES" id="LLd-uo-cBv" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKN-vf-25e">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CKN-vf-25e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -5307,28 +5307,41 @@ Good luck!
                                                         <constraint firstAttribute="width" constant="27" id="gFs-nn-S0a"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOb-BR-SYv">
-                                                    <rect key="frame" x="79" y="14.5" width="221" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferance settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOb-BR-SYv">
+                                                    <rect key="frame" x="79" y="15" width="195" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20.5" id="5ES-Hp-gii"/>
-                                                        <constraint firstAttribute="width" constant="221" id="DYB-Db-3JC"/>
+                                                        <constraint firstAttribute="width" constant="195" id="DYB-Db-3JC"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="195" id="VRc-Wf-MJ2"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="Xqk-Bx-VOF"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$4444" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEz-Ki-lJB">
+                                                    <rect key="frame" x="199" y="14" width="75" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstItem="LOb-BR-SYv" firstAttribute="top" secondItem="539-F2-nse" secondAttribute="topMargin" constant="7" id="Ce9-nT-I1S"/>
                                                 <constraint firstItem="yC9-yW-GFi" firstAttribute="leading" secondItem="539-F2-nse" secondAttribute="leading" constant="25" id="Uzy-l5-aKM"/>
                                                 <constraint firstItem="LOb-BR-SYv" firstAttribute="leading" secondItem="yC9-yW-GFi" secondAttribute="trailing" constant="27" id="X63-Ac-dIE"/>
                                                 <constraint firstItem="LOb-BR-SYv" firstAttribute="centerY" secondItem="539-F2-nse" secondAttribute="centerY" id="aCM-nw-NfY"/>
+                                                <constraint firstItem="LOb-BR-SYv" firstAttribute="leading" secondItem="yC9-yW-GFi" secondAttribute="trailing" constant="27" id="tio-yQ-kVc"/>
                                                 <constraint firstItem="yC9-yW-GFi" firstAttribute="centerY" secondItem="539-F2-nse" secondAttribute="centerY" id="yb9-a4-FBP"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="icon_img" destination="yC9-yW-GFi" id="oWG-CO-dIc"/>
                                             <outlet property="lblLeftMenuTitle" destination="LOb-BR-SYv" id="n0H-25-wcG"/>
+                                            <outlet property="walletamount_lbl" destination="uEz-Ki-lJB" id="EUW-e2-vNt"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -10165,18 +10178,18 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="weight_icon" width="17" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ACG-LS-lzF"/>
-        <segue reference="Fjh-O3-jAU"/>
+        <segue reference="AU2-8a-F5M"/>
         <segue reference="Qgx-NE-XB7"/>
-        <segue reference="Ea7-Dw-joN"/>
         <segue reference="USH-R0-s5v"/>
+        <segue reference="L6f-51-y41"/>
+        <segue reference="Fjh-O3-jAU"/>
+        <segue reference="Ea7-Dw-joN"/>
         <segue reference="fqg-MV-HkZ"/>
+        <segue reference="nov-fw-yUQ"/>
+        <segue reference="j2f-dg-unJ"/>
         <segue reference="Jnc-bx-uPX"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="lS4-X5-YwA"/>
         <segue reference="9VY-QH-Amq"/>
-        <segue reference="j2f-dg-unJ"/>
-        <segue reference="nov-fw-yUQ"/>
-        <segue reference="Vrx-3o-h7U"/>
     </inferredMetricsTieBreakers>
 </document>

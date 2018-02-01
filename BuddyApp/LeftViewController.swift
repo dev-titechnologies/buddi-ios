@@ -8,6 +8,7 @@
 
 import UIKit
 import SideMenu
+import QuartzCore
 
 class LeftViewController: UIViewController {
     @IBOutlet weak var profileimage: UIImageView!
@@ -270,6 +271,21 @@ extension LeftViewController : UITableViewDataSource{
         
         let cell: LeftMenuTableCell = tableView.dequeueReusableCell(withIdentifier: "leftMenuCellId") as! LeftMenuTableCell
         
+        if indexPath.row == 3{
+            cell.walletamount_lbl.isHidden = false
+            cell.walletamount_lbl.textColor = UIColor.white
+            cell.walletamount_lbl.textAlignment = .center
+            cell.walletamount_lbl.layer.masksToBounds = true
+            cell.walletamount_lbl.layer.cornerRadius = 10.0
+            cell.walletamount_lbl.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+           // cell.walletamount_lbl.text = "$ 450000"
+            if let walletBalance = userDefaults.value(forKey: "walletBalance"){
+                cell.walletamount_lbl.text = " $ \(String(describing: walletBalance))  "
+            }
+            cell.walletamount_lbl.sizeToFit()
+        }else{
+            cell.walletamount_lbl.isHidden = true
+        }
         if appDelegate.USER_TYPE == "trainer" {
             //For Trainer
             cell.lblLeftMenuTitle.text = leftMenuTrainer[indexPath.row]
