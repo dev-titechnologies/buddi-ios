@@ -46,6 +46,7 @@ public class ProfileImageDB: NSManagedObject {
                 imagedb.imageData = imageData
                 
                 do {
+                    print("******* Image Saved to DB *******")
                     try privateMoc.save()
                 } catch {
                     print("ERROR 1234:\(error)")

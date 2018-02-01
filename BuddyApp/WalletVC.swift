@@ -54,7 +54,7 @@ class WalletVC: UIViewController {
     @IBAction func actionAllTransactions(_ sender: Any) {
         
     }
-    
+        
     func fetchWalletBalance() {
         
         CommonMethods.showProgress()
@@ -71,7 +71,8 @@ class WalletVC: UIViewController {
                 if status == RESPONSE_STATUS.SUCCESS{
                     
                     if let dataDict = jsondata["data"] as? NSDictionary {
-                        self.lblWalletAmount.text = "$ \(String(describing: dataDict["walletBalance"]!))"
+                        self.lblWalletAmount.text = CommonMethods.showWalletAmountInFloat(amount: dataDict["walletBalance"]! as! String)
+//                        self.lblWalletAmount.text = "$ \(String(describing: dataDict["walletBalance"]!))"
                         userDefaults.set(dataDict["walletBalance"]!, forKey: "walletBalance")
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
@@ -103,7 +104,8 @@ class WalletVC: UIViewController {
                     
                     if let dataDict = jsondata["data"] as? NSDictionary {
                         CommonMethods.alertView(view: self, title: ALERT_TITLE, message: MONEY_HAS_BEEN_ADDED_SUCCESSFULLY, buttonTitle: "OK")
-                        self.lblWalletAmount.text = "$ \(String(describing: dataDict["walletBalance"]!))"
+                        self.lblWalletAmount.text = CommonMethods.showWalletAmountInFloat(amount: dataDict["walletBalance"]! as! String)
+//                        self.lblWalletAmount.text = "$ \(String(describing: dataDict["walletBalance"]!))"
                         userDefaults.set(dataDict["walletBalance"]!, forKey: "walletBalance")
                         self.txtAddMoney.text = ""
                     }
@@ -158,7 +160,8 @@ extension WalletVC: SlideButtonDelegate{
                                 
                                 CommonMethods.alertView(view: self, title: ALERT_TITLE, message: WITHDRAWAL_HAS_BEEN_SUCCESS, buttonTitle: "OK")
 
-                                self.lblWalletAmount.text = "$ \(amountRevised)"
+                                self.lblWalletAmount.text = CommonMethods.showWalletAmountInFloat(amount: String(amountRevised))
+//                                self.lblWalletAmount.text = "$ \(amountRevised)"
                                 userDefaults.set(amountRevised, forKey: "walletBalance")
                             }
                         }

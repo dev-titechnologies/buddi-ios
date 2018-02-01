@@ -315,7 +315,7 @@ extension WalletHistory: UITableViewDataSource{
         let historyModelObj = trainerWalletHistoryArray[index_path.row]
 
         trainerIncomeCell.imgImageView.sd_setImage(with: URL(string: historyModelObj.sessionIcon), placeholderImage: UIImage(named: ""))
-        trainerIncomeCell.lblAmount.text = "+ $ \(historyModelObj.amount)"
+        trainerIncomeCell.lblAmount.text = "+ \(CommonMethods.showWalletAmountInFloat(amount: historyModelObj.amount))"
         trainerIncomeCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: INCOME_GREEN_COLOR)
         trainerIncomeCell.lblDate.text = CommonMethods.dateFormatterTest4(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
         //CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
@@ -329,7 +329,7 @@ extension WalletHistory: UITableViewDataSource{
         
         let historyModelObj = trainerWalletHistoryArray[index_path.row]
 
-        trainerExpenseCell.lblAmount.text = "- $ \(historyModelObj.amount)"
+        trainerExpenseCell.lblAmount.text = "- \(CommonMethods.showWalletAmountInFloat(amount: historyModelObj.amount))"
         trainerExpenseCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: EXPENSE_RED_COLOR)
         trainerExpenseCell.lblDate.text = CommonMethods.dateFormatterTest4(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
             
@@ -351,7 +351,7 @@ extension WalletHistory: UITableViewDataSource{
             traineeIncomeCell.lblSessionNameOrTransId.text = historyModelObj.sessionName
             traineeIncomeCell.imgImageView.image = #imageLiteral(resourceName: "buddi_icon")
         }
-        traineeIncomeCell.lblAmount.text = "+ $ \(historyModelObj.amount)"
+        traineeIncomeCell.lblAmount.text = "+ \(CommonMethods.showWalletAmountInFloat(amount: historyModelObj.amount))"
         traineeIncomeCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: INCOME_GREEN_COLOR)
         traineeIncomeCell.lblDate.text = CommonMethods.dateFormatterTest4(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
 //            CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
@@ -367,7 +367,7 @@ extension WalletHistory: UITableViewDataSource{
 
         traineeExpenseCell.imgImageView.sd_setImage(with: URL(string: historyModelObj.sessionIcon), placeholderImage: UIImage(named: ""))
         traineeExpenseCell.lblSessionName.text = historyModelObj.sessionName
-        traineeExpenseCell.lblAmount.text = "- $ \(historyModelObj.amount)"
+        traineeExpenseCell.lblAmount.text = "- \(CommonMethods.showWalletAmountInFloat(amount: historyModelObj.amount))"
         traineeExpenseCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: EXPENSE_RED_COLOR)
         traineeExpenseCell.lblDate.text = CommonMethods.dateFormatterTest4(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))
 //            CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))

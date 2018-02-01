@@ -226,6 +226,14 @@ class CommonMethods: NSObject {
         return secondsUpdatedValue
     }
 
+    class func showWalletAmountInFloat(amount: String) -> String{
+        
+        let floatValue = Float(amount)
+        print("FloatValue:\(String(describing: floatValue))")
+        let stringValue = floatValue?.clean
+        return "$ \(stringValue!)"
+    }
+
     class func phoneNumberSplit(number: String) -> (String, String){
         
         let fullName = number
