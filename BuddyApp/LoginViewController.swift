@@ -247,7 +247,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
                     if let wallet_balance = self.jsondict["wallet_balance"] as? String {
                         userDefaults.set(wallet_balance, forKey: "walletBalance")
                     }
-                    
+                                       
                     userDefaults.set((self.jsondict["email"] as? String)!, forKey: "userEmailId")
                     userDefaults.set((self.jsondict["token"] as? String)!, forKey: "token")
                     userDefaults.set(self.UserType, forKey: "userType")
