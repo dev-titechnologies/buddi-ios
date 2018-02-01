@@ -153,7 +153,18 @@ class CommonMethods: NSObject {
         //Long Style date 28 February 2016
         return dateString
     }
-    
+    class func dateFormatterTest5(date: Date) -> String{
+        let date = NSDate()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy at h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        let dateString = dateFormatter.string(from: date as Date)
+        print("Long Style date \(dateString)")
+        //Long Style date 28 February 2016
+        return dateString
+    }
+
     
     class func getStringFromDate(date: Date) -> String{
         let date = NSDate()
@@ -194,7 +205,7 @@ class CommonMethods: NSObject {
         
         print("****** TempSecondsChange **********")
         
-//        var secondsUpdatedValue = Int()
+        var secondsUpdatedValue = Int()
 //        if session_time == "40" {
 //            secondsUpdatedValue = 120
 //        }else if session_time == "60" {
@@ -209,7 +220,7 @@ class CommonMethods: NSObject {
             secondsUpdatedValue = 2400
         }else if session_time == "60" {
             secondsUpdatedValue = 3600
-        }else if session_time = "15"{
+        }else if session_time == "15"{
             secondsUpdatedValue = 900
         }
         return secondsUpdatedValue

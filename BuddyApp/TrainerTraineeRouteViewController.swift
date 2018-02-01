@@ -163,8 +163,6 @@ class TrainerTraineeRouteViewController: UIViewController {
         }else{
             
         }
-
-              
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
 

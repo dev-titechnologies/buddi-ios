@@ -81,6 +81,9 @@ class WalletHistoryDetailVC: UIViewController {
                 lblLabel22.text = traineeWalletHistoryModelObj.transactionId
                 
                 lblLabel3.text = "Date"
+            //    lblLabel33.text = CommonMethods.dateFormatterTest5(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date))
+
+                  //  CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date))
                 lblLabel33.text = CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date))
 //                    CommonMethods.dateFormatterTest4(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date))
                 
