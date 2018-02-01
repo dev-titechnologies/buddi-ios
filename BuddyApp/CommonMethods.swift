@@ -194,25 +194,25 @@ class CommonMethods: NSObject {
         
         print("****** TempSecondsChange **********")
         
-        var secondsUpdatedValue = Int()
-        if session_time == "40" {
-            secondsUpdatedValue = 120
-        }else if session_time == "60" {
-            secondsUpdatedValue = 240
-        }else if session_time == "15"{
-            secondsUpdatedValue = 60
-        }
-        return secondsUpdatedValue
-        
-        //For Live
+//        var secondsUpdatedValue = Int()
 //        if session_time == "40" {
-//            secondsUpdatedValue = 2400
+//            secondsUpdatedValue = 120
 //        }else if session_time == "60" {
-//            secondsUpdatedValue = 3600
-//        }else if session_time = "15"{
-//            secondsUpdatedValue = 900
+//            secondsUpdatedValue = 240
+//        }else if session_time == "15"{
+//            secondsUpdatedValue = 60
 //        }
 //        return secondsUpdatedValue
+        
+        //For Live
+        if session_time == "40" {
+            secondsUpdatedValue = 2400
+        }else if session_time == "60" {
+            secondsUpdatedValue = 3600
+        }else if session_time = "15"{
+            secondsUpdatedValue = 900
+        }
+        return secondsUpdatedValue
     }
 
     class func phoneNumberSplit(number: String) -> (String, String){
