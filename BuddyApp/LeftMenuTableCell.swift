@@ -12,6 +12,7 @@ class LeftMenuTableCell: UITableViewCell {
 
     @IBOutlet weak var lblLeftMenuTitle: UILabel!
     @IBOutlet weak var icon_img: UIImageView!
+    @IBOutlet weak var walletamount_lbl: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

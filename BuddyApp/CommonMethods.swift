@@ -127,7 +127,7 @@ class CommonMethods: NSObject {
         dateFormatter.locale     = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
         
         let date = dateFormatter.date(from: dateString)
-      
+      print("DAYYT",date)
         return date!
     
     }
@@ -156,7 +156,7 @@ class CommonMethods: NSObject {
     class func dateFormatterTest5(date: Date) -> String{
         let date = NSDate()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy at h:mm a"
+        dateFormatter.dateFormat = "dd MMMM yyyy 'at' h:mm a"
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         let dateString = dateFormatter.string(from: date as Date)

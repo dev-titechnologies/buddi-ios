@@ -100,13 +100,8 @@ class WalletHistoryDetailVC: UIViewController {
                 lblLabel22.text = ": \(traineeWalletHistoryModelObj.transactionId)"
                 
                 lblLabel3.text = "Date"
-            //    lblLabel33.text = CommonMethods.dateFormatterTest5(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date))
 
-                  //  CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date))
-                lblLabel33.text = ": \(CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date)))"
-                
-//                    CommonMethods.dateFormatterTest4(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date))
-                
+                lblLabel33.text = ": \(CommonMethods.dateFormatterTest5(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date)))"
                 lblLabel4.isHidden = true
                 lblLabel44.isHidden = true
                 
@@ -139,7 +134,7 @@ class WalletHistoryDetailVC: UIViewController {
                 lblLabel44.text = ": \(traineeWalletHistoryModelObj.trainerName)"
 
                 lblLabel5.text = "Date"
-                lblLabel55.text = ": \(CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date)))"
+                lblLabel55.text = ": \(CommonMethods.dateFormatterTest5(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date)))"
                 
                 lblLabel6.isHidden = true
                 lblLabel66.isHidden = true
@@ -176,7 +171,7 @@ class WalletHistoryDetailVC: UIViewController {
             lblLabel44.text = ": \(traineeWalletHistoryModelObj.trainerName)"
             
             lblLabel5.text = "Date"
-            lblLabel55.text = ": \(CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date)))"
+            lblLabel55.text = ": \(CommonMethods.dateFormatterTest5(date: CommonMethods.getDateFromString(dateString: traineeWalletHistoryModelObj.date)))"
             
             lblLabel6.isHidden = true
             lblLabel66.isHidden = true
@@ -216,7 +211,7 @@ class WalletHistoryDetailVC: UIViewController {
             lblLabel44.text = ": \(trainerWalletHistoryModelObj.traineeName)"
             
             lblLabel5.text = "Date"
-            lblLabel55.text = ": \(CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: trainerWalletHistoryModelObj.date)))"
+            lblLabel55.text = ": \(CommonMethods.dateFormatterTest5(date: CommonMethods.getDateFromString(dateString: trainerWalletHistoryModelObj.date)))"
             
             lblLabel6.isHidden = true
             lblLabel66.isHidden = true
@@ -238,7 +233,8 @@ class WalletHistoryDetailVC: UIViewController {
             lblLabel22.text = ": \(trainerWalletHistoryModelObj.transactionId)"
             
             lblLabel3.text = "Date"
-            lblLabel33.text = ": \(CommonMethods.convert24hrsTo12hrs(date: CommonMethods.getDateFromString(dateString: trainerWalletHistoryModelObj.date)))"
+            
+            lblLabel33.text = ": \(CommonMethods.dateFormatterTest5(date: CommonMethods.getDateFromString(dateString: trainerWalletHistoryModelObj.date)))"
             
             lblLabel4.isHidden = true
             lblLabel44.isHidden = true
