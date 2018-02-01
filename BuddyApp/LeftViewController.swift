@@ -274,11 +274,11 @@ extension LeftViewController : UITableViewDataSource{
         if indexPath.row == 3{
             cell.walletamount_lbl.isHidden = false
             cell.walletamount_lbl.textColor = UIColor.white
-            cell.walletamount_lbl.textAlignment = .center
+           // cell.walletamount_lbl.textAlignment = .center
             cell.walletamount_lbl.layer.masksToBounds = true
             cell.walletamount_lbl.layer.cornerRadius = 10.0
             cell.walletamount_lbl.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-           // cell.walletamount_lbl.text = "$ 450000"
+//            cell.walletamount_lbl.text = "$ 450"
             if let walletBalance = userDefaults.value(forKey: "walletBalance"){
                 cell.walletamount_lbl.text = "\(CommonMethods.showWalletAmountInFloat(amount: String(describing: walletBalance)))  "
             }

@@ -198,7 +198,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
 //        //            InstanceID.instanceID().setAPNSToken(deviceToken as Data, type:InstanceIDAPNSTokenType.sandbox)
 //        //        #endif
         Messaging.messaging().apnsToken = deviceToken as Data
-        InstanceID.instanceID().setAPNSToken(deviceToken as Data, type: .sandbox)
+        InstanceID.instanceID().setAPNSToken(deviceToken as Data, type: .prod)
         
         if let deviceTokenFromUserDefault = userDefaults.value(forKey: "devicetoken") as? String{
             print("*** deviceTokenFromUserDefault ** :\(deviceTokenFromUserDefault)")
@@ -235,7 +235,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         let data = refreshedToken.data(using: .utf8)!
         
         Messaging.messaging().apnsToken = data as Data
-        InstanceID.instanceID().setAPNSToken(data, type: .sandbox)
+        InstanceID.instanceID().setAPNSToken(data, type: .prod)
         userDefaults.set(refreshedToken, forKey: "devicetoken")
                
         connectToFcm()
