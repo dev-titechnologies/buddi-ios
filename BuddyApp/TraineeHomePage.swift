@@ -36,6 +36,10 @@ class TraineeHomePage: UIViewController {
     var participantSign = String()
     var parentSign = String()
 
+    var isInitialLaunch = Bool()
+
+    //MARK: - VIEW CYCLES
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -55,6 +59,7 @@ class TraineeHomePage: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         getCategoryList()
         selectedCategory.removeAll()
         
@@ -187,7 +192,11 @@ class TraineeHomePage: UIViewController {
             return
         }
         
-        CommonMethods.showProgress()
+        if isInitialLaunch {
+            CommonMethods.showProgressWithStatus(statusMessage: SETTING_UP_INITIAL)
+        }else{
+            CommonMethods.showProgress()
+        }
         CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], onCompletion: { (jsondata) in
 //            print("*** Category Listing Result:",jsondata)
             

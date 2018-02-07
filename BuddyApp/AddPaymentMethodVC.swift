@@ -29,6 +29,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
 
     var isFromBookingPage = Bool()
     var isControlInSamePage = Bool()
+    var isFromWalletPage = Bool()
     
     @IBOutlet weak var cardIconImage: UIImageView!
     @IBOutlet weak var lblUsesLeft: UILabel!
@@ -220,7 +221,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
                     return
                 }
                 
-                if self.isFromBookingPage{
+                if self.isFromBookingPage || self.isFromWalletPage {
                     print("*** Returning back to booking Page after adding payment method123")
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -267,7 +268,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
                 let paymentMethodType = BTUIKViewUtil.paymentOptionType(forPaymentInfoType: result.paymentMethod?.type)
                 self.testView.paymentOptionType = paymentMethodType
                 
-                if self.isFromBookingPage{
+                if self.isFromBookingPage || self.isFromWalletPage {
                     print("*** Returning back to booking Page after adding payment method")
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -333,7 +334,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
                     self.promoCodeSuccessfullView.isHidden = false
                     self.promocode_txt.text = ""
 
-                    if self.isFromBookingPage{
+                    if self.isFromBookingPage || self.isFromWalletPage {
                         print("*** Returning back to booking Page after adding payment method123")
                         self.navigationController?.popViewController(animated: true)
                     }
@@ -543,7 +544,7 @@ extension AddPaymentMethodVC {
                     let responseData = jsondata["data"] as? NSDictionary
                     CommonMethods.hideProgress()
                     
-                    if self.isFromBookingPage{
+                    if self.isFromBookingPage || self.isFromWalletPage {
                         print("*** Returning back to booking Page after adding payment method123")
                         self.navigationController?.popViewController(animated: true)
                     }
@@ -627,7 +628,7 @@ extension AddPaymentMethodVC {
                             self.cardsArray = self.getCardModel(cardsArray: cardsArray as! Array<Any>)
                             self.cardsTableView.reloadData()
                             
-                            if self.isFromBookingPage{
+                            if self.isFromBookingPage || self.isFromWalletPage{
                                 print("*** Returning back to booking Page after adding payment method123")
                                 self.navigationController?.popViewController(animated: true)
                             }
@@ -715,7 +716,7 @@ extension AddPaymentMethodVC {
                             }
                         }
                         
-                        if self.cardsArray.count > 0 && self.isFromBookingPage {
+                        if self.cardsArray.count > 0 && self.isFromBookingPage || self.cardsArray.count > 0 && self.isFromWalletPage {
                             print("*** Returning back to booking Page after adding payment method123")
                             self.navigationController?.popViewController(animated: true)
                         }

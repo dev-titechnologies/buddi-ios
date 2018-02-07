@@ -46,6 +46,7 @@ class CategoryListVC: UIViewController {
     var restCategories = [CategoryModel]()
 
     var trainerID = String()
+    var isInitialLaunch = Bool()
     
     //MARK: - VIEW CYCLES
     
@@ -97,7 +98,12 @@ class CategoryListVC: UIViewController {
         
         let parameters = ["user_id" : appDelegate.UserId,"user_type" : appDelegate.USER_TYPE] as [String : Any]
         
-        CommonMethods.showProgress()
+        
+        if isInitialLaunch {
+            CommonMethods.showProgressWithStatus(statusMessage: SETTING_UP_INITIAL)
+        }else{
+            CommonMethods.showProgress()
+        }
         CommonMethods.serverCall(APIURL: CATEGORY_APPROVED_STATUS, parameters: parameters, onCompletion: { (jsondata) in
             
             print("*** getUpdatedListOfApprovedAndPendingCategoryLists:",jsondata)
@@ -287,7 +293,12 @@ class CategoryListVC: UIViewController {
             return
         }
 
-        CommonMethods.showProgress()
+        if isInitialLaunch {
+            CommonMethods.showProgressWithStatus(statusMessage: SETTING_UP_INITIAL)
+        }else{
+            CommonMethods.showProgress()
+        }
+        
         CommonMethods.serverCall(APIURL: CATEGORY_URL, parameters: [:], onCompletion: { (jsondata) in
             
 //            print("*** Category Listing Result:",jsondata)

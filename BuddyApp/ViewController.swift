@@ -98,6 +98,13 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
 //            return
 //        }
         
+        //FOR TESTING - Jithesh
+        
+        if let heroObject = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+            let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary
+            print("TEST RESULT :\(hero)")
+        }
+        
         if appDelegate.TrainerProfileDictionary != nil{
             //  BOOKED A SESSION
             self.GoTimerPageFromKilledState_Notification(dict:appDelegate.TrainerProfileDictionary)

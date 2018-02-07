@@ -126,12 +126,12 @@ class OTPViewController: UIViewController {
                     if appDelegate.USER_TYPE == "trainer"{
                         print("***** Trainer Registraion ***** ")
                         self.performSegue(withIdentifier: "initialLaunchForTrainerSegue", sender: self)
-                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Successfully registered as a Trainer", buttonTitle: "Ok")
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SUCCESSFULLY_REGISTERED_AS_TRAINER, buttonTitle: "Ok")
                         
                     }else if appDelegate.USER_TYPE == "trainee"{
                         print("***** Trainee Registraion ***** ")
                         self.performSegue(withIdentifier: "toTraineeHomeAfterRegistrationSegue", sender: self)
-                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Successfully registered as a Trainee", buttonTitle: "Ok")
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SUCCESSFULLY_REGISTERED_AS_TRAINEE, buttonTitle: "Ok")
                     }
                     
                 }else if status == RESPONSE_STATUS.FAIL{
@@ -141,7 +141,7 @@ class OTPViewController: UIViewController {
                     self.dismissOnSessionExpire()
                 }
             }else{
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Request timed out", buttonTitle: "OK")
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: REQUEST_TIMED_OUT, buttonTitle: "OK")
             }
         })
     }
@@ -151,6 +151,12 @@ class OTPViewController: UIViewController {
         if segue.identifier == "initialLaunchForTrainerSegue" {
             let chooseCategoryPage =  segue.destination as! CategoryListVC
             chooseCategoryPage.isBackButtonHidden = true
+            chooseCategoryPage.isInitialLaunch = true
+
+        }else if segue.identifier == "toTraineeHomeAfterRegistrationSegue" {
+            let traineeHomePage =  segue.destination as! TraineeHomePage
+            traineeHomePage.isInitialLaunch = true
+
         }
     }
 }

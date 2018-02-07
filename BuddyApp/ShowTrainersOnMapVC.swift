@@ -199,13 +199,14 @@ class ShowTrainersOnMapVC: UIViewController {
             print("Promo code already applied")
             applyPromoCode()
             return
-        }else{
-            print("Default Card:\(String(describing: userDefaults.value(forKey: "defaultStripeCardId") as? String))")
-            if (userDefaults.value(forKey: "defaultStripeCardId") as? String) == nil{
-                alertForAddPaymentMethod()
-                return
-            }
         }
+//        else{
+//            print("Default Card:\(String(describing: userDefaults.value(forKey: "defaultStripeCardId") as? String))")
+//            if (userDefaults.value(forKey: "defaultStripeCardId") as? String) == nil{
+//                alertForAddPaymentMethod()
+//                return
+//            }
+//        }
         
         paymentCheckForNextButtonAction()
     }
@@ -264,21 +265,21 @@ class ShowTrainersOnMapVC: UIViewController {
 //            return
 //        }
         
-        if choosedSessionOfTrainee == "60" && isPaidAlready40Minutes || choosedSessionOfTrainee == "40" && isPaidAlready60Minutes{
-            
-            let alert = UIAlertController(title: ALERT_TITLE, message: REGARDING_PREVIOUS_PAYMENT_ABOUT_SESSION, preferredStyle: UIAlertControllerStyle.alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
-//                self.paymentCheckoutStripe()
-                self.navigationController?.popViewController(animated: true)
-            }))
-//            alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
-//                
+//        if choosedSessionOfTrainee == "60" && isPaidAlready40Minutes || choosedSessionOfTrainee == "40" && isPaidAlready60Minutes{
+//            
+//            let alert = UIAlertController(title: ALERT_TITLE, message: REGARDING_PREVIOUS_PAYMENT_ABOUT_SESSION, preferredStyle: UIAlertControllerStyle.alert)
+//            
+//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+////                self.paymentCheckoutStripe()
+//                self.navigationController?.popViewController(animated: true)
 //            }))
-            self.present(alert, animated: true, completion: nil)
-        }else{
-            RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
-        }
+////            alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+////                
+////            }))
+//            self.present(alert, animated: true, completion: nil)
+//        }else{
+//            RandomSelectTrainer(parameters: self.getRandomSelectAPIParameters())
+//        }
     }
     
     func alertForAddPaymentMethod() {
@@ -986,7 +987,7 @@ class ShowTrainersOnMapVC: UIViewController {
                     
                     self.navigationItem.hidesBackButton = true
                     
-                    self.isPaymentSuccess = true
+//                    self.isPaymentSuccess = true
                     
                     if let statusType = jsondata["status_type"]  as? String{
                         
@@ -1012,9 +1013,27 @@ class ShowTrainersOnMapVC: UIViewController {
                             self.present(alert, animated: true, completion: nil)
                             
                         }else if statusType == "Success" {
-                            let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
                             
-                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+//                            let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
+//                            
+//                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+//                                
+//                                if let walletDict = jsondata["data"] as? NSDictionary {
+//                                    
+//                                    if let amountRequested = walletDict["amountDeducted"] as? Int{
+//                                        self.transactionAmount = String(amountRequested)
+//                                    }
+//                                    
+//                                    if let walletBalance = walletDict["walletBalance"] as? Int{
+//                                        userDefaults.set(walletBalance, forKey: "walletBalance")
+//                                    }
+//                                }
+//                                
+//                                self.triggerRandomSelectAPIBasedOnChoice()
+//                            }))
+                            //self.present(alert, animated: true, completion: nil)
+                            
+                            if let walletDict = jsondata["data"] as? NSDictionary {
                                 
                                 if let walletDict = jsondata["data"] as? NSDictionary {
                                     
@@ -1027,9 +1046,12 @@ class ShowTrainersOnMapVC: UIViewController {
                                     }
                                 }
                                 
-                                self.triggerRandomSelectAPIBasedOnChoice()
-                            }))
-                            self.present(alert, animated: true, completion: nil)
+                                if let walletBalance = walletDict["walletBalance"] as? Int{
+                                    userDefaults.set(walletBalance, forKey: "walletBalance")
+                                }
+                            }
+                            
+                            self.triggerRandomSelectAPIBasedOnChoice()
                         }
                     }
                    
@@ -1083,6 +1105,11 @@ class ShowTrainersOnMapVC: UIViewController {
                     }
 
                 }else if status == RESPONSE_STATUS.FAIL{
+                    
+                    //WRITE CHECKOUT ERROR CASE WHEN NO STRIPE CARD HAS STORED YET. MOVE TO ADD PAYMENT METHOD SCREEN IN SUCH OCCASSION
+                    //Enable below function call
+                    //self.moveToAddPaymentMethodScreen()
+                    
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
