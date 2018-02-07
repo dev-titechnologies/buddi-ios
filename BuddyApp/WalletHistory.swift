@@ -313,8 +313,8 @@ extension WalletHistory: UITableViewDataSource{
         let trainerIncomeCell: TrainerIncomeCell = tableView.dequeueReusableCell(withIdentifier: trainerIncomeCellId) as! TrainerIncomeCell
         
         let historyModelObj = trainerWalletHistoryArray[index_path.row]
-
-        trainerIncomeCell.imgImageView.sd_setImage(with: URL(string: historyModelObj.sessionIcon), placeholderImage: UIImage(named: ""))
+        trainerIncomeCell.imgImageView.image = #imageLiteral(resourceName: "buddi_icon")
+//        trainerIncomeCell.imgImageView.sd_setImage(with: URL(string: historyModelObj.sessionIcon), placeholderImage: UIImage(named: ""))
         trainerIncomeCell.lblAmount.text = "+ \(CommonMethods.showWalletAmountInFloat(amount: historyModelObj.amount))"
         trainerIncomeCell.lblAmount.textColor = CommonMethods.hexStringToUIColor(hex: INCOME_GREEN_COLOR)
         trainerIncomeCell.lblDate.text = CommonMethods.dateFormatterTest4(date: CommonMethods.getDateFromString(dateString: historyModelObj.date))

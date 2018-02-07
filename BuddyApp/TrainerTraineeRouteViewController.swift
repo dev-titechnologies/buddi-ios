@@ -65,6 +65,10 @@ class TrainerTraineeRouteViewController: UIViewController {
     var isExtendedCheck = Bool()
     var extendedSessionDuration = String()
     
+    
+    
+    
+    
     //Cancel Alert View
     @IBOutlet weak var cancelAlertView: CardView!
     @IBOutlet weak var btnNoCancelAlert: UIButton!
@@ -107,6 +111,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         appDelegate.TrainerProfileDictionary = nil
         frompushBool = false
         
+        
         print("Trainer Profile Details : \(trainerProfileDetails.firstName)")
         print("***** Received Trainer Profile Dict1:\(TrainerProfileDictionary)")
         
@@ -132,7 +137,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        print("**** viewWillAppear *****")
+        print("**** viewWillAppear *****",appDelegate.CancelStopBool)
         print("***** Received Trainer Profile Dict2:\(TrainerProfileDictionary)")
         
 //        reachabilityCheck()
@@ -145,10 +150,24 @@ class TrainerTraineeRouteViewController: UIViewController {
             startSessionFromPushNotificationClick_AppKilledState()
         }
        
-        SocketIOManager.sharedInstance.OnSocket()
-        socketListener()
-        SocketIOManager.sharedInstance.establishConnection()
-        getSocketConnected()
+        
+        if appDelegate.USER_TYPE == "trainer"{
+            
+            socketListener()
+           // getSocketConnected()
+            
+        }else{
+            
+            SocketIOManager.sharedInstance.OnSocket()
+            socketListener()
+            SocketIOManager.sharedInstance.establishConnection()
+            getSocketConnected()
+
+        }
+        
+
+        
+        
 
         initializeSessionCheck()
         self.RunningTimeData()
@@ -184,6 +203,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         print("**** viewDidAppear ****")
+       //  appDelegate.CancelStopBool = false
         isInSessionRoutePage = true
         appDelegate.isInSessionRoutePageAppDelegate = true
     }
@@ -348,7 +368,7 @@ class TrainerTraineeRouteViewController: UIViewController {
 
         if TIMERCHECK {
             print("***** Timer Check in Route Page initializeSessionCheck ******")
-            //locationManager.stopUpdatingLocation()
+            locationManager.stopUpdatingLocation()
             
             FetchFromDb()
             
@@ -359,14 +379,26 @@ class TrainerTraineeRouteViewController: UIViewController {
                     print("=== RunTimer 1 ===")
                     print("Seconds:\(seconds)")
 //                    seconds = CommonMethods.tempSecondsChange(session_time: String(seconds/60))
+                    if appDelegate.CancelStopBool{
+                        sessionStoppedNotificationReceived()
+                        
+                    }else{
+                        print("=== RunTimer 1.1 ===")
+                        self.runTimer()
+                    }                }
+            }else{
+                if appDelegate.CancelStopBool{
+                    sessionStoppedNotificationReceived()
+                    
+                }else{
+                    print("=== RunTimer 2 ===")
                     self.runTimer()
                 }
-            }else{
-                print("=== RunTimer 2 ===")
-                self.runTimer()
             }
         }else{
+            
             initializeSession()
+        
         }
     }
     
@@ -430,6 +462,15 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
         
         TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.trainerProfileDetails)
+        
+        
+        if appDelegate.CancelStopBool{
+            sessionStoppedNotificationReceived()
+            
+        }else{
+            
+        }
+        
         
         if isOpenedFromSessionStoppedNotification{
             print("isOpenedFromSessionStoppedNotification:\(isOpenedFromSessionStoppedNotification)")
@@ -510,6 +551,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         }else if notif.userInfo!["pushData"] as! String == "3"{
 
             print("*** Notification Type 3 Received : CENCEL SESSION *******")
+            TimerModel.sharedTimer.internalTimer?.invalidate()
             sessionStoppedNotificationReceived()
            // self.BookingAction(Action_status: "cancel")
             
@@ -565,6 +607,9 @@ class TrainerTraineeRouteViewController: UIViewController {
     
     func sessionStoppedNotificationReceived() {
         
+        TimerModel.sharedTimer.internalTimer?.invalidate()
+         appDelegate.CancelStopBool = false
+        
         if self.TIMERCHECK{
             
             self.RateViewScreen(cancelStatus: false)
@@ -579,10 +624,10 @@ class TrainerTraineeRouteViewController: UIViewController {
         self.TIMERCHECK = false
         userDefaults.removeObject(forKey: "TimerData")
         userDefaults.set(false, forKey: "isCurrentlyInTrainingSession")
-        
+        userDefaults.removeObject(forKey: "TrainerProfileDictionary")
         appDelegate.timerrunningtime = false
         TrainerProfileDetail.deleteBookingDetails()
-        
+       
         hideLoadingView()
         
         
@@ -814,6 +859,8 @@ class TrainerTraineeRouteViewController: UIViewController {
                             dict["status"] as! String == "completed" {
                             
                             print("** Removing Timer Details from UserDefaults ***")
+                            
+                            TimerModel.sharedTimer.internalTimer?.invalidate()
                             self.stopTimer()
                             self.timer_lbl.text = "00" + ":" + "00"
                             userDefaults.removeObject(forKey: "TimerData")
@@ -891,13 +938,19 @@ class TrainerTraineeRouteViewController: UIViewController {
                     self.BoolArray.insert(true, at: 1)
                     
                     userDefaults.set(false, forKey: "sessionBookedNotStarted")
-                    userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+                   // userDefaults.removeObject(forKey: "TrainerProfileDictionary")
                     
                     userDefaults.set(true, forKey: "isCurrentlyInTrainingSession")
                     print("TIMER STATUS",self.isTimerRunning)
 
                     if self.isTimerRunning == false {
                         self.TIMERCHECK = true
+                        
+                        
+                         TimerModel.sharedTimer.seconds = 120
+                         TimerModel.sharedTimer.startTimer(withInterval: 1.0)
+                        
+                        
                         self.runTimer()
                     }
                     
@@ -922,6 +975,8 @@ class TrainerTraineeRouteViewController: UIViewController {
     func runTimer() {
         
         print("TIMER STARTS RUNNING")
+        
+
         
         if timer == nil {
             print("** Run timer IN FUNCTION **")

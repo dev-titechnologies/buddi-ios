@@ -50,6 +50,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     var isLaunchFromKilledState = Bool()
     var profileImageData: NSData = NSData()
     
+    //JOSE 2-2-2018
+    var CancelStopBool = Bool()
+    /////
+    
+    
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
 //        if userDefaults.value(forKey: "devicetoken") == nil {
@@ -198,7 +205,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
 //        //            InstanceID.instanceID().setAPNSToken(deviceToken as Data, type:InstanceIDAPNSTokenType.sandbox)
 //        //        #endif
         Messaging.messaging().apnsToken = deviceToken as Data
-        InstanceID.instanceID().setAPNSToken(deviceToken as Data, type: .prod)
+        Messaging.messaging().setAPNSToken(deviceToken as Data, type: .prod)
+       // InstanceID.instanceID().setAPNSToken(deviceToken as Data, type: .prod)
         
         if let deviceTokenFromUserDefault = userDefaults.value(forKey: "devicetoken") as? String{
             print("*** deviceTokenFromUserDefault ** :\(deviceTokenFromUserDefault)")
@@ -235,7 +243,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         let data = refreshedToken.data(using: .utf8)!
         
         Messaging.messaging().apnsToken = data as Data
-        InstanceID.instanceID().setAPNSToken(data, type: .prod)
+        Messaging.messaging().setAPNSToken(data, type: .prod)
+       // InstanceID.instanceID().setAPNSToken(data, type: .prod)
         userDefaults.set(refreshedToken, forKey: "devicetoken")
                
         connectToFcm()
@@ -318,7 +327,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
                 
                 //CANCELLED SESSION
                 userDefaults.set(false, forKey: "sessionBookedNotStarted")
-                userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+//                userDefaults.removeObject(forKey: "TrainerProfileDictionary")
                 
                 print("3")
                 NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: [
@@ -693,7 +702,7 @@ extension AppDelegate: MessagingDelegate {
     
     
     internal func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print("remoteMessage: \(remoteMessage)")
+        print("remoteMessage: \(remoteMessage)") 
     }
     
     //Called when a notification is delivered to a foreground app.
@@ -705,6 +714,7 @@ extension AppDelegate: MessagingDelegate {
         
         let NotificationDict = (notification.request.content.userInfo as NSDictionary)["data"] as! String
         let notificationType = (notification.request.content.userInfo as NSDictionary)["type"] as! String
+        let notificationAps = (notification.request.content.userInfo as NSDictionary)["aps"] as! NSDictionary
         
         if notificationType == "1"{
             
@@ -720,7 +730,7 @@ extension AppDelegate: MessagingDelegate {
             
             //STARTED SESSION
             userDefaults.set(false, forKey: "sessionBookedNotStarted")
-//            userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+         //   userDefaults.removeObject(forKey: "TrainerProfileDictionary")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: [
                 "pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String,
                 "type":notificationType
@@ -730,13 +740,14 @@ extension AppDelegate: MessagingDelegate {
             
             //CANCELLED SESSION
             userDefaults.set(false, forKey: "sessionBookedNotStarted")
-            userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+          //  userDefaults.removeObject(forKey: "TrainerProfileDictionary")
             userDefaults.set(false, forKey: "isCurrentlyInTrainingSession")
 
             print("3")
             NotificationCenter.default.post(name: SessionNotification, object: nil, userInfo: [
                 "pushData":(notification.request.content.userInfo as NSDictionary)["type"] as! String,
-                "type":notificationType
+                "type":notificationType,
+                "status":notificationAps
                 ])
         }else if notificationType == "4"{
             

@@ -129,6 +129,19 @@ class TrainerProfilePage: UIViewController {
             changeTextColorGrey()
             parseTrainerProfileDetails()
         }
+       
+        if appDelegate.USER_TYPE == "trainer"{
+            
+            SocketIOManager.sharedInstance.OnSocket()
+            SocketIOManager.sharedInstance.establishConnection()
+            getSocketConnected()
+            
+        }else{
+        }
+        
+        
+        
+        
         getCurrentLocationDetails()
     }
     
