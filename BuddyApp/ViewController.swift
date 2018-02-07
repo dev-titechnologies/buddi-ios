@@ -27,6 +27,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     var trainerProfileDetails = TrainerProfileModal()
     
     var isFromPushNotificationClick_AppKilledState = Bool()
+   
 
     //MARK: - VIEW CYCLES
     
@@ -42,6 +43,13 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         self.navigationController?.isNavigationBarHidden = true
         CommonMethods.googleAnalyticsScreenTracker(screenName: "ViewController Screen")
         let notificationName = Notification.Name("SessionNotification")
+        
+        let GlobelTimerNotification = Notification.Name("GlobelTimerNotification")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.GlobelTimerNotification), name: GlobelTimerNotification, object: nil)
+
+        
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
@@ -73,6 +81,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        // self.CancelStopBool = false
          self.navigationController?.isNavigationBarHidden = false
     }
     
@@ -214,7 +223,41 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
     //MARK: - NOTIFICATION HANDLERS
     
+    func GlobelTimerNotification(notif: NSNotification) {
+        
+        
+        let currentvc = navigationController?.visibleViewController
+        print("CURRENT VIEW",currentvc!)
+        
+        if currentvc is TrainerTraineeRouteViewController{
+            
+            print("ROUTE PAGE")
+        }else{
+            print("OTHER PAGE")
+            
+            print("GlobelTimerNotification")
+            
+            if appDelegate.USER_TYPE == "trainee" {
+            }else{
+                // userDefaults.set(true, forKey: "isShowingWaitingForExtendRequest")
+            }
+            numOfDays = 0
+            self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+            
+        }
+    }
+    
     func GoTimerPageInActive_Notification(notif: NSNotification) {
+        
+         let currentvc = navigationController?.visibleViewController
+        print("CURRENT VIEW",currentvc!)
+            
+            if currentvc is TrainerTraineeRouteViewController{
+                
+                print("ROUTE PAGE")
+            }else{
+                print("OTHER PAGE")
+            }
         
         print("*** GoTimerPageInActive_Notification ***")
         print("Notification received : \(notif)")
@@ -262,30 +305,115 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         }else if notificationType == "2"{
             print("** Session has started in Viewcontroller **")
             
-            if let trainerProfileDictData = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
-                let trainerProfileDict = NSKeyedUnarchiver.unarchiveObject(with: trainerProfileDictData as Data) as! NSDictionary
-                print("trainerProfileDict:\(trainerProfileDict)")
-                self.TrainerProfileDictionary = trainerProfileDict
+            if currentvc is TrainerTraineeRouteViewController{
                 
-                print("appDelegate.isInSessionRoutePageAppDelegate:\(appDelegate.isInSessionRoutePageAppDelegate)")
-                if !appDelegate.isInSessionRoutePageAppDelegate {
-                    print("** Session Start Notification handling from ViewController **")
-                    self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
-                }
+                print("ROUTE PAGE")
+            }else{
+                print("OTHER PAGE")
+                
+                
+                
+                let alert = UIAlertController(title: ALERT_TITLE, message: "Session Started", preferredStyle: UIAlertControllerStyle.alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                    
+                    
+                    if let trainerProfileDictData = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+                        let trainerProfileDict = NSKeyedUnarchiver.unarchiveObject(with: trainerProfileDictData as Data) as! NSDictionary
+                        print("trainerProfileDict:\(trainerProfileDict)")
+                        self.TrainerProfileDictionary = trainerProfileDict
+                        
+                        print("appDelegate.isInSessionRoutePageAppDelegate:\(appDelegate.isInSessionRoutePageAppDelegate)")
+                        if !appDelegate.isInSessionRoutePageAppDelegate {
+                            print("** Session Start Notification handling from ViewController **")
+                            self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+                        }
+                    }
+                }))
+                self.present(alert, animated: true, completion: nil)
             }
+            
+            
+            
 
 //            let trainerProfileModelObj = TrainerProfileModal()
 //            self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
 //            TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
 //            self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
             
-        }else if notificationType == "5"{
+        }else if notificationType == "3"{
+            
+            if currentvc is TrainerTraineeRouteViewController{
+                
+                print("ROUTE PAGE")
+                appDelegate.CancelStopBool = false
+            }else{
+                print("OTHER PAGE")
+                
+                let dict = ((notif.userInfo!["status"] as! NSDictionary)["alert"]! as! NSDictionary)["title"]! as! String
+                
+                print("dicttt",dict)
+                
+                
+                let alert = UIAlertController(title: ALERT_TITLE, message: dict, preferredStyle: UIAlertControllerStyle.alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                    
+                    
+                    print("** Session stopped or cancelled in Viewcontroller **")
+                    
+                    
+                    if let trainerProfileDictData = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
+                        let trainerProfileDict = NSKeyedUnarchiver.unarchiveObject(with: trainerProfileDictData as Data) as! NSDictionary
+                        print("trainerProfileDict:\(trainerProfileDict)")
+                        self.TrainerProfileDictionary = trainerProfileDict
+                        
+                        print("appDelegate.isInSessionRoutePageAppDelegate:\(appDelegate.isInSessionRoutePageAppDelegate)")
+                        
+                        appDelegate.CancelStopBool = true
+                        if !appDelegate.isInSessionRoutePageAppDelegate {
+                            print("** Session Start Notification handling from ViewController **")
+                            self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+                        }
+                    }else{
+                        print("DATA NIL ")
+                        appDelegate.CancelStopBool = false
+                    }
+                    
+                    
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
+
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            //            let trainerProfileModelObj = TrainerProfileModal()
+            //            self.selectedTrainerProfileDetails = trainerProfileModelObj.getTrainerProfileModelFromDict(dictionary: self.TrainerProfileDictionary as! Dictionary<String, Any>)
+            //            TrainerProfileDetail.createProfileBookingEntry(TrainerProfileModal: self.selectedTrainerProfileDetails)
+            //            self.performSegue(withIdentifier: "splashToTrainerHomePageSegueRunTime", sender: self)
+            
+        }
+        
+        else if notificationType == "5"{
             self.TrainerProfileDictionary = CommonMethods.convertToDictionary(text:notif.userInfo!["pushData"] as! String)! as NSDictionary
             print("TRAINING DATA",self.TrainerProfileDictionary)
             userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: self.TrainerProfileDictionary), forKey: "TrainerProfileDictionary")
             ApsBody = notif.userInfo!["aps"]! as! String
             AcceptOrDeclineScreen()
-        }else if notificationType == "8"{
+        }else if notificationType == "6"{
+        }
+        else if notificationType == "8"{
             
             if appDelegate.chatpushnotificationBool{
                 
@@ -477,6 +605,9 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         }else if segue.identifier == "splashToTrainerHomePageSegueRunTime" {
             
             let timerPage =  segue.destination as! TrainerTraineeRouteViewController
+            // JOSE 2-2-2018
+           //  timerPage.CancelStopBool = self.CancelStopBool
+            ////
             
             print("*** Prepare for Segue splashToTrainerHomePageSegueRunTime ****")
             if userDefaults.value(forKey: "TimerData") != nil {
@@ -508,10 +639,14 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                     timerPage.isSessionStartedNotificationFromViewController = true
                     timerPage.TIMERCHECK = true
                 }else if notificationType == "3"{
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Timer Data check in ViewController is : False", buttonTitle: "OK")
+//                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Timer Data check in ViewController is : False", buttonTitle: "OK")
+                    
+                   
                     timerPage.isOpenedFromSessionStoppedNotification = true
                 }
             }
+            //self.CancelStopBool = false
+           
         }
     }
     

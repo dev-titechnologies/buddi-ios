@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -4627,14 +4627,15 @@ Good luck!
                                                 </connections>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQD-CP-oRE">
-                                                <rect key="frame" x="253" y="307" width="82" height="30"/>
+                                                <rect key="frame" x="0.0" y="300" width="345" height="45"/>
+                                                <color key="backgroundColor" red="0.14901960780000001" green="0.80392156859999997" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="82" id="m1e-GI-3tu"/>
-                                                    <constraint firstAttribute="height" constant="30" id="nbL-rd-J8g"/>
+                                                    <constraint firstAttribute="width" constant="345" id="m1e-GI-3tu"/>
+                                                    <constraint firstAttribute="height" constant="45" id="nbL-rd-J8g"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                 <state key="normal" title="SUBMIT">
-                                                    <color key="titleColor" red="0.27058823529999998" green="0.78823529410000004" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="submitAction:" destination="Aia-cI-dmK" eventType="touchUpInside" id="xNf-L5-SjC"/>
@@ -4656,12 +4657,12 @@ Good luck!
                                             <constraint firstItem="cvw-XX-Z5M" firstAttribute="leading" secondItem="4cy-bS-1bZ" secondAttribute="trailing" constant="8" id="3Od-3J-JLl"/>
                                             <constraint firstItem="D6r-4p-MVg" firstAttribute="top" secondItem="oEX-Qi-nFn" secondAttribute="top" constant="17" id="3q9-r6-IKg"/>
                                             <constraint firstItem="4cy-bS-1bZ" firstAttribute="top" secondItem="oEX-Qi-nFn" secondAttribute="top" constant="17" id="53H-DO-mQM"/>
-                                            <constraint firstAttribute="bottom" secondItem="oQD-CP-oRE" secondAttribute="bottom" constant="8" id="AOS-eL-NI0"/>
+                                            <constraint firstAttribute="bottom" secondItem="oQD-CP-oRE" secondAttribute="bottom" id="AOS-eL-NI0"/>
                                             <constraint firstItem="Z3a-uA-LoA" firstAttribute="leading" secondItem="oEX-Qi-nFn" secondAttribute="leading" id="Brg-ix-c5X"/>
-                                            <constraint firstAttribute="trailing" secondItem="oQD-CP-oRE" secondAttribute="trailing" constant="10" id="CT5-DV-yyP"/>
+                                            <constraint firstAttribute="trailing" secondItem="oQD-CP-oRE" secondAttribute="trailing" constant="-0.5" id="CT5-DV-yyP"/>
                                             <constraint firstAttribute="trailing" secondItem="l3J-DV-G4C" secondAttribute="trailing" constant="18" id="EU4-zn-p4P"/>
                                             <constraint firstItem="l3J-DV-G4C" firstAttribute="top" secondItem="HNm-ga-Qje" secondAttribute="bottom" constant="3" id="G3H-Eg-FIQ"/>
-                                            <constraint firstItem="oQD-CP-oRE" firstAttribute="top" secondItem="Z3a-uA-LoA" secondAttribute="bottom" constant="8" id="Hq9-La-nHe"/>
+                                            <constraint firstItem="oQD-CP-oRE" firstAttribute="top" secondItem="Z3a-uA-LoA" secondAttribute="bottom" constant="1" id="Hq9-La-nHe"/>
                                             <constraint firstAttribute="trailing" secondItem="cvw-XX-Z5M" secondAttribute="trailing" constant="19" id="KFJ-ai-gbY"/>
                                             <constraint firstAttribute="trailing" secondItem="Z3a-uA-LoA" secondAttribute="trailing" id="KsW-GH-L9R"/>
                                             <constraint firstItem="jqv-he-PVd" firstAttribute="top" secondItem="4cy-bS-1bZ" secondAttribute="bottom" id="OIz-eQ-apd"/>
@@ -4676,6 +4677,7 @@ Good luck!
                                             <constraint firstItem="cvw-XX-Z5M" firstAttribute="top" secondItem="oEX-Qi-nFn" secondAttribute="top" constant="19" id="hHA-7K-woW"/>
                                             <constraint firstItem="czn-AT-3ak" firstAttribute="centerX" secondItem="oEX-Qi-nFn" secondAttribute="centerX" id="klG-mJ-EWB"/>
                                             <constraint firstItem="czn-AT-3ak" firstAttribute="top" secondItem="liI-EP-1Xc" secondAttribute="bottom" constant="8" id="l0v-fj-4ZL"/>
+                                            <constraint firstItem="oQD-CP-oRE" firstAttribute="leading" secondItem="oEX-Qi-nFn" secondAttribute="leading" id="lDl-KZ-Y6t"/>
                                             <constraint firstItem="jqv-he-PVd" firstAttribute="leading" secondItem="D6r-4p-MVg" secondAttribute="trailing" constant="8" id="tYL-Ch-SLR"/>
                                             <constraint firstItem="l3J-DV-G4C" firstAttribute="leading" secondItem="oEX-Qi-nFn" secondAttribute="leading" constant="18" id="vv6-TP-l80"/>
                                             <constraint firstAttribute="height" constant="345" id="w0W-dl-tp2"/>
@@ -10209,13 +10211,13 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="weight_icon" width="17" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AU2-8a-F5M"/>
-        <segue reference="Qgx-NE-XB7"/>
-        <segue reference="USH-R0-s5v"/>
-        <segue reference="L6f-51-y41"/>
-        <segue reference="Fjh-O3-jAU"/>
-        <segue reference="Ea7-Dw-joN"/>
         <segue reference="fqg-MV-HkZ"/>
+        <segue reference="USH-R0-s5v"/>
+        <segue reference="Qgx-NE-XB7"/>
+        <segue reference="Fjh-O3-jAU"/>
+        <segue reference="L6f-51-y41"/>
+        <segue reference="AU2-8a-F5M"/>
+        <segue reference="Gch-VD-bW5"/>
         <segue reference="nov-fw-yUQ"/>
         <segue reference="j2f-dg-unJ"/>
         <segue reference="Jnc-bx-uPX"/>

@@ -12,6 +12,8 @@ class LegalPageVC: UIViewController {
 
     let legalTableCaptionsArray = [TERMS_OF_USE_LINK_DISPLAY_TEXT, PRIVACY_POLICY_LINK_DISPLAY_TEXT, DISCLAIMER_LINK_DISPLAY_TEXT]
     let cellReuseIdentifier = "cellidentifier"
+    var timer = Timer()
+    
     @IBOutlet weak var legalTableView: UITableView!
     
     override func viewDidLoad() {
@@ -19,13 +21,12 @@ class LegalPageVC: UIViewController {
 
         print("Legal Page viewDidLoad")
         self.title = PAGE_TITLE.LEGAL
+        
+       
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-
 }
 
 extension LegalPageVC : UITableViewDataSource{

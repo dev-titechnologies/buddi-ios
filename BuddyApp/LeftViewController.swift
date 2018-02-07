@@ -109,6 +109,16 @@ class LeftViewController: UIViewController {
                 print("Session completed")
                 userDefaults.removeObject(forKey: "TimerData")
                 TrainerProfileDetail.deleteBookingDetails()
+                
+                appDelegate.timerrunningtime = false
+                
+                if appDelegate.USER_TYPE == "trainer"{
+                    
+                    self.performSegue(withIdentifier: "trainerProfileSegue", sender: self)
+                }else{
+                    self.performSegue(withIdentifier: "leftMenuToTraineeHomeSegue", sender: self)
+                }
+                
             }
         }
     }
