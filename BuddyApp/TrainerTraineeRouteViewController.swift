@@ -781,6 +781,32 @@ class TrainerTraineeRouteViewController: UIViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
+                    //Need to check
+                    if jsondata["status_type"] as? String == "BookingAlreadyCancelled" {
+                        
+                        self.stopTimer()
+                        self.timer_lbl.text = "00" + ":" + "00"
+                        userDefaults.removeObject(forKey: "TimerData")
+                        appDelegate.timerrunningtime = false
+                        userDefaults.set(false, forKey: "sessionBookedNotStarted")
+                        userDefaults.set(false, forKey: "isCurrentlyInTrainingSession")
+                        self.TIMERCHECK = false
+                        userDefaults.removeObject(forKey: "TrainerProfileDictionary")
+                        
+                        print("**** Disconnecting Socket Connection ****")
+                        SocketIOManager.sharedInstance.closeConnection()
+                        
+                        userDefaults.set(true, forKey: "isTimerStopped")
+                        TrainerProfileDetail.deleteBookingDetails()
+                        if appDelegate.USER_TYPE == "trainer" {
+                            self.performSegue(withIdentifier: "trainingCancelledToTrainerHomeSegue", sender: self)
+                        }else if appDelegate.USER_TYPE == "trainee" {
+                            self.performSegue(withIdentifier: "trainingCancelledToTraineeHomeSegue", sender: self)
+                        }
+                        return
+                    }
+                    
+                    //If success case
                     if let dict = jsondata["data"]  as? NSDictionary {
                         
                         if dict["status"] as! String == "cancelled" ||
@@ -823,6 +849,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"]  as? String, buttonTitle: "Ok")
                     
                 }else if status == RESPONSE_STATUS.FAIL{
+                    
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()

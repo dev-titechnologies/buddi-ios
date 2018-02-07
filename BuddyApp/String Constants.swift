@@ -52,6 +52,11 @@ let PLEASE_ACCEPT_WAIVER_RELEASE_FORM_LABEL = "I HAVE READ THIS RELEASE OF LIABI
 let REGARDING_PREVIOUS_PAYMENT_ABOUT_SESSION = "Hey! We know you want to change your session duration, but before you do, please complete the original session you booked. Don’t worry, we’re working on this issue as you’re reading this now, and you’ll soon be able to change session durations at will!"
 let NETWORK_CONNECTION_HAS_BEEN_LOST = "Network connection has been lost"
 
+let SETTING_UP_INITIAL = "Setting up..."
+let SUCCESSFULLY_REGISTERED_AS_TRAINER = "Successfully registered as a Trainer"
+let SUCCESSFULLY_REGISTERED_AS_TRAINEE = "Successfully registered as a Trainee"
+
+
 let YOU_ARE_SUSPENDED_FROM_APP = "You are suspended from using the app temporarily"
 let CARD_REMOVED_SUCCESSFULLY = "Card removed successfully"
 let CARD_SET_TO_DEFAULT = "Card has been set to default"
@@ -60,6 +65,7 @@ let INSUFFICIENT_BALANCE_TO_WITHDRAW = "No wallet balance to withdraw!"
 let MONEY_HAS_BEEN_ADDED_SUCCESSFULLY = "Amount has been successfully added to wallet"
 let NO_TRANSACTION_HISTORIES_FOUND = "No transactions yet"
 let WITHDRAWAL_HAS_BEEN_SUCCESS = "Successfully Withdrawn money to your bank account"
+let PLEASE_ENTER_MONEY_IN_1000_RANGE = "Please enter the money within 0 - 1000 range"
 
 let TERMS_OF_USE_LINK_DISPLAY_TEXT = "Terms of Use"
 let PRIVACY_POLICY_LINK_DISPLAY_TEXT = "Privacy Policy"

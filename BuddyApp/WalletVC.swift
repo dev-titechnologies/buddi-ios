@@ -11,7 +11,6 @@ import UIKit
 class WalletVC: UIViewController {
 
     @IBOutlet weak var lblWalletAmount: UILabel!
-    @IBOutlet weak var txtAddMoney: UITextField!
     @IBOutlet weak var btnProceed: UIButton!
     @IBOutlet weak var btnAllTransactions: UIButton!
     
@@ -20,12 +19,20 @@ class WalletVC: UIViewController {
     @IBOutlet weak var topupView: UIView!
     @IBOutlet weak var withdrawView: UIView!
     
+    @IBOutlet weak var amountSlider: CustomUISlider!
+    @IBOutlet weak var txtAmountPopUp: UITextField!
+    @IBOutlet weak var amountView: UIView!
+    @IBOutlet weak var amountViewLeadingConstraint: NSLayoutConstraint!
+    
+    //MARK: - VIEW CYCLES 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = PAGE_TITLE.WALLET
         self.btnWithdraw.delegate = self
 
+        txtAmountPopUp.text = "0"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,7 +51,7 @@ class WalletVC: UIViewController {
     
     @IBAction func actionProceed(_ sender: Any) {
         
-        if txtAddMoney.text == "" {
+        if txtAmountPopUp.text == "" {
             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ENTER_MONEY_TO_ADD, buttonTitle: "OK")
         }else{
             addMoneyToWallet()
@@ -86,7 +93,7 @@ class WalletVC: UIViewController {
     
     func addMoneyToWallet() {
         
-        let parameters =  ["amount": txtAddMoney.text!,
+        let parameters =  ["amount": txtAmountPopUp.text!,
             ] as [String : Any]
         
         CommonMethods.showProgress()
@@ -107,7 +114,6 @@ class WalletVC: UIViewController {
                         self.lblWalletAmount.text = CommonMethods.showWalletAmountInFloat(amount: dataDict["walletBalance"]! as! String)
 //                        self.lblWalletAmount.text = "$ \(String(describing: dataDict["walletBalance"]!))"
                         userDefaults.set(dataDict["walletBalance"]!, forKey: "walletBalance")
-                        self.txtAddMoney.text = ""
                     }
 
                 }else if status == RESPONSE_STATUS.FAIL{
@@ -116,6 +122,56 @@ class WalletVC: UIViewController {
                     self.dismissOnSessionExpire()
                 }
             }
+        }
+    }
+    
+    func moveToAddPaymentMethodScreen() {
+        //Method 1
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let paymentMethodPage : AddPaymentMethodVC = mainStoryboard.instantiateViewController(withIdentifier: "AddPaymentVCID") as! AddPaymentMethodVC
+        paymentMethodPage.isFromWalletPage = true
+        self.navigationController?.pushViewController(paymentMethodPage, animated: true)
+        //        self.present(paymentMethodPage, animated: true, completion: nil)
+    }
+    
+    //MARK: - SLIDER ACTIONS
+    
+    var thumbRect: CGRect {
+        let rect = amountSlider.trackRect(forBounds: self.amountSlider.bounds)
+        return amountSlider.thumbRect(forBounds: self.amountSlider.bounds, trackRect: rect, value: amountSlider.value)
+    }
+    
+    func moveTipViewPosition() {
+        
+        print("Rect:\(thumbRect)")
+        amountViewLeadingConstraint.constant = thumbRect.origin.x
+    }
+    
+    @IBAction func sliderValueChanged(sender: UISlider) {
+        txtAmountPopUp.text = String(describing:Int(sender.value))
+        moveTipViewPosition()
+    }
+}
+
+//MARK: - TEXTFIELD DELEGATE 
+
+extension WalletVC: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+       
+        print("** textFieldDidBeginEditing **")
+        txtAmountPopUp.text = ""
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        print("** textFieldDidEndEditing **")
+        if Int(textField.text!)! <= 1000 {
+            amountSlider.setValue(Float(textField.text!)!, animated: true)
+            moveTipViewPosition()
+        }else{
+            amountSlider.setValue(1000.0, animated: true)
+            moveTipViewPosition()
         }
     }
 }
@@ -167,11 +223,45 @@ extension WalletVC: SlideButtonDelegate{
                         }
                     }
                 }else if status == RESPONSE_STATUS.FAIL{
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    
+                    if let statusType = jsondata["status_type"]  as? String{
+                        if statusType == "NoActiveCard" {
+                            
+                            let alert = UIAlertController(title: ALERT_TITLE, message: PLEASE_ADD_PAYMENT_METHOD, preferredStyle: UIAlertControllerStyle.alert)
+                            
+                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                                self.moveToAddPaymentMethodScreen()
+                            }))
+                            alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+                                self.btnWithdraw.reset()
+                            }))
+                            
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }else{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    }
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }
             }
         }
+    }
+}
+
+class CustomUISlider : UISlider {
+    
+    override func trackRect(forBounds bounds: CGRect) -> CGRect {
+        
+        //keeps original origin and width, changes height, you get the idea
+        let customBounds = CGRect(origin: bounds.origin, size: CGSize(width: bounds.size.width, height: 10.0))
+        super.trackRect(forBounds: customBounds)
+        return customBounds
+    }
+    
+    //while we are here, why not change the image here as well? (bonus material)
+    override func awakeFromNib() {
+        self.setThumbImage(UIImage(named: "customThumb"), for: .normal)
+        super.awakeFromNib()
     }
 }
