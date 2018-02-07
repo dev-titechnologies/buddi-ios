@@ -368,7 +368,7 @@ class TrainerTraineeRouteViewController: UIViewController {
 
         if TIMERCHECK {
             print("***** Timer Check in Route Page initializeSessionCheck ******")
-            locationManager.stopUpdatingLocation()
+           // locationManager.stopUpdatingLocation()
             
             FetchFromDb()
             

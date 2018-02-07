@@ -139,9 +139,6 @@ class TrainerProfilePage: UIViewController {
         }else{
         }
         
-        
-        
-        
         getCurrentLocationDetails()
     }
     

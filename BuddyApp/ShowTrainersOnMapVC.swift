@@ -1018,7 +1018,7 @@ class ShowTrainersOnMapVC: UIViewController {
                                 
                                 if let walletDict = jsondata["data"] as? NSDictionary {
                                     
-                                    if let amountRequested = walletDict["amountDeducted"] as? Int{
+                                    if let amountRequested = walletDict["processAmount"] as? Int{
                                         self.transactionAmount = String(amountRequested)
                                     }
                                     

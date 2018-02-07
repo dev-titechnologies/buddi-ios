@@ -631,7 +631,7 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
                 
                 timerPage.FromPushChatBool = self.PushChatBool
 
-                
+                self.PushChatBool = false
 //                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Timer Data check in ViewController is : False", buttonTitle: "OK")
 
                 if notificationType == "2" {

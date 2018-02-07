@@ -202,7 +202,7 @@
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/titechnologies/Desktop/BuddiVersion2.1/buddi-ios/BuddyApp/ShowTrainersOnMapVC.swift"
-                  timestampString = "539675756.533095"
+                  timestampString = "539700104.777503"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1019"
@@ -217,7 +217,7 @@
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/titechnologies/Desktop/BuddiVersion2.1/buddi-ios/BuddyApp/ShowTrainersOnMapVC.swift"
-                  timestampString = "539675756.537609"
+                  timestampString = "539700104.780161"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1019"
@@ -394,7 +394,7 @@
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/titechnologies/Desktop/BuddiVersion2.1/buddi-ios/BuddyApp/LoginViewController.swift"
-                  timestampString = "539675756.616691"
+                  timestampString = "539700104.852002"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "247"
@@ -409,7 +409,7 @@
                   moduleName = "BuddyApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/titechnologies/Desktop/BuddiVersion2.1/buddi-ios/BuddyApp/LoginViewController.swift"
-                  timestampString = "539675756.620447"
+                  timestampString = "539700104.8546669"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "247"
@@ -928,6 +928,22 @@
             startingLineNumber = "1005"
             endingLineNumber = "1005"
             landmarkName = "updateTimer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
+            timestampString = "539700077.071384"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "876"
+            endingLineNumber = "876"
+            landmarkName = "postNonceToServer(paymentMethodNonce:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
