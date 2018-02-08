@@ -152,10 +152,24 @@ class TrainerTraineeRouteViewController: UIViewController {
        
         
         if appDelegate.USER_TYPE == "trainer"{
-            
-            socketListener()
-           // getSocketConnected()
-            
+            let viewcontrollers = navigationController?.viewControllers
+            var socketbool = Bool()
+            for viewcontroller in viewcontrollers! {
+                if viewcontroller is TrainerProfilePage{
+                    print("GOT IT")
+                    socketbool = true
+                }else{
+                    socketbool = false
+                }
+            }
+            if socketbool{
+                socketListener()
+            }else{
+                SocketIOManager.sharedInstance.OnSocket()
+                socketListener()
+                SocketIOManager.sharedInstance.establishConnection()
+                getSocketConnected()
+            }
         }else{
             
             SocketIOManager.sharedInstance.OnSocket()

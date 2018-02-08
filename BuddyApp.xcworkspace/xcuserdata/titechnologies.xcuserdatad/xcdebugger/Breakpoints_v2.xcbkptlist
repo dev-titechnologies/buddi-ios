@@ -159,8 +159,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1068"
             endingLineNumber = "1068"
-            landmarkName = "paymentCheckoutWithWallet()"
-            landmarkType = "7">
+            landmarkName = "ShowTrainersOnMapVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -442,11 +442,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "475"
-            endingLineNumber = "475"
+            startingLineNumber = "489"
+            endingLineNumber = "489"
             landmarkName = "initializeSession()"
             landmarkType = "7">
          </BreakpointContent>
@@ -490,11 +490,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
             landmarkName = "initializeSessionCheck()"
             landmarkType = "7">
          </BreakpointContent>
@@ -506,11 +506,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
             landmarkName = "initializeSessionCheck()"
             landmarkType = "7">
          </BreakpointContent>
@@ -522,11 +522,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "431"
-            endingLineNumber = "431"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
             landmarkName = "initializeSession()"
             landmarkType = "7">
          </BreakpointContent>
@@ -538,11 +538,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "390"
-            endingLineNumber = "390"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
             landmarkName = "initializeSessionCheck()"
             landmarkType = "7">
          </BreakpointContent>
@@ -554,11 +554,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "467"
-            endingLineNumber = "467"
+            startingLineNumber = "481"
+            endingLineNumber = "481"
             landmarkName = "initializeSession()"
             landmarkType = "7">
          </BreakpointContent>
@@ -570,11 +570,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
             landmarkName = "initializeSessionCheck()"
             landmarkType = "7">
          </BreakpointContent>
@@ -650,11 +650,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "569"
-            endingLineNumber = "569"
+            startingLineNumber = "583"
+            endingLineNumber = "583"
             landmarkName = "SessionTimerNotification(notif:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -666,11 +666,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "625"
-            endingLineNumber = "625"
+            startingLineNumber = "639"
+            endingLineNumber = "639"
             landmarkName = "sessionStoppedNotificationReceived()"
             landmarkType = "7">
          </BreakpointContent>
@@ -682,11 +682,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "840"
-            endingLineNumber = "840"
+            startingLineNumber = "854"
+            endingLineNumber = "854"
             landmarkName = "BookingAction(Action_status:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -698,11 +698,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1369"
-            endingLineNumber = "1369"
+            startingLineNumber = "1383"
+            endingLineNumber = "1383"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -794,11 +794,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "369"
-            endingLineNumber = "369"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
             landmarkName = "initializeSessionCheck()"
             landmarkType = "7">
          </BreakpointContent>
@@ -810,11 +810,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -826,11 +826,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "622"
-            endingLineNumber = "622"
+            startingLineNumber = "636"
+            endingLineNumber = "636"
             landmarkName = "sessionStoppedNotificationReceived()"
             landmarkType = "7">
          </BreakpointContent>
@@ -890,11 +890,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -906,11 +906,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/TrainerTraineeRouteViewController.swift"
-            timestampString = "539687298.924139"
+            timestampString = "539763250.715163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1005"
-            endingLineNumber = "1005"
+            startingLineNumber = "1019"
+            endingLineNumber = "1019"
             landmarkName = "stopTimer()"
             landmarkType = "7">
          </BreakpointContent>
