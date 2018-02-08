@@ -954,7 +954,7 @@ class TrainerTraineeRouteViewController: UIViewController {
                         self.TIMERCHECK = true
                         
                         
-                         TimerModel.sharedTimer.seconds = 120
+                         TimerModel.sharedTimer.seconds = self.seconds
                          TimerModel.sharedTimer.startTimer(withInterval: 1.0)
                         
                         
