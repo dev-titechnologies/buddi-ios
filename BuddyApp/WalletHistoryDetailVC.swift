@@ -188,9 +188,8 @@ class WalletHistoryDetailVC: UIViewController {
             //INCOME
             
             imgFromIcon.image = #imageLiteral(resourceName: "buddi_icon")
-            
-//            imgToIcon.sd_setImage(with: URL(string: self.userImageURL), placeholderImage: UIImage(named: "profileDemoImage"))
             imgToIcon.image = self.userImage
+            
             imgToIcon.layer.masksToBounds = false
             imgToIcon.layer.cornerRadius = imgToIcon.frame.size.height/2
             imgToIcon.clipsToBounds = true

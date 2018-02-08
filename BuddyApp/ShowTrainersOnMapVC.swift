@@ -1106,11 +1106,17 @@ class ShowTrainersOnMapVC: UIViewController {
 
                 }else if status == RESPONSE_STATUS.FAIL{
                     
-                    //WRITE CHECKOUT ERROR CASE WHEN NO STRIPE CARD HAS STORED YET. MOVE TO ADD PAYMENT METHOD SCREEN IN SUCH OCCASSION
-                    //Enable below function call
-                    //self.moveToAddPaymentMethodScreen()
-                    
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    if jsondata["status_type"] as? String == "StripeCardError"{
+                        
+                        let alert = UIAlertController(title: ALERT_TITLE, message: jsondata["message"] as? String, preferredStyle: UIAlertControllerStyle.alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                            self.moveToAddPaymentMethodScreen()
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                    }else{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    }
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }

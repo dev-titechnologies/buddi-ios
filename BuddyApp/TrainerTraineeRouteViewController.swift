@@ -151,24 +151,18 @@ class TrainerTraineeRouteViewController: UIViewController {
         }
        
         
-        if appDelegate.USER_TYPE == "trainer"{
+        if appDelegate.USER_TYPE == USER_TYPE.TRAINER {
             
             socketListener()
            // getSocketConnected()
-            
-        }else{
+        }else if appDelegate.USER_TYPE == USER_TYPE.TRAINEE {
             
             SocketIOManager.sharedInstance.OnSocket()
             socketListener()
             SocketIOManager.sharedInstance.establishConnection()
             getSocketConnected()
-
         }
         
-
-        
-        
-
         initializeSessionCheck()
         self.RunningTimeData()
         
@@ -176,12 +170,9 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         if FromPushChatBool{
             FromPushChatBool = false
-            
             performSegue(withIdentifier: "fromSessionPageToMessagingSegue", sender: self)
-            
-        }else{
-            
         }
+        
         self.navigationController?.isNavigationBarHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object:nil)
 
