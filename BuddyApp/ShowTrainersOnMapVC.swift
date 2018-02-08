@@ -1035,8 +1035,15 @@ class ShowTrainersOnMapVC: UIViewController {
                             
                             if let walletDict = jsondata["data"] as? NSDictionary {
                                 
-                                if let amountRequested = walletDict["amountDeducted"] as? Int{
-                                    self.transactionAmount = String(amountRequested)
+                                if let walletDict = jsondata["data"] as? NSDictionary {
+                                    
+                                    if let amountRequested = walletDict["processAmount"] as? Int{
+                                        self.transactionAmount = String(amountRequested)
+                                    }
+                                    
+                                    if let walletBalance = walletDict["walletBalance"] as? Int{
+                                        userDefaults.set(walletBalance, forKey: "walletBalance")
+                                    }
                                 }
                                 
                                 if let walletBalance = walletDict["walletBalance"] as? Int{
