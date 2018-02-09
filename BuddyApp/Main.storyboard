@@ -7041,7 +7041,9 @@ Good luck!
                         <outlet property="imgPromoCodeSuccessTick" destination="Bn3-vp-QCg" id="yzo-ma-qtq"/>
                         <outlet property="lblPromoCodeSuccessfull" destination="nEP-Yx-iuH" id="kpO-Nh-HgW"/>
                         <outlet property="lblUsesLeft" destination="WGs-G8-MmT" id="dd9-XI-2VK"/>
+                        <outlet property="promoCodeHeightConstraint" destination="IjR-8e-tBJ" id="qdZ-ml-FWP"/>
                         <outlet property="promoCodeSuccessfullView" destination="wDA-Ca-zCb" id="IXf-Co-PXp"/>
+                        <outlet property="promoCodeView" destination="Ke4-cv-Myw" id="GDV-3M-fiO"/>
                         <outlet property="promocode_txt" destination="sEI-EH-nAx" id="5q6-1i-XDN"/>
                         <segue destination="y0t-gz-zs8" kind="show" identifier="addPaymentMethodToAddStripeCardSegue" id="ccf-Eb-Bfe"/>
                     </connections>
@@ -7273,13 +7275,13 @@ Good luck!
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPI-Cq-Tc0">
                                         <rect key="frame" x="30" y="129" width="297" height="46"/>
-                                        <color key="backgroundColor" red="0.45264789109999998" green="0.91861756699999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.46274509800000002" green="0.83921568629999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="46" id="OZz-h3-UIZ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                        <state key="normal" title="PROCEED">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Proceed">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="actionProceed:" destination="JGf-K9-guy" eventType="touchUpInside" id="Eov-hj-QUL"/>
@@ -10267,18 +10269,18 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="weight_icon" width="17" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fqg-MV-HkZ"/>
-        <segue reference="USH-R0-s5v"/>
-        <segue reference="Qgx-NE-XB7"/>
+        <segue reference="51z-rZ-6rD"/>
         <segue reference="Ea7-Dw-joN"/>
+        <segue reference="USH-R0-s5v"/>
+        <segue reference="fqg-MV-HkZ"/>
         <segue reference="5ep-Qg-p10"/>
         <segue reference="nov-fw-yUQ"/>
         <segue reference="gBp-9R-ntr"/>
         <segue reference="j2f-dg-unJ"/>
+        <segue reference="hJy-Rz-WHD"/>
         <segue reference="lS4-X5-YwA"/>
         <segue reference="Jie-k9-AKK"/>
-        <segue reference="hJy-Rz-WHD"/>
-        <segue reference="Jnc-bx-uPX"/>
         <segue reference="NRb-s0-6B1"/>
+        <segue reference="Jnc-bx-uPX"/>
     </inferredMetricsTieBreakers>
 </document>

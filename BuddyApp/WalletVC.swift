@@ -33,6 +33,9 @@ class WalletVC: UIViewController {
         self.btnWithdraw.delegate = self
 
         txtAmountPopUp.text = "0"
+        if Int(txtAmountPopUp.text!)! == 0 {
+            disableProceedButton(isDisabled: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -148,6 +151,13 @@ class WalletVC: UIViewController {
     }
     
     @IBAction func sliderValueChanged(sender: UISlider) {
+        
+        if Int(sender.value) == 0 {
+            disableProceedButton(isDisabled: true)
+        }else{
+            disableProceedButton(isDisabled: false)
+        }
+        
         txtAmountPopUp.text = String(describing:Int(sender.value))
         moveTipViewPosition()
     }
@@ -166,12 +176,36 @@ extension WalletVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         print("** textFieldDidEndEditing **")
+        
+        if textField.text == "" {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_ENTER_MONEY_TO_ADD, buttonTitle: "OK")
+            return
+        }
+        
+        if Int(textField.text!)! == 0 {
+            disableProceedButton(isDisabled: true)
+        }else{
+            disableProceedButton(isDisabled: false)
+        }
+        
         if Int(textField.text!)! <= 1000 {
             amountSlider.setValue(Float(textField.text!)!, animated: true)
             moveTipViewPosition()
         }else{
             amountSlider.setValue(1000.0, animated: true)
+            txtAmountPopUp.text = "1000"
             moveTipViewPosition()
+        }
+    }
+    
+    func disableProceedButton(isDisabled: Bool){
+        
+        if isDisabled{
+            btnProceed.isUserInteractionEnabled = false
+            btnProceed.backgroundColor = .lightGray
+        }else{
+            btnProceed.isUserInteractionEnabled = true
+            btnProceed.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }
     }
 }

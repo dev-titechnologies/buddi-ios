@@ -54,6 +54,9 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
     
     var defaultCardId = String()
     
+    @IBOutlet weak var promoCodeHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var promoCodeView: UIView!
+    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -73,7 +76,13 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        print("**** Add payment Method ViewWillAppear")
+        print("**** Add payment Method ViewWillAppear ****")
+        
+        if appDelegate.USER_TYPE == USER_TYPE.TRAINER {
+            promoCodeView.isHidden = true
+            promoCodeHeightConstraint.constant = 0
+        }
+        
         isControlInSamePage = true
         btnAddPayment.addShadowView()
 //        selectPaymentModeView.isHidden = true
@@ -306,7 +315,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
                             self.lblPromoCodeSuccessfull.text = "Applied Promo Code : \(String(describing: jsonDataDict["code"] as! String))"
                             self.imgPromoCodeSuccessTick.image = #imageLiteral(resourceName: "checked")
                             
-                            let remainingUseOfPromoCode = Int(jsonDataDict["limitPerUser"] as! String)! - Int(jsonDataDict["limitOfUse"] as! String)! - 1
+                            let remainingUseOfPromoCode = Int(jsonDataDict["limitPerUser"] as! String)! - Int(jsonDataDict["limitOfUse"] as! String)!
                             print("remainingUseOfPromoCode:\(remainingUseOfPromoCode)")
                             
                             if remainingUseOfPromoCode > 0 && remainingUseOfPromoCode < 2 { 

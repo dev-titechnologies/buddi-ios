@@ -103,7 +103,12 @@ class AddStripeCard: UIViewController, STPPaymentCardTextFieldDelegate {
             self.stripeToken = String(describing: token!)
             
 //            userDefaults.set(true, forKey: "isStripeTokenExists")
-            self.addCardtoStripe(stripeToken: self.stripeToken)
+            CommonMethods.hideProgress()
+            if appDelegate.USER_TYPE == USER_TYPE.TRAINER {
+                self.updateStripeAccount()
+            }else if appDelegate.USER_TYPE == USER_TYPE.TRAINEE{
+                self.addCardtoStripe(stripeToken: self.stripeToken)
+            }
         }
     }
     
@@ -150,7 +155,7 @@ class AddStripeCard: UIViewController, STPPaymentCardTextFieldDelegate {
                     self.cardBrand = responseData?["brand"] as! String
                     
                     if appDelegate.USER_TYPE == "trainer" {
-                        self.updateStripeAccount()
+                        self.performSegue(withIdentifier: "unwindSegueToAddPaymentMethodVC", sender: self)
                     }else if appDelegate.USER_TYPE == "trainee" {
                         self.performSegue(withIdentifier: "unwindSegueToAddPaymentMethodVC", sender: self)
                     }
@@ -184,7 +189,7 @@ class AddStripeCard: UIViewController, STPPaymentCardTextFieldDelegate {
                            "line1" : txtAddressLine1.text!,
                            "line2" : txtAddressLine2.text!,
                            "postal" : txtPostalCode.text!,
-                           "state" : txtState.text!,
+                           "state" : txtState.text!
                            ] as [String : Any]
         
         print("PARAMS:\(parameters)")
@@ -203,7 +208,9 @@ class AddStripeCard: UIViewController, STPPaymentCardTextFieldDelegate {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
-                    self.performSegue(withIdentifier: "unwindSegueToAddPaymentMethodVC", sender: self)
+                    if appDelegate.USER_TYPE == USER_TYPE.TRAINER{
+                        self.addCardtoStripe(stripeToken: self.stripeToken)
+                    }
                     
                 }else if status == RESPONSE_STATUS.FAIL{
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
