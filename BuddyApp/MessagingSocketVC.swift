@@ -85,6 +85,7 @@ class MessagingSocketVC: JSQMessagesViewController {
         reachability.whenReachable = { reachability in
             
             CommonMethods.hideProgress()
+            self.getMessagesFromServer()
             
             if self.isNetworkReconnected {
                 SocketIOManager.sharedInstance.socketObjectReinit()
