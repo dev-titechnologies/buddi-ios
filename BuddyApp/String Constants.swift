@@ -51,6 +51,8 @@ let PLEASE_ACCEPT_TERMS_OF_USE_LABEL = "Please accept Terms of Use, Privacy Poli
 let PLEASE_ACCEPT_WAIVER_RELEASE_FORM_LABEL = "I HAVE READ THIS RELEASE OF LIABILITY AND ASSUMPTION OF RISK AGREEMENT"
 let REGARDING_PREVIOUS_PAYMENT_ABOUT_SESSION = "Hey! We know you want to change your session duration, but before you do, please complete the original session you booked. Don’t worry, we’re working on this issue as you’re reading this now, and you’ll soon be able to change session durations at will!"
 let NETWORK_CONNECTION_HAS_BEEN_LOST = "Network connection has been lost"
+let PLEASE_WAIT_WE_ARE_CHECKING_CARD_DETAILS = "Please wait while we check your card details"
+let YOU_ARE_NOT_ADDED_CARD_DETAILS_WITH_BUDDI = "You have not added your card details with buddi. Please add it in Payment method tab"
 
 let SETTING_UP_INITIAL = "Setting up..."
 let SUCCESSFULLY_REGISTERED_AS_TRAINER = "Successfully registered as a Trainer"

@@ -56,6 +56,7 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
     
     @IBOutlet weak var promoCodeHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var promoCodeView: UIView!
+    @IBOutlet weak var lblSelectPaymentMode: UILabel!
     
     //MARK: - VIEW CYCLES
     
@@ -82,6 +83,8 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
             promoCodeView.isHidden = true
             promoCodeHeightConstraint.constant = 0
         }
+        
+        self.lblSelectPaymentMode.isHidden = true
         
         isControlInSamePage = true
         btnAddPayment.addShadowView()
@@ -596,6 +599,9 @@ extension AddPaymentMethodVC {
                         if self.cardsArray.count == 0 {
                             print("Removing the last card or Default Card **")
                             userDefaults.removeObject(forKey: "defaultStripeCardId")
+                            
+                            self.lblSelectPaymentMode.isHidden = true
+                            self.cardsTableView.isHidden = true
                         }
                         
                         let index_path = IndexPath(row: cardIndex, section: 0)
@@ -690,7 +696,7 @@ extension AddPaymentMethodVC {
     
     func findDefaultStripeCardAndListAllCards() {
         
-        CommonMethods.showProgress()
+        CommonMethods.showProgressWithStatus(statusMessage: PLEASE_WAIT_WE_ARE_CHECKING_CARD_DETAILS)
         CommonMethods.serverCall(APIURL: FIND_DEFAULT_CARD, parameters: ["" : ""]) { (jsondata) in
             print("** findDefaultStripeCardAndListAllCards Response: \(jsondata)")
             
@@ -721,8 +727,16 @@ extension AddPaymentMethodVC {
                                 self.cardsArray.removeAll()
                                 self.cardsArray = self.getCardModel(cardsArray: card_details_data_array as! Array<Any>)
                                 print("Cards Array:\(self.cardsArray)")
+                                self.lblSelectPaymentMode.isHidden = false
+                                self.cardsTableView.isHidden = false
                                 self.cardsTableView.reloadData()
+                            }else{
+                                self.lblSelectPaymentMode.isHidden = true
+                                self.cardsTableView.isHidden = true
                             }
+                        }else{
+                            self.lblSelectPaymentMode.isHidden = true
+                            self.cardsTableView.isHidden = true
                         }
                         
                         if self.cardsArray.count > 0 && self.isFromBookingPage || self.cardsArray.count > 0 && self.isFromWalletPage {
@@ -732,11 +746,18 @@ extension AddPaymentMethodVC {
                     }
                     
                     //for TRAINER
-                    if let card_details_data_array = jsondata["data"] as? NSArray{
-                        self.cardsArray.removeAll()
-                        self.cardsArray = self.getCardModel(cardsArray: card_details_data_array as! Array<Any>)
-                        print("Cards Array:\(self.cardsArray)")
-                        self.cardsTableView.reloadData()
+                    if appDelegate.USER_TYPE == USER_TYPE.TRAINER {
+                        if let card_details_data_array = jsondata["data"] as? NSArray{
+                            self.cardsArray.removeAll()
+                            self.cardsArray = self.getCardModel(cardsArray: card_details_data_array as! Array<Any>)
+                            print("Cards Array:\(self.cardsArray)")
+                            self.lblSelectPaymentMode.isHidden = false
+                            self.cardsTableView.isHidden = false
+                            self.cardsTableView.reloadData()
+                        }else{
+                            self.lblSelectPaymentMode.isHidden = true
+                            self.cardsTableView.isHidden = true
+                        }
                     }
                     
                 }else if status == RESPONSE_STATUS.FAIL{
