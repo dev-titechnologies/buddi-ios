@@ -73,6 +73,8 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
+=======
             filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
             timestampString = "538554107.268414"
             startingColumnNumber = "9223372036854775807"
@@ -249,6 +251,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+>>>>>>> 16d44d1459e65098b538ad8d907724a3d371f74a
             filePath = "BuddyApp/WalletHistoryDetailVC.swift"
             timestampString = "539159417.616243"
             startingColumnNumber = "9223372036854775807"
@@ -259,6 +262,8 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+<<<<<<< HEAD
+=======
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
@@ -931,5 +936,6 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+>>>>>>> 16d44d1459e65098b538ad8d907724a3d371f74a
    </Breakpoints>
 </Bucket>

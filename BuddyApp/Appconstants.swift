@@ -40,8 +40,8 @@ var choosedTrainingLocationPreference = Singleton.sharedInstance.choosedTraining
 var addLocationTimerSingleton = Singleton.sharedInstance.addLocationTimer
 
 //let SERVER_URL = "http://192.168.1.60:9002/"
-let SERVER_URL = "http://git.titechnologies.in:4001/"
-//let SERVER_URL = "http://buddiapi.buddiadmin.com/"
+//let SERVER_URL = "http://git.titechnologies.in:4001/"
+let SERVER_URL = "http://buddiapi.buddiadmin.com/"
 //let SERVER_URL = "http://104.236.235.46:9002/"
 
 let COUNTRY_DEFAULT_REGION_CODE = "US"

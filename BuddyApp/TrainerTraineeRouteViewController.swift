@@ -952,12 +952,8 @@ class TrainerTraineeRouteViewController: UIViewController {
 
                     if self.isTimerRunning == false {
                         self.TIMERCHECK = true
-                        
-                        
-                         TimerModel.sharedTimer.seconds = self.seconds
-                         TimerModel.sharedTimer.startTimer(withInterval: 1.0)
-                        
-                        
+                        TimerModel.sharedTimer.seconds = self.seconds
+                        TimerModel.sharedTimer.startTimer(withInterval: 1.0)
                         self.runTimer()
                     }
                     
