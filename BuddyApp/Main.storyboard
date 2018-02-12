@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7KT-yJ-UqG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -5321,7 +5321,7 @@ Good luck!
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$4444" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEz-Ki-lJB">
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEz-Ki-lJB">
                                                     <rect key="frame" x="168" y="14" width="75" height="20"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -7203,69 +7203,6 @@ Good luck!
                                     <constraint firstItem="wE5-Z7-yEv" firstAttribute="leading" secondItem="iJB-JB-iVZ" secondAttribute="leading" constant="8" id="v2Y-42-hV9"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pix-qJ-81N" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
-                                <rect key="frame" x="9" y="272" width="357" height="186"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to withdraw your wallet balance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NIl-1r-Mlv">
-                                        <rect key="frame" x="10" y="8" width="337" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="dWF-OC-IAG"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank-building" translatesAutoresizingMaskIntoConstraints="NO" id="oBG-5C-V1C">
-                                        <rect key="frame" x="307" y="77.5" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="CgP-il-xVS"/>
-                                            <constraint firstAttribute="height" constant="30" id="qyJ-kr-Lde"/>
-                                        </constraints>
-                                    </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNn-Zf-fIc" customClass="MMSlidingButton" customModule="BuddyApp" customModuleProvider="target">
-                                        <rect key="frame" x="63" y="64.5" width="231" height="57"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="57" id="5sK-zq-btu"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="imageName" value="right_arrow_small"/>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="buttonTextColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="dragPointTextColor">
-                                                <color key="value" red="0.46274509800000002" green="0.83921568629999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="buttonUnlockedTextColor">
-                                                <color key="value" red="0.46274509800000002" green="0.83921568629999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="buttonColor">
-                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_big" translatesAutoresizingMaskIntoConstraints="NO" id="iU2-DR-ESS">
-                                        <rect key="frame" x="20" y="77.5" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="Oeb-aT-WlS"/>
-                                            <constraint firstAttribute="height" constant="30" id="br8-F7-nQY"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="oBG-5C-V1C" firstAttribute="leading" secondItem="RNn-Zf-fIc" secondAttribute="trailing" constant="13" id="126-eq-2SQ"/>
-                                    <constraint firstItem="RNn-Zf-fIc" firstAttribute="leading" secondItem="iU2-DR-ESS" secondAttribute="trailing" constant="13" id="2LZ-r9-Gx4"/>
-                                    <constraint firstItem="oBG-5C-V1C" firstAttribute="centerY" secondItem="RNn-Zf-fIc" secondAttribute="centerY" id="7ts-V8-gI0"/>
-                                    <constraint firstAttribute="trailing" secondItem="oBG-5C-V1C" secondAttribute="trailing" constant="20" id="ANB-Um-sXX"/>
-                                    <constraint firstAttribute="trailing" secondItem="NIl-1r-Mlv" secondAttribute="trailing" constant="10" id="W4I-RS-kVa"/>
-                                    <constraint firstItem="iU2-DR-ESS" firstAttribute="leading" secondItem="pix-qJ-81N" secondAttribute="leading" constant="20" id="Zyx-Ku-uEs"/>
-                                    <constraint firstItem="iU2-DR-ESS" firstAttribute="centerY" secondItem="RNn-Zf-fIc" secondAttribute="centerY" id="bOb-Eo-s5C"/>
-                                    <constraint firstItem="RNn-Zf-fIc" firstAttribute="centerY" secondItem="pix-qJ-81N" secondAttribute="centerY" id="bgc-ak-Unh"/>
-                                    <constraint firstAttribute="height" constant="186" id="eFW-qT-fq5"/>
-                                    <constraint firstItem="NIl-1r-Mlv" firstAttribute="top" secondItem="pix-qJ-81N" secondAttribute="top" constant="8" id="hko-5Q-dkg"/>
-                                    <constraint firstItem="NIl-1r-Mlv" firstAttribute="leading" secondItem="pix-qJ-81N" secondAttribute="leading" constant="10" id="rRe-lb-uJc"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MIe-E7-q3l" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
                                 <rect key="frame" x="9" y="272" width="357" height="191"/>
                                 <subviews>
@@ -7396,6 +7333,69 @@ Good luck!
                                     <constraint firstItem="zPI-Cq-Tc0" firstAttribute="top" secondItem="NcK-Lf-6Fs" secondAttribute="bottom" constant="1" id="r1a-Aw-FsQ"/>
                                     <constraint firstItem="6R5-7L-JXC" firstAttribute="leading" secondItem="MIe-E7-q3l" secondAttribute="leading" constant="8" id="tFI-PN-L0R"/>
                                     <constraint firstItem="aII-Ed-F04" firstAttribute="top" secondItem="MIe-E7-q3l" secondAttribute="top" constant="8" id="ure-i3-M3r"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pix-qJ-81N" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
+                                <rect key="frame" x="9" y="272" width="357" height="186"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to withdraw your wallet balance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NIl-1r-Mlv">
+                                        <rect key="frame" x="10" y="8" width="337" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="dWF-OC-IAG"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank-building" translatesAutoresizingMaskIntoConstraints="NO" id="oBG-5C-V1C">
+                                        <rect key="frame" x="307" y="77.5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="CgP-il-xVS"/>
+                                            <constraint firstAttribute="height" constant="30" id="qyJ-kr-Lde"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNn-Zf-fIc" customClass="MMSlidingButton" customModule="BuddyApp" customModuleProvider="target">
+                                        <rect key="frame" x="63" y="64.5" width="231" height="57"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="231" id="3Py-BN-fjr"/>
+                                            <constraint firstAttribute="height" constant="57" id="5sK-zq-btu"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="imageName" value="right_arrow_small"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="buttonTextColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="dragPointTextColor">
+                                                <color key="value" red="0.46274509800000002" green="0.83921568629999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="buttonUnlockedTextColor">
+                                                <color key="value" red="0.46274509800000002" green="0.83921568629999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="buttonColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_big" translatesAutoresizingMaskIntoConstraints="NO" id="iU2-DR-ESS">
+                                        <rect key="frame" x="20" y="77.5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="Oeb-aT-WlS"/>
+                                            <constraint firstAttribute="height" constant="30" id="br8-F7-nQY"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="oBG-5C-V1C" firstAttribute="leading" secondItem="RNn-Zf-fIc" secondAttribute="trailing" constant="13" id="126-eq-2SQ"/>
+                                    <constraint firstItem="RNn-Zf-fIc" firstAttribute="leading" secondItem="iU2-DR-ESS" secondAttribute="trailing" constant="13" id="2LZ-r9-Gx4"/>
+                                    <constraint firstItem="oBG-5C-V1C" firstAttribute="centerY" secondItem="RNn-Zf-fIc" secondAttribute="centerY" id="7ts-V8-gI0"/>
+                                    <constraint firstAttribute="trailing" secondItem="NIl-1r-Mlv" secondAttribute="trailing" constant="10" id="W4I-RS-kVa"/>
+                                    <constraint firstItem="iU2-DR-ESS" firstAttribute="centerY" secondItem="RNn-Zf-fIc" secondAttribute="centerY" id="bOb-Eo-s5C"/>
+                                    <constraint firstItem="RNn-Zf-fIc" firstAttribute="centerY" secondItem="pix-qJ-81N" secondAttribute="centerY" id="bgc-ak-Unh"/>
+                                    <constraint firstItem="RNn-Zf-fIc" firstAttribute="centerX" secondItem="pix-qJ-81N" secondAttribute="centerX" id="daB-Ah-fjn"/>
+                                    <constraint firstAttribute="height" constant="186" id="eFW-qT-fq5"/>
+                                    <constraint firstItem="NIl-1r-Mlv" firstAttribute="top" secondItem="pix-qJ-81N" secondAttribute="top" constant="8" id="hko-5Q-dkg"/>
+                                    <constraint firstItem="NIl-1r-Mlv" firstAttribute="leading" secondItem="pix-qJ-81N" secondAttribute="leading" constant="10" id="rRe-lb-uJc"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -10282,18 +10282,18 @@ Si1KMEpCSkVKSgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAEpMA
         <image name="weight_icon" width="17" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="51z-rZ-6rD"/>
+        <segue reference="L6f-51-y41"/>
+        <segue reference="Qgx-NE-XB7"/>
+        <segue reference="AU2-8a-F5M"/>
+        <segue reference="Fjh-O3-jAU"/>
         <segue reference="Ea7-Dw-joN"/>
         <segue reference="USH-R0-s5v"/>
         <segue reference="fqg-MV-HkZ"/>
-        <segue reference="5ep-Qg-p10"/>
         <segue reference="nov-fw-yUQ"/>
-        <segue reference="gBp-9R-ntr"/>
         <segue reference="j2f-dg-unJ"/>
         <segue reference="hJy-Rz-WHD"/>
         <segue reference="lS4-X5-YwA"/>
         <segue reference="Jie-k9-AKK"/>
-        <segue reference="NRb-s0-6B1"/>
         <segue reference="Jnc-bx-uPX"/>
     </inferredMetricsTieBreakers>
 </document>

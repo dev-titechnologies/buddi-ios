@@ -27,6 +27,8 @@ let PAYMENT_METHOD_FETCH_ERROR = "Could not fetch payment methods"
 let PLEASE_ADD_PAYMENT_METHOD = "Please add payment method"
 let PAYMENT_COULD_NOT_PROCESSED = "Payment could not be processed, please try again."
 let PAYMENT_SUCCESSFULL = "Payment successful"
+let REFUND_SUCCESSFULL = "Refund successful"
+
 let PROFILE_UPDATED_SUCCESSFULLY = "Profile updated successfully"
 let ARE_YOU_SURE_WANT_TO_CANCEL_SESSION = "Are you sure you want to cancel this session?"
 let ARE_YOU_SURE_WANT_TO_STOP_SESSION = "Are you sure you want to stop this session?"
@@ -78,6 +80,7 @@ let INSTANT_BOOKING_PREFERENCES_SAVED_SUCCESSFULLY = "Instant booking preference
 let PLEASE_CHOOSE_ATLEAST_A_SUBCATEGORY = "Please choose at least a subcategory"
 let PROFILE_PICTURE_UPDATED = "Profile picture has been updated"
 let PROMOCODE_APPLIED = "Promocode applied"
+let ENTER_PROMO_CODE = "Enter a promo code"
 
 let PLEASE_ENTER_MONEY_TO_ADD = "Please enter an amount"
 

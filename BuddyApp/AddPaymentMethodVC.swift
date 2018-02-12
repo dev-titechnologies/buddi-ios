@@ -145,9 +145,11 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
     @IBAction func applyPromoCodeAction(_ sender: Any) {
         
         if promocode_txt.text!.isEmpty {
-             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: "Enter a promo code", buttonTitle: "OK")
+             CommonMethods.alertView(view: self, title: ALERT_TITLE, message: ENTER_PROMO_CODE, buttonTitle: "OK")
         }else{
-           applyPromoCode(promoCode: promocode_txt.text!)
+            
+            let promo_code = promocode_txt.text?.replacingOccurrences(of: " ", with: "")
+            applyPromoCode(promoCode: promo_code!)
         }
     }
     
@@ -367,7 +369,6 @@ class AddPaymentMethodVC: UIViewController, STPPaymentContextDelegate {
     //MARK: - GET STRIPE TOKEN
     
     func getStripeToken(){
-        
         
         let creditCard = STPCard() //creating a stripe card object
         creditCard.number = "4111111111111111"
@@ -727,16 +728,18 @@ extension AddPaymentMethodVC {
                                 self.cardsArray.removeAll()
                                 self.cardsArray = self.getCardModel(cardsArray: card_details_data_array as! Array<Any>)
                                 print("Cards Array:\(self.cardsArray)")
-                                self.lblSelectPaymentMode.isHidden = false
-                                self.cardsTableView.isHidden = false
-                                self.cardsTableView.reloadData()
+                                
+                                if self.cardsArray.count > 0 {
+                                    self.showOrHideCardsTable(isHidden: false)
+                                    self.cardsTableView.reloadData()
+                                }else{
+                                    self.showOrHideCardsTable(isHidden: true)
+                                }
                             }else{
-                                self.lblSelectPaymentMode.isHidden = true
-                                self.cardsTableView.isHidden = true
+                                self.showOrHideCardsTable(isHidden: true)
                             }
                         }else{
-                            self.lblSelectPaymentMode.isHidden = true
-                            self.cardsTableView.isHidden = true
+                            self.showOrHideCardsTable(isHidden: true)
                         }
                         
                         if self.cardsArray.count > 0 && self.isFromBookingPage || self.cardsArray.count > 0 && self.isFromWalletPage {
@@ -751,12 +754,10 @@ extension AddPaymentMethodVC {
                             self.cardsArray.removeAll()
                             self.cardsArray = self.getCardModel(cardsArray: card_details_data_array as! Array<Any>)
                             print("Cards Array:\(self.cardsArray)")
-                            self.lblSelectPaymentMode.isHidden = false
-                            self.cardsTableView.isHidden = false
+                            self.showOrHideCardsTable(isHidden: false)
                             self.cardsTableView.reloadData()
                         }else{
-                            self.lblSelectPaymentMode.isHidden = true
-                            self.cardsTableView.isHidden = true
+                            self.showOrHideCardsTable(isHidden: true)
                         }
                     }
                     
@@ -767,6 +768,11 @@ extension AddPaymentMethodVC {
                 }
             }
         }
+    }
+    
+    func showOrHideCardsTable(isHidden: Bool) {
+        self.lblSelectPaymentMode.isHidden = isHidden
+        self.cardsTableView.isHidden = isHidden
     }
     
     func getCardModel(cardsArray: Array<Any>) -> [CardModel]{
