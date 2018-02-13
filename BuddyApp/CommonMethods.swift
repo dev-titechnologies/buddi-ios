@@ -59,7 +59,7 @@ class CommonMethods: NSObject {
             response in
             switch response.result {
             case .success:
-                //                print(response)
+//                                print(response)
                 if let value = response.value {
                     onCompletion(value as! Dictionary<String, Any>)
                 }
@@ -86,7 +86,7 @@ class CommonMethods: NSObject {
             cString.remove(at: cString.startIndex)
         }
         
-        if ((cString.characters.count) != 6) {
+        if ((cString.count) != 6) {
             return UIColor.gray
         }
         
@@ -107,6 +107,7 @@ class CommonMethods: NSObject {
         
         view.present(alert, animated: true, completion: nil)
     }
+    
 //    class func getCurrentDateString() -> Date{
 //        let date = Date()
 //        let calendar = Calendar.current
@@ -197,6 +198,61 @@ class CommonMethods: NSObject {
         return nil
     }
     
+    //MARK: - DURATION CELL FUNCTIONS
+    
+    class func cellDisplayDuration(row: Int) -> String{
+        
+        var durationString = String()
+        
+        let (hours,minutes,seconds) = CommonMethods.secondsToHoursMinutesSeconds(seconds: Int(trainingDurationSecondsArray[row]))
+        
+        if hours != 0 && hours == 1{
+            durationString += "\(hours) Hour"
+        }else if hours != 0 && hours > 1{
+            durationString += "\(hours) Hours"
+        }
+        
+        if minutes != 0 {
+            durationString += "\(minutes) Minutes"
+        }
+        if seconds != 0 {
+            durationString += "\(seconds) Seconds"
+        }
+        
+        return durationString
+    }
+    
+    class func cellDisplayDurationValue(secondsValue: Int) -> String{
+        
+        var durationString = String()
+        
+        let (hours,minutes,seconds) = CommonMethods.secondsToHoursMinutesSeconds(seconds: secondsValue)
+        
+        if hours != 0 && hours == 1{
+            durationString += "\(hours) Hour"
+        }else if hours != 0 && hours > 1{
+            durationString += "\(hours) Hours"
+        }
+        
+        if minutes != 0 {
+            durationString += "\(minutes) Minutes"
+        }
+        if seconds != 0 {
+            durationString += "\(seconds) Seconds"
+        }
+        
+        return durationString
+    }
+    
+    class func getMinutes(row: Int) -> String {
+        
+        let (hours,minutes,seconds) = CommonMethods.secondsToHoursMinutesSeconds(seconds: Int(trainingDurationSecondsArray[row]))
+        print("** getHours:\(hours)")
+        print("** getMinutes:\(minutes)")
+        print("** getSeconds:\(seconds)")
+        return String(minutes)
+    }
+
     //MARK: - FOR TESTING PURPOSE
     
     class func tempSecondsChange(session_time: String) -> Int{
@@ -225,6 +281,12 @@ class CommonMethods: NSObject {
         }
         return secondsUpdatedValue
     }
+    
+    class func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+        print("** secondsToHoursMinutesSeconds:\(seconds)")
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+
 
     class func showWalletAmountInFloat(amount: String) -> String{
         
@@ -678,6 +740,7 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "facebookUserName")
         userDefaults.removeObject(forKey: "TwitterUserId")
         userDefaults.removeObject(forKey: "isPromoCodeApplied")
+        userDefaults.removeObject(forKey: "promocode")
         userDefaults.removeObject(forKey: "defaultStripeCardId")
         userDefaults.removeObject(forKey: "walletBalance")
 
