@@ -14,7 +14,6 @@ import RNNotificationView
 
 class Singleton {
     
-    
     var RNNotification = RNNotificationView()
     var commonMethods = CommonMethods()
     var userDefaults = UserDefaults()

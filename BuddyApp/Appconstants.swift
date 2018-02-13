@@ -94,3 +94,7 @@ struct SOCIAL_MEDIA_TYPES {
     static let INSTAGRAM = "instagram"
 }
 
+struct SESSION_DURATIONS{
+    static let FOURTY_MINUTES = "40"
+    static let SIXTY_MINUTES = "60"
+}

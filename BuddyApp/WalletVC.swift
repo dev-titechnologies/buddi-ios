@@ -120,7 +120,18 @@ class WalletVC: UIViewController {
                     }
 
                 }else if status == RESPONSE_STATUS.FAIL{
-                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    
+                    if jsondata["status_type"] as? String == "StripeCardError"{
+                        
+                        let alert = UIAlertController(title: ALERT_TITLE, message: YOU_ARE_NOT_ADDED_CARD_DETAILS_WITH_BUDDI, preferredStyle: UIAlertControllerStyle.alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                            self.moveToAddPaymentMethodScreen()
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                    }else{
+                        CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                    }
                 }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
                     self.dismissOnSessionExpire()
                 }

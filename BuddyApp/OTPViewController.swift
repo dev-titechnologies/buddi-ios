@@ -122,7 +122,7 @@ class OTPViewController: UIViewController {
 
                     print("User ID", appDelegate.UserId)
                     
-                    userDefaults.set("0", forKey: "walletBalance")
+                    userDefaults.set("0.0", forKey: "walletBalance")
 
                     //Check whether user type is Trainer and Trainee
                     if appDelegate.USER_TYPE == "trainer"{

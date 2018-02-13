@@ -347,7 +347,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             if section == 2{
                 return 1
             }else if section == 3{
-                return trainingDurationArray.count
+                return trainingDurationSecondsArray.count
             }else if section == 4 {
              //   return socialMediaTitles.count
                return 0 
@@ -366,8 +366,9 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             //Preferred Session
             sessionCell = tableView.dequeueReusableCell(withIdentifier: "chooseSessionCellId") as! SessionPreferenceCell
             
-            sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
-            
+//            sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
+            sessionCell.lblSessionDuration.text = CommonMethods.cellDisplayDuration(row: indexPath.row)
+
             // PREFERENCE SHOWN
             if preferenceModelObj.sessionDuration != "" {
                 print("preferenceModelObj.sessionDuration:\(preferenceModelObj.sessionDuration)")
@@ -643,11 +644,16 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         case 3:
             //Session
             print("**** choosed_session_duration:\(choosed_session_duration)")
-            if choosed_session_duration == "40" {
-                cell.lblSelectedValue.text = "40 Minutes"
-            }else if choosed_session_duration == "60" {
-                cell.lblSelectedValue.text = "1 Hour"
+            
+            if choosed_session_duration != "" {
+                let secondsValue = Double(choosed_session_duration)! * 60
+                cell.lblSelectedValue.text = CommonMethods.cellDisplayDurationValue(secondsValue: Int(secondsValue))
             }
+//            if choosed_session_duration == "40" {
+//                cell.lblSelectedValue.text = "40 Minutes"
+//            }else if choosed_session_duration == "60" {
+//                cell.lblSelectedValue.text = "1 Hour"
+//            }
 
         default:
             print("View for sectionheader Default Case catched")
@@ -672,11 +678,15 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             self.settingsTableView.reloadSections(IndexSet(integer: 2), with: .automatic)
         }else if indexPath.section == 3{
             print("*** didSelectRowAt: section 3")
-            if indexPath.row == 0 {
-                choosedSessionOfTraineePreference = "40"
-            }else{
-                choosedSessionOfTraineePreference = "60"
-            }
+            
+            choosedSessionOfTraineePreference = String(trainingDurationSecondsArray[indexPath.row] / 60)
+            print("choosedSessionOfTraineePreference:\(choosedSessionOfTraineePreference)")
+//            if indexPath.row == 0 {
+//                choosedSessionOfTraineePreference = "40"
+//            }else{
+//                choosedSessionOfTraineePreference = "60"
+//            }
+            
             choosed_session_duration = choosedSessionOfTraineePreference
             self.settingsTableView.reloadSections(IndexSet(integer: 3), with: .automatic)
         }

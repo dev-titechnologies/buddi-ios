@@ -6913,6 +6913,15 @@ Good luck!
                                     <action selector="addPaymentAction:" destination="H3l-5a-Phu" eventType="touchUpInside" id="nFo-1A-Rfn"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No cards added yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8Y-eb-7Bm">
+                                <rect key="frame" x="10" y="429" width="355" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="0em-wP-h4D"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qfp-Ak-jrO">
                                 <rect key="frame" x="10" y="298" width="355" height="298"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -7006,6 +7015,7 @@ Good luck!
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Qfp-Ak-jrO" secondAttribute="trailing" constant="10" id="5b4-9J-3qn"/>
+                            <constraint firstItem="d8Y-eb-7Bm" firstAttribute="leading" secondItem="ggE-ka-3GW" secondAttribute="leading" constant="10" id="63T-zZ-zy3"/>
                             <constraint firstItem="Qfp-Ak-jrO" firstAttribute="top" secondItem="drA-gi-6dL" secondAttribute="bottom" constant="8" id="BQ5-9n-uHR"/>
                             <constraint firstItem="iql-kG-d3o" firstAttribute="leading" secondItem="ggE-ka-3GW" secondAttribute="leading" constant="16" id="DdG-Wa-xNK"/>
                             <constraint firstItem="drA-gi-6dL" firstAttribute="leading" secondItem="ggE-ka-3GW" secondAttribute="leading" constant="18" id="LtZ-2R-70R"/>
@@ -7014,6 +7024,8 @@ Good luck!
                             <constraint firstItem="drA-gi-6dL" firstAttribute="top" secondItem="Ke4-cv-Myw" secondAttribute="bottom" constant="20" id="UC3-rB-OJF"/>
                             <constraint firstItem="iql-kG-d3o" firstAttribute="top" secondItem="Qfp-Ak-jrO" secondAttribute="bottom" constant="8" id="Xim-Ie-8n7"/>
                             <constraint firstItem="Wph-Sh-5mj" firstAttribute="top" secondItem="iql-kG-d3o" secondAttribute="bottom" constant="20" id="Z0G-nV-EWw"/>
+                            <constraint firstItem="d8Y-eb-7Bm" firstAttribute="centerY" secondItem="Qfp-Ak-jrO" secondAttribute="centerY" id="ehk-UV-lFx"/>
+                            <constraint firstAttribute="trailing" secondItem="d8Y-eb-7Bm" secondAttribute="trailing" constant="10" id="fZO-p7-Ixe"/>
                             <constraint firstItem="Ke4-cv-Myw" firstAttribute="leading" secondItem="ggE-ka-3GW" secondAttribute="leading" constant="10" id="mez-lQ-OmR"/>
                             <constraint firstAttribute="trailing" secondItem="Ke4-cv-Myw" secondAttribute="trailing" constant="10" id="mqY-Tf-UGr"/>
                             <constraint firstItem="Ke4-cv-Myw" firstAttribute="top" secondItem="KvT-eO-V3g" secondAttribute="bottom" constant="20" id="nGS-0f-LzL"/>
@@ -7039,6 +7051,7 @@ Good luck!
                         <outlet property="cardsTableView" destination="Qfp-Ak-jrO" id="o48-2D-QAb"/>
                         <outlet property="imgPromoCodeSuccessTick" destination="Bn3-vp-QCg" id="yzo-ma-qtq"/>
                         <outlet property="lblPromoCodeSuccessfull" destination="nEP-Yx-iuH" id="kpO-Nh-HgW"/>
+                        <outlet property="lblSelectPaymentMode" destination="drA-gi-6dL" id="oeY-aZ-XEb"/>
                         <outlet property="lblUsesLeft" destination="WGs-G8-MmT" id="dd9-XI-2VK"/>
                         <outlet property="promoCodeHeightConstraint" destination="IjR-8e-tBJ" id="qdZ-ml-FWP"/>
                         <outlet property="promoCodeSuccessfullView" destination="wDA-Ca-zCb" id="IXf-Co-PXp"/>
@@ -7078,7 +7091,7 @@ Good luck!
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="254" verticalHuggingPriority="251" text="$ 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVh-jN-gEN">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="254" verticalHuggingPriority="251" text="$ 0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVh-jN-gEN">
                                                 <rect key="frame" x="8" y="69" width="331" height="52"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="52" id="eem-xf-tiC"/>
@@ -7450,7 +7463,7 @@ Good luck!
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No transaction history found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyd-At-JmA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No transactions yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyd-At-JmA">
                                 <rect key="frame" x="16" y="308" width="343" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="2oE-gu-yPN"/>

@@ -25,22 +25,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BuddyApp/ProfileVC.swift"
-            timestampString = "537790667.756005"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "349"
-            endingLineNumber = "349"
-            landmarkName = "saveAndDisplayProfileImage(image_URL:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "BuddyApp/BookingHistoryVC.swift"
             timestampString = "537874541.4739209"
             startingColumnNumber = "9223372036854775807"
@@ -58,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/CategoryListVC.swift"
-            timestampString = "537880666.31451"
+            timestampString = "539597047.739239"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "getUpdatedListOfApprovedAndPendingCategoryLists()"
             landmarkType = "7">
          </BreakpointContent>
@@ -73,6 +57,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "BuddyApp/ShowTrainersOnMapVC.swift"
             timestampString = "540208080.46714"
             startingColumnNumber = "9223372036854775807"
@@ -249,6 +234,8 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+=======
+>>>>>>> 2321bee3fb7add2cc5518851f3581c95deee0649
             filePath = "BuddyApp/WalletHistoryDetailVC.swift"
             timestampString = "539159417.616243"
             startingColumnNumber = "9223372036854775807"
@@ -265,6 +252,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "BuddyApp/WalletHistoryDetailVC.swift"
             timestampString = "539170333.4028471"
             startingColumnNumber = "9223372036854775807"
@@ -928,6 +916,15 @@
             startingLineNumber = "874"
             endingLineNumber = "874"
             landmarkName = "postNonceToServer(paymentMethodNonce:)"
+=======
+            filePath = "BuddyApp/AddPaymentMethodVC.swift"
+            timestampString = "540116320.758382"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "714"
+            endingLineNumber = "714"
+            landmarkName = "findDefaultStripeCardAndListAllCards()"
+>>>>>>> 2321bee3fb7add2cc5518851f3581c95deee0649
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

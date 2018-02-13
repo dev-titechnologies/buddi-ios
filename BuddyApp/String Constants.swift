@@ -27,6 +27,8 @@ let PAYMENT_METHOD_FETCH_ERROR = "Could not fetch payment methods"
 let PLEASE_ADD_PAYMENT_METHOD = "Please add payment method"
 let PAYMENT_COULD_NOT_PROCESSED = "Payment could not be processed, please try again."
 let PAYMENT_SUCCESSFULL = "Payment successful"
+let REFUND_SUCCESSFULL = "Refund successful"
+
 let PROFILE_UPDATED_SUCCESSFULLY = "Profile updated successfully"
 let ARE_YOU_SURE_WANT_TO_CANCEL_SESSION = "Are you sure you want to cancel this session?"
 let ARE_YOU_SURE_WANT_TO_STOP_SESSION = "Are you sure you want to stop this session?"
@@ -51,6 +53,8 @@ let PLEASE_ACCEPT_TERMS_OF_USE_LABEL = "Please accept Terms of Use, Privacy Poli
 let PLEASE_ACCEPT_WAIVER_RELEASE_FORM_LABEL = "I HAVE READ THIS RELEASE OF LIABILITY AND ASSUMPTION OF RISK AGREEMENT"
 let REGARDING_PREVIOUS_PAYMENT_ABOUT_SESSION = "Hey! We know you want to change your session duration, but before you do, please complete the original session you booked. Don’t worry, we’re working on this issue as you’re reading this now, and you’ll soon be able to change session durations at will!"
 let NETWORK_CONNECTION_HAS_BEEN_LOST = "Network connection has been lost"
+let PLEASE_WAIT_WE_ARE_CHECKING_CARD_DETAILS = "Please wait while we check your card details"
+let YOU_ARE_NOT_ADDED_CARD_DETAILS_WITH_BUDDI = "You have not added your card details with buddi. Please add it in Payment method tab"
 
 let SETTING_UP_INITIAL = "Setting up..."
 let SUCCESSFULLY_REGISTERED_AS_TRAINER = "Successfully registered as a Trainer"
@@ -76,6 +80,7 @@ let INSTANT_BOOKING_PREFERENCES_SAVED_SUCCESSFULLY = "Instant booking preference
 let PLEASE_CHOOSE_ATLEAST_A_SUBCATEGORY = "Please choose at least a subcategory"
 let PROFILE_PICTURE_UPDATED = "Profile picture has been updated"
 let PROMOCODE_APPLIED = "Promocode applied"
+let ENTER_PROMO_CODE = "Enter a promo code"
 
 let PLEASE_ENTER_MONEY_TO_ADD = "Please enter an amount"
 
@@ -202,6 +207,7 @@ let trainingExperienceArray = ["< 1","1 - 2","2 - 3","3 - 4","4 - 5","5 - 6", "6
 let trainingExperienceOrderedSet = NSMutableOrderedSet(array: trainingExperienceArray, copyItems: true)
 
 let trainingDurationArray = ["40 Minutes", "1 Hour"]
+let trainingDurationSecondsArray = [2400.0,3600.0]
 
 let socialMediaTitles = ["Facebook" , "Twitter"]
 

@@ -122,7 +122,7 @@ class WalletHistoryDetailVC: UIViewController {
                 lblAmount.text = CommonMethods.showWalletAmountInFloat(amount: traineeWalletHistoryModelObj.amount)
 
                 lblLabel1.text = "Status"
-                lblLabel11.text = ": \(PAYMENT_SUCCESSFULL)"
+                lblLabel11.text = ": \(REFUND_SUCCESSFULL)"
                 
                 lblLabel2.text = "Session"
                 lblLabel22.text = ": \(traineeWalletHistoryModelObj.sessionName)"

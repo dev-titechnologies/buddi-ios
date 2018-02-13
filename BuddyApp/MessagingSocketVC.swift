@@ -51,7 +51,7 @@ class MessagingSocketVC: JSQMessagesViewController {
         let notificationName = Notification.Name("SessionNotification")
         NotificationCenter.default.addObserver(self, selector: #selector(self.SessionTimerNotification), name: notificationName, object: nil)
         
-        getMessagesFromServer()
+//        getMessagesFromServer()
         
 //        socketListener()
 //        getSocketConnected()
@@ -147,6 +147,7 @@ class MessagingSocketVC: JSQMessagesViewController {
             if let status = jsondata["status"] as? Int{
                 if status == RESPONSE_STATUS.SUCCESS{
                     
+                    self.messages.removeAll()
                     let messagesArray = jsondata["data"] as! NSArray as Array
                     for message in messagesArray{
                         self.messages.append(self.getJSQMessageModelFromDict(dictionary: message as! Dictionary<String, Any>))

@@ -243,7 +243,7 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0{
-            return trainingDurationArray.count
+            return trainingDurationSecondsArray.count
         }else if section == 1{
             return 1
         }else {
@@ -256,7 +256,9 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
         if indexPath.section == 0{
             let sessionCell: ChooseSessionTableCell = tableView.dequeueReusableCell(withIdentifier: "chooseSessionCellId") as! ChooseSessionTableCell
             
-            sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
+            //JITH - DURATION
+//            sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
+            sessionCell.lblSessionDuration.text = CommonMethods.cellDisplayDuration(row: indexPath.row)
             
             if sessionChoosed == indexPath.row{
                 sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
@@ -420,11 +422,13 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
         chooseSessionAndGenderTable.reloadSections(IndexSet(integer: 0), with: .automatic)
         
         if indexPath.section == 0{
-            if indexPath.row == 0 {
-                choosedSessionOfTrainee = "40"
-            }else{
-                choosedSessionOfTrainee = "60"
-            }
+            
+            choosedSessionOfTrainee = CommonMethods.getMinutes(row: indexPath.row)
+//            if indexPath.row == 0 {
+//                choosedSessionOfTrainee = getMinutes(row: indexPath.row)
+//            }else{
+//                choosedSessionOfTrainee = "60"
+//            }
         
             isChoosedSessionDuration = true
             choosed_session_duration = trainingDurationArray[indexPath.row]
@@ -452,9 +456,6 @@ extension ChooseSessionAndGenderVC: CLLocationManagerDelegate {
             print("**********************")
             print("Long \(location.coordinate.longitude)")
             print("Lati \(location.coordinate.latitude)")
-            print("Alt \(location.altitude)")
-            print("Sped \(location.speed)")
-            print("Accu \(location.horizontalAccuracy)")
             
             print("**********************")
             

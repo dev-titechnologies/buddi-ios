@@ -1106,7 +1106,7 @@ class ShowTrainersOnMapVC: UIViewController {
                     
                     if jsondata["status_type"] as? String == "StripeCardError"{
                         
-                        let alert = UIAlertController(title: ALERT_TITLE, message: jsondata["message"] as? String, preferredStyle: UIAlertControllerStyle.alert)
+                        let alert = UIAlertController(title: ALERT_TITLE, message: YOU_ARE_NOT_ADDED_CARD_DETAILS_WITH_BUDDI, preferredStyle: UIAlertControllerStyle.alert)
                         
                         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
                             self.moveToAddPaymentMethodScreen()
