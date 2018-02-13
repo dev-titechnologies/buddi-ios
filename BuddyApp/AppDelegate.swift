@@ -13,8 +13,6 @@ import FBSDKLoginKit
 import IQKeyboardManagerSwift
 import UserNotifications
 import GoogleMaps
-import Braintree
-import BraintreeDropIn
 import Firebase
 import FirebaseMessaging
 import GooglePlaces
@@ -101,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         // Remove before app release.
         gai.logger.logLevel = .verbose;
         
-        BTAppSwitch.setReturnURLScheme(PAYPAL_PAYMENT_RETURN_URL)
+       // BTAppSwitch.setReturnURLScheme(PAYPAL_PAYMENT_RETURN_URL)
         
         Stripe.setDefaultPublishableKey(STRIPE_PUBLISHER_KEY)
         
@@ -123,10 +121,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
             sourceApplication: sourceApplication,
             annotation: annotation)
         
-        if url.scheme?.localizedCaseInsensitiveCompare(PAYPAL_PAYMENT_RETURN_URL) == .orderedSame {
-            print("Paypal open url in AppDelegate")
-            return BTAppSwitch.handleOpen(url, sourceApplication: sourceApplication)
-        }
         
         if url.absoluteString.contains("twitterkit"){
             return TWTRTwitter.sharedInstance().application(application, open: url, options: [:])

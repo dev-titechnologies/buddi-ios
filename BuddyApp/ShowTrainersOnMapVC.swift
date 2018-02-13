@@ -11,8 +11,6 @@ import CoreLocation
 import MapKit
 import GoogleMaps
 import Alamofire
-import Braintree
-import BraintreeDropIn
 import Toaster
 //import Toast_Swift
 
@@ -173,13 +171,13 @@ class ShowTrainersOnMapVC: UIViewController {
         self.present(waitingForAcceptancePage, animated: true, completion: nil)
     }
     
-    func fetchClientTokenFromUserDefault() {
-        
-        if let clientToken = userDefaults.value(forKey: "clientTokenForPayment") as? String{
-            fetchExistingPaymentMethod(clientToken: clientToken)
-            isClientTokenPresent = true
-        }
-    }
+//    func fetchClientTokenFromUserDefault() {
+//        
+//        if let clientToken = userDefaults.value(forKey: "clientTokenForPayment") as? String{
+//            fetchExistingPaymentMethod(clientToken: clientToken)
+//            isClientTokenPresent = true
+//        }
+//    }
     
     func getCurrentLocationDetails() {
         
@@ -778,41 +776,41 @@ class ShowTrainersOnMapVC: UIViewController {
         })
     }
     
-    //MARK: - BRAINTREE FUNCTIONS
-    
-    func fetchExistingPaymentMethod(clientToken: String) {
-        
-        print("***** Fetch Existing payment method *****")
-        CommonMethods.showProgress()
-        BTDropInResult.fetch(forAuthorization: clientToken, handler: { (result, error) in
-            if (error != nil) {
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_METHOD_FETCH_ERROR, buttonTitle: "OK")
-                print("ERROR")
-            } else if let result = result {
-                
-                let selectedPaymentOptionType = result.paymentOptionType
-                let selectedPaymentMethod = result.paymentMethod
-                let selectedPaymentMethodIcon = result.paymentIcon
-                let selectedPaymentMethodDescription = result.paymentDescription
-                
-                print("Method: \(String(describing: selectedPaymentMethod))")
-                print("paymentOptionType: \(selectedPaymentOptionType.rawValue)")
-                print("paymentDescription: \(selectedPaymentMethodDescription)")
-                print("paymentIcon: \(selectedPaymentMethodIcon)")
-                
-                if selectedPaymentMethod == nil{
-                    CommonMethods.hideProgress()
-                    return
-                }
-                
-                let nounce = result.paymentMethod?.nonce
-                self.isNoncePresent = true
-                self.paymentNonce = nounce!
-                CommonMethods.hideProgress()
-                print("New Received nonce:\(String(describing: nounce))")
-            }
-        })
-    }
+//    //MARK: - BRAINTREE FUNCTIONS
+//    
+//    func fetchExistingPaymentMethod(clientToken: String) {
+//        
+//        print("***** Fetch Existing payment method *****")
+//        CommonMethods.showProgress()
+//        BTDropInResult.fetch(forAuthorization: clientToken, handler: { (result, error) in
+//            if (error != nil) {
+//                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_METHOD_FETCH_ERROR, buttonTitle: "OK")
+//                print("ERROR")
+//            } else if let result = result {
+//                
+//                let selectedPaymentOptionType = result.paymentOptionType
+//                let selectedPaymentMethod = result.paymentMethod
+//                let selectedPaymentMethodIcon = result.paymentIcon
+//                let selectedPaymentMethodDescription = result.paymentDescription
+//                
+//                print("Method: \(String(describing: selectedPaymentMethod))")
+//                print("paymentOptionType: \(selectedPaymentOptionType.rawValue)")
+//                print("paymentDescription: \(selectedPaymentMethodDescription)")
+//                print("paymentIcon: \(selectedPaymentMethodIcon)")
+//                
+//                if selectedPaymentMethod == nil{
+//                    CommonMethods.hideProgress()
+//                    return
+//                }
+//                
+//                let nounce = result.paymentMethod?.nonce
+//                self.isNoncePresent = true
+//                self.paymentNonce = nounce!
+//                CommonMethods.hideProgress()
+//                print("New Received nonce:\(String(describing: nounce))")
+//            }
+//        })
+//    }
     
     func postNonceToServer(paymentMethodNonce: String) {
         

@@ -8,8 +8,6 @@
 
 import UIKit
 import Alamofire
-import Braintree
-import BraintreeDropIn
 
 class ExtendSessionRequestPage: UIViewController {
 
@@ -156,47 +154,47 @@ class ExtendSessionRequestPage: UIViewController {
     
     //MARK: - PAYMENT FUNCTIONS
     
-    func getClientToken() {
-      
-        if let clientToken = userDefaults.value(forKey: "clientTokenForPayment") as? String{
-            fetchExistingPaymentMethod(clientToken: clientToken)
-        }else{
-            print("**** Client token not present catch in extend session page")
-        }
-    }
+//    func getClientToken() {
+//      
+//        if let clientToken = userDefaults.value(forKey: "clientTokenForPayment") as? String{
+//            fetchExistingPaymentMethod(clientToken: clientToken)
+//        }else{
+//            print("**** Client token not present catch in extend session page")
+//        }
+//    }
     
-    func fetchExistingPaymentMethod(clientToken: String) {
-        
-        print("***** Fetch Existing payment method *****")
-        CommonMethods.showProgress()
-        BTDropInResult.fetch(forAuthorization: clientToken, handler: { (result, error) in
-            if (error != nil) {
-                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_METHOD_FETCH_ERROR, buttonTitle: "OK")
-                print("ERROR")
-            } else if let result = result {
-                
-                let selectedPaymentOptionType = result.paymentOptionType
-                let selectedPaymentMethod = result.paymentMethod
-                let selectedPaymentMethodIcon = result.paymentIcon
-                let selectedPaymentMethodDescription = result.paymentDescription
-                
-                print("Method: \(String(describing: selectedPaymentMethod))")
-                print("paymentOptionType: \(selectedPaymentOptionType.rawValue)")
-                print("paymentDescription: \(selectedPaymentMethodDescription)")
-                print("paymentIcon: \(selectedPaymentMethodIcon)")
-                
-                if selectedPaymentMethod == nil{
-                    CommonMethods.hideProgress()
-                    return
-                }
-                
-                let nounce = result.paymentMethod?.nonce
-                CommonMethods.hideProgress()
-                print("New Received nonce:\(String(describing: nounce))")
-                self.postNonceToServer(paymentMethodNonce: nounce!)
-            }
-        })
-    }
+//    func fetchExistingPaymentMethod(clientToken: String) {
+//        
+//        print("***** Fetch Existing payment method *****")
+//        CommonMethods.showProgress()
+//        BTDropInResult.fetch(forAuthorization: clientToken, handler: { (result, error) in
+//            if (error != nil) {
+//                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PAYMENT_METHOD_FETCH_ERROR, buttonTitle: "OK")
+//                print("ERROR")
+//            } else if let result = result {
+//                
+//                let selectedPaymentOptionType = result.paymentOptionType
+//                let selectedPaymentMethod = result.paymentMethod
+//                let selectedPaymentMethodIcon = result.paymentIcon
+//                let selectedPaymentMethodDescription = result.paymentDescription
+//                
+//                print("Method: \(String(describing: selectedPaymentMethod))")
+//                print("paymentOptionType: \(selectedPaymentOptionType.rawValue)")
+//                print("paymentDescription: \(selectedPaymentMethodDescription)")
+//                print("paymentIcon: \(selectedPaymentMethodIcon)")
+//                
+//                if selectedPaymentMethod == nil{
+//                    CommonMethods.hideProgress()
+//                    return
+//                }
+//                
+//                let nounce = result.paymentMethod?.nonce
+//                CommonMethods.hideProgress()
+//                print("New Received nonce:\(String(describing: nounce))")
+//                self.postNonceToServer(paymentMethodNonce: nounce!)
+//            }
+//        })
+//    }
     
     func postNonceToServer(paymentMethodNonce: String) {
         
@@ -428,39 +426,39 @@ class ExtendSessionRequestPage: UIViewController {
         }
     }
     
-    func showAlertRegardingPreviousPayment() {
-        
-        var alertMessage = String()
-        
-        print("isPaidAlready40Minutes:\(isPaidAlready40Minutes)")
-        print("isPaidAlready60Minutes:\(isPaidAlready60Minutes)")
-        print("choosedSessionOfTrainee:\(extendingSessionDuration)")
-        
-        if isPaidAlready40Minutes && !isPaidAlready60Minutes && extendingSessionDuration == "60"{
-            
-            alertMessage = MINUTES_40_PAID_ALERT
-        }else if isPaidAlready60Minutes && !isPaidAlready40Minutes && extendingSessionDuration == "40" {
-            
-            alertMessage = MINUTES_60_PAID_ALERT
-        }else if isPaidAlready40Minutes && extendingSessionDuration == "40" || isPaidAlready60Minutes && extendingSessionDuration == "60" {
-            
-            getTransactionDetailsOncePaymentSuccessFromUserDefault()
-            extendSession()
-            return
-        }
-        
-        let alert = UIAlertController(title: ALERT_TITLE, message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
-            
-            self.getClientToken()
-        }))
-        alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
-            
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
+//    func showAlertRegardingPreviousPayment() {
+//
+//        var alertMessage = String()
+//
+//        print("isPaidAlready40Minutes:\(isPaidAlready40Minutes)")
+//        print("isPaidAlready60Minutes:\(isPaidAlready60Minutes)")
+//        print("choosedSessionOfTrainee:\(extendingSessionDuration)")
+//
+//        if isPaidAlready40Minutes && !isPaidAlready60Minutes && extendingSessionDuration == "60"{
+//
+//            alertMessage = MINUTES_40_PAID_ALERT
+//        }else if isPaidAlready60Minutes && !isPaidAlready40Minutes && extendingSessionDuration == "40" {
+//
+//            alertMessage = MINUTES_60_PAID_ALERT
+//        }else if isPaidAlready40Minutes && extendingSessionDuration == "40" || isPaidAlready60Minutes && extendingSessionDuration == "60" {
+//
+//            getTransactionDetailsOncePaymentSuccessFromUserDefault()
+//            extendSession()
+//            return
+//        }
+//
+//        let alert = UIAlertController(title: ALERT_TITLE, message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+//
+//        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+//
+//            self.getClientToken()
+//        }))
+//        alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: { action in
+//
+//        }))
+//
+//        self.present(alert, animated: true, completion: nil)
+//    }
     
     //MARK: - EXTEND SESSION SERVER CALL
     
