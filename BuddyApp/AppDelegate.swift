@@ -31,6 +31,7 @@ protocol FCMTokenReceiveDelegate: class {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNotificationCenterDelegate {
  
+    
     weak var delegateFCM: FCMTokenReceiveDelegate?
    
     var timerrunningtime = Bool()
@@ -55,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     /////
     
     
-    
+    //MARK: - APPDELEGATE FUNCTIONS
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -78,23 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         
         configureFirebase(application: application)
         
-        //For Temp
-//        if #available(iOS 10.0, *) {
-//            // For iOS 10 display notification (sent via APNS)
-//            UNUserNotificationCenter.current().delegate = self
-//            
-//            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-//            UNUserNotificationCenter.current().requestAuthorization(
-//                options: authOptions,
-//                completionHandler: {_, _ in })
-//        } else {
-//            let settings: UIUserNotificationSettings =
-//                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-//            application.registerUserNotificationSettings(settings)
-//        }
-        
-//        application.registerForRemoteNotifications()
-        
         NewRelic.start(withApplicationToken:NEW_RELIC_KEY)
         
         GMSServices.provideAPIKey(GOOGLE_API_KEY)
@@ -106,7 +90,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
 
         IQKeyboardManager.sharedManager().enable = true
         
-        //For Google Analytics
         guard let gai = GAI.sharedInstance() else {
             assert(false, "Google Analytics not configured correctly")
             return true
@@ -120,7 +103,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         
         BTAppSwitch.setReturnURLScheme(PAYPAL_PAYMENT_RETURN_URL)
         
-        //For Stripe Payment
         Stripe.setDefaultPublishableKey(STRIPE_PUBLISHER_KEY)
         
         TWTRTwitter.sharedInstance().start(withConsumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
@@ -193,41 +175,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
         print("**** didRegisterForRemoteNotificationsWithDeviceToken *****")
         
-//        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-//        print(deviceTokenString)
-//        print("**** DEVICE TOKEN : \(deviceTokenString)")
-        
-//        let token = String(format: "%@", deviceToken as CVarArg)
-//        debugPrint("*** deviceToken: \(token)")
-//        //        #if RELEASE_VERSION
-//        //            InstanceID.instanceID().setAPNSToken(deviceToken as Data, type:FIRInstanceIDAPNSTokenType.prod)
-//        //        #else
-//        //            InstanceID.instanceID().setAPNSToken(deviceToken as Data, type:InstanceIDAPNSTokenType.sandbox)
-//        //        #endif
         Messaging.messaging().apnsToken = deviceToken as Data
         Messaging.messaging().setAPNSToken(deviceToken as Data, type: .prod)
-       // InstanceID.instanceID().setAPNSToken(deviceToken as Data, type: .prod)
-        
+        customDelegateCall()
+    }
+    
+    func customDelegateCall() {
         if let deviceTokenFromUserDefault = userDefaults.value(forKey: "devicetoken") as? String{
             print("*** deviceTokenFromUserDefault ** :\(deviceTokenFromUserDefault)")
             print("================ Firebase Delegate Call =============")
             connectToFcm()
             delegateFCM?.tokenReceived()
         }
-        
-
-        //        let firebaseToken = InstanceID.instanceID().token()!
-//        debugPrint("Firebase Token:",InstanceID.instanceID().token() as Any)
-//        userDefaults.set(firebaseToken, forKey: "devicetoken")
-//        print("========== InstanceID token1 didRegisterForRemoteNotificationsWithDeviceToken: \(firebaseToken)")
-
-//        if let refreshedToken = InstanceID.instanceID().token() {
-//            
-//            let data = refreshedToken.data(using: .utf8)!
-//            InstanceID.instanceID().setAPNSToken(data, type: .sandbox)
-//            print("========== InstanceID token1 didRegisterForRemoteNotificationsWithDeviceToken: \(refreshedToken)")
-//            userDefaults.set(refreshedToken, forKey: "devicetoken")
-//        }
     }
     
     //MARK: - FCM TOKEN RECEIVE
@@ -480,8 +439,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         
         print("*********** applicationDidBecomeActive ***********")
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-         FBSDKAppEvents.activateApp()
         
+        FBSDKAppEvents.activateApp()
+        customDelegateCall()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -685,6 +645,7 @@ extension AppDelegate: MessagingDelegate {
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
                 completionHandler: {_, _ in })
+            
         } else {
             let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
