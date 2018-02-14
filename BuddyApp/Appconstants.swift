@@ -14,6 +14,7 @@ let rnnotification = Singleton.sharedInstance.RNNotification
 let commonMethods = Singleton.sharedInstance.commonMethods
 let appDelegate = Singleton.sharedInstance.appdelegate
 let context = Singleton.sharedInstance.context
+let privateMoc = Singleton.sharedInstance.privateMoc
 let storyboardSingleton = Singleton.sharedInstance.storyboardSingleton
 let userDefaults = Singleton.sharedInstance.userDefaults
 let trainerTestAnswers = Singleton.sharedInstance.trainerTestAnswers
@@ -39,8 +40,8 @@ var choosedTrainingLocationPreference = Singleton.sharedInstance.choosedTraining
 //For Trainer - Add Location socket
 var addLocationTimerSingleton = Singleton.sharedInstance.addLocationTimer
 
-//let SERVER_URL = "http://192.168.1.60:9002/"
-let SERVER_URL = "http://git.titechnologies.in:4001/"
+let SERVER_URL = "http://192.168.1.60:9002/"
+//let SERVER_URL = "http://git.titechnologies.in:4001/"
 //let SERVER_URL = "http://buddiapi.buddiadmin.com/"
 //let SERVER_URL = "http://104.236.235.46:9002/"
 

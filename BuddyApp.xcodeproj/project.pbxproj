@@ -71,6 +71,7 @@
 		F341B0341F28D664007C9AF1 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0331F28D664007C9AF1 /* UIColorExtension.swift */; };
 		F341B0361F28D80F007C9AF1 /* ColorCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0351F28D80F007C9AF1 /* ColorCodes.swift */; };
 		F341B0381F28D9FB007C9AF1 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F341B0371F28D9FB007C9AF1 /* CardView.swift */; };
+		F345BA182033FFEF0008E75A /* SessionDurationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F345BA172033FFEF0008E75A /* SessionDurationModel.swift */; };
 		F348641220205A0800AB0C65 /* WalletHistoryDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348641120205A0800AB0C65 /* WalletHistoryDetailVC.swift */; };
 		F34864152020ACA100AB0C65 /* MMSlidingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34864142020ACA000AB0C65 /* MMSlidingButton.swift */; };
 		F34D039F1FFB6826001B56EE /* WaiverReleaseFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D039E1FFB6826001B56EE /* WaiverReleaseFormVC.swift */; };
@@ -274,6 +275,7 @@
 		F341B0331F28D664007C9AF1 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F341B0351F28D80F007C9AF1 /* ColorCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCodes.swift; sourceTree = "<group>"; };
 		F341B0371F28D9FB007C9AF1 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		F345BA172033FFEF0008E75A /* SessionDurationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDurationModel.swift; sourceTree = "<group>"; };
 		F348641120205A0800AB0C65 /* WalletHistoryDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletHistoryDetailVC.swift; sourceTree = "<group>"; };
 		F34864142020ACA000AB0C65 /* MMSlidingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSlidingButton.swift; sourceTree = "<group>"; };
 		F34D039E1FFB6826001B56EE /* WaiverReleaseFormVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaiverReleaseFormVC.swift; sourceTree = "<group>"; };
@@ -756,6 +758,7 @@
 				F3CCEDCF20109B9700046BEF /* PromoCodeModel.swift */,
 				F3A38098201A150000E30E2B /* TrainerWalletHistoryModel.swift */,
 				F3A3809A201A151000E30E2B /* TraineeWalletHistoryModel.swift */,
+				F345BA172033FFEF0008E75A /* SessionDurationModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1453,6 +1456,7 @@
 				F31533F21F9496560051FC49 /* MyAPIClient.swift in Sources */,
 				F31E95041F6AAA190098DF8C /* PreferenceModel.swift in Sources */,
 				F3B52EE11F3AE4CC007910BC /* SocketIOManager.swift in Sources */,
+				F345BA182033FFEF0008E75A /* SessionDurationModel.swift in Sources */,
 				F37350A11F20A7F900BE9DB6 /* CategoryModel.swift in Sources */,
 				F364A8FC1F34B3520001C570 /* AssignedTrainerProfileTableCaptionsCell.swift in Sources */,
 				F32E6AB91F540213001646E4 /* SessionDetailModel.swift in Sources */,

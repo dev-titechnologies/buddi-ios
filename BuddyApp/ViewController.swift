@@ -40,6 +40,8 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        print("viewWillAppear ViewController")
+
         self.navigationController?.isNavigationBarHidden = true
         CommonMethods.googleAnalyticsScreenTracker(screenName: "ViewController Screen")
         let notificationName = Notification.Name("SessionNotification")
@@ -47,9 +49,6 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         let GlobelTimerNotification = Notification.Name("GlobelTimerNotification")
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.GlobelTimerNotification), name: GlobelTimerNotification, object: nil)
-
-        
-        
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
         Reach().monitorReachabilityChanges()
@@ -69,10 +68,10 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
         
 //        initilizeSessionChecks()
         
-//        if userDefaults.value(forKey: "devicetoken") != nil {
-//            print("***** initilizeSessionChecks Call in ViewController ******")
-//            initilizeSessionChecks()
-//        }
+        if userDefaults.value(forKey: "devicetoken") != nil {
+            print("***** initilizeSessionChecks Call in ViewController - by Default ViewWillAppear******")
+            initilizeSessionChecks()
+        }
 
 //        if !CommonMethods.networkcheck() && userDefaults.value(forKey: "devicetoken") as! String != "" {
 //            print("No Network and Device token is empty in userDefaults")
@@ -98,7 +97,6 @@ class ViewController: UIViewController,FCMTokenReceiveDelegate {
 //            return
 //        }
         
-        //FOR TESTING - Jithesh
         
         if let heroObject = userDefaults.value(forKey: "TrainerProfileDictionary") as? NSData {
             let hero = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as! NSDictionary

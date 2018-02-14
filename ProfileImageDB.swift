@@ -21,8 +21,8 @@ public class ProfileImageDB: NSManagedObject {
         
         do {
             
-            var privateMoc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-            privateMoc = appDelegate.persistentContainer.viewContext
+//            var privateMoc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+//            privateMoc = appDelegate.persistentContainer.viewContext
             
             let images = try privateMoc.fetch(fetchRequest)
             

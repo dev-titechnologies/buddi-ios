@@ -1037,6 +1037,8 @@ class ShowTrainersOnMapVC: UIViewController {
                                     
                                     if let amountRequested = walletDict["processAmount"] as? Int{
                                         self.transactionAmount = String(amountRequested)
+                                    }else{
+                                        self.transactionAmount = walletDict["processAmount"]! as! String
                                     }
                                     
                                     if let walletBalance = walletDict["walletBalance"] as? Int{

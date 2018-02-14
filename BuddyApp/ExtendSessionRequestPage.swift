@@ -13,8 +13,8 @@ class ExtendSessionRequestPage: UIViewController {
 
     @IBOutlet weak var btnYesExtend: UIButton!
     @IBOutlet weak var btnNoExtend: UIButton!
-    @IBOutlet weak var btnSession40Minutes: UIButton!
-    @IBOutlet weak var btnSession1Hour: UIButton!
+//    @IBOutlet weak var btnSession40Minutes: UIButton!
+//    @IBOutlet weak var btnSession1Hour: UIButton!
     
     @IBOutlet weak var extendAlertView: CardView!
     @IBOutlet weak var sessionAlertView: CardView!
@@ -36,19 +36,24 @@ class ExtendSessionRequestPage: UIViewController {
     
     var isPaidAlready40Minutes = Bool()
     var isPaidAlready60Minutes = Bool()
+    
+    var extensionSessionDurationArray = [SessionDurationModel]()
+    var sessionChoosed = 0
 
+    @IBOutlet weak var sessionTableHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var extendSessionDurationTableView: UITableView!
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        extendingSessionDuration = "15"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         addingShadow()
         checkIsPaymentSuccess()
+        getExtendSessionDuration()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.receivedPushNotification), name: notificationName, object: nil)
 
@@ -56,6 +61,26 @@ class ExtendSessionRequestPage: UIViewController {
 //        DispatchQueue.main.asyncAfter(deadline: when) {
 //            self.dismissExtendSessionRequestPage()
 //        }
+    }
+    
+    func getExtendSessionDuration(){
+        if let extendSessionDurationData = userDefaults.value(forKey: "ExtendSessionDurationArray") as? NSData {
+            let duration_array = NSKeyedUnarchiver.unarchiveObject(with: extendSessionDurationData as Data) as! [SessionDurationModel]
+            print("getExtendSessionDuration :\(duration_array)")
+            print("getExtendSessionDuration Count :\(duration_array.count)")
+
+            extensionSessionDurationArray = duration_array
+            
+            if extensionSessionDurationArray.count > 0 {
+                sessionChoosed = 0
+                if extensionSessionDurationArray.count < 3 {
+                    sessionTableHeightConstraint.constant = CGFloat(extensionSessionDurationArray.count * 60)
+                }else{
+                    sessionTableHeightConstraint.constant = 240.0
+                }
+                extendSessionDurationTableView.reloadData()
+            }
+        }
     }
     
     func receivedPushNotification(notif: NSNotification){
@@ -71,15 +96,14 @@ class ExtendSessionRequestPage: UIViewController {
     func addingShadow() {
         btnYesExtend.addShadowView()
         btnNoExtend.addShadowView()
-        btnSession40Minutes.addShadowView()
-        btnSession1Hour.addShadowView()
+//        btnSession40Minutes.addShadowView()
+//        btnSession1Hour.addShadowView()
     }
 
     @IBAction func extendYesAction(_ sender: Any) {
-//        sessionAlertView.isHidden = false
-//        extendAlertView.isHidden = true
-        
-        paymentCheckoutWithWallet()
+        sessionAlertView.isHidden = false
+        extendAlertView.isHidden = true
+//        paymentCheckoutWithWallet()
     }
     
     @IBAction func extendNoAction(_ sender: Any) {
@@ -89,17 +113,17 @@ class ExtendSessionRequestPage: UIViewController {
 //        bookingCompleteAction(action_status: "complete")
     }
     
-    @IBAction func session40MinutesAction(_ sender: Any) {
-        extendingSessionDuration = "40"
-        btnSession40Minutes.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-        btnSession1Hour.backgroundColor = .white
-    }
+//    @IBAction func session40MinutesAction(_ sender: Any) {
+//        extendingSessionDuration = "40"
+//        btnSession40Minutes.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+//        btnSession1Hour.backgroundColor = .white
+//    }
     
-    @IBAction func session1HourAction(_ sender: Any) {
-        extendingSessionDuration = "60"
-        btnSession40Minutes.backgroundColor = .white
-        btnSession1Hour.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
-    }
+//    @IBAction func session1HourAction(_ sender: Any) {
+//        extendingSessionDuration = "60"
+//        btnSession40Minutes.backgroundColor = .white
+//        btnSession1Hour.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+//    }
     
     @IBAction func extendSessionCancelAction(_ sender: Any) {
        // dismissExtendSessionRequestPage()
@@ -119,6 +143,8 @@ class ExtendSessionRequestPage: UIViewController {
 //            paymentCheckoutStripe()
 ////            getClientToken()
 //        }
+
+        paymentCheckoutWithWallet()
 
     }
     
@@ -462,23 +488,23 @@ class ExtendSessionRequestPage: UIViewController {
     
     //MARK: - EXTEND SESSION SERVER CALL
     
-    func getTransactionDetailsOncePaymentSuccessFromUserDefault() {
-        
-        if extendingSessionDuration == "40" {
-            transactionId = userDefaults.value(forKey: "backupPaymentTransactionId_40Minutes") as! String
-            transactionAmount = userDefaults.value(forKey: "backupIsTransactionAmount_40Minutes") as! String
-            transactionStatus = userDefaults.value(forKey: "backupIsTransactionStatus_40Minutes") as! String
-        }else if extendingSessionDuration == "60"{
-            transactionId = userDefaults.value(forKey: "backupPaymentTransactionId_60Minutes") as! String
-            transactionAmount = userDefaults.value(forKey: "backupIsTransactionAmount_60Minutes") as! String
-            transactionStatus = userDefaults.value(forKey: "backupIsTransactionStatus_60Minutes") as! String
-        }
-        
-        print("***** getTransactionDetailsOncePaymentSuccessFromUserDefault *******")
-        print("transactionId :\(transactionId)")
-        print("transactionAmount :\(transactionAmount)")
-        print("transactionStatus :\(transactionStatus)")
-    }
+//    func getTransactionDetailsOncePaymentSuccessFromUserDefault() {
+//
+//        if extendingSessionDuration == "40" {
+//            transactionId = userDefaults.value(forKey: "backupPaymentTransactionId_40Minutes") as! String
+//            transactionAmount = userDefaults.value(forKey: "backupIsTransactionAmount_40Minutes") as! String
+//            transactionStatus = userDefaults.value(forKey: "backupIsTransactionStatus_40Minutes") as! String
+//        }else if extendingSessionDuration == "60"{
+//            transactionId = userDefaults.value(forKey: "backupPaymentTransactionId_60Minutes") as! String
+//            transactionAmount = userDefaults.value(forKey: "backupIsTransactionAmount_60Minutes") as! String
+//            transactionStatus = userDefaults.value(forKey: "backupIsTransactionStatus_60Minutes") as! String
+//        }
+//
+//        print("***** getTransactionDetailsOncePaymentSuccessFromUserDefault *******")
+//        print("transactionId :\(transactionId)")
+//        print("transactionAmount :\(transactionAmount)")
+//        print("transactionStatus :\(transactionStatus)")
+//    }
     
     func extendSession() {
         
@@ -600,4 +626,39 @@ class ExtendSessionRequestPage: UIViewController {
     }
 }
 
+extension ExtendSessionRequestPage: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return extensionSessionDurationArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let sessionCell: SessionPreferenceCell = tableView.dequeueReusableCell(withIdentifier: "extendSessionDurationCellId") as! SessionPreferenceCell
+        
+        sessionCell.lblSessionDuration.text = extensionSessionDurationArray[indexPath.row].sessionTitle
+        print("Session Title :\(extensionSessionDurationArray[indexPath.row].sessionTitle)")
+        if sessionChoosed == indexPath.row{
+            sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+        }else{
+            sessionCell.backgroundCardView.backgroundColor = .white
+        }
+        return sessionCell
+    }
+}
 
+extension ExtendSessionRequestPage: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        sessionChoosed = indexPath.row
+        extendingSessionDuration = extensionSessionDurationArray[indexPath.row].sessionDuration
+//        extendSessionDurationTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        let indexPath1 = IndexPath(row: 0, section: 1)
+        self.extendSessionDurationTableView.reloadRows(at: [indexPath1], with: .automatic)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 60.0
+    }
+}

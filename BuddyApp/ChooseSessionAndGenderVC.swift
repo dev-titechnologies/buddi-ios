@@ -42,6 +42,10 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
     var participantSign = String()
     var parentSign = String()
     
+    var extensionSessionDurationArray = [SessionDurationModel]()
+    var normalSessionDurationArray = [SessionDurationModel]()
+    var choosedSessionIndex = Int()
+    
 //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -49,6 +53,8 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
 
         self.title = PAGE_TITLE.CHOOSE_SESSION_AND_GENDER
         
+        fetchSessionDurations()
+
         sessionChoosed = -1
         headerChoosed = -1
         
@@ -186,6 +192,44 @@ class ChooseSessionAndGenderVC: UIViewController,UIGestureRecognizerDelegate {
         return parameters
     }
     
+    //MARK: - FETCH SESSION DURATIONS
+    
+    func fetchSessionDurations() {
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: LIST_SESSIONS, parameters: ["":""]) { (jsondata) in
+            print("fetchSessionDurations Response: \(jsondata)")
+            CommonMethods.hideProgress()
+            
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    if let jsonDict = jsondata["data"] as? NSDictionary{
+                        
+                        let sessions =
+                            CommonMethods.getNormalAndExtensionSessionDurationArrays(sessionsDictionary: jsonDict)
+                        self.normalSessionDurationArray = sessions.0
+                        self.extensionSessionDurationArray = sessions.1
+                        
+                        CommonMethods.storeSessionDurationToUserDefaults(normalDuration: self.normalSessionDurationArray, extendDuration: self.extensionSessionDurationArray)
+
+                        self.chooseSessionAndGenderTable.reloadData()
+                    }
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
+    }
+    
     //MARK: - PREPARE FOR SEGUE
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -243,7 +287,7 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0{
-            return trainingDurationSecondsArray.count
+            return normalSessionDurationArray.count
         }else if section == 1{
             return 1
         }else {
@@ -258,7 +302,8 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
             
             //JITH - DURATION
 //            sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
-            sessionCell.lblSessionDuration.text = CommonMethods.cellDisplayDuration(row: indexPath.row)
+//            sessionCell.lblSessionDuration.text = CommonMethods.cellDisplayDuration(row: indexPath.row)
+            sessionCell.lblSessionDuration.text = self.normalSessionDurationArray[indexPath.row].sessionTitle
             
             if sessionChoosed == indexPath.row{
                 sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
@@ -423,15 +468,16 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
         
         if indexPath.section == 0{
             
-            choosedSessionOfTrainee = CommonMethods.getMinutes(row: indexPath.row)
+//            choosedSessionOfTrainee = CommonMethods.getMinutes(row: indexPath.row)
 //            if indexPath.row == 0 {
 //                choosedSessionOfTrainee = getMinutes(row: indexPath.row)
 //            }else{
 //                choosedSessionOfTrainee = "60"
 //            }
         
+            choosedSessionOfTrainee = self.normalSessionDurationArray[indexPath.row].sessionDuration
             isChoosedSessionDuration = true
-            choosed_session_duration = trainingDurationArray[indexPath.row]
+            choosed_session_duration = self.normalSessionDurationArray[indexPath.row].sessionTitle
         }
         print("Choosed Session:\(choosedSessionOfTrainee)")
         userDefaults.set(choosedSessionOfTrainee, forKey: "backupTrainingSessionChoosed")
