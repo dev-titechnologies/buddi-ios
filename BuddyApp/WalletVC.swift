@@ -31,6 +31,11 @@ class WalletVC: UIViewController {
 
         self.title = PAGE_TITLE.WALLET
         self.btnWithdraw.delegate = self
+        self.btnWithdraw.dragPointColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+       // self.btnWithdraw.imageName = #imageLiteral(resourceName: "wallet_big")
+//        self.btnWithdraw.layer.cornerRadius = 5
+//        self.btnWithdraw.layer.borderWidth = 1
+//        self.btnWithdraw.layer.borderColor = UIColor.black.cgColor
 
         txtAmountPopUp.text = "0"
         if Int(txtAmountPopUp.text!)! == 0 {

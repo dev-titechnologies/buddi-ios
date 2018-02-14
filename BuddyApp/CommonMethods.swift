@@ -263,11 +263,11 @@ class CommonMethods: NSObject {
         
         var secondsUpdatedValue = Int()
         if session_time == "40" {
-            secondsUpdatedValue = 120
+            secondsUpdatedValue = 60
         }else if session_time == "60" {
             secondsUpdatedValue = 240
         }else if session_time == "15"{
-            secondsUpdatedValue = 60
+            secondsUpdatedValue = 30
         }
         return secondsUpdatedValue
         
