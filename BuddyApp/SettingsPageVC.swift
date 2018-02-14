@@ -51,6 +51,10 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
     
     var choosed_trainer_gender_preference = String()
     
+    var extensionSessionDurationArray = [SessionDurationModel]()
+    var normalSessionDurationArray = [SessionDurationModel]()
+    var choosedSessionIndex = Int()
+    
     //MARK: - VIEW CYCLES 
     
     override func viewDidLoad() {
@@ -82,6 +86,8 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         
         print("Settings Page ViewWillAppear")
+        
+        fetchSessionDurations()
         
         if appDelegate.USER_TYPE == USER_TYPE.TRAINEE {
             self.settingsTableView.reloadSections(IndexSet(integer: 1), with: .automatic)
@@ -333,7 +339,48 @@ class SettingsPageVC: UIViewController, UIGestureRecognizerDelegate {
         placePicker.delegate = self
         present(placePicker, animated: true, completion: nil)
     }
+    
+    //MARK: - FETCH SESSION DURATIONS
+    
+    func fetchSessionDurations() {
+        
+        CommonMethods.showProgress()
+        CommonMethods.serverCall(APIURL: LIST_SESSIONS, parameters: ["":""]) { (jsondata) in
+            print("fetchSessionDurations Response: \(jsondata)")
+            CommonMethods.hideProgress()
+
+            guard (jsondata["status"] as? Int) != nil else {
+                CommonMethods.alertView(view: self, title: ALERT_TITLE, message: SERVER_NOT_RESPONDING, buttonTitle: "OK")
+                return
+            }
+            
+            if let status = jsondata["status"] as? Int{
+                if status == RESPONSE_STATUS.SUCCESS{
+                    
+                    if let jsonDict = jsondata["data"] as? NSDictionary{
+                        
+                        let sessions = 
+                            CommonMethods.getNormalAndExtensionSessionDurationArrays(sessionsDictionary: jsonDict)
+                        self.normalSessionDurationArray = sessions.0
+                        self.extensionSessionDurationArray = sessions.1
+                        
+                        CommonMethods.storeSessionDurationToUserDefaults(normalDuration: self.normalSessionDurationArray, extendDuration: self.extensionSessionDurationArray)
+
+                        self.settingsTableView.reloadData()
+                    }
+                    
+                }else if status == RESPONSE_STATUS.FAIL{
+                    CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
+                }else if status == RESPONSE_STATUS.SESSION_EXPIRED{
+                    self.dismissOnSessionExpire()
+                }
+            }
+        }
+    }
+    
 }
+
+//MARK: - TABLEVIEW DELEGATES AND DATASOURCE
 
 extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
     
@@ -347,7 +394,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             if section == 2{
                 return 1
             }else if section == 3{
-                return trainingDurationSecondsArray.count
+                return normalSessionDurationArray.count
             }else if section == 4 {
              //   return socialMediaTitles.count
                return 0 
@@ -367,7 +414,8 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             sessionCell = tableView.dequeueReusableCell(withIdentifier: "chooseSessionCellId") as! SessionPreferenceCell
             
 //            sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
-            sessionCell.lblSessionDuration.text = CommonMethods.cellDisplayDuration(row: indexPath.row)
+//            sessionCell.lblSessionDuration.text = CommonMethods.cellDisplayDuration(row: indexPath.row)
+            sessionCell.lblSessionDuration.text = normalSessionDurationArray[indexPath.row].sessionTitle
 
             // PREFERENCE SHOWN
             if preferenceModelObj.sessionDuration != "" {
@@ -646,8 +694,10 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             print("**** choosed_session_duration:\(choosed_session_duration)")
             
             if choosed_session_duration != "" {
-                let secondsValue = Double(choosed_session_duration)! * 60
-                cell.lblSelectedValue.text = CommonMethods.cellDisplayDurationValue(secondsValue: Int(secondsValue))
+//                let secondsValue = Double(choosed_session_duration)! * 60
+//                cell.lblSelectedValue.text = CommonMethods.cellDisplayDurationValue(secondsValue: Int(secondsValue))
+                
+                cell.lblSelectedValue.text = normalSessionDurationArray[choosedSessionIndex].sessionTitle
             }
 //            if choosed_session_duration == "40" {
 //                cell.lblSelectedValue.text = "40 Minutes"
@@ -679,7 +729,9 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         }else if indexPath.section == 3{
             print("*** didSelectRowAt: section 3")
             
-            choosedSessionOfTraineePreference = String(trainingDurationSecondsArray[indexPath.row] / 60)
+//            choosedSessionOfTraineePreference = String(trainingDurationSecondsArray[indexPath.row] / 60)
+            choosedSessionOfTraineePreference = normalSessionDurationArray[indexPath.row].sessionDuration
+            choosedSessionIndex = indexPath.row
             print("choosedSessionOfTraineePreference:\(choosedSessionOfTraineePreference)")
 //            if indexPath.row == 0 {
 //                choosedSessionOfTraineePreference = "40"

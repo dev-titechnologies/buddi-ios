@@ -14,6 +14,7 @@ let rnnotification = Singleton.sharedInstance.RNNotification
 let commonMethods = Singleton.sharedInstance.commonMethods
 let appDelegate = Singleton.sharedInstance.appdelegate
 let context = Singleton.sharedInstance.context
+let privateMoc = Singleton.sharedInstance.privateMoc
 let storyboardSingleton = Singleton.sharedInstance.storyboardSingleton
 let userDefaults = Singleton.sharedInstance.userDefaults
 let trainerTestAnswers = Singleton.sharedInstance.trainerTestAnswers

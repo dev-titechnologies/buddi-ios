@@ -55,3 +55,4 @@ let PRIVACY_POLICY_URL = "http://buddimedia.com/privacypolicy.html"
 let DISCLAIMER_URL = "http://buddimedia.com/disclaimer.html"
 let WAIVER_RELEASE_URL = "http://buddimedia.com/disclaimer.html"
 
+let LIST_SESSIONS = "session/listSessions"

@@ -58,13 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-//        if userDefaults.value(forKey: "devicetoken") == nil {
-//            print("***** configureFirebase Call in AppDelegate ******")
-//            configureFirebase(application: application)
-//        }
-        
         profileImageData = NSData()
-        
+
         if application.applicationState == .inactive {
             print("***** App From Inactive State *****")
             isLaunchFromKilledState = true
@@ -97,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         gai.trackUncaughtExceptions = true
         // Optional: set Logger to VERBOSE for debug information.
         // Remove before app release.
-        gai.logger.logLevel = .verbose;
+//        gai.logger.logLevel = .verbose;
         
        // BTAppSwitch.setReturnURLScheme(PAYPAL_PAYMENT_RETURN_URL)
         
@@ -171,22 +166,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         
         Messaging.messaging().apnsToken = deviceToken as Data
         Messaging.messaging().setAPNSToken(deviceToken as Data, type: .prod)
-        customDelegateCall()
+        //customDelegateCall()
     }
     
-    func customDelegateCall() {
-        if let deviceTokenFromUserDefault = userDefaults.value(forKey: "devicetoken") as? String{
-            print("*** deviceTokenFromUserDefault ** :\(deviceTokenFromUserDefault)")
-            print("================ Firebase Delegate Call =============")
-            connectToFcm()
-            delegateFCM?.tokenReceived()
-        }
-    }
+//    func customDelegateCall() {
+//        if let deviceTokenFromUserDefault = userDefaults.value(forKey: "devicetoken") as? String{
+//            print("*** deviceTokenFromUserDefault ** :\(deviceTokenFromUserDefault)")
+//            print("================ Firebase Delegate Call =============")
+//            connectToFcm()
+//            delegateFCM?.tokenReceived()
+//        }
+//    }
     
     //MARK: - FCM TOKEN RECEIVE
     
     func tokenRefreshNotification(notification: NSNotification) {
         
+        print("=======================================")
+        print("*** tokenRefreshNotification ***")
+        print("=======================================")
+
         guard let refreshedToken = InstanceID.instanceID().token()
             else {
                 return
@@ -197,45 +196,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         
         Messaging.messaging().apnsToken = data as Data
         Messaging.messaging().setAPNSToken(data, type: .prod)
-       // InstanceID.instanceID().setAPNSToken(data, type: .prod)
         userDefaults.set(refreshedToken, forKey: "devicetoken")
-               
+        
         connectToFcm()
         delegateFCM?.tokenReceived()
-        
-        //-----
-        
-//        let token = String(format: "%@", deviceToken as CVarArg)
-//        debugPrint("*** deviceToken: \(token)")
-//        //        #if RELEASE_VERSION
-//        //            InstanceID.instanceID().setAPNSToken(deviceToken as Data, type:FIRInstanceIDAPNSTokenType.prod)
-//        //        #else
-//        //            InstanceID.instanceID().setAPNSToken(deviceToken as Data, type:InstanceIDAPNSTokenType.sandbox)
-//        //        #endif
-//        Messaging.messaging().apnsToken = deviceToken as Data
-//        let firebaseToken = InstanceID.instanceID().token()!
-//        debugPrint("Firebase Token:",InstanceID.instanceID().token() as Any)
-//        userDefaults.set(firebaseToken, forKey: "devicetoken")
-//        print("========== InstanceID token1 didRegisterForRemoteNotificationsWithDeviceToken: \(firebaseToken)")
-
     }
     
     func connectToFcm() {
         print("**** Connect To FCM ****")
-        // Won't connect since there is no token
-//        guard FIRInstanceID.instanceID().token() != nil else {
-//            return
-//        }
-        
         Messaging.messaging().shouldEstablishDirectChannel = true
-//        Messaging.messaging().disconnect()
-//        Messaging.messaging().connect { (error) in
-//            if error != nil {
-//                print("Unable to connect with FCM. \(error?.localizedDescription ?? "")")
-//            } else {
-//                print("Connected to FCM")
-//            }
-//        }
     }
     
     //MARK: - APPLICATION METHODS
@@ -435,7 +404,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
         FBSDKAppEvents.activateApp()
-        customDelegateCall()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -444,7 +412,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate,UNUserNo
         let loginManager: FBSDKLoginManager = FBSDKLoginManager()
         loginManager.logOut()
         self.saveContext()
-
     }
 
     
@@ -621,6 +588,7 @@ extension AppDelegate: MessagingDelegate {
     func configureFirebase(application: UIApplication) {
         
         print("******* configureFirebase *******")
+                
         Messaging.messaging().delegate = self
         FirebaseApp.configure()
         

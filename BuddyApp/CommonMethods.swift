@@ -262,14 +262,22 @@ class CommonMethods: NSObject {
         print("****** TempSecondsChange **********")
         
         var secondsUpdatedValue = Int()
-        if session_time == "40" {
-            secondsUpdatedValue = 60
-        }else if session_time == "60" {
-            secondsUpdatedValue = 240
-        }else if session_time == "15"{
-            secondsUpdatedValue = 30
-        }
+        
+        let conversionValue = 1 // TEST
+//        let conversionValue = 60 // LIVE
+        
+        secondsUpdatedValue = Int(session_time)! * conversionValue
+        
         return secondsUpdatedValue
+
+//        if session_time == "40" {
+//            secondsUpdatedValue = 60
+//        }else if session_time == "60" {
+//            secondsUpdatedValue = 240
+//        }else if session_time == "15"{
+//            secondsUpdatedValue = 30
+//        }
+//        return secondsUpdatedValue
         
 //        //For Live
 //        if session_time == "40" {
@@ -287,6 +295,15 @@ class CommonMethods: NSObject {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
 
+    class func storeSessionDurationToUserDefaults(normalDuration: [SessionDurationModel], extendDuration: [SessionDurationModel]) {
+        
+        userDefaults.removeObject(forKey: "NormalSessionDurationArray")
+        userDefaults.removeObject(forKey: "ExtendSessionDurationArray")
+
+        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: extendDuration), forKey: "ExtendSessionDurationArray")
+        
+        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: normalDuration), forKey: "NormalSessionDurationArray")
+    }
 
     class func showWalletAmountInFloat(amount: String) -> String{
         
@@ -607,6 +624,39 @@ class CommonMethods: NSObject {
         }
     }
     
+    class func getSessionDurationModelFromDictionary(sessionDict: NSDictionary) -> SessionDurationModel{
+        let sessionDurationModel = SessionDurationModel()
+        
+        sessionDurationModel.sessionDuration = sessionDict["session_time"] as! String
+        sessionDurationModel.sessionTitle = sessionDict["session_name"] as! String
+        sessionDurationModel.amount = sessionDict["session_cost"] as! String
+        
+        return sessionDurationModel
+    }
+
+    class func getNormalAndExtensionSessionDurationArrays(sessionsDictionary: NSDictionary) -> ([SessionDurationModel], [SessionDurationModel]) {
+        
+        var extensionSessionDurationArray = [SessionDurationModel]()
+        var normalSessionDurationArray = [SessionDurationModel]()
+
+        //For Normal Session
+        if let normalSessions = sessionsDictionary["normalSession"] as? NSArray{
+            normalSessionDurationArray.removeAll()
+            for session in normalSessions.enumerated(){
+                normalSessionDurationArray.append(self.getSessionDurationModelFromDictionary(sessionDict: session.element as! NSDictionary))
+            }
+        }
+        
+        //For Extend Session
+        if let extendSessions = sessionsDictionary["extendSession"] as? NSArray{
+            extensionSessionDurationArray.removeAll()
+            for session in extendSessions.enumerated(){
+                extensionSessionDurationArray.append(self.getSessionDurationModelFromDictionary(sessionDict: session.element as! NSDictionary))
+            }
+        }
+
+        return (normalSessionDurationArray, extensionSessionDurationArray)
+    }
     //MARK: - LOGIN WITH FACEBOOK
 
     func loginWithFacebook(viewcontroller: UIViewController) {
@@ -743,6 +793,7 @@ extension UIViewController {
         userDefaults.removeObject(forKey: "promocode")
         userDefaults.removeObject(forKey: "defaultStripeCardId")
         userDefaults.removeObject(forKey: "walletBalance")
+        userDefaults.removeObject(forKey: "ExtendSessionDurationArray")
 
         
         userDefaults.removeObject(forKey: "isSessionStartedFromPush_AppKilledState")

@@ -20,6 +20,8 @@ class Singleton {
     var appdelegate = AppDelegate()
     var storyboardSingleton = UIStoryboard()
     var context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    var privateMoc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+
     var selectedCategories : [CategoryModel] = [CategoryModel]()
     var selectedSubCategories : [SubCategoryModel] = [SubCategoryModel]()
     var selectedSubCategoriesAmong : [SubCategoryModel] = [SubCategoryModel]()
@@ -56,7 +58,8 @@ class Singleton {
         commonMethods = CommonMethods()
         userDefaults = UserDefaults.standard
         appdelegate = UIApplication.shared.delegate as! AppDelegate
-        context = appdelegate.persistentContainer.viewContext
+        context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        privateMoc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         selectedSubCategories = [SubCategoryModel]()
         storyboardSingleton = UIStoryboard(name: "Main", bundle: nil)
         onlineavailabilty = true
