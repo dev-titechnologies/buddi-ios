@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/CommonMethods.swift"
-            timestampString = "540301899.289085"
+            timestampString = "540304473.107498"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "634"
-            endingLineNumber = "634"
+            startingLineNumber = "651"
+            endingLineNumber = "651"
             landmarkName = "getNormalAndExtensionSessionDurationArrays(sessionsDictionary:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/ExtendSessionRequestPage.swift"
-            timestampString = "540301899.289608"
+            timestampString = "540304473.110654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "636"
-            endingLineNumber = "636"
+            startingLineNumber = "640"
+            endingLineNumber = "640"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BuddyApp/CommonMethods.swift"
-            timestampString = "540302082.056909"
+            timestampString = "540304473.111342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "613"
-            endingLineNumber = "613"
+            startingLineNumber = "630"
+            endingLineNumber = "630"
             landmarkName = "getSessionDurationModelFromDictionary(sessionDict:)"
             landmarkType = "7">
          </BreakpointContent>
