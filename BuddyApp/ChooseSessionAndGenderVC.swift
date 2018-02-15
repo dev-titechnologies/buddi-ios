@@ -307,8 +307,10 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
 
             if sessionChoosed == indexPath.row{
                 sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                sessionCell.lblSessionAmount.textColor = .white
             }else{
                 sessionCell.backgroundCardView.backgroundColor = .white
+                sessionCell.lblSessionAmount.textColor = .lightGray
             }
             
             return sessionCell

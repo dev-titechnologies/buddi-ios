@@ -332,45 +332,14 @@ class ExtendSessionRequestPage: UIViewController {
                             self.present(alert, animated: true, completion: nil)
                             
                         }else if statusType == "Success" {
-                            
-                            
-                            let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
-                            
-                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
-                                
-                                if let walletDict = jsondata["data"] as? NSDictionary {
-                                    
-                                    if let walletBalance = walletDict["walletBalance"] as? Int{
-                                        userDefaults.set(walletBalance, forKey: "walletBalance")
-                                    }
+                            if let walletDict = jsondata["data"] as? NSDictionary {
+                                if let walletBalance = walletDict["walletBalance"] as? Int{
+                                    userDefaults.set(walletBalance, forKey: "walletBalance")
                                 }
-
-                                self.extendSession()
-                            }))
-                            self.present(alert, animated: true, completion: nil)
-
-//                            let alert = UIAlertController(title: ALERT_TITLE, message: PAYMENT_SUCCESSFULL, preferredStyle: UIAlertControllerStyle.alert)
-//                            
-//                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
-//                                
-//                                if let walletDict = jsondata["data"] as? NSDictionary {
-//                                    
-//                                    if let amountRequested = walletDict["amountDeducted"] as? Int{
-//                                        self.transactionAmount = String(amountRequested)
-//                                    }
-//                                    
-//                                    if let walletBalance = walletDict["walletBalance"] as? Int{
-//                                        userDefaults.set(walletBalance, forKey: "walletBalance")
-//                                    }
-//                                }
-//                                
-//                                self.triggerRandomSelectAPIBasedOnChoice()
-//                            }))
-//                            self.present(alert, animated: true, completion: nil)
+                            }
+                            self.extendSession()
                         }
                     }
-                    
-                    
                 }else if status == RESPONSE_STATUS.FAIL{
                     
                     CommonMethods.alertView(view: self, title: ALERT_TITLE, message: jsondata["message"] as? String, buttonTitle: "Ok")
@@ -649,8 +618,10 @@ extension ExtendSessionRequestPage: UITableViewDataSource {
         print("Session Title :\(String(describing: extensionSessionDurationArray[indexPath.row].sessionTitle))")
         if sessionChoosed == indexPath.row{
             sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+            sessionCell.lblSessionAmount.textColor = .white
         }else{
             sessionCell.backgroundCardView.backgroundColor = .white
+            sessionCell.lblSessionAmount.textColor = .lightGray
         }
         return sessionCell
     }

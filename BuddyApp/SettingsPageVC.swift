@@ -433,8 +433,10 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             
             if sessionChoosed == indexPath.row{
                 sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
+                sessionCell.lblSessionAmount.textColor = .white
             }else{
                 sessionCell.backgroundCardView.backgroundColor = .white
+                sessionCell.lblSessionAmount.textColor = .lightGray
             }
             
             return sessionCell
@@ -482,7 +484,6 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             //Social Media Auto Share
             return socialShareTableCell(tableView, index_path: indexPath)
         }else{
-            
             if appDelegate.USER_TYPE == USER_TYPE.TRAINEE{
                 let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellid")!
                 return cell
@@ -626,8 +627,6 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
     func choosedGender(sender : UIButton){
         print("Choose gender Action")
         
-        print("Button Tapped 123")
-        
         switch sender.tag {
         case 1:
             choosedTrainerGenderOfTraineePreference = "Male"
@@ -644,9 +643,6 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
         }
 
         self.settingsTableView.reloadSections(IndexSet(integer: 2), with: .automatic)
-        
-//        choosed_trainer_gender = "No Preference"
-//        choosedTrainerGenderOfTrainee = "nopreference"
     }
     
     //MARK: - TABLEVIEW HEADER SECTION VIEW
@@ -697,7 +693,6 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             if choosed_session_duration != "" {
 //                let secondsValue = Double(choosed_session_duration)! * 60
 //                cell.lblSelectedValue.text = CommonMethods.cellDisplayDurationValue(secondsValue: Int(secondsValue))
-                
                 cell.lblSelectedValue.text = normalSessionDurationArray[choosedSessionIndex].sessionTitle
             }
 //            if choosed_session_duration == "40" {
@@ -778,7 +773,7 @@ extension SettingsPageVC: GMSPlacePickerViewControllerDelegate {
         viewController.dismiss(animated: true, completion: nil)
         
         guard String(place.coordinate.latitude) != "0.0" else {
-            print("Gurad case as no location has been selected")
+            print("Guard case as no location has been selected")
             return
         }
         
