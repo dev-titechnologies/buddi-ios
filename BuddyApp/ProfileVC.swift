@@ -215,13 +215,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     }
     
     @IBAction func testupload(_ sender: Any) {
-//        var imagePickedData = NSData()
-//        imagePickedData = UIImageJPEGRepresentation(self.profileImage.image!, 1.0)! as NSData
-   //imagePickedData = UIImageJPEGRepresentation(UIImage(named:"AC.png")!, 1.0)! as NSData
-        
-//        self.UploadImageAPI()
-        
-//        self.UploadImageAPI(imagedata: imagePickedData)
         
     }
     
