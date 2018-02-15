@@ -38,7 +38,7 @@ class ExtendSessionRequestPage: UIViewController {
     var isPaidAlready60Minutes = Bool()
     
     var extensionSessionDurationArray = [SessionDurationModel]()
-    var sessionChoosed = 0
+    var sessionChoosed = -1
 
     @IBOutlet weak var sessionTableHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var extendSessionDurationTableView: UITableView!
@@ -72,7 +72,11 @@ class ExtendSessionRequestPage: UIViewController {
             extensionSessionDurationArray = duration_array
             
             if extensionSessionDurationArray.count > 0 {
-                sessionChoosed = 0
+                if extensionSessionDurationArray.count == 1 {
+                    sessionChoosed = 0
+                    extendingSessionDuration = extensionSessionDurationArray[0].sessionDuration!
+                    print("*** extendingSessionDuration ***:\(extendingSessionDuration)")
+                }
                 if extensionSessionDurationArray.count < 3 {
                     sessionTableHeightConstraint.constant = CGFloat(extensionSessionDurationArray.count * 60)
                 }else{
@@ -144,8 +148,11 @@ class ExtendSessionRequestPage: UIViewController {
 ////            getClientToken()
 //        }
 
-        paymentCheckoutWithWallet()
-
+        if extendingSessionDuration == "" {
+            CommonMethods.alertView(view: self, title: ALERT_TITLE, message: PLEASE_CHOOSE_SESSION_DURATION , buttonTitle: "OK")
+        }else{
+            paymentCheckoutWithWallet()
+        }
     }
     
     func dismissExtendSessionRequestPage(){
@@ -637,7 +644,7 @@ extension ExtendSessionRequestPage: UITableViewDataSource {
         let sessionCell: SessionPreferenceCell = tableView.dequeueReusableCell(withIdentifier: "extendSessionDurationCellId") as! SessionPreferenceCell
         
         sessionCell.lblSessionDuration.text = extensionSessionDurationArray[indexPath.row].sessionTitle
-        print("Session Title :\(extensionSessionDurationArray[indexPath.row].sessionTitle)")
+        print("Session Title :\(String(describing: extensionSessionDurationArray[indexPath.row].sessionTitle))")
         if sessionChoosed == indexPath.row{
             sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
         }else{
@@ -651,10 +658,9 @@ extension ExtendSessionRequestPage: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         sessionChoosed = indexPath.row
-        extendingSessionDuration = extensionSessionDurationArray[indexPath.row].sessionDuration
-//        extendSessionDurationTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-        let indexPath1 = IndexPath(row: 0, section: 1)
-        self.extendSessionDurationTableView.reloadRows(at: [indexPath1], with: .automatic)
+        extendingSessionDuration = extensionSessionDurationArray[indexPath.row].sessionDuration!
+        print("didSelectRowAt, extendingSessionDuration value:\(extendingSessionDuration)")
+        self.extendSessionDurationTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

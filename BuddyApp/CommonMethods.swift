@@ -267,7 +267,7 @@ class CommonMethods: NSObject {
 //        let conversionValue = 60 // LIVE
         
         secondsUpdatedValue = Int(session_time)! * conversionValue
-        
+        print("*** secondsUpdatedValue **** :\(secondsUpdatedValue)")
         return secondsUpdatedValue
 
 //        if session_time == "40" {
@@ -301,7 +301,6 @@ class CommonMethods: NSObject {
         userDefaults.removeObject(forKey: "ExtendSessionDurationArray")
 
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: extendDuration), forKey: "ExtendSessionDurationArray")
-        
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: normalDuration), forKey: "NormalSessionDurationArray")
     }
 
@@ -631,6 +630,9 @@ class CommonMethods: NSObject {
         sessionDurationModel.sessionTitle = sessionDict["session_name"] as! String
         sessionDurationModel.amount = sessionDict["session_cost"] as! String
         
+        print("sessionDurationModel.sessionTitle:\(sessionDurationModel.sessionTitle)")
+        print("sessionDurationModel.sessionDuration:\(sessionDurationModel.sessionDuration)")
+
         return sessionDurationModel
     }
 

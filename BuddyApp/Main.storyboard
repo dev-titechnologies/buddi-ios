@@ -8906,10 +8906,10 @@ Good luck!
                                     <constraint firstAttribute="trailing" secondItem="uDY-8S-aw0" secondAttribute="trailing" constant="8" id="y7b-eP-dgb"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tPv-nR-eG2" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tPv-nR-eG2" customClass="CardView" customModule="BuddyApp" customModuleProvider="target">
                                 <rect key="frame" x="32" y="207" width="311" height="253"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Please choose a session duration" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lN-vX-eIU">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please choose a session duration" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lN-vX-eIU">
                                         <rect key="frame" x="8" y="32" width="295" height="46"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -9001,9 +9001,11 @@ Good luck!
                                     <constraint firstAttribute="bottom" secondItem="4U6-pa-VwP" secondAttribute="bottom" constant="8" id="9s8-GD-QpG"/>
                                     <constraint firstItem="Sct-t6-cfz" firstAttribute="top" secondItem="5lN-vX-eIU" secondAttribute="bottom" constant="8" id="DbQ-EJ-mxI"/>
                                     <constraint firstAttribute="trailing" secondItem="Sct-t6-cfz" secondAttribute="trailing" constant="8" id="SBV-Or-m34"/>
+                                    <constraint firstItem="5lN-vX-eIU" firstAttribute="leading" secondItem="tPv-nR-eG2" secondAttribute="leading" constant="8" id="UpK-co-uYU"/>
                                     <constraint firstItem="5lN-vX-eIU" firstAttribute="top" secondItem="YaW-qv-vwJ" secondAttribute="bottom" constant="2" id="fUD-2B-Ni0"/>
                                     <constraint firstItem="4U6-pa-VwP" firstAttribute="leading" secondItem="tPv-nR-eG2" secondAttribute="leading" constant="8" id="jNe-ez-awb"/>
                                     <constraint firstAttribute="width" constant="311" id="kjL-Qq-XAQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="5lN-vX-eIU" secondAttribute="trailing" constant="8" id="nP4-Op-oGj"/>
                                     <constraint firstItem="Sct-t6-cfz" firstAttribute="leading" secondItem="tPv-nR-eG2" secondAttribute="leading" constant="8" id="xGs-zf-fGz"/>
                                     <constraint firstItem="YaW-qv-vwJ" firstAttribute="top" secondItem="tPv-nR-eG2" secondAttribute="top" id="xqY-TK-Mhh"/>
                                 </constraints>

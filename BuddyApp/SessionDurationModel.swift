@@ -8,16 +8,36 @@
 
 import Foundation
 
-class SessionDurationModel: NSObject, NSCoding {
+class SessionDurationModel: NSObject, NSCoding  {
     
-    var sessionDuration : String = String()
-    var amount : String = String()
-    var sessionTitle : String = String()
-    
-    required init(coder aDecoder: NSCoder) {   }
-    
-    override init(){}
-    
-    func encode(with aCoder: NSCoder) {   }
+    var sessionDuration: String?
+    var amount: String?
+    var sessionTitle: String?
 
+    override init() {}
+
+    
+    required init?(coder aDecoder: NSCoder) {
+        if let session_title = aDecoder.decodeObject(forKey: "sessionTitle") as? String {
+            self.sessionTitle = session_title
+        }
+        if let amountCopy = aDecoder.decodeObject(forKey: "amount") as? String {
+            self.amount = amountCopy
+        }
+        if let session_duration = aDecoder.decodeObject(forKey: "sessionDuration") as? String {
+            self.sessionDuration = session_duration
+        }
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        if let session_title = self.sessionTitle {
+            aCoder.encode(session_title, forKey: "sessionTitle")
+        }
+        if let amountCopy = self.amount {
+            aCoder.encode(amountCopy, forKey: "amount")
+        }
+        if let session_duration = self.sessionDuration {
+            aCoder.encode(session_duration, forKey: "sessionDuration")
+        }
+    }
 }

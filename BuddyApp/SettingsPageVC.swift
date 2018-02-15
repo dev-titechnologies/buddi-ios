@@ -730,7 +730,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
             print("*** didSelectRowAt: section 3")
             
 //            choosedSessionOfTraineePreference = String(trainingDurationSecondsArray[indexPath.row] / 60)
-            choosedSessionOfTraineePreference = normalSessionDurationArray[indexPath.row].sessionDuration
+            choosedSessionOfTraineePreference = normalSessionDurationArray[indexPath.row].sessionDuration!
             choosedSessionIndex = indexPath.row
             print("choosedSessionOfTraineePreference:\(choosedSessionOfTraineePreference)")
 //            if indexPath.row == 0 {

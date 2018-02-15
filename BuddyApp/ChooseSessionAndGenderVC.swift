@@ -475,9 +475,9 @@ extension ChooseSessionAndGenderVC: UITableViewDelegate {
 //                choosedSessionOfTrainee = "60"
 //            }
         
-            choosedSessionOfTrainee = self.normalSessionDurationArray[indexPath.row].sessionDuration
+            choosedSessionOfTrainee = self.normalSessionDurationArray[indexPath.row].sessionDuration!
             isChoosedSessionDuration = true
-            choosed_session_duration = self.normalSessionDurationArray[indexPath.row].sessionTitle
+            choosed_session_duration = self.normalSessionDurationArray[indexPath.row].sessionTitle!
         }
         print("Choosed Session:\(choosedSessionOfTrainee)")
         userDefaults.set(choosedSessionOfTrainee, forKey: "backupTrainingSessionChoosed")
