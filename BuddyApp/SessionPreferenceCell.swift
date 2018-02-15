@@ -12,7 +12,8 @@ class SessionPreferenceCell: UITableViewCell {
 
     @IBOutlet weak var backgroundCardView: CardView!
     @IBOutlet weak var lblSessionDuration: UILabel!
-
+    @IBOutlet weak var lblSessionAmount: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 

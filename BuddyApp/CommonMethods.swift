@@ -256,38 +256,11 @@ class CommonMethods: NSObject {
     //MARK: - FOR TESTING PURPOSE
     
     class func tempSecondsChange(session_time: String) -> Int{
-        
-        // For Testing Purpose
-        
         print("****** TempSecondsChange **********")
-        
         var secondsUpdatedValue = Int()
-        
-        let conversionValue = 1 // TEST
-//        let conversionValue = 60 // LIVE
-        
-        secondsUpdatedValue = Int(session_time)! * conversionValue
-        
+        secondsUpdatedValue = Int(session_time)! * SECONDS_CONVERTION_VALUE
+        print("*** secondsUpdatedValue **** :\(secondsUpdatedValue)")
         return secondsUpdatedValue
-
-//        if session_time == "40" {
-//            secondsUpdatedValue = 60
-//        }else if session_time == "60" {
-//            secondsUpdatedValue = 240
-//        }else if session_time == "15"{
-//            secondsUpdatedValue = 30
-//        }
-//        return secondsUpdatedValue
-        
-//        //For Live
-//        if session_time == "40" {
-//            secondsUpdatedValue = 2400
-//        }else if session_time == "60" {
-//            secondsUpdatedValue = 3600
-//        }else if session_time == "15"{
-//            secondsUpdatedValue = 900
-//        }
-//        return secondsUpdatedValue
     }
     
     class func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
@@ -301,7 +274,6 @@ class CommonMethods: NSObject {
         userDefaults.removeObject(forKey: "ExtendSessionDurationArray")
 
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: extendDuration), forKey: "ExtendSessionDurationArray")
-        
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: normalDuration), forKey: "NormalSessionDurationArray")
     }
 
@@ -631,6 +603,9 @@ class CommonMethods: NSObject {
         sessionDurationModel.sessionTitle = sessionDict["session_name"] as! String
         sessionDurationModel.amount = sessionDict["session_cost"] as! String
         
+        print("sessionDurationModel.sessionTitle:\(sessionDurationModel.sessionTitle)")
+        print("sessionDurationModel.sessionDuration:\(sessionDurationModel.sessionDuration)")
+
         return sessionDurationModel
     }
 

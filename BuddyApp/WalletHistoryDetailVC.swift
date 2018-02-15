@@ -76,6 +76,8 @@ class WalletHistoryDetailVC: UIViewController {
             if self.imageArray.count > 0 {
                 let objData = self.imageArray[0].value(forKey: "imageData") as! NSData
                 self.userImage = UIImage(data: objData as Data)!
+            }else{
+                self.userImage = #imageLiteral(resourceName: "profileDemoImage")
             }
         }
     }
