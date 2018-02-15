@@ -52,8 +52,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-     
-        
         self.title = PAGE_TITLE.TRAINEE_PROFILE
         imagePicker.delegate = self
     }
@@ -86,50 +84,14 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
                 DispatchQueue.global(qos: .background).async {
                     self.FetchFromDb()
                     DispatchQueue.main.async {
-                        print("This is run on the main queue, after the previous code in outer block")
                         self.ProfileDataAPI()
                     }
                 }
-//                FetchFromDb()
-//                DispatchQueue.global(qos: .background).async {
-//                    print("This is run on the background queue")
-//                    self.ProfileDataAPI()
-//                }
             }
         }else{
             print("from api")
             ProfileDataAPI()
         }
-    }
-    
-    func changeTextColorBlack() {
-        
-        edit_btn.title = "Save"
-        firstname_txt.textColor = .black
-        lastname_txt.textColor = .black
-        
-        firstname_txt.isUserInteractionEnabled = true
-        lastname_txt.isUserInteractionEnabled = true
-        
-        image_edit_btn.isUserInteractionEnabled = true
-        image_edit_btn.isHidden = false
-    }
-
-    func changeTextColorGrey() {
-        
-        edit_btn.title = "Edit"
-        firstname_txt.textColor = .gray
-        lastname_txt.textColor = .gray
-        lblEmail.textColor = .gray
-        contycode_lbl.textColor = .gray
-        lblMobile.textColor = .gray
-        lblGender.textColor = .gray
-        
-        firstname_txt.isUserInteractionEnabled = false
-        lastname_txt.isUserInteractionEnabled = false
-        
-        image_edit_btn.isUserInteractionEnabled = false
-        image_edit_btn.isHidden = true
     }
     
     func FetchFromDb() {
@@ -153,23 +115,21 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
             }
             
      // profileImage.sd_setImage(with: URL(string: profile.profileImage))
-            firstname_txt.text = profile.firstName
-            lastname_txt.text = profile.lastName
-            lblEmail.text = profile.email
-            lblGender.text = (profile.gender).uppercased()
             
-            lblMobile.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
-            contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
+            DispatchQueue.main.async {
+                self.firstname_txt.text = profile.firstName
+                self.lastname_txt.text = profile.lastName
+                self.lblEmail.text = profile.email
+                self.lblGender.text = (profile.gender).uppercased()
+                self.lblMobile.text = CommonMethods.phoneNumberSplit(number: profile.mobile).1
+                self.contycode_lbl.text = CommonMethods.phoneNumberSplit(number: profile.mobile).0
+            }
             
-            countrypicker.countryPickerDelegate = self
-            countrypicker.showPhoneNumbers = true
-           // countrypicker.setCountryByPhoneCode(CommonMethods.phoneNumberSplit(number: profile.mobile).0)
-            
-             self.mobileNumberValidation(number: profile.mobile)
+            self.countrypicker.countryPickerDelegate = self
+            self.countrypicker.showPhoneNumbers = true
+            self.mobileNumberValidation(number: profile.mobile)
             
             DispatchQueue.global(qos: .background).async {
-                print("This is run on the background queue")
-                
                 if let imagearray = ProfileImageDB.fetchImage() {
                     self.imageArray = imagearray as! Array<ProfileImageDB>
                    
@@ -179,7 +139,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
 
                     self.objdata = self.imageArray[0].value(forKey: "imageData") as! NSData
                     DispatchQueue.main.async {
-                        print("This is run on the main queue, after the previous code in outer block")
                         self.profileImage.image = UIImage(data: self.objdata as Data)
                     }
                 }
@@ -215,13 +174,6 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
     }
     
     @IBAction func testupload(_ sender: Any) {
-//        var imagePickedData = NSData()
-//        imagePickedData = UIImageJPEGRepresentation(self.profileImage.image!, 1.0)! as NSData
-   //imagePickedData = UIImageJPEGRepresentation(UIImage(named:"AC.png")!, 1.0)! as NSData
-        
-//        self.UploadImageAPI()
-        
-//        self.UploadImageAPI(imagedata: imagePickedData)
         
     }
     
@@ -353,7 +305,10 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
 //            self.ProfileImageURL = (self.ProfileDict ["user_image"] as? String)!
             if let image_data = NSData.init(contentsOf: URL(string:image_URL)!){
                 appDelegate.profileImageData = image_data
-                self.profileImage.image = UIImage(data: image_data as Data)
+                DispatchQueue.main.async {
+                    print("This is run on the main queue, after the previous code in outer block")
+                    self.profileImage.image = UIImage(data: image_data as Data)
+                }
                 ProfileImageDB.save(imageURL: image_URL, imageData: image_data)
             }
         }
@@ -425,6 +380,37 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,CountryPickerD
         present(imagePicker,
                               animated: true,
                               completion: nil)
+    }
+    
+    //MARK: - COLOR CHANGE FUNCTIONS
+    func changeTextColorBlack() {
+        
+        edit_btn.title = "Save"
+        firstname_txt.textColor = .black
+        lastname_txt.textColor = .black
+        
+        firstname_txt.isUserInteractionEnabled = true
+        lastname_txt.isUserInteractionEnabled = true
+        
+        image_edit_btn.isUserInteractionEnabled = true
+        image_edit_btn.isHidden = false
+    }
+    
+    func changeTextColorGrey() {
+        
+        edit_btn.title = "Edit"
+        firstname_txt.textColor = .gray
+        lastname_txt.textColor = .gray
+        lblEmail.textColor = .gray
+        contycode_lbl.textColor = .gray
+        lblMobile.textColor = .gray
+        lblGender.textColor = .gray
+        
+        firstname_txt.isUserInteractionEnabled = false
+        lastname_txt.isUserInteractionEnabled = false
+        
+        image_edit_btn.isUserInteractionEnabled = false
+        image_edit_btn.isHidden = true
     }
 
     // MARK: - UIImagePickerControllerDelegate Methods
