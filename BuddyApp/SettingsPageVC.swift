@@ -416,6 +416,7 @@ extension SettingsPageVC: UITableViewDataSource, UITableViewDelegate {
 //            sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
 //            sessionCell.lblSessionDuration.text = CommonMethods.cellDisplayDuration(row: indexPath.row)
             sessionCell.lblSessionDuration.text = normalSessionDurationArray[indexPath.row].sessionTitle
+            sessionCell.lblSessionAmount.text = "$ \(String(describing: normalSessionDurationArray[indexPath.row].amount!))"
 
             // PREFERENCE SHOWN
             if preferenceModelObj.sessionDuration != "" {

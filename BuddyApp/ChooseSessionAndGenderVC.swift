@@ -300,11 +300,11 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
         if indexPath.section == 0{
             let sessionCell: ChooseSessionTableCell = tableView.dequeueReusableCell(withIdentifier: "chooseSessionCellId") as! ChooseSessionTableCell
             
-            //JITH - DURATION
 //            sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
 //            sessionCell.lblSessionDuration.text = CommonMethods.cellDisplayDuration(row: indexPath.row)
             sessionCell.lblSessionDuration.text = self.normalSessionDurationArray[indexPath.row].sessionTitle
-            
+            sessionCell.lblSessionAmount.text = "$ \(String(describing: self.normalSessionDurationArray[indexPath.row].amount!))"
+
             if sessionChoosed == indexPath.row{
                 sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
             }else{

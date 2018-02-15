@@ -644,6 +644,8 @@ extension ExtendSessionRequestPage: UITableViewDataSource {
         let sessionCell: SessionPreferenceCell = tableView.dequeueReusableCell(withIdentifier: "extendSessionDurationCellId") as! SessionPreferenceCell
         
         sessionCell.lblSessionDuration.text = extensionSessionDurationArray[indexPath.row].sessionTitle
+        sessionCell.lblSessionAmount.text = "$ \(String(describing: extensionSessionDurationArray[indexPath.row].amount!))"
+        
         print("Session Title :\(String(describing: extensionSessionDurationArray[indexPath.row].sessionTitle))")
         if sessionChoosed == indexPath.row{
             sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)
