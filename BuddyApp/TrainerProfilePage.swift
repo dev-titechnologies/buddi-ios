@@ -13,6 +13,7 @@ import MapKit
 import TwitterKit
 import libPhoneNumber_iOS
 
+
 class TrainerProfilePage: UIViewController {
 
     //Trainer Header Outlets
@@ -135,7 +136,6 @@ class TrainerProfilePage: UIViewController {
             SocketIOManager.sharedInstance.OnSocket()
             SocketIOManager.sharedInstance.establishConnection()
             getSocketConnected()
-            
         }else{
         }
         
@@ -967,7 +967,6 @@ extension TrainerProfilePage {
 extension TrainerProfilePage: UITableViewDelegate{
    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         if indexPath.row == 1{
             print("**** Did select Training Category ****")
             self.performSegue(withIdentifier: "fromprofiletocategorylist", sender: self)
