@@ -209,6 +209,7 @@ let trainingExperienceOrderedSet = NSMutableOrderedSet(array: trainingExperience
 let trainingDurationArray = ["40 Minutes", "1 Hour"]
 let trainingDurationSecondsArray = [2400.0,3600.0]
 
+
 let socialMediaTitles = ["Facebook" , "Twitter"]
 
 let trainingExperienceYearsArray = ["1","2","3","4","5","6","7","8","9","10","10+"]

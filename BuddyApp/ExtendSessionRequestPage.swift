@@ -42,6 +42,7 @@ class ExtendSessionRequestPage: UIViewController {
 
     @IBOutlet weak var sessionTableHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var extendSessionDurationTableView: UITableView!
+    
     //MARK: - VIEW CYCLES
     
     override func viewDidLoad() {
@@ -57,10 +58,10 @@ class ExtendSessionRequestPage: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.receivedPushNotification), name: notificationName, object: nil)
 
-//        let when = DispatchTime.now() + 30
-//        DispatchQueue.main.asyncAfter(deadline: when) {
-//            self.dismissExtendSessionRequestPage()
-//        }
+        let when = DispatchTime.now() + EXTEND_SESSION_WAITING_TIME
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.dismissExtendSessionRequestPage()
+        }
     }
     
     func getExtendSessionDuration(){
@@ -613,7 +614,7 @@ extension ExtendSessionRequestPage: UITableViewDataSource {
         let sessionCell: SessionPreferenceCell = tableView.dequeueReusableCell(withIdentifier: "extendSessionDurationCellId") as! SessionPreferenceCell
         
         sessionCell.lblSessionDuration.text = extensionSessionDurationArray[indexPath.row].sessionTitle
-        sessionCell.lblSessionAmount.text = "$ \(String(describing: extensionSessionDurationArray[indexPath.row].amount!))"
+        sessionCell.lblSessionAmount.text = "$\(String(describing: extensionSessionDurationArray[indexPath.row].amount!))"
         
         print("Session Title :\(String(describing: extensionSessionDurationArray[indexPath.row].sessionTitle))")
         if sessionChoosed == indexPath.row{
