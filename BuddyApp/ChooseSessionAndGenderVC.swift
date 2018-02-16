@@ -303,7 +303,7 @@ extension ChooseSessionAndGenderVC: UITableViewDataSource{
 //            sessionCell.lblSessionDuration.text = trainingDurationArray[indexPath.row]
 //            sessionCell.lblSessionDuration.text = CommonMethods.cellDisplayDuration(row: indexPath.row)
             sessionCell.lblSessionDuration.text = self.normalSessionDurationArray[indexPath.row].sessionTitle
-            sessionCell.lblSessionAmount.text = "$ \(String(describing: self.normalSessionDurationArray[indexPath.row].amount!))"
+            sessionCell.lblSessionAmount.text = "$\(String(describing: self.normalSessionDurationArray[indexPath.row].amount!))"
 
             if sessionChoosed == indexPath.row{
                 sessionCell.backgroundCardView.backgroundColor = CommonMethods.hexStringToUIColor(hex: APP_BLUE_COLOR)

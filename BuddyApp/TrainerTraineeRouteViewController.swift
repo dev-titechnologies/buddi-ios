@@ -25,7 +25,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     
 //    var sessionDetailModel: SessionDetailModel = SessionDetailModel()
     let window = UIApplication.shared.keyWindow!
-    var v = UIView()
+    var waitingForExtendRequestFromTraineeView = UIView()
     
     var TrainerProfilePage: TrainerProfilePage!
   
@@ -106,7 +106,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         txtCancelReason.delegate = self
         
         print("**** viewDidLoad ****")
-        v = UIView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
+        waitingForExtendRequestFromTraineeView = UIView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
         
         appDelegate.TrainerProfileDictionary = nil
         frompushBool = false
@@ -654,7 +654,7 @@ class TrainerTraineeRouteViewController: UIViewController {
         
         let v1 = NVActivityIndicatorView(frame:  CGRect(x: (window.frame.width - 150)/2, y: (window.frame.height - 150)/2, width: 150, height: 150), type:.ballSpinFadeLoader, color: UIColor.white, padding: NVActivityIndicatorView.DEFAULT_PADDING)
         
-         v.backgroundColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.5)
+         waitingForExtendRequestFromTraineeView.backgroundColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.5)
         
         v1.startAnimating()
         
@@ -667,16 +667,16 @@ class TrainerTraineeRouteViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.text = WAITING_FOR_TRAINEE_EXTEND_REQUEST_ACTION
         
-        v.addSubview(v1)
-        v.addSubview(label)
-        window.addSubview(v)
+        waitingForExtendRequestFromTraineeView.addSubview(v1)
+        waitingForExtendRequestFromTraineeView.addSubview(label)
+        window.addSubview(waitingForExtendRequestFromTraineeView)
         isShowingLoadingView = true
         autoDismissLoadingView()
     }
     
     func autoDismissLoadingView() {
         
-        let when = DispatchTime.now() + 60
+        let when = DispatchTime.now() + EXTEND_SESSION_WAITING_TIME
         DispatchQueue.main.asyncAfter(deadline: when) {
             
             print("isShowingLoadingView Value:\(self.isShowingLoadingView)")
@@ -694,7 +694,7 @@ class TrainerTraineeRouteViewController: UIViewController {
     func hideLoadingView() {
         isShowingLoadingView = false
         userDefaults.set(false, forKey: "isShowingWaitingForExtendRequest")
-        v.removeFromSuperview()
+        waitingForExtendRequestFromTraineeView.removeFromSuperview()
     }
     
     func RunningTimeData(){
