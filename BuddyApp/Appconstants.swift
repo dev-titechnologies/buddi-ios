@@ -40,8 +40,8 @@ var choosedTrainingLocationPreference = Singleton.sharedInstance.choosedTraining
 //For Trainer - Add Location socket
 var addLocationTimerSingleton = Singleton.sharedInstance.addLocationTimer
 
-let SERVER_URL = "http://192.168.1.60:9002/"
-//let SERVER_URL = "http://git.titechnologies.in:4001/"
+//let SERVER_URL = "http://192.168.1.60:9002/"
+let SERVER_URL = "http://git.titechnologies.in:4001/"
 //let SERVER_URL = "http://buddiapi.buddiadmin.com/"
 //let SERVER_URL = "http://104.236.235.46:9002/"
 
@@ -50,6 +50,9 @@ let SECONDS_CONVERTION_VALUE = 1
 
 let STRIPE_PUBLISHER_KEY = "pk_test_66bTUhQFTPY6wY5x2hftqF6l"
 //let STRIPE_PUBLISHER_KEY = "pk_live_kThm0Vk9Vmpb6z58SaMrPXpD"
+
+let EXTEND_SESSION_WAITING_TIME = 120
+let WAITING_FOR_ACCEPTANCE_TIME = 60 // Currently its based on the Trainers Count
 
 let COUNTRY_DEFAULT_REGION_CODE = "US"
 let GOOGLE_API_KEY = "AIzaSyDG9LK6RE-RWtyvRRposjxnxFR90Djk_0g"
