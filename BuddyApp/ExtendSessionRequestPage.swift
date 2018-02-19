@@ -58,7 +58,7 @@ class ExtendSessionRequestPage: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.receivedPushNotification), name: notificationName, object: nil)
 
-        let when = DispatchTime.now() + EXTEND_SESSION_WAITING_TIME
+        let when = DispatchTime.now() + .milliseconds(EXTEND_SESSION_WAITING_TIME * 1000)
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.dismissExtendSessionRequestPage()
         }
